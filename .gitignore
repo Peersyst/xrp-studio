@@ -9,6 +9,12 @@ build/
 */**/build/
 data/
 */**/data/
+logs/
+*/**/logs/
 
+docker/
+
+.env
 */**/.env
+yarn-error.log
 */**/yarn-error.log

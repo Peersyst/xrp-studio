@@ -1,0 +1,53 @@
+version: '3.5'
+services:
+    mysql:
+        image: mysql:5.7
+        tty: true
+        restart: always
+        environment:
+            MYSQL_USER: $DB_USER
+            MYSQL_DATABASE: $DB_DATABASE
+            MYSQL_PASSWORD: $DB_PASSWORD
+            MYSQL_ROOT_PASSWORD: $DB_PASSWORD
+        volumes:
+            - ./docker/mysql:/var/lib/mysql/
+
+    backend:
+        build:
+            context: ./packages/backend/
+            dockerfile: Dockerfile
+        restart: always
+        env_file:
+            -   ./packages/backend/.env
+
+    frontend:
+        image: node:16.12.0
+        working_dir: /app
+        build:
+            context: ./packages/frontend/
+        volumes:
+            - ./packages/frontend/:/app/
+            - /app/node_modules
+        command: bash -c "yarn && yarn build"
+
+    http:
+        image: steveltn/https-portal:1
+        ports:
+            - '80:80'
+            - '443:443'
+        restart: always
+        environment:
+            CLIENT_MAX_BODY_SIZE: "20M"
+            ACCESS_LOG: default
+            DOMAINS: $DOMAIN
+            STAGE: 'local' # Don't use production until staging works
+            CUSTOM_NGINX_SERVER_CONFIG_BLOCK: |
+                location /api/ {
+                    proxy_pass http://backend:$BACKEND_PORT;
+                }
+        volumes:
+            - ./docker/http:/var/lib/https-portal
+            - ./packages/frontend/static/:/var/www/vhosts/$DOMAIN/
+            - ./logs/http:/var/log/nginx/
+
+

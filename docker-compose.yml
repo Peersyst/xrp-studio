@@ -1,12 +1,11 @@
 version: '3'
 services:
-    mysql:
+    db:
         image: mysql:5.7
         container_name: base_project_mysql
         tty: true
         ports:
             - '${DB_PORT}:3306'
-        env_file: ./backend/.env
         environment:
             MYSQL_USER: $DB_USER
             MYSQL_DATABASE: $DB_DATABASE

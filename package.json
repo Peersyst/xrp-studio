@@ -2,15 +2,19 @@
     "name": "base-project",
     "private": true,
     "scripts": {
-        "start": "lerna run start",
+        "start": "lerna run start --stream",
+        "start:prod": "docker-compose -f docker-compose-prod.yml up -d",
+        "build": "lerna run build --stream",
         "clean": "lerna clean",
+        "docker:up": "docker-compose up -d",
+        "docker:down": "docker-compose down",
         "bootstrap": "lerna bootstrap",
         "lint": "eslint . --ext .ts,.json --max-warnings=0",
         "lint:fix": "prettier --config .prettierrc '**/*.{json,ts}' --write && eslint . --ext .ts,.json --fix"
     },
     "devDependencies": {
-        "@typescript-eslint/eslint-plugin": "4.23.0",
-        "@typescript-eslint/parser": "4.23.0",
+        "@typescript-eslint/eslint-plugin": "^5.3.1",
+        "@typescript-eslint/parser": "^5.3.1",
         "eslint": "7.26.0",
         "eslint-config-prettier": "8.3.0",
         "eslint-plugin-import": "2.23.2",
