@@ -30,51 +30,55 @@ pipeline {
             }
         }
         parallel {
-            stages {
+            stage("Frontend") {
                 agent {
                     docker {
                         image 'node:16.13.0'
                     }
                 }
-                stage('Frontend - Style lint') {
-                    steps {
-                        dir("packages/frontend") {
-                            sh 'yarn lint:style'
+                stages {
+                    stage('Frontend - Style lint') {
+                        steps {
+                            dir("packages/frontend") {
+                                sh 'yarn lint:style'
+                            }
                         }
                     }
-                }
-                stage('Frontend - Test') {
-                    steps {
-                        dir("packages/frontend") {
-                            sh 'yarn test'
+                    stage('Frontend - Test') {
+                        steps {
+                            dir("packages/frontend") {
+                                sh 'yarn test'
+                            }
                         }
                     }
-                }
-                stage('Frontend - Build') {
-                    steps {
-                        dir("packages/frontend") {
-                            sh 'yarn install --frozen-lockfile'
+                    stage('Frontend - Build') {
+                        steps {
+                            dir("packages/frontend") {
+                                sh 'yarn install --frozen-lockfile'
+                            }
                         }
                     }
                 }
             }
-            stages {
+            stage("Backend") {
                 agent {
                     docker {
                         image 'node:16.13.0'
                     }
                 }
-                stage('Backend - Build') {
-                    steps {
-                        dir("packages/backend") {
-                            sh 'yarn build'
+                stages {
+                    stage('Backend - Build') {
+                        steps {
+                            dir("packages/backend") {
+                                sh 'yarn build'
+                            }
                         }
                     }
-                }
-                stage('Backend - Test') {
-                    steps {
-                        dir("packages/backend") {
-                            sh 'yarn test'
+                    stage('Backend - Test') {
+                        steps {
+                            dir("packages/backend") {
+                                sh 'yarn test'
+                            }
                         }
                     }
                 }
