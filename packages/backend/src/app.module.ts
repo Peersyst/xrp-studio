@@ -1,7 +1,6 @@
 import { MiddlewareConsumer, Module } from "@nestjs/common";
 import { TypeOrmModule } from "@nestjs/typeorm";
 import { UserModule } from "./modules/user/user.module";
-import { AuthModule } from "@peersyst/auth-module";
 import { ConfigModule, ConfigService } from "@nestjs/config";
 import configuration from "./config/configuration";
 import { join } from "path";
