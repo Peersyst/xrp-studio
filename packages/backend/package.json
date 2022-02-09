@@ -40,15 +40,15 @@
             "!./src/modules/auth/guards/**/*.ts",
             "!./src/modules/auth/strategies/**/*.ts",
             "!./src/modules/auth/auth.decorator.ts",
-            "!./src/modules/exception/**/*.ts",
+            "!./src/modules/common/exception/**/*.ts",
             "!./src/modules/**/*.module.ts"
         ],
         "coverageDirectory": "./coverage",
         "testEnvironment": "node",
         "coverageThreshold": {
             "global": {
-                "branches": 60,
-                "statements": 60
+                "branches": 90,
+                "statements": 90
             }
         }
     },
