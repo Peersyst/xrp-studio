@@ -29,55 +29,57 @@ pipeline {
                 sh 'yarn lint'
             }
         }
-        parallel {
-            stage("Frontend") {
-                agent {
-                    docker {
-                        image 'node:16.13.0'
+        stage("Packages") {
+            parallel {
+                stage("Frontend") {
+                    agent {
+                        docker {
+                            image 'node:16.13.0'
+                        }
+                    }
+                    stages {
+                        stage('Frontend - Style lint') {
+                            steps {
+                                dir("packages/frontend") {
+                                    sh 'yarn lint:style'
+                                }
+                            }
+                        }
+                        stage('Frontend - Test') {
+                            steps {
+                                dir("packages/frontend") {
+                                    sh 'yarn test'
+                                }
+                            }
+                        }
+                        stage('Frontend - Build') {
+                            steps {
+                                dir("packages/frontend") {
+                                    sh 'yarn install --frozen-lockfile'
+                                }
+                            }
+                        }
                     }
                 }
-                stages {
-                    stage('Frontend - Style lint') {
-                        steps {
-                            dir("packages/frontend") {
-                                sh 'yarn lint:style'
-                            }
+                stage("Backend") {
+                    agent {
+                        docker {
+                            image 'node:16.13.0'
                         }
                     }
-                    stage('Frontend - Test') {
-                        steps {
-                            dir("packages/frontend") {
-                                sh 'yarn test'
+                    stages {
+                        stage('Backend - Build') {
+                            steps {
+                                dir("packages/backend") {
+                                    sh 'yarn build'
+                                }
                             }
                         }
-                    }
-                    stage('Frontend - Build') {
-                        steps {
-                            dir("packages/frontend") {
-                                sh 'yarn install --frozen-lockfile'
-                            }
-                        }
-                    }
-                }
-            }
-            stage("Backend") {
-                agent {
-                    docker {
-                        image 'node:16.13.0'
-                    }
-                }
-                stages {
-                    stage('Backend - Build') {
-                        steps {
-                            dir("packages/backend") {
-                                sh 'yarn build'
-                            }
-                        }
-                    }
-                    stage('Backend - Test') {
-                        steps {
-                            dir("packages/backend") {
-                                sh 'yarn test'
+                        stage('Backend - Test') {
+                            steps {
+                                dir("packages/backend") {
+                                    sh 'yarn test'
+                                }
                             }
                         }
                     }
