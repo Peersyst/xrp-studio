@@ -1,0 +1,14 @@
+node_modules/
+*/**/node_modules/
+.idea/
+.DS_Store
+
+dist/
+*/**/dist/
+build/
+*/**/build/
+data/
+*/**/data/
+
+*/**/.env
+*/**/yarn-error.log

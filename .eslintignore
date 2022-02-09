@@ -1,0 +1,12 @@
+node_modules
+*/**/node_modules
+dist
+*/**/dist
+package-lock.json
+*/**/package-lock.json
+coverage
+*/**/coverage
+logs
+*/**/logs
+
+*/**/openapi-spec.json
