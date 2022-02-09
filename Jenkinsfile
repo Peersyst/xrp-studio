@@ -22,9 +22,9 @@ pipeline {
             }
         }
         stage("Packages") {
-            agent { docker { image 'node:16.13.0' } }
             parallel {
                 stage("Frontend") {
+                    agent { docker { image 'node:16.13.0' } }
                     stages {
                         stage('Frontend - Style lint') {
                             steps {
@@ -50,6 +50,7 @@ pipeline {
                     }
                 }
                 stage("Backend") {
+                    agent { docker { image 'node:16.13.0' } }
                     stages {
                         stage('Backend - Test') {
                             steps {
