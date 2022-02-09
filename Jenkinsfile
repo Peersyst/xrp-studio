@@ -15,7 +15,7 @@ pipeline {
                 }
             }
             steps {
-                sh 'yarn install --frozen-lockfile'
+                sh 'yarn'
                 sh 'yarn bootstrap'
             }
         }
