@@ -9,34 +9,22 @@ pipeline {
     }
     stages {
         stage('Install and bootstrap') {
-            agent {
-                docker {
-                    image 'node:16.13.0'
-                }
-            }
+            agent { docker { image 'node:16.13.0' } }
             steps {
                 sh 'yarn'
                 sh 'yarn bootstrap'
             }
         }
         stage('Lint') {
-            agent {
-                docker {
-                    image 'node:16.13.0'
-                }
-            }
+            agent { docker { image 'node:16.13.0' } }
             steps {
                 sh 'yarn lint'
             }
         }
         stage("Packages") {
+            agent { docker { image 'node:16.13.0' } }
             parallel {
                 stage("Frontend") {
-                    agent {
-                        docker {
-                            image 'node:16.13.0'
-                        }
-                    }
                     stages {
                         stage('Frontend - Style lint') {
                             steps {
@@ -55,30 +43,25 @@ pipeline {
                         stage('Frontend - Build') {
                             steps {
                                 dir("packages/frontend") {
-                                    sh 'yarn install --frozen-lockfile'
+                                    sh 'yarn build'
                                 }
                             }
                         }
                     }
                 }
                 stage("Backend") {
-                    agent {
-                        docker {
-                            image 'node:16.13.0'
-                        }
-                    }
                     stages {
-                        stage('Backend - Build') {
-                            steps {
-                                dir("packages/backend") {
-                                    sh 'yarn build'
-                                }
-                            }
-                        }
                         stage('Backend - Test') {
                             steps {
                                 dir("packages/backend") {
                                     sh 'yarn test'
+                                }
+                            }
+                        }
+                        stage('Backend - Build') {
+                            steps {
+                                dir("packages/backend") {
+                                    sh 'yarn build'
                                 }
                             }
                         }
