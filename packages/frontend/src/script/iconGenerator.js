@@ -24,8 +24,7 @@ const svgs = [];
  * @returns {string} Icon component's code
  */
 function generateComponent(name, data) {
-    return `import React from "react";
-import { SvgIcon, SvgIconProps } from "@peersyst/react-components"
+    return `import { SvgIcon, SvgIconProps } from "@peersyst/react-components"
 export function ${name}Icon (props: Omit<SvgIconProps, "children">): JSX.Element {
     return (
         <SvgIcon {...props} data-testid="${name}Icon">

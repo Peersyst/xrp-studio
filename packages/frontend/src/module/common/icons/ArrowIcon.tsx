@@ -1,4 +1,3 @@
-import React from "react";
 import { SvgIcon, SvgIconProps } from "@peersyst/react-components";
 export function ArrowIcon(props: Omit<SvgIconProps, "children">): JSX.Element {
     return (
