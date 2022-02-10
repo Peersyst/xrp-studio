@@ -70,5 +70,9 @@ pipeline {
                 }
             }
         }
+        stage("Test end-to-end") {
+            agent { docker { image 'cypress/base:16.13.0' } }
+
+        }
     }
 }

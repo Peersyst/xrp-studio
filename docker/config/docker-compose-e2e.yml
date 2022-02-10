@@ -1,0 +1,23 @@
+version: '3.5'
+services:
+    db:
+        extends:
+            file: docker-compose-common.yml
+            service: db
+
+    backend:
+        extends:
+            file: docker-compose-common.yml
+            service: backend
+
+    http:
+        image: nginx
+        ports:
+            - '8080:80'
+        environment:
+            API_URL: http://backend:$BACKEND_PORT
+        volumes:
+            - ./http/default.conf.template:/etc/nginx/templates/default.conf.template
+            - ../../packages/frontend/build/:/var/www/
+
+

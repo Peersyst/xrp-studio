@@ -1,24 +1,14 @@
 version: '3.5'
 services:
     db:
-        image: mysql:5.7
-        tty: true
-        restart: always
-        environment:
-            MYSQL_USER: $DB_USER
-            MYSQL_DATABASE: $DB_DATABASE
-            MYSQL_PASSWORD: $DB_PASSWORD
-            MYSQL_ROOT_PASSWORD: $DB_PASSWORD
-        volumes:
-            - ./docker/data/mysql:/var/lib/mysql/
+        extends:
+            file: docker-compose-common.yml
+            service: db
 
     backend:
-        build:
-            context: ./packages/backend/
-            dockerfile: Dockerfile
-        restart: always
-        env_file:
-            - ./packages/backend/.env
+        extends:
+            file: docker-compose-common.yml
+            service: backend
 
     http:
         image: steveltn/https-portal:1
@@ -30,7 +20,7 @@ services:
             CLIENT_MAX_BODY_SIZE: "20M"
             ACCESS_LOG: default
             DOMAINS: $DOMAIN
-            STAGE: $HTTP_STAGE # Don't use production until staging works
+            STAGE: 'staging' # Don't use production until staging works
             CUSTOM_NGINX_SERVER_CONFIG_BLOCK: |
                 location /api/ {
                     proxy_pass http://backend:$BACKEND_PORT;

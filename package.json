@@ -3,14 +3,19 @@
     "private": true,
     "scripts": {
         "start": "lerna run start --stream",
-        "start:prod": "docker-compose -f docker-compose-prod.yml up -d",
+        "start:e2e": "docker-compose -f ./docker/config/docker-compose-e2e.yml up -d",
+        "start:prod": "docker-compose -f ./docker/config/docker-compose-prod.yml up -d",
         "build": "lerna run build --stream",
         "clean": "lerna clean",
         "docker:up": "docker-compose up -d",
         "docker:down": "docker-compose down",
         "bootstrap": "lerna bootstrap",
         "lint": "eslint . --ext .ts,.json --max-warnings=0",
-        "lint:fix": "prettier --config .prettierrc '**/*.{json,ts}' --write && eslint . --ext .ts,.json --fix"
+        "lint:fix": "prettier --config .prettierrc '**/*.{json,ts}' --write && eslint . --ext .ts,.json --fix",
+        "test:e2e": "",
+        "test:e2e:config": "yarn start:prod",
+        "test:e2e:start": "start-server-and-test start:prod https://localhost",
+        "test:e2e:open": "cypress open"
     },
     "devDependencies": {
         "@typescript-eslint/eslint-plugin": "^5.3.1",
@@ -23,6 +28,12 @@
         "eslint-plugin-react-hooks": "^4.3.0",
         "lerna": "4.0.0",
         "prettier": "2.3.0",
-        "typescript": "4.2.4"
+        "typescript": "^4.5.5"
+    },
+    "dependencies": {
+        "cypress": "^9.4.1",
+        "start-server-and-test": "^1.14.0",
+        "@cypress/code-coverage": "3.9.12",
+        "cypress-react-selector": "^2.3.15"
     }
 }
