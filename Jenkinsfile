@@ -74,7 +74,7 @@ pipeline {
             agent {
                 docker {
                     image 'cypress/base:16.13.0'
-                    args '-v /var/run/docker.sock:/var/run/docker.sock -v /usr/bin/docker:/usr/bin/docker -u root'
+                    args '-v /var/run/docker.sock:/var/run/docker.sock -v /usr/bin/docker:/usr/bin/docker -u root --network=host'
                 }
             }
             steps {
