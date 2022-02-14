@@ -9,15 +9,24 @@ pipeline {
     }
     stages {
         stage('Install and bootstrap') {
-            agent { docker { image 'node:16.13.0' } }
+            agent {
+                docker {
+                    image 'node:16.13.0'
+                    reuseNode true
+                }
+            }
             steps {
                 sh 'yarn'
                 sh 'yarn bootstrap'
-                sh 'yarn build'
             }
         }
         stage('Lint') {
-            agent { docker { image 'node:16.13.0' } }
+            agent {
+                docker {
+                    image 'node:16.13.0'
+                    reuseNode true
+                }
+            }
             steps {
                 sh 'yarn lint'
             }
@@ -25,7 +34,12 @@ pipeline {
         stage("Packages") {
             parallel {
                 stage("Frontend") {
-                    agent { docker { image 'node:16.13.0' } }
+                    agent {
+                        docker {
+                            image 'node:16.13.0'
+                            reuseNode true
+                        }
+                    }
                     stages {
                         stage('Frontend - Style lint') {
                             steps {
@@ -43,6 +57,9 @@ pipeline {
                         }
                         stage('Frontend - Build') {
                             steps {
+                                configFileProvider([configFile(fileId: "${PROJECT_NAME}-frontend-env", variable: 'ENV_FILE')]) {
+                                    sh "cp ${ENV_FILE} ./packages/frontend/.env"
+                                }
                                 dir("packages/frontend") {
                                     sh 'yarn build'
                                 }
@@ -51,7 +68,12 @@ pipeline {
                     }
                 }
                 stage("Backend") {
-                    agent { docker { image 'node:16.13.0' } }
+                    agent {
+                        docker {
+                            image 'node:16.13.0'
+                            reuseNode true
+                        }
+                    }
                     stages {
                         stage('Backend - Test') {
                             steps {
@@ -73,11 +95,14 @@ pipeline {
         }
         stage("Test e2e") {
             steps {
-                configFileProvider([configFile(fileId: "${PROJECT_NAME}-e2e-env", variable: 'E2E_ENV_FILE')]) {
-                    sh "cp ${E2E_ENV_FILE} .env"
+                configFileProvider([configFile(fileId: "${PROJECT_NAME}-e2e-env", variable: 'ENV_FILE')]) {
+                    sh "cp ${ENV_FILE} .env"
                 }
-                configFileProvider([configFile(fileId: "${PROJECT_NAME}-backend-env", variable: 'BACKEND_ENV_FILE')]) {
-                    sh "cp ${BACKEND_ENV_FILE} ./packages/backend/.env"
+                configFileProvider([configFile(fileId: "${PROJECT_NAME}-e2e-backend-env", variable: 'ENV_FILE')]) {
+                    sh "cp ${ENV_FILE} ./packages/backend/.env"
+                }
+                configFileProvider([configFile(fileId: "${PROJECT_NAME}-e2e-frontend-env", variable: 'ENV_FILE')]) {
+                    sh "cp ${ENV_FILE} ./packages/frontend/.env"
                 }
                 sh 'docker-compose -f ./docker/config/docker-compose-e2e.yml --env-file .env up -d'
                 script {
