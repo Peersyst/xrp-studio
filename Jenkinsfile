@@ -8,7 +8,7 @@ pipeline {
         CYPRESS_CACHE_FOLDER = '/tmp/cy'
     }
     stages {
-        /*stage('Install and bootstrap') {
+        stage('Install and bootstrap') {
             agent { docker { image 'node:16.13.0' } }
             steps {
                 sh 'yarn'
@@ -69,8 +69,8 @@ pipeline {
                     }
                 }
             }
-        }*/
-        stage("Prepare test e2e") {
+        }
+        stage("Test e2e") {
             steps {
                 configFileProvider([configFile(fileId: "${PROJECT_NAME}-e2e-env", variable: 'E2E_ENV_FILE')]) {
                     sh "cp ${E2E_ENV_FILE} .env"
@@ -83,18 +83,6 @@ pipeline {
                     docker.build("cypress-e2e", "-f ./docker/config/e2e.Dockerfile .")
                 }
                 sh 'docker run -v ${PWD}/test/:/test -e CYPRESS_BASE_URL=http://http --network=e2e-network cypress-e2e cypress run'
-            }
-        }
-        stage("Run test e2e") {
-            agent {
-                docker {
-                    image 'cypress-e2e'
-                    args '-e CYPRESS_BASE_URL=http://http --network=e2e-network'
-                }
-            }
-            steps {
-                sh 'ls -la'
-                sh 'cypress run'
             }
         }
     }
