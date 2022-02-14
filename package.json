@@ -3,7 +3,7 @@
     "private": true,
     "scripts": {
         "start": "lerna run start --stream",
-        "start:e2e": "docker-compose -f ./docker/config/docker-compose-e2e.yml up -d",
+        "start:e2e": "docker-compose -f ./docker/config/docker-compose-e2e.yml --env-file .env up -d",
         "start:prod": "docker-compose -f ./docker/config/docker-compose-prod.yml up -d",
         "build": "lerna run build --stream",
         "clean": "lerna clean",
@@ -12,9 +12,11 @@
         "bootstrap": "lerna bootstrap",
         "lint": "eslint . --ext .ts,.json --max-warnings=0",
         "lint:fix": "prettier --config .prettierrc '**/*.{json,ts}' --write && eslint . --ext .ts,.json --fix",
-        "test:e2e": "",
+        "test:e2e": "yarn test:e2e:start",
         "test:e2e:config": "yarn start:prod",
-        "test:e2e:start": "start-server-and-test start:prod https://localhost",
+        "test:e2e:start": "start-server-and-test start:e2e http://localhost:8080 test:e2e:run",
+        "test:e2e:coverage": "nyc report --check-coverage --lines 75",
+        "test:e2e:run": "cypress run",
         "test:e2e:open": "cypress open"
     },
     "devDependencies": {

@@ -72,7 +72,10 @@ pipeline {
         }
         stage("Test end-to-end") {
             agent { docker { image 'cypress/base:16.13.0' } }
-
+            steps {
+                sh 'yarn start:e2e'
+                sh 'yarn test:e2e'
+            }
         }
     }
 }
