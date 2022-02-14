@@ -13,8 +13,9 @@
         "lint": "eslint . --ext .ts,.json --max-warnings=0",
         "lint:fix": "prettier --config .prettierrc '**/*.{json,ts}' --write && eslint . --ext .ts,.json --fix",
         "test:e2e": "server-test start:e2e 8182 test:e2e:run",
-        "test:e2e:ci": "yarn start:e2e:ci && sleep 10 && yarn test:e2e:run",
+        "test:e2e:ci": "yarn start:e2e:ci && sleep 10 && yarn test:e2e:install && yarn test:e2e:run",
         "test:e2e:config": "yarn start:prod",
+        "test:e2e:install": "cypress install",
         "test:e2e:run": "cypress run",
         "test:e2e:open": "cypress open"
     },
