@@ -1,6 +1,5 @@
 def PROJECT_NAME = scm.getUserRemoteConfigs()[0].getUrl().tokenize('/').last().split("\\.")[0]
 def envFileName = UUID.randomUUID().toString()
-def envFileDestination = "/tmp/${envFileName}"
 
 pipeline {
     agent any
@@ -8,14 +7,14 @@ pipeline {
         HOME = '.'
     }
     stages {
-        stage('Install and bootstrap') {
+        /*stage('Install and bootstrap') {
             agent { docker { image 'node:16.13.0' } }
             steps {
                 sh 'yarn'
                 sh 'yarn bootstrap'
             }
         }
-        /*stage('Lint') {
+        stage('Lint') {
             agent { docker { image 'node:16.13.0' } }
             steps {
                 sh 'yarn lint'
