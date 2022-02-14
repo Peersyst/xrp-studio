@@ -13,7 +13,7 @@ services:
     http:
         image: nginx
         ports:
-            - '8080:80'
+            - '8182:80'
         environment:
             API_URL: http://backend:$BACKEND_PORT
         volumes:

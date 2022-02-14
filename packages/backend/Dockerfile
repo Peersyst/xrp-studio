@@ -9,9 +9,6 @@ RUN yarn
 
 COPY . .
 
-RUN ls -la
-RUN cat package.json
-
 RUN yarn build
 
 CMD [ "./dist/src/main" ]
