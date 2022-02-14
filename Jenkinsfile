@@ -78,7 +78,8 @@ pipeline {
                     sh "cp ${BACKEND_ENV_FILE} ./packages/backend/.env"
                 }
                 sh 'docker-compose -f ./docker/config/docker-compose-e2e.yml --env-file .env up -d'
-                sh 'docker build -f ./docker/config/e2e.Dockerfile . -t cypress-e2e'
+                docker.build("cypress-e2e", "./docker/config/e2e.Dockerfile")
+                // sh 'docker build -f ./docker/config/e2e.Dockerfile . -t cypress-e2e'
             }
         }
         stage("Run test e2e") {
