@@ -57,10 +57,8 @@ pipeline {
                         }
                         stage('Frontend - Build') {
                             steps {
-                                configFileProvider([configFile(fileId: "${PROJECT_NAME}-frontend-env", variable: 'ENV_FILE')]) {
-                                    sh "cp ${ENV_FILE} ./packages/frontend/.env"
-                                }
                                 dir("packages/frontend") {
+                                    sh 'cp .env.example .env'
                                     sh 'yarn build'
                                 }
                             }
