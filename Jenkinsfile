@@ -71,12 +71,6 @@ pipeline {
             }
         }*/
         stage("Test end-to-end") {
-            agent {
-                docker {
-                    image 'cypress/base:16.13.0'
-                    args '-v /var/run/docker.sock:/var/run/docker.sock -v /usr/bin/docker:/usr/bin/docker -u root --network=host'
-                }
-            }
             steps {
                 configFileProvider([configFile(fileId: "${PROJECT_NAME}-e2e-env", variable: 'E2E_ENV_FILE')]) {
                     sh "cp ${E2E_ENV_FILE} .env"
@@ -84,8 +78,16 @@ pipeline {
                 configFileProvider([configFile(fileId: "${PROJECT_NAME}-backend-env", variable: 'BACKEND_ENV_FILE')]) {
                     sh "cp ${BACKEND_ENV_FILE} ./packages/backend/.env"
                 }
-                sh 'yarn test:e2e:ci'
+                sh 'docker-compose -f ./docker/config/docker-compose-e2e-ci.yml --env-file .env up backend http db -d'
+                sh 'docker-compose -f ./docker/config/docker-compose-e2e-ci.yml --env-file .env run e2e run'
             }
+        }
+    }
+    post {
+        always {
+            sh 'docker-compose -f ./docker/config/docker-compose-e2e-ci.yml down'
+            sh 'docker logout'
+            cleanWs()
         }
     }
 }
