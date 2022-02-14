@@ -20,4 +20,6 @@ services:
             - ./http/default.conf.template:/etc/nginx/templates/default.conf.template
             - ../../packages/frontend/build/:/var/www/
 
-
+networks:
+    default:
+        name: e2e-network

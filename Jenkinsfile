@@ -70,7 +70,7 @@ pipeline {
                 }
             }
         }*/
-        stage("Test end-to-end") {
+        stage("Prepare test e2e") {
             steps {
                 configFileProvider([configFile(fileId: "${PROJECT_NAME}-e2e-env", variable: 'E2E_ENV_FILE')]) {
                     sh "cp ${E2E_ENV_FILE} .env"
@@ -78,8 +78,19 @@ pipeline {
                 configFileProvider([configFile(fileId: "${PROJECT_NAME}-backend-env", variable: 'BACKEND_ENV_FILE')]) {
                     sh "cp ${BACKEND_ENV_FILE} ./packages/backend/.env"
                 }
-                sh 'docker-compose -f ./docker/config/docker-compose-e2e-ci.yml --env-file .env up backend http db -d'
-                sh 'docker-compose -f ./docker/config/docker-compose-e2e-ci.yml --env-file .env run e2e run'
+                sh 'docker-compose -f ./docker/config/docker-compose-e2e-ci.yml --env-file .env up -d'
+                sh 'docker build -f ./docker/config/e2e.Dockerfile . -t cypress-e2e'
+            }
+        }
+        stage("Run test e2e") {
+            agent {
+                docker {
+                    image 'cypress-e2e'
+                    args '-v ${PWD}/test/:/test -e CYPRESS_BASE_URL=http://http --network=e2e-network'
+                }
+            }
+            steps {
+                sh 'cypress run'
             }
         }
     }
