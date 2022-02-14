@@ -93,6 +93,7 @@ pipeline {
                 }
             }
             steps {
+                sh 'ls -la'
                 sh 'cypress run'
             }
         }
