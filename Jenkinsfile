@@ -5,6 +5,7 @@ pipeline {
     agent any
     environment {
         HOME = '.'
+        CYPRESS_CACHE_FOLDER = '/tmp/cy'
     }
     stages {
         /*stage('Install and bootstrap') {
