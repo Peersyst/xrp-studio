@@ -13,6 +13,7 @@ pipeline {
             steps {
                 sh 'yarn'
                 sh 'yarn bootstrap'
+                sh 'yarn build'
             }
         }
         stage('Lint') {
