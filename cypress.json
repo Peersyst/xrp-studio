@@ -1,5 +1,5 @@
 {
-    "baseUrl": "http://localhost:8080",
+    "baseUrl": "http://localhost:8182",
     "integrationFolder": "test/e2e",
     "pluginsFile": "test/config/plugins/index.js",
     "supportFile": "test/config/support/index.ts",

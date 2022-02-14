@@ -84,8 +84,7 @@ pipeline {
                 configFileProvider([configFile(fileId: "${PROJECT_NAME}-backend-env", variable: 'BACKEND_ENV_FILE')]) {
                     sh "cp ${BACKEND_ENV_FILE} ./packages/backend/.env"
                 }
-                sh 'yarn start:e2e:ci'
-                sh 'yarn test:e2e'
+                sh 'yarn test:e2e:ci'
             }
         }
     }
