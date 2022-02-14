@@ -78,7 +78,7 @@ pipeline {
                 configFileProvider([configFile(fileId: "${PROJECT_NAME}-backend-env", variable: 'BACKEND_ENV_FILE')]) {
                     sh "cp ${BACKEND_ENV_FILE} ./packages/backend/.env"
                 }
-                sh 'docker-compose -f ./docker/config/docker-compose-e2e-ci.yml --env-file .env up -d'
+                sh 'docker-compose -f ./docker/config/docker-compose-e2e.yml --env-file .env up -d'
                 sh 'docker build -f ./docker/config/e2e.Dockerfile . -t cypress-e2e'
             }
         }
@@ -96,7 +96,7 @@ pipeline {
     }
     post {
         always {
-            sh 'docker-compose -f ./docker/config/docker-compose-e2e-ci.yml down'
+            sh 'docker-compose -f ./docker/config/docker-compose-e2e.yml down'
             sh 'docker logout'
             cleanWs()
         }
