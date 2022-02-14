@@ -71,7 +71,12 @@ pipeline {
             }
         }
         stage("Test end-to-end") {
-            agent { docker { image 'cypress/base:16.13.0' } }
+            agent {
+                docker {
+                    image 'cypress/base:16.13.0'
+                    args '-v /var/run/docker.sock:/var/run/docker.sock -v /usr/bin/docker:/usr/bin/docker -v /usr/bin/docker-compose:/usr/bin/docker-compose'
+                }
+            }
             steps {
                 sh 'yarn start:e2e'
                 sh 'yarn test:e2e'
