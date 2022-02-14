@@ -79,7 +79,7 @@ pipeline {
                 }
                 sh 'docker-compose -f ./docker/config/docker-compose-e2e.yml --env-file .env up -d'
                 script {
-                    docker.build("cypress-e2e", "./docker/config/e2e.Dockerfile")
+                    docker.build("cypress-e2e", "-f ./docker/config/e2e.Dockerfile .")
                 }
                 // sh 'docker build -f ./docker/config/e2e.Dockerfile . -t cypress-e2e'
             }
