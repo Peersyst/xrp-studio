@@ -1,0 +1,5 @@
+node_modules
+coverage
+docker/data
+logs
+.idea
