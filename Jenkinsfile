@@ -83,6 +83,7 @@ pipeline {
                     docker.build("cypress-e2e", "-f ./docker/config/e2e.Dockerfile .")
                 }
                 sh 'docker run -v ${PWD}/test/:/test -e CYPRESS_BASE_URL=http://http --network=e2e-network e2e-custom cypress'
+            }
         }
         stage("Run test e2e") {
             agent {
