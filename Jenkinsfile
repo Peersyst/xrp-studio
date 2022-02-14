@@ -115,7 +115,7 @@ pipeline {
     }
     post {
         always {
-            // sh 'docker-compose -f ./docker/config/docker-compose-e2e.yml down || true'
+            sh 'docker-compose -f ./docker/config/docker-compose-e2e.yml down || true'
             sh 'docker logout'
             cleanWs()
         }
