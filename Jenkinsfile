@@ -117,6 +117,9 @@ pipeline {
             }
         }
         stage("Deploy to dev server") {
+            when {
+                anyOf { branch 'dev'; branch 'main'; }
+            }
             parallel {
                 stage("Frontend") {
                     stages {
