@@ -96,6 +96,9 @@ pipeline {
             }
         }
         stage("Test e2e") {
+            when {
+                anyOf { branch 'dev'; branch 'main'; branch 'feature/*'; }
+            }
             steps {
                 configFileProvider([configFile(fileId: "${PROJECT_NAME}-e2e-env", variable: 'ENV_FILE')]) {
                     sh "cp ${ENV_FILE} .env"
@@ -138,7 +141,8 @@ pipeline {
                                 dir("packages/frontend") {
                                     sshagent(credentials : ['jenkins-ssh']) {
                                         sh "scp -rp ./build/* ubuntu@dev.peersyst.com:/home/ubuntu/${PROJECT_NAME}"
-                                        sh "ssh ubuntu@dev.peersyst.com sudo rm -rf /var/www/${PROJECT_NAME}/* && sudo mv /home/ubuntu/${PROJECT_NAME}/* /var/www/${PROJECT_NAME}/"
+                                        sh "ssh ubuntu@dev.peersyst.com sudo rm -rf /var/www/${PROJECT_NAME}/*"
+                                        sh "ssh ubuntu@dev.peersyst.com sudo sudo mv /home/ubuntu/${PROJECT_NAME}/* /var/www/${PROJECT_NAME}/"
                                     }
                                 }
                             }

@@ -17,7 +17,7 @@
         "db:migration:run": "npm run typeorm migration:run",
         "db:migration:revert": "npm run typeorm migration:revert",
         "db:schema:drop": "npm run typeorm schema:drop",
-        "db:seed": "env-cmd ts-node src/database/seeders/index.ts",
+        "db:seed": "env-cmd --silent ts-node src/database/seeders/index.ts",
         "db:pack": "npm run db:schema:drop && npm run db:migration:run && npm run db:seed",
         "db:entities:generate": "typeorm-model-generator -h localhost -d db_database -u db_user -x db_password -e mysql -o ./src/database"
     },
