@@ -124,18 +124,22 @@ pipeline {
                                     reuseNode true
                                 }
                             }
-                            configFileProvider([configFile(fileId: "${PROJECT_NAME}-dev-frontend-env", variable: 'ENV_FILE')]) {
-                                sh "cp ${ENV_FILE} ./packages/frontend/.env"
-                            }
-                            dir("packages/frontend") {
-                                sh 'yarn build'
+                            steps {
+                                configFileProvider([configFile(fileId: "${PROJECT_NAME}-dev-frontend-env", variable: 'ENV_FILE')]) {
+                                    sh "cp ${ENV_FILE} ./packages/frontend/.env"
+                                }
+                                dir("packages/frontend") {
+                                    sh 'yarn build'
+                                }
                             }
                         }
                         stage("Frontend - Deploy") {
-                            dir("packages/frontend") {
-                                sshagent(credentials : ['jenkins-ssh']) {
-                                    sh 'scp -rp ./build/* ubuntu@dev.peersyst.com:/home/ubuntu/${PROJECT_NAME}'
-                                    sh 'ssh ubuntu@dev.peersyst.com sudo rm -rf /var/www/${PROJECT_NAME}/* && sudo mv /home/ubuntu/${PROJECT_NAME}/* /var/www/${PROJECT_NAME}/'
+                            steps {
+                                dir("packages/frontend") {
+                                    sshagent(credentials : ['jenkins-ssh']) {
+                                        sh 'scp -rp ./build/* ubuntu@dev.peersyst.com:/home/ubuntu/${PROJECT_NAME}'
+                                        sh 'ssh ubuntu@dev.peersyst.com sudo rm -rf /var/www/${PROJECT_NAME}/* && sudo mv /home/ubuntu/${PROJECT_NAME}/* /var/www/${PROJECT_NAME}/'
+                                    }
                                 }
                             }
                         }
@@ -144,25 +148,29 @@ pipeline {
                 stage("Backend") {
                     stages {
                         stage("Backend - Build dev") {
-                            dir("packages/backend") {
-                                sh "docker build -t ${DOCKERHUB_TAG_NAME} ."
-                                sh "echo $DOCKERHUB_CREDENTIALS_PSW | docker login -u $DOCKERHUB_CREDENTIALS_USR --password-stdin"
-                                sh "docker push ${DOCKERHUB_TAG_NAME}"
+                            steps {
+                                dir("packages/backend") {
+                                    sh "docker build -t ${DOCKERHUB_TAG_NAME} ."
+                                    sh "echo $DOCKERHUB_CREDENTIALS_PSW | docker login -u $DOCKERHUB_CREDENTIALS_USR --password-stdin"
+                                    sh "docker push ${DOCKERHUB_TAG_NAME}"
+                                }
                             }
                         }
                         stage("Backend - Deploy") {
-                            dir("packages/backend") {
-                                sshagent(credentials : ['jenkins-ssh']) {
-                                    configFileProvider(
-                                        [configFile(fileId: "${PROJECT_NAME}-dev-backend-env", variable: 'ENV_FILE')]) {
-                                        sh "scp ${ENV_FILE} ubuntu@dev.peersyst.com:${envFileDestination}"
+                            steps {
+                                dir("packages/backend") {
+                                    sshagent(credentials : ['jenkins-ssh']) {
+                                        configFileProvider(
+                                            [configFile(fileId: "${PROJECT_NAME}-dev-backend-env", variable: 'ENV_FILE')]) {
+                                            sh "scp ${ENV_FILE} ubuntu@dev.peersyst.com:${envFileDestination}"
+                                        }
+                                        sh "ssh ubuntu@dev.peersyst.com sudo docker kill ${PROJECT_NAME}-backend || true"
+                                        sh "ssh ubuntu@dev.peersyst.com sudo docker rm ${PROJECT_NAME}-backend || true"
+                                        sh "ssh ubuntu@dev.peersyst.com sudo docker pull ${DOCKERHUB_TAG_NAME}"
+                                        sh "ssh ubuntu@dev.peersyst.com sudo docker run --name=${PROJECT_NAME}-backend --env-file=${envFileDestination} --network=host -d ${DOCKERHUB_TAG_NAME}"
+                                        sh "ssh ubuntu@dev.peersyst.com sudo docker run --rm --env-file=${envFileDestination} --network=host ${DOCKERHUB_TAG_NAME} npm run db:seed"
+                                        sh "ssh ubuntu@dev.peersyst.com sudo rm ${envFileDestination}"
                                     }
-                                    sh "ssh ubuntu@dev.peersyst.com sudo docker kill ${PROJECT_NAME}-backend || true"
-                                    sh "ssh ubuntu@dev.peersyst.com sudo docker rm ${PROJECT_NAME}-backend || true"
-                                    sh "ssh ubuntu@dev.peersyst.com sudo docker pull ${DOCKERHUB_TAG_NAME}"
-                                    sh "ssh ubuntu@dev.peersyst.com sudo docker run --name=${PROJECT_NAME}-backend --env-file=${envFileDestination} --network=host -d ${DOCKERHUB_TAG_NAME}"
-                                    sh "ssh ubuntu@dev.peersyst.com sudo docker run --rm --env-file=${envFileDestination} --network=host ${DOCKERHUB_TAG_NAME} npm run db:seed"
-                                    sh "ssh ubuntu@dev.peersyst.com sudo rm ${envFileDestination}"
                                 }
                             }
                         }
