@@ -137,8 +137,8 @@ pipeline {
                             steps {
                                 dir("packages/frontend") {
                                     sshagent(credentials : ['jenkins-ssh']) {
-                                        sh 'scp -rp ./build/* ubuntu@dev.peersyst.com:/home/ubuntu/${PROJECT_NAME}'
-                                        sh 'ssh ubuntu@dev.peersyst.com sudo rm -rf /var/www/${PROJECT_NAME}/* && sudo mv /home/ubuntu/${PROJECT_NAME}/* /var/www/${PROJECT_NAME}/'
+                                        sh "scp -rp ./build/* ubuntu@dev.peersyst.com:/home/ubuntu/${PROJECT_NAME}"
+                                        sh "ssh ubuntu@dev.peersyst.com sudo rm -rf /var/www/${PROJECT_NAME}/* && sudo mv /home/ubuntu/${PROJECT_NAME}/* /var/www/${PROJECT_NAME}/"
                                     }
                                 }
                             }
