@@ -2,7 +2,7 @@ version: '3'
 services:
     db:
         image: mysql:5.7
-        container_name: base_project_mysql
+        container_name: $PROJECT_NAME-dev-db
         tty: true
         ports:
             - '${DB_PORT}:3306'
@@ -13,4 +13,3 @@ services:
             MYSQL_ROOT_PASSWORD: $DB_PASSWORD
         volumes:
             - ./docker/data/mysql:/var/lib/mysql/
-

@@ -2,6 +2,7 @@ version: '3.5'
 services:
     db:
         image: mysql:5.7
+        container_name: $PROJECT_NAME-prod-db
         tty: true
         restart: always
         environment:
@@ -16,12 +17,14 @@ services:
         build:
             context: ../../packages/backend/
             dockerfile: Dockerfile
+        container_name: $PROJECT_NAME-prod-backend
         restart: always
         env_file:
             - ../../packages/backend/.env
 
     http:
         image: steveltn/https-portal:1
+        container_name: $PROJECT_NAME-prod-http
         ports:
             - '80:80'
             - '443:443'
@@ -40,5 +43,3 @@ services:
             - ./http/nginx-default.conf.erb:/var/lib/nginx-conf/default.conf.erb
             - ../../packages/frontend/build/:/var/www/vhosts/$DOMAIN/
             - ../../logs/http:/var/log/nginx/
-
-
