@@ -5,8 +5,8 @@
 import "@testing-library/jest-dom";
 
 // matchmedia mock
-import { LightMatchMediaMock } from "mocks/MatchMediaMock";
-import { IntersectionObserverMock } from "mocks/IntersectionObserverMock";
+import { LightMatchMediaMock } from "./__mocks__/MatchMediaMock";
+import { IntersectionObserverMock } from "./__mocks__/IntersectionObserverMock";
 import { loadLocalization } from "locale";
 
 jest.mock("@peersyst/react-components", () => ({
@@ -32,6 +32,7 @@ loadLocalization();
 /* eslint-disable no-console  */
 /* eslint-disable @typescript-eslint/no-empty-function */
 import { setLogger } from "react-query";
+
 setLogger({
     log: console.log,
     warn: console.warn,

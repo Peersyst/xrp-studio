@@ -4,6 +4,7 @@
         "paths": {
             "locale": ["locale"],
             "asset": ["asset"],
+            "images": ["asset/image"],
             "icons": ["module/common/icons"],
             "module/*": ["module/*"],
             "utils/*": ["utils/*"],

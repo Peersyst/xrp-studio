@@ -1,31 +1,22 @@
-import { PropsWithChildren } from "react";
-import { QueryClient, QueryClientProvider } from "react-query";
+import { Fragment, PropsWithChildren } from "react";
 import { RecoilRoot } from "recoil";
 import StylesProvider from "module/common/style";
-import { ModalProvider, ToastProvider } from "@peersyst/react-components";
-
-const queryClient = new QueryClient({
-    defaultOptions: {
-        queries: {
-            refetchOnWindowFocus: false,
-            notifyOnChangeProps: "tracked",
-        },
-    },
-});
+import { ToastProvider } from "@peersyst/react-components";
+import QueryClientProvider from "./query/QueryClientProvider";
 
 const Providers = ({ children }: PropsWithChildren<unknown>): JSX.Element => (
-    <RecoilRoot>
-        <QueryClientProvider client={queryClient}>
+    <Fragment>
+        <RecoilRoot>
             <StylesProvider>
                 <ToastProvider>
-                    <ModalProvider>
+                    <QueryClientProvider>
                         {children}
                         {/*{process.env.NODE_ENV === 'development' && <ReactQueryDevtools initialIsOpen={false} />}*/}
-                    </ModalProvider>
+                    </QueryClientProvider>
                 </ToastProvider>
             </StylesProvider>
-        </QueryClientProvider>
-    </RecoilRoot>
+        </RecoilRoot>
+    </Fragment>
 );
 
 export default Providers;
