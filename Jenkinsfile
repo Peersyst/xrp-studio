@@ -45,13 +45,6 @@ pipeline {
                         }
                     }
                     stages {
-                        stage('Frontend - Style lint') {
-                            steps {
-                                dir("packages/frontend") {
-                                    sh 'yarn lint:style'
-                                }
-                            }
-                        }
                         stage('Frontend - Test') {
                             steps {
                                 dir("packages/frontend") {
