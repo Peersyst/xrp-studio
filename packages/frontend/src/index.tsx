@@ -3,19 +3,14 @@ import ReactDOM from "react-dom";
 import { loadLocalization } from "locale";
 import Providers from "./Providers";
 import Router from "./Router";
-import { useLoad } from "module/common/query/useLoad";
+import "module/api/OpenApiConfig";
 
 loadLocalization();
-
-const App = (): JSX.Element => {
-    const loading = useLoad();
-    return <>{loading ? "Loading app" : <Router />}</>;
-};
 
 ReactDOM.render(
     <StrictMode>
         <Providers>
-            <App />
+            <Router />
         </Providers>
     </StrictMode>,
     document.getElementById("root"),

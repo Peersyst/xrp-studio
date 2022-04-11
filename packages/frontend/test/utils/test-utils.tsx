@@ -1,13 +1,13 @@
 import { FC, PropsWithChildren, ReactElement } from "react";
 import { render, RenderOptions, RenderResult } from "@testing-library/react";
 import { MemoryRouter, Route, Routes } from "react-router-dom";
-import { QueryClient, QueryClientProvider, QueryClientConfig } from "react-query";
-import { deepmerge } from "@peersyst/react-utils";
+import { QueryClient, QueryClientProvider, QueryClientConfig, QueryCache } from "react-query";
 import StylesProvider from "module/common/style";
 import { ModalProvider, ToastProvider } from "@peersyst/react-components";
 import { RecoilRoot } from "recoil";
 import { renderHook, RenderHookOptions, RenderHookResult } from "@testing-library/react-hooks";
 import { InitialEntry } from "history";
+import { deepmerge } from "@peersyst/react-utils";
 
 export interface CreateWrapperConfig {
     queryClientConfig?: QueryClientConfig;
@@ -28,6 +28,7 @@ export const createWrapper = ({ queryClientConfig }: CreateWrapperConfig = {}): 
                         retry: false,
                     },
                 },
+                queryCache: new QueryCache(),
             },
             queryClientConfig,
         ),

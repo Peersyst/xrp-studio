@@ -14,8 +14,11 @@ logs/
 
 docker/data/
 
-.env
+.env*
 */**/.env
+*/**/.env*
+!.env.example
+!*/**/.env.example
 yarn-error.log
 */**/yarn-error.log
 
