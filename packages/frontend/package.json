@@ -11,7 +11,6 @@
         "generate:icons": "node ./src/script/iconGenerator.js ./src/asset/icon/ ./src/module/common/icons/ && prettier --write ./src/module/common/icons/",
         "generate:images": "node ./src/script/imagesGenerator.js ./src/asset/image/ && prettier --write ./src/asset/image/",
         "generate:openapi": "openapi -i ../backend/openapi-spec.json -o src/module/api/service --exportSchemas=true --useUnionTypes",
-        "lint:style": "stylelint **/*.styles.ts --max-warnings=0",
         "test": "jest --coverage",
         "test:unit": "jest --coverage"
     },
