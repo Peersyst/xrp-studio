@@ -42,8 +42,8 @@ module.exports = {
     coverageDirectory: "./coverage",
     coverageThreshold: {
         global: {
-            branches: 50,
-            statements: 50,
+            branches: 10,
+            statements: 10,
         },
     },
     moduleNameMapper: {
