@@ -1,6 +1,6 @@
 import { ApiError } from "module/api/service";
 import { translate } from "locale";
-import en from "../locale/en.json";
+import en from "../locale/locales/en.json";
 
 export interface HandleApiErrorMessageResult {
     message: string;

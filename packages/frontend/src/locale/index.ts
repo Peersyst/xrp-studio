@@ -1,5 +1,5 @@
 import i18n from "i18n-js";
-import en from "./en.json";
+import en from "./locales/en.json";
 
 export const loadLocalization = (): void => {
     // Set the key-value pairs for the different languages you want to support.

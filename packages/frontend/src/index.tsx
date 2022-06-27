@@ -4,7 +4,7 @@ import { loadLocalization } from "locale";
 import Providers from "./Providers";
 import Router from "./Router";
 import "module/api/OpenApiConfig";
-
+import "./locale/i18n";
 loadLocalization();
 
 ReactDOM.render(

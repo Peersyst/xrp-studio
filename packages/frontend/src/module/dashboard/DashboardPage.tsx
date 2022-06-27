@@ -1,13 +1,14 @@
-import { translate } from "locale";
 import BasePage from "module/common/component/layout/BasePage/BasePage";
 import { Animated, Typography } from "@peersyst/react-components";
 import { ArrowIcon } from "icons";
 import { useLogin } from "module/auth/query/useLogin";
 import Button from "module/common/component/input/Button/Button";
 import { useAuth } from "module/auth/hook/useAuth";
+import { useTranslation } from "react-i18next";
 
 export default function DashboardPage(): JSX.Element {
     const login = useLogin();
+    const { t: translate } = useTranslation();
     const {
         state: { token, isLogged },
         logout,
