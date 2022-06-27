@@ -1,4 +1,6 @@
 import { createTheme } from "@peersyst/react-components";
-import { translate } from "locale";
+import { TFunction } from "react-i18next";
 
-export const theme = createTheme({ translate: translate });
+export const createDefaultTheme = (translate: TFunction<"translation", undefined>) => {
+    return createTheme({ translate });
+};
