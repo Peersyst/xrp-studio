@@ -6,7 +6,7 @@ import { useTranslation } from "react-i18next";
 
 const QueryClientProvider: FC = ({ children }): JSX.Element => {
     const { showToast } = useToast();
-    const { t } = useTranslation();
+    const { t } = useTranslation("error");
     const queryClient = useRef(
         new QueryClient({
             defaultOptions: {
