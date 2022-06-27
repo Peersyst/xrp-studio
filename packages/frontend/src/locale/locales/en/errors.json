@@ -1,5 +1,6 @@
 {
     "somethingWentWrong": "Something went wrong",
+    "500": "$t(somethingWentWrong)",
     "401":"Your session has expired",
     "403": "Invalid credentials",
     "invalid_not_null": "This field is required",

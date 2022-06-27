@@ -1,5 +1,8 @@
 {
     "somethingWentWrong": "Algo ha ido mal",
+    "500": "$t(somethingWentWrong)",
+    "401":"Tu sesión ha expirado",
+    "403": "Credenciales incorrectas",
     "sessionExpired": "Tu sesión ha expirado",
     "invalid_not_null": "El campo es requerido",
     "invalid_number": "Debes introducir un número",
