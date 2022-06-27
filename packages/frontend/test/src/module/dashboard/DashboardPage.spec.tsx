@@ -1,6 +1,5 @@
 import { screen, waitFor } from "@testing-library/react";
 import DashboardPage from "module/dashboard/DashboardPage";
-import { translate } from "locale";
 import { FailApiCall, render, SuccessApiCall } from "test-utils";
 import * as Login from "module/auth/utils/loginCall";
 import * as Recoil from "recoil";
@@ -14,7 +13,7 @@ describe("Login integration tests", () => {
 
     test("Renders the page", () => {
         render(<DashboardPage />);
-        screen.getByRole("heading", { name: translate("name") });
+        screen.getByRole("heading", { name: "Charlie" });
         expect(screen.getByRole("button", { name: "Log in" }));
         expect(screen.getByTestId("ArrowIcon"));
     });

@@ -11,8 +11,9 @@
         "generate:icons": "node ./src/script/iconGenerator.js ./src/asset/icon/ ./src/module/common/icons/ && prettier --write ./src/module/common/icons/",
         "generate:images": "node ./src/script/imagesGenerator.js ./src/asset/image/ && prettier --write ./src/asset/image/",
         "generate:openapi": "openapi -i ../backend/openapi-spec.json -o src/module/api/service --exportSchemas=true --useUnionTypes",
-        "test": "jest --coverage",
-        "test:unit": "jest --coverage"
+        "pretest": "cp -r ./src/locale/locales/* ./test/__mocks__/locales",
+        "test": "yarn pretest && jest --coverage",
+        "test:unit": "yarn pretest && jest --coverage"
     },
     "dependencies": {
         "@craco/craco": "^6.1.2",

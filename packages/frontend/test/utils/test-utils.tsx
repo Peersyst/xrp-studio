@@ -8,6 +8,8 @@ import { RecoilRoot } from "recoil";
 import { renderHook, RenderHookOptions, RenderHookResult } from "@testing-library/react-hooks";
 import { InitialEntry } from "history";
 import { deepmerge } from "@peersyst/react-utils";
+import { I18nextProvider } from "react-i18next";
+import i18n from "../__mocks__/i18nMock";
 
 export interface CreateWrapperConfig {
     queryClientConfig?: QueryClientConfig;
@@ -40,7 +42,9 @@ export const createWrapper = ({ queryClientConfig }: CreateWrapperConfig = {}): 
                 <QueryClientProvider client={queryClient}>
                     <StylesProvider>
                         <ToastProvider>
-                            <ModalProvider>{children}</ModalProvider>
+                            <ModalProvider>
+                                <I18nextProvider i18n={i18n}>{children}</I18nextProvider>
+                            </ModalProvider>
                         </ToastProvider>
                     </StylesProvider>
                 </QueryClientProvider>

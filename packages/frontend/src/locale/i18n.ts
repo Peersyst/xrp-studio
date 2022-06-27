@@ -24,3 +24,5 @@ i18next
             lookupLocalStorage: process.env.REACT_APP_NAME + "-peersyst-locale",
         },
     });
+
+export default i18next;
