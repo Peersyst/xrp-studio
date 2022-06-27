@@ -1,9 +1,8 @@
 import i18next from "i18next";
 import { initReactI18next } from "react-i18next";
 import LanguageDetector from "i18next-browser-languagedetector";
-import en from "./locales/en.json";
-import es from "./locales/es.json";
-
+import { en } from "./locales/en/en";
+import { es } from "./locales/es/es";
 i18next
     .use(initReactI18next)
     .use(LanguageDetector)
@@ -11,12 +10,8 @@ i18next
         fallbackLng: "en",
         debug: true,
         resources: {
-            en: {
-                translation: en,
-            },
-            es: {
-                translation: es,
-            },
+            en,
+            es,
         },
         detection: {
             lookupLocalStorage: process.env.REACT_APP_NAME + "-peersyst-locale",

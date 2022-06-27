@@ -1,16 +1,12 @@
 import { ApiError } from "module/api/service";
-import { translate } from "locale";
-import en from "../locale/locales/en.json";
+import { TFunction } from "react-i18next";
 
 export interface HandleApiErrorMessageResult {
     message: string;
     type: "error" | "warning";
 }
 
-export function handleErrorMessage(error: ApiError | any): HandleApiErrorMessageResult {
-    const code = error.body?.statusCode || error.status;
-    const message = error.body?.message || error.statusText;
-    if (!code || code === 500) return { message: translate("somethingWentWrong"), type: "error" };
-    else if (code === 401) return { message: translate("sessionExpired"), type: "warning" };
-    else return { message: translate(message in en ? error.body.message : "somethingWentWrong"), type: "error" };
+export function handleErrorMessage(error: ApiError | any, translate: TFunction<"translation", undefined>): HandleApiErrorMessageResult {
+    const code: number = error.body?.statusCode || error.status || error.code || 500;
+    return { message: translate([code.toString(), "somethingWentWrong"], { ns: "error" }), type: "error" };
 }

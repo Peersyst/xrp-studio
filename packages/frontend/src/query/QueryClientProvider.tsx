@@ -2,10 +2,11 @@ import { FC, useRef } from "react";
 import { QueryCache, QueryClient, QueryClientProvider as BaseQueryClientProvider } from "react-query";
 import { useToast } from "@peersyst/react-components";
 import { handleErrorMessage } from "./handleErrorMessage";
+import { useTranslation } from "react-i18next";
 
 const QueryClientProvider: FC = ({ children }): JSX.Element => {
     const { showToast } = useToast();
-
+    const { t } = useTranslation();
     const queryClient = useRef(
         new QueryClient({
             defaultOptions: {
@@ -16,14 +17,14 @@ const QueryClientProvider: FC = ({ children }): JSX.Element => {
                 },
                 mutations: {
                     onError: (error) => {
-                        const { message, type } = handleErrorMessage(error);
+                        const { message, type } = handleErrorMessage(error, t);
                         showToast(message, { type });
                     },
                 },
             },
             queryCache: new QueryCache({
                 onError: (error) => {
-                    const { message, type } = handleErrorMessage(error);
+                    const { message, type } = handleErrorMessage(error, t);
                     showToast(message, { type });
                 },
             }),
