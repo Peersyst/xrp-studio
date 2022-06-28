@@ -1,8 +1,10 @@
 {
     "somethingWentWrong": "Something went wrong",
+    "sessionExpired": "Your session has expired",
+    "invalidCredentials": "Invalid credentials",
     "500": "$t(somethingWentWrong)",
-    "401": "Your session has expired",
-    "403": "Invalid credentials",
+    "401": "$t(sessionExpired)",
+    "403": "$t(invalidCredentials)",
     "invalid_not_null": "This field is required",
     "invalid_number": "Value must be a number",
     "invalid_email": "Invalid email",

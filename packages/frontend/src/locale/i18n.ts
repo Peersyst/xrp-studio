@@ -5,6 +5,7 @@ import { en } from "./locales/en/en";
 import { es } from "./locales/es/es";
 
 export const defaultNS = "translation";
+
 export const resources = {
     en,
     es,
