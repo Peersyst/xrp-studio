@@ -1,0 +1,13 @@
+server {
+  listen       80;
+  <% if ENV['LISTEN_IPV6'] && ENV['LISTEN_IPV6'].downcase == 'true' %>
+  listen       [::]:80;
+  <% end %>
+  server_name  <%= domain.name %>;
+
+  <%= acme_challenge_location %>
+
+  <% if ENV['CUSTOM_NGINX_SERVER_CONFIG_BLOCK'] %>
+    <%= ENV['CUSTOM_NGINX_SERVER_CONFIG_BLOCK'] %>
+  <% end %>
+}

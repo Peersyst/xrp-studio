@@ -1,0 +1,45 @@
+version: '3.5'
+services:
+    db:
+        image: mysql:5.7
+        container_name: $PROJECT_NAME-prod-db
+        tty: true
+        restart: always
+        environment:
+            MYSQL_USER: $DB_USER
+            MYSQL_DATABASE: $DB_DATABASE
+            MYSQL_PASSWORD: $DB_PASSWORD
+            MYSQL_ROOT_PASSWORD: $DB_PASSWORD
+        volumes:
+            - ../data/mysql:/var/lib/mysql/
+
+    backend:
+        build:
+            context: ../../packages/backend/
+            dockerfile: Dockerfile
+        container_name: $PROJECT_NAME-prod-backend
+        restart: always
+        env_file:
+            - ../../packages/backend/.env
+
+    http:
+        image: steveltn/https-portal:1
+        container_name: $PROJECT_NAME-prod-http
+        ports:
+            - '80:80'
+            - '443:443'
+        restart: always
+        environment:
+            CLIENT_MAX_BODY_SIZE: "20M"
+            ACCESS_LOG: default
+            DOMAINS: $DOMAIN
+            STAGE: 'staging' # Don't use production until staging works
+            CUSTOM_NGINX_SERVER_CONFIG_BLOCK: |
+                location /api/ {
+                    proxy_pass http://backend:$BACKEND_PORT;
+                }
+        volumes:
+            - ../data/http:/var/lib/https-portal
+            - ./http/nginx-default.conf.erb:/var/lib/nginx-conf/default.conf.erb
+            - ../../packages/frontend/build/:/var/www/vhosts/$DOMAIN/
+            - ../../logs/http:/var/log/nginx/
