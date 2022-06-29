@@ -16,13 +16,13 @@ i18next
     .use(LanguageDetector)
     .init({
         fallbackLng: "en",
-        debug: true,
+        debug: process.env.NODE_ENV === "development",
         interpolation: {
             escapeValue: false, // not needed for react as it escapes by default
         },
         resources,
         detection: {
-            lookupLocalStorage: process.env.REACT_APP_NAME + "-peersyst-locale",
+            lookupLocalStorage: process.env.REACT_APP_NAME + "-locale",
         },
     });
 

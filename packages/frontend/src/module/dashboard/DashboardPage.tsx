@@ -4,11 +4,11 @@ import { ArrowIcon } from "icons";
 import { useLogin } from "module/auth/query/useLogin";
 import Button from "module/common/component/input/Button/Button";
 import { useAuth } from "module/auth/hook/useAuth";
-import { useTranslation } from "react-i18next";
+import useTranslate from "module/common/hook/useTranslate";
 
 export default function DashboardPage(): JSX.Element {
     const login = useLogin();
-    const { t: translate } = useTranslation();
+    const translate = useTranslate();
     const {
         state: { token, isLogged },
         logout,

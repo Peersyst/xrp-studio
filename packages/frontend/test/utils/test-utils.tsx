@@ -9,7 +9,7 @@ import { renderHook, RenderHookOptions, RenderHookResult } from "@testing-librar
 import { InitialEntry } from "history";
 import { deepmerge } from "@peersyst/react-utils";
 import { I18nextProvider } from "react-i18next";
-import i18n from "../__mocks__/i18nMock";
+import i18n from "../../src/locale/i18n";
 
 export interface CreateWrapperConfig {
     queryClientConfig?: QueryClientConfig;
@@ -79,8 +79,11 @@ const customRenderHook = <TProps, TResult>(
     { queryClientConfig, ...rest }: Omit<RenderHookOptions<TProps>, "wrapper"> & CreateWrapperConfig = {},
 ): RenderHookResult<TProps, TResult> => renderHook<TProps, TResult>(callback, { wrapper: createWrapper({ queryClientConfig }), ...rest });
 
+const translate = i18n.t;
+
 export * from "@testing-library/react";
 export { customRender as render };
 export * from "./fail-api-call";
 export * from "./success-api-call";
 export { customRenderHook as renderHook };
+export { translate };
