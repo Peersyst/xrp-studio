@@ -1,10 +1,14 @@
 import { ConfigProvider as GenesysConfigProvider } from "@peersyst/react-components";
-import { FC } from "react";
+import { ReactNode } from "react";
 import config from "./config";
 import { GlobalStyles } from "./theme/GlobalStyles";
 import useTranslate from "module/common/hook/useTranslate";
 
-const ConfigProvider: FC = ({ children }) => {
+export interface ConfigProviderProps {
+    children?: ReactNode;
+}
+
+const ConfigProvider = ({ children }: ConfigProviderProps): JSX.Element => {
     const translate = useTranslate();
 
     return (

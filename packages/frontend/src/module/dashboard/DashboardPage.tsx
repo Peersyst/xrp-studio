@@ -39,7 +39,7 @@ export default function DashboardPage(): JSX.Element {
             >
                 {!isLogged ? (login.isLoading ? "Loading..." : "Log in") : "Log out"}
             </Button>
-            {login.error && (
+            {login.isError && (
                 <Typography
                     variant="body1"
                     css={`

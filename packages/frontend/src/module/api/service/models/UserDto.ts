@@ -6,4 +6,5 @@ export type UserDto = {
     id: number;
     email: string;
     type: 'admin' | 'user';
-}
+};
+
