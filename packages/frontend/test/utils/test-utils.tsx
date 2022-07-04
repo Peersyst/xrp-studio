@@ -2,7 +2,6 @@ import { FC, PropsWithChildren, ReactElement } from "react";
 import { render, RenderOptions, RenderResult } from "@testing-library/react";
 import { MemoryRouter, Route, Routes } from "react-router-dom";
 import { QueryClient, QueryClientProvider, QueryClientConfig, QueryCache } from "react-query";
-import StylesProvider from "module/common/style";
 import { ModalProvider, ToastProvider } from "@peersyst/react-components";
 import { RecoilRoot } from "recoil";
 import { renderHook, RenderHookOptions, RenderHookResult } from "@testing-library/react-hooks";
@@ -10,6 +9,7 @@ import { InitialEntry } from "history";
 import { deepmerge } from "@peersyst/react-utils";
 import { I18nextProvider } from "react-i18next";
 import i18n from "../../src/locale/i18n";
+import ConfigProvider from "config/ConfigProvider";
 
 export interface CreateWrapperConfig {
     queryClientConfig?: QueryClientConfig;
@@ -38,17 +38,17 @@ export const createWrapper = ({ queryClientConfig }: CreateWrapperConfig = {}): 
 
     return function Wrapper({ children }: PropsWithChildren<unknown>): JSX.Element {
         return (
-            <RecoilRoot>
-                <QueryClientProvider client={queryClient}>
-                    <StylesProvider>
-                        <ToastProvider>
-                            <ModalProvider>
-                                <I18nextProvider i18n={i18n}>{children}</I18nextProvider>
-                            </ModalProvider>
-                        </ToastProvider>
-                    </StylesProvider>
-                </QueryClientProvider>
-            </RecoilRoot>
+            <I18nextProvider i18n={i18n}>
+                <ConfigProvider>
+                    <RecoilRoot>
+                        <QueryClientProvider client={queryClient}>
+                            <ToastProvider>
+                                <ModalProvider>{children}</ModalProvider>
+                            </ToastProvider>
+                        </QueryClientProvider>
+                    </RecoilRoot>
+                </ConfigProvider>
+            </I18nextProvider>
         );
     };
 };

@@ -3,6 +3,8 @@
         "baseUrl": "./src",
         "paths": {
             "locale": ["locale"],
+            "locale/*": ["locale/*"],
+            "config/*": ["config/*"],
             "asset": ["asset"],
             "images": ["asset/image"],
             "icons": ["module/common/icons"],

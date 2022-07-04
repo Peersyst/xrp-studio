@@ -2044,15 +2044,27 @@
     "@nodelib/fs.scandir" "2.1.5"
     fastq "^1.6.0"
 
-"@peersyst/react-components@^2.11.4":
-  version "2.11.4"
-  resolved "https://registry.yarnpkg.com/@peersyst/react-components/-/react-components-2.11.4.tgz#04e2ae01afa9b3f7fd7dddbeae90aa2de7276054"
-  integrity sha512-ECiXicPETuH8R3DaaJTsIpH0LZrJBM7uS3/oIUUmg2FN4f6n6n6bAzI95DNwspAQkpMGzCNkVAL3ml+rWc1Hug==
+"@peersyst/react-components-core@^0.0.7":
+  version "0.0.7"
+  resolved "https://registry.yarnpkg.com/@peersyst/react-components-core/-/react-components-core-0.0.7.tgz#3e72b0c0e7640440c53707ce775ac844734d3e89"
+  integrity sha512-fRZ10Aco8dg7gcRjK5te+35PSidn2xnRE+rIy6xJQmkHP3AndjFjlGqskYIKgYc7sxl+ObTg/OqNWHyXfeWTFA==
   dependencies:
     "@babel/runtime" "^7.16.7"
-    "@peersyst/react-hooks" "^1.1.5"
-    "@peersyst/react-types" "^1.2.0"
-    "@peersyst/react-utils" "^1.3.2"
+    "@peersyst/react-hooks" "^1.2.5"
+    "@peersyst/react-types" "^1.3.3"
+    "@peersyst/react-utils" "^1.4.7"
+
+"@peersyst/react-components@^2.19.4":
+  version "2.19.4"
+  resolved "https://registry.yarnpkg.com/@peersyst/react-components/-/react-components-2.19.4.tgz#f695be995f141128a3b11d43c5b1c5d83b6306a2"
+  integrity sha512-bF9WoyGFvOmnmjBY4j4h5/8nHH0Bgb4A2z7drGiXpaT0y4cOSzkBW1nBU9+CBCbDI8SocKf/0mNU2VF0JcAOPA==
+  dependencies:
+    "@babel/runtime" "^7.16.7"
+    "@peersyst/react-components-core" "^0.0.7"
+    "@peersyst/react-hooks" "^1.2.5"
+    "@peersyst/react-types" "^1.3.3"
+    "@peersyst/react-utils" "^1.4.7"
+    "@popperjs/core" "^2.11.5"
     highcharts "^9.3.2"
     highcharts-react-official "^3.1.0"
     react-click-away-listener "^2.0.5"
@@ -2060,31 +2072,26 @@
     react-player "^2.9.0"
     react-transition-group "^4.4.2"
 
-"@peersyst/react-hooks@^1.1.5", "@peersyst/react-hooks@^1.2.0":
-  version "1.2.0"
-  resolved "https://registry.yarnpkg.com/@peersyst/react-hooks/-/react-hooks-1.2.0.tgz#39d8bf051fdd55c9cc4ad993dc84a7ac72a0ec76"
-  integrity sha512-RXDjOGIZ1G325jG0c0bdYStBdCDvZHimPRexZNhUaXmE/PhqjCr16Pffi7xU7KNpbM5FxMXksw3voBudpbyBvw==
+"@peersyst/react-hooks@^1.2.5":
+  version "1.2.5"
+  resolved "https://registry.yarnpkg.com/@peersyst/react-hooks/-/react-hooks-1.2.5.tgz#db8929e82061ecfaa736a6f932e6c90729a736cc"
+  integrity sha512-mJxtiQQyw6LV8L92MWBiZGpYANTkfxlDHyBcJbRkuR4sh6/mKhMpXMXaziN5t44Rftfu1O6BpXnSIreXcp3v9g==
   dependencies:
     "@babel/runtime" "^7.16.7"
-    "@peersyst/react-utils" "^1.2.0"
+    "@peersyst/react-utils" "^1.4.7"
 
-"@peersyst/react-types@^1.0.0":
-  version "1.0.0"
-  resolved "https://registry.yarnpkg.com/@peersyst/react-types/-/react-types-1.0.0.tgz#42231dc6ce345138c3ebed6b235a7222f6b0f9e7"
-  integrity sha512-kp/i2iCYP1WVbupIAySR+qUKlF3nHlsQum8h3fMINSM258a7LTf0XBOro+OutHUJggOTscm8dLpcCTjXPf0T4Q==
+"@peersyst/react-types@^1.3.3":
+  version "1.3.3"
+  resolved "https://registry.yarnpkg.com/@peersyst/react-types/-/react-types-1.3.3.tgz#badb4a1b3b3baec8d1dae3ba5464c9e73593bdbe"
+  integrity sha512-HJgzBb3rERtRb5faJSpVyFxJK74Z7TLFmYSzq9ca+JgEhFhcXretAGHd8QP/QFvUc2IMbFksRU+N6kX+p8X80A==
 
-"@peersyst/react-types@^1.2.0":
-  version "1.2.0"
-  resolved "https://registry.yarnpkg.com/@peersyst/react-types/-/react-types-1.2.0.tgz#7a97b61b8093ce7369cf969a9f2cd725b7c49252"
-  integrity sha512-p6zapXl2iikJUcy3LWJdAt5Hu5HBkCmlNKB3FIvQOtcebDGEF7VSxmTk6MdfU97vLm5gdP1SrwzuNVFw6aJJ8A==
-
-"@peersyst/react-utils@^1.2.0", "@peersyst/react-utils@^1.3.2":
-  version "1.3.2"
-  resolved "https://registry.yarnpkg.com/@peersyst/react-utils/-/react-utils-1.3.2.tgz#abc8263b8d0fff016dcefb4a990131b7d0386f8d"
-  integrity sha512-p/XM+oZhCRtNahbZ5IjSuG1fhXyAMtD39YJkH0plfEdsPnFCsnbfdTZbfy5nnPzuuGQch0u0j+wg5AD1t75laA==
+"@peersyst/react-utils@^1.4.7":
+  version "1.4.7"
+  resolved "https://registry.yarnpkg.com/@peersyst/react-utils/-/react-utils-1.4.7.tgz#0f7ba3d0fe3bdf7a9c127cb95ecb697c7defb441"
+  integrity sha512-VA1M9UvJzSHb0zOXDm3xnHvwMo3rq+Rui7xvafzP+WwFrBHUjqsLyVsW1m07KxDpi8YGWhvRrqF9/5aQRx/Hpg==
   dependencies:
     "@babel/runtime" "^7.16.7"
-    "@peersyst/react-types" "^1.0.0"
+    "@peersyst/react-types" "^1.3.3"
 
 "@pmmmwh/react-refresh-webpack-plugin@^0.3.2":
   version "0.3.3"
@@ -2112,6 +2119,11 @@
     loader-utils "^2.0.0"
     schema-utils "^3.0.0"
     source-map "^0.7.3"
+
+"@popperjs/core@^2.11.5":
+  version "2.11.5"
+  resolved "https://registry.yarnpkg.com/@popperjs/core/-/core-2.11.5.tgz#db5a11bf66bdab39569719555b0f76e138d7bd64"
+  integrity sha512-9X2obfABZuDVLCgPK9aX0a/x4jaOEweTTWE2+9sr0Qqqevj2Uv5XorvusThmc9XGYpS9yI+fhh8RTafBtGposw==
 
 "@rollup/plugin-babel@^5.2.0":
   version "5.3.0"

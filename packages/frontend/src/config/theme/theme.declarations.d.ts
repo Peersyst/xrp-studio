@@ -9,7 +9,7 @@ declare module "@peersyst/react-components" {}
 
 // Type styled components theme with our components theme
 declare module "styled-components" {
-    export type DefaultTheme = Theme;
+    export interface DefaultTheme extends Theme {}
 }
 
 // Use css prop in components
