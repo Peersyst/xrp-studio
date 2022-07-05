@@ -1,16 +1,17 @@
 version: '3.5'
 services:
     db:
-        image: mysql:5.7
+        image: postgres:14.2
         container_name: $PROJECT_NAME-e2e-db
         tty: true
+        ports:
+            - '${DB_PORT}:5432'
         environment:
-            MYSQL_USER: $DB_USER
-            MYSQL_DATABASE: $DB_DATABASE
-            MYSQL_PASSWORD: $DB_PASSWORD
-            MYSQL_ROOT_PASSWORD: $DB_PASSWORD
+            POSTGRES_DB: $DB_DATABASE
+            POSTGRES_USER: $DB_USER
+            POSTGRES_PASSWORD: $DB_PASSWORD
         volumes:
-            - ../data/mysql:/var/lib/mysql/
+            - ./docker/data/e2e/postgres:/var/lib/postgresql
 
     backend:
         build:

@@ -2,7 +2,7 @@
     "name": "base-project",
     "private": true,
     "scripts": {
-        "start": "yarn docker:start && lerna run start --stream",
+        "start": "yarn docker:start:dev && lerna run start --stream",
         "bootstrap": "lerna bootstrap",
         "build": "lerna run build --stream",
         "clean": "lerna clean",
