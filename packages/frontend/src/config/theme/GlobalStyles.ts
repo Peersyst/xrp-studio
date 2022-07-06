@@ -31,7 +31,7 @@ export const GlobalStyles = createGlobalStyle<{ theme: Theme }>`
 
   html {
     color: #121212;
-    font-family: sans-serif;
+    font-family: Ripple, Inter, sans-serif;
     font-size: clamp(14px, 1.5vw, 16px);
   }
 
