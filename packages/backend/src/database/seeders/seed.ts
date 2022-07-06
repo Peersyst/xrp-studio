@@ -65,10 +65,10 @@ export class Seeder {
 
     async insertAll(): Promise<void> {
         await this.adapter.insert(User, users(this.environment));
-        await this.adapter.insert(Collection, collections(this.environment) as any);
-        await this.adapter.insert(Nft, nfts(this.environment) as any);
-        await this.adapter.insert(NftMetadata, nftMetadata(this.environment) as any);
-        await this.adapter.insert(NftMetadataAttribute, nftMetadataAttributes(this.environment) as any);
+        await this.adapter.insert(Collection, collections(this.environment) as Collection[]);
+        await this.adapter.insert(Nft, nfts(this.environment) as Nft[]);
+        await this.adapter.insert(NftMetadata, nftMetadata(this.environment) as NftMetadata[]);
+        await this.adapter.insert(NftMetadataAttribute, nftMetadataAttributes(this.environment) as NftMetadataAttribute[]);
     }
 }
 
