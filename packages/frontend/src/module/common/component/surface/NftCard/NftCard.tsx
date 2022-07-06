@@ -1,16 +1,16 @@
 import { withSkeleton } from "@peersyst/react-components";
 import { NftCardProps } from "module/common/component/surface/NftCard/NftCard.types";
-import { NftCardFooter, NftCardRoot } from "module/common/component/surface/NftCard/NftCard.styles";
+import { NftCardFooter, NftCardRoot, NftCardBackground } from "module/common/component/surface/NftCard/NftCard.styles";
 import NftCardCollection from "./NftCardCollection";
 import NftCardPrice from "./NftCardPrice";
 import NftCardTitle from "./NftCardTitle";
-import NftCardImage from "module/common/component/surface/NftCard/NftCardImage";
+import { Children } from "react";
 
-const NftCard = ({ id, title, collection, price, image, backgroundColor, ...rest }: NftCardProps): JSX.Element => {
+const NftCard = ({ id, title, collection, price, background, backgroundColor, ...rest }: NftCardProps): JSX.Element => {
     return (
         <NftCardRoot {...rest}>
             <>
-                <NftCardImage image={image} />
+                <NftCardBackground>{Children.only(background)}</NftCardBackground>
                 <NftCardFooter>
                     <NftCardTitle title={title} />
                     <NftCardPrice price={price} />
