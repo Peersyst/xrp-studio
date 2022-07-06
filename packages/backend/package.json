@@ -71,7 +71,6 @@
         "express-openapi-validator": "^4.12.12",
         "helmet": "^4.4.0",
         "morgan": "^1.10.0",
-        "mysql2": "2.2.5",
         "nest-winston": "^1.5.0",
         "nestjs-command": "^3.0.2",
         "object-mapper": "^6.2.0",
