@@ -5,6 +5,7 @@ import { useDashboardRoutes } from "module/dashboard/DashboardRouter";
 import { Suspense } from "react";
 import { BrowserRouter, useRoutes } from "react-router-dom";
 import Footer from "module/common/component/navigation/Footer/Footer";
+import { config } from "config";
 
 const Routes = () => {
     const dashboardRoutes = useDashboardRoutes();
@@ -13,7 +14,7 @@ const Routes = () => {
 };
 
 const Router = (): JSX.Element => (
-    <BrowserRouter basename={process.env.PUBLIC_URL}>
+    <BrowserRouter basename={config.publicUrl}>
         <ModalProvider>
             <ScrollToTop />
             <Suspense fallback={<div>Loading</div>}>

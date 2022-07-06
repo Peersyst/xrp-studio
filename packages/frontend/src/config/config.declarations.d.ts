@@ -5,4 +5,14 @@ declare module "@peersyst/react-components" {
     export interface ConfigTypes {
         TranslateFn: TFunction<"translation">;
     }
+
+    export interface Config {
+        publicUrl: string;
+        backendUrl: string;
+    }
+
+    export interface CreateConfig {
+        publicUrl: string;
+        backendUrl: string;
+    }
 }

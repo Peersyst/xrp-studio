@@ -9,7 +9,7 @@ import { InitialEntry } from "history";
 import { deepmerge } from "@peersyst/react-utils";
 import { I18nextProvider } from "react-i18next";
 import i18n from "../../src/locale/i18n";
-import ConfigProvider from "config/ConfigProvider";
+import { ConfigProvider } from "config";
 
 export interface CreateWrapperConfig {
     queryClientConfig?: QueryClientConfig;

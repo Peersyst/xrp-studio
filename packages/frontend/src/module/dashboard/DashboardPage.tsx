@@ -5,6 +5,7 @@ import { useLogin } from "module/auth/query/useLogin";
 import Button from "module/common/component/input/Button/Button";
 import { useAuth } from "module/auth/hook/useAuth";
 import useTranslate from "module/common/hook/useTranslate";
+import { config } from "config";
 
 export default function DashboardPage(): JSX.Element {
     const login = useLogin();
@@ -26,7 +27,7 @@ export default function DashboardPage(): JSX.Element {
                     <Typography variant="subtitle1">{translate("name")}</Typography>
                     <Typography variant="body1">logged: {token || ""}</Typography>
                     <Typography variant="body2" fontWeight="bold">
-                        {process.env.REACT_APP_NAME}
+                        {config.projectName}
                     </Typography>
                 </div>
             </Animated.Slide>

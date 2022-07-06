@@ -3,6 +3,7 @@ import { initReactI18next } from "react-i18next";
 import LanguageDetector from "i18next-browser-languagedetector";
 import { en } from "./locales/en/en";
 import { es } from "./locales/es/es";
+import { config } from "config";
 
 export const defaultNS = "translation";
 
@@ -22,7 +23,7 @@ i18next
         },
         resources,
         detection: {
-            lookupLocalStorage: process.env.REACT_APP_NAME + "-locale",
+            lookupLocalStorage: config.projectName + "-locale",
         },
     });
 
