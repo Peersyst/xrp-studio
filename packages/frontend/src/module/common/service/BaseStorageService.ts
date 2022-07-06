@@ -1,8 +1,10 @@
+import { config } from "config";
+
 export abstract class BaseStorageService<T> {
     protected readonly STORAGE_KEY: string;
 
     protected constructor(key: string) {
-        this.STORAGE_KEY = (process.env.REACT_APP_NAME ? process.env.REACT_APP_NAME + "-" : "") + key;
+        this.STORAGE_KEY = config.projectName + "-" + key;
     }
 
     set(value: T): void {

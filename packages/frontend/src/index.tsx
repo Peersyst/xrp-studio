@@ -1,11 +1,9 @@
 import { StrictMode } from "react";
 import ReactDOM from "react-dom";
-import { loadLocalization } from "locale";
 import Providers from "./Providers";
 import Router from "./Router";
 import "module/api/OpenApiConfig";
-
-loadLocalization();
+import "./locale/i18n";
 
 ReactDOM.render(
     <StrictMode>
