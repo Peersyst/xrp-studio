@@ -6,8 +6,8 @@ export const BaseCardRoot = styled(Paper).attrs({ elevation: 0 })`
     isolation: isolate;
     display: flex;
     flex-direction: column;
-    width: 264px;
-    height: 384px;
+    width: 16.5rem;
+    height: 23.34rem;
     cursor: pointer;
     user-select: none;
     overflow: hidden;

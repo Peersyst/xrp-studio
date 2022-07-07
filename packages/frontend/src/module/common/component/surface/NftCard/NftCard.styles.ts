@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { Col, Typography } from "@peersyst/react-components";
+import { BackgroundImage, Col, Typography } from "@peersyst/react-components";
 
 export const NftCardTitleTypography = styled(Typography).attrs({
     variant: "subtitle1",
@@ -33,7 +33,16 @@ export const NftCardCollectionTypography = styled(Typography).attrs({
 `;
 
 export const NftCardFooter = styled(Col).attrs({})`
-    margin-top: 264px;
+    margin-top: 16.5rem;
+    height: 6.75rem;
+    position: absolute;
+`;
+
+export const NftBackgroundImg = styled(BackgroundImage)`
+    left: 0;
+    top: 0;
+    background-size: 100%;
+    background-position: 30% 0%;
     position: absolute;
 `;
 
@@ -47,21 +56,22 @@ export const NftCardBackground = styled.div`
 `;
 
 export const NftTitleSlot = styled.div`
-    height: 26px;
-    margin-top: 24px;
+    height: 1.63rem;
+    margin-top: 1.5rem;
     margin-bottom: 8px;
 `;
 
 export const NftPriceSlot = styled.div`
-    height: 20px;
+    height: 1.25rem;
     margin-bottom: 8px;
 `;
 
 export const NftCollectionSlot = styled.div`
-    height: 32px;
+    height: 2rem;
     display: flex;
     justify-content: center;
     align-items: center;
+    text-align: center;
     color: #aeb3b7;
     background: #21272c;
     border-radius: 6px;
