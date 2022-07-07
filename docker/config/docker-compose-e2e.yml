@@ -11,7 +11,7 @@ services:
             POSTGRES_USER: $DB_USER
             POSTGRES_PASSWORD: $DB_PASSWORD
         volumes:
-            - ./docker/data/e2e/postgres:/var/lib/postgresql
+            - ./docker/data/e2e/postgres:/var/lib/postgresql/data
 
     backend:
         build:
