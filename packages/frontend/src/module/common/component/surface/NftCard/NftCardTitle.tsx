@@ -1,12 +1,12 @@
 import { NftCardProps } from "./NftCard.types";
-import { NftCardTitleTypography, NftCardSlot } from "module/common/component/surface/NftCard/NftCard.styles";
+import { NftCardTitleTypography, NftTitleSlot } from "module/common/component/surface/NftCard/NftCard.styles";
 
 export type NftTitleProps = Pick<NftCardProps, "title">;
 
 const NftCardTitle = ({ title }: NftTitleProps): JSX.Element => (
-    <NftCardSlot>
+    <NftTitleSlot>
         <NftCardTitleTypography>{title}</NftCardTitleTypography>
-    </NftCardSlot>
+    </NftTitleSlot>
 );
 
 export default NftCardTitle;

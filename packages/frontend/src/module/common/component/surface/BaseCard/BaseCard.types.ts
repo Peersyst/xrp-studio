@@ -8,7 +8,7 @@ export interface BaseCardProps {
     price?: number;
     title?: string;
     collection?: string;
-    background?: ReactNode;
+    children?: ReactNode;
     loading?: boolean;
     className?: string;
     style?: CSSProperties;
