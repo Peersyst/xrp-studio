@@ -7,6 +7,7 @@ import { utilities as nestWinstonModuleUtilities, WinstonModule } from "nest-win
 import * as winston from "winston";
 import { AppModule } from "./app.module";
 import * as packageJson from "../package.json";
+import registerBullBoard from "./register-bull-board";
 
 async function bootstrap() {
     const app = await NestFactory.create(AppModule);
@@ -47,6 +48,10 @@ async function bootstrap() {
 
     if (configService.get("server.enableSwagger")) {
         SwaggerModule.setup("swagger", app, document);
+    }
+
+    if (configService.get("server.enableBullBoard")) {
+        registerBullBoard(app, configService.get("server.basePath"));
     }
 
     await app.listen(serverPort);
