@@ -7,7 +7,6 @@ import "@testing-library/jest-dom";
 // matchmedia mock
 import { LightMatchMediaMock } from "./__mocks__/MatchMediaMock";
 import { IntersectionObserverMock } from "./__mocks__/IntersectionObserverMock";
-import { loadLocalization } from "locale";
 
 jest.mock("@peersyst/react-components", () => ({
     __esModule: true,
@@ -25,8 +24,6 @@ Object.defineProperty(window, "matchMedia", {
 });
 
 window.IntersectionObserver = jest.fn().mockImplementation(IntersectionObserverMock);
-
-loadLocalization();
 
 // Turn off network queries error logging
 /* eslint-disable no-console  */

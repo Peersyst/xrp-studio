@@ -1,5 +1,5 @@
 import { lazy } from "react";
-import { Route } from "react-router-dom";
+import { RouteObject } from "react-router-dom";
 
 export enum DashboardRoutes {
     MAIN = "/",
@@ -7,8 +7,11 @@ export enum DashboardRoutes {
 
 const DashboardPage = lazy(() => import("./DashboardPage"));
 
-export const DashboardRouter = (
-    <>
-        <Route path={DashboardRoutes.MAIN} element={<DashboardPage />} />
-    </>
-);
+export const useDashboardRoutes = (): RouteObject[] => {
+    return [
+        {
+            path: DashboardRoutes.MAIN,
+            element: <DashboardPage />,
+        },
+    ];
+};

@@ -1,57 +1,28 @@
-import { hashSync } from "bcrypt";
-
-import { User, UserType } from "../../entities/User";
-
-const devUsers = [
+export const devUsers = [
     {
-        id: 1,
-        email: "acarrera@peersyst.com",
-        type: UserType.ADMIN,
-        password: hashSync("123qweQWE!", 10),
+        address: "rsgi7ENscrVaXC44JE2m94XzKQrmAVX2gV",
+        name: "acarrera",
+        image: "https://avatars.githubusercontent.com/u/23333654?v=4",
         createdAt: new Date(),
         updatedAt: new Date(),
     },
     {
-        id: 2,
-        email: "scanal@peersyst.com",
-        type: UserType.ADMIN,
-        password: hashSync("123qweQWE!", 10),
+        address: "rhqTdSsJAaEReRsR27YzddqyGoWTNMhEvC",
+        name: "amillan",
+        image: "https://avatars.githubusercontent.com/u/74896585?v=4",
         createdAt: new Date(),
         updatedAt: new Date(),
     },
     {
-        id: 3,
-        email: "jgrau@peersyst.com",
-        type: UserType.USER,
-        password: hashSync("123qweQWE!", 10),
+        address: "rnoYZB3d7vQ5BH95tLJhbMuD9jR1p7ZZCc",
+        name: "jparra",
+        image: "https://avatars.githubusercontent.com/u/52425638?v=4",
         createdAt: new Date(),
         updatedAt: new Date(),
     },
 ];
 
-const prodUsers = [
-    {
-        id: 1,
-        email: "acarrera@peersyst.com",
-        type: UserType.ADMIN,
-        password: hashSync("123qweQWE!", 10),
-        createdAt: new Date(),
-        updatedAt: new Date(),
-    },
-    {
-        id: 2,
-        email: "scanal@peersyst.com",
-        type: UserType.ADMIN,
-        password: hashSync("123qweQWE!", 10),
-        createdAt: new Date(),
-        updatedAt: new Date(),
-    },
-];
-
-export default function getByEnv(env: string): User[] {
-    if (env === "production") {
-        return prodUsers;
-    }
+export default function getByEnv(env: string) {
     if (env === "development") {
         return devUsers;
     }

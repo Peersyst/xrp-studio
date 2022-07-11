@@ -14,7 +14,7 @@ export function getTypeORMConfig(): ConnectionOptions {
         username: process.env.DB_USER,
         password: process.env.DB_PASSWORD,
         database: process.env.DB_DATABASE,
-        type: "mysql",
+        type: "postgres",
         synchronize: false,
         migrationsRun: true,
         entities: [__dirname + "/../database/entities/*{.ts,.js}"],

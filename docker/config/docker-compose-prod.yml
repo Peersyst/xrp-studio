@@ -1,17 +1,18 @@
 version: '3.5'
 services:
     db:
-        image: mysql:5.7
+        image: postgres:14.2
         container_name: $PROJECT_NAME-prod-db
         tty: true
         restart: always
+        ports:
+            - '${DB_PORT}:5432'
         environment:
-            MYSQL_USER: $DB_USER
-            MYSQL_DATABASE: $DB_DATABASE
-            MYSQL_PASSWORD: $DB_PASSWORD
-            MYSQL_ROOT_PASSWORD: $DB_PASSWORD
+            POSTGRES_DB: $DB_DATABASE
+            POSTGRES_USER: $DB_USER
+            POSTGRES_PASSWORD: $DB_PASSWORD
         volumes:
-            - ../data/mysql:/var/lib/mysql/
+            - ./docker/data/prod/postgres:/var/lib/postgresql/data
 
     backend:
         build:
@@ -21,25 +22,35 @@ services:
         restart: always
         env_file:
             - ../../packages/backend/.env
+        volumes:
+            - ../../logs/backend:/app/logs/
 
     http:
-        image: steveltn/https-portal:1
+        build:
+            context: ../../packages/frontend/
+            dockerfile: Dockerfile
+            args:
+                NODE_ENV: "production"
         container_name: $PROJECT_NAME-prod-http
+        restart: always
         ports:
             - '80:80'
-            - '443:443'
+        environment:
+            BACKEND_UPSTREAM: "server backend:$BACKEND_PORT;"
+        volumes:
+            - ../../logs/http:/var/log/nginx/
+
+    backups:
+        image: peersyst/global:docker-backups-latest
         restart: always
         environment:
-            CLIENT_MAX_BODY_SIZE: "20M"
-            ACCESS_LOG: default
-            DOMAINS: $DOMAIN
-            STAGE: 'staging' # Don't use production until staging works
-            CUSTOM_NGINX_SERVER_CONFIG_BLOCK: |
-                location /api/ {
-                    proxy_pass http://backend:$BACKEND_PORT;
-                }
-        volumes:
-            - ../data/http:/var/lib/https-portal
-            - ./http/nginx-default.conf.erb:/var/lib/nginx-conf/default.conf.erb
-            - ../../packages/frontend/build/:/var/www/vhosts/$DOMAIN/
-            - ../../logs/http:/var/log/nginx/
+            PSQL_HOST: db
+            PSQL_PORT: $DB_PORT
+            PSQL_USER: $DB_USER
+            PSQL_PASSWORD: $DB_PASSWORD
+            PSQL_DATABASE: $DB_DATABASE
+            INTERVAL_IN_HOURS: 24
+            AWS_CLIENT_ID: $AWS_CLIENT_ID
+            AWS_CLIENT_SECRET: $AWS_CLIENT_SECRET
+            AWS_S3: $AWS_S3
+            SLACK_WEBHOOK: $SLACK_WEBHOOK
