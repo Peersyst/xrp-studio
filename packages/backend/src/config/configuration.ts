@@ -28,4 +28,8 @@ export default (): any => ({
         node: process.env.XRP_NODE,
         startingLedgerIndex: parseInt(process.env.STARTING_LEDGER_INDEX),
     },
+    xumm: {
+        appKey: process.env.XUMM_API_KEY,
+        appSecret: process.env.XUMM_SECRET_KEY,
+    },
 });

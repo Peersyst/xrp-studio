@@ -12,7 +12,10 @@
         "outDir": "./dist",
         "baseUrl": "./",
         "incremental": true,
-        "skipLibCheck": true
+        "skipLibCheck": true,
+        "paths": {
+            "xumm-module": ["src/modules/xumm/xumm-shared-module"]
+        }
     },
     "include": ["src/**/*", "test/**/*.spec.ts"]
 }

@@ -40,6 +40,12 @@ import { BlockchainModule } from "./modules/blockchain/blockchain.module";
         }),
         CommandModule,
         UserModule,
+        /*XummModule.registerAsync({
+            inject: [ConfigService, UserService],
+            imports: [UserModule],
+            useFactory: (config: ConfigService) => ({ jwt: { secret: config.get("server.secretKey") } }),
+            useAuthImplementation: XummAuthService,
+        }),*/
         BlockchainModule,
         BullModule.forRootAsync({
             inject: [ConfigService],

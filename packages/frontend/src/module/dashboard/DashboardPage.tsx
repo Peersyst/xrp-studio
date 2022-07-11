@@ -6,14 +6,19 @@ import Button from "module/common/component/input/Button/Button";
 import { useAuth } from "module/auth/hook/useAuth";
 import useTranslate from "module/common/hook/useTranslate";
 import { config } from "config";
+import { useSignIn } from "xumm-react";
 
 export default function DashboardPage(): JSX.Element {
     const login = useLogin();
     const translate = useTranslate();
     const {
-        state: { token, isLogged },
-        logout,
+        state: { token },
     } = useAuth();
+
+    const { signIn, isLoading, isError, signInData: { xummPayload } = {}, verifySignInData } = useSignIn();
+    const qr = xummPayload?.refs?.qr_png;
+
+    if (verifySignInData) console.log(verifySignInData);
 
     return (
         <BasePage>
@@ -32,14 +37,13 @@ export default function DashboardPage(): JSX.Element {
                 </div>
             </Animated.Slide>
             <ArrowIcon />
-            <Button
-                onClick={() => (!isLogged ? login.mutate({ username: "Charlie", password: "Test1234" }) : logout())}
-                css={`
-                    margin-top: 20px;
-                `}
-            >
-                {!isLogged ? (login.isLoading ? "Loading..." : "Log in") : "Log out"}
-            </Button>
+            {!isError && qr ? (
+                <img src={qr} css={{ width: 200, height: 200 }} alt="xumm-qr" />
+            ) : (
+                <Button onClick={signIn} loading={isLoading}>
+                    {"Sign in"}
+                </Button>
+            )}
             {login.isError && (
                 <Typography
                     variant="body1"
