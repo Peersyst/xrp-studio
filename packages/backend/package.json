@@ -41,7 +41,8 @@
             "!./src/modules/auth/strategies/**/*.ts",
             "!./src/modules/auth/auth.decorator.ts",
             "!./src/modules/common/exception/**/*.ts",
-            "!./src/modules/**/*.module.ts"
+            "!./src/modules/**/*.module.ts",
+            "!./src/modules/xumm/xumm-shared-module/**/*"
         ],
         "coverageDirectory": "./coverage",
         "testEnvironment": "node",
