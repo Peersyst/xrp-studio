@@ -1,7 +1,7 @@
 import { MigrationInterface, QueryRunner } from "typeorm";
 
-export class init1657038515982 implements MigrationInterface {
-    name = "init1657038515982";
+export class init1657640621696 implements MigrationInterface {
+    name = "init1657640621696";
 
     public async up(queryRunner: QueryRunner): Promise<void> {
         await queryRunner.query(
@@ -18,10 +18,13 @@ export class init1657038515982 implements MigrationInterface {
             `CREATE TABLE "user" ("address" character varying(255) NOT NULL, "name" character varying(255), "description" text, "image" text, "header" text, "twitter" character varying(255), "discord" character varying(255), "created_at" TIMESTAMP NOT NULL DEFAULT now(), "updated_at" TIMESTAMP NOT NULL DEFAULT now(), CONSTRAINT "UQ_065d4d8f3b5adb4a08841eae3c8" UNIQUE ("name"), CONSTRAINT "UQ_65e08bdc736432de44501924f3a" UNIQUE ("description"), CONSTRAINT "PK_3122b4b8709577da50e89b68983" PRIMARY KEY ("address"))`,
         );
         await queryRunner.query(
-            `CREATE TABLE "collection" ("id" SERIAL NOT NULL, "taxon" integer NOT NULL, "name" character varying(255), "description" text, "image" text, "header" text, "created_at" TIMESTAMP NOT NULL DEFAULT now(), "updated_at" TIMESTAMP NOT NULL DEFAULT now(), "account" character varying(255), CONSTRAINT "UQ_60381174c9122afd459eb265c68" UNIQUE ("taxon", "account"), CONSTRAINT "PK_ad3f485bbc99d875491f44d7c85" PRIMARY KEY ("id"))`,
+            `CREATE TABLE "collection" ("id" SERIAL NOT NULL, "taxon" bigint NOT NULL, "name" character varying(255), "description" text, "image" text, "header" text, "created_at" TIMESTAMP NOT NULL DEFAULT now(), "updated_at" TIMESTAMP NOT NULL DEFAULT now(), "account" character varying(255), CONSTRAINT "UQ_60381174c9122afd459eb265c68" UNIQUE ("taxon", "account"), CONSTRAINT "PK_ad3f485bbc99d875491f44d7c85" PRIMARY KEY ("id"))`,
         );
         await queryRunner.query(
             `CREATE TABLE "last_indexed_ledger" ("id" integer NOT NULL DEFAULT '1', "index" integer NOT NULL, CONSTRAINT "CHK_e3236bd8ac28b934604ba95490" CHECK ("id" = 1), CONSTRAINT "PK_b3b4f91ce6242a2026fe8d5997e" PRIMARY KEY ("id"))`,
+        );
+        await queryRunner.query(
+            `CREATE TABLE "xumm" ("id" SERIAL NOT NULL, "user_token" character varying(255) NOT NULL, "address" character varying(255) NOT NULL, "payload" character varying(255), "created_at" TIMESTAMP NOT NULL DEFAULT now(), "updated_at" TIMESTAMP NOT NULL DEFAULT now(), CONSTRAINT "PK_e872cf9e62b1d867e4df5786819" PRIMARY KEY ("id"))`,
         );
         await queryRunner.query(
             `ALTER TABLE "nft_metadata" ADD CONSTRAINT "FK_dbd59046d98b206d31803a83289" FOREIGN KEY ("nft_id") REFERENCES "nft"("id") ON DELETE NO ACTION ON UPDATE NO ACTION`,
@@ -42,6 +45,7 @@ export class init1657038515982 implements MigrationInterface {
         await queryRunner.query(`ALTER TABLE "nft" DROP CONSTRAINT "FK_ffe58aa05707db77c2f20ecdbc3"`);
         await queryRunner.query(`ALTER TABLE "nft" DROP CONSTRAINT "FK_a185d922933cab5a4854db8931a"`);
         await queryRunner.query(`ALTER TABLE "nft_metadata" DROP CONSTRAINT "FK_dbd59046d98b206d31803a83289"`);
+        await queryRunner.query(`DROP TABLE "xumm"`);
         await queryRunner.query(`DROP TABLE "last_indexed_ledger"`);
         await queryRunner.query(`DROP TABLE "collection"`);
         await queryRunner.query(`DROP TABLE "user"`);

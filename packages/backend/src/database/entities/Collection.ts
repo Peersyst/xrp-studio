@@ -18,8 +18,8 @@ export class Collection {
     @PrimaryGeneratedColumn()
     id: number;
 
-    @Column()
-    taxon: number;
+    @Column({ type: "bigint" })
+    taxon: string;
 
     @Column({ type: "varchar", length: 255, nullable: true })
     name?: string;

@@ -13,6 +13,7 @@ import { BullModule } from "@nestjs/bull";
 import { BlockchainModule } from "./modules/blockchain/blockchain.module";
 import { XummModule } from "xumm-module";
 import { XummAuthService } from "./modules/xumm/xumm-auth.service";
+import { NftModule } from "./modules/nft/nft.module";
 
 @Module({
     imports: [
@@ -45,6 +46,7 @@ import { XummAuthService } from "./modules/xumm/xumm-auth.service";
         // TODO: Add registerAsync and inject UserService and config
         XummModule.register(ConfigModule, ConfigService, {}, XummAuthService),
         BlockchainModule,
+        NftModule,
         BullModule.forRootAsync({
             inject: [ConfigService],
             useFactory: (config: ConfigService) => ({

@@ -36,16 +36,16 @@ export class Nft {
     @Column({ type: "enum", enum: NftStatus, default: NftStatus.DRAFT })
     status: NftStatus;
 
-    @ManyToOne(() => User, (user) => user.nfts)
+    @ManyToOne(() => User, (user) => user.nfts, { cascade: ["insert"] })
     @JoinColumn({ name: "account" })
     user: User;
 
-    @ManyToOne(() => Collection, (collection) => collection.nfts, { nullable: true })
+    @ManyToOne(() => Collection, (collection) => collection.nfts, { nullable: true, cascade: ["insert"] })
     @JoinColumn({ name: "collection_id" })
     collection?: Collection;
 
     @OneToOne(() => NftMetadata, (metadata) => metadata.nft)
-    metadata: NftMetadata;
+    metadata?: NftMetadata;
 
     @CreateDateColumn({ name: "created_at", type: "timestamp" })
     createdAt: Date;

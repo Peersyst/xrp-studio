@@ -25,10 +25,10 @@ export class User {
     @Column({ type: "varchar", length: 255, nullable: true })
     discord?: string;
 
-    @OneToMany(() => Nft, (nft) => nft.user, { cascade: ["insert"] })
+    @OneToMany(() => Nft, (nft) => nft.user)
     nfts?: Nft[];
 
-    @OneToMany(() => Collection, (collection) => collection.user, { cascade: ["insert"] })
+    @OneToMany(() => Collection, (collection) => collection.user)
     collections?: Collection[];
 
     @CreateDateColumn({ name: "created_at", type: "timestamp" })
