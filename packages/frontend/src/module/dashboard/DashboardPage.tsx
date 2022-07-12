@@ -15,10 +15,8 @@ export default function DashboardPage(): JSX.Element {
         state: { token },
     } = useAuth();
 
-    const { signIn, isLoading, isError, signInData: { xummPayload } = {}, verifySignInData } = useSignIn();
+    const { signIn, isLoading, isError, signInData: { xummPayload } = {} } = useSignIn();
     const qr = xummPayload?.refs?.qr_png;
-
-    if (verifySignInData) console.log(verifySignInData);
 
     return (
         <BasePage>
