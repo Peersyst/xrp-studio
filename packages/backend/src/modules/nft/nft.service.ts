@@ -4,7 +4,7 @@ import { Nft, NftStatus } from "../../database/entities/Nft";
 import { ValidatedLedgerTransaction } from "../blockchain/types";
 import { NFTokenMint } from "xrpl/dist/npm/models/transactions/NFTokenMint";
 import { Repository } from "typeorm";
-import { convertHexToString, decodeAccountID, encodeAccountID } from "xrpl";
+import { convertHexToString, decodeAccountID } from "xrpl";
 import { User } from "../../database/entities/User";
 import { Collection } from "../../database/entities/Collection";
 
@@ -43,7 +43,9 @@ export class NftService {
         const tokenSequence = (lastTokenSequence + 1).toString(16).toUpperCase().padStart(8, "0");
         const flags = Flags?.toString(16).toUpperCase().padStart(4, "0") || "0000";
         const transferFee = TransferFee?.toString(16).toUpperCase().padStart(4, "0") || "0000";
-        const issuer = Issuer?.toUpperCase() || decodeAccountID(Account).toString("hex").toUpperCase();
+        const issuer = decodeAccountID(Issuer || Account)
+            .toString("hex")
+            .toUpperCase();
         const taxon = NFTokenTaxon?.toString(16).toUpperCase().padStart(8, "0") || "00000000";
         const tokenId = flags + transferFee + issuer + taxon + tokenSequence;
 
@@ -63,7 +65,7 @@ export class NftService {
         const nft = new Nft();
         nft.tokenId = tokenId;
         nft.mintTransactionHash = hash;
-        if (Issuer) nft.issuer = encodeAccountID(Buffer.from(Issuer, "hex"));
+        if (Issuer) nft.issuer = Issuer;
         nft.transferFee = TransferFee;
         nft.flags = (Flags as number) || 0;
         nft.uri = convertHexToString(URI);

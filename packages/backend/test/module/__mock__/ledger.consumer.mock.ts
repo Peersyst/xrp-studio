@@ -1,4 +1,5 @@
-export default {
-    add: jest.fn(),
-    empty: jest.fn(),
-};
+import ConsumerMock from "./consumer.mock";
+
+class LedgerConsumerMock extends ConsumerMock {}
+
+export default LedgerConsumerMock;

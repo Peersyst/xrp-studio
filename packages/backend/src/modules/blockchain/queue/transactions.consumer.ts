@@ -44,13 +44,13 @@ export class TransactionsConsumer {
             this.logger.log(`INDEXED NFT ${nft.tokenId}`);
         } catch (e) {
             const nftError = e as { error: any; nft: Nft };
-            if ("nft" in e) {
+            if (e.nft) {
                 this.logger.error(`FAILED TO INDEX NFT FROM MINT TRANSACTION ${transaction.hash}.
 Error: ${nftError.error}
 Resulting NFT: ${JSON.stringify(nftError.nft)}`);
             } else {
                 this.logger.error(`FAILED TO INDEX NFT FROM MINT TRANSACTION ${transaction.hash}.
-Error: ${nftError.error}`);
+Error: ${e}`);
             }
         }
     }
