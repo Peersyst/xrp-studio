@@ -41,7 +41,7 @@ export class NftService {
         // Build new nft's tokenId
         const lastTokenSequence = Number("0x" + (lastNft?.token_id || "0"));
         const tokenSequence = (lastTokenSequence + 1).toString(16).toUpperCase().padStart(8, "0");
-        const flags = Flags?.toString(16).toUpperCase().padStart(4, "0") || "0000";
+        const flags = Flags?.toString(16).padStart(8, "0").substring(4).toUpperCase() || "0000";
         const transferFee = TransferFee?.toString(16).toUpperCase().padStart(4, "0") || "0000";
         const issuer = decodeAccountID(Issuer || Account)
             .toString("hex")
@@ -67,7 +67,7 @@ export class NftService {
         nft.mintTransactionHash = hash;
         if (Issuer) nft.issuer = Issuer;
         nft.transferFee = TransferFee;
-        nft.flags = (Flags as number) || 0;
+        nft.flags = Number("0x" + flags);
         nft.uri = convertHexToString(URI);
         nft.status = NftStatus.CONFIRMED;
         nft.user = user;
