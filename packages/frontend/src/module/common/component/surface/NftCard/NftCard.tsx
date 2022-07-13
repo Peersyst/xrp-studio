@@ -6,10 +6,10 @@ import NftCardTitle from "module/common/component/surface/NftCard/NftCardTitle";
 import NftCardPrice from "module/common/component/surface/NftCard/NftCardPrice";
 import NftCardCollection from "module/common/component/surface/NftCard/NftCardCollection";
 
-const NftCard = ({ title, collection, price, background }: NftCardProps): JSX.Element => {
+const NftCard = ({ title, collection, price, cover }: NftCardProps): JSX.Element => {
     return (
         <>
-            <NftCardBackground>{Children.only(background)}</NftCardBackground>
+            <NftCardBackground>{Children.only(cover)}</NftCardBackground>
             <NftCardFooter>
                 <NftCardTitle title={title} />
                 <NftCardPrice price={price} />

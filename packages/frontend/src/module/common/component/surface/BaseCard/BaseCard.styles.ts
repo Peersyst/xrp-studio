@@ -12,5 +12,4 @@ export const BaseCardRoot = styled(Paper).attrs({ elevation: 0 })`
     user-select: none;
     overflow: hidden;
     transition: outline 200ms;
-    outline: 1px solid #1b1b1b;
 `;

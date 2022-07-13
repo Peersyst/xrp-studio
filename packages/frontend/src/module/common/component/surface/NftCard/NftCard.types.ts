@@ -1,11 +1,10 @@
 import { CSSProperties, ReactNode } from "react";
 
 export interface NftCardProps {
-    id: number;
     title: string;
     price: number;
     collection?: string;
-    background?: ReactNode;
+    cover?: ReactNode;
     className?: string;
     style?: CSSProperties;
 }
