@@ -14,6 +14,7 @@ import { BlockchainModule } from "./modules/blockchain/blockchain.module";
 import { XummModule } from "xumm-module";
 import { XummAuthService } from "./modules/xumm/xumm-auth.service";
 import { NftModule } from "./modules/nft/nft.module";
+import { CollectionModule } from "./modules/collection/collection.module";
 
 @Module({
     imports: [
@@ -47,6 +48,7 @@ import { NftModule } from "./modules/nft/nft.module";
         XummModule.register(ConfigModule, ConfigService, {}, XummAuthService),
         BlockchainModule,
         NftModule,
+        CollectionModule,
         BullModule.forRootAsync({
             inject: [ConfigService],
             useFactory: (config: ConfigService) => ({

@@ -17,7 +17,7 @@ class NFTokenMintTransactionMock extends BaseTransactionMock {
         this.NFTokenTaxon = NFTokenTaxon;
         this.Issuer = Issuer;
         this.TransferFee = TransferFee;
-        this.URI = URI || "596F75206D757374206265207265616C6C7920626F72656420746F206465636F64652074686973203A29";
+        this.URI = URI;
         this.Flags = Flags;
     }
 }

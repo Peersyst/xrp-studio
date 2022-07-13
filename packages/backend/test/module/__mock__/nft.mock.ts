@@ -22,7 +22,7 @@ class NftMock extends Nft {
         this.issuer = issuer;
         this.transferFee = transferFee;
         this.flags = flags || 0;
-        this.uri = uri || "596F75206D757374206265207265616C6C7920626F72656420746F206465636F64652074686973203A29";
+        this.uri = uri;
         this.status = status || NftStatus.CONFIRMED;
         const defaultUser = new User();
         defaultUser.address = "rNCFjv8Ek5oDrNiMJ3pw6eLLFtMjZLJnf2";

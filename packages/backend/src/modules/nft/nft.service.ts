@@ -1,4 +1,4 @@
-import { Injectable } from "@nestjs/common";
+import { Inject, Injectable } from "@nestjs/common";
 import { InjectRepository } from "@nestjs/typeorm";
 import { Nft, NftStatus } from "../../database/entities/Nft";
 import { ValidatedLedgerTransaction } from "../blockchain/types";
@@ -7,10 +7,14 @@ import { Repository } from "typeorm";
 import { convertHexToString, decodeAccountID } from "xrpl";
 import { User } from "../../database/entities/User";
 import { Collection } from "../../database/entities/Collection";
+import { CollectionService } from "../collection/collection.service";
 
 @Injectable()
 export class NftService {
-    constructor(@InjectRepository(Nft) private readonly nftRepository: Repository<Nft>) {}
+    constructor(
+        @InjectRepository(Nft) private readonly nftRepository: Repository<Nft>,
+        @Inject(CollectionService) private readonly collectionService: CollectionService,
+    ) {}
 
     /**
      * Creates an Nft entity from a given NFTokenMint transaction
@@ -53,12 +57,15 @@ export class NftService {
         const user = new User();
         user.address = Account;
 
-        // Create collection if there is an NFTokenTaxon
+        // Create collection if there is an NFTokenTaxon. Cannot use cascade as we are inserting a collection without primary key
         let collection: Collection;
         if (NFTokenTaxon) {
-            collection = new Collection();
-            collection.taxon = NFTokenTaxon.toString();
-            collection.user = user;
+            collection = await this.collectionService.findCollectionByTaxonAndAccount(NFTokenTaxon.toString(), Account);
+            if (!collection) {
+                collection = new Collection();
+                collection.taxon = NFTokenTaxon.toString();
+                collection.user = user;
+            }
         }
 
         // Create the new Nft entity
