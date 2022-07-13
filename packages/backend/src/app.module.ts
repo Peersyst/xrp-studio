@@ -9,6 +9,8 @@ import { APP_FILTER } from "@nestjs/core";
 import { CommandModule } from "nestjs-command";
 import { TypeORMSeederAdapter } from "./database/seeders/adapter";
 import { ErrorFilter } from "./modules/common/exception/error.filter";
+import { BullModule } from "@nestjs/bull";
+import { BlockchainModule } from "./modules/blockchain/blockchain.module";
 
 @Module({
     imports: [
@@ -38,10 +40,23 @@ import { ErrorFilter } from "./modules/common/exception/error.filter";
         }),
         CommandModule,
         UserModule,
-        /*AuthModule.register(UserModule, ConfigModule, ConfigService, {
-            googleAuth: false,
-            twitterAuth: false,
-        }),*/
+        BlockchainModule,
+        BullModule.forRootAsync({
+            inject: [ConfigService],
+            useFactory: (config: ConfigService) => ({
+                redis: {
+                    host: config.get("redis.host"),
+                    port: config.get("redis.port"),
+                    password: config.get("redis.password"),
+                },
+                defaultJobOptions: {
+                    removeOnComplete: {
+                        age: config.get("bull.age"),
+                        count: config.get("bull.count"),
+                    },
+                },
+            }),
+        }),
     ],
     providers: [TypeORMSeederAdapter, { provide: APP_FILTER, useClass: ErrorFilter }],
 })

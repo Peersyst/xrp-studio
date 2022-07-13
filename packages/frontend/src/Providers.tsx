@@ -1,21 +1,21 @@
 import { Fragment, PropsWithChildren } from "react";
 import { RecoilRoot } from "recoil";
-import StylesProvider from "module/common/style";
 import { ToastProvider } from "@peersyst/react-components";
 import QueryClientProvider from "./query/QueryClientProvider";
+import { ConfigProvider } from "config";
 
 const Providers = ({ children }: PropsWithChildren<unknown>): JSX.Element => (
     <Fragment>
-        <RecoilRoot>
-            <StylesProvider>
+        <ConfigProvider>
+            <RecoilRoot>
                 <ToastProvider>
                     <QueryClientProvider>
                         {children}
                         {/*{process.env.NODE_ENV === 'development' && <ReactQueryDevtools initialIsOpen={false} />}*/}
                     </QueryClientProvider>
                 </ToastProvider>
-            </StylesProvider>
-        </RecoilRoot>
+            </RecoilRoot>
+        </ConfigProvider>
     </Fragment>
 );
 
