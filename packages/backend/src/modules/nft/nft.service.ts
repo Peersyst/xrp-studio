@@ -68,7 +68,7 @@ export class NftService {
         if (Issuer) nft.issuer = Issuer;
         nft.transferFee = TransferFee;
         nft.flags = Number("0x" + flags);
-        nft.uri = convertHexToString(URI);
+        nft.uri = URI ? convertHexToString(URI) : undefined;
         nft.status = NftStatus.CONFIRMED;
         nft.user = user;
         nft.collection = collection;
