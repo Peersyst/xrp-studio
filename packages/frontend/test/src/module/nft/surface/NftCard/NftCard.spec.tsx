@@ -24,7 +24,7 @@ describe("NftCard tests", () => {
 
     test("Renders correctly on loading", () => {
         render(
-            <BaseCard id={1} type={"nft"} loading={false}>
+            <BaseCard id={1} type={"nft"} loading={true}>
                 <NftCard
                     title={"Contemporany Bird Fifteen"}
                     price={1000}
