@@ -15,7 +15,7 @@ export class NftMetadataAttribute {
     @Column({ name: "display_type", type: "varchar", length: 255, nullable: true })
     displayType?: string;
 
-    @ManyToOne(() => NftMetadata, (metadata) => metadata.attributes, { cascade: true })
+    @ManyToOne(() => NftMetadata, (metadata) => metadata.attributes)
     @JoinColumn({ name: "nft_metadata_id" })
     metadata: NftMetadata;
 
@@ -24,4 +24,12 @@ export class NftMetadataAttribute {
 
     @UpdateDateColumn({ name: "updated_at", type: "timestamp" })
     updatedAt: Date;
+
+    constructor({ nftMetadataId, traitType, value, displayType, metadata }: Partial<NftMetadataAttribute> = {}) {
+        this.nftMetadataId = nftMetadataId;
+        this.traitType = traitType;
+        this.value = value;
+        this.displayType = displayType;
+        this.metadata = metadata;
+    }
 }

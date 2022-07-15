@@ -1,7 +1,7 @@
 import { MigrationInterface, QueryRunner } from "typeorm";
 
-export class init1657640621696 implements MigrationInterface {
-    name = "init1657640621696";
+export class init1657783307912 implements MigrationInterface {
+    name = "init1657783307912";
 
     public async up(queryRunner: QueryRunner): Promise<void> {
         await queryRunner.query(
@@ -12,7 +12,7 @@ export class init1657640621696 implements MigrationInterface {
         );
         await queryRunner.query(`CREATE TYPE "public"."nft_status_enum" AS ENUM('draft', 'pending', 'confirmed', 'failed')`);
         await queryRunner.query(
-            `CREATE TABLE "nft" ("id" SERIAL NOT NULL, "token_id" character varying(255), "mint_transaction_hash" character varying(255), "issuer" character varying(255), "transfer_fee" integer, "flags" integer NOT NULL, "uri" text, "status" "public"."nft_status_enum" NOT NULL DEFAULT 'draft', "created_at" TIMESTAMP NOT NULL DEFAULT now(), "updated_at" TIMESTAMP NOT NULL DEFAULT now(), "account" character varying(255), "collection_id" integer, CONSTRAINT "UQ_7e215df412b248db3731737290e" UNIQUE ("token_id"), CONSTRAINT "UQ_ca0320847607f5411fa21fc43f8" UNIQUE ("mint_transaction_hash"), CONSTRAINT "PK_8f46897c58e23b0e7bf6c8e56b0" PRIMARY KEY ("id"))`,
+            `CREATE TABLE "nft" ("id" SERIAL NOT NULL, "token_id" character varying(255), "mint_transaction_hash" character varying(255), "issuer" character varying(255), "transfer_fee" integer, "flags" integer NOT NULL, "uri" character varying(255), "status" "public"."nft_status_enum" NOT NULL DEFAULT 'draft', "created_at" TIMESTAMP NOT NULL DEFAULT now(), "updated_at" TIMESTAMP NOT NULL DEFAULT now(), "account" character varying(255), "collection_id" integer, CONSTRAINT "UQ_7e215df412b248db3731737290e" UNIQUE ("token_id"), CONSTRAINT "UQ_ca0320847607f5411fa21fc43f8" UNIQUE ("mint_transaction_hash"), CONSTRAINT "PK_8f46897c58e23b0e7bf6c8e56b0" PRIMARY KEY ("id"))`,
         );
         await queryRunner.query(
             `CREATE TABLE "user" ("address" character varying(255) NOT NULL, "name" character varying(255), "description" text, "image" text, "header" text, "twitter" character varying(255), "discord" character varying(255), "created_at" TIMESTAMP NOT NULL DEFAULT now(), "updated_at" TIMESTAMP NOT NULL DEFAULT now(), CONSTRAINT "UQ_065d4d8f3b5adb4a08841eae3c8" UNIQUE ("name"), CONSTRAINT "UQ_65e08bdc736432de44501924f3a" UNIQUE ("description"), CONSTRAINT "PK_3122b4b8709577da50e89b68983" PRIMARY KEY ("address"))`,

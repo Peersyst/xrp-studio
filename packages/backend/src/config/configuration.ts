@@ -32,4 +32,9 @@ export default (): any => ({
         appKey: process.env.XUMM_API_KEY,
         appSecret: process.env.XUMM_SECRET_KEY,
     },
+    pinata: {
+        apiKey: process.env.PINATA_API_KEY,
+        secretKey: process.env.PINATA_API_SECRET,
+        gateway: process.env.PINATA_GATEWAY.endsWith("/") ? process.env.PINATA_GATEWAY : process.env.PINATA_GATEWAY + "/",
+    },
 });

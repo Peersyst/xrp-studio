@@ -30,7 +30,8 @@ export class Nft {
     @Column()
     flags: number;
 
-    @Column({ type: "text", nullable: true })
+    // Hexadecimal encoded uri
+    @Column({ type: "varchar", length: 255, nullable: true })
     uri?: string;
 
     @Column({ type: "enum", enum: NftStatus, default: NftStatus.DRAFT })
@@ -44,7 +45,7 @@ export class Nft {
     @JoinColumn({ name: "collection_id" })
     collection?: Collection;
 
-    @OneToOne(() => NftMetadata, (metadata) => metadata.nft)
+    @OneToOne(() => NftMetadata, (metadata) => metadata.nft, { cascade: true })
     metadata?: NftMetadata;
 
     @CreateDateColumn({ name: "created_at", type: "timestamp" })

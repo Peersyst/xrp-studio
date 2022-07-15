@@ -15,6 +15,7 @@ import { XummModule } from "xumm-module";
 import { XummAuthService } from "./modules/xumm/xumm-auth.service";
 import { NftModule } from "./modules/nft/nft.module";
 import { CollectionModule } from "./modules/collection/collection.module";
+import { IpfsModule } from "@peersyst/ipfs-module/src/ipfs.module";
 
 @Module({
     imports: [
@@ -64,6 +65,14 @@ import { CollectionModule } from "./modules/collection/collection.module";
                     },
                 },
             }),
+        }),
+        IpfsModule.registerAsync({
+            useFactory: (config: ConfigService) => ({
+                pinataApiKey: config.get("pinata.apiKey"),
+                pinataSecret: config.get("pinata.secretKey"),
+            }),
+            inject: [ConfigService],
+            imports: [ConfigModule],
         }),
     ],
     providers: [TypeORMSeederAdapter, { provide: APP_FILTER, useClass: ErrorFilter }],
