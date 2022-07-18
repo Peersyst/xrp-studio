@@ -114,10 +114,10 @@
         "supertest": "6.1.3",
         "ts-jest": "28.0.6",
         "ts-loader": "9.1.2",
-        "ts-node": "9.1.1",
+        "ts-node": "10.9.1",
         "tsconfig-paths": "3.9.0",
         "typeorm-model-generator": "^0.4.6",
-        "typescript": "^4.3.0"
+        "typescript": "^4.2.4"
     },
     "resolutions": {
         "@nestjs/jwt": "7.2.0"

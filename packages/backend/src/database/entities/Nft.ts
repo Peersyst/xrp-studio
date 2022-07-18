@@ -21,8 +21,8 @@ export class Nft {
     @Column({ name: "mint_transaction_hash", type: "varchar", length: "255", unique: true, nullable: true })
     mintTransactionHash?: string;
 
-    @Column({ type: "varchar", length: 255, nullable: true })
-    issuer?: string;
+    @Column({ type: "varchar", length: 255 })
+    issuer: string;
 
     @Column({ name: "transfer_fee", nullable: true })
     transferFee?: number;
