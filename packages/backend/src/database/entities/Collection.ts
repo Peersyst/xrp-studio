@@ -45,4 +45,15 @@ export class Collection {
 
     @UpdateDateColumn({ name: "updated_at", type: "timestamp" })
     updatedAt: Date;
+
+    constructor({ id, taxon, name, description, image, header, nfts, user }: Partial<Collection> = {}) {
+        this.id = id;
+        this.taxon = taxon;
+        this.name = name;
+        this.description = description;
+        this.image = image;
+        this.header = header;
+        this.nfts = nfts;
+        this.user = user;
+    }
 }
