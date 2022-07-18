@@ -4,7 +4,7 @@ import NftRepositoryMock from "../__mock__/nft.repository.mock";
 import { getRepositoryToken } from "@nestjs/typeorm";
 import { Nft, NftStatus } from "../../../src/database/entities/Nft";
 import NFTokenMintTransactionMock from "../__mock__/nftokenmint-transaction.mock";
-import { decodeAccountID } from "xrpl";
+import { decodeAccountID, parseNFTokenID } from "xrpl";
 import { CollectionService } from "../../../src/modules/collection/collection.service";
 import CollectionServiceMock from "../__mock__/collection.service.mock";
 import CollectionMock from "../__mock__/collection.mock";
@@ -15,6 +15,7 @@ import MetadataDtoMock from "../__mock__/metadata.dto.mock";
 import { NftMetadataAttribute } from "../../../src/database/entities/NftMetadataAttribute";
 import { NftMetadata } from "../../../src/database/entities/NftMetadata";
 import { MetadataDto } from "../../../src/modules/nft/dto/metadata.dto";
+import unscrambleTaxon from "../../../src/modules/nft/util/unscrambleTaxon";
 
 describe("NftService", () => {
     let nftService: NftService;
@@ -51,9 +52,13 @@ describe("NftService", () => {
             const nftMintTransaction = new NFTokenMintTransactionMock();
             const nft = await nftService.createNftFromMintTransaction(nftMintTransaction);
 
-            expect(nft.tokenId).toEqual(
-                "00000000" + decodeAccountID(nftMintTransaction.Account).toString("hex").toUpperCase() + "0000000000000002",
-            );
+            const nftokenId =
+                "00000000" +
+                decodeAccountID(nftMintTransaction.Account).toString("hex").toUpperCase() +
+                unscrambleTaxon(0, 2).toString(16).toUpperCase().padStart(8, "0") +
+                "00000002";
+
+            expect(nft.tokenId).toEqual(nftokenId);
             expect(nft.mintTransactionHash).toEqual(nftMintTransaction.hash);
             expect(nft.issuer).toEqual(nftMintTransaction.Account);
             expect(nft.transferFee).toBeUndefined();
@@ -62,6 +67,14 @@ describe("NftService", () => {
             expect(nft.status).toEqual(NftStatus.CONFIRMED);
             expect(nft.user.address).toEqual(nftMintTransaction.Account);
             expect(nft.collection).toBeUndefined();
+
+            //Token id is generated correctly
+            const parsedTokenId = parseNFTokenID(nftokenId);
+            expect(parsedTokenId.Flags).toEqual(0);
+            expect(parsedTokenId.Flags).toEqual(0);
+            expect(parsedTokenId.Issuer).toEqual(nftMintTransaction.Account);
+            expect(parsedTokenId.Taxon).toEqual(0);
+            expect(parsedTokenId.Sequence).toEqual(2);
 
             expect(metadataConsumerMock.add).not.toHaveBeenCalled();
         });
@@ -78,7 +91,10 @@ describe("NftService", () => {
             const nft = await nftService.createNftFromMintTransaction(nftMintTransaction);
 
             expect(nft.tokenId).toEqual(
-                "00010064" + decodeAccountID(nftMintTransaction.Issuer).toString("hex").toUpperCase() + "0000000200000002",
+                "00010064" +
+                    decodeAccountID(nftMintTransaction.Issuer).toString("hex").toUpperCase() +
+                    unscrambleTaxon(2, 2).toString(16).toUpperCase().padStart(8, "0") +
+                    "00000002",
             );
             expect(nft.mintTransactionHash).toEqual(nftMintTransaction.hash);
             expect(nft.issuer).toEqual(nftMintTransaction.Issuer);
@@ -97,7 +113,10 @@ describe("NftService", () => {
             const nft = await nftService.createNftFromMintTransaction(nftMintTransaction);
 
             expect(nft.tokenId).toEqual(
-                "00000000" + decodeAccountID(nftMintTransaction.Account).toString("hex").toUpperCase() + "0000000000000002",
+                "00000000" +
+                    decodeAccountID(nftMintTransaction.Account).toString("hex").toUpperCase() +
+                    unscrambleTaxon(0, 2).toString(16).toUpperCase().padStart(8, "0") +
+                    "00000002",
             );
             expect(nft.mintTransactionHash).toEqual(nftMintTransaction.hash);
             expect(nft.issuer).toEqual(nftMintTransaction.Account);
@@ -118,7 +137,10 @@ describe("NftService", () => {
             const nft = await nftService.createNftFromMintTransaction(nftMintTransaction);
 
             expect(nft.tokenId).toEqual(
-                "00000000" + decodeAccountID(nftMintTransaction.Account).toString("hex").toUpperCase() + "0000000300000002",
+                "00000000" +
+                    decodeAccountID(nftMintTransaction.Account).toString("hex").toUpperCase() +
+                    unscrambleTaxon(3, 2).toString(16).toUpperCase().padStart(8, "0") +
+                    "00000002",
             );
             expect(nft.mintTransactionHash).toEqual(nftMintTransaction.hash);
             expect(nft.status).toEqual(NftStatus.CONFIRMED);
@@ -132,7 +154,10 @@ describe("NftService", () => {
             const nft = await nftService.createNftFromMintTransaction(nftMintTransaction);
 
             expect(nft.tokenId).toEqual(
-                "00000000" + decodeAccountID(nftMintTransaction.Account).toString("hex").toUpperCase() + "0000000000000001",
+                "00000000" +
+                    decodeAccountID(nftMintTransaction.Account).toString("hex").toUpperCase() +
+                    unscrambleTaxon(0, 1).toString(16).toUpperCase().padStart(8, "0") +
+                    "00000001",
             );
         });
         test("An error is thrown with the intended nft", async () => {

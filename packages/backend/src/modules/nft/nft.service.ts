@@ -13,6 +13,7 @@ import { Queue } from "bull";
 import { MetadataDto } from "./dto/metadata.dto";
 import { NftMetadata } from "../../database/entities/NftMetadata";
 import { NftMetadataAttribute } from "../../database/entities/NftMetadataAttribute";
+import unscrambleTaxon from "./util/unscrambleTaxon";
 
 @Injectable()
 export class NftService {
@@ -51,18 +52,20 @@ export class NftService {
             .getRawOne<{ token_id: string }>();
         // Build new nft's tokenId
         const lastTokenSequence = Number("0x" + (lastNft?.token_id || "0"));
-        const tokenSequence = (lastTokenSequence + 1).toString(16).toUpperCase().padStart(8, "0");
+        const tokenSequence = lastTokenSequence + 1;
+        const tokenSequenceHex = tokenSequence.toString(16).toUpperCase().padStart(8, "0");
         const flags = Flags?.toString(16).padStart(8, "0").substring(4).toUpperCase() || "0000";
         const transferFee = TransferFee?.toString(16).toUpperCase().padStart(4, "0") || "0000";
         const issuer = decodeAccountID(issuerOrCreator).toString("hex").toUpperCase();
-        const taxon = NFTokenTaxon?.toString(16).toUpperCase().padStart(8, "0") || "00000000";
-        const tokenId = flags + transferFee + issuer + taxon + tokenSequence;
+        const scrambledTaxon = unscrambleTaxon(NFTokenTaxon, tokenSequence);
+        const scrambledTaxonHex = scrambledTaxon.toString(16).toUpperCase().padStart(8, "0");
+        const tokenId = flags + transferFee + issuer + scrambledTaxonHex + tokenSequenceHex;
 
         // Create Account user, this will create the entity if it does not exist, otherwise it will reference to the existing user
         const user = new User();
         user.address = Account;
 
-        // Create collection if there is an NFTokenTaxon. Cannot use cascade as we are inserting a collection without primary key
+        // Create collection if NFTokenTaxon > 0. Cannot use cascade as we are inserting a collection without primary key
         let collection: Collection;
         if (NFTokenTaxon) {
             collection = await this.collectionService.findCollectionByTaxonAndAccount(NFTokenTaxon.toString(), Account);

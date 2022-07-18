@@ -11,7 +11,7 @@ class NFTokenMintTransactionMock extends BaseTransactionMock {
     URI: string;
     Flags?: number | NFTokenMintFlagsInterface;
 
-    constructor({ NFTokenTaxon, Issuer, TransferFee, URI, Flags, ...rest }: NFTokenMintTransactionMockOptions = {}) {
+    constructor({ NFTokenTaxon = 0, Issuer, TransferFee, URI, Flags, ...rest }: NFTokenMintTransactionMockOptions = {}) {
         super(rest);
         this.TransactionType = "NFTokenMint";
         this.NFTokenTaxon = NFTokenTaxon;
