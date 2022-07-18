@@ -41,11 +41,12 @@ export class NftService {
         URI,
         hash,
     }: ValidatedLedgerTransaction<NFTokenMint>): Promise<Nft> {
-        // Get last nft tokenId from the Account user
+        const issuerOrCreator = Issuer || Account;
+        // Get last nft tokenId from the Issuer
         const lastNft = await this.nftRepository
             .createQueryBuilder("nft")
             .select("SUBSTRING(nft.token_id, 57, 64) as token_id")
-            .where("nft.account = :account", { account: Account })
+            .where("nft.issuer = :issuer", { issuer: issuerOrCreator })
             .orderBy("SUBSTRING(nft.token_id, 57, 64)::bytea", "DESC")
             .getRawOne<{ token_id: string }>();
         // Build new nft's tokenId
@@ -53,9 +54,7 @@ export class NftService {
         const tokenSequence = (lastTokenSequence + 1).toString(16).toUpperCase().padStart(8, "0");
         const flags = Flags?.toString(16).padStart(8, "0").substring(4).toUpperCase() || "0000";
         const transferFee = TransferFee?.toString(16).toUpperCase().padStart(4, "0") || "0000";
-        const issuer = decodeAccountID(Issuer || Account)
-            .toString("hex")
-            .toUpperCase();
+        const issuer = decodeAccountID(issuerOrCreator).toString("hex").toUpperCase();
         const taxon = NFTokenTaxon?.toString(16).toUpperCase().padStart(8, "0") || "00000000";
         const tokenId = flags + transferFee + issuer + taxon + tokenSequence;
 
@@ -78,7 +77,7 @@ export class NftService {
         const nft = new Nft();
         nft.tokenId = tokenId;
         nft.mintTransactionHash = hash;
-        if (Issuer) nft.issuer = Issuer;
+        nft.issuer = issuerOrCreator;
         nft.transferFee = TransferFee;
         nft.flags = Number("0x" + flags);
         // May not be necessary in mainnet release but has to be checked in devnet in order to store the nft even if the uri is invalid

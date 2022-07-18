@@ -55,7 +55,7 @@ describe("NftService", () => {
                 "00000000" + decodeAccountID(nftMintTransaction.Account).toString("hex").toUpperCase() + "0000000000000002",
             );
             expect(nft.mintTransactionHash).toEqual(nftMintTransaction.hash);
-            expect(nft.issuer).toBeUndefined();
+            expect(nft.issuer).toEqual(nftMintTransaction.Account);
             expect(nft.transferFee).toBeUndefined();
             expect(nft.flags).toEqual(0);
             expect(nft.uri).toBeUndefined();
@@ -100,7 +100,7 @@ describe("NftService", () => {
                 "00000000" + decodeAccountID(nftMintTransaction.Account).toString("hex").toUpperCase() + "0000000000000002",
             );
             expect(nft.mintTransactionHash).toEqual(nftMintTransaction.hash);
-            expect(nft.issuer).toBeUndefined();
+            expect(nft.issuer).toEqual(nftMintTransaction.Account);
             expect(nft.transferFee).toBeUndefined();
             expect(nft.flags).toEqual(0);
             expect(nft.uri).toBeUndefined();
