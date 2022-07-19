@@ -1,8 +1,10 @@
 import { ApiProperty } from "@nestjs/swagger";
-import { NftMetadataAttributesRequest } from "./nft-metadata-attributes.request";
-import { IsHexColor, IsUrl } from "class-validator";
+import { CreateNftMetadataAttributeRequest } from "./create-nft-metadata-attributes.request";
+import { IsHexColor, IsUrl, ValidateNested } from "class-validator";
+import { IsOptional } from "../validator/IsOptional";
+import { Type } from "class-transformer";
 
-export class NftMetadataRequest {
+export class CreateNftMetadataRequest {
     @ApiProperty({
         name: "name",
         type: "string",
@@ -26,6 +28,7 @@ export class NftMetadataRequest {
         required: false,
         example: "https://img.seadn.io/files/74359db46e0caf1e692464f4e777b373.png?fit=max&w=600",
     })
+    @IsOptional()
     @IsUrl()
     image?: string;
 
@@ -36,6 +39,7 @@ export class NftMetadataRequest {
         required: false,
         example: "#FFFFFF",
     })
+    @IsOptional()
     @IsHexColor()
     backgroundColor?: string;
 
@@ -45,12 +49,13 @@ export class NftMetadataRequest {
         required: false,
         example: "https://opensea.io/BoredApeYachtClub?tab=created",
     })
+    @IsOptional()
     @IsUrl()
     externalUrl?: string;
 
     @ApiProperty({
         name: "attributes",
-        type: NftMetadataAttributesRequest,
+        type: CreateNftMetadataAttributeRequest,
         required: false,
         isArray: true,
         example: [
@@ -68,5 +73,7 @@ export class NftMetadataRequest {
             },
         ],
     })
-    attributes?: NftMetadataAttributesRequest;
+    @ValidateNested({ each: true })
+    @Type(() => CreateNftMetadataAttributeRequest)
+    attributes?: CreateNftMetadataAttributeRequest[];
 }

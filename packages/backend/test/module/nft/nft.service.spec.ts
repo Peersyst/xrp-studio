@@ -17,11 +17,16 @@ import { NftMetadata } from "../../../src/database/entities/NftMetadata";
 import { MetadataDto } from "../../../src/modules/nft/dto/metadata.dto";
 import unscrambleTaxon from "../../../src/modules/nft/util/unscrambleTaxon";
 import { NftDraftDto } from "../../../src/modules/nft/dto/nft-draft.dto";
-import { NftMetadataRequest } from "../../../src/modules/nft/request/nft-metadata.request";
+import { CreateNftMetadataRequest } from "../../../src/modules/nft/request/create-nft-metadata.request";
+import NftMetadataRepositoryMock from "../__mock__/nft-metadata.repository.mock";
+import NftMetadataAttributeRepositoryMock from "../__mock__/nft-metadata-attribute.repository.mock";
+import { UpdateNftDraftRequest } from "../../../src/modules/nft/request/update-nft-draft-request";
 
 describe("NftService", () => {
     let nftService: NftService;
     const nftRepositoryMock = new NftRepositoryMock();
+    const nftMetadataRepositoryMock = new NftMetadataRepositoryMock();
+    const nftMetadataAttributeRepositoryMock = new NftMetadataAttributeRepositoryMock();
     const metadataConsumerMock = new MetadataConsumerMock();
     const collectionServiceMock = new CollectionServiceMock();
 
@@ -31,6 +36,14 @@ describe("NftService", () => {
                 {
                     provide: getRepositoryToken(Nft),
                     useValue: nftRepositoryMock,
+                },
+                {
+                    provide: getRepositoryToken(NftMetadata),
+                    useValue: nftMetadataRepositoryMock,
+                },
+                {
+                    provide: getRepositoryToken(NftMetadataAttribute),
+                    useValue: nftMetadataAttributeRepositoryMock,
                 },
                 {
                     provide: "BullQueue_metadata",
@@ -45,6 +58,8 @@ describe("NftService", () => {
         }).compile();
         nftService = module.get(NftService);
         nftRepositoryMock.clear();
+        nftMetadataRepositoryMock.clear();
+        nftMetadataAttributeRepositoryMock.clear();
         metadataConsumerMock.clear();
         collectionServiceMock.clear();
     });
@@ -234,23 +249,8 @@ describe("NftService", () => {
             } as NftDraftDto);
         });
 
-        test("Creates an NFT draft with issuer, transferFee and an non-existing collection without metadata", async () => {
-            collectionServiceMock.findCollectionByTaxonAndAccount.mockResolvedValueOnce(undefined);
-
-            const nftDraft = await nftService.createNftDraft(ADDRESS, { issuer: ISSUER, transferFee: 10, taxon: 1 });
-            expect(nftDraft).toEqual({
-                id: 1,
-                issuer: ISSUER,
-                transferFee: 10,
-                flags: 0,
-                status: NftStatus.DRAFT,
-                account: ADDRESS,
-                collectionId: 1,
-            } as NftDraftDto);
-        });
-
         test("Creates an NFT draft with issuer, transferFee, an existing collection and metadata without attributes", async () => {
-            const metadata: NftMetadataRequest = { name: "metadata_name", description: "metadata_description" };
+            const metadata: CreateNftMetadataRequest = { name: "metadata_name", description: "metadata_description" };
 
             const nftDraft = await nftService.createNftDraft(ADDRESS, { issuer: ISSUER, transferFee: 10, taxon: 1, metadata });
             expect(nftDraft).toEqual({
@@ -266,7 +266,7 @@ describe("NftService", () => {
         });
 
         test("Creates an NFT draft with issuer, transferFee, an existing collection and metadata with attributes", async () => {
-            const metadata: NftMetadataRequest = {
+            const metadata: CreateNftMetadataRequest = {
                 name: "metadata_name",
                 description: "metadata_description",
                 attributes: [{ traitType: "eyes", value: "closed" }],
@@ -283,6 +283,111 @@ describe("NftService", () => {
                 collectionId: 1,
                 metadata,
             } as NftDraftDto);
+        });
+    });
+
+    describe("updateNftDraft", () => {
+        const ADDRESS = "rNCFjv8Ek5oDrNiMJ3pw6eLLFtMjZLJnf2";
+        const ISSUER = "rNCFjv8Ek5oDrNiMJ3pw6eLLFtMjZLJnf3";
+
+        test("Update nft draft with an empty object", async () => {
+            await nftService.updateNftDraft(1, ADDRESS, {});
+            expect(collectionServiceMock.findCollectionByTaxonAndAccount).not.toHaveBeenCalled();
+            expect(nftMetadataRepositoryMock.delete).toHaveBeenCalledTimes(1);
+            expect(nftMetadataAttributeRepositoryMock.delete).not.toHaveBeenCalled();
+            expect(nftRepositoryMock.save).toHaveBeenCalledWith({
+                id: 1,
+                issuer: ADDRESS,
+                transferFee: null,
+                flags: undefined,
+                collection: null,
+                metadata: undefined,
+            });
+        });
+
+        test("Update nft draft with an issuer, transferFee, flags and taxon", async () => {
+            await nftService.updateNftDraft(1, ADDRESS, {
+                issuer: ISSUER,
+                transferFee: 10,
+                flags: { burnable: true, transferable: true, trustLine: false, onlyXRP: false },
+                taxon: 1,
+            });
+            expect(collectionServiceMock.findCollectionByTaxonAndAccount).toHaveBeenCalledWith("1", ADDRESS, { notFoundError: true });
+            expect(nftMetadataRepositoryMock.delete).toHaveBeenCalledTimes(1);
+            expect(nftMetadataAttributeRepositoryMock.delete).not.toHaveBeenCalled();
+            expect(nftRepositoryMock.save).toHaveBeenCalledWith({
+                id: 1,
+                issuer: ISSUER,
+                transferFee: 10000,
+                flags: 9,
+                collection: new CollectionMock(),
+                metadata: undefined,
+            });
+        });
+
+        test("Update nft draft with an issuer, transferFee, flags, taxon and empty metadata", async () => {
+            const metadata: UpdateNftDraftRequest["metadata"] = {};
+
+            await nftService.updateNftDraft(1, ADDRESS, {
+                issuer: ISSUER,
+                transferFee: 10,
+                flags: { burnable: true, transferable: true, trustLine: false, onlyXRP: false },
+                taxon: 1,
+                metadata,
+            });
+            expect(collectionServiceMock.findCollectionByTaxonAndAccount).toHaveBeenCalledWith("1", ADDRESS, { notFoundError: true });
+            expect(nftMetadataRepositoryMock.delete).not.toHaveBeenCalled();
+            expect(nftMetadataAttributeRepositoryMock.delete).toHaveBeenCalledTimes(1);
+            expect(nftRepositoryMock.save).toHaveBeenCalledWith({
+                id: 1,
+                issuer: ISSUER,
+                transferFee: 10000,
+                flags: 9,
+                collection: new CollectionMock(),
+                metadata: new NftMetadata({
+                    name: null,
+                    description: null,
+                    image: null,
+                    backgroundColor: null,
+                    externalUrl: null,
+                    attributes: undefined,
+                    nft: new Nft({ id: 1 }),
+                }),
+            });
+        });
+
+        test("Update nft draft with an issuer, transferFee, flags, taxon and metadata", async () => {
+            const metadata: UpdateNftDraftRequest["metadata"] = {
+                name: "Name",
+                description: "Description",
+                image: "imageUrl",
+                backgroundColor: "#FFFFFF",
+                externalUrl: "externalUrl",
+                attributes: [{ traitType: "eyes", value: "closed" }],
+            };
+
+            await nftService.updateNftDraft(1, ADDRESS, {
+                issuer: ISSUER,
+                transferFee: 10,
+                flags: { burnable: true, transferable: true, trustLine: false, onlyXRP: false },
+                taxon: 1,
+                metadata,
+            });
+            expect(collectionServiceMock.findCollectionByTaxonAndAccount).toHaveBeenCalledWith("1", ADDRESS, { notFoundError: true });
+            expect(nftMetadataRepositoryMock.delete).not.toHaveBeenCalled();
+            expect(nftMetadataAttributeRepositoryMock.delete).toHaveBeenCalledTimes(1);
+            expect(nftRepositoryMock.save).toHaveBeenCalledWith({
+                id: 1,
+                issuer: ISSUER,
+                transferFee: 10000,
+                flags: 9,
+                collection: new CollectionMock(),
+                metadata: new NftMetadata({
+                    ...metadata,
+                    attributes: [new NftMetadataAttribute({ nftMetadataId: 1, traitType: "eyes", value: "closed" })],
+                    nft: new Nft({ id: 1 }),
+                }),
+            });
         });
     });
 });

@@ -17,11 +17,14 @@ import unscrambleTaxon from "./util/unscrambleTaxon";
 import { CreateNftDraftRequest } from "./request/create-nft-draft.request";
 import flagsToNumber from "./util/flagsToNumber";
 import { NftDraftDto } from "./dto/nft-draft.dto";
+import { UpdateNftDraftRequest } from "./request/update-nft-draft-request";
 
 @Injectable()
 export class NftService {
     constructor(
         @InjectRepository(Nft) private readonly nftRepository: Repository<Nft>,
+        @InjectRepository(NftMetadata) private readonly nftMetadataRepository: Repository<NftMetadata>,
+        @InjectRepository(NftMetadataAttribute) private readonly nftMetadataAttributeRepository: Repository<NftMetadataAttribute>,
         @InjectQueue("metadata") private readonly metadataQueue: Queue,
         @Inject(CollectionService) private readonly collectionService: CollectionService,
     ) {}
@@ -133,13 +136,14 @@ export class NftService {
             metadata,
         }: CreateNftDraftRequest,
     ): Promise<NftDraftDto> {
+        // Build User, Collection and Nft entities
         const user = new User({ address });
 
-        let collection;
-        if (taxon) {
-            collection = await this.collectionService.findCollectionByTaxonAndAccount(taxon.toString(), user.address);
-            if (!collection) collection = new Collection({ user, taxon: taxon.toString() });
-        }
+        const collection = taxon
+            ? await this.collectionService.findCollectionByTaxonAndAccount(taxon.toString(), user.address, {
+                  notFoundError: true,
+              })
+            : undefined;
 
         const nft = new Nft({
             issuer: issuer || address,
@@ -150,19 +154,68 @@ export class NftService {
             collection,
         });
 
+        // Create nft without metadata as we need an id to reference first
         let nftEntity = await this.nftRepository.save(nft);
 
-        let nftMetadata;
+        // If there's metadata, create entities and attach it to the nft
         if (metadata) {
             const { attributes, ...restMetadata } = metadata;
-            nftMetadata = new NftMetadata({ nft: nftEntity, ...restMetadata });
+            const nftMetadata = new NftMetadata({ nft: nftEntity, ...restMetadata });
             nftMetadata.attributes = attributes?.map(
                 (attribute) => new NftMetadataAttribute({ nftMetadataId: nftEntity.id, ...attribute }),
             );
+            nftEntity = await this.nftRepository.save({ ...nftEntity, metadata: nftMetadata });
         }
 
-        nftEntity = await this.nftRepository.save({ ...nftEntity, metadata: nftMetadata });
-
         return NftDraftDto.fromEntity(nftEntity);
+    }
+
+    /**
+     * Updates an NFT draft
+     */
+    async updateNftDraft(
+        id: number,
+        address: string,
+        { issuer, transferFee, flags, taxon, metadata }: UpdateNftDraftRequest,
+    ): Promise<void> {
+        // Find taxon & address collection or use undefined and remove relation if any
+        const collection = taxon
+            ? await this.collectionService.findCollectionByTaxonAndAccount(taxon.toString(), address, {
+                  notFoundError: true,
+              })
+            : undefined;
+
+        let nftMetadata;
+        // Delete metadata if new NftDraft does not include it
+        if (!metadata) await this.nftMetadataRepository.delete({ nft: new Nft({ id }) });
+        else {
+            const { name, description, image, backgroundColor, externalUrl, attributes } = metadata;
+            // Delete old attributes as we need to override them
+            await this.nftMetadataAttributeRepository.delete({ nftMetadataId: id });
+            // Create new attributes and metadata
+            const nftMetadataAttributes = attributes?.map((attribute) => new NftMetadataAttribute({ nftMetadataId: id, ...attribute }));
+            nftMetadata = new NftMetadata({
+                name: name || null,
+                description: description || null,
+                image: image || null,
+                backgroundColor: backgroundColor || null,
+                externalUrl: externalUrl || null,
+                attributes: nftMetadataAttributes,
+                nft: new Nft({ id }),
+            });
+        }
+
+        // Update entity
+        const { burnable = false, onlyXRP = false, trustLine = false, transferable = false } = flags || {};
+        await this.nftRepository.save({
+            id,
+            issuer: issuer || address,
+            transferFee: transferFee ? transferFee * 1000 : null,
+            flags: flags
+                ? flagsToNumber({ tfBurnable: burnable, tfOnlyXRP: onlyXRP, tfTrustLine: trustLine, tfTransferable: transferable })
+                : undefined,
+            collection: collection || null,
+            metadata: nftMetadata,
+        });
     }
 }

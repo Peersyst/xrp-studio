@@ -1,6 +1,6 @@
 import { ApiProperty } from "@nestjs/swagger";
 
-export class NftMetadataAttributeRequest {
+export class CreateNftMetadataAttributeRequest {
     @ApiProperty({
         name: "traitType",
         type: "string",
@@ -23,5 +23,3 @@ export class NftMetadataAttributeRequest {
     })
     displayType?: string;
 }
-
-export class NftMetadataAttributesRequest extends Array<NftMetadataAttributeRequest> {}
