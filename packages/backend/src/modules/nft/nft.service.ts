@@ -14,6 +14,9 @@ import { MetadataDto } from "./dto/metadata.dto";
 import { NftMetadata } from "../../database/entities/NftMetadata";
 import { NftMetadataAttribute } from "../../database/entities/NftMetadataAttribute";
 import unscrambleTaxon from "./util/unscrambleTaxon";
+import { CreateNftDraftRequest } from "./request/create-nft-draft.request";
+import flagsToNumber from "./util/flagsToNumber";
+import { NftDraftDto } from "./dto/nft-draft.dto";
 
 @Injectable()
 export class NftService {
@@ -91,7 +94,7 @@ export class NftService {
 
         try {
             const savedNft = await this.nftRepository.save(nft);
-            if (nft.uri) await this.metadataQueue.add("process-metadata", { nft }, { timeout: 25000, removeOnFail: true });
+            if (savedNft.uri) await this.metadataQueue.add("process-metadata", { nft: savedNft }, { timeout: 25000, removeOnFail: true });
             return savedNft;
         } catch (e) {
             throw { error: e, nft };
@@ -115,5 +118,51 @@ export class NftService {
         nft.metadata = new NftMetadata({ name, description, image, backgroundColor, externalUrl, attributes: metadataAttributes, nft });
         // Let typeorm cascades do the work
         return this.nftRepository.save(nft);
+    }
+
+    /**
+     * Create an Nft with draft status
+     */
+    async createNftDraft(
+        address: string,
+        {
+            taxon,
+            issuer,
+            transferFee,
+            flags: { burnable = false, onlyXRP = false, trustLine = false, transferable = false } = {},
+            metadata,
+        }: CreateNftDraftRequest,
+    ): Promise<NftDraftDto> {
+        const user = new User({ address });
+
+        let collection;
+        if (taxon) {
+            collection = await this.collectionService.findCollectionByTaxonAndAccount(taxon.toString(), user.address);
+            if (!collection) collection = new Collection({ user, taxon: taxon.toString() });
+        }
+
+        const nft = new Nft({
+            issuer: issuer || address,
+            transferFee: transferFee ? transferFee * 1000 : undefined,
+            flags: flagsToNumber({ tfBurnable: burnable, tfOnlyXRP: onlyXRP, tfTrustLine: trustLine, tfTransferable: transferable }),
+            status: NftStatus.DRAFT,
+            user,
+            collection,
+        });
+
+        let nftEntity = await this.nftRepository.save(nft);
+
+        let nftMetadata;
+        if (metadata) {
+            const { attributes, ...restMetadata } = metadata;
+            nftMetadata = new NftMetadata({ nft: nftEntity, ...restMetadata });
+            nftMetadata.attributes = attributes?.map(
+                (attribute) => new NftMetadataAttribute({ nftMetadataId: nftEntity.id, ...attribute }),
+            );
+        }
+
+        nftEntity = await this.nftRepository.save({ ...nftEntity, metadata: nftMetadata });
+
+        return NftDraftDto.fromEntity(nftEntity);
     }
 }

@@ -9,7 +9,7 @@ export class NftMetadataAttribute {
     @PrimaryColumn({ name: "trait_type", type: "varchar", length: 255 })
     traitType: string;
 
-    @Column()
+    @Column({ type: "varchar", length: 255 })
     value: string;
 
     @Column({ name: "display_type", type: "varchar", length: 255, nullable: true })

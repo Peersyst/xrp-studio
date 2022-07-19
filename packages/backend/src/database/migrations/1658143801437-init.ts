@@ -8,7 +8,7 @@ export class init1658143801437 implements MigrationInterface {
             `CREATE TABLE "last_indexed_ledger" ("id" integer NOT NULL DEFAULT '1', "index" integer NOT NULL, CONSTRAINT "CHK_e3236bd8ac28b934604ba95490" CHECK ("id" = 1), CONSTRAINT "PK_b3b4f91ce6242a2026fe8d5997e" PRIMARY KEY ("id"))`,
         );
         await queryRunner.query(
-            `CREATE TABLE "nft_metadata_attribute" ("nft_metadata_id" integer NOT NULL, "trait_type" character varying(255) NOT NULL, "value" character varying NOT NULL, "display_type" character varying(255), "created_at" TIMESTAMP NOT NULL DEFAULT now(), "updated_at" TIMESTAMP NOT NULL DEFAULT now(), CONSTRAINT "PK_859d585bac5bacc1b64ca2911de" PRIMARY KEY ("nft_metadata_id", "trait_type"))`,
+            `CREATE TABLE "nft_metadata_attribute" ("nft_metadata_id" integer NOT NULL, "trait_type" character varying(255) NOT NULL, "value" character varying(255) NOT NULL, "display_type" character varying(255), "created_at" TIMESTAMP NOT NULL DEFAULT now(), "updated_at" TIMESTAMP NOT NULL DEFAULT now(), CONSTRAINT "PK_859d585bac5bacc1b64ca2911de" PRIMARY KEY ("nft_metadata_id", "trait_type"))`,
         );
         await queryRunner.query(
             `CREATE TABLE "nft_metadata" ("name" character varying(255), "description" text, "image" text, "background_color" character varying(9), "external_url" text, "created_at" TIMESTAMP NOT NULL DEFAULT now(), "updated_at" TIMESTAMP NOT NULL DEFAULT now(), "nft_id" integer NOT NULL, CONSTRAINT "REL_dbd59046d98b206d31803a8328" UNIQUE ("nft_id"), CONSTRAINT "PK_dbd59046d98b206d31803a83289" PRIMARY KEY ("nft_id"))`,

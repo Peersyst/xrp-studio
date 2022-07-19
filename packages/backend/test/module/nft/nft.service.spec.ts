@@ -16,6 +16,8 @@ import { NftMetadataAttribute } from "../../../src/database/entities/NftMetadata
 import { NftMetadata } from "../../../src/database/entities/NftMetadata";
 import { MetadataDto } from "../../../src/modules/nft/dto/metadata.dto";
 import unscrambleTaxon from "../../../src/modules/nft/util/unscrambleTaxon";
+import { NftDraftDto } from "../../../src/modules/nft/dto/nft-draft.dto";
+import { NftMetadataRequest } from "../../../src/modules/nft/request/nft-metadata.request";
 
 describe("NftService", () => {
     let nftService: NftService;
@@ -195,6 +197,92 @@ describe("NftService", () => {
             const nftWithMetadata = new NftMock({ metadata: nftMetadata });
             nftService.createNftMetadata(nft, metadataDto);
             expect(nftRepositoryMock.save).toHaveBeenCalledWith(nftWithMetadata);
+        });
+    });
+
+    describe("createNftDraft", () => {
+        const ADDRESS = "rNCFjv8Ek5oDrNiMJ3pw6eLLFtMjZLJnf2";
+        const ISSUER = "rNCFjv8Ek5oDrNiMJ3pw6eLLFtMjZLJnf3";
+
+        test("Creates an NFT draft without issuer, transferFee, collection or metadata", async () => {
+            const nftDraft = await nftService.createNftDraft(ADDRESS, {});
+            expect(nftDraft).toEqual({ id: 1, issuer: ADDRESS, flags: 0, status: NftStatus.DRAFT, account: ADDRESS } as NftDraftDto);
+        });
+
+        test("Creates an NFT draft with issuer and transferFee without collection or metadata", async () => {
+            const nftDraft = await nftService.createNftDraft(ADDRESS, { issuer: ISSUER, transferFee: 10 });
+            expect(nftDraft).toEqual({
+                id: 1,
+                issuer: ISSUER,
+                transferFee: 10,
+                flags: 0,
+                status: NftStatus.DRAFT,
+                account: ADDRESS,
+            } as NftDraftDto);
+        });
+
+        test("Creates an NFT draft with issuer, transferFee and an existing collection without metadata", async () => {
+            const nftDraft = await nftService.createNftDraft(ADDRESS, { issuer: ISSUER, transferFee: 10, taxon: 1 });
+            expect(nftDraft).toEqual({
+                id: 1,
+                issuer: ISSUER,
+                transferFee: 10,
+                flags: 0,
+                status: NftStatus.DRAFT,
+                account: ADDRESS,
+                collectionId: 1,
+            } as NftDraftDto);
+        });
+
+        test("Creates an NFT draft with issuer, transferFee and an non-existing collection without metadata", async () => {
+            collectionServiceMock.findCollectionByTaxonAndAccount.mockResolvedValueOnce(undefined);
+
+            const nftDraft = await nftService.createNftDraft(ADDRESS, { issuer: ISSUER, transferFee: 10, taxon: 1 });
+            expect(nftDraft).toEqual({
+                id: 1,
+                issuer: ISSUER,
+                transferFee: 10,
+                flags: 0,
+                status: NftStatus.DRAFT,
+                account: ADDRESS,
+                collectionId: 1,
+            } as NftDraftDto);
+        });
+
+        test("Creates an NFT draft with issuer, transferFee, an existing collection and metadata without attributes", async () => {
+            const metadata: NftMetadataRequest = { name: "metadata_name", description: "metadata_description" };
+
+            const nftDraft = await nftService.createNftDraft(ADDRESS, { issuer: ISSUER, transferFee: 10, taxon: 1, metadata });
+            expect(nftDraft).toEqual({
+                id: 1,
+                issuer: ISSUER,
+                transferFee: 10,
+                flags: 0,
+                status: NftStatus.DRAFT,
+                account: ADDRESS,
+                collectionId: 1,
+                metadata,
+            } as NftDraftDto);
+        });
+
+        test("Creates an NFT draft with issuer, transferFee, an existing collection and metadata with attributes", async () => {
+            const metadata: NftMetadataRequest = {
+                name: "metadata_name",
+                description: "metadata_description",
+                attributes: [{ traitType: "eyes", value: "closed" }],
+            };
+
+            const nftDraft = await nftService.createNftDraft(ADDRESS, { issuer: ISSUER, transferFee: 10, taxon: 1, metadata });
+            expect(nftDraft).toEqual({
+                id: 1,
+                issuer: ISSUER,
+                transferFee: 10,
+                flags: 0,
+                status: NftStatus.DRAFT,
+                account: ADDRESS,
+                collectionId: 1,
+                metadata,
+            } as NftDraftDto);
         });
     });
 });
