@@ -8,9 +8,4 @@ describe("NftCard tests", () => {
         expect(screen.getByText("Contemporany Bird Fifteen")).toBeInTheDocument();
         expect(screen.getByText("Okay Birds Contemporany")).toBeInTheDocument();
     });
-
-    test("Renders correctly on loading", () => {
-        render(<NftCard title={"Contemporany Bird Fifteen"} collection={"Okay Birds Contemporany"} loading={true} />);
-        expect(screen.queryByText("Contemporany Bird Fifteen")).not.toBeInTheDocument();
-    });
 });
