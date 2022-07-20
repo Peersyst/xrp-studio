@@ -1,7 +1,7 @@
 /* istanbul ignore file */
 /* tslint:disable */
 /* eslint-disable */
-export const $NftMetadataRequest = {
+export const $CreateNftMetadataRequest = {
     properties: {
         name: {
             type: 'string',
@@ -23,7 +23,7 @@ export const $NftMetadataRequest = {
         attributes: {
             type: 'array',
             contains: {
-                type: 'NftMetadataAttributesRequest',
+                type: 'CreateNftMetadataAttributeRequest',
             },
         },
     },

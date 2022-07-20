@@ -1,7 +1,7 @@
 /* istanbul ignore file */
 /* tslint:disable */
 /* eslint-disable */
-export const $CreateNftDraftRequest = {
+export const $UpdateNftDraftRequest = {
     properties: {
         issuer: {
             type: 'string',

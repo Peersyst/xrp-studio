@@ -5,7 +5,7 @@
 import type { CreateNftMetadataRequest } from './CreateNftMetadataRequest';
 import type { NftFlagsRequest } from './NftFlagsRequest';
 
-export type CreateNftDraftRequest = {
+export type UpdateNftDraftRequest = {
     /**
      * Issuer of the NFT, if not provided the sender of the transaction acts as the issuer
      */

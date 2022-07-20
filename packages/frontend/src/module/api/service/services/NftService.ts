@@ -3,6 +3,7 @@
 /* eslint-disable */
 import type { CreateNftDraftRequest } from '../models/CreateNftDraftRequest';
 import type { NftDraftDto } from '../models/NftDraftDto';
+import type { UpdateNftDraftRequest } from '../models/UpdateNftDraftRequest';
 
 import type { CancelablePromise } from '../core/CancelablePromise';
 import { OpenAPI } from '../core/OpenAPI';
@@ -22,6 +23,28 @@ export class NftService {
         return __request(OpenAPI, {
             method: 'POST',
             url: '/api/nfts/draft',
+            body: requestBody,
+            mediaType: 'application/json',
+        });
+    }
+
+    /**
+     * Update an NFT draft
+     * @param id
+     * @param requestBody
+     * @returns void
+     * @throws ApiError
+     */
+    public static nftControllerUpdateNftDraft(
+        id: number,
+        requestBody: UpdateNftDraftRequest,
+    ): CancelablePromise<void> {
+        return __request(OpenAPI, {
+            method: 'PUT',
+            url: '/api/nfts/draft/{id}',
+            path: {
+                'id': id,
+            },
             body: requestBody,
             mediaType: 'application/json',
         });

@@ -8,7 +8,7 @@ import { XummAuthenticated } from "xumm-module";
 import { UpdateNftDraftRequest } from "./request/update-nft-draft-request";
 
 @ApiTags("nft")
-@Controller("nfts")
+@Controller("nft")
 @ApiErrorDecorators()
 export class NftController {
     constructor(private readonly nftService: NftService) {}

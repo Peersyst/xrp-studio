@@ -2,9 +2,9 @@
 /* tslint:disable */
 /* eslint-disable */
 
-import type { NftMetadataAttributesRequest } from './NftMetadataAttributesRequest';
+import type { CreateNftMetadataAttributeRequest } from './CreateNftMetadataAttributeRequest';
 
-export type NftMetadataRequest = {
+export type CreateNftMetadataRequest = {
     name?: string;
     description?: string;
     image?: string;
@@ -13,6 +13,6 @@ export type NftMetadataRequest = {
      */
     backgroundColor?: string;
     externalUrl?: string;
-    attributes?: Array<NftMetadataAttributesRequest>;
+    attributes?: Array<CreateNftMetadataAttributeRequest>;
 };
 
