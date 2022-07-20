@@ -1,26 +1,5 @@
-import styled from "styled-components";
-import { BackgroundImage, Col, Typography } from "@peersyst/react-components";
-
-export const NftCardTitleTypography = styled(Typography).attrs({
-    variant: "subtitle1",
-    fontWeight: 800,
-    fontSize: 16,
-    color: "#121212",
-    singleLine: true,
-})`
-    overflow: hidden;
-    color: #ffffff;
-`;
-
-export const NftCardPriceTypography = styled(Typography).attrs({
-    variant: "subtitle1",
-    fontWeight: 400,
-    fontSize: 14,
-    singleLine: true,
-})`
-    overflow: hidden;
-    color: #aeb3b7;
-`;
+import styled, { css } from "styled-components";
+import { BackgroundImage, Typography } from "@peersyst/react-components";
 
 export const NftCardCollectionTypography = styled(Typography).attrs({
     variant: "subtitle1",
@@ -32,12 +11,6 @@ export const NftCardCollectionTypography = styled(Typography).attrs({
     overflow: hidden;
 `;
 
-export const NftCardFooter = styled(Col).attrs({})`
-    margin-top: 16.5rem;
-    height: 6.75rem;
-    position: absolute;
-`;
-
 export const NftBackgroundImg = styled(BackgroundImage)`
     left: 0;
     top: 0;
@@ -46,33 +19,15 @@ export const NftBackgroundImg = styled(BackgroundImage)`
     position: absolute;
 `;
 
-export const NftCardBackground = styled.div`
-    position: absolute;
-    display: contents;
-
-    > * {
-        position: absolute !important;
-    }
-`;
-
-export const NftTitleSlot = styled.div`
-    height: 1.63rem;
-    margin-top: 1.5rem;
-    margin-bottom: 8px;
-`;
-
-export const NftPriceSlot = styled.div`
-    height: 1.25rem;
-    margin-bottom: 8px;
-`;
-
-export const NftCollectionSlot = styled.div`
-    height: 2rem;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    text-align: center;
-    color: #aeb3b7;
-    background: #21272c;
-    border-radius: 6px;
-`;
+export const NftCollectionSlot = styled.div(
+    ({ theme }) => css`
+        height: 2rem;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+        color: ${theme.palette.grayLight};
+        background: ${theme.palette.grayDark};
+        border-radius: 6px;
+    `,
+);

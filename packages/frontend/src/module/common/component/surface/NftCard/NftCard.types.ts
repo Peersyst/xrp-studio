@@ -1,10 +1,6 @@
-import { CSSProperties, ReactNode } from "react";
-
 export interface NftCardProps {
     title: string;
     price: number;
+    loading: boolean;
     collection?: string;
-    cover?: ReactNode;
-    className?: string;
-    style?: CSSProperties;
 }

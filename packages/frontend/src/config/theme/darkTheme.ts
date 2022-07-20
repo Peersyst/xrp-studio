@@ -11,6 +11,8 @@ const darkTheme = createTheme({
             90: "#141A1F",
             "2.5": "#FAFAFA",
         },
+        grayLight: "#AEB3B7",
+        grayDark: "#21272C",
         blue: {
             "2.5": "#F5FBFF",
             5: "#E5F8FF",

@@ -1,15 +1,8 @@
-import { CSSProperties, ReactNode } from "react";
-
-export type CardType = "nft" | "collection";
+import { ReactNode } from "react";
 
 export interface BaseCardProps {
-    type: CardType;
-    id?: number;
-    price?: number;
-    title?: string;
-    collection?: string;
+    cover: ReactNode;
+    title: string;
+    loading: boolean;
     children?: ReactNode;
-    loading?: boolean;
-    className?: string;
-    style?: CSSProperties;
 }
