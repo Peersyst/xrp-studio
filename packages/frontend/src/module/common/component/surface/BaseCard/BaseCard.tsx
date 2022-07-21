@@ -1,19 +1,30 @@
-import { withSkeleton } from "@peersyst/react-components";
+import { Skeleton, Typography, withSkeleton } from "@peersyst/react-components";
 import { BaseCardProps } from "module/common/component/surface/BaseCard/BaseCard.types";
 import { BaseCardRoot, BaseCardFooter } from "module/common/component/surface/BaseCard/BaseCard.styles";
 import ConditionalLink from "module/common/component/navigation/ConditionalLink/ConditionalLink";
-import BaseCardTitle from "module/common/component/surface/BaseCard/BaseCardTitle";
+import { Children } from "react";
 
-const BaseCard = ({ loading, title, cover, children }: BaseCardProps): JSX.Element => {
-    const renderLinkCondition = !loading;
+const BaseCard = ({ loading, title, cover, children, note, to }: BaseCardProps): JSX.Element => {
+    const footerContent = [
+        <Typography variant="subtitle1" fontWeight={800} singleLine>
+            {title}
+        </Typography>,
+        <Typography variant="body2" light>
+            {note}
+        </Typography>,
+        ...Children.toArray(children),
+    ];
 
     return (
-        <ConditionalLink condition={renderLinkCondition} to={"/nft/" + 1}>
+        <ConditionalLink condition={!loading} to={to}>
             <BaseCardRoot>
-                {!loading && cover}
+                <Skeleton loading={loading}>{cover}</Skeleton>
                 <BaseCardFooter>
-                    <BaseCardTitle title={title} />
-                    {!loading && children}
+                    {footerContent.map((child, i) => (
+                        <Skeleton key={i} loading={loading}>
+                            {child}
+                        </Skeleton>
+                    ))}
                 </BaseCardFooter>
             </BaseCardRoot>
         </ConditionalLink>

@@ -1,6 +1,7 @@
 export interface NftCardProps {
     title: string;
-    price: number;
+    image: string;
+    to: string;
     loading: boolean;
-    collection?: string;
+    note?: string;
 }

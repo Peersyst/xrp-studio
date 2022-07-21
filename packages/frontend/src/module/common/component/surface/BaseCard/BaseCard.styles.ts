@@ -1,19 +1,18 @@
 import styled, { css } from "styled-components";
-import { Col, Paper, Typography } from "@peersyst/react-components";
+import { Col } from "@peersyst/react-components";
 
-export const BaseCardRoot = styled(Paper).attrs({ elevation: 0 })`
-    position: relative;
-    isolation: isolate;
-    display: flex;
-    flex-direction: column;
-    width: 16.5rem;
-    height: 23.34rem;
-    cursor: pointer;
-    user-select: none;
-    overflow: hidden;
-    background-color: black;
-    transition: outline 200ms;
-`;
+export const BaseCardRoot = styled(Col).attrs({ elevation: 0 })(
+    ({ theme }) => css`
+        position: relative;
+        isolation: isolate;
+        display: flex;
+        width: 16.5rem;
+        height: 23.34rem;
+        cursor: pointer;
+        background-color: ${theme.palette.black};
+        transition: outline 200ms;
+    `,
+);
 
 export const BaseCardFooter = styled(Col)`
     margin-top: 16.5rem;
@@ -26,16 +25,3 @@ export const BaseTitleSlot = styled.div`
     margin-top: 1.5rem;
     margin-bottom: 8px;
 `;
-
-export const BaseCardTitleTypography = styled(Typography).attrs({
-    variant: "subtitle1",
-    fontWeight: 800,
-    fontSize: 16,
-    color: "#121212",
-    singleLine: true,
-})(
-    ({ theme }) => css`
-        overflow: hidden;
-        color: ${theme.palette.text};
-    `,
-);

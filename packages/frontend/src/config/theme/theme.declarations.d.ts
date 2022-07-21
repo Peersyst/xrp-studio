@@ -11,8 +11,6 @@ declare module "@peersyst/react-components" {
             90: string;
             "2.5": string;
         };
-        grayLight: string;
-        grayDark: string;
         blue: {
             "2.5": string;
             5: string;
