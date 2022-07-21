@@ -19,7 +19,7 @@ const BaseCard = ({ loading, title, cover, children, note, to }: BaseCardProps):
         <ConditionalLink condition={!loading} to={to}>
             <BaseCardRoot>
                 <Skeleton loading={loading}>{cover}</Skeleton>
-                <BaseCardFooter>
+                <BaseCardFooter gap={8}>
                     {footerContent.map((child, i) => (
                         <Skeleton key={i} loading={loading}>
                             {child}
