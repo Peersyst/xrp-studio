@@ -22,7 +22,7 @@ export class NftService {
     ): CancelablePromise<NftDraftDto> {
         return __request(OpenAPI, {
             method: 'POST',
-            url: '/api/nfts/draft',
+            url: '/api/nft/draft',
             body: requestBody,
             mediaType: 'application/json',
         });
@@ -41,7 +41,7 @@ export class NftService {
     ): CancelablePromise<void> {
         return __request(OpenAPI, {
             method: 'PUT',
-            url: '/api/nfts/draft/{id}',
+            url: '/api/nft/draft/{id}',
             path: {
                 'id': id,
             },

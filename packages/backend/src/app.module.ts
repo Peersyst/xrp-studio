@@ -16,6 +16,8 @@ import { XummAuthService } from "./modules/xumm/xumm-auth.service";
 import { NftModule } from "./modules/nft/nft.module";
 import { CollectionModule } from "./modules/collection/collection.module";
 import { IpfsModule } from "@peersyst/ipfs-module/src/ipfs.module";
+import { FileModule } from "./modules/file/file.module";
+import { StorageModule, StorageType } from "@peersyst/storage-module/src/storage.module";
 
 @Module({
     imports: [
@@ -50,6 +52,7 @@ import { IpfsModule } from "@peersyst/ipfs-module/src/ipfs.module";
         BlockchainModule,
         NftModule,
         CollectionModule,
+        FileModule,
         BullModule.forRootAsync({
             inject: [ConfigService],
             useFactory: (config: ConfigService) => ({
@@ -73,6 +76,9 @@ import { IpfsModule } from "@peersyst/ipfs-module/src/ipfs.module";
             }),
             inject: [ConfigService],
             imports: [ConfigModule],
+        }),
+        StorageModule.register(ConfigModule, {
+            storageType: StorageType.S3,
         }),
     ],
     providers: [TypeORMSeederAdapter, { provide: APP_FILTER, useClass: ErrorFilter }],

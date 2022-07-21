@@ -51,7 +51,7 @@ export class BlockchainService {
      * Gets db current ledger index
      */
     async getCurrentLedgerIndex(): Promise<number | undefined> {
-        const lastLedger = await this.lastIndexedLedgerRepository.findOne(1);
+        const lastLedger = await this.lastIndexedLedgerRepository.findOne({ where: { id: 1 } });
         return lastLedger?.index;
     }
 

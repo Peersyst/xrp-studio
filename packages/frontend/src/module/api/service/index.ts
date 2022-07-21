@@ -30,5 +30,6 @@ export { $UpdateNftDraftRequest } from './schemas/$UpdateNftDraftRequest';
 export { $XummSignInResponseDto } from './schemas/$XummSignInResponseDto';
 export { $XummVerifiedSignInResponseDto } from './schemas/$XummVerifiedSignInResponseDto';
 
+export { FileService } from './services/FileService';
 export { NftService } from './services/NftService';
 export { XummService } from './services/XummService';
