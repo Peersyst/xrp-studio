@@ -1,19 +1,32 @@
-import { withSkeleton } from "@peersyst/react-components";
-import { BaseCardProps, CardType } from "module/common/component/surface/BaseCard/BaseCard.types";
-import { BaseCardRoot } from "module/common/component/surface/BaseCard/BaseCard.styles";
+import { Skeleton, Typography, withSkeleton } from "@peersyst/react-components";
+import { BaseCardProps } from "module/common/component/surface/BaseCard/BaseCard.types";
+import { BaseCardRoot, BaseCardFooter } from "module/common/component/surface/BaseCard/BaseCard.styles";
 import ConditionalLink from "module/common/component/navigation/ConditionalLink/ConditionalLink";
+import { Children } from "react";
 
-const typeRouteMapping: Record<CardType, string> = {
-    nft: "nft",
-    collection: "collection",
-};
-
-const BaseCard = ({ type, loading, children }: BaseCardProps): JSX.Element => {
-    const renderLinkCondition = !!type && !loading;
+const BaseCard = ({ loading, title, cover, children, note, to }: BaseCardProps): JSX.Element => {
+    const footerContent = [
+        <Typography variant="subtitle1" fontWeight={800} singleLine>
+            {title}
+        </Typography>,
+        <Typography variant="body2" light>
+            {note}
+        </Typography>,
+        ...Children.toArray(children),
+    ];
 
     return (
-        <ConditionalLink condition={renderLinkCondition} to={"/" + typeRouteMapping[type] + "/" + 1}>
-            <BaseCardRoot>{!loading && children}</BaseCardRoot>
+        <ConditionalLink condition={!loading} to={to}>
+            <BaseCardRoot>
+                <Skeleton loading={loading}>{cover}</Skeleton>
+                <BaseCardFooter gap={8}>
+                    {footerContent.map((child, i) => (
+                        <Skeleton key={i} loading={loading}>
+                            {child}
+                        </Skeleton>
+                    ))}
+                </BaseCardFooter>
+            </BaseCardRoot>
         </ConditionalLink>
     );
 };

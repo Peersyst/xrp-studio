@@ -1,7 +1,6 @@
 import { screen, waitFor } from "@testing-library/react";
 import DashboardPage from "module/dashboard/DashboardPage";
-import { translate } from "locale";
-import { FailApiCall, render, SuccessApiCall } from "test-utils";
+import { FailApiCall, render, SuccessApiCall, translate } from "test-utils";
 import * as Login from "module/auth/utils/loginCall";
 import * as Recoil from "recoil";
 import userEvent from "@testing-library/user-event";

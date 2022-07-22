@@ -1,36 +1,39 @@
-import { Entity, Column, Index, PrimaryGeneratedColumn, CreateDateColumn, UpdateDateColumn } from "typeorm";
-import { AuthUserI, UserType } from "@peersyst/auth-module";
-
-export { UserType };
+import { Entity, Column, PrimaryColumn, CreateDateColumn, UpdateDateColumn, OneToMany } from "typeorm";
+import { Collection } from "./Collection";
+import { Nft } from "./Nft";
 
 @Entity("user")
-export class User implements AuthUserI {
-    @PrimaryGeneratedColumn()
-    id!: number;
+export class User {
+    @PrimaryColumn({ type: "varchar", length: 255 })
+    address: string;
 
-    @Column("varchar", { length: 255 })
-    @Index()
-    email!: string;
+    @Column({ type: "varchar", length: 255, unique: true, nullable: true })
+    name?: string;
 
-    @Column({
-        type: "enum",
-        enum: UserType,
-        default: UserType.USER,
-    })
-    type!: UserType;
+    @Column({ type: "text", unique: true, nullable: true })
+    description?: string;
 
-    @Column("varchar", { length: 255 })
-    password!: string;
+    @Column({ type: "text", nullable: true })
+    image?: string;
 
-    @CreateDateColumn({
-        name: "created_at",
-        type: "datetime",
-    })
-    createdAt!: Date;
+    @Column({ type: "text", nullable: true })
+    header?: string;
 
-    @UpdateDateColumn({
-        name: "updated_at",
-        type: "datetime",
-    })
-    updatedAt!: Date;
+    @Column({ type: "varchar", length: 255, nullable: true })
+    twitter?: string;
+
+    @Column({ type: "varchar", length: 255, nullable: true })
+    discord?: string;
+
+    @OneToMany(() => Nft, (nft) => nft.user, { cascade: ["insert"] })
+    nfts?: Nft[];
+
+    @OneToMany(() => Collection, (collection) => collection.user, { cascade: ["insert"] })
+    collections?: Collection[];
+
+    @CreateDateColumn({ name: "created_at", type: "timestamp" })
+    createdAt: Date;
+
+    @UpdateDateColumn({ name: "updated_at", type: "timestamp" })
+    updatedAt: Date;
 }

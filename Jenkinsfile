@@ -55,8 +55,7 @@ pipeline {
                         stage('Frontend - Build') {
                             steps {
                                 dir("packages/frontend") {
-                                    sh 'cp .env.example .env'
-                                    sh 'yarn build'
+                                    sh 'NODE_ENV=development yarn build'
                                 }
                             }
                         }
@@ -88,6 +87,7 @@ pipeline {
                 }
             }
         }
+        /*
         stage("Test e2e") {
             when {
                 anyOf { branch 'dev'; branch 'main'; branch 'feature/*'; }
@@ -109,6 +109,7 @@ pipeline {
                 sh 'docker run -v ${PWD}/test/:/test -e CYPRESS_BASE_URL=http://http --network=e2e-network cypress-e2e cypress run'
             }
         }
+        */
         stage("Deploy to dev server") {
             when {
                 anyOf { branch 'dev'; branch 'main'; }
@@ -124,11 +125,8 @@ pipeline {
                                 }
                             }
                             steps {
-                                configFileProvider([configFile(fileId: "${PROJECT_NAME}-dev-frontend-env", variable: 'ENV_FILE')]) {
-                                    sh "cp ${ENV_FILE} ./packages/frontend/.env"
-                                }
                                 dir("packages/frontend") {
-                                    sh 'yarn build'
+                                    sh 'NODE_ENV=development yarn build'
                                 }
                             }
                         }
