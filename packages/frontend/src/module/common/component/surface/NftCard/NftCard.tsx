@@ -1,14 +1,10 @@
-import { Chip, withSkeleton } from "@peersyst/react-components";
+import { WithSkeleton } from "@peersyst/react-components";
 import { NftCardProps } from "module/common/component/surface/NftCard/NftCard.types";
-import BaseCard from "module/common/component/surface/BaseCard/BaseCard";
+import BaseCard from "module/nft/component/surface/BaseCard/BaseCard";
 import { NftImage } from "module/common/component/surface/NftCard/NftCard.styles";
 
-const NftCard = ({ title, note, loading, image, to }: NftCardProps): JSX.Element => {
-    return (
-        <BaseCard title={title} to={to} cover={<NftImage src={image} alt={"nft"} />} loading={loading}>
-            {note && <Chip label={note} />}
-        </BaseCard>
-    );
+const NftCard = ({ nft: { id, metadata: { name = "", image = "" } = {} }, loading = false }: WithSkeleton<NftCardProps>): JSX.Element => {
+    return <BaseCard title={name} to={"/nfts/" + id} cover={<NftImage src={image} alt={name} />} loading={loading} />;
 };
 
-export default withSkeleton(NftCard);
+export default NftCard;
