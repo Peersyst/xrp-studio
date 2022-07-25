@@ -2,7 +2,7 @@ import { InfiniteScroll, Row } from "@peersyst/react-components";
 import { BaseGridRoot } from "./BaseGrid.styles";
 import { PaginatedData } from "query-utils";
 import { BaseGridProps } from "module/common/component/layout/BaseGrid/BaseGrid.types";
-import { useState, Fragment } from "react";
+import { Fragment } from "react";
 
 function BaseGrid<T extends PaginatedData>({
     loading,
@@ -23,17 +23,15 @@ function BaseGrid<T extends PaginatedData>({
     justifyContent,
     justifyItems,
     breakpoints,
-    filterBreakpoints,
 }: BaseGridProps<T>): JSX.Element {
     const hasItems = loading || !!data;
-    const [filtersExited] = useState(true);
 
     const infiniteScrollProps = { container, loaderElement, end, endElement, callback, observerOffset, loading };
     const gridProps = {
         rowSize,
         cols,
         colGap,
-        breakpoints: filtersExited ? breakpoints : filterBreakpoints,
+        breakpoints,
         rowGap,
         alignItems,
         justifyContent,
