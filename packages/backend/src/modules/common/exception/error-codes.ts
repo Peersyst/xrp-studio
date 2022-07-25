@@ -1,7 +1,6 @@
 import { HttpStatus } from "@nestjs/common";
 import { XummErrorBody, XummErrorCode } from "xumm-module";
 
-// Define app error codes
 enum AppErrorCode {}
 
 export const ErrorCode = { ...AppErrorCode, ...XummErrorCode };
