@@ -10,6 +10,9 @@ import { ErrorCode } from "../common/exception/error-codes";
 export class CollectionService {
     constructor(@InjectRepository(Collection) private readonly collectionRepository: Repository<Collection>) {}
 
+    /**
+     * Finds a collection by a taxon and account
+     */
     async findCollectionByTaxonAndAccount(
         taxon: string,
         account: string,

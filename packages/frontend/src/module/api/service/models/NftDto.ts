@@ -6,7 +6,7 @@ import type { CollectionDto } from './CollectionDto';
 import type { MetadataDto } from './MetadataDto';
 import type { UserDto } from './UserDto';
 
-export type NftDraftDto = {
+export type NftDto = {
     id: number;
     issuer?: string;
     transferFee?: number;

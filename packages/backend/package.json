@@ -44,7 +44,8 @@
             "!./src/modules/**/*.module.ts",
             "!./src/modules/xumm/xumm-shared-module/**/*",
             "!./src/**/*/validator/**/*",
-            "!./src/**/*/request/**/*"
+            "!./src/**/*/request/**/*",
+            "!./src/**/*/decorator/**/*"
         ],
         "coverageDirectory": "./coverage",
         "testEnvironment": "node",

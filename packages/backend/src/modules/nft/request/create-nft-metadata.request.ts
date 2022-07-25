@@ -1,7 +1,6 @@
 import { ApiProperty } from "@nestjs/swagger";
 import { CreateNftMetadataAttributeRequest } from "./create-nft-metadata-attributes.request";
-import { IsHexColor, IsUrl, ValidateNested } from "class-validator";
-import { IsOptional } from "../validator/IsOptional";
+import { IsHexColor, IsUrl, ValidateNested, IsOptional } from "class-validator";
 import { Type } from "class-transformer";
 
 export class CreateNftMetadataRequest {

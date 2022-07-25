@@ -7,26 +7,36 @@ export { OpenAPI } from './core/OpenAPI';
 export type { OpenAPIConfig } from './core/OpenAPI';
 
 export type { ApiException } from './models/ApiException';
+export type { CollectionDto } from './models/CollectionDto';
 export type { CreateNftDraftRequest } from './models/CreateNftDraftRequest';
 export type { CreateNftMetadataAttributeRequest } from './models/CreateNftMetadataAttributeRequest';
 export type { CreateNftMetadataRequest } from './models/CreateNftMetadataRequest';
 export type { MetadataAttributeDto } from './models/MetadataAttributeDto';
 export type { MetadataDto } from './models/MetadataDto';
 export type { NftDraftDto } from './models/NftDraftDto';
+export type { NftDto } from './models/NftDto';
 export type { NftFlagsRequest } from './models/NftFlagsRequest';
+export type { PaginatedNftDraftDto } from './models/PaginatedNftDraftDto';
+export type { PaginatedNftDto } from './models/PaginatedNftDto';
 export type { UpdateNftDraftRequest } from './models/UpdateNftDraftRequest';
+export type { UserDto } from './models/UserDto';
 export type { XummSignInResponseDto } from './models/XummSignInResponseDto';
 export type { XummVerifiedSignInResponseDto } from './models/XummVerifiedSignInResponseDto';
 
 export { $ApiException } from './schemas/$ApiException';
+export { $CollectionDto } from './schemas/$CollectionDto';
 export { $CreateNftDraftRequest } from './schemas/$CreateNftDraftRequest';
 export { $CreateNftMetadataAttributeRequest } from './schemas/$CreateNftMetadataAttributeRequest';
 export { $CreateNftMetadataRequest } from './schemas/$CreateNftMetadataRequest';
 export { $MetadataAttributeDto } from './schemas/$MetadataAttributeDto';
 export { $MetadataDto } from './schemas/$MetadataDto';
 export { $NftDraftDto } from './schemas/$NftDraftDto';
+export { $NftDto } from './schemas/$NftDto';
 export { $NftFlagsRequest } from './schemas/$NftFlagsRequest';
+export { $PaginatedNftDraftDto } from './schemas/$PaginatedNftDraftDto';
+export { $PaginatedNftDto } from './schemas/$PaginatedNftDto';
 export { $UpdateNftDraftRequest } from './schemas/$UpdateNftDraftRequest';
+export { $UserDto } from './schemas/$UserDto';
 export { $XummSignInResponseDto } from './schemas/$XummSignInResponseDto';
 export { $XummVerifiedSignInResponseDto } from './schemas/$XummVerifiedSignInResponseDto';
 

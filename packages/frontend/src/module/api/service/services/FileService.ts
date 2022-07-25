@@ -9,10 +9,10 @@ export class FileService {
 
     /**
      * Upload an image file
-     * @returns any
+     * @returns string
      * @throws ApiError
      */
-    public static fileControllerUploadFile(): CancelablePromise<any> {
+    public static fileControllerUploadFile(): CancelablePromise<string> {
         return __request(OpenAPI, {
             method: 'POST',
             url: '/api/file/image',

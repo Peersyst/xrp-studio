@@ -21,8 +21,17 @@ import { CreateNftMetadataRequest } from "../../../src/modules/nft/request/creat
 import NftMetadataRepositoryMock from "../__mock__/nft-metadata.repository.mock";
 import NftMetadataAttributeRepositoryMock from "../__mock__/nft-metadata-attribute.repository.mock";
 import { UpdateNftDraftRequest } from "../../../src/modules/nft/request/update-nft-draft-request";
+import { User } from "../../../src/database/entities/User";
+import { Collection } from "../../../src/database/entities/Collection";
+import { BusinessException } from "../../../src/modules/common/exception/business.exception";
+import { ErrorCode } from "../../../src/modules/common/exception/error-codes";
+import { Order } from "../../../src/modules/common/types";
+import { NftDraftStatus } from "../../../src/modules/nft/request/get-nft-drafts.request";
 
 describe("NftService", () => {
+    const ADDRESS = "rNCFjv8Ek5oDrNiMJ3pw6eLLFtMjZLJnf2";
+    const ISSUER = "rNCFjv8Ek5oDrNiMJ3pw6eLLFtMjZLJnf3";
+
     let nftService: NftService;
     const nftRepositoryMock = new NftRepositoryMock();
     const nftMetadataRepositoryMock = new NftMetadataRepositoryMock();
@@ -216,12 +225,15 @@ describe("NftService", () => {
     });
 
     describe("createNftDraft", () => {
-        const ADDRESS = "rNCFjv8Ek5oDrNiMJ3pw6eLLFtMjZLJnf2";
-        const ISSUER = "rNCFjv8Ek5oDrNiMJ3pw6eLLFtMjZLJnf3";
-
         test("Creates an NFT draft without issuer, transferFee, collection or metadata", async () => {
             const nftDraft = await nftService.createNftDraft(ADDRESS, {});
-            expect(nftDraft).toEqual({ id: 1, issuer: ADDRESS, flags: 0, status: NftStatus.DRAFT, account: ADDRESS } as NftDraftDto);
+            expect(nftDraft).toEqual({
+                id: 1,
+                issuer: ADDRESS,
+                flags: 0,
+                status: NftStatus.DRAFT,
+                user: new User({ address: ADDRESS }),
+            } as NftDraftDto);
         });
 
         test("Creates an NFT draft with issuer and transferFee without collection or metadata", async () => {
@@ -232,7 +244,7 @@ describe("NftService", () => {
                 transferFee: 10,
                 flags: 0,
                 status: NftStatus.DRAFT,
-                account: ADDRESS,
+                user: new User({ address: ADDRESS }),
             } as NftDraftDto);
         });
 
@@ -244,8 +256,8 @@ describe("NftService", () => {
                 transferFee: 10,
                 flags: 0,
                 status: NftStatus.DRAFT,
-                account: ADDRESS,
-                collectionId: 1,
+                user: new User({ address: ADDRESS }),
+                collection: new Collection({ id: 1, taxon: "1", user: new User({ address: ADDRESS }) }),
             } as NftDraftDto);
         });
 
@@ -259,8 +271,8 @@ describe("NftService", () => {
                 transferFee: 10,
                 flags: 0,
                 status: NftStatus.DRAFT,
-                account: ADDRESS,
-                collectionId: 1,
+                user: new User({ address: ADDRESS }),
+                collection: new Collection({ id: 1, taxon: "1", user: new User({ address: ADDRESS }) }),
                 metadata,
             } as NftDraftDto);
         });
@@ -279,17 +291,14 @@ describe("NftService", () => {
                 transferFee: 10,
                 flags: 0,
                 status: NftStatus.DRAFT,
-                account: ADDRESS,
-                collectionId: 1,
+                user: new User({ address: ADDRESS }),
+                collection: new Collection({ id: 1, taxon: "1", user: new User({ address: ADDRESS }) }),
                 metadata,
             } as NftDraftDto);
         });
     });
 
     describe("updateNftDraft", () => {
-        const ADDRESS = "rNCFjv8Ek5oDrNiMJ3pw6eLLFtMjZLJnf2";
-        const ISSUER = "rNCFjv8Ek5oDrNiMJ3pw6eLLFtMjZLJnf3";
-
         test("Update nft draft with an empty object", async () => {
             await nftService.updateNftDraft(1, ADDRESS, {});
             expect(collectionServiceMock.findCollectionByTaxonAndAccount).not.toHaveBeenCalled();
@@ -388,6 +397,114 @@ describe("NftService", () => {
                     nft: new Nft({ id: 1 }),
                 }),
             });
+        });
+    });
+    describe("findOne", () => {
+        test("Returns existing Nft", async () => {
+            const nft = await nftService.findOne(1);
+            expect(nft).toBeDefined();
+        });
+
+        test("Throws NFT_NOT_FOUND error", async () => {
+            nftRepositoryMock.getOne.mockResolvedValueOnce(undefined);
+            await expect(async () => {
+                await nftService.findOne(1);
+            }).rejects.toEqual(new BusinessException(ErrorCode.NFT_NOT_FOUND));
+        });
+    });
+
+    describe("findOneDraft", () => {
+        test("Returns existing Nft draft from its owner account", async () => {
+            nftRepositoryMock.getOne.mockResolvedValueOnce(new NftMock({ status: NftStatus.DRAFT, user: new User({ address: ADDRESS }) }));
+            const nft = await nftService.findOneDraft(1, ADDRESS);
+            expect(nft).toBeDefined();
+        });
+        test("Throws NFT_DRAFT_NOT_OWNED error", async () => {
+            nftRepositoryMock.getOne.mockResolvedValueOnce(new NftMock({ user: new User({ address: ISSUER }) }));
+            await expect(async () => {
+                await nftService.findOneDraft(1, ADDRESS);
+            }).rejects.toEqual(new BusinessException(ErrorCode.NFT_DRAFT_NOT_OWNED));
+        });
+        test("Throws NFT_DRAFT_NOT_FOUND error", async () => {
+            nftRepositoryMock.getOne.mockResolvedValueOnce(undefined);
+            await expect(async () => {
+                await nftService.findOneDraft(1, ADDRESS);
+            }).rejects.toEqual(new BusinessException(ErrorCode.NFT_DRAFT_NOT_FOUND));
+        });
+    });
+
+    describe("findAll", () => {
+        test("Returns all NFTs with a simple query", async () => {
+            const nfts = await nftService.findAll();
+            expect(nftRepositoryMock.take).toHaveBeenCalledWith(15);
+            expect(nftRepositoryMock.skip).toHaveBeenCalledWith(0);
+            expect(nftRepositoryMock.andWhere).toHaveBeenCalledWith("nft.status = :confirmed", { confirmed: NftStatus.CONFIRMED });
+            expect(nftRepositoryMock.orderBy).toHaveBeenCalledWith("nft.id", Order.DESC);
+            expect(nfts).toEqual({ items: expect.any(Array), pages: 1, currentPage: 1 });
+        });
+        test("Returns all NFTs with all optional params", async () => {
+            const nfts = await nftService.findAll({
+                page: 2,
+                pageSize: 10,
+                order: Order.ASC,
+                query: "asd",
+                collection: 1,
+                account: ADDRESS,
+            });
+            expect(nftRepositoryMock.take).toHaveBeenCalledWith(10);
+            expect(nftRepositoryMock.skip).toHaveBeenCalledWith(10);
+            expect(nftRepositoryMock.andWhere).toHaveBeenCalledWith(
+                "LOWER(collection.name) like :query OR LOWER(metadata.name) like :query",
+                { query: "asd" },
+            );
+            expect(nftRepositoryMock.andWhere).toHaveBeenCalledWith("collection.id = :collection", { collection: 1 });
+            expect(nftRepositoryMock.andWhere).toHaveBeenCalledWith("nft.status = :confirmed", { confirmed: NftStatus.CONFIRMED });
+            expect(nftRepositoryMock.andWhere).toHaveBeenCalledWith("user.address = :account", { account: ADDRESS });
+            expect(nftRepositoryMock.orderBy).toHaveBeenCalledWith("nft.id", Order.ASC);
+            expect(nfts).toEqual({ items: expect.any(Array), pages: 1, currentPage: 2 });
+        });
+    });
+    describe("findAllDrafts", () => {
+        beforeEach(() => {
+            nftRepositoryMock.getManyAndCount.mockResolvedValueOnce([
+                [
+                    new NftMock({ id: 1, status: NftStatus.DRAFT }),
+                    new NftMock({ id: 2, status: NftStatus.DRAFT }),
+                    new NftMock({ id: 3, status: NftStatus.DRAFT }),
+                ],
+                3,
+            ]);
+        });
+        test("Returns all NFT drafts with a simple query", async () => {
+            const nfts = await nftService.findAllDrafts(ADDRESS);
+            expect(nftRepositoryMock.take).toHaveBeenCalledWith(15);
+            expect(nftRepositoryMock.skip).toHaveBeenCalledWith(0);
+            expect(nftRepositoryMock.andWhere).toHaveBeenCalledWith("user.address = :address", { address: ADDRESS });
+            expect(nftRepositoryMock.andWhere).toHaveBeenCalledWith("nft.status != :confirmed", { confirmed: NftStatus.CONFIRMED });
+            expect(nftRepositoryMock.orderBy).toHaveBeenCalledWith("nft.id", Order.DESC);
+            expect(nfts).toEqual({ items: expect.any(Array), pages: 1, currentPage: 1 });
+        });
+        test("Returns all NFTs with all optional params", async () => {
+            const nfts = await nftService.findAllDrafts(ADDRESS, {
+                page: 2,
+                pageSize: 10,
+                order: Order.ASC,
+                query: "asd",
+                collection: 1,
+                status: NftDraftStatus.DRAFT,
+            });
+            expect(nftRepositoryMock.take).toHaveBeenCalledWith(10);
+            expect(nftRepositoryMock.skip).toHaveBeenCalledWith(10);
+            expect(nftRepositoryMock.andWhere).toHaveBeenCalledWith(
+                "LOWER(collection.name) like :query OR LOWER(metadata.name) like :query",
+                { query: "asd" },
+            );
+            expect(nftRepositoryMock.andWhere).toHaveBeenCalledWith("collection.id = :collection", { collection: 1 });
+            expect(nftRepositoryMock.andWhere).toHaveBeenCalledWith("user.address = :address", { address: ADDRESS });
+            expect(nftRepositoryMock.andWhere).toHaveBeenCalledWith("nft.status != :confirmed", { confirmed: NftStatus.CONFIRMED });
+            expect(nftRepositoryMock.andWhere).toHaveBeenCalledWith("nft.status = :status", { status: NftStatus.DRAFT });
+            expect(nftRepositoryMock.orderBy).toHaveBeenCalledWith("nft.id", Order.ASC);
+            expect(nfts).toEqual({ items: expect.any(Array), pages: 1, currentPage: 2 });
         });
     });
 });

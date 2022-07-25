@@ -5,7 +5,10 @@ import { StorageErrorBody, StorageErrorCode } from "@peersyst/storage-module/src
 // Define app error codes
 enum AppErrorCode {
     COLLECTION_NOT_FOUND = "COLLECTION_NOT_FOUND",
+    NFT_NOT_FOUND = "NFT_NOT_FOUND",
+    NFT_DRAFT_NOT_FOUND = "NFT_DRAFT_NOT_FOUND",
     INVALID_IMAGE = "INVALID_IMAGE",
+    NFT_DRAFT_NOT_OWNED = "NFT_DRAFT_NOT_OWNED",
 }
 
 export const ErrorCode = { ...AppErrorCode, ...XummErrorCode, ...StorageErrorCode };
@@ -18,8 +21,20 @@ export const ErrorBody: { [code in ErrorCodeType]: { statusCode: HttpStatus; mes
         statusCode: HttpStatus.NOT_FOUND,
         message: ErrorCode.COLLECTION_NOT_FOUND,
     },
+    [ErrorCode.NFT_NOT_FOUND]: {
+        statusCode: HttpStatus.NOT_FOUND,
+        message: ErrorCode.NFT_NOT_FOUND,
+    },
+    [ErrorCode.NFT_DRAFT_NOT_FOUND]: {
+        statusCode: HttpStatus.NOT_FOUND,
+        message: ErrorCode.NFT_DRAFT_NOT_FOUND,
+    },
     [ErrorCode.INVALID_IMAGE]: {
         statusCode: HttpStatus.BAD_REQUEST,
         message: ErrorCode.INVALID_IMAGE,
+    },
+    [ErrorCode.NFT_DRAFT_NOT_OWNED]: {
+        statusCode: HttpStatus.FORBIDDEN,
+        message: ErrorCode.NFT_DRAFT_NOT_OWNED,
     },
 };

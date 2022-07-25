@@ -9,6 +9,7 @@ import { AppModule } from "./app.module";
 import * as packageJson from "../package.json";
 import registerBullBoard from "./register-bull-board";
 import { ValidationPipe } from "@nestjs/common";
+import { useContainer } from "class-validator";
 
 async function bootstrap() {
     const app = await NestFactory.create(AppModule);
@@ -37,6 +38,8 @@ async function bootstrap() {
 
     // Enables custom validators
     app.useGlobalPipes(new ValidationPipe());
+    // Enables custom validators injections
+    useContainer(app.select(AppModule), { fallbackOnErrors: true });
 
     if (configService.get("server.enableCORS")) {
         app.enableCors();

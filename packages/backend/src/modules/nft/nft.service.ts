@@ -3,7 +3,7 @@ import { InjectRepository } from "@nestjs/typeorm";
 import { Nft, NftStatus } from "../../database/entities/Nft";
 import { ValidatedLedgerTransaction } from "../blockchain/types";
 import { NFTokenMint } from "xrpl/dist/npm/models/transactions/NFTokenMint";
-import { Repository } from "typeorm";
+import { Repository, SelectQueryBuilder } from "typeorm";
 import { decodeAccountID } from "xrpl";
 import { User } from "../../database/entities/User";
 import { Collection } from "../../database/entities/Collection";
@@ -16,8 +16,16 @@ import { NftMetadataAttribute } from "../../database/entities/NftMetadataAttribu
 import unscrambleTaxon from "./util/unscrambleTaxon";
 import { CreateNftDraftRequest } from "./request/create-nft-draft.request";
 import flagsToNumber from "./util/flagsToNumber";
-import { NftDraftDto } from "./dto/nft-draft.dto";
+import { NftDraftDto, PaginatedNftDraftDto } from "./dto/nft-draft.dto";
 import { UpdateNftDraftRequest } from "./request/update-nft-draft-request";
+import { Paginated } from "../common/paginated.dto";
+import { Order, Where, WhereConditions, WhereParameters } from "../common/types";
+import { NftDto, PaginatedNftDto } from "./dto/nft.dto";
+import { GetNftsRequest } from "./request/get-nfts.request";
+import { GetNftDraftsRequest } from "./request/get-nft-drafts.request";
+import { BaseGetNftsRequest } from "./request/base-get-nfts.request";
+import { BusinessException } from "../common/exception/business.exception";
+import { ErrorCode } from "../common/exception/error-codes";
 
 @Injectable()
 export class NftService {
@@ -31,13 +39,6 @@ export class NftService {
 
     /**
      * Creates an Nft entity from a given NFTokenMint transaction
-     * @param Account
-     * @param Flags
-     * @param TransferFee
-     * @param Issuer
-     * @param NFTokenTaxon
-     * @param URI
-     * @param hash
      */
     async createNftFromMintTransaction({
         Account,
@@ -106,13 +107,6 @@ export class NftService {
 
     /**
      * Creates NftMetadata and assigns it to an Nft
-     * @param nft
-     * @param name
-     * @param description
-     * @param image
-     * @param backgroundColor
-     * @param externalUrl
-     * @param attributes
      */
     async createNftMetadata(nft: Nft, { name, description, image, backgroundColor, externalUrl, attributes }: MetadataDto): Promise<Nft> {
         // Create attributes with nftMetadataId = nft.id, as it will be the value for nftMetadata.id
@@ -217,5 +211,115 @@ export class NftService {
             collection: collection || null,
             metadata: nftMetadata,
         });
+    }
+
+    /**
+     * Find one NFT (status = confirmed)
+     */
+    async findOne(id: number): Promise<NftDto> {
+        const nft = await this.nftQuery("id = :id AND status = :confirmed", { id, confirmed: NftStatus.CONFIRMED });
+        return NftDto.fromEntity(nft);
+    }
+
+    /**
+     * Find one NFT draft (status != confirmed)
+     */
+    async findOneDraft(id: number, reqAddress: string): Promise<NftDraftDto> {
+        try {
+            const nft = await this.nftQuery("id = :id AND status != :confirmed", {
+                id,
+                confirmed: NftStatus.CONFIRMED,
+            });
+            if (nft.user.address !== reqAddress) throw new BusinessException(ErrorCode.NFT_DRAFT_NOT_OWNED);
+            return NftDraftDto.fromEntity(nft);
+        } catch (e) {
+            if (e.response?.message === ErrorCode.NFT_NOT_FOUND) throw new BusinessException(ErrorCode.NFT_DRAFT_NOT_FOUND);
+            else throw e;
+        }
+    }
+
+    /**
+     * Find all NFTs (status = confirmed)
+     */
+    async findAll({ account, ...baseFilters }: GetNftsRequest = {}): Promise<PaginatedNftDto> {
+        const wheres: Where<Nft>[] = [];
+        wheres.push(["nft.status = :confirmed", { confirmed: NftStatus.CONFIRMED }]);
+        if (account) wheres.push(["user.address = :account", { account }]);
+        const { items, pages, currentPage } = await this.nftsQuery(baseFilters, ...wheres);
+        return {
+            items: items.map((nft) => NftDto.fromEntity(nft)),
+            pages,
+            currentPage,
+        };
+    }
+
+    /**
+     * Find all NFT drafts (status != confirmed)
+     */
+    async findAllDrafts(address: string, { status, ...baseFilters }: GetNftDraftsRequest = {}): Promise<PaginatedNftDraftDto> {
+        const wheres: Where<Nft>[] = [];
+        wheres.push(["user.address = :address", { address }]);
+        wheres.push(["nft.status != :confirmed", { confirmed: NftStatus.CONFIRMED }]);
+        if (status) wheres.push(["nft.status = :status", { status }]);
+        const { items, pages, currentPage } = await this.nftsQuery(baseFilters, ...wheres);
+        return {
+            items: items.map((nft) => NftDraftDto.fromEntity(nft)),
+            pages,
+            currentPage,
+        };
+    }
+
+    /**
+     * Gets nft
+     */
+    private async nftQuery(where: WhereConditions<Nft>, params?: WhereParameters): Promise<Nft | undefined> {
+        const qb = this.createQueryBuilder();
+        qb.where(where, params);
+        const nft = await qb.getOne();
+        if (!nft) throw new BusinessException(ErrorCode.NFT_NOT_FOUND);
+        return nft;
+    }
+
+    /**
+     * Gets all nfts
+     */
+    private async nftsQuery(
+        { page = 1, pageSize = 15, query, collection, order = Order.DESC }: BaseGetNftsRequest = {},
+        ...wheres: Where<Nft>[]
+    ): Promise<Paginated<Nft>> {
+        const take = pageSize;
+        const skip = (page - 1) * take;
+
+        const qb = this.createQueryBuilder();
+
+        qb.take(take);
+        qb.skip(skip);
+
+        if (query)
+            qb.andWhere("LOWER(collection.name) like :query OR LOWER(metadata.name) like :query", { query: `${query.toLowerCase()}` });
+        if (collection) qb.andWhere("collection.id = :collection", { collection });
+        if (wheres.length) wheres.forEach(([where, params]) => qb.andWhere(where, params));
+
+        qb.orderBy("nft.id", order);
+
+        const [nfts, count] = await qb.getManyAndCount();
+
+        return {
+            items: nfts,
+            pages: Math.ceil(count / take),
+            currentPage: page,
+        };
+    }
+
+    /**
+     * Creates query builder with required joins
+     */
+    private createQueryBuilder(): SelectQueryBuilder<Nft> {
+        return this.nftRepository
+            .createQueryBuilder("nft")
+            .innerJoinAndSelect("nft.user", "user")
+            .leftJoinAndSelect("nft.collection", "collection")
+            .leftJoinAndSelect("nft.metadata", "metadata")
+            .leftJoinAndSelect("NftMetadataAttribute", "attribute", "attribute.nft_metadata_id = nft.id");
     }
 }

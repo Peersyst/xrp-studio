@@ -1,7 +1,7 @@
 /* istanbul ignore file */
 /* tslint:disable */
 /* eslint-disable */
-export const $NftDraftDto = {
+export const $NftDto = {
     properties: {
         id: {
             type: 'number',
