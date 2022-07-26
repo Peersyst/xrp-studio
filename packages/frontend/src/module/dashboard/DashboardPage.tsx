@@ -6,6 +6,7 @@ import Button from "module/common/component/input/Button/Button";
 import { useAuth } from "module/auth/hook/useAuth";
 import useTranslate from "module/common/hook/useTranslate";
 import { config } from "config";
+import NftCard from "module/common/component/surface/NftCard/NftCard";
 
 export default function DashboardPage(): JSX.Element {
     const login = useLogin();
@@ -50,6 +51,15 @@ export default function DashboardPage(): JSX.Element {
                     {JSON.stringify(login.error)}
                 </Typography>
             )}
+            <NftCard
+                nft={{
+                    id: 1,
+                    metadata: {
+                        name: "Nft name",
+                        image: "https://lh3.googleusercontent.com/_borwJwD2OKqzsRbPcQXvZMqSL10_stNmyxRsJRRep6hQnU_IkxmR7j9EYyG5Ae1Exvor7MhWcJhP0uDKzKGMmDPreeSYrNeU113=w600",
+                    },
+                }}
+            />
         </BasePage>
     );
 }
