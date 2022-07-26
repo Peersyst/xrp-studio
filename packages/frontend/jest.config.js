@@ -30,6 +30,7 @@ module.exports = {
         "!./src/router/**/*",
         "!./src/script/**/*",
         "!./src/**/*.(styles|types).(ts|js|tsx|jsx)",
+        "!./src/config/**",
         "!./src/module/common/icons/**/*",
         "!./src/module/common/style/**/*",
         "!./src/module/common/service/BaseStorageService.ts",
