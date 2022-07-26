@@ -48,7 +48,7 @@ pipeline {
                         stage('Frontend - Test') {
                             steps {
                                 dir("packages/frontend") {
-                                    sh 'yarn test'
+                                    sh 'yarn test:unit:ci'
                                 }
                             }
                         }
