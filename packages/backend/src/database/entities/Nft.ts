@@ -53,4 +53,30 @@ export class Nft {
 
     @UpdateDateColumn({ name: "updated_at", type: "timestamp" })
     updatedAt: Date;
+
+    constructor({
+        id,
+        tokenId,
+        mintTransactionHash,
+        issuer,
+        transferFee,
+        flags,
+        uri,
+        status,
+        user,
+        collection,
+        metadata,
+    }: Partial<Nft> = {}) {
+        this.id = id;
+        this.tokenId = tokenId;
+        this.mintTransactionHash = mintTransactionHash;
+        this.issuer = issuer;
+        this.transferFee = transferFee;
+        this.flags = flags;
+        this.uri = uri;
+        this.status = status;
+        this.user = user;
+        this.collection = collection;
+        this.metadata = metadata;
+    }
 }
