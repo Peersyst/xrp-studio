@@ -60,4 +60,8 @@ export const GlobalStyles = createGlobalStyle<{ theme: Theme }>`
   #root {
       min-height: 100vh;
   }
+  
+  a {
+      text-decoration: none;
+  }
 `;
