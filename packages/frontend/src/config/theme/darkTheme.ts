@@ -4,6 +4,7 @@ import theme from "config/theme/theme";
 const darkTheme = createTheme({
     ...theme,
     palette: {
+        mode: "dark",
         primary: "#008CFF",
         text: "#FAFAFA",
         background: "#141A1F",
