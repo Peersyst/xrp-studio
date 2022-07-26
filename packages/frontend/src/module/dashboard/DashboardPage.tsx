@@ -6,17 +6,15 @@ import Button from "module/common/component/input/Button/Button";
 import { useAuth } from "module/auth/hook/useAuth";
 import useTranslate from "module/common/hook/useTranslate";
 import { config } from "config";
-import { useSignIn } from "xumm-react";
+import NftCard from "module/common/component/surface/NftCard/NftCard";
 
 export default function DashboardPage(): JSX.Element {
     const login = useLogin();
     const translate = useTranslate();
     const {
-        state: { token },
+        state: { token, isLogged },
+        logout,
     } = useAuth();
-
-    const { signIn, isLoading, isError, signInData: { xummPayload } = {} } = useSignIn();
-    const qr = xummPayload?.refs?.qr_png;
 
     return (
         <BasePage>
@@ -35,13 +33,14 @@ export default function DashboardPage(): JSX.Element {
                 </div>
             </Animated.Slide>
             <ArrowIcon />
-            {!isError && qr ? (
-                <img src={qr} css={{ width: 200, height: 200 }} alt="xumm-qr" />
-            ) : (
-                <Button onClick={signIn} loading={isLoading}>
-                    {"Sign in"}
-                </Button>
-            )}
+            <Button
+                onClick={() => (!isLogged ? login.mutate({ username: "Charlie", password: "Test1234" }) : logout())}
+                css={`
+                    margin-top: 20px;
+                `}
+            >
+                {!isLogged ? (login.isLoading ? "Loading..." : "Log in") : "Log out"}
+            </Button>
             {login.isError && (
                 <Typography
                     variant="body1"
@@ -52,6 +51,15 @@ export default function DashboardPage(): JSX.Element {
                     {JSON.stringify(login.error)}
                 </Typography>
             )}
+            <NftCard
+                nft={{
+                    id: 1,
+                    metadata: {
+                        name: "Nft name",
+                        image: "https://lh3.googleusercontent.com/_borwJwD2OKqzsRbPcQXvZMqSL10_stNmyxRsJRRep6hQnU_IkxmR7j9EYyG5Ae1Exvor7MhWcJhP0uDKzKGMmDPreeSYrNeU113=w600",
+                    },
+                }}
+            />
         </BasePage>
     );
 }
