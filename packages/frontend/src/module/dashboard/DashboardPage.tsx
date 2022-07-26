@@ -7,6 +7,8 @@ import { useAuth } from "module/auth/hook/useAuth";
 import useTranslate from "module/common/hook/useTranslate";
 import { config } from "config";
 import NftCard from "module/common/component/surface/NftCard/NftCard";
+import BaseGrid from "module/common/component/layout/BaseGrid/BaseGrid";
+import { BaseCardSkeletons } from "module/common/component/nft/Skeletons/Skeletons";
 
 export default function DashboardPage(): JSX.Element {
     const login = useLogin();
@@ -51,15 +53,76 @@ export default function DashboardPage(): JSX.Element {
                     {JSON.stringify(login.error)}
                 </Typography>
             )}
-            <NftCard
-                nft={{
-                    id: 1,
-                    metadata: {
-                        name: "Nft name",
-                        image: "https://lh3.googleusercontent.com/_borwJwD2OKqzsRbPcQXvZMqSL10_stNmyxRsJRRep6hQnU_IkxmR7j9EYyG5Ae1Exvor7MhWcJhP0uDKzKGMmDPreeSYrNeU113=w600",
-                    },
+            <BaseGrid
+                data={{
+                    pageParams: [],
+                    pages: [
+                        {
+                            currentPage: 1,
+                            pages: 2,
+                            items: [
+                                {
+                                    id: 1,
+                                    metadata: {
+                                        name: "NFT1",
+                                        image: "https://lh3.googleusercontent.com/_borwJwD2OKqzsRbPcQXvZMqSL10_stNmyxRsJRRep6hQnU_IkxmR7j9EYyG5Ae1Exvor7MhWcJhP0uDKzKGMmDPreeSYrNeU113=w600",
+                                    },
+                                },
+                                {
+                                    id: 2,
+                                    metadata: {
+                                        name: "NFT2",
+                                        image: "https://lh3.googleusercontent.com/_borwJwD2OKqzsRbPcQXvZMqSL10_stNmyxRsJRRep6hQnU_IkxmR7j9EYyG5Ae1Exvor7MhWcJhP0uDKzKGMmDPreeSYrNeU113=w600",
+                                    },
+                                },
+                                {
+                                    id: 3,
+                                    metadata: {
+                                        name: "NFT3",
+                                        image: "https://lh3.googleusercontent.com/_borwJwD2OKqzsRbPcQXvZMqSL10_stNmyxRsJRRep6hQnU_IkxmR7j9EYyG5Ae1Exvor7MhWcJhP0uDKzKGMmDPreeSYrNeU113=w600",
+                                    },
+                                },
+                            ],
+                        },
+                        {
+                            currentPage: 2,
+                            pages: 2,
+                            items: [
+                                {
+                                    id: 4,
+                                    metadata: {
+                                        name: "NFT4",
+                                        image: "https://lh3.googleusercontent.com/_borwJwD2OKqzsRbPcQXvZMqSL10_stNmyxRsJRRep6hQnU_IkxmR7j9EYyG5Ae1Exvor7MhWcJhP0uDKzKGMmDPreeSYrNeU113=w600",
+                                    },
+                                },
+                                {
+                                    id: 5,
+                                    metadata: {
+                                        name: "NFT5",
+                                        image: "https://lh3.googleusercontent.com/_borwJwD2OKqzsRbPcQXvZMqSL10_stNmyxRsJRRep6hQnU_IkxmR7j9EYyG5Ae1Exvor7MhWcJhP0uDKzKGMmDPreeSYrNeU113=w600",
+                                    },
+                                },
+                                {
+                                    id: 6,
+                                    metadata: {
+                                        name: "NFT6",
+                                        image: "https://lh3.googleusercontent.com/_borwJwD2OKqzsRbPcQXvZMqSL10_stNmyxRsJRRep6hQnU_IkxmR7j9EYyG5Ae1Exvor7MhWcJhP0uDKzKGMmDPreeSYrNeU113=w600",
+                                    },
+                                },
+                            ],
+                        },
+                    ],
                 }}
-            />
+                Skeletons={BaseCardSkeletons}
+                callback={() => undefined}
+                loading={true}
+                cols={3}
+                end={false}
+                colGap={24}
+                rowGap={24}
+            >
+                {(nfts) => nfts.map((nft) => <NftCard nft={nft} />)}
+            </BaseGrid>
         </BasePage>
     );
 }
