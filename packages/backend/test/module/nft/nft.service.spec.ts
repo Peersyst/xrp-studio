@@ -223,7 +223,7 @@ describe("NftService", () => {
         describe("Draft publishing", () => {
             test("An id is included in the Memo but is not a valid number. Nft repository is not queried", async () => {
                 const nftMintTransaction = new NFTokenMintTransactionMock({
-                    Memos: [{ Memo: { MemoData: Buffer.from(JSON.stringify({ draftId: "NaN" }), "utf8").toString("hex") } }],
+                    Memos: [{ Memo: { MemoData: Buffer.from(JSON.stringify({ id: "NaN" }), "utf8").toString("hex") } }],
                 });
 
                 await nftService.createNftFromMintTransaction(nftMintTransaction);
@@ -235,7 +235,7 @@ describe("NftService", () => {
                 nftRepositoryMock.getOne.mockResolvedValueOnce(undefined);
 
                 const nftMintTransaction = new NFTokenMintTransactionMock({
-                    Memos: [{ Memo: { MemoData: Buffer.from(JSON.stringify({ draftId: 1 }), "utf8").toString("hex") } }],
+                    Memos: [{ Memo: { MemoData: Buffer.from(JSON.stringify({ id: 1 }), "utf8").toString("hex") } }],
                 });
 
                 await nftService.createNftFromMintTransaction(nftMintTransaction);
@@ -247,7 +247,7 @@ describe("NftService", () => {
                 nftRepositoryMock.getOne.mockResolvedValueOnce(new NftMock({ metadata: new NftMetadataMock() }));
 
                 const nftMintTransaction = new NFTokenMintTransactionMock({
-                    Memos: [{ Memo: { MemoData: Buffer.from(JSON.stringify({ draftId: 1 }), "utf8").toString("hex") } }],
+                    Memos: [{ Memo: { MemoData: Buffer.from(JSON.stringify({ id: 1 }), "utf8").toString("hex") } }],
                 });
 
                 const nft = await nftService.createNftFromMintTransaction(nftMintTransaction);
@@ -525,7 +525,7 @@ describe("NftService", () => {
                 Memos: [
                     {
                         Memo: {
-                            MemoData: Buffer.from(JSON.stringify({ draftId: nftMock.id }), "utf8").toString("hex"),
+                            MemoData: Buffer.from(JSON.stringify({ id: nftMock.id }), "utf8").toString("hex"),
                         },
                     },
                 ],
@@ -559,7 +559,7 @@ describe("NftService", () => {
                 Memos: [
                     {
                         Memo: {
-                            MemoData: Buffer.from(JSON.stringify({ draftId: nftMock.id }), "utf8").toString("hex"),
+                            MemoData: Buffer.from(JSON.stringify({ id: nftMock.id }), "utf8").toString("hex"),
                         },
                     },
                 ],

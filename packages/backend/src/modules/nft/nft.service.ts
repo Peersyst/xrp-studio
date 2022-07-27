@@ -98,8 +98,8 @@ export class NftService {
             for (const { Memo } of Memos) {
                 try {
                     const parsedMemo = JSON.parse(Buffer.from(Memo.MemoData, "hex").toString());
-                    if (parsedMemo.draftId) {
-                        possibleDraftId = Number(parsedMemo.draftId);
+                    if (parsedMemo.id) {
+                        possibleDraftId = Number(parsedMemo.id);
                         break;
                     }
                 } catch (e) {}
@@ -309,7 +309,7 @@ export class NftService {
             Memos: [
                 {
                     Memo: {
-                        MemoData: Buffer.from(JSON.stringify({ draftId }), "utf8").toString("hex"),
+                        MemoData: Buffer.from(JSON.stringify({ id: draftId }), "utf8").toString("hex"),
                     },
                 },
             ],
