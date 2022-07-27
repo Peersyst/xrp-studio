@@ -10,7 +10,7 @@ describe("Login integration tests", () => {
     test("Renders the page", () => {
         render(<DashboardPage />);
         screen.getByRole("heading", { name: translate("name") });
-        expect(screen.getByRole("button", { name: "Sign in" }));
+        expect(screen.getByRole("button", { name: "Log in" }));
         expect(screen.getByTestId("ArrowIcon"));
     });
 });
