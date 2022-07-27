@@ -1,7 +1,4 @@
 export interface CollectionCardProps {
-    title: string;
-    image: string;
-    to: string;
-    loading: boolean;
-    totalNfts: number;
+    // TODO: Add backend CollectionDto type
+    collection: any;
 }

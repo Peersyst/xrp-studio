@@ -1,10 +1,10 @@
-import styled from "styled-components";
+import styled, { css } from "styled-components";
 import { Image } from "@peersyst/react-components";
 
-export const CollectionImage = styled(Image)`
-    left: 0;
-    top: 0;
-    width: 16.5rem;
-    height: 16.5rem;
-    position: absolute;
-`;
+export const CollectionImage = styled(Image)(
+    ({ theme }) => css`
+        width: 100%;
+        height: 100%;
+        border-radius: ${theme.borderRadius};
+    `,
+);

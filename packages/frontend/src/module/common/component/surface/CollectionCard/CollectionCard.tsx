@@ -1,16 +1,20 @@
-import { Typography, withSkeleton } from "@peersyst/react-components";
-import BaseCard from "module/common/component/surface/BaseCard/BaseCard";
+import { Typography, WithSkeleton } from "@peersyst/react-components";
 import { CollectionImage } from "module/common/component/surface/CollectionCard/CollectionCard.styles";
 import { CollectionCardProps } from "module/common/component/surface/CollectionCard/CollectionCard.types";
+import BaseCard from "module/nft/component/surface/BaseCard/BaseCard";
+import useTranslate from "module/common/hook/useTranslate";
 
-const CollectionCard = ({ title, totalNfts, loading, image, to }: CollectionCardProps): JSX.Element => {
+const CollectionCard = ({
+    collection: { id, name = "", image = "", items, loading = false },
+}: WithSkeleton<CollectionCardProps>): JSX.Element => {
+    const translate = useTranslate();
     return (
-        <BaseCard title={title} to={to} cover={<CollectionImage src={image} alt={"collection"} />} loading={loading}>
+        <BaseCard title={name} to={"collections/" + id} cover={<CollectionImage src={image} alt={"collection"} />} loading={loading}>
             <Typography variant="subtitle2" light>
-                {totalNfts + " ITEMS"}
+                {`${Intl.NumberFormat().format(items)} ${translate("items").toUpperCase()}`}
             </Typography>
         </BaseCard>
     );
 };
 
-export default withSkeleton(CollectionCard);
+export default CollectionCard;

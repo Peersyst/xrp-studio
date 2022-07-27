@@ -9,6 +9,7 @@ import { config } from "config";
 import NftCard from "module/common/component/surface/NftCard/NftCard";
 import BaseGrid from "module/common/component/layout/BaseGrid/BaseGrid";
 import { BaseCardSkeletons } from "module/common/component/nft/Skeletons/Skeletons";
+import CollectionCard from "module/common/component/surface/CollectionCard/CollectionCard";
 
 export default function DashboardPage(): JSX.Element {
     const login = useLogin();
@@ -53,6 +54,14 @@ export default function DashboardPage(): JSX.Element {
                     {JSON.stringify(login.error)}
                 </Typography>
             )}
+            <CollectionCard
+                collection={{
+                    id: 1,
+                    name: "Bored Apes",
+                    image: "https://lh3.googleusercontent.com/Ju9CkWtV-1Okvf45wo8UctR-M9He2PjILP0oOvxE89AyiPPGtrR3gysu1Zgy0hjd2xKIgjJJtWIc0ybj4Vd7wv8t3pxDGHoJBzDB=s168",
+                    items: 10000,
+                }}
+            />
             <BaseGrid
                 data={{
                     pageParams: [],
