@@ -9,6 +9,8 @@ import { MetadataConsumer } from "./queue/metadata.consumer";
 import { NftController } from "./nft.controller";
 import { NftMetadata } from "../../database/entities/NftMetadata";
 import { NftMetadataAttribute } from "../../database/entities/NftMetadataAttribute";
+import { XummModule } from "../xumm/xumm-shared-module";
+import { ConfigModule, ConfigService } from "@nestjs/config";
 
 @Module({
     imports: [
@@ -16,6 +18,7 @@ import { NftMetadataAttribute } from "../../database/entities/NftMetadataAttribu
         BullModule.registerQueue({ name: "metadata" }),
         CollectionModule,
         IpfsModule,
+        XummModule.register(ConfigModule, ConfigService),
     ],
     controllers: [NftController],
     providers: [NftService, MetadataConsumer],

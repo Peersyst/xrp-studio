@@ -1,4 +1,4 @@
-import { ApiOperation, ApiTags } from "@nestjs/swagger";
+import { ApiBearerAuth, ApiOperation, ApiTags } from "@nestjs/swagger";
 import { Controller, Get, Param, UseGuards, Request } from "@nestjs/common";
 import { ApiErrorDecorators } from "./exception/error-response.decorator";
 import { XummService } from "./xumm.service";
@@ -39,6 +39,7 @@ export class XummAuthController {
 
     @ApiOperation({ summary: "Verify sign in with XUMM" })
     @UseGuards(XummJwtAuthGuard)
+    @ApiBearerAuth()
     @ApiException(() => new XummBusinessException(XummErrorCode.INVALID_CREDENTIALS))
     @Get("verify-sign-in")
     // eslint-disable-next-line @typescript-eslint/no-empty-function

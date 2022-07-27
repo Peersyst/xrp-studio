@@ -20,6 +20,6 @@
  */
 export default function unscrambleTaxon(taxon: number, tokenSeq: number): number {
     /* eslint-disable no-bitwise -- XOR is part of the encode/decode scheme. */
-    return (taxon ^ (384160001 * tokenSeq + 2459)) % 4294967296;
+    return (taxon ^ (384160001 * tokenSeq + 2459)) % 4294967296 >>> 0;
     /* eslint-enable no-bitwise */
 }

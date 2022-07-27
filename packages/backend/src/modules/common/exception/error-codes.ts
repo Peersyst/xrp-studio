@@ -9,6 +9,8 @@ enum AppErrorCode {
     NFT_DRAFT_NOT_FOUND = "NFT_DRAFT_NOT_FOUND",
     INVALID_IMAGE = "INVALID_IMAGE",
     NFT_DRAFT_NOT_OWNED = "NFT_DRAFT_NOT_OWNED",
+    NFT_DRAFT_ALREADY_PUBLISHED = "NFT_DRAFT_ALREADY_PUBLISHED",
+    BAD_DRAFT_STATUS_REQUEST = "BAD_DRAFT_STATUS_REQUEST",
 }
 
 export const ErrorCode = { ...AppErrorCode, ...XummErrorCode, ...StorageErrorCode };
@@ -36,5 +38,13 @@ export const ErrorBody: { [code in ErrorCodeType]: { statusCode: HttpStatus; mes
     [ErrorCode.NFT_DRAFT_NOT_OWNED]: {
         statusCode: HttpStatus.FORBIDDEN,
         message: ErrorCode.NFT_DRAFT_NOT_OWNED,
+    },
+    [ErrorCode.NFT_DRAFT_ALREADY_PUBLISHED]: {
+        statusCode: HttpStatus.CONFLICT,
+        message: ErrorCode.NFT_DRAFT_ALREADY_PUBLISHED,
+    },
+    [ErrorCode.BAD_DRAFT_STATUS_REQUEST]: {
+        statusCode: HttpStatus.BAD_REQUEST,
+        message: ErrorCode.BAD_DRAFT_STATUS_REQUEST,
     },
 };

@@ -3,6 +3,10 @@
 /* eslint-disable */
 export const $NftDraftDto = {
     properties: {
+        status: {
+            type: 'Enum',
+            isRequired: true,
+        },
         id: {
             type: 'number',
             isRequired: true,
@@ -15,10 +19,6 @@ export const $NftDraftDto = {
         },
         flags: {
             type: 'number',
-            isRequired: true,
-        },
-        status: {
-            type: 'Enum',
             isRequired: true,
         },
         metadata: {

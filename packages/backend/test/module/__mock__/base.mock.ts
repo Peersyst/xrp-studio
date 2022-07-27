@@ -1,6 +1,6 @@
 class BaseMock {
     clear() {
-        Object.values(this).forEach((v) => ("mockClear" in v ? v.mockClear() : undefined));
+        Object.values(this).forEach((v) => ((v as any).mockClear ? v.mockClear() : undefined));
     }
 }
 

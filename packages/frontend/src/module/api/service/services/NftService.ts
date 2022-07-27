@@ -15,6 +15,56 @@ import { request as __request } from '../core/request';
 export class NftService {
 
     /**
+     * Create an NFT
+     * @param requestBody
+     * @returns NftDraftDto
+     * @throws ApiError
+     */
+    public static nftControllerCreateNft(
+        requestBody: CreateNftDraftRequest,
+    ): CancelablePromise<NftDraftDto> {
+        return __request(OpenAPI, {
+            method: 'POST',
+            url: '/api/nft',
+            body: requestBody,
+            mediaType: 'application/json',
+        });
+    }
+
+    /**
+     * Get all NFTs (status = confirmed) paginated
+     * @param page
+     * @param pageSize
+     * @param query
+     * @param collection
+     * @param order
+     * @param account
+     * @returns PaginatedNftDto
+     * @throws ApiError
+     */
+    public static nftControllerGetNfts(
+        page?: number,
+        pageSize?: number,
+        query?: string,
+        collection?: number,
+        order?: 'ASC' | 'DESC',
+        account?: string,
+    ): CancelablePromise<PaginatedNftDto> {
+        return __request(OpenAPI, {
+            method: 'GET',
+            url: '/api/nft',
+            query: {
+                'page': page,
+                'pageSize': pageSize,
+                'query': query,
+                'collection': collection,
+                'order': order,
+                'account': account,
+            },
+        });
+    }
+
+    /**
      * Create an NFT draft
      * @param requestBody
      * @returns NftDraftDto
@@ -68,18 +118,23 @@ export class NftService {
      * Update an NFT draft
      * @param id
      * @param requestBody
+     * @param publish
      * @returns void
      * @throws ApiError
      */
     public static nftControllerUpdateNftDraft(
         id: number,
         requestBody: UpdateNftDraftRequest,
+        publish?: boolean,
     ): CancelablePromise<void> {
         return __request(OpenAPI, {
             method: 'PUT',
             url: '/api/nft/draft/{id}',
             path: {
                 'id': id,
+            },
+            query: {
+                'publish': publish,
             },
             body: requestBody,
             mediaType: 'application/json',
@@ -105,34 +160,19 @@ export class NftService {
     }
 
     /**
-     * Get all NFTs (status = confirmed) paginated
-     * @param page
-     * @param pageSize
-     * @param query
-     * @param collection
-     * @param order
-     * @param account
-     * @returns PaginatedNftDto
+     * Publish an NFT draft
+     * @param id
+     * @returns void
      * @throws ApiError
      */
-    public static nftControllerGetNfts(
-        page?: number,
-        pageSize?: number,
-        query?: string,
-        collection?: number,
-        order?: 'ASC' | 'DESC',
-        account?: string,
-    ): CancelablePromise<PaginatedNftDto> {
+    public static nftControllerPublishNftDraft(
+        id: number,
+    ): CancelablePromise<void> {
         return __request(OpenAPI, {
-            method: 'GET',
-            url: '/api/nft',
-            query: {
-                'page': page,
-                'pageSize': pageSize,
-                'query': query,
-                'collection': collection,
-                'order': order,
-                'account': account,
+            method: 'PATCH',
+            url: '/api/nft/draft/{id}/publish',
+            path: {
+                'id': id,
             },
         });
     }
@@ -152,6 +192,18 @@ export class NftService {
             path: {
                 'id': id,
             },
+        });
+    }
+
+    /**
+     * Get the status of a single or many NFT drafts
+     * @returns any
+     * @throws ApiError
+     */
+    public static nftControllerGetNftDraftStatus(): CancelablePromise<any> {
+        return __request(OpenAPI, {
+            method: 'GET',
+            url: '/api/nft/draft/status',
         });
     }
 

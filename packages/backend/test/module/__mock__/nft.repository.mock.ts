@@ -27,7 +27,7 @@ class NftRepositoryMock extends BaseMock {
     );
     getRawOne = jest.fn(() => new Promise((resolve) => resolve({ token_id: "00000001" })));
     orderBy = jest.fn(() => ({ getRawOne: this.getRawOne, getManyAndCount: this.getManyAndCount }));
-    where = jest.fn(() => ({ orderBy: this.orderBy, getOne: this.getOne }));
+    where = jest.fn(() => ({ orderBy: this.orderBy, getOne: this.getOne, getMany: this.getMany }));
     select = jest.fn(() => ({ where: this.where }));
     getOne = jest.fn(() => new Promise((resolve) => resolve(new NftMock())));
     getManyAndCount = jest.fn(
@@ -36,7 +36,7 @@ class NftRepositoryMock extends BaseMock {
     andWhere = jest.fn(() => ({ andWhere: this.andWhere, orderBy: this.orderBy }));
     skip = jest.fn();
     take = jest.fn();
-    innerJoinAndSelect = jest.fn(() => ({ leftJoinAndSelect: this.leftJoinAndSelect }));
+    innerJoinAndSelect = jest.fn(() => ({ leftJoinAndSelect: this.leftJoinAndSelect, where: this.where }));
     leftJoinAndSelect = jest.fn(() => ({
         leftJoinAndSelect: this.leftJoinAndSelect,
         take: this.take,
@@ -50,7 +50,17 @@ class NftRepositoryMock extends BaseMock {
     createQueryBuilder = jest.fn(() => ({
         select: this.select,
         innerJoinAndSelect: this.innerJoinAndSelect,
+        leftJoinAndSelect: this.leftJoinAndSelect,
+        take: this.take,
+        where: this.where,
+        getOne: this.getOne,
+        andWhere: this.andWhere,
+        orderBy: this.orderBy,
+        skip: this.skip,
+        getManyAndCount: this.getManyAndCount,
     }));
+    update = jest.fn();
+    getMany = jest.fn(() => new Promise((resolve) => resolve([new NftMock({ id: 1 }), new NftMock({ id: 2 }), new NftMock({ id: 3 })])));
 }
 
 export default NftRepositoryMock;

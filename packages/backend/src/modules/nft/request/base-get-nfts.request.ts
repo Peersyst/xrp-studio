@@ -6,14 +6,14 @@ import { Order } from "../../common/types";
 export class BaseGetNftsRequest {
     @ApiProperty({
         name: "page",
-        type: "number",
+        type: "integer",
         required: false,
     })
     page?: number;
 
     @ApiProperty({
         name: "pageSize",
-        type: "number",
+        type: "integer",
         required: false,
     })
     pageSize?: number;
