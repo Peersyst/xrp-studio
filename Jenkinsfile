@@ -126,10 +126,10 @@ pipeline {
                             }
                             environment {
                                 NODE_ENV = 'production'
-                                REACT_APP_ENV_CONFIG = 'staging'
                             }
                             steps {
                                 dir("packages/frontend") {
+                                    sh 'echo "REACT_APP_ENV_CONFIG=staging" > .env'
                                     sh 'yarn build'
                                 }
                             }
