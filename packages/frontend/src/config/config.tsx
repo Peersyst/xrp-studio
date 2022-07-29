@@ -6,6 +6,7 @@ import devConfig from "./config.dev.json";
 import stagingConfig from "./config.staging.json";
 
 const envConfigs: Record<string, CreateConfig> = {
+    test: devConfig,
     development: devConfig,
     production: prodConfig,
     staging: stagingConfig,
