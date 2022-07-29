@@ -1,14 +1,21 @@
 import { Logger } from "@nestjs/common";
-import { Process, Processor } from "@nestjs/bull";
-import { Job } from "bull";
+import { InjectQueue, Process, Processor } from "@nestjs/bull";
+import { Job, Queue } from "bull";
 import { BlockchainService } from "../blockchain.service";
 
 @Processor("ledger")
 export class LedgerConsumer {
     private readonly logger = new Logger(LedgerConsumer.name);
 
-    constructor(private readonly blockchainService: BlockchainService) {}
+    constructor(
+        private readonly blockchainService: BlockchainService,
+        @InjectQueue("transactions") private readonly transactionsQueue: Queue,
+    ) {}
 
+    /**
+     * Indexes ledgers and sends their transactions to the transactions queue
+     * @param index
+     */
     @Process("index-ledger")
     async indexLedger({ data: { index } }: Job<{ index: number }>) {
         this.logger.log(`CONSUMING LEDGER ${index}`);
@@ -17,6 +24,11 @@ export class LedgerConsumer {
             const ledger = await this.blockchainService.getLedger(index);
             if (ledger.validated) {
                 this.logger.log(`INDEXED LEDGER ${index}`);
+                const job = await this.transactionsQueue.add("process-transactions", {
+                    transactions: ledger.transactions,
+                    ledgerIndex: index,
+                });
+                await job.finished();
                 await this.blockchainService.setCurrentLedgerIndex(index + 1);
                 await this.blockchainService.indexLedger(index + 1);
             } else {

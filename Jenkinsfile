@@ -124,9 +124,13 @@ pipeline {
                                     reuseNode true
                                 }
                             }
+                            environment {
+                                NODE_ENV = 'production'
+                                REACT_APP_ENV_CONFIG = 'staging'
+                            }
                             steps {
                                 dir("packages/frontend") {
-                                    sh 'NODE_ENV=development yarn build'
+                                    sh 'yarn build'
                                 }
                             }
                         }
