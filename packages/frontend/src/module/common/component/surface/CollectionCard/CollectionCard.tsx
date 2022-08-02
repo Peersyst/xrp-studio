@@ -9,7 +9,7 @@ const CollectionCard = ({
 }: WithSkeleton<CollectionCardProps>): JSX.Element => {
     const translate = useTranslate();
     return (
-        <BaseCard title={name} to={"collections/" + id} cover={<CollectionImage src={image} alt={"collection"} />} loading={loading}>
+        <BaseCard title={name} to={"collections/" + id} cover={<CollectionImage src={image} alt={name} />} loading={loading}>
             <Typography variant="subtitle2" light>
                 {`${Intl.NumberFormat().format(items)} ${translate("items").toUpperCase()}`}
             </Typography>
