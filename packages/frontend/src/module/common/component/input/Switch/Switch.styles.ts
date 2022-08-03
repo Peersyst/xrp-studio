@@ -9,12 +9,12 @@ export const SwitchRoot = styled(Switch)<SwitchProps>(
             width: 2.375rem;
 
             .SwitchThumb {
-                background-color: white;
+                background-color: ${theme.palette.black[100]};
                 box-shadow: none;
             }
 
             .SwitchTrack {
-                background-color: ${theme.palette.gray};
+                background-color: ${theme.palette.black[20]};
                 padding: 5px;
                 box-shadow: none;
             }
