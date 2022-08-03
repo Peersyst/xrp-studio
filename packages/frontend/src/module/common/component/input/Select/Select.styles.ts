@@ -8,20 +8,20 @@ export const SelectRoot = styled(Select)<SelectProps<any>>(
         margin-bottom: 10rem;
         height: 1.5rem;
         width: 4rem;
-        color: #5e676e;
-        background-color: #21272c;
+        color: ${theme.palette.black[30]};
+        background-color: ${theme.palette.black[5]};
         .Select {
-            background-color: #21272c;
+            background-color: ${theme.palette.black[5]};
         }
         .SelectDisplay {
             border: 0px;
         }
         .SelectItem {
             padding: 10px 10px;
-            background-color: #21272c;
+            background-color: ${theme.palette.black[5]};
         }
         .SelectMenu {
-            background-color: #21272c;
+            background-color: ${theme.palette.black[5]};
         }
     `,
 );
