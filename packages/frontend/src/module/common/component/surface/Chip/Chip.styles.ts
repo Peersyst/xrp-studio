@@ -2,17 +2,16 @@ import styled, { css } from "styled-components";
 import { Chip } from "@peersyst/react-components";
 
 export const ChipRoot = styled(Chip)(
-    () => css`
+    ({ theme }) => css`
         && {
-            width: 5.75rem;
-            height: 2rem;
-            background-color: #141a1f;
+            background-color: ${theme.palette.black["2.5"]};
             opacity: 0.32;
-            color: white;
+            color: ${theme.palette.black[100]};
 
             &.ChipLabel {
-                color: white;
-                opacity: 1;
+                color: ${theme.palette.black[100]};
+                font-size: 0.875rem;
+                padding: 0.375rem 0.75rem;
             }
         }
     `,
