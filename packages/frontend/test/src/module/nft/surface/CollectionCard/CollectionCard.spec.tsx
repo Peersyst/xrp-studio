@@ -1,5 +1,5 @@
 import { screen } from "@testing-library/react";
-import { render } from "test-utils";
+import { render, translate } from "test-utils";
 import CollectionMock from "../../../../../__mocks__/Collection.mock";
 import CollectionCard from "module/common/component/surface/CollectionCard/CollectionCard";
 
@@ -10,5 +10,6 @@ describe("CollectionCard", () => {
         render(<CollectionCard collection={collectionMock} />);
         expect(screen.getByText(collectionMock.name)).toBeInTheDocument();
         expect(screen.getByRole("img")).toHaveAttribute("alt", collectionMock.name);
+        expect(screen.getByText(`${Intl.NumberFormat().format(collectionMock.items)} ${translate("items").toUpperCase()}`));
     });
 });
