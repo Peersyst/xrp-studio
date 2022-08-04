@@ -11,6 +11,8 @@ export const SwitchRoot = styled(Switch)<SwitchProps>(
             .SwitchThumb {
                 background-color: ${theme.palette.black[100]};
                 box-shadow: none;
+                width: 0.875rem;
+                height: 0.875rem;
             }
 
             .SwitchTrack {
