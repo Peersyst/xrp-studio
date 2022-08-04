@@ -197,13 +197,22 @@ export class NftService {
 
     /**
      * Get the status of a single or many NFT drafts
+     * @param id
+     * @param ids
      * @returns any
      * @throws ApiError
      */
-    public static nftControllerGetNftDraftStatus(): CancelablePromise<any> {
+    public static nftControllerGetNftDraftStatus(
+        id?: number,
+        ids?: Array<number>,
+    ): CancelablePromise<any> {
         return __request(OpenAPI, {
             method: 'GET',
             url: '/api/nft/draft/status',
+            query: {
+                'id': id,
+                'ids': ids,
+            },
         });
     }
 
