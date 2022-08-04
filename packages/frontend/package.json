@@ -35,7 +35,8 @@
         "react-scripts": "^4.0.0",
         "recoil": "^0.7.4",
         "styled-components": "^5.3.5",
-        "web-vitals": "^1.0.1"
+        "web-vitals": "^1.0.1",
+        "xumm-react": "^1.0.2"
     },
     "devDependencies": {
         "@babel/plugin-proposal-class-properties": "^7.18.6",

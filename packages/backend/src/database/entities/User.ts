@@ -25,10 +25,10 @@ export class User {
     @Column({ type: "varchar", length: 255, nullable: true })
     discord?: string;
 
-    @OneToMany(() => Nft, (nft) => nft.user, { cascade: ["insert"] })
+    @OneToMany(() => Nft, (nft) => nft.user)
     nfts?: Nft[];
 
-    @OneToMany(() => Collection, (collection) => collection.user, { cascade: ["insert"] })
+    @OneToMany(() => Collection, (collection) => collection.user)
     collections?: Collection[];
 
     @CreateDateColumn({ name: "created_at", type: "timestamp" })
@@ -36,4 +36,16 @@ export class User {
 
     @UpdateDateColumn({ name: "updated_at", type: "timestamp" })
     updatedAt: Date;
+
+    constructor({ address, name, description, image, header, twitter, discord, nfts, collections }: Partial<User> = {}) {
+        this.address = address;
+        this.name = name;
+        this.description = description;
+        this.image = image;
+        this.header = header;
+        this.twitter = twitter;
+        this.discord = discord;
+        this.nfts = nfts;
+        this.collections = collections;
+    }
 }

@@ -28,4 +28,19 @@ export default (): any => ({
         node: process.env.XRP_NODE,
         startingLedgerIndex: parseInt(process.env.STARTING_LEDGER_INDEX),
     },
+    xumm: {
+        appKey: process.env.XUMM_API_KEY,
+        appSecret: process.env.XUMM_SECRET_KEY,
+    },
+    pinata: {
+        apiKey: process.env.PINATA_API_KEY,
+        secretKey: process.env.PINATA_API_SECRET,
+        gateway: process.env.PINATA_GATEWAY.endsWith("/") ? process.env.PINATA_GATEWAY : process.env.PINATA_GATEWAY + "/",
+    },
+    aws: {
+        region: process.env.AWS_REGION,
+        accessKeyId: process.env.AWS_ACCESS_KEY_ID,
+        secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY,
+        bucketName: process.env.AWS_BUCKET_NAME,
+    },
 });
