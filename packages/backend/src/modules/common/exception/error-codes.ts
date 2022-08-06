@@ -11,6 +11,7 @@ enum AppErrorCode {
     NFT_DRAFT_NOT_OWNED = "NFT_DRAFT_NOT_OWNED",
     NFT_DRAFT_ALREADY_PUBLISHED = "NFT_DRAFT_ALREADY_PUBLISHED",
     BAD_DRAFT_STATUS_REQUEST = "BAD_DRAFT_STATUS_REQUEST",
+    USER_NOT_FOUND = "USER_NOT_FOUND",
 }
 
 export const ErrorCode = { ...AppErrorCode, ...XummErrorCode, ...StorageErrorCode };
@@ -46,5 +47,9 @@ export const ErrorBody: { [code in ErrorCodeType]: { statusCode: HttpStatus; mes
     [ErrorCode.BAD_DRAFT_STATUS_REQUEST]: {
         statusCode: HttpStatus.BAD_REQUEST,
         message: ErrorCode.BAD_DRAFT_STATUS_REQUEST,
+    },
+    [ErrorCode.USER_NOT_FOUND]: {
+        statusCode: HttpStatus.NOT_FOUND,
+        message: ErrorCode.USER_NOT_FOUND,
     },
 };
