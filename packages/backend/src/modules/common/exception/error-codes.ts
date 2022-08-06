@@ -1,5 +1,5 @@
 import { HttpStatus } from "@nestjs/common";
-import { XummErrorBody, XummErrorCode } from "../../xumm/xumm-shared-module";
+import { XummErrorBody, XummErrorCode } from "@peersyst/xumm-module";
 import { StorageErrorBody, StorageErrorCode } from "@peersyst/storage-module/src/exception/error-codes";
 
 // Define app error codes

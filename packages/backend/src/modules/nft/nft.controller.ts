@@ -4,7 +4,7 @@ import { ApiErrorDecorators } from "../common/exception/error-response.decorator
 import { NftService } from "./nft.service";
 import { NftDraftDto, PaginatedNftDraftDto } from "./dto/nft-draft.dto";
 import { CreateNftDraftRequest } from "./request/create-nft-draft.request";
-import { XummAuthenticated } from "xumm-module";
+import { XummAuthenticated } from "@peersyst/xumm-module";
 import { UpdateNftDraftRequest } from "./request/update-nft-draft-request";
 import { NftDto, PaginatedNftDto } from "./dto/nft.dto";
 import { ApiGetNftsDecorator } from "./decorator/api-get-nfts.decorator";

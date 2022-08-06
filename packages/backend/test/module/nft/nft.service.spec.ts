@@ -28,7 +28,7 @@ import { ErrorCode } from "../../../src/modules/common/exception/error-codes";
 import { Order } from "../../../src/modules/common/types";
 import { NftDraftStatus } from "../../../src/modules/nft/request/get-nft-drafts.request";
 import XummServiceMock from "../__mock__/xumm.service.mock";
-import { XummService } from "../../../src/modules/xumm/xumm-shared-module";
+import { XummService } from "@peersyst/xumm-module";
 import IpfsServiceMock from "../__mock__/ipfs.service.mock";
 import NftMetadataMock from "../__mock__/nft-metadata.mock";
 import { IpfsService } from "@peersyst/ipfs-module/src/ipfs.service";

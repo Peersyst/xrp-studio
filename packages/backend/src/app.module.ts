@@ -11,7 +11,7 @@ import { TypeORMSeederAdapter } from "./database/seeders/adapter";
 import { ErrorFilter } from "./modules/common/exception/error.filter";
 import { BullModule } from "@nestjs/bull";
 import { BlockchainModule } from "./modules/blockchain/blockchain.module";
-import { XummModule } from "xumm-module";
+import { XummModule } from "@peersyst/xumm-module";
 import { XummAuthService } from "./modules/xumm/xumm-auth.service";
 import { NftModule } from "./modules/nft/nft.module";
 import { CollectionModule } from "./modules/collection/collection.module";
@@ -47,8 +47,16 @@ import { StorageModule, StorageType } from "@peersyst/storage-module/src/storage
         }),
         CommandModule,
         UserModule,
-        // TODO: Add registerAsync and inject UserService and config
-        XummModule.register(ConfigModule, ConfigService, {}, XummAuthService),
+        XummModule.forRootAsync({
+            enableAuth: true,
+            enableStatus: true,
+            inject: [ConfigService],
+            imports: [UserModule],
+            useFactory: (config: ConfigService) => ({
+                jwt: { secret: config.get("server.secretKey") },
+            }),
+            useXummAuthProvider: XummAuthService,
+        }),
         BlockchainModule,
         NftModule,
         CollectionModule,

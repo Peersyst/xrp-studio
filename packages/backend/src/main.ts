@@ -31,7 +31,7 @@ async function bootstrap() {
         ],
     });
 
-    app.useLogger(logger);
+    app.useLogger(configService.get("logger.enable") ? logger : false);
     app.use(helmet());
     app.use(morgan("tiny"));
     app.setGlobalPrefix("api");

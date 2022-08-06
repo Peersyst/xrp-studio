@@ -1,7 +1,7 @@
 import { ApiOperation, ApiTags } from "@nestjs/swagger";
 import { Controller, Inject, Post, UploadedFile, UseInterceptors } from "@nestjs/common";
 import { ApiErrorDecorators } from "../common/exception/error-response.decorator";
-import { XummAuthenticated } from "xumm-module";
+import { XummAuthenticated } from "@peersyst/xumm-module";
 import { FileInterceptor } from "@nestjs/platform-express";
 import { StorageServiceInterface } from "@peersyst/storage-module/src/storage.module";
 import imageFileFilter from "./util/image-file.filter";
