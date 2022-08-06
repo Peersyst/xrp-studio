@@ -38,4 +38,5 @@ export { $UserDto } from './schemas/$UserDto';
 
 export { FileService } from './services/FileService';
 export { NftService } from './services/NftService';
+export { UserService } from './services/UserService';
 export { XummService } from './services/XummService';
