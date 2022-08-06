@@ -130,7 +130,7 @@ export default function DashboardPage(): JSX.Element {
                 colGap={24}
                 rowGap={24}
             >
-                {(nfts) => nfts.map((nft) => <NftCard nft={nft} />)}
+                {(nfts) => nfts.map((nft, key) => <NftCard nft={nft} key={key} />)}
             </BaseGrid>
         </BasePage>
     );

@@ -20,8 +20,6 @@ export type { PaginatedNftDraftDto } from './models/PaginatedNftDraftDto';
 export type { PaginatedNftDto } from './models/PaginatedNftDto';
 export type { UpdateNftDraftRequest } from './models/UpdateNftDraftRequest';
 export type { UserDto } from './models/UserDto';
-export type { XummSignInResponseDto } from './models/XummSignInResponseDto';
-export type { XummVerifiedSignInResponseDto } from './models/XummVerifiedSignInResponseDto';
 
 export { $ApiException } from './schemas/$ApiException';
 export { $CollectionDto } from './schemas/$CollectionDto';
@@ -37,8 +35,6 @@ export { $PaginatedNftDraftDto } from './schemas/$PaginatedNftDraftDto';
 export { $PaginatedNftDto } from './schemas/$PaginatedNftDto';
 export { $UpdateNftDraftRequest } from './schemas/$UpdateNftDraftRequest';
 export { $UserDto } from './schemas/$UserDto';
-export { $XummSignInResponseDto } from './schemas/$XummSignInResponseDto';
-export { $XummVerifiedSignInResponseDto } from './schemas/$XummVerifiedSignInResponseDto';
 
 export { FileService } from './services/FileService';
 export { NftService } from './services/NftService';
