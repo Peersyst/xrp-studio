@@ -47,6 +47,7 @@ class NftRepositoryMock extends BaseMock {
         skip: this.skip,
         getManyAndCount: this.getManyAndCount,
     }));
+    loadRelationCountAndMap = jest.fn(() => ({ where: this.where, leftJoinAndSelect: this.leftJoinAndSelect }));
     createQueryBuilder = jest.fn(() => ({
         select: this.select,
         innerJoinAndSelect: this.innerJoinAndSelect,
@@ -58,6 +59,7 @@ class NftRepositoryMock extends BaseMock {
         orderBy: this.orderBy,
         skip: this.skip,
         getManyAndCount: this.getManyAndCount,
+        loadRelationCountAndMap: this.loadRelationCountAndMap,
     }));
     update = jest.fn();
     getMany = jest.fn(() => new Promise((resolve) => resolve([new NftMock({ id: 1 }), new NftMock({ id: 2 }), new NftMock({ id: 3 })])));

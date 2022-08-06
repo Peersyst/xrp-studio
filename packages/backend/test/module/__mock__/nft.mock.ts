@@ -1,7 +1,8 @@
-import { Nft, NftStatus } from "../../../src/database/entities/Nft";
+import { NftStatus } from "../../../src/database/entities/Nft";
 import { User } from "../../../src/database/entities/User";
+import { NftWithCollection } from "../../../src/modules/nft/types";
 
-class NftMock extends Nft {
+class NftMock extends NftWithCollection {
     constructor({
         id,
         tokenId,
@@ -14,7 +15,7 @@ class NftMock extends Nft {
         user,
         collection,
         metadata,
-    }: Partial<Nft> = {}) {
+    }: Partial<NftWithCollection> = {}) {
         super();
         this.id = id || 1;
         this.tokenId = tokenId || "000B013A95F14B0044F78A264E41713C64B5F89242540EE208C3098E00000D65";

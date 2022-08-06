@@ -1,8 +1,18 @@
-import { Collection } from "../../../src/database/entities/Collection";
 import UserMock from "./user.mock";
+import { CollectionWithItems } from "../../../src/modules/collection/types";
 
-class CollectionMock extends Collection {
-    constructor({ id = 1, taxon = "1", name, description, image, header, nfts, user = new UserMock() }: Partial<Collection> = {}) {
+class CollectionMock extends CollectionWithItems {
+    constructor({
+        id = 1,
+        taxon = "1",
+        name,
+        description,
+        image,
+        header,
+        nfts,
+        user = new UserMock(),
+        items = 2,
+    }: Partial<CollectionWithItems> = {}) {
         super();
         this.id = id;
         this.taxon = taxon;
@@ -12,6 +22,7 @@ class CollectionMock extends Collection {
         this.header = header;
         this.nfts = nfts;
         this.user = user;
+        this.items = items;
     }
 }
 

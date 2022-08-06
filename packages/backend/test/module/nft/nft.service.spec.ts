@@ -22,7 +22,6 @@ import NftMetadataRepositoryMock from "../__mock__/nft-metadata.repository.mock"
 import NftMetadataAttributeRepositoryMock from "../__mock__/nft-metadata-attribute.repository.mock";
 import { UpdateNftDraftRequest } from "../../../src/modules/nft/request/update-nft-draft-request";
 import { User } from "../../../src/database/entities/User";
-import { Collection } from "../../../src/database/entities/Collection";
 import { BusinessException } from "../../../src/modules/common/exception/business.exception";
 import { ErrorCode } from "../../../src/modules/common/exception/error-codes";
 import { Order } from "../../../src/modules/common/types";
@@ -332,8 +331,8 @@ describe("NftService", () => {
                 transferFee: 10,
                 flags: 0,
                 status: NftStatus.DRAFT,
-                user: new User({ address: ADDRESS }),
-                collection: new Collection({ id: 1, taxon: "1", user: new User({ address: ADDRESS }) }),
+                user: { address: ADDRESS },
+                collection: { id: 1, taxon: "1", items: 2, user: new User({ address: ADDRESS }) },
             } as NftDraftDto);
         });
 
@@ -347,8 +346,8 @@ describe("NftService", () => {
                 transferFee: 10,
                 flags: 0,
                 status: NftStatus.DRAFT,
-                user: new User({ address: ADDRESS }),
-                collection: new Collection({ id: 1, taxon: "1", user: new User({ address: ADDRESS }) }),
+                user: { address: ADDRESS },
+                collection: { id: 1, taxon: "1", items: 2, user: new User({ address: ADDRESS }) },
                 metadata,
             } as NftDraftDto);
         });
@@ -367,8 +366,8 @@ describe("NftService", () => {
                 transferFee: 10,
                 flags: 0,
                 status: NftStatus.DRAFT,
-                user: new User({ address: ADDRESS }),
-                collection: new Collection({ id: 1, taxon: "1", user: new User({ address: ADDRESS }) }),
+                user: { address: ADDRESS },
+                collection: { id: 1, taxon: "1", items: 2, user: new User({ address: ADDRESS }) },
                 metadata,
             } as NftDraftDto);
         });

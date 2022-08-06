@@ -27,7 +27,7 @@ import { BaseGetNftsRequest } from "./request/base-get-nfts.request";
 import { BusinessException } from "../common/exception/business.exception";
 import { ErrorCode } from "../common/exception/error-codes";
 import { XummService } from "@peersyst/xumm-module";
-import { CreateNftQueryBuilderOptions } from "./types";
+import { CreateNftQueryBuilderOptions, NftWithCollection } from "./types";
 import { IpfsService } from "@peersyst/ipfs-module/src/ipfs.service";
 import { IMessageEvent } from "websocket";
 import { NftDraftStatusDto } from "./dto/nft-draft-status.dto";
@@ -202,7 +202,8 @@ export class NftService {
 
         if (publish) await this.publishDraft(nftEntity, address);
 
-        return NftDraftDto.fromEntity(nftEntity);
+        // We have to include collection with items again, as save will return a regular Nft with a collection without items
+        return NftDraftDto.fromEntity({ ...nftEntity, collection });
     }
 
     /**
@@ -412,7 +413,7 @@ export class NftService {
     /**
      * Gets nft
      */
-    private async nftQuery(where: WhereConditions<Nft>, params?: WhereParameters): Promise<Nft | undefined> {
+    private async nftQuery(where: WhereConditions<Nft>, params?: WhereParameters): Promise<NftWithCollection | undefined> {
         const qb = this.createQueryBuilder();
         qb.where(where, params);
         const nft = await qb.getOne();
@@ -426,7 +427,7 @@ export class NftService {
     private async nftsQuery(
         { page = 1, pageSize = 15, query, collection, order = Order.DESC }: BaseGetNftsRequest = {},
         ...wheres: Where<Nft>[]
-    ): Promise<Paginated<Nft>> {
+    ): Promise<Paginated<NftWithCollection>> {
         const take = pageSize;
         const skip = (page - 1) * take;
 
@@ -454,7 +455,7 @@ export class NftService {
     /**
      * Find one NFT draft entity (status != confirmed)
      */
-    private async findOneDraftEntity(id: number, reqAddress: string): Promise<Nft> {
+    private async findOneDraftEntity(id: number, reqAddress: string): Promise<NftWithCollection> {
         try {
             const nft = await this.nftQuery("nft.id = :id AND nft.status != :confirmed", {
                 id,
@@ -471,14 +472,18 @@ export class NftService {
     /**
      * Creates query builder with required joins
      */
-    private createQueryBuilder({
+    private createQueryBuilder<WithCollection extends boolean = true>({
+        // @ts-ignore
         relations = { user: true, collection: true, metadata: true, attribute: true },
-    }: CreateNftQueryBuilderOptions = {}): SelectQueryBuilder<Nft> {
+    }: CreateNftQueryBuilderOptions<WithCollection> = {}): SelectQueryBuilder<WithCollection extends true ? NftWithCollection : Nft> {
         const qb = this.nftRepository.createQueryBuilder("nft");
         if (relations.user) qb.innerJoinAndSelect("nft.user", "user");
-        if (relations.collection) qb.leftJoinAndSelect("nft.collection", "collection");
+        if (relations.collection) {
+            qb.leftJoinAndSelect("nft.collection", "collection");
+            qb.loadRelationCountAndMap("collection.items", "collection.nfts");
+        }
         if (relations.metadata) qb.leftJoinAndSelect("nft.metadata", "metadata");
         if (relations.attribute) qb.leftJoinAndSelect("NftMetadataAttribute", "attribute", "attribute.nft_metadata_id = nft.id");
-        return qb;
+        return qb as SelectQueryBuilder<WithCollection extends true ? NftWithCollection : Nft>;
     }
 }
