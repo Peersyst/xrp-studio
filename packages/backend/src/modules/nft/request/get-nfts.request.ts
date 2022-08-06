@@ -1,5 +1,7 @@
 import { ApiProperty } from "@nestjs/swagger";
 import { BaseGetNftsRequest } from "./base-get-nfts.request";
+import { IsOptional } from "class-validator";
+import { IsXrplAddress } from "../validator/IsXrplAddress";
 
 export class GetNftsRequest extends BaseGetNftsRequest {
     @ApiProperty({
@@ -7,5 +9,7 @@ export class GetNftsRequest extends BaseGetNftsRequest {
         type: "string",
         required: false,
     })
+    @IsOptional()
+    @IsXrplAddress()
     account?: string;
 }

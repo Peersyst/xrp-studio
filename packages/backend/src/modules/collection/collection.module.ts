@@ -3,10 +3,11 @@ import { TypeOrmModule } from "@nestjs/typeorm";
 import { Collection } from "../../database/entities/Collection";
 import { CollectionService } from "./collection.service";
 import { CollectionExistsConstraint } from "./validator/CollectionExists";
+import { CollectionController } from "./collection.controller";
 
 @Module({
     imports: [TypeOrmModule.forFeature([Collection])],
-    controllers: [],
+    controllers: [CollectionController],
     providers: [CollectionService, CollectionExistsConstraint],
     exports: [CollectionService],
 })

@@ -2,12 +2,12 @@ import { Controller, Get } from "@nestjs/common";
 import { ApiOperation, ApiTags } from "@nestjs/swagger";
 import { UserService } from "./user.service";
 import { ApiErrorDecorators } from "../common/exception/error-response.decorator";
-import { UserDto } from "../nft/dto/user.dto";
+import { UserDto } from "./dto/user.dto";
 import { EnhancedParams } from "../common/decorator/enhanced-params";
 import { GetUserParamsRequest } from "./request/get-user-params.request";
 
 @ApiTags("user")
-@Controller("users")
+@Controller("user")
 @ApiErrorDecorators()
 export class UserController {
     constructor(private readonly userService: UserService) {}
