@@ -26,7 +26,7 @@ import { GetNftDraftsRequest, NftDraftStatus } from "./request/get-nft-drafts.re
 import { BaseGetNftsRequest } from "./request/base-get-nfts.request";
 import { BusinessException } from "../common/exception/business.exception";
 import { ErrorCode } from "../common/exception/error-codes";
-import { XummService } from "../xumm/xumm-shared-module";
+import { XummService } from "@peersyst/xumm-module";
 import { CreateNftQueryBuilderOptions } from "./types";
 import { IpfsService } from "@peersyst/ipfs-module/src/ipfs.service";
 import { IMessageEvent } from "websocket";

@@ -12586,6 +12586,11 @@ xtend@^4.0.0, xtend@~4.0.1:
   resolved "https://registry.npmjs.org/xtend/-/xtend-4.0.2.tgz"
   integrity sha512-LKYU1iAXJXUgAXn9URjiu+MWhyUXHsvfp7mcuYm9dSUKK0/CjtrUwFAxD82/mCWbtLsGjFIad0wIsod4zrTAEQ==
 
+xumm-react@^1.0.2:
+  version "1.0.2"
+  resolved "https://registry.yarnpkg.com/xumm-react/-/xumm-react-1.0.2.tgz#b0e3055c4e8270525bd6f3782dfea43e43de815f"
+  integrity sha512-0G7wIa4qCAUEaDF8yzT5F8tcL7Wu23zjKhr68uHcgK1GRB5BRViAKuqpRf2IMOK8bcHJrLpdB0/KrWN140m4LQ==
+
 y18n@^4.0.0:
   version "4.0.3"
   resolved "https://registry.npmjs.org/y18n/-/y18n-4.0.3.tgz"

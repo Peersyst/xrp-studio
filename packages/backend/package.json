@@ -42,7 +42,6 @@
             "!./src/modules/auth/auth.decorator.ts",
             "!./src/modules/common/exception/**/*.ts",
             "!./src/modules/**/*.module.ts",
-            "!./src/modules/xumm/xumm-shared-module/**/*",
             "!./src/**/*/validator/**/*",
             "!./src/**/*/request/**/*",
             "!./src/**/*/decorator/**/*"
@@ -71,6 +70,7 @@
         "@nestjs/typeorm": "^7.1.5",
         "@peersyst/ipfs-module": "^0.12.40",
         "@peersyst/storage-module": "^0.12.40",
+        "@peersyst/xumm-module": "^0.12.56",
         "axios": "^0.27.2",
         "bcrypt": "^5.0.1",
         "bull": "^4.8.4",
@@ -127,6 +127,12 @@
         "typescript": "^4.2.4"
     },
     "resolutions": {
-        "@nestjs/jwt": "7.2.0"
+        "@nestjs/jwt": "7.2.0",
+        "@nestjs/common": "7.6.15",
+        "@nestjs/config": "^0.6.3",
+        "@nestjs/core": "7.6.15",
+        "@nestjs/swagger": "~4.8.0",
+        "@nestjs/typeorm": "^7.1.5",
+        "typeorm": "^0.2.38"
     }
 }

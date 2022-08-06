@@ -1,9 +1,6 @@
 /* istanbul ignore file */
 /* tslint:disable */
 /* eslint-disable */
-import type { XummSignInResponseDto } from '../models/XummSignInResponseDto';
-import type { XummVerifiedSignInResponseDto } from '../models/XummVerifiedSignInResponseDto';
-
 import type { CancelablePromise } from '../core/CancelablePromise';
 import { OpenAPI } from '../core/OpenAPI';
 import { request as __request } from '../core/request';
@@ -30,10 +27,10 @@ export class XummService {
 
     /**
      * Sign in with XUMM
-     * @returns XummSignInResponseDto
+     * @returns any
      * @throws ApiError
      */
-    public static xummAuthControllerSignIn(): CancelablePromise<XummSignInResponseDto> {
+    public static xummAuthControllerSignIn(): CancelablePromise<any> {
         return __request(OpenAPI, {
             method: 'GET',
             url: '/api/xumm/auth/sign-in',
@@ -42,10 +39,10 @@ export class XummService {
 
     /**
      * Verify sign in with XUMM
-     * @returns XummVerifiedSignInResponseDto
+     * @returns void
      * @throws ApiError
      */
-    public static xummAuthControllerVerifySignIn(): CancelablePromise<XummVerifiedSignInResponseDto> {
+    public static xummAuthControllerVerifySignIn(): CancelablePromise<void> {
         return __request(OpenAPI, {
             method: 'GET',
             url: '/api/xumm/auth/verify-sign-in',

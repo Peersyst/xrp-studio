@@ -1,3 +1,3 @@
-import { XummEntity } from "../../modules/xumm/xumm-shared-module";
+import { XummEntity } from "@peersyst/xumm-module";
 
 export { XummEntity };

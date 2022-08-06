@@ -6,4 +6,8 @@ import { User } from "../../database/entities/User";
 @Injectable()
 export class UserService {
     constructor(@InjectRepository(User) private readonly userRepository: Repository<User>) {}
+
+    async createIfNotExists(address: string): Promise<User> {
+        return this.userRepository.save({ address });
+    }
 }

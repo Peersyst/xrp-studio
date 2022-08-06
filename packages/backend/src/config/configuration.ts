@@ -12,6 +12,7 @@ export default (): any => ({
     },
     database: getNestTypeORMConfig(),
     logger: {
+        enable: process.env.APP_LOGGER ? process.env.APP_LOGGER === "1" : true,
         logLevel: "info",
         logFileName: "logs/app.log",
     },
