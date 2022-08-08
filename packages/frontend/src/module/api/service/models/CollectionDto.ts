@@ -6,11 +6,12 @@ import type { UserDto } from './UserDto';
 
 export type CollectionDto = {
     id: number;
-    taxon: string;
+    taxon: number;
     name?: string;
     description?: string;
     image?: string;
     header?: string;
+    items: number;
     user: UserDto;
 };
 
