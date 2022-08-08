@@ -1,4 +1,5 @@
+import { NftDto } from "module/api/service";
+
 export interface NftCardProps {
-    // TODO: Add backend NftDto type
-    nft: any;
+    nft: NftDto;
 }
