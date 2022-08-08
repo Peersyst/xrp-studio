@@ -4,9 +4,7 @@ import { CollectionCardProps } from "module/common/component/surface/CollectionC
 import BaseCard from "module/nft/component/surface/BaseCard/BaseCard";
 import useTranslate from "module/common/hook/useTranslate";
 
-const CollectionCard = ({
-    collection: { id, name = "", image = "", items, loading = false },
-}: WithSkeleton<CollectionCardProps>): JSX.Element => {
+const CollectionCard = ({ collection: { id, name = "", image = "", items }, loading }: WithSkeleton<CollectionCardProps>): JSX.Element => {
     const translate = useTranslate();
     return (
         <BaseCard title={name} to={"collections/" + id} cover={<CollectionImage src={image} alt={name} />} loading={loading}>

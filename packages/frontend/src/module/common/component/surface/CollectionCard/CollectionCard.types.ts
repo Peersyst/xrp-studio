@@ -1,4 +1,5 @@
+import { CollectionDto } from "module/api/service";
+
 export interface CollectionCardProps {
-    // TODO: Add backend CollectionDto type
-    collection: any;
+    collection: CollectionDto;
 }
