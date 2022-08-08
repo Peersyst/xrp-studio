@@ -18,7 +18,7 @@ export class CreateCollectionRequest {
         name: "name",
         type: "string",
         required: true,
-        maxLength: 256,
+        maxLength: 255,
         example: "Bored Ape Yacht Club",
     })
     name: string;

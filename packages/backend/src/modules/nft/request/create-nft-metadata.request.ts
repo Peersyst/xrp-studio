@@ -8,7 +8,7 @@ export class CreateNftMetadataRequest {
         name: "name",
         type: "string",
         required: false,
-        maxLength: 256,
+        maxLength: 255,
         example: "#6409",
     })
     name?: string;

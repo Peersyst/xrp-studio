@@ -6,6 +6,7 @@ import UserRepositoryMock from "../__mock__/user.repository.mock";
 import UserMock from "../__mock__/user.mock";
 import { BusinessException } from "../../../src/modules/common/exception/business.exception";
 import { ErrorCode } from "../../../src/modules/common/exception/error-codes";
+import { UpdateUserRequest } from "../../../src/modules/user/request/update-user.request";
 
 describe("UserService", () => {
     const ADDRESS = "rNCFjv8Ek5oDrNiMJ3pw6eLLFtMjZLJnf2";
@@ -32,6 +33,35 @@ describe("UserService", () => {
             const user = await userService.createIfNotExists(ADDRESS);
             expect(user).toEqual(new User({ address: ADDRESS }));
             expect(userRepositoryMock.save).toHaveBeenCalledWith({ address: ADDRESS });
+        });
+    });
+
+    describe("updateUser", () => {
+        test("Updates user with all fields", async () => {
+            const userRequest: UpdateUserRequest = {
+                name: "NEW_NAME",
+                description: "NEW_DESCRIPTION",
+                image: "NEW_IMAGE_URL",
+                header: "NEW_HEADER_URL",
+                twitter: "NEW_TWITTER",
+                discord: "NEW_DISCORD",
+            };
+            await userService.updateUser(ADDRESS, userRequest);
+            expect(userRepositoryMock.save).toHaveBeenCalledWith(expect.objectContaining(userRequest));
+        });
+
+        test("Updates user with all fields set to null", async () => {
+            await userService.updateUser(ADDRESS, {});
+            expect(userRepositoryMock.save).toHaveBeenCalledWith(
+                expect.objectContaining({
+                    name: null,
+                    description: null,
+                    image: null,
+                    header: null,
+                    twitter: null,
+                    discord: null,
+                }),
+            );
         });
     });
 

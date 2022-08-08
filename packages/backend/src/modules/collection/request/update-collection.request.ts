@@ -6,7 +6,7 @@ export class UpdateCollectionRequest {
         name: "name",
         type: "string",
         required: true,
-        maxLength: 256,
+        maxLength: 255,
         example: "adidas Originals Into the Metaverse",
     })
     name: string;
