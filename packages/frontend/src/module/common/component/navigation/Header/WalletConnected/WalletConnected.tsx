@@ -1,6 +1,6 @@
 import { Row } from "@peersyst/react-components";
-import Link from "module/common/component/navigation/Link/Link";
 import styled from "styled-components";
+import LinkHeader from "module/common/component/navigation/Header/LinkHeader/LinkHeader";
 
 const WalletConnectedRoot = styled(Row).attrs({ position: "fixed" })`
     display: flex;
@@ -9,9 +9,9 @@ const WalletConnectedRoot = styled(Row).attrs({ position: "fixed" })`
 
 const WalletConnected = (): JSX.Element => (
     <WalletConnectedRoot gap={26}>
-        <Link to="/nfts"> My NFTs </Link>
-        <Link to="/wallet"> My Wallet </Link>
-        <Link to="/profile"> @username </Link>
+        <LinkHeader to="/nfts"> My NFTs </LinkHeader>
+        <LinkHeader to="/wallet"> My Wallet </LinkHeader>
+        <LinkHeader to="/profile"> @username </LinkHeader>
     </WalletConnectedRoot>
 );
 
