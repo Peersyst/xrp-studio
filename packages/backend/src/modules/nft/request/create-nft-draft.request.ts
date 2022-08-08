@@ -11,7 +11,7 @@ export class CreateNftDraftRequest {
         description: "Issuer of the NFT, if not provided the sender of the transaction acts as the issuer",
         type: "string",
         required: false,
-        maxLength: 256,
+        maxLength: 255,
         example: "rNCFjv8Ek5oDrNiMJ3pw6eLLFtMjZLJnf2",
     })
     @IsOptional()

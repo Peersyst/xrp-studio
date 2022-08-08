@@ -6,7 +6,7 @@ export const $CreateNftDraftRequest = {
         issuer: {
             type: 'string',
             description: `Issuer of the NFT, if not provided the sender of the transaction acts as the issuer`,
-            maxLength: 256,
+            maxLength: 255,
         },
         transferFee: {
             type: 'number',

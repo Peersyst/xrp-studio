@@ -5,6 +5,7 @@ import { User } from "../../database/entities/User";
 import { UserDto } from "./dto/user.dto";
 import { BusinessException } from "../common/exception/business.exception";
 import { ErrorCode } from "../common/exception/error-codes";
+import { UpdateUserRequest } from "./request/update-user.request";
 
 @Injectable()
 export class UserService {
@@ -15,6 +16,16 @@ export class UserService {
      */
     async createIfNotExists(address: string): Promise<User> {
         return this.userRepository.save({ address });
+    }
+
+    /**
+     * Updates a user
+     */
+    async updateUser(
+        address: string,
+        { name = null, description = null, image = null, header = null, twitter = null, discord = null }: UpdateUserRequest,
+    ): Promise<void> {
+        await this.userRepository.save({ address, name, description, image, header, twitter, discord });
     }
 
     /**

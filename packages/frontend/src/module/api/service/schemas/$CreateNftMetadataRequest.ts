@@ -5,7 +5,7 @@ export const $CreateNftMetadataRequest = {
     properties: {
         name: {
             type: 'string',
-            maxLength: 256,
+            maxLength: 255,
         },
         description: {
             type: 'string',

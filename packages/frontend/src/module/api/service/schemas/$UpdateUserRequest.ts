@@ -1,16 +1,10 @@
 /* istanbul ignore file */
 /* tslint:disable */
 /* eslint-disable */
-export const $CreateCollectionRequest = {
+export const $UpdateUserRequest = {
     properties: {
-        taxon: {
-            type: 'number',
-            description: `NFTokenTaxon of the collection. If not provided one will be assigned`,
-            maximum: 4294967295,
-        },
         name: {
             type: 'string',
-            isRequired: true,
             maxLength: 255,
         },
         description: {
@@ -21,6 +15,14 @@ export const $CreateCollectionRequest = {
         },
         header: {
             type: 'string',
+        },
+        twitter: {
+            type: 'string',
+            maxLength: 255,
+        },
+        discord: {
+            type: 'string',
+            maxLength: 255,
         },
     },
 } as const;
