@@ -1,7 +1,7 @@
 import { ApiProperty } from "@nestjs/swagger";
 import { NftFlagsRequest } from "./nft-flags.request";
 import { CreateNftMetadataRequest } from "./create-nft-metadata.request";
-import { IsXrplAddress } from "../validator/IsXrplAddress";
+import { IsXrplAddress } from "../../common/validator/IsXrplAddress";
 import { ValidateNested, IsOptional } from "class-validator";
 import { Type } from "class-transformer";
 

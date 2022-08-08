@@ -1,5 +1,5 @@
 import { ApiProperty } from "@nestjs/swagger";
-import { IsXrplAddress } from "../../nft/validator/IsXrplAddress";
+import { IsXrplAddress } from "../../common/validator/IsXrplAddress";
 
 export class GetUserParamsRequest {
     @ApiProperty({
