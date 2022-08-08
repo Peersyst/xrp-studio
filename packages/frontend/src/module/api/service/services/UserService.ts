@@ -20,7 +20,7 @@ export class UserService {
     ): CancelablePromise<UserDto> {
         return __request(OpenAPI, {
             method: 'GET',
-            url: '/api/users/{address}',
+            url: '/api/user/{address}',
             path: {
                 'address': address,
             },

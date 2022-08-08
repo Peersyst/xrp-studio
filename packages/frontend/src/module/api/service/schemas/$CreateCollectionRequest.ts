@@ -1,18 +1,17 @@
 /* istanbul ignore file */
 /* tslint:disable */
 /* eslint-disable */
-export const $CollectionDto = {
+export const $CreateCollectionRequest = {
     properties: {
-        id: {
-            type: 'number',
-            isRequired: true,
-        },
         taxon: {
             type: 'number',
-            isRequired: true,
+            description: `NFTokenTaxon of the collection. If not provided one will be assigned`,
+            maximum: 4294967295,
         },
         name: {
             type: 'string',
+            isRequired: true,
+            maxLength: 256,
         },
         description: {
             type: 'string',
@@ -22,14 +21,6 @@ export const $CollectionDto = {
         },
         header: {
             type: 'string',
-        },
-        items: {
-            type: 'number',
-            isRequired: true,
-        },
-        user: {
-            type: 'UserDto',
-            isRequired: true,
         },
     },
 } as const;

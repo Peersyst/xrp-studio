@@ -4,7 +4,7 @@ import NftMock from "./nft.mock";
 
 class NftRepositoryMock extends BaseMock {
     save = jest.fn(
-        ({ collection, metadata, id = 1, ...restNft }: Nft) =>
+        ({ collection, metadata, id = 1, ...restNft }: Partial<Nft>) =>
             new Promise((resolve) =>
                 resolve({
                     id,

@@ -11,10 +11,52 @@ import { GetCollectionsRequest } from "./request/get-collections.request";
 import { Paginated } from "../common/paginated.dto";
 import { GetNftsRequest } from "../nft/request/get-nfts.request";
 import { Order } from "../common/types";
+import { CreateCollectionRequest } from "./request/create-collection.request";
+import { User } from "../../database/entities/User";
+import { UpdateCollectionRequest } from "./request/update-collection.request";
 
 @Injectable()
 export class CollectionService {
     constructor(@InjectRepository(Collection) private readonly collectionRepository: Repository<Collection>) {}
+
+    /**
+     * Creates a collection
+     */
+    async createCollection(address: string, { taxon: reqTaxon, ...restOfCollection }: CreateCollectionRequest): Promise<CollectionDto> {
+        // Get the taxon
+        let taxon: string;
+        if (reqTaxon) {
+            // If a taxon is given, check the account does not already have a collection with that taxon
+            const collection = await this.findCollectionByTaxonAndAccount(reqTaxon.toString(), address);
+            if (collection) throw new BusinessException(ErrorCode.COLLECTION_TAXON_ALREADY_EXISTS);
+            taxon = reqTaxon.toString();
+        } else {
+            // Otherwise find a taxon not used by the account
+            taxon = await this.findUnusedTaxon(address);
+        }
+
+        // Build User attached to the collection
+        const user = new User({ address });
+
+        // Build and save Collection
+        const collection = await this.collectionRepository.save(new Collection({ taxon, ...restOfCollection, user }));
+
+        return CollectionDto.fromEntity(collection);
+    }
+
+    /**
+     * Updates a collection
+     */
+    async updateCollection(id: number, address: string, { name, description, image, header }: UpdateCollectionRequest): Promise<void> {
+        const collection = await this.findOwnedCollection(id, address);
+        await this.collectionRepository.save({
+            ...collection,
+            name: name,
+            description: description || null,
+            image: image || null,
+            header: header || null,
+        });
+    }
 
     /**
      * Finds a collection by a taxon and account
@@ -50,6 +92,18 @@ export class CollectionService {
             pages,
             currentPage,
         };
+    }
+
+    /**
+     * Finds an owned collection or throws an error
+     */
+    async findOwnedCollection(id: number, address: string): Promise<Collection> {
+        const collection = await this.createQueryBuilder({ relations: { user: true } })
+            .where("collection.id = :id", { id })
+            .getOne();
+        if (!collection) throw new BusinessException(ErrorCode.COLLECTION_NOT_FOUND);
+        else if (collection.user.address !== address) throw new BusinessException(ErrorCode.COLLECTION_NOT_OWNED);
+        return collection;
     }
 
     /**
@@ -95,5 +149,21 @@ export class CollectionService {
                 qb.where("nft.status = :confirmed", { confirmed: NftStatus.CONFIRMED }),
             );
         return qb as SelectQueryBuilder<WithItems extends true ? CollectionWithItems : Collection>;
+    }
+
+    /**
+     * Finds an unused taxon by an account
+     */
+    private async findUnusedTaxon(address: string): Promise<string> {
+        // As it is really unlikely that a user has more than 10k collections, we can query missing taxons by steps of 10000 or even less if necessary
+        for (let i = 10000; i < 4294967295; i += 10000) {
+            const missingTaxonArr =
+                ((await this.collectionRepository.query(
+                    "SELECT s.i AS missing_taxon FROM generate_series(1,$1) s(i) WHERE NOT EXISTS (SELECT 1 FROM collection WHERE account = $2 AND taxon = s.i) LIMIT 1;",
+                    [i, address],
+                )) as [{ missing_taxon: string }]) || [];
+            if (missingTaxonArr.length) return missingTaxonArr[0].missing_taxon;
+        }
+        throw new BusinessException(ErrorCode.NO_MORE_TAXONS_AVAILABLE);
     }
 }

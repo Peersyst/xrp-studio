@@ -2,6 +2,8 @@ import BaseMock from "./base.mock";
 import CollectionMock from "./collection.mock";
 
 class CollectionRepositoryMock extends BaseMock {
+    query = jest.fn();
+    save = jest.fn((collection) => new CollectionMock(collection));
     getOne = jest.fn(() => new Promise((resolve) => resolve(new CollectionMock())));
     where = jest.fn(() => ({ getOne: this.getOne }));
     andWhere = jest.fn(() => ({ andWhere: this.andWhere, orderBy: this.orderBy }));

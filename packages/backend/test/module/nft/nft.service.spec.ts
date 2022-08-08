@@ -31,6 +31,7 @@ import { XummService } from "@peersyst/xumm-module";
 import IpfsServiceMock from "../__mock__/ipfs.service.mock";
 import NftMetadataMock from "../__mock__/nft-metadata.mock";
 import { IpfsService } from "@peersyst/ipfs-module/src/ipfs.service";
+import NftDtoMock from "../__mock__/nft.dto.mock";
 
 describe("NftService", () => {
     const ADDRESS = "rNCFjv8Ek5oDrNiMJ3pw6eLLFtMjZLJnf2";
@@ -332,7 +333,7 @@ describe("NftService", () => {
                 flags: 0,
                 status: NftStatus.DRAFT,
                 user: { address: ADDRESS },
-                collection: { id: 1, taxon: "1", items: 2, user: new User({ address: ADDRESS }) },
+                collection: { id: 1, taxon: 1, items: 2, user: new User({ address: ADDRESS }) },
             } as NftDraftDto);
         });
 
@@ -347,7 +348,7 @@ describe("NftService", () => {
                 flags: 0,
                 status: NftStatus.DRAFT,
                 user: { address: ADDRESS },
-                collection: { id: 1, taxon: "1", items: 2, user: new User({ address: ADDRESS }) },
+                collection: { id: 1, taxon: 1, items: 2, user: new User({ address: ADDRESS }) },
                 metadata,
             } as NftDraftDto);
         });
@@ -367,7 +368,7 @@ describe("NftService", () => {
                 flags: 0,
                 status: NftStatus.DRAFT,
                 user: { address: ADDRESS },
-                collection: { id: 1, taxon: "1", items: 2, user: new User({ address: ADDRESS }) },
+                collection: { id: 1, taxon: 1, items: 2, user: new User({ address: ADDRESS }) },
                 metadata,
             } as NftDraftDto);
         });
@@ -734,7 +735,9 @@ describe("NftService", () => {
     describe("getNftDraftStatus", () => {
         let findOneDraftMock: jest.SpyInstance;
         beforeAll(() => {
-            findOneDraftMock = jest.spyOn(NftService.prototype, "findOneDraft").mockResolvedValue(new NftMock({ status: NftStatus.DRAFT }));
+            findOneDraftMock = jest
+                .spyOn(NftService.prototype, "findOneDraft")
+                .mockResolvedValue(new NftDtoMock({ status: NftStatus.DRAFT }));
         });
         afterAll(() => {
             findOneDraftMock.mockRestore();
