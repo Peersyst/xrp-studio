@@ -1,6 +1,6 @@
 import { ApiProperty } from "@nestjs/swagger";
 import { IsOptional } from "class-validator";
-import { IsXrplAddress } from "../../nft/validator/IsXrplAddress";
+import { IsXrplAddress } from "../../common/validator/IsXrplAddress";
 import { Order } from "../../common/types";
 
 export class GetCollectionsRequest {

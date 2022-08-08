@@ -18,6 +18,7 @@ import { BusinessException } from "../common/exception/business.exception";
 import { ErrorCode } from "../common/exception/error-codes";
 import { UpdateNftDraftQueryRequest } from "./request/update-nft-draft-query.request";
 import { ApiGetNftDraftStatusDecorator } from "./decorator/api-get-nft-draft-status.decorator";
+import { TransferFeePipe } from "./pipe/transfer-fee.pipe";
 
 @ApiTags("nft")
 @Controller("nft")
@@ -28,14 +29,14 @@ export class NftController {
     @Post()
     @ApiOperation({ description: "Create an NFT" })
     @XummAuthenticated()
-    async createNft(@Request() req, @Body() nftDraft: CreateNftDraftRequest): Promise<NftDraftDto> {
+    async createNft(@Request() req, @Body(TransferFeePipe) nftDraft: CreateNftDraftRequest): Promise<NftDraftDto> {
         return await this.nftService.createNftDraft(req.user.address, nftDraft, true);
     }
 
     @Post("draft")
     @ApiOperation({ description: "Create an NFT draft" })
     @XummAuthenticated()
-    async createNftDraft(@Request() req, @Body() nftDraft: CreateNftDraftRequest): Promise<NftDraftDto> {
+    async createNftDraft(@Request() req, @Body(TransferFeePipe) nftDraft: CreateNftDraftRequest): Promise<NftDraftDto> {
         return this.nftService.createNftDraft(req.user.address, nftDraft);
     }
 
@@ -47,7 +48,7 @@ export class NftController {
         @Param("id", ParseIntPipe) id: number,
         @Request() req,
         @EnhancedQuery() { publish }: UpdateNftDraftQueryRequest = {},
-        @Body() nftDraft: UpdateNftDraftRequest,
+        @Body(TransferFeePipe) nftDraft: UpdateNftDraftRequest,
     ): Promise<void> {
         return await this.nftService.updateNftDraft(id, req.user.address, nftDraft, publish);
     }

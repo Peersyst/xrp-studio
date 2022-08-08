@@ -15,6 +15,7 @@ enum AppErrorCode {
     COLLECTION_TAXON_ALREADY_EXISTS = "COLLECTION_TAXON_ALREADY_EXISTS",
     NO_MORE_TAXONS_AVAILABLE = "NO_MORE_TAXONS_AVAILABLE",
     COLLECTION_NOT_OWNED = "COLLECTION_NOT_OWNED",
+    NFT_TRANSFERABLE_NOT_SET = "NFT_TRANSFERABLE_NOT_SET",
 }
 
 export const ErrorCode = { ...AppErrorCode, ...XummErrorCode, ...StorageErrorCode };
@@ -66,5 +67,9 @@ export const ErrorBody: { [code in ErrorCodeType]: { statusCode: HttpStatus; mes
     [ErrorCode.COLLECTION_NOT_OWNED]: {
         statusCode: HttpStatus.FORBIDDEN,
         message: ErrorCode.COLLECTION_NOT_OWNED,
+    },
+    [ErrorCode.NFT_TRANSFERABLE_NOT_SET]: {
+        statusCode: HttpStatus.BAD_REQUEST,
+        message: ErrorCode.NFT_TRANSFERABLE_NOT_SET,
     },
 };
