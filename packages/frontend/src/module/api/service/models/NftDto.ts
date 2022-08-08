@@ -8,6 +8,9 @@ import type { UserDto } from './UserDto';
 
 export type NftDto = {
     status: 'draft' | 'pending' | 'confirmed' | 'failed';
+    tokenId: string;
+    mintTransactionHash: string;
+    uri?: string;
     id: number;
     issuer?: string;
     transferFee?: number;

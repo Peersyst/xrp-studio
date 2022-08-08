@@ -20,6 +20,7 @@ export type { NftFlagsRequest } from './models/NftFlagsRequest';
 export type { PaginatedCollectionDto } from './models/PaginatedCollectionDto';
 export type { PaginatedNftDraftDto } from './models/PaginatedNftDraftDto';
 export type { PaginatedNftDto } from './models/PaginatedNftDto';
+export type { UpdateCollectionRequest } from './models/UpdateCollectionRequest';
 export type { UpdateNftDraftRequest } from './models/UpdateNftDraftRequest';
 export type { UserDto } from './models/UserDto';
 
@@ -37,6 +38,7 @@ export { $NftFlagsRequest } from './schemas/$NftFlagsRequest';
 export { $PaginatedCollectionDto } from './schemas/$PaginatedCollectionDto';
 export { $PaginatedNftDraftDto } from './schemas/$PaginatedNftDraftDto';
 export { $PaginatedNftDto } from './schemas/$PaginatedNftDto';
+export { $UpdateCollectionRequest } from './schemas/$UpdateCollectionRequest';
 export { $UpdateNftDraftRequest } from './schemas/$UpdateNftDraftRequest';
 export { $UserDto } from './schemas/$UserDto';
 

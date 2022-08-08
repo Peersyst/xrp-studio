@@ -5,11 +5,11 @@ export class UpdateCollectionRequest {
     @ApiProperty({
         name: "name",
         type: "string",
-        required: false,
+        required: true,
         maxLength: 256,
         example: "adidas Originals Into the Metaverse",
     })
-    name?: string;
+    name: string;
 
     @ApiProperty({
         name: "description",

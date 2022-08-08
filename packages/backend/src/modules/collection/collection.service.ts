@@ -13,6 +13,7 @@ import { GetNftsRequest } from "../nft/request/get-nfts.request";
 import { Order } from "../common/types";
 import { CreateCollectionRequest } from "./request/create-collection.request";
 import { User } from "../../database/entities/User";
+import { UpdateCollectionRequest } from "./request/update-collection.request";
 
 @Injectable()
 export class CollectionService {
@@ -41,6 +42,20 @@ export class CollectionService {
         const collection = await this.collectionRepository.save(new Collection({ taxon, ...restOfCollection, user }));
 
         return CollectionDto.fromEntity(collection);
+    }
+
+    /**
+     * Updates a collection
+     */
+    async updateCollection(id: number, address: string, { name, description, image, header }: UpdateCollectionRequest): Promise<void> {
+        const collection = await this.findOwnedCollection(id, address);
+        await this.collectionRepository.save({
+            ...collection,
+            name: name,
+            description: description || null,
+            image: image || null,
+            header: header || null,
+        });
     }
 
     /**
@@ -77,6 +92,18 @@ export class CollectionService {
             pages,
             currentPage,
         };
+    }
+
+    /**
+     * Finds an owned collection or throws an error
+     */
+    async findOwnedCollection(id: number, address: string): Promise<Collection> {
+        const collection = await this.createQueryBuilder({ relations: { user: true } })
+            .where("collection.id = :id", { id })
+            .getOne();
+        if (!collection) throw new BusinessException(ErrorCode.COLLECTION_NOT_FOUND);
+        else if (collection.user.address !== address) throw new BusinessException(ErrorCode.COLLECTION_NOT_OWNED);
+        return collection;
     }
 
     /**

@@ -4,6 +4,7 @@
 import type { CollectionDto } from '../models/CollectionDto';
 import type { CreateCollectionRequest } from '../models/CreateCollectionRequest';
 import type { PaginatedCollectionDto } from '../models/PaginatedCollectionDto';
+import type { UpdateCollectionRequest } from '../models/UpdateCollectionRequest';
 
 import type { CancelablePromise } from '../core/CancelablePromise';
 import { OpenAPI } from '../core/OpenAPI';
@@ -26,6 +27,28 @@ export class CollectionService {
             path: {
                 'id': id,
             },
+        });
+    }
+
+    /**
+     * Updates a collection
+     * @param id
+     * @param requestBody
+     * @returns void
+     * @throws ApiError
+     */
+    public static collectionControllerUpdateCollection(
+        id: number,
+        requestBody: UpdateCollectionRequest,
+    ): CancelablePromise<void> {
+        return __request(OpenAPI, {
+            method: 'PUT',
+            url: '/api/collection/{id}',
+            path: {
+                'id': id,
+            },
+            body: requestBody,
+            mediaType: 'application/json',
         });
     }
 

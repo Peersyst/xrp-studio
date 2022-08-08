@@ -7,6 +7,17 @@ export const $NftDto = {
             type: 'Enum',
             isRequired: true,
         },
+        tokenId: {
+            type: 'string',
+            isRequired: true,
+        },
+        mintTransactionHash: {
+            type: 'string',
+            isRequired: true,
+        },
+        uri: {
+            type: 'string',
+        },
         id: {
             type: 'number',
             isRequired: true,
