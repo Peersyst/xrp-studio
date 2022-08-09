@@ -7,4 +7,9 @@ export const AvatarRoot = styled.svg.attrs({
     > path[stroke] {
         stroke: currentColor;
     }
+
+    img,
+    .Skeleton {
+        background-color: currentColor;
+    }
 `;

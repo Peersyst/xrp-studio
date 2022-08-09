@@ -6,6 +6,7 @@ export interface AvatarProps {
     img: string;
     alt: string;
     size?: AvatarSize;
+    loading?: boolean;
     className?: string;
     style?: CSSProperties;
 }

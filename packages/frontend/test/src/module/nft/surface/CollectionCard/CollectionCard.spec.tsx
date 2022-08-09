@@ -9,7 +9,8 @@ describe("CollectionCard", () => {
     test("Renders correctly with note", () => {
         render(<CollectionCard collection={collectionMock} />);
         expect(screen.getByText(collectionMock!.name!)).toBeInTheDocument();
-        expect(screen.getByRole("img")).toHaveAttribute("alt", collectionMock.name);
-        expect(screen.getByText(`${Intl.NumberFormat().format(collectionMock.items)} ${translate("items").toUpperCase()}`));
+        expect(screen.getAllByRole("img")[0]).toHaveAttribute("alt", "collection-" + collectionMock.id + "-cover");
+        expect(screen.getAllByRole("img")[1]).toHaveAttribute("alt", "collection-" + collectionMock.id + "-image");
+        expect(screen.getByText(`${Intl.NumberFormat().format(collectionMock.items)} ${translate("items").toLowerCase()}`));
     });
 });
