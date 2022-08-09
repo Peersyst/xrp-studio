@@ -9,6 +9,6 @@ describe("NftCard", () => {
     test("Renders correctly with note", () => {
         render(<NftCard nft={nftMock} />);
         expect(screen.getByText(nftMock.metadata!.name!)).toBeInTheDocument();
-        expect(screen.getByRole("img")).toHaveAttribute("alt", nftMock.metadata!.name!);
+        expect(screen.getByRole("img")).toHaveAttribute("alt", "nft-" + nftMock.id + "-cover");
     });
 });

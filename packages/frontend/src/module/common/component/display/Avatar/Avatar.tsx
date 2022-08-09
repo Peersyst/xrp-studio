@@ -23,20 +23,26 @@ const AVATAR_SIZES: Record<AvatarSize, AvatarSizeParams> = {
     },
 };
 
-const Avatar = ({ img, alt, size = "lg", className, style }: AvatarProps): JSX.Element => {
+const Avatar = ({ img, alt, size = "lg", loading: loadingProp, className, style }: AvatarProps): JSX.Element => {
     const [loading, setLoading] = useState(true);
 
     const { width, height, strokeWidth = 0, d } = AVATAR_SIZES[size];
 
-    const id = `avatar-${alt}-${size}-${Date.now()}`;
+    const id = `avatar-${alt.replace(" ", "_")}-${size}-${Date.now()}`;
 
     return (
-        <AvatarRoot width={width} height={height} viewBox={`0 0 ${width} ${height}`} className={className} style={style}>
+        <AvatarRoot
+            width={width}
+            height={height}
+            viewBox={`0 0 ${width} ${height}`}
+            className={className}
+            style={{ ...style, width: `${width / 16}rem`, height: `${height / 16}rem` }}
+        >
             <clipPath id={id}>
                 <path d={d} />
             </clipPath>
             <foreignObject width="100%" height="100%" clipPath={`url(#${id})`}>
-                <Skeleton width={`${width}px`} height={`${height}px`} loading={loading}>
+                <Skeleton width={`${width}px`} height={`${height}px`} loading={loadingProp || loading}>
                     <img src={img} alt={alt} onLoad={() => setLoading(false)} style={{ width: `${width}px`, height: `${height}px` }} />
                 </Skeleton>
             </foreignObject>
