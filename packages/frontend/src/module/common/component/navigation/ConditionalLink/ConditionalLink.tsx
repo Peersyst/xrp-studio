@@ -4,7 +4,7 @@ import { Fragment } from "react";
 
 const ConditionalLink = ({ condition, children, ...linkProps }: ConditionalLinkProps): JSX.Element =>
     condition ? (
-        <Link css={{ width: "fit-content" }} {...linkProps}>
+        <Link css={{ display: "flex", width: "fit-content" }} {...linkProps}>
             {children}
         </Link>
     ) : (
