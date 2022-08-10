@@ -17,7 +17,7 @@ export const SwitchRoot = styled(Switch)<SwitchProps>(
 
             .SwitchTrack {
                 background-color: ${theme.palette.black[20]};
-                padding: 5px;
+                padding: 0.313rem;
                 box-shadow: none;
             }
 
