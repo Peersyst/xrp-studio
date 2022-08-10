@@ -12,7 +12,8 @@ export const QrCard = styled(Card)(
             .qr-card-cont {
                 row-gap: 2rem;
             }
-            button {
+            .store-link,
+            .store-link > button {
                 width: 100%;
             }
         }
@@ -21,11 +22,12 @@ export const QrCard = styled(Card)(
 
 export const QrImage = styled(Image)(
     ({ theme }) => css`
-        width: 100%;
-        max-width: 13rem;
+        width: 14rem;
+        height: 14rem;
         ${theme.breakpoints.down("mobile")} {
             max-width: unset;
-            width: 60%;
+            width: 60vw;
+            height: 60vw;
         }
     `,
 );

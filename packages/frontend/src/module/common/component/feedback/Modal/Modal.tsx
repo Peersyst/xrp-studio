@@ -2,7 +2,7 @@ import { ModalProps } from "module/common/component/feedback/Modal/Modal.types";
 import { CloseModalButton, ModalRoot } from "module/common/component/feedback/Modal/Modal.styles";
 import { Col, Typography } from "@peersyst/react-components";
 import { useControlled } from "@peersyst/react-hooks";
-import { CloseIcon } from "icons";
+import CloseIcon from "module/common/icons/CloseIcon";
 
 const Modal = ({
     open: openProp,
@@ -18,7 +18,7 @@ const Modal = ({
 
     return (
         <ModalRoot open={open} elevation={elevation} onClose={() => setOpen(false)} closable={closable} {...rest}>
-            <Col gap="3rem">
+            <Col gap="3rem" className="modal-main-col">
                 {title && (
                     <Col gap="1rem">
                         <Typography variant="h3" fontWeight={700}>

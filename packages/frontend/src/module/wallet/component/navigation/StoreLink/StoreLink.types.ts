@@ -2,7 +2,13 @@ import { CSSProperties } from "react";
 
 export type StoreType = "appStore" | "playStore";
 
-export type StoreLinksType = Record<StoreType, string>;
+export interface StoreLink {
+    image: string;
+    url: string;
+    alt: string;
+}
+
+export type StoreLinksType = Record<StoreType, StoreLink>;
 
 export interface StoreLinkProps {
     /**

@@ -1,6 +1,4 @@
-const image = {
-    googlePlayStore: require("./GooglePlayStore.svg"),
-    iOSAppStore: require("./iOSAppStore.svg"),
-    logo: require("./logo.svg"),
-};
-export { image };
+//@ts-nocheck
+export { default as googleplaystore } from "./GooglePlayStore.svg";
+export { default as iosappstore } from "./iOSAppStore.svg";
+export { default as logo } from "./logo.svg";
