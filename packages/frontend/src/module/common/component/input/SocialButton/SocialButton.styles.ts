@@ -7,8 +7,10 @@ export const SocialButtonRoot = styled(Button)<ButtonProps>(({ theme }) => {
         &.Button {
             height: 2.375rem;
             width: 2.875rem;
-            background: #21272c;
+            min-width: 2.875rem;
+            background: ${theme.palette.black[5]};
             border-radius: 6px;
+            border: 0;
             padding: 0;
         }
     `;
