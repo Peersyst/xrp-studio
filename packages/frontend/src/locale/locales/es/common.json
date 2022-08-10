@@ -1,5 +1,8 @@
 {
     "welcome": "Hola",
     "name": "Manolo",
-    "items": "Items"
+    "items": "Items",
+    "loginWithXumm": "Accede con tu XUMM Wallet",
+    "scanXummQR": "Scanea el QR con XUMM app",
+    "scanXummQRExplanation": "Scanea el QR con tu XUMM Wallet para continuar"
 }

@@ -2,7 +2,7 @@ import { XummProvider as BaseXummProvider } from "xumm-react";
 import { ReactNode } from "react";
 import { useConfig } from "@peersyst/react-components";
 import { AuthTokenStorage } from "module/auth/AuthTokenStorage";
-import useHandleErrorMessage from "../../query/useHandleErrorMessage";
+import useHandleErrorMessage from "../../../../query/useHandleErrorMessage";
 
 export interface XummProviderProps {
     children?: ReactNode;
