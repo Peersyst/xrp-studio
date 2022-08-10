@@ -1,7 +1,12 @@
 import styled, { css } from "styled-components";
 import { Typography, TypographyProps } from "@peersyst/react-components";
 
-export const LinkRoot = styled.a(() => css``);
+export const LinkRoot = styled.a(
+    () => css`
+        margin-top: auto;
+        margin-bottom: auto;
+    `,
+);
 
 export const TypographyRoot = styled(Typography)<TypographyProps>(
     ({ theme }) => css`
