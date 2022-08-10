@@ -5,7 +5,7 @@ import { Image } from "@peersyst/react-components";
 import Button from "module/common/component/input/Button/Button";
 import { cx } from "@peersyst/react-utils";
 
-const storeLinks: StoreLinksType = {
+export const storeLinks: StoreLinksType = {
     appStore: {
         url: config.appStoreXummLink,
         image: iosappstore,
