@@ -9,7 +9,7 @@ describe("Test for the Store link component", () => {
         const anchor = getByRole("link");
         expect(anchor).toHaveAttribute("href", config.appStoreXummLink);
     });
-    test("Renders correctly", () => {
+    test("Renders correctly play store", () => {
         const { getByRole } = render(<StoreLink type="playStore" />);
         expect(getByRole("img", { name: "play-store-logo" })).toBeInTheDocument();
         const anchor = getByRole("link");
