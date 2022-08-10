@@ -31,7 +31,7 @@ function generateComponent(name, data, removeFill) {
 import { cx } from "@peersyst/react-utils";
 export default function ${name}Icon ({ className, ...rest }: Omit<SvgIconProps, "children">): JSX.Element {
     return (
-        <SvgIcon {...rest} data-testid="${name}Icon" className={cx(${removeFill ? undefined : '"Filled"'}, "Icon", className)}>
+        <SvgIcon {...rest} data-testid="${name}Icon" className={cx(${removeFill ? undefined : '"Filled"'}, "Icon", "${name}Icon", className)}>
             ${data}
         </SvgIcon>
     )
