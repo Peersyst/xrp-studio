@@ -26,8 +26,8 @@ export const QrImage = styled(Image)(
         height: 14rem;
         ${theme.breakpoints.down("mobile")} {
             max-width: unset;
-            width: 60vw;
-            height: 60vw;
+            width: 10rem;
+            height: 10rem;
         }
     `,
 );

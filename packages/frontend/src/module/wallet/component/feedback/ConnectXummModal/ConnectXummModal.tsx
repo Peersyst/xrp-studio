@@ -1,4 +1,4 @@
-import { createModal, Col, Row, Typography } from "@peersyst/react-components";
+import { createModal, Col, Row, Typography, useModal } from "@peersyst/react-components";
 import Modal from "module/common/component/feedback/Modal/Modal";
 import Button from "module/common/component/input/Button/Button";
 import useTranslate from "module/common/hook/useTranslate";
@@ -7,6 +7,7 @@ import StoreLink from "../../navigation/StoreLink/StoreLink";
 
 const ConnectXummModal = createModal((modalProps): JSX.Element => {
     const translate = useTranslate();
+    const { hideModal } = useModal();
     return (
         <Modal title={translate("scanXummQR")} subtitle={translate("scanXummQRExplanation")} {...modalProps}>
             <QrCard>
@@ -23,7 +24,7 @@ const ConnectXummModal = createModal((modalProps): JSX.Element => {
                     </Col>
                 </Col>
             </QrCard>
-            <Button>{translate("dismiss")}</Button>
+            <Button onClick={() => hideModal(ConnectXummModal.id)}>{translate("dismiss")}</Button>
         </Modal>
     );
 });

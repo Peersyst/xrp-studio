@@ -21,7 +21,7 @@ const Modal = ({
             <Col gap="3rem" className="modal-main-col">
                 {title && (
                     <Col gap="1rem">
-                        <Typography variant="h3" fontWeight={700}>
+                        <Typography variant="h3" fontWeight={700} className="modal-title">
                             {title}
                         </Typography>
                         {subtitle && (

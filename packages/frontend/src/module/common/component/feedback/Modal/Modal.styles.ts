@@ -17,6 +17,9 @@ export const ModalRoot = styled(Modal)(
             .modal-main-col {
                 row-gap: 2rem;
             }
+            .modal-title {
+                font-size: 1.4rem;
+            }
         }
     `,
 );

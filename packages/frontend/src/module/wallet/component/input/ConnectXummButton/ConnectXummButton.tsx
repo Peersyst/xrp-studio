@@ -14,8 +14,9 @@ const ConnectXummButton = ({ className, style }: ConnectXummButtonProps): JSX.El
     };
     return (
         <Button className={cx("connect-xumm-btn", className)} style={style} onClick={handleOnClick}>
-            <Row gap="0.5rem" alignItems="center">
-                <WalletIcon />
+            <Row gap="0.5rem" alignItems="center" css={{ whiteSpace: "nowrap" }}>
+                <WalletIcon css={{ fontSize: "1.25rem" }} />
+
                 {translate("loginWithXumm")}
             </Row>
         </Button>
