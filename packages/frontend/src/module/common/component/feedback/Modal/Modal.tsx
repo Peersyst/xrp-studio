@@ -8,7 +8,7 @@ const Modal = ({
     open: openProp,
     title,
     children,
-    elevation = 0,
+    elevation = 6,
     onClose,
     closable = true,
     subtitle,

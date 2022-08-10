@@ -12,9 +12,11 @@ describe("ConnectXummButton", () => {
         expect(screen.getByRole("button", { name: label })).toBeInTheDocument();
     });
     test("Opens modal correctly", () => {
+        //Mocks
         const showModal = jest.fn();
         const useModalMock = new ModalMock({ showModal });
         jest.spyOn(PeersystLib, "useModal").mockReturnValue(useModalMock);
+        //Test
         const label = translate("loginWithXumm");
         const screen = render(<ConnectXummButton />);
         const btn = screen.getByRole("button", { name: label });
