@@ -1,3 +1,4 @@
+// eslint-disable-next-line @typescript-eslint/no-var-requires
 const fs = require("fs");
 
 /**
@@ -21,13 +22,15 @@ const svgs = [];
  * Generates icon component's code
  * @param name Icon name
  * @param data Icon's svg code
+ * @param removeFill remove fill boolean
  * @returns {string} Icon component's code
  */
-function generateComponent(name, data) {
-    return `import { SvgIcon, SvgIconProps } from "@peersyst/react-components"
-export function ${name}Icon (props: Omit<SvgIconProps, "children">): JSX.Element {
+function generateComponent(name, data, removeFill) {
+    return `import { SvgIcon, SvgIconProps } from "@peersyst/react-components";
+import { cx } from "@peersyst/react-utils";
+export default function ${name}Icon ({ className, ...rest }: Omit<SvgIconProps, "children">): JSX.Element {
     return (
-        <SvgIcon {...props} data-testid="${name}Icon">
+        <SvgIcon {...rest} data-testid="${name}Icon" className={cx(${removeFill ? undefined : '"Filled"'}, "Icon", className)}>
             ${data}
         </SvgIcon>
     )
@@ -41,7 +44,8 @@ export function ${name}Icon (props: Omit<SvgIconProps, "children">): JSX.Element
  * @returns {string} Export code
  */
 function generateExport(name) {
-    return 'export * from "./' + name + 'Icon";';
+    const iconName = name + "Icon";
+    return `export { default as ${iconName} } from "./${iconName}";`;
 }
 
 /**
@@ -50,7 +54,7 @@ function generateExport(name) {
  * @param removeFill Boolean indicating whether to remove the fill property or not.
  */
 function addSvgs(folder, removeFill) {
-    const replaceRegExp = removeFill ? /<svg.+>|<\/svg>|<\?.*>|style="[^"]*"|fill="[^"]*"/gi : /<svg.+>|<\/svg>|<\?.*>|style="[^"]*"/gi;
+    const replaceRegExp = /<svg.+>|<\/svg>|<\?.*>|style="[^"]*"/gi;
     const filenames = fs.readdirSync(folder);
     for (const filename of filenames) {
         const stat = fs.lstatSync(folder + filename);
@@ -63,6 +67,7 @@ function addSvgs(folder, removeFill) {
                 filename: toCamelCase(name),
                 // Remove svg tags and maybe fill. Then, replace all kebab-case svg properties for camelCase React properties
                 data: data.replace(replaceRegExp, "").replace(/-(?=[^"]+=)./g, (x) => x[1].toUpperCase()),
+                removeFill: removeFill,
             });
         }
     }
@@ -89,8 +94,8 @@ fs.readdir(outputFolder, (error, filenames) => {
     }
 
     // Create a component for each svg
-    svgs.forEach(({ filename, data }) => {
-        fs.writeFileSync(outputFolder + filename + "Icon.tsx", generateComponent(filename, data));
+    svgs.forEach(({ filename, data, removeFill }) => {
+        fs.writeFileSync(outputFolder + filename + "Icon.tsx", generateComponent(filename, data, removeFill));
         console.log(filename + "Icon.tsx created");
     });
 

@@ -1,4 +1,1 @@
-const image = {
-    logo: require("./logo.svg"),
-};
-export { image };
+export { default as logo } from "./logo.svg";
