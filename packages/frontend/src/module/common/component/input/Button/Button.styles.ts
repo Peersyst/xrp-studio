@@ -22,13 +22,11 @@ const secondaryAppearance = css(
         background-color: transparent;
         border: 1px solid ${alpha(theme.palette.text, 0.5)};
         transition: all 0.1s;
-
         &:hover {
             border-color: ${lighten(theme.palette.primary, 0.3)};
             color: ${lighten(theme.palette.primary, 0.3)};
             background-color: ${alpha(theme.palette.primary, 0.2)};
         }
-
         &:active {
             filter: brightness(0.9);
         }
@@ -45,19 +43,15 @@ export const ButtonRoot = styled(Button)<ButtonProps>(({ appearance, theme }) =>
         ${theme.typography.body2.style};
         font-weight: 500;
         text-transform: none;
-
         height: 40px;
         padding: 0 16px;
-
         &:disabled {
             filter: unset;
             opacity: 0.4;
         }
-
         &.Loading {
             opacity: 1;
         }
-
         :active {
             box-shadow: none;
         }

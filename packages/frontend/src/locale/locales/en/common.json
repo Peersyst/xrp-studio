@@ -4,5 +4,6 @@
     "items": "Items",
     "loginWithXumm": "Login with your XUMM Wallet",
     "scanXummQR": "Scan the QR with XUMM app",
-    "scanXummQRExplanation": "Scan the QR code with your XUMM Wallet to proceed"
+    "scanXummQRExplanation": "Scan the QR code with your XUMM Wallet to proceed",
+    "dismiss": "Dismiss"
 }

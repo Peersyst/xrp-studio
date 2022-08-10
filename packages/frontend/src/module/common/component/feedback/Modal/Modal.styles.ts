@@ -13,6 +13,7 @@ export const ModalRoot = styled(Modal)(
         border: 1px solid ${alpha(theme.palette.black["0"], 0.2)};
         ${theme.breakpoints.down("mobile")} {
             height: auto;
+            padding: 1.5rem;
         }
     `,
 );
