@@ -1,4 +1,2 @@
-const image = {
-    logo: require("./logo.svg"),
-};
-export { image };
+//@ts-nocheck
+export { default as logo } from "./logo.svg";
