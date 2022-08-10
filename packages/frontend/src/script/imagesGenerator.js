@@ -1,4 +1,5 @@
 const fs = require("fs");
+const { execSync } = require("child_process");
 
 // Images folder
 const imgFolder = process.argv[2];
@@ -12,7 +13,7 @@ const imgRequires = [];
  */
 function generateName(filename) {
     const paths = filename.split("/");
-    return paths[paths.length - 1].split(".")[0].toLowerCase().replace(/ /g, "_");
+    return paths[paths.length - 1].split(".")[0].toLowerCase().replace(/ |-/g, "_");
 }
 
 /**
@@ -41,5 +42,12 @@ function addImages(folder) {
 addImages(imgFolder);
 
 // Create an index
-fs.writeFileSync(imgFolder + "index.ts", imgRequires.map((ex) => "\t" + ex).join(";\n") + "\n");
+fs.writeFileSync(imgFolder + "index.ts", "//@ts-nocheck\n" + imgRequires.map((ex) => "\t" + ex).join(";\n") + "\n");
 console.log("images index.ts created");
+
+try {
+    execSync("prettier --write " + imgFolder + "index.ts");
+    console.log("Prettified images index");
+} catch (e) {
+    console.error(e);
+}

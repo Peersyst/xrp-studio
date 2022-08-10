@@ -1,5 +1,6 @@
 // eslint-disable-next-line @typescript-eslint/no-var-requires
 const fs = require("fs");
+const { execSync } = require("child_process");
 
 /**
  * Transforms a string into CamelCase
@@ -102,4 +103,11 @@ fs.readdir(outputFolder, (error, filenames) => {
     // Create an index
     fs.writeFileSync(outputFolder + "index.tsx", svgs.map(({ filename }) => generateExport(filename)).join("\n"));
     console.log("icons index.tsx created");
+
+    try {
+        execSync("prettier --write " + outputFolder + "*");
+        console.log("Prettified Icons");
+    } catch (e) {
+        console.error(e);
+    }
 });
