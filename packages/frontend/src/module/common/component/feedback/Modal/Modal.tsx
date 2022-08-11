@@ -8,16 +8,15 @@ const Modal = ({
     open: openProp,
     title,
     children,
-    elevation = 6,
+    elevation = 3,
     onClose,
     closable = true,
     subtitle,
     ...rest
 }: ModalProps): JSX.Element => {
     const [open, setOpen] = useControlled(true, openProp, openProp ? onClose : undefined);
-
     return (
-        <ModalRoot open={open} elevation={elevation} onClose={() => setOpen(false)} closable={closable} {...rest}>
+        <ModalRoot open={open} onClose={() => setOpen(false)} elevation={elevation} closable={closable} {...rest}>
             <Col gap="3rem" className="modal-main-col">
                 {title && (
                     <Col gap="1rem">
@@ -25,7 +24,7 @@ const Modal = ({
                             {title}
                         </Typography>
                         {subtitle && (
-                            <Typography variant="body2" fontWeight={400} light>
+                            <Typography variant="subtitle2" fontWeight={400} light>
                                 {subtitle}
                             </Typography>
                         )}
