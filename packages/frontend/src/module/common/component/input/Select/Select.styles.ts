@@ -7,7 +7,6 @@ export const SelectRoot = styled(Select)<SelectProps<any>>(
         margin-top: 10rem;
         margin-bottom: 10rem;
         height: 1.5rem;
-        width: 4rem;
         color: ${theme.palette.black[30]};
         background-color: ${theme.palette.black[5]};
         .Select {
