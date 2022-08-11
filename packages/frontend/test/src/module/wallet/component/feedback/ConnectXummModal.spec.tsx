@@ -25,7 +25,7 @@ describe("Test for the connect Xumm Modal", () => {
         expect(getByRole("img", { name: "app-store-logo" })).toBeInTheDocument();
         expect(getByRole("img", { name: "play-store-logo" })).toBeInTheDocument();
     });
-    test("Calls signIn when clicking the button", () => {
+    test("Calls signIn when mounting", () => {
         //useConnectToXumm mock
         const mockedSignIn = jest.fn();
         jest.spyOn(useConnectToXumm, "default").mockReturnValue({

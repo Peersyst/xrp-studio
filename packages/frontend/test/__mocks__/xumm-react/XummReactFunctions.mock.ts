@@ -1,4 +1,3 @@
-import { VerifySignInResponse } from "xumm-react";
 import { MockFnType } from "../base.mock";
 import { BaseReturnXummReactMockType, XummReactBaseReturnMock } from "./BaseXummReact.mock";
 
@@ -11,7 +10,6 @@ export interface SingInMockParams extends BaseReturnXummReactMockType {
 
 export interface VerifySingInMockParams extends BaseReturnXummReactMockType {
     verifySignIn?: MockFnType;
-    onVerifySignIn?: (response: VerifySignInResponse) => void;
 }
 
 export class SignInMock extends XummReactBaseReturnMock {
