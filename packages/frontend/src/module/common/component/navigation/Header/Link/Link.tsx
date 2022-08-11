@@ -1,7 +1,6 @@
 import { Link as RouterLink } from "react-router-dom";
-import { LinkProps } from "module/common/component/navigation/Link/Link.types";
-import { LinkRoot } from "./Link.styles";
-import { Typography } from "@peersyst/react-components";
+import { LinkRoot, TypographyRoot } from "./Link.styles";
+import { LinkProps } from "module/common/component/navigation/Header/Link/Link.types";
 
 const Link = ({ to, type = "href", target = "_self", children, variant = "body2", style, className, ...rest }: LinkProps): JSX.Element => {
     const { LinkComponent, hrefProp } =
@@ -14,9 +13,9 @@ const Link = ({ to, type = "href", target = "_self", children, variant = "body2"
 
     return (
         <LinkRoot as={LinkComponent} {...(hrefProp as { to: string; target?: string })} style={style} className={className}>
-            <Typography variant={variant} singleLine {...rest}>
+            <TypographyRoot variant={variant} singleLine {...rest}>
                 {children}
-            </Typography>
+            </TypographyRoot>
         </LinkRoot>
     );
 };

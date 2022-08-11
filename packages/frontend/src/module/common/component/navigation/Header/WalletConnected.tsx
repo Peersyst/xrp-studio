@@ -1,11 +1,11 @@
-import LinkHeader from "module/common/component/navigation/Header/LinkHeader/LinkHeader";
+import Link from "module/common/component/navigation/Header/Link/Link";
 import { WalletRoot } from "module/common/component/navigation/Header/Wallet.styles";
 
 const WalletConnected = (): JSX.Element => (
     <WalletRoot gap={26}>
-        <LinkHeader to="/nfts"> My NFTs </LinkHeader>
-        <LinkHeader to="/wallet"> My Wallet </LinkHeader>
-        <LinkHeader to="/profile"> @username </LinkHeader>
+        <Link to="/nfts"> My NFTs </Link>
+        <Link to="/wallet"> My Wallet </Link>
+        <Link to="/profile"> @username </Link>
     </WalletRoot>
 );
 

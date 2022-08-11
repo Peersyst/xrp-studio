@@ -10,14 +10,13 @@ interface HeaderProps {
 
 const HeaderRoot = styled(AppBar).attrs({ position: "fixed" })`
     background-color: black;
-    padding-left: 10rem;
 `;
 
 const Header = ({ className }: HeaderProps): JSX.Element => {
-    const connected = true;
+    const connected = false;
     return (
         <HeaderRoot className={className}>
-            <Toolbar style={{ justifyContent: "space-between", width: "100%" }}>
+            <Toolbar style={{ paddingLeft: "10rem", justifyContent: "space-between" }}>
                 <img src={image.logo} alt="logo" />
                 {connected ? <WalletConnected /> : <WalletNotConnected />}
             </Toolbar>
