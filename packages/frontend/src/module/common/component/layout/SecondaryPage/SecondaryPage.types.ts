@@ -1,9 +1,14 @@
 import { ReactNode } from "react";
 import { SecondaryPageHeaderProps } from "../SecondaryPageHeader/SecondaryPageHeader.types";
 
-export interface SecondaryPageProps extends SecondaryPageHeaderProps {
+export interface SecondaryPageProps extends Omit<SecondaryPageHeaderProps, "children"> {
     /**
      * Secondary page content
      */
-    children: ReactNode;
+    children: SecondaryPageHeaderProps["children"] & {
+        /**
+         * Secondaty page content
+         */
+        content: ReactNode;
+    };
 }

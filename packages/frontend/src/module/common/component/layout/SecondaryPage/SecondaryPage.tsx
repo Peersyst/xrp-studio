@@ -4,16 +4,17 @@ import PageContent from "module/common/component/layout/PageContent/PageContent"
 import SecondaryPageHeader from "../SecondaryPageHeader/SecondaryPageHeader";
 import { SecondaryPageProps } from "./SecondaryPage.types";
 
-export default function SecondaryPage({ children, ...headerProps }: SecondaryPageProps): JSX.Element {
+export default function SecondaryPage({ title, children }: SecondaryPageProps): JSX.Element {
+    const { content, ...rest } = children;
     return (
         <BasePage>
             {{
                 header: (
                     <PageHeader withBorder>
-                        <SecondaryPageHeader {...headerProps} />
+                        <SecondaryPageHeader title={title}>{{ ...rest }}</SecondaryPageHeader>
                     </PageHeader>
                 ),
-                content: <PageContent>{children}</PageContent>,
+                content: <PageContent>{content}</PageContent>,
             }}
         </BasePage>
     );

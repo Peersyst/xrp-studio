@@ -6,11 +6,16 @@ export interface SecondaryPageHeaderProps {
      */
     title: string | ReactElement;
     /**
-     * Page header top right content
+     * Page Secondary header optional content
      */
-    complement?: ReactElement;
-    /**
-     * Page header bottom content
-     */
-    bottomComponent?: ReactElement;
+    children?: {
+        /**
+         * complement: page header top right content
+         */
+        complement?: ReactElement;
+        /**
+         * bottomComponent: page header bottom content
+         */
+        bottomComponent?: ReactElement;
+    };
 }
