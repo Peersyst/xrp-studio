@@ -10,3 +10,5 @@ openapi-spec.json
 /src/module/api
 /src/module/common/icons
 /src/script/iconGenerator.js
+/src/script/imagesGenerator.js
+tsconfig.json
