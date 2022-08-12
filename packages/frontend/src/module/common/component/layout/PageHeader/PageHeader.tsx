@@ -6,12 +6,12 @@ export interface PageHeaderProps {
     children?: ReactNode;
     className?: string;
     style?: CSSProperties;
+    withBorder?: boolean;
 }
 
-const PageHeader = (props: PageHeaderProps): JSX.Element => {
+const PageHeader = ({ withBorder = false, ...rest }: PageHeaderProps): JSX.Element => {
     const headerRef = useHeaderRef();
-
-    return <PageHeaderRoot ref={headerRef} {...props} />;
+    return <PageHeaderRoot withBorder={withBorder} ref={headerRef} {...rest} />;
 };
 
 export default PageHeader;

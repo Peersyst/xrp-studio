@@ -6,11 +6,12 @@ import { Suspense } from "react";
 import { BrowserRouter, useRoutes } from "react-router-dom";
 import Footer from "module/common/component/navigation/Footer/Footer";
 import { config } from "config";
+import { useNftRouter } from "module/nft/NftRouter";
 
 const Routes = () => {
     const dashboardRoutes = useDashboardRoutes();
-
-    return useRoutes([...dashboardRoutes]);
+    const nftRoutes = useNftRouter();
+    return useRoutes([...dashboardRoutes, ...nftRoutes]);
 };
 
 const Router = (): JSX.Element => (

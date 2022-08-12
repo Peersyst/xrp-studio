@@ -1,10 +1,10 @@
 import { ReactElement } from "react";
 
-export interface PageHeaderProps {
+export interface SecondaryPageHeaderProps {
     /**
      * Page header title
      */
-    title: string;
+    title: string | ReactElement;
     /**
      * Page header top right content
      */

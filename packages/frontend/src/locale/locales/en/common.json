@@ -7,5 +7,8 @@
     "scanXummQRExplanation": "Scan the QR code with your XUMM Wallet to proceed",
     "dismiss": "Dismiss",
     "getXummCTA": "Don't have XUMM Wallet? Get it here",
-    "formatNumber": "{{val, number}}"
+    "formatNumber": "{{val, number}}",
+    "myNfts": "My NFTs",
+    "createCollection": "Create Collection",
+    "createNft": "Create NFT"
 }

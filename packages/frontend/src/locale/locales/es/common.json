@@ -7,5 +7,8 @@
     "scanXummQRExplanation": "Scanea el QR con tu billetera de XUMM para continuar",
     "dismiss": "Cerrar",
     "getXummCTA": "¿Todavía no tienes Xumm? ¡Descárgalo aquí!",
-    "formatNumber": "{{val, number}}"
+    "formatNumber": "{{val, number}}",
+    "myNfts": "Mis NFTs",
+    "createCollection": "Añadir colección",
+    "createNft": "Crear NFT"
 }
