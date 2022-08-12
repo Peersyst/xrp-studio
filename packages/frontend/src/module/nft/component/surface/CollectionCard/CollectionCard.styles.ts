@@ -7,7 +7,7 @@ export const CollectionCardWrapper = styled(Col)(
         position: relative;
         width: 22.5rem;
         height: 12rem;
-        border-radius: ${theme.borderRadius};
+        border-radius: ${theme.borderRadiusMd};
         background-color: ${theme.palette.black["85"]};
     `,
 );
@@ -16,7 +16,7 @@ export const CollectionCardCover = styled(Image)(
     ({ theme }) => css`
         width: inherit;
         height: 67%;
-        border-radius: ${theme.borderRadius};
+        border-radius: ${theme.borderRadiusMd};
     `,
 );
 

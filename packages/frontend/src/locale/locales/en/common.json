@@ -2,5 +2,10 @@
     "welcome": "Hello",
     "name": "Charlie",
     "items": "Items",
+    "loginWithXumm": "Login with your XUMM Wallet",
+    "scanXummQR": "Scan the QR with XUMM app",
+    "scanXummQRExplanation": "Scan the QR code with your XUMM Wallet to proceed",
+    "dismiss": "Dismiss",
+    "getXummCTA": "Don't have XUMM Wallet? Get it here",
     "formatNumber": "{{val, number}}"
 }
