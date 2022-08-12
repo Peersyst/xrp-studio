@@ -22,7 +22,7 @@ const BaseCard = ({ loading, title, cover, children, note, to }: WithSkeleton<Ba
     return (
         <ConditionalLink condition={!loading} to={to}>
             <BaseCardRoot>
-                <Skeleton loading={loading}>
+                <Skeleton loading={loading} className="skeleton-card">
                     <BaseCardCover>{cover}</BaseCardCover>
                 </Skeleton>
                 <Col gap="0.5rem">

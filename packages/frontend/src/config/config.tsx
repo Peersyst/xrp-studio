@@ -21,7 +21,7 @@ const envConfig = envConfigs[envKey];
 const config = createConfig({
     ...envConfig,
     themes: {
-        light: lightTheme,
+        light: darkTheme,
         dark: darkTheme,
     },
 });

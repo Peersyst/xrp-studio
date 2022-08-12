@@ -1,4 +1,4 @@
-import { ComponentType, ReactNode } from "react";
+import { ComponentType, ReactElement, ReactNode } from "react";
 import { GridProps, InfiniteScrollProps } from "@peersyst/react-components";
 import { PaginatedData } from "query-utils";
 import { InfiniteData } from "react-query";
@@ -9,6 +9,14 @@ export type BaseGridPropsExtensions = InfiniteScrollProps & GridProps;
 export interface BaseGridProps<T extends PaginatedData> extends BaseGridPropsExtensions {
     children: (items: T["items"]) => ReactNode;
     data: InfiniteData<T> | undefined;
-    nothingToShowMessage?: string;
+    nothingToShow?: ReactNode;
     Skeletons: ComponentType<SkeletonComponentProps>;
+    moveGrid?: boolean;
+}
+
+export interface ExposedBaseGridProps<T extends PaginatedData> extends InfiniteScrollProps {
+    children: (items: T["items"]) => ReactNode;
+    data: InfiniteData<T> | undefined;
+    nothingToShowMessage?: string;
+    Skeletons?: ComponentType<SkeletonComponentProps>;
 }
