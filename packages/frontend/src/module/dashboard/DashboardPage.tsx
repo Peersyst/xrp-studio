@@ -4,7 +4,6 @@ import useTranslate from "module/common/hook/useTranslate";
 import { config } from "config";
 import PageHeader from "module/common/component/layout/PageHeader/PageHeader";
 import PageContent from "module/common/component/layout/PageContent/PageContent";
-import ConnectXummButton from "module/wallet/component/input/ConnectXummButton/ConnectXummButton";
 
 export default function DashboardPage(): JSX.Element {
     const translate = useTranslate();
@@ -20,11 +19,7 @@ export default function DashboardPage(): JSX.Element {
                         </Typography>
                     </PageHeader>
                 ),
-                content: (
-                    <PageContent>
-                        <ConnectXummButton />
-                    </PageContent>
-                ),
+                content: <PageContent>CONTENT</PageContent>,
             }}
         </BasePage>
     );
