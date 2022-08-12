@@ -2,7 +2,7 @@ import styled, { css } from "styled-components";
 import { Col, Image, Row } from "@peersyst/react-components";
 import Avatar from "module/common/component/display/Avatar/Avatar";
 
-export const CollectionCardRoot = styled(Col)(
+export const CollectionCardWrapper = styled(Col)(
     ({ theme }) => css`
         position: relative;
         width: 22.5rem;

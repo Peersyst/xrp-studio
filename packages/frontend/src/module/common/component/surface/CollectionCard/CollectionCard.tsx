@@ -3,7 +3,7 @@ import {
     CollectionAvatar,
     CollectionCardCover,
     CollectionCardFooter,
-    CollectionCardRoot,
+    CollectionCardWrapper,
 } from "module/common/component/surface/CollectionCard/CollectionCard.styles";
 import { CollectionCardProps } from "module/common/component/surface/CollectionCard/CollectionCard.types";
 import useTranslate from "module/common/hook/useTranslate";
@@ -19,7 +19,7 @@ const CollectionCard = ({
 
     return (
         <ConditionalLink condition={!loading} to={`/collections/${id}`}>
-            <CollectionCardRoot>
+            <CollectionCardWrapper>
                 <CollectionCardCover src={header} alt={`${alt}-cover`} loading={loading} />
                 <CollectionCardFooter>
                     <CollectionAvatar img={image} alt={`${alt}-image`} loading={loading} />
@@ -31,12 +31,12 @@ const CollectionCard = ({
                         </Skeleton>
                         <Skeleton width="90%" loading={loading}>
                             <Typography variant="body2" light singleLine>
-                                {`${Intl.NumberFormat().format(items)} ${translate("items").toLowerCase()}`}
+                                {`${translate("formatNumber", { val: items })} ${translate("items").toLowerCase()}`}
                             </Typography>
                         </Skeleton>
                     </Col>
                 </CollectionCardFooter>
-            </CollectionCardRoot>
+            </CollectionCardWrapper>
         </ConditionalLink>
     );
 };

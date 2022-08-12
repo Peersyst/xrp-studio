@@ -1,5 +1,6 @@
 {
     "welcome": "Hola",
     "name": "Manolo",
-    "items": "Items"
+    "items": "Items",
+    "formatNumber": "{{val, number}}"
 }
