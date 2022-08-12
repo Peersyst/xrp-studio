@@ -7,12 +7,13 @@ describe("Modal tests", () => {
     const subtitle = "Modal subtitle";
     test("Shows titles", () => {
         render(
-            <Modal open={true} onClose={() => false} title={title} subtitle={subtitle}>
+            <Modal title={title} subtitle={subtitle}>
                 children
             </Modal>,
         );
-        expect(screen.getByRole("button", { name: title })).toBeInTheDocument();
-        expect(screen.getByRole("button", { name: subtitle })).toBeInTheDocument();
+        expect(screen.getByRole("heading", { name: title })).toBeInTheDocument();
+        expect(screen.getByRole("heading", { name: subtitle })).toBeInTheDocument();
+        expect(screen.getByTestId("CloseIcon")).toBeInTheDocument();
         expect(screen.getByText("children")).toBeInTheDocument();
     });
 });
