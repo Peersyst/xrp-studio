@@ -1,5 +1,5 @@
 import { Skeleton } from "@peersyst/react-components";
-import { SkeletonComponentProps, SkeletonsProps } from "module/common/component/nft/Skeletons/Skeletons.types";
+import { SkeletonComponentProps, SkeletonsProps } from "module/common/component/feedback/Skeletons/Skeletons.types";
 import BaseCard from "module/nft/component/surface/BaseCard/BaseCard";
 
 const Skeletons = ({ count, ...rest }: SkeletonsProps): JSX.Element => (
