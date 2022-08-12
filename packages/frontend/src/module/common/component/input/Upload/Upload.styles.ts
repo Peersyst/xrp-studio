@@ -6,6 +6,7 @@ export const TypographyUpload = styled(Typography)<TypographyProps>(
         text-decoration: none;
         color: ${theme.palette.black[30]};
         font-weight: 400;
+        align-self: center;
         font-size: 1rem;
     `,
 );
@@ -15,6 +16,6 @@ export const UploadRoot = styled(Col)(
         width: 20rem;
         height: 20rem;
         background-color: ${theme.palette.black[10]};
-        border-radius: 6px;
+        border-radius: 10px;
     `,
 );
