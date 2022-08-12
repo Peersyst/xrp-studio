@@ -3,7 +3,7 @@ import Header from "module/common/component/navigation/Header/Header";
 import ScrollToTop from "module/common/component/navigation/ScrollToTop/ScrollToTop";
 import { useDashboardRoutes } from "module/dashboard/DashboardRouter";
 import { Suspense } from "react";
-import { BrowserRouter, useRoutes } from "react-router-dom";
+import { BrowserRouter, Navigate, useRoutes } from "react-router-dom";
 import Footer from "module/common/component/navigation/Footer/Footer";
 import { config } from "config";
 import { useNftRouter } from "module/nft/NftRouter";
@@ -11,7 +11,7 @@ import { useNftRouter } from "module/nft/NftRouter";
 const Routes = () => {
     const dashboardRoutes = useDashboardRoutes();
     const nftRoutes = useNftRouter();
-    return useRoutes([...dashboardRoutes, ...nftRoutes]);
+    return useRoutes([...dashboardRoutes, ...nftRoutes, { path: "*", element: <Navigate to="/" /> }]);
 };
 
 const Router = (): JSX.Element => (
