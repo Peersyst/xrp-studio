@@ -8,10 +8,10 @@ describe("Test for the connect Xumm Modal", () => {
         const title = translate("scanXummQR");
         const subtitle = translate("scanXummQRExplanation");
         const xummLabel = translate("getXummCTA");
-        const { getByRole } = render(<ConnectXummModal />);
+        const { getByRole, getByText } = render(<ConnectXummModal />);
         expect(getByRole("heading", { name: title })).toBeInTheDocument();
         expect(getByRole("heading", { name: subtitle })).toBeInTheDocument();
-        expect(getByRole("heading", { name: xummLabel })).toBeInTheDocument();
+        expect(getByText(xummLabel)).toBeInTheDocument();
         expect(getByRole("button", { name: translate("dismiss") })).toBeInTheDocument();
         expect(getByRole("img", { name: "xumm-login" })).toBeInTheDocument();
         expect(getByRole("img", { name: "app-store-logo" })).toBeInTheDocument();
