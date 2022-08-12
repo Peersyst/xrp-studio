@@ -4,10 +4,11 @@ import {
     CollectionCardCover,
     CollectionCardFooter,
     CollectionCardWrapper,
-} from "module/common/component/surface/CollectionCard/CollectionCard.styles";
-import { CollectionCardProps } from "module/common/component/surface/CollectionCard/CollectionCard.types";
+} from "module/nft/component/surface/CollectionCard/CollectionCard.styles";
+import { CollectionCardProps } from "module/nft/component/surface/CollectionCard/CollectionCard.types";
 import useTranslate from "module/common/hook/useTranslate";
 import ConditionalLink from "module/common/component/navigation/ConditionalLink/ConditionalLink";
+import { NftRoutes } from "module/nft/NftRouter";
 
 const CollectionCard = ({
     collection: { id, name = "", image = "", items, header },
@@ -18,7 +19,7 @@ const CollectionCard = ({
     const alt = "collection-" + id;
 
     return (
-        <ConditionalLink condition={!loading} to={`/collections/${id}`}>
+        <ConditionalLink condition={!loading} to={`${NftRoutes.COLLECTIONS}${id}`}>
             <CollectionCardWrapper>
                 <CollectionCardCover src={header} alt={`${alt}-cover`} loading={loading} />
                 <CollectionCardFooter>

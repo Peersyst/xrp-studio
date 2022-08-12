@@ -1,6 +1,6 @@
 import { screen } from "@testing-library/react";
 import { render, translate } from "test-utils";
-import CollectionCard from "module/common/component/surface/CollectionCard/CollectionCard";
+import CollectionCard from "module/nft/component/surface/CollectionCard/CollectionCard";
 import CollectionDtoMock from "../../../../../__mocks__/collection.dto.mock";
 
 describe("CollectionCard", () => {
