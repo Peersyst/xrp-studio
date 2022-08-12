@@ -4,7 +4,9 @@ import { render } from "test-utils";
 describe("Test for the SecondaryPageComponent", () => {
     test("Renders correctly", () => {
         const { getByRole, getByText } = render(
-            <SecondaryPageHeader title={"title"} complement={<>complement</>} bottomComponent={<>bottomComponent</>} />,
+            <SecondaryPageHeader title={"title"}>
+                {{ complement: <>complement</>, bottomComponent: <>bottomComponent</> }}
+            </SecondaryPageHeader>,
         );
         expect(getByRole("heading", { name: "title" })).toBeInTheDocument();
         expect(getByText("complement")).toBeInTheDocument();
