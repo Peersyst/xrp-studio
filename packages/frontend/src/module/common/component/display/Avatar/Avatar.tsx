@@ -2,6 +2,7 @@ import { AvatarRoot } from "module/common/component/display/Avatar/Avatar.styles
 import { AvatarProps, AvatarSize, AvatarSizeParams } from "module/common/component/display/Avatar/Avatar.types";
 import { Skeleton } from "@peersyst/react-components";
 import { useState } from "react";
+import { cx } from "@peersyst/react-utils";
 
 const AVATAR_SIZES: Record<AvatarSize, AvatarSizeParams> = {
     lg: {
@@ -35,7 +36,7 @@ const Avatar = ({ img, alt, size = "lg", loading: loadingProp, className, style 
             width={width}
             height={height}
             viewBox={`0 0 ${width} ${height}`}
-            className={className}
+            className={cx("avatar", id, className)}
             style={{ ...style, width: `${width / 16}rem`, height: `${height / 16}rem` }}
         >
             <clipPath id={id}>
