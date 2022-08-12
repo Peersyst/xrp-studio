@@ -13,7 +13,7 @@ const HeaderRoot = styled(AppBar).attrs({ position: "fixed" })`
 `;
 
 const Header = ({ className }: HeaderProps): JSX.Element => {
-    const connected = false;
+    const connected = true;
     return (
         <HeaderRoot className={className}>
             <Toolbar style={{ paddingLeft: "10rem", justifyContent: "space-between" }}>
