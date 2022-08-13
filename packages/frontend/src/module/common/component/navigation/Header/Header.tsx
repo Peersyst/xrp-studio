@@ -1,27 +1,21 @@
-import { image } from "asset";
 import styled from "styled-components";
 import { AppBar, Toolbar } from "@peersyst/react-components";
-import WalletConnected from "module/common/component/navigation/Header/WalletConnected";
-import WalletNotConnected from "module/common/component/navigation/Header/WalletNotConnected";
+import { logo } from "asset/image";
 
 interface HeaderProps {
     className?: string;
 }
 
 const HeaderRoot = styled(AppBar).attrs({ position: "fixed" })`
-    background-color: black;
+    background-color: red;
 `;
 
-const Header = ({ className }: HeaderProps): JSX.Element => {
-    const connected = true;
-    return (
-        <HeaderRoot className={className}>
-            <Toolbar style={{ paddingLeft: "10rem", justifyContent: "space-between" }}>
-                <img src={image.logo} alt="logo" />
-                {connected ? <WalletConnected /> : <WalletNotConnected />}
-            </Toolbar>
-        </HeaderRoot>
-    );
-};
+const Header = ({ className }: HeaderProps): JSX.Element => (
+    <HeaderRoot className={className}>
+        <Toolbar>
+            <img src={logo} alt="logo" />
+        </Toolbar>
+    </HeaderRoot>
+);
 
 export default Header;

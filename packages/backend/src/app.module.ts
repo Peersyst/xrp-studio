@@ -11,6 +11,13 @@ import { TypeORMSeederAdapter } from "./database/seeders/adapter";
 import { ErrorFilter } from "./modules/common/exception/error.filter";
 import { BullModule } from "@nestjs/bull";
 import { BlockchainModule } from "./modules/blockchain/blockchain.module";
+import { XummModule } from "@peersyst/xumm-module";
+import { XummAuthService } from "./modules/xumm/xumm-auth.service";
+import { NftModule } from "./modules/nft/nft.module";
+import { CollectionModule } from "./modules/collection/collection.module";
+import { IpfsModule } from "@peersyst/ipfs-module/src/ipfs.module";
+import { FileModule } from "./modules/file/file.module";
+import { StorageModule, StorageType } from "@peersyst/storage-module/src/storage.module";
 
 @Module({
     imports: [
@@ -40,7 +47,20 @@ import { BlockchainModule } from "./modules/blockchain/blockchain.module";
         }),
         CommandModule,
         UserModule,
+        XummModule.forRootAsync({
+            enableAuth: true,
+            enableStatus: true,
+            inject: [ConfigService],
+            imports: [UserModule],
+            useFactory: (config: ConfigService) => ({
+                jwt: { secret: config.get("server.secretKey") },
+            }),
+            useXummAuthProvider: XummAuthService,
+        }),
         BlockchainModule,
+        NftModule,
+        CollectionModule,
+        FileModule,
         BullModule.forRootAsync({
             inject: [ConfigService],
             useFactory: (config: ConfigService) => ({
@@ -56,6 +76,17 @@ import { BlockchainModule } from "./modules/blockchain/blockchain.module";
                     },
                 },
             }),
+        }),
+        IpfsModule.registerAsync({
+            useFactory: (config: ConfigService) => ({
+                pinataApiKey: config.get("pinata.apiKey"),
+                pinataSecret: config.get("pinata.secretKey"),
+            }),
+            inject: [ConfigService],
+            imports: [ConfigModule],
+        }),
+        StorageModule.register(ConfigModule, {
+            storageType: StorageType.S3,
         }),
     ],
     providers: [TypeORMSeederAdapter, { provide: APP_FILTER, useClass: ErrorFilter }],

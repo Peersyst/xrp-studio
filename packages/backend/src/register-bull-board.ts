@@ -8,8 +8,9 @@ const registerBullBoard = (app: INestApplication, basePath: string) => {
     const serverAdapter = new ExpressAdapter();
     serverAdapter.setBasePath(basePath + "/bull-board");
     const ledgerQueue = app.get<Queue>(`BullQueue_ledger`);
+    const transactionsQueue = app.get<Queue>(`BullQueue_transactions`);
     createBullBoard({
-        queues: [new BullAdapter(ledgerQueue)],
+        queues: [new BullAdapter(ledgerQueue), new BullAdapter(transactionsQueue)],
         serverAdapter,
     });
     app.use("/bull-board", serverAdapter.getRouter());
