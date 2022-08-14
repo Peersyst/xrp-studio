@@ -1,11 +1,10 @@
 import { Theme } from "@peersyst/react-components";
 import { createGlobalStyle } from "styled-components";
 import "./fonts.css";
+import { RootStyles } from "config/theme/component/root.styles";
 
 export const GlobalStyles = createGlobalStyle<{ theme: Theme }>`
-    :root {
-        --appbar-height: 4rem;
-    }
+    ${RootStyles};
     
     html, body, div, span, applet, object, iframe,
     h1, h2, h3, h4, h5, h6, p, blockquote, pre,
