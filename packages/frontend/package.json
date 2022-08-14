@@ -8,8 +8,8 @@
         "build": "craco build",
         "eject": "craco eject",
         "generate": "npm run generate:openapi && npm run generate:icons && npm run generate:images",
-        "generate:icons": "node ./src/script/iconGenerator.js ./src/asset/icon/ ./src/module/common/icons/ && prettier --write ./src/module/common/icons/",
-        "generate:images": "node ./src/script/imagesGenerator.js ./src/asset/image/ && prettier --write ./src/asset/image/",
+        "generate:icons": "node ./src/script/iconGenerator.js ./src/asset/icon/ ./src/module/common/icons/",
+        "generate:images": "node ./src/script/imagesGenerator.js ./src/asset/image/",
         "generate:openapi": "openapi -i ../backend/openapi-spec.json -o src/module/api/service --exportSchemas=true --useUnionTypes",
         "test": "jest --maxWorkers=30% --coverage",
         "test:only": "jest --maxWorkers=30% --coverage --",
@@ -36,7 +36,7 @@
         "recoil": "^0.7.4",
         "styled-components": "^5.3.5",
         "web-vitals": "^1.0.1",
-        "xumm-react": "^1.0.2"
+        "xumm-react": "^1.0.3"
     },
     "devDependencies": {
         "@babel/plugin-proposal-class-properties": "^7.18.6",
