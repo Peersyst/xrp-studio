@@ -1,10 +1,11 @@
 import { Theme } from "@peersyst/react-components";
-import { createGlobalStyle, css } from "styled-components";
+import { createGlobalStyle } from "styled-components";
 import "./fonts.css";
 import { RootStyles } from "config/theme/component/root.styles";
+import { BackdropStyles } from "config/theme/component/Backdrop.styles";
+import { TypographyStyles } from "config/theme/component/Typography.styles";
 
-export const GlobalStyles = createGlobalStyle<{ theme: Theme }>(
-    ({ theme }) => css`
+export const GlobalStyles = createGlobalStyle<{ theme: Theme }>`
         ${RootStyles};
 
         html,
@@ -146,17 +147,6 @@ export const GlobalStyles = createGlobalStyle<{ theme: Theme }>(
             text-decoration: none;
         }
 
-        .Backdrop {
-            background-color: rgba(33, 39, 44, 0.72);
-            backdrop-filter: blur(16px);
-            -webkit-backdrop-filter: blur(16px);
-        }
-
-        .Typography {
-            &.Light {
-                color: ${theme.palette.black["30"]};
-                opacity: 1;
-            }
-        }
-    `,
-);
+        ${BackdropStyles};
+        ${TypographyStyles}
+    `;
