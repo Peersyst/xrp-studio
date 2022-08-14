@@ -40,6 +40,7 @@ module.exports = {
         "!./src/**/mock/**/*",
         "!./src/module/common/component/navigation/ScrollToTop/ScrollToTop.tsx",
         "!./src/query/QueryClientProvider.tsx",
+        "!./src/**/*Provider.tsx",
     ],
     coverageDirectory: "./coverage",
     coverageThreshold: {
