@@ -4,7 +4,7 @@ import { NftMetadataAttribute } from "./NftMetadataAttribute";
 
 @Entity("nft_metadata")
 export class NftMetadata {
-    @OneToOne(() => Nft, { primary: true, cascade: true })
+    @OneToOne(() => Nft, { primary: true })
     @JoinColumn({ name: "nft_id" })
     nft: Nft;
 
@@ -24,7 +24,7 @@ export class NftMetadata {
     @Column({ name: "external_url", type: "text", nullable: true })
     externalUrl?: string;
 
-    @OneToMany(() => NftMetadataAttribute, (metadataAttribute) => metadataAttribute.metadata)
+    @OneToMany(() => NftMetadataAttribute, (metadataAttribute) => metadataAttribute.metadata, { cascade: true })
     attributes?: NftMetadataAttribute[];
 
     @CreateDateColumn({ name: "created_at", type: "timestamp" })
@@ -32,4 +32,14 @@ export class NftMetadata {
 
     @UpdateDateColumn({ name: "updated_at", type: "timestamp" })
     updatedAt: Date;
+
+    constructor({ nft, name, description, image, backgroundColor, externalUrl, attributes }: Partial<NftMetadata> = {}) {
+        this.nft = nft;
+        this.name = name;
+        this.description = description;
+        this.image = image;
+        this.backgroundColor = backgroundColor;
+        this.externalUrl = externalUrl;
+        this.attributes = attributes;
+    }
 }

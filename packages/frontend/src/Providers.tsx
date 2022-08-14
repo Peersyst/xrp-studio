@@ -3,6 +3,7 @@ import { RecoilRoot } from "recoil";
 import { ToastProvider } from "@peersyst/react-components";
 import QueryClientProvider from "./query/QueryClientProvider";
 import { ConfigProvider } from "config";
+import XummProvider from "module/wallet/providers/xumm/XummProvider";
 
 const Providers = ({ children }: PropsWithChildren<unknown>): JSX.Element => (
     <Fragment>
@@ -10,8 +11,10 @@ const Providers = ({ children }: PropsWithChildren<unknown>): JSX.Element => (
             <RecoilRoot>
                 <ToastProvider>
                     <QueryClientProvider>
-                        {children}
-                        {/*{process.env.NODE_ENV === 'development' && <ReactQueryDevtools initialIsOpen={false} />}*/}
+                        <XummProvider>
+                            {children}
+                            {/*{process.env.NODE_ENV === 'development' && <ReactQueryDevtools initialIsOpen={false} />}*/}
+                        </XummProvider>
                     </QueryClientProvider>
                 </ToastProvider>
             </RecoilRoot>
