@@ -1,6 +1,6 @@
 import { screen } from "@testing-library/react";
 import { render } from "test-utils";
-import Skeletons from "module/common/component/nft/Skeletons/Skeletons";
+import Skeletons from "module/common/component/feedback/Skeletons/Skeletons";
 import BaseGrid from "module/common/component/layout/BaseGrid/BaseGrid";
 
 describe("BaseGrid", () => {

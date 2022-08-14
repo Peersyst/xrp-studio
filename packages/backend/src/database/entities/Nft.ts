@@ -21,8 +21,8 @@ export class Nft {
     @Column({ name: "mint_transaction_hash", type: "varchar", length: "255", unique: true, nullable: true })
     mintTransactionHash?: string;
 
-    @Column({ type: "varchar", length: 255, nullable: true })
-    issuer?: string;
+    @Column({ type: "varchar", length: 255 })
+    issuer: string;
 
     @Column({ name: "transfer_fee", nullable: true })
     transferFee?: number;
@@ -30,26 +30,53 @@ export class Nft {
     @Column()
     flags: number;
 
-    @Column({ type: "text", nullable: true })
+    // Hexadecimal encoded uri
+    @Column({ type: "varchar", length: 255, nullable: true })
     uri?: string;
 
     @Column({ type: "enum", enum: NftStatus, default: NftStatus.DRAFT })
     status: NftStatus;
 
-    @ManyToOne(() => User, (user) => user.nfts)
+    @ManyToOne(() => User, (user) => user.nfts, { cascade: ["insert"] })
     @JoinColumn({ name: "account" })
     user: User;
 
-    @ManyToOne(() => Collection, (collection) => collection.nfts, { nullable: true })
+    @ManyToOne(() => Collection, (collection) => collection.nfts, { nullable: true, cascade: ["insert"] })
     @JoinColumn({ name: "collection_id" })
     collection?: Collection;
 
-    @OneToOne(() => NftMetadata, (metadata) => metadata.nft)
-    metadata: NftMetadata;
+    @OneToOne(() => NftMetadata, (metadata) => metadata.nft, { cascade: true })
+    metadata?: NftMetadata;
 
     @CreateDateColumn({ name: "created_at", type: "timestamp" })
     createdAt: Date;
 
     @UpdateDateColumn({ name: "updated_at", type: "timestamp" })
     updatedAt: Date;
+
+    constructor({
+        id,
+        tokenId,
+        mintTransactionHash,
+        issuer,
+        transferFee,
+        flags,
+        uri,
+        status,
+        user,
+        collection,
+        metadata,
+    }: Partial<Nft> = {}) {
+        this.id = id;
+        this.tokenId = tokenId;
+        this.mintTransactionHash = mintTransactionHash;
+        this.issuer = issuer;
+        this.transferFee = transferFee;
+        this.flags = flags;
+        this.uri = uri;
+        this.status = status;
+        this.user = user;
+        this.collection = collection;
+        this.metadata = metadata;
+    }
 }

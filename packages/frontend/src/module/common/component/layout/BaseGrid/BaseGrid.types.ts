@@ -2,7 +2,7 @@ import { ComponentType, ReactNode } from "react";
 import { GridProps, InfiniteScrollProps } from "@peersyst/react-components";
 import { PaginatedData } from "query-utils";
 import { InfiniteData } from "react-query";
-import { SkeletonComponentProps } from "module/common/component/nft/Skeletons/Skeletons.types";
+import { SkeletonComponentProps } from "module/common/component/feedback/Skeletons/Skeletons.types";
 
 export type BaseGridPropsExtensions = InfiniteScrollProps & GridProps;
 

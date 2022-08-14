@@ -1,0 +1,46 @@
+/* istanbul ignore file */
+/* tslint:disable */
+/* eslint-disable */
+export const $NftDto = {
+    properties: {
+        status: {
+            type: 'Enum',
+            isRequired: true,
+        },
+        tokenId: {
+            type: 'string',
+            isRequired: true,
+        },
+        mintTransactionHash: {
+            type: 'string',
+            isRequired: true,
+        },
+        uri: {
+            type: 'string',
+        },
+        id: {
+            type: 'number',
+            isRequired: true,
+        },
+        issuer: {
+            type: 'string',
+        },
+        transferFee: {
+            type: 'number',
+        },
+        flags: {
+            type: 'number',
+            isRequired: true,
+        },
+        metadata: {
+            type: 'MetadataDto',
+        },
+        user: {
+            type: 'UserDto',
+            isRequired: true,
+        },
+        collection: {
+            type: 'CollectionDto',
+        },
+    },
+} as const;
