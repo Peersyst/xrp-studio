@@ -1,12 +1,11 @@
 import { Theme } from "@peersyst/react-components";
 import { createGlobalStyle, css } from "styled-components";
 import "./fonts.css";
+import { RootStyles } from "config/theme/component/root.styles";
 
 export const GlobalStyles = createGlobalStyle<{ theme: Theme }>(
     ({ theme }) => css`
-        :root {
-            --appbar-height: 4rem;
-        }
+        ${RootStyles};
 
         html,
         body,
