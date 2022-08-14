@@ -3,7 +3,7 @@ import { devUsers } from "./users";
 export const devCollections = [
     {
         id: 1,
-        taxon: 0,
+        taxon: "0",
         name: "Bored Ape Yacht Club",
         description:
             "The Bored Ape Yacht Club is a collection of 10,000 unique Bored Ape NFTs— unique digital collectibles living on the Ethereum blockchain. Your Bored Ape doubles as your Yacht Club membership card, and grants access to members-only benefits, the first of which is access to THE BATHROOM, a collaborative graffiti board. Future areas and perks can be unlocked by the community through roadmap activation. Visit www.BoredApeYachtClub.com for more details.",
@@ -15,7 +15,7 @@ export const devCollections = [
     },
     {
         id: 2,
-        taxon: 0,
+        taxon: "0",
         name: "Moonbirds",
         description:
             "A collection of 10,000 utility-enabled PFPs that feature a richly diverse and unique pool of rarity-powered traits. What's more, each Moonbird unlocks private club membership and additional benefits the longer you hold them. We call it nesting – because, obviously.",
@@ -27,7 +27,7 @@ export const devCollections = [
     },
     {
         id: 1,
-        taxon: 0,
+        taxon: "0",
         name: "CryptoPunks",
         description:
             "CryptoPunks launched as a fixed set of 10,000 items in mid-2017 and became one of the inspirations for the ERC-721 standard. They have been featured in places like The New York Times, Christie’s of London, Art|Basel Miami, and The PBS NewsHour.",

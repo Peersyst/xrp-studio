@@ -5,8 +5,10 @@ coverage
 craco.config.js
 package-lock.json
 openapi-spec.json
-/test/unit/__mocks__/file.mock.js
+/test/unit/**mocks**/file.mock.js
 /.nyc_output/
 /src/module/api
 /src/module/common/icons
 /src/script/iconGenerator.js
+/src/script/imagesGenerator.js
+tsconfig.json

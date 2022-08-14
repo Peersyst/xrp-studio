@@ -1,5 +1,12 @@
 {
     "welcome": "Hola",
     "name": "Manolo",
-    "items": "Items"
+    "items": "Items",
+    "formatNumber": "{{val, number}}",
+    "loginWithXumm": "Accede con tu XUMM Wallet",
+    "scanXummQR": "Scanea el QR con XUMM app",
+    "scanXummQRExplanation": "Scanea el QR con tu billetera de XUMM para continuar",
+    "dismiss": "Cerrar",
+    "getXummCTA": "¿Todavía no tienes Xumm? ¡Descárgalo aquí!",
+    "letsGetStarted": "¡Empecemos!"
 }

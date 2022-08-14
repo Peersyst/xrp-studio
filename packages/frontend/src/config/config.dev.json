@@ -1,5 +1,7 @@
 {
     "projectName": "xrp-studio",
     "publicUrl": "/",
-    "backendUrl": "http://localhost:3001"
+    "backendUrl": "http://localhost:3001",
+    "appStoreXummLink": "https://apps.apple.com/us/app/xumm/id1492302343",
+    "playStoreXummLink": "https://play.google.com/store/apps/details?id=com.xrpllabs.xumm"
 }
