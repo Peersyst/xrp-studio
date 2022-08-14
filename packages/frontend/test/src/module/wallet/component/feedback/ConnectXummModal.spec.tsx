@@ -38,9 +38,7 @@ describe("ConnectXummModal", () => {
     test("Hides modal correctly", () => {
         //Mocks
         //Lib
-        const hideModal = jest.fn();
-        const useModalMock = new ModalMock({ hideModal });
-        jest.spyOn(PeersystLib, "useModal").mockReturnValue(useModalMock);
+        const useModalMock = new ModalMock();
         //useConnectToXumm
         const mockedSignIn = jest.fn();
         jest.spyOn(useConnectToXumm, "default").mockReturnValue({
@@ -48,7 +46,6 @@ describe("ConnectXummModal", () => {
             signIn: mockedSignIn,
             xummQrUrl: "",
         });
-        const useModalMock = new ModalMock();
         //Test
         const { getByRole } = render(<ConnectXummModal />);
         const dismissButton = getByRole("button", { name: translate("dismiss") });

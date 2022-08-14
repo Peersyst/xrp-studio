@@ -18,9 +18,9 @@ describe("useConnectToXumm test", () => {
         const mockedVerifySignIn = jest.fn().mockResolvedValueOnce("");
         const mockedXummReact = new VerifySignInMock({ verifySignIn: mockedVerifySignIn });
         jest.spyOn(XummReact, "useVerifySignIn").mockReturnValue(mockedXummReact);
-        act(() => {
+        await act(async () => {
             const verifySignIn = renderUseVerifyXumm().result.current;
-            verifySignIn();
+            await verifySignIn();
         });
         expect(mockedVerifySignIn).toHaveBeenCalled();
     });
