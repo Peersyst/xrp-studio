@@ -4,10 +4,11 @@ import {
     CollectionCardCover,
     CollectionCardFooter,
     CollectionCardRoot,
-} from "module/common/component/surface/CollectionCard/CollectionCard.styles";
-import { CollectionCardProps } from "module/common/component/surface/CollectionCard/CollectionCard.types";
+} from "module/collection/component/display/CollectionCard/CollectionCard.styles";
+import { CollectionCardProps } from "module/collection/component/display/CollectionCard/CollectionCard.types";
 import useTranslate from "module/common/hook/useTranslate";
 import ConditionalLink from "module/common/component/navigation/ConditionalLink/ConditionalLink";
+import { CollectionRoutes } from "module/collection/CollectionRouter";
 
 const CollectionCard = ({
     collection: { id, name = "", image = "", items, header },
@@ -18,7 +19,7 @@ const CollectionCard = ({
     const alt = "collection-" + id;
 
     return (
-        <ConditionalLink condition={!loading} to={`/collections/${id}`}>
+        <ConditionalLink condition={!loading} to={`${CollectionRoutes.COLLECTIONS}${id}`}>
             <CollectionCardRoot>
                 <CollectionCardCover src={header} alt={`${alt}-cover`} loading={loading} />
                 <CollectionCardFooter>
@@ -31,7 +32,7 @@ const CollectionCard = ({
                         </Skeleton>
                         <Skeleton width="90%" loading={loading}>
                             <Typography variant="body2" light singleLine>
-                                {`${Intl.NumberFormat().format(items)} ${translate("items").toLowerCase()}`}
+                                {`${translate("formatNumber", { val: items })} ${translate("items").toLowerCase()}`}
                             </Typography>
                         </Skeleton>
                     </Col>
