@@ -14,6 +14,12 @@ jest.mock("@peersyst/react-components", () => ({
     ...jest.requireActual("@peersyst/react-components"),
 }));
 
+import { XummReactMock } from "./__mocks__/xumm-react/XummReact.mock";
+jest.mock("xumm-react", () => ({
+    __esModule: true,
+    ...new XummReactMock(),
+}));
+
 jest.mock("react-router-dom", () => ({
     __esModule: true,
     ...jest.requireActual("react-router-dom"),

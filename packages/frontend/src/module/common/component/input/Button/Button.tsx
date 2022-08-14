@@ -1,3 +1,3 @@
-import { ButtonRoot } from "module/common/component/input/Button/Button.styles";
+import { ButtonRoot as Button } from "module/common/component/input/Button/Button.styles";
 
-export default ButtonRoot;
+export default Button;
