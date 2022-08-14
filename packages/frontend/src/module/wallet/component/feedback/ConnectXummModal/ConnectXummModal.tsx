@@ -2,8 +2,8 @@ import { createModal, Col, Row, Typography, useModal } from "@peersyst/react-com
 import Modal from "module/common/component/feedback/Modal/Modal";
 import Button from "module/common/component/input/Button/Button";
 import useTranslate from "module/common/hook/useTranslate";
+import XummAppLink from "../../navigation/XummAppLink/XummAppLink";
 import { QrCard, QrImage } from "./ConnectXummModal.styles";
-import StoreLink from "../../navigation/StoreLink/StoreLink";
 import useConnectToXumm from "../../hooks/useConnectToXumm/useConnectToXumm";
 import { useEffect } from "react";
 
@@ -22,12 +22,10 @@ const ConnectXummModal = createModal((modalProps): JSX.Element => {
                 <Col alignItems="center" gap="3rem" className="qr-card-cont">
                     <QrImage alt="xumm-login" src={xummQrUrl} />
                     <Col gap="1rem" alignItems="center">
-                        <Typography variant="body2" fontWeight={400}>
-                            {translate("getXummCTA")}
-                        </Typography>
+                        <Typography variant="body2">{translate("getXummCTA")}</Typography>
                         <Row gap="1.5rem" wrap wrapGap="1rem" justifyContent="center">
-                            <StoreLink type="appStore" />
-                            <StoreLink type="playStore" />
+                            <XummAppLink.AppStore />
+                            <XummAppLink.PlayStore />
                         </Row>
                     </Col>
                 </Col>

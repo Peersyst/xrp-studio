@@ -1,5 +1,5 @@
 import { ModalProvider } from "@peersyst/react-components";
-import Header from "module/common/component/navigation/Header/Header";
+import AppBar from "module/common/component/navigation/AppBar/AppBar";
 import ScrollToTop from "module/common/component/navigation/ScrollToTop/ScrollToTop";
 import { useDashboardRoutes } from "module/dashboard/DashboardRouter";
 import { Suspense } from "react";
@@ -18,7 +18,7 @@ const Router = (): JSX.Element => (
         <ModalProvider>
             <ScrollToTop />
             <Suspense fallback={<div>Loading</div>}>
-                <Header />
+                <AppBar />
                 <Routes />
                 <Footer />
             </Suspense>

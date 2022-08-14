@@ -1,10 +1,9 @@
 import ConnectXummModal from "module/wallet/component/feedback/ConnectXummModal/ConnectXummModal";
 import { fireEvent, render, translate } from "test-utils";
-import * as PeersystLib from "@peersyst/react-components";
 import { ModalMock } from "test-mocks";
 import * as useConnectToXumm from "module/wallet/component/hooks/useConnectToXumm/useConnectToXumm";
 
-describe("Test for the connect Xumm Modal", () => {
+describe("ConnectXummModal", () => {
     test("Renders correctly", () => {
         //useConnectToXumm mock
         const mockedSignIn = jest.fn();
@@ -18,7 +17,7 @@ describe("Test for the connect Xumm Modal", () => {
         const xummLabel = translate("getXummCTA");
         const { getByRole, getByText } = render(<ConnectXummModal />);
         expect(getByRole("heading", { name: title })).toBeInTheDocument();
-        expect(getByRole("heading", { name: subtitle })).toBeInTheDocument();
+        expect(getByText(subtitle)).toBeInTheDocument();
         expect(getByText(xummLabel)).toBeInTheDocument();
         expect(getByRole("button", { name: translate("dismiss") })).toBeInTheDocument();
         expect(getByRole("img", { name: "xumm-login" })).toBeInTheDocument();
@@ -49,10 +48,11 @@ describe("Test for the connect Xumm Modal", () => {
             signIn: mockedSignIn,
             xummQrUrl: "",
         });
+        const useModalMock = new ModalMock();
         //Test
         const { getByRole } = render(<ConnectXummModal />);
         const dismissButton = getByRole("button", { name: translate("dismiss") });
         fireEvent.click(dismissButton);
-        expect(hideModal).toHaveBeenCalledWith(ConnectXummModal.id);
+        expect(useModalMock.hideModal).toHaveBeenCalledWith(ConnectXummModal.id);
     });
 });

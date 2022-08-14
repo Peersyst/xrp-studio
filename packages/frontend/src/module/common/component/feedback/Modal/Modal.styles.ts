@@ -8,7 +8,7 @@ export const ModalRoot = styled(Modal)(
         padding: 3rem;
         width: 37.5rem;
         max-width: 90vw;
-        background-color: ${theme.palette.black["90"]};
+        background: ${theme.palette.black["90"]};
         border-radius: ${theme.borderRadiusLg};
         border: 1px solid ${alpha(theme.palette.black["0"], 0.2)};
         ${theme.breakpoints.down("mobile")} {
@@ -29,7 +29,7 @@ export const CloseModalButton = styled(IconButton)(
         position: absolute;
         top: 1rem;
         right: 1rem;
-        font-size: 1.25rem;
+        font-size: 0.75rem;
         svg {
             color: ${theme.palette.text};
         }
