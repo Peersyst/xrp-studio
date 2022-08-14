@@ -1,6 +1,7 @@
 import { Theme } from "@peersyst/react-components";
 import { createGlobalStyle } from "styled-components";
 import "./fonts.css";
+import { SwitchStyles } from "config/theme/component/Switch.styles";
 
 export const GlobalStyles = createGlobalStyle<{ theme: Theme }>`
   html, body, div, span, applet, object, iframe,
@@ -64,4 +65,6 @@ export const GlobalStyles = createGlobalStyle<{ theme: Theme }>`
   a {
       text-decoration: none;
   }
+  
+  ${SwitchStyles};
 `;
