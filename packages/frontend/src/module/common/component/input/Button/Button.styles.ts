@@ -39,7 +39,7 @@ const buttonAppearances = {
 const mdSize = css(
     ({ theme }) => css`
         ${theme.typography.body2.style};
-        padding: 0.375 0.75rem;
+        padding: 0.375rem 0.75rem;
     `,
 );
 
@@ -55,10 +55,10 @@ const buttonSizes = {
     lg: lgSize,
 };
 
-export const ButtonRoot = styled(Button)<ButtonProps>(({ appearance, size = "md" }) => {
+export const ButtonRoot = styled(Button)<ButtonProps>(({ appearance, size }) => {
     return css`
         ${buttonAppearances[appearance || "primary"]}
-        ${buttonSizes[size]};
+        ${buttonSizes[size || "md"]};
         font-weight: 500;
         text-transform: none;
         &:disabled {

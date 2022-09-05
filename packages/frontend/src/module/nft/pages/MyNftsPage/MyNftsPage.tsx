@@ -2,10 +2,9 @@ import { Row } from "@peersyst/react-components";
 import Button from "module/common/component/input/Button/Button";
 import SecondaryPage from "module/common/component/layout/SecondaryPage/SecondaryPage";
 import useTranslate from "module/common/hook/useTranslate";
+import NftCard from "module/nft/component/display/NftCard/NftCard";
 import NftsGrid from "module/nft/component/layout/NftGrid/NftGrid";
-import NftCard from "module/nft/component/surface/NftCard/NftCard";
 import { useGetMyNfts } from "module/nft/query/useGetMyNfts";
-import ConnectXummButton from "module/wallet/component/input/ConnectXummButton/ConnectXummButton";
 
 const MyNftsPage = (): JSX.Element => {
     const t = useTranslate();
@@ -23,20 +22,17 @@ const MyNftsPage = (): JSX.Element => {
                         </Button>
                     </Row>
                 ),
-                bottomComponent: <>Hola Mundo</>,
+                bottomComponent: <>Filters</>,
                 content: (
-                    <>
-                        <ConnectXummButton />
-                        <NftsGrid
-                            data={data}
-                            callback={() => fetchNextPage({ cancelRefetch: false })}
-                            end={!hasNextPage}
-                            loading={true}
-                            nothingToShowMessage={"nothing to show"}
-                        >
-                            {(nfts) => nfts.map((nft, key) => <NftCard nft={nft} key={key} loading={isFetching} />)}
-                        </NftsGrid>
-                    </>
+                    <NftsGrid
+                        data={data}
+                        callback={() => fetchNextPage({ cancelRefetch: false })}
+                        end={!hasNextPage}
+                        loading={isFetching}
+                        nothingToShowMessage={"nothing to show"}
+                    >
+                        {(nfts) => nfts.map((nft, key) => <NftCard nft={nft} key={key} loading={isFetching} />)}
+                    </NftsGrid>
                 ),
             }}
         </SecondaryPage>

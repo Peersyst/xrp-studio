@@ -11,7 +11,6 @@ export interface BaseGridProps<T extends PaginatedData> extends BaseGridPropsExt
     data: InfiniteData<T> | undefined;
     nothingToShow?: ReactNode;
     Skeletons: ComponentType<SkeletonComponentProps>;
-    moveGrid?: boolean;
 }
 
 export interface ExposedBaseGridProps<T extends PaginatedData> extends InfiniteScrollProps {

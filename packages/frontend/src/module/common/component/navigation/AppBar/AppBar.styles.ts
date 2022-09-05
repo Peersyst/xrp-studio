@@ -5,7 +5,7 @@ export const AppBarRoot = styled(AppBar).attrs({ position: "fixed", elevation: 0
     ({ theme }) => css`
         .Toolbar {
             height: var(--appbar-height);
-            max-width: 76.75rem;
+            max-width: var(--appbar-max-width);
             margin: 0 auto;
             padding: 0;
         }

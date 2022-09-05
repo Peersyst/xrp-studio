@@ -9,4 +9,7 @@ export const BaseCardRoot = styled(Col).attrs({ gap: "1.5rem" })`
 export const BaseCardCover = styled.div`
     width: 16.5rem;
     height: 16.5rem;
+    .Skeleton {
+        max-width: unset;
+    }
 `;
