@@ -36,7 +36,7 @@ const Avatar = ({ img, alt, size = "lg", loading: loadingProp, className, style 
             width={width}
             height={height}
             viewBox={`0 0 ${width} ${height}`}
-            className={cx("avatar", id, className)}
+            className={cx("avatar", className)}
             style={{ ...style, width: `${width / 16}rem`, height: `${height / 16}rem` }}
         >
             <clipPath id={id}>

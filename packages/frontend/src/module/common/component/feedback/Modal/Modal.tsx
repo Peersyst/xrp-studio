@@ -24,7 +24,7 @@ const Modal = ({
                             {title}
                         </Typography>
                         {subtitle && (
-                            <Typography variant="subtitle2" fontWeight={400} light>
+                            <Typography variant="body2" light>
                                 {subtitle}
                             </Typography>
                         )}

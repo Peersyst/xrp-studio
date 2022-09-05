@@ -79,7 +79,7 @@ const customRenderHook = <TProps, TResult>(
     { queryClientConfig, ...rest }: Omit<RenderHookOptions<TProps>, "wrapper"> & CreateWrapperConfig = {},
 ): RenderHookResult<TProps, TResult> => renderHook<TProps, TResult>(callback, { wrapper: createWrapper({ queryClientConfig }), ...rest });
 
-const translate = i18n.t;
+const translate: (...params: any) => string = i18n.t;
 
 export * from "@testing-library/react";
 export { customRender as render };

@@ -18,8 +18,8 @@ describe("useConnectToXumm test", () => {
         const mockedXummReact = new SignInMock({ signIn: mockedSingIn });
         jest.spyOn(XummReact, "useSignIn").mockReturnValue(mockedXummReact);
         const { signIn } = renderUseConnectToXumm().result.current;
-        act(() => {
-            signIn();
+        await act(async () => {
+            await signIn();
         });
         expect(mockedSingIn).toHaveBeenCalled();
     });

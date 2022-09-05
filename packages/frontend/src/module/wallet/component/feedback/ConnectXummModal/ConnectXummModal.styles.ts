@@ -12,8 +12,8 @@ export const QrCard = styled(Card)(
             .qr-card-cont {
                 row-gap: 2rem;
             }
-            .store-link,
-            .store-link > button {
+            .xumm-app-link,
+            .xumm-app-link > button {
                 width: 100%;
             }
         }

@@ -4,10 +4,10 @@ import { useState } from "react";
 import { useSetRecoilState } from "recoil";
 import { SignInResponse, useSignIn, VerifySignInResponse } from "xumm-react";
 import ConnectXummModal from "../../feedback/ConnectXummModal/ConnectXummModal";
-import { useConnectToXummReturn } from "./useConnectToXumm.types";
+import { UseConnectToXummReturnValue } from "./useConnectToXumm.types";
 
-const useConnectToXumm = (): useConnectToXummReturn => {
-    const [xummQrUrl, setXummQrUrl] = useState<useConnectToXummReturn["xummQrUrl"]>();
+const useConnectToXumm = (): UseConnectToXummReturnValue => {
+    const [xummQrUrl, setXummQrUrl] = useState<UseConnectToXummReturnValue["xummQrUrl"]>();
     const setWalletState = useSetRecoilState(walletState);
     const { hideModal } = useModal();
 
