@@ -10,8 +10,5 @@ export const BaseCardCover = styled.div(
         .Skeleton {
             max-width: unset;
         }
-        ${theme.breakpoints.down("mini")} {
-            width: 70vw;
-        }
     `,
 );

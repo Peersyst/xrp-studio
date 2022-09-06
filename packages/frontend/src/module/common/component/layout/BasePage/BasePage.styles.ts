@@ -9,7 +9,7 @@ export const BasePageRoot = styled.div(
             --horizontal-page-padding: 7rem;
         }
         ${theme.breakpoints.down("sm")} {
-            --horizontal-page-padding: 4rem;
+            --horizontal-page-padding: 3rem;
         }
     `,
 );

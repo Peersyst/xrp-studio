@@ -6,6 +6,10 @@ import { CSSProp } from "styled-components";
 
 // Custom components theme
 declare module "@peersyst/react-components" {
+    export interface ThemeZIndex {
+        filters: number;
+    }
+
     export interface Theme {
         borderRadiusMd: string;
         borderRadiusLg: string;

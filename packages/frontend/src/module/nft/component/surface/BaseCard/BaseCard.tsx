@@ -5,24 +5,21 @@ import ConditionalLink from "module/common/component/navigation/ConditionalLink/
 import { Children } from "react";
 
 const BaseCard = ({ loading, title, cover, children, note, to }: WithSkeleton<BaseCardProps>): JSX.Element => {
-    const footerContent = loading
-        ? [
-              <Typography variant="subtitle1" fontWeight={800} singleLine css={{ minWidth: "10rem" }}>
-                  {title}
-              </Typography>,
-              ...(note
-                  ? [
-                        <Typography variant="body2" light css={{ minWidth: "14rem" }}>
-                            {note}
-                        </Typography>,
-                    ]
-                  : []),
-              ...Children.toArray(children),
-          ]
-        : [<></>, <></>];
-
+    const footerContent = [
+        <Typography variant="subtitle1" fontWeight={800} singleLine css={{ minWidth: "10rem" }}>
+            {title}
+        </Typography>,
+        ...(note
+            ? [
+                  <Typography variant="body2" light css={{ minWidth: "14rem" }}>
+                      {note}
+                  </Typography>,
+              ]
+            : []),
+        ...Children.toArray(children),
+    ];
     return (
-        <ConditionalLink condition={!loading} to={to}>
+        <ConditionalLink condition={!loading} to={to} css={{ height: "100%" }}>
             <BaseCardRoot>
                 <Skeleton loading={loading} className="skeleton-card">
                     <BaseCardCover>{cover}</BaseCardCover>

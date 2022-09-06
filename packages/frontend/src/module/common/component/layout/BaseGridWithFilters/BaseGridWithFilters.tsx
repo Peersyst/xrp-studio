@@ -46,7 +46,6 @@ function BaseGridWithFilters<T extends PaginatedData>({
     const finalBreakPoints = showFilters ? filterBreakpoints || breakpoints : breakpoints;
     const isTablet = useMediaQuery(`(max-width: ${mini}px)`);
     const finalMoveGrid = showFilters && !isTablet;
-
     return (
         <Row css={{ position: "relative", overflow: "hidden" }}>
             {showFilters && <BaseGridFilters filters={filters} />}

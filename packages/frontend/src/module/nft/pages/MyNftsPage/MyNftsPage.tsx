@@ -8,6 +8,7 @@ import { useGetMyNfts } from "module/nft/query/useGetMyNfts";
 
 const MyNftsPage = (): JSX.Element => {
     const t = useTranslate();
+    const tErr = useTranslate("error");
     const { data, hasNextPage, fetchNextPage, isFetching } = useGetMyNfts();
     return (
         <SecondaryPage title={t("myNfts")}>
@@ -28,10 +29,10 @@ const MyNftsPage = (): JSX.Element => {
                         data={data}
                         callback={() => fetchNextPage({ cancelRefetch: false })}
                         end={!hasNextPage}
-                        loading={true}
-                        nothingToShowMessage={"nothing to show"}
+                        loading={isFetching}
+                        nothingToShow={tErr("nothingToShow")}
                     >
-                        {(nfts) => nfts.map((nft, key) => <NftCard nft={nft} key={key} loading={true} />)}
+                        {(nfts) => nfts.map((nft, key) => <NftCard nft={nft} key={key} loading={isFetching} />)}
                     </NftsGrid>
                 ),
             }}
