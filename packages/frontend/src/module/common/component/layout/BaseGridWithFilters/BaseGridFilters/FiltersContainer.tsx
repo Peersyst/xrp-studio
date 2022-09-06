@@ -7,7 +7,7 @@ import { BaseGridFiltersProps } from "./BaseGridFilters.types";
 import { useSetRecoilState } from "recoil";
 import { filtersVisibilityState } from "module/common/component/state/FiltersVisibilityState";
 
-function FiltersContainer<T extends PaginatedData>({ filters }: BaseGridFiltersProps<T>): JSX.Element {
+function FiltersContainer<T extends PaginatedData>({ children }: BaseGridFiltersProps<T>): JSX.Element {
     const t = useTranslate();
     const setShowFilters = useSetRecoilState(filtersVisibilityState);
     const handleHideFilters = () => setShowFilters(false);
@@ -29,7 +29,7 @@ function FiltersContainer<T extends PaginatedData>({ filters }: BaseGridFiltersP
                     <FiltersDivider />
                 </Col>
                 <Col flex={1} className="filters-cont">
-                    {filters}
+                    {children}
                 </Col>
             </Col>
         </Typography>

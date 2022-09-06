@@ -29,6 +29,7 @@ describe("BaseGrid", () => {
                 end={false}
                 colGap={24}
                 rowGap={24}
+                breakpoints={[{ maxWidth: 1200, cols: 10 }]}
             >
                 {(letters) => letters.map((letter, key) => <p key={key}>{letter}</p>)}
             </BaseGrid>,
@@ -42,6 +43,36 @@ describe("BaseGrid", () => {
         expect(screen.getByText("f")).toBeInTheDocument();
     });
 
+    test("Renders correctly when has nothing to show", () => {
+        render(
+            <BaseGrid
+                data={{
+                    pageParams: [],
+                    pages: [
+                        {
+                            currentPage: 1,
+                            pages: 1,
+                            items: [],
+                        },
+                    ],
+                }}
+                Skeletons={Skeletons}
+                callback={() => undefined}
+                loading={false}
+                nothingToShow="Nothing to show"
+                cols={3}
+                end={false}
+                colGap={24}
+                rowGap={24}
+                breakpoints={[{ maxWidth: 1200, cols: 10 }]}
+            >
+                {(letters) => letters.map((letter, key) => <p key={key}>{letter}</p>)}
+            </BaseGrid>,
+        );
+
+        expect(screen.getByRole("heading", { name: "Nothing to show" })).toBeInTheDocument();
+    });
+
     test("Renders correctly when loading", () => {
         render(
             <BaseGrid
@@ -53,6 +84,7 @@ describe("BaseGrid", () => {
                 end={false}
                 colGap={24}
                 rowGap={24}
+                breakpoints={[{ maxWidth: 1200, cols: 10 }]}
             >
                 {(letters) => letters.map((letter, key) => <p key={key}>{letter as any}</p>)}
             </BaseGrid>,

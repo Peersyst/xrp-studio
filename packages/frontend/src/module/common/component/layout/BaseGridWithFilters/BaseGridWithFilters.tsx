@@ -54,7 +54,7 @@ function BaseGridWithFilters<T extends PaginatedData>({
 
     return (
         <Row css={{ position: "relative", overflow: "hidden" }}>
-            {showFilters && <BaseGridFilters filters={filters} />}
+            {showFilters && <BaseGridFilters>{filters}</BaseGridFilters>}
             <Animated
                 in={finalMoveGrid}
                 duration={500}

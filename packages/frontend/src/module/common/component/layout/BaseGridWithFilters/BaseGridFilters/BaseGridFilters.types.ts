@@ -1,4 +1,6 @@
 import { PaginatedData } from "query-utils";
 import { BaseGridWithFilterProps } from "../BaseGridWithFilters.types";
 
-export type BaseGridFiltersProps<T extends PaginatedData> = Pick<BaseGridWithFilterProps<T>, "filters">;
+export interface BaseGridFiltersProps<T extends PaginatedData> {
+    children: BaseGridWithFilterProps<T>["filters"];
+}

@@ -7,7 +7,7 @@ import { filtersVisibilityState } from "module/common/component/state/FiltersVis
 import { useMediaQuery } from "@peersyst/react-hooks";
 import FiltersContainer from "./FiltersContainer";
 
-function BaseGridFilters<T extends PaginatedData>({ filters }: BaseGridFiltersProps<T>): JSX.Element {
+function BaseGridFilters<T extends PaginatedData>({ children }: BaseGridFiltersProps<T>): JSX.Element {
     const {
         breakpoints: {
             values: { nftsGrid },
@@ -24,12 +24,12 @@ function BaseGridFilters<T extends PaginatedData>({ filters }: BaseGridFiltersPr
             {!isTablet && (
                 <Animated.Slide in direction="right">
                     <BaseGridFiltersRoot>
-                        <FiltersContainer filters={filters} />
+                        <FiltersContainer>{children}</FiltersContainer>
                     </BaseGridFiltersRoot>
                 </Animated.Slide>
             )}
             <FiltersModal animation="from-bottom" renderAtRoot={true} open={showFilters && isTablet} onClose={handleHide}>
-                <FiltersContainer filters={filters} />
+                <FiltersContainer>{children}</FiltersContainer>
             </FiltersModal>
         </>
     );
