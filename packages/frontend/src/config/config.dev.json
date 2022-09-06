@@ -3,5 +3,6 @@
     "publicUrl": "/",
     "backendUrl": "http://localhost:3001",
     "appStoreXummLink": "https://apps.apple.com/us/app/xumm/id1492302343",
-    "playStoreXummLink": "https://play.google.com/store/apps/details?id=com.xrpllabs.xumm"
+    "playStoreXummLink": "https://play.google.com/store/apps/details?id=com.xrpllabs.xumm",
+    "nftDefaultCoverUrl": "https://img.seadn.io/files/74359db46e0caf1e692464f4e777b373.png?fit=max&w=600"
 }

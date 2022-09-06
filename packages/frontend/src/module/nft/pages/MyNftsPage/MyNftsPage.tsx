@@ -28,10 +28,10 @@ const MyNftsPage = (): JSX.Element => {
                         data={data}
                         callback={() => fetchNextPage({ cancelRefetch: false })}
                         end={!hasNextPage}
-                        loading={isFetching}
+                        loading={true}
                         nothingToShowMessage={"nothing to show"}
                     >
-                        {(nfts) => nfts.map((nft, key) => <NftCard nft={nft} key={key} loading={isFetching} />)}
+                        {(nfts) => nfts.map((nft, key) => <NftCard nft={nft} key={key} loading={true} />)}
                     </NftsGrid>
                 ),
             }}

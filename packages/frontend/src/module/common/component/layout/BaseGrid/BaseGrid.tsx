@@ -40,7 +40,7 @@ function BaseGrid<T extends PaginatedData>({
 
     return (
         <InfiniteScroll {...infiniteScrollProps}>
-            <Row flex={1}>
+            <Row flex={1} justifyContent={justifyContent}>
                 {hasItems ? (
                     <BaseGridRoot {...gridProps}>
                         {data?.pages.map((page, i) => (

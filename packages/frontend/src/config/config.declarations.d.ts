@@ -11,6 +11,7 @@ declare module "@peersyst/react-components" {
         backendUrl: string;
         appStoreXummLink: string;
         playStoreXummLink: string;
+        nftDefaultCoverUrl: string;
     }
 
     export interface CreateConfig {
@@ -18,5 +19,6 @@ declare module "@peersyst/react-components" {
         backendUrl: string;
         appStoreXummLink: string;
         playStoreXummLink: string;
+        nftDefaultCoverUrl: string;
     }
 }

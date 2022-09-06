@@ -11,10 +11,10 @@ function NftsGrid<T extends PaginatedData>(props: ExposedBaseGridProps<T>): JSX.
             colGap={24}
             rowGap={24}
             breakpoints={[
-                { maxWidth: 13000, cols: 3 },
+                { maxWidth: 13000, cols: 4 },
                 { maxWidth: 1400, cols: 3 },
                 { maxWidth: 1100, cols: 2 },
-                { maxWidth: 650, cols: 1 },
+                { maxWidth: 767, cols: 1 },
             ]}
             Skeletons={BaseCardSkeletons}
             {...props}

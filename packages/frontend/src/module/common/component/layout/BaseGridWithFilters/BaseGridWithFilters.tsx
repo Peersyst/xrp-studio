@@ -60,7 +60,7 @@ function BaseGridWithFilters<T extends PaginatedData>({
             >
                 <GridWrapper gap="2rem" flex={1} justifyContent="center" isOpen={showFilters}>
                     <BaseGridTags>{tags}</BaseGridTags>
-                    <BaseGrid<T> justifyContent="center" {...rest} breakpoints={finalBreakPoints} />
+                    <BaseGrid<T> justifyContent={isTablet ? "center" : "flex-start"} {...rest} breakpoints={finalBreakPoints} />
                 </GridWrapper>
             </Animated>
         </Row>
