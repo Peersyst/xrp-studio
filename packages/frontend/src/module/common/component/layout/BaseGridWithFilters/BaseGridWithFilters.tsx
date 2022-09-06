@@ -1,7 +1,8 @@
 import { Animated, Row, TransitionStyles, useTheme } from "@peersyst/react-components";
 import { useMediaQuery } from "@peersyst/react-hooks";
 import { PaginatedData } from "query-utils";
-import { useRecoilValue } from "recoil";
+import { useEffect } from "react";
+import { useRecoilState } from "recoil";
 import { filtersVisibilityState } from "../../state/FiltersVisibilityState";
 import BaseGrid from "../BaseGrid/BaseGrid";
 import BaseGridFilters from "./BaseGridFilters/BaseGridFilters";
@@ -42,10 +43,15 @@ function BaseGridWithFilters<T extends PaginatedData>({
             values: { nftsGrid },
         },
     } = useTheme();
-    const showFilters = useRecoilValue(filtersVisibilityState);
+    const [showFilters, setShowFilters] = useRecoilState(filtersVisibilityState);
     const finalBreakPoints = showFilters ? filterBreakpoints || breakpoints : breakpoints;
     const isTablet = useMediaQuery(`(max-width: ${nftsGrid.tablet}px)`);
     const finalMoveGrid = showFilters && !isTablet;
+
+    useEffect(() => {
+        if (isTablet) setShowFilters(false);
+    }, []);
+
     return (
         <Row css={{ position: "relative", overflow: "hidden" }}>
             {showFilters && <BaseGridFilters filters={filters} />}
