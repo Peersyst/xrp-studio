@@ -1,3 +1,4 @@
+import { Divider } from "@peersyst/react-components";
 import Card from "module/common/component/surface/Card/Card";
 import styled, { css } from "styled-components";
 
@@ -9,5 +10,11 @@ export const BaseGridFiltersRoot = styled(Card)(
         position: fixed;
         z-index: 2;
         top: 21.5rem;
+    `,
+);
+
+export const FiltersDivider = styled(Divider)(
+    ({ theme }) => css`
+        color: ${theme.palette.black[80]};
     `,
 );

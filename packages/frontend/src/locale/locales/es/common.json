@@ -12,5 +12,8 @@
     "myNfts": "Mis NFTs",
     "createCollection": "Añadir colección",
     "createNft": "Crear NFT",
-    "hideFilters&Search": "Cerrar filtros y búsqueda"
+    "hideFilters&Search": "Cerrar filtros y búsqueda",
+    "search&Filter": "Buscar y filtrar",
+    "clearAll": "Borrar todo",
+    "noneApplied": "Ninguno aplicado"
 }

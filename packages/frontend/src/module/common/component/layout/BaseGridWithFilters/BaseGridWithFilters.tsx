@@ -1,4 +1,4 @@
-import { Animated, Col, Row, TransitionStyles, useTheme } from "@peersyst/react-components";
+import { Animated, Row, TransitionStyles, useTheme } from "@peersyst/react-components";
 import { useMediaQuery } from "@peersyst/react-hooks";
 import { PaginatedData } from "query-utils";
 import { useRecoilValue } from "recoil";
@@ -6,6 +6,7 @@ import { filtersVisibilityState } from "../../state/FiltersVisibilityState";
 import BaseGrid from "../BaseGrid/BaseGrid";
 import BaseGridFilters from "./BaseGridFilters/BaseGridFilters";
 import { BaseGridTags } from "./BaseGridTags/BaseGridTags";
+import { GridWrapper } from "./BaseGridWithFilters.styles";
 import { BaseGridWithFilterProps } from "./BaseGridWithFilters.types";
 
 const gridAnimation: TransitionStyles = {
@@ -33,20 +34,21 @@ function BaseGridWithFilters<T extends PaginatedData>({
     filterBreakpoints,
     breakpoints,
     filters,
+    tags,
     ...rest
 }: BaseGridWithFilterProps<T>): JSX.Element {
     const {
         breakpoints: {
-            values: { mobile },
+            values: { mini },
         },
     } = useTheme();
     const showFilters = useRecoilValue(filtersVisibilityState);
-    const finalBreakPoints = showFilters ? filterBreakpoints : breakpoints;
-    const isMobile = useMediaQuery(`(max-width: ${mobile}px)`);
-    const finalMoveGrid = showFilters && !isMobile;
+    const finalBreakPoints = showFilters ? filterBreakpoints || breakpoints : breakpoints;
+    const isTablet = useMediaQuery(`(max-width: ${mini}px)`);
+    const finalMoveGrid = showFilters && !isTablet;
 
     return (
-        <Row css={{ position: "relative" }}>
+        <Row css={{ position: "relative", overflow: "hidden" }}>
             {showFilters && <BaseGridFilters filters={filters} />}
             <Animated
                 in={finalMoveGrid}
@@ -56,10 +58,10 @@ function BaseGridWithFilters<T extends PaginatedData>({
                 hideOnExit={false}
                 style={{ transformOrigin: "100% 0" }}
             >
-                <Col gap="2rem">
-                    <BaseGridTags />
+                <GridWrapper gap="2rem" flex={1} justifyContent="center" isOpen={showFilters}>
+                    <BaseGridTags>{tags}</BaseGridTags>
                     <BaseGrid<T> justifyContent="center" {...rest} breakpoints={finalBreakPoints} />
-                </Col>
+                </GridWrapper>
             </Animated>
         </Row>
     );

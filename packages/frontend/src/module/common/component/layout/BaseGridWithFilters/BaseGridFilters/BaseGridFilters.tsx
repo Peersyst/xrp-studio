@@ -1,11 +1,12 @@
-import { Animated, Col, Divider, Row, Typography } from "@peersyst/react-components";
+import { Animated, Col, Row, Typography, useTheme } from "@peersyst/react-components";
 import useTranslate from "module/common/hook/useTranslate";
 import MenuIcon from "module/common/icons/MenuIcon";
-import { BaseGridFiltersRoot } from "./BaseGridFilters.styles";
+import { BaseGridFiltersRoot, FiltersDivider } from "./BaseGridFilters.styles";
 import { PaginatedData } from "query-utils";
 import { BaseGridFiltersProps } from "./BaseGridFilters.types";
 import { useSetRecoilState } from "recoil";
 import { filtersVisibilityState } from "module/common/component/state/FiltersVisibilityState";
+import { useMediaQuery } from "@peersyst/react-hooks";
 
 function HideFilters<T extends PaginatedData>({ filters }: BaseGridFiltersProps<T>): JSX.Element {
     const t = useTranslate();
@@ -14,11 +15,19 @@ function HideFilters<T extends PaginatedData>({ filters }: BaseGridFiltersProps<
     return (
         <Typography variant="body1" light>
             <Col gap="1.5rem">
-                <Row css={{ cursor: "pointer" }} justifyContent="flex-end" alignItems="center" gap="0.5rem" onClick={handleHideFilters}>
-                    {t("hideFilters&Search")}
-                    <MenuIcon css={{ fontSize: "1.5rem" }} />
-                </Row>
-                <Divider />
+                <Col gap="1.6rem">
+                    <Row
+                        css={{ cursor: "pointer" }}
+                        justifyContent="flex-end"
+                        alignItems="center"
+                        gap="0.75rem"
+                        onClick={handleHideFilters}
+                    >
+                        {t("hideFilters&Search")}
+                        <MenuIcon css={{ fontSize: "1.5rem" }} />
+                    </Row>
+                    <FiltersDivider />
+                </Col>
                 {filters}
             </Col>
         </Typography>
@@ -26,12 +35,22 @@ function HideFilters<T extends PaginatedData>({ filters }: BaseGridFiltersProps<
 }
 
 function BaseGridFilters<T extends PaginatedData>({ filters }: BaseGridFiltersProps<T>): JSX.Element {
+    const {
+        breakpoints: {
+            values: { mini },
+        },
+    } = useTheme();
+    const isTablet = useMediaQuery(`(max-width: ${mini}px)`);
     return (
-        <Animated.Slide in direction="right">
-            <BaseGridFiltersRoot>
-                <HideFilters filters={filters} />
-            </BaseGridFiltersRoot>
-        </Animated.Slide>
+        <>
+            {!isTablet && (
+                <Animated.Slide in direction="right">
+                    <BaseGridFiltersRoot>
+                        <HideFilters filters={filters} />
+                    </BaseGridFiltersRoot>
+                </Animated.Slide>
+            )}
+        </>
     );
 }
 
