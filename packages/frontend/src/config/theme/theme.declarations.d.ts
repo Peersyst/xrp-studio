@@ -58,6 +58,20 @@ declare module "@peersyst/react-components" {
             0: string;
         };
     }
+
+    export interface ThemeBreakpointValues {
+        nftsGrid: {
+            xxxl: number;
+            xxl: number;
+            xl: number;
+            lg: number;
+            lg: number;
+            md: number;
+            tablet: number;
+            mobile: number;
+            mobileSm: number;
+        };
+    }
 }
 
 // Type styled components theme with our components theme

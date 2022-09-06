@@ -2,8 +2,14 @@ import { PaginatedData } from "query-utils";
 import { BaseCardSkeletons } from "module/common/component/feedback/Skeletons/Skeletons";
 import { ExposedBaseGridProps } from "module/common/component/layout/BaseGrid/BaseGrid.types";
 import BaseGridWithFilters from "module/common/component/layout/BaseGridWithFilters/BaseGridWithFilters";
+import { useTheme } from "@peersyst/react-components";
 
 function NftsGrid<T extends PaginatedData>(props: ExposedBaseGridProps<T>): JSX.Element {
+    const {
+        breakpoints: {
+            values: { nftsGrid },
+        },
+    } = useTheme();
     return (
         <BaseGridWithFilters
             filters={<>Hola Mundo</>}
@@ -11,10 +17,13 @@ function NftsGrid<T extends PaginatedData>(props: ExposedBaseGridProps<T>): JSX.
             colGap={24}
             rowGap={24}
             breakpoints={[
-                { maxWidth: 13000, cols: 4 },
-                { maxWidth: 1400, cols: 3 },
-                { maxWidth: 1100, cols: 2 },
-                { maxWidth: 767, cols: 1 },
+                { maxWidth: nftsGrid.xxxl, cols: 10 },
+                { maxWidth: nftsGrid.xxl, cols: 8 },
+                { maxWidth: nftsGrid.xl, cols: 5 },
+                { maxWidth: nftsGrid.lg, cols: 4 },
+                { maxWidth: nftsGrid.md, cols: 3 },
+                { maxWidth: nftsGrid.mobile, cols: 2 },
+                { maxWidth: nftsGrid.mobileSm, cols: 1 },
             ]}
             Skeletons={BaseCardSkeletons}
             {...props}

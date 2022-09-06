@@ -11,5 +11,8 @@ export const BasePageRoot = styled.div(
         ${theme.breakpoints.down("sm")} {
             --horizontal-page-padding: 3rem;
         }
+        ${theme.breakpoints.down("mini")} {
+            --horizontal-page-padding: 2rem;
+        }
     `,
 );
