@@ -1,10 +1,10 @@
 import { Animated, Col, Row, Typography, useTheme } from "@peersyst/react-components";
 import useTranslate from "module/common/hook/useTranslate";
 import MenuIcon from "module/common/icons/MenuIcon";
-import { BaseGridFiltersRoot, FiltersDivider } from "./BaseGridFilters.styles";
+import { BaseGridFiltersRoot, FiltersDivider, FiltersModal } from "./BaseGridFilters.styles";
 import { PaginatedData } from "query-utils";
 import { BaseGridFiltersProps } from "./BaseGridFilters.types";
-import { useSetRecoilState } from "recoil";
+import { useRecoilState, useSetRecoilState } from "recoil";
 import { filtersVisibilityState } from "module/common/component/state/FiltersVisibilityState";
 import { useMediaQuery } from "@peersyst/react-hooks";
 
@@ -17,6 +17,7 @@ function HideFilters<T extends PaginatedData>({ filters }: BaseGridFiltersProps<
             <Col gap="1.5rem">
                 <Col gap="1.6rem">
                     <Row
+                        className="hide-filters"
                         css={{ cursor: "pointer" }}
                         justifyContent="flex-end"
                         alignItems="center"
@@ -28,7 +29,9 @@ function HideFilters<T extends PaginatedData>({ filters }: BaseGridFiltersProps<
                     </Row>
                     <FiltersDivider />
                 </Col>
-                {filters}
+                <Col flex={1} className="filters-cont">
+                    {filters}
+                </Col>
             </Col>
         </Typography>
     );
@@ -37,10 +40,15 @@ function HideFilters<T extends PaginatedData>({ filters }: BaseGridFiltersProps<
 function BaseGridFilters<T extends PaginatedData>({ filters }: BaseGridFiltersProps<T>): JSX.Element {
     const {
         breakpoints: {
-            values: { mini },
+            values: { nftsGrid },
         },
     } = useTheme();
-    const isTablet = useMediaQuery(`(max-width: ${mini}px)`);
+    const isTablet = useMediaQuery(`(max-width: ${nftsGrid.tablet}px)`);
+    const [showFilters, setShowFilters] = useRecoilState(filtersVisibilityState);
+    const handleHide = () => {
+        if (isTablet) setShowFilters(false);
+    };
+
     return (
         <>
             {!isTablet && (
@@ -50,6 +58,9 @@ function BaseGridFilters<T extends PaginatedData>({ filters }: BaseGridFiltersPr
                     </BaseGridFiltersRoot>
                 </Animated.Slide>
             )}
+            <FiltersModal animation="from-bottom" renderAtRoot={true} open={showFilters && isTablet} onClose={handleHide}>
+                <HideFilters filters={filters} />
+            </FiltersModal>
         </>
     );
 }

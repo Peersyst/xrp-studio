@@ -19,7 +19,7 @@ const BaseCard = ({ loading, title, cover, children, note, to }: WithSkeleton<Ba
         ...Children.toArray(children),
     ];
     return (
-        <ConditionalLink condition={!loading} to={to} css={{ height: "100%" }}>
+        <ConditionalLink condition={!loading} to={to} css={{ height: "100%", width: "100%" }}>
             <BaseCardRoot>
                 <Skeleton loading={loading} className="skeleton-card">
                     <BaseCardCover>{cover}</BaseCardCover>

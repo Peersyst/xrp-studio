@@ -39,12 +39,12 @@ function BaseGridWithFilters<T extends PaginatedData>({
 }: BaseGridWithFilterProps<T>): JSX.Element {
     const {
         breakpoints: {
-            values: { mini },
+            values: { nftsGrid },
         },
     } = useTheme();
     const showFilters = useRecoilValue(filtersVisibilityState);
     const finalBreakPoints = showFilters ? filterBreakpoints || breakpoints : breakpoints;
-    const isTablet = useMediaQuery(`(max-width: ${mini}px)`);
+    const isTablet = useMediaQuery(`(max-width: ${nftsGrid.tablet}px)`);
     const finalMoveGrid = showFilters && !isTablet;
     return (
         <Row css={{ position: "relative", overflow: "hidden" }}>

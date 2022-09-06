@@ -6,10 +6,12 @@ import FilterLinesIcon from "module/common/icons/FilterLinesIcon";
 import { useRecoilState } from "recoil";
 import { BaseGridTagsProps } from "./BaseGridTags.types";
 
-export const BaseGridTags = ({ children }: BaseGridTagsProps): JSX.Element => {
+export const BaseGridTags = ({ children, onClear }: BaseGridTagsProps): JSX.Element => {
     const [showFilters, setShowFilters] = useRecoilState(filtersVisibilityState);
     const t = useTranslate();
-
+    const handleClear = () => {
+        onClear?.();
+    };
     return (
         <Row gap="1rem" wrap alignItems="center" wrapGap="1rem" css={{ minHeight: "2.75rem" }}>
             {!showFilters && (
@@ -20,7 +22,9 @@ export const BaseGridTags = ({ children }: BaseGridTagsProps): JSX.Element => {
             )}
             {children}
             {children && children.length > 0 ? (
-                <Button appearance="outlined">{t("clearAll")}</Button>
+                <Button appearance="outlined" onClick={handleClear}>
+                    {t("clearAll")}
+                </Button>
             ) : (
                 <Typography variant="body1" light>
                     {t("noneApplied")}

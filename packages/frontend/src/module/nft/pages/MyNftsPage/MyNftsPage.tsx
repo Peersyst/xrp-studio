@@ -10,6 +10,7 @@ const MyNftsPage = (): JSX.Element => {
     const t = useTranslate();
     const tErr = useTranslate("error");
     const { data, hasNextPage, fetchNextPage, isFetching } = useGetMyNfts();
+
     return (
         <SecondaryPage title={t("myNfts")}>
             {{
