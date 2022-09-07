@@ -1,18 +1,21 @@
 import BaseNftsGrid from "module/nft/component/layout/BaseNftGrid/BaseNftGrid";
 import { render } from "test-utils";
+import { NftDtoMock, NftsDtoMock, PaginatedDataMock } from "test-mocks";
 
 describe("BaseNftsGrid test", () => {
-    test("Trigger singin correctly", () => {
+    test("Renders all nfts correctly", () => {
+        const { nfts } = new NftsDtoMock({ length: 10 });
+        const { data } = new PaginatedDataMock<NftDtoMock>({ items: nfts });
         const screen = render(
-            <BaseNftsGrid
-                data={undefined}
-                callback={() => fetchNextPage({ cancelRefetch: false })}
-                end={!hasNextPage}
-                loading={isFetching}
-                nothingToShow={tErr("nothingToShow")}
-            >
-                {(nfts) => nfts.map((nft, key) => <NftCard nft={nft} key={key} loading={isFetching} />)}
-            </BaseNftsGrid>,
+            <BaseNftsGrid data={data} callback={() => undefined} end={false} loading={false} nothingToShow={"Nothing to show"} />,
         );
+        expect(screen.getAllByRole("heading", { name: nfts[0].metadata?.name })).toHaveLength(10);
+    });
+    test("Renders empty grid", () => {
+        const { data } = new PaginatedDataMock<NftDtoMock>();
+        const screen = render(
+            <BaseNftsGrid data={data} callback={() => undefined} end={false} loading={false} nothingToShow={"Nothing to show"} />,
+        );
+        expect(screen.getByRole("heading", { name: "Nothing to show" })).toBeInTheDocument();
     });
 });

@@ -2,7 +2,7 @@ import { CollectionDto, MetadataDto, NftDto, UserDto } from "module/api/service"
 import UserDtoMock from "./user.dto.mock";
 import MetadataDtoMock from "./metadata.dto.mock";
 
-class NftDtoMock implements NftDto {
+export class NftDtoMock implements NftDto {
     status: "draft" | "pending" | "confirmed" | "failed";
     tokenId: string;
     mintTransactionHash: string;
@@ -41,5 +41,3 @@ class NftDtoMock implements NftDto {
         this.collection = collection;
     }
 }
-
-export default NftDtoMock;

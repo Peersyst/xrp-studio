@@ -2,15 +2,12 @@ import { Row } from "@peersyst/react-components";
 import Button from "module/common/component/input/Button/Button";
 import SecondaryPage from "module/common/component/layout/SecondaryPage/SecondaryPage";
 import useTranslate from "module/common/hook/useTranslate";
-import NftCard from "module/nft/component/display/NftCard/NftCard";
 import BaseNftsGrid from "module/nft/component/layout/BaseNftGrid/BaseNftGrid";
 import { useGetMyNfts } from "module/nft/query/useGetMyNfts";
 
 const MyNftsPage = (): JSX.Element => {
     const t = useTranslate();
-    const tErr = useTranslate("error");
     const { data, hasNextPage, fetchNextPage, isFetching } = useGetMyNfts();
-    console.log(data);
     return (
         <SecondaryPage title={t("myNfts")}>
             {{
@@ -31,10 +28,7 @@ const MyNftsPage = (): JSX.Element => {
                         callback={() => fetchNextPage({ cancelRefetch: false })}
                         end={!hasNextPage}
                         loading={isFetching}
-                        nothingToShow={tErr("nothingToShow")}
-                    >
-                        {(nfts) => nfts.map((nft, key) => <NftCard nft={nft} key={key} loading={isFetching} />)}
-                    </BaseNftsGrid>
+                    />
                 ),
             }}
         </SecondaryPage>

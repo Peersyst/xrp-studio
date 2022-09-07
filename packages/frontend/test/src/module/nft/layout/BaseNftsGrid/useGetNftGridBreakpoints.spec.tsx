@@ -1,5 +1,5 @@
 import theme from "config/theme/theme";
-import { useGetNftGridBreakpoints } from "module/nft/component/layout/NftGrid/hook/useGetNftGridBreakpoints";
+import { useGetNftGridBreakpoints } from "module/nft/component/layout/BaseNftGrid/hook/useGetNftGridBreakpoints";
 import { act, renderHook } from "test-utils";
 
 const renderUseGetNftGridBreakpoints = () =>
