@@ -8,6 +8,9 @@ const primaryAppearance = css(
         background-color: ${theme.palette.primary};
         border: 0px;
         color: white;
+        &:hover {
+            background-color: ${theme.palette.primary};
+        }
     `,
 );
 const secondaryAppearance = css(
@@ -16,7 +19,7 @@ const secondaryAppearance = css(
         border: 0px;
         color: white;
         &:hover {
-            background-color: ${theme.palette.mode === "light" ? theme.palette.black[30] : theme.palette.black[70]}};
+            background-color: ${theme.palette.mode === "light" ? theme.palette.black[20] : theme.palette.black[80]}};
         }
     `,
 );

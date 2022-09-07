@@ -15,7 +15,7 @@ export const BaseGridFiltersRoot = styled(Card)(
 
 export const FiltersDivider = styled(Divider)(
     ({ theme }) => css`
-        color: ${theme.palette.black[80]};
+        color: ${theme.palette.black[70]};
     `,
 );
 

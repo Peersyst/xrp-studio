@@ -5,7 +5,7 @@ import { BaseGridFiltersProps } from "./BaseGridFilters.types";
 import { useRecoilState } from "recoil";
 import { filtersVisibilityState } from "module/common/component/state/FiltersVisibilityState";
 import { useMediaQuery } from "@peersyst/react-hooks";
-import FiltersContainer from "./FiltersContainer";
+import FiltersContainer from "../FiltersContainer/FiltersContainer";
 
 function BaseGridFilters<T extends PaginatedData>({ children }: BaseGridFiltersProps<T>): JSX.Element {
     const {

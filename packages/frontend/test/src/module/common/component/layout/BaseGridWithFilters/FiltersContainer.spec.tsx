@@ -1,4 +1,4 @@
-import FiltersContainer from "module/common/component/layout/BaseGridWithFilters/BaseGridFilters/FiltersContainer";
+import FiltersContainer from "module/common/component/layout/BaseGridWithFilters/FiltersContainer/FiltersContainer";
 import { fireEvent, render, translate } from "test-utils";
 import * as Recoil from "recoil";
 
