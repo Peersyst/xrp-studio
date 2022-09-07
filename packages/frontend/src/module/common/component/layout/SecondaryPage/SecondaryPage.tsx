@@ -17,7 +17,7 @@ export default function SecondaryPage({ title, children }: SecondaryPageProps): 
                 ),
                 content: (
                     <PageContent>
-                        <Col flex={1} css={{ paddingTop: "4rem" }}>
+                        <Col flex={1} css={{ paddingTop: "4rem", minHeight: "45vh" }}>
                             {content}
                         </Col>
                     </PageContent>

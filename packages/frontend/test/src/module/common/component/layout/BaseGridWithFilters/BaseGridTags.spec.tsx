@@ -23,7 +23,6 @@ describe("Test for the base grid with tags", () => {
         const mockedSetShowFilters = jest.fn();
         jest.spyOn(Recoil, "useRecoilState").mockReturnValue([false, mockedSetShowFilters]);
         const screen = render(<BaseGridTags />);
-        screen.getByRole("button", { name: translate("search&Filter") });
         expect(screen.getByText(translate("noneApplied"))).toBeInTheDocument();
         const btn = screen.getByRole("button", { name: translate("search&Filter") });
         expect(btn).toBeInTheDocument();

@@ -19,19 +19,16 @@ function BaseGridFilters<T extends PaginatedData>({ children }: BaseGridFiltersP
         if (isTablet) setShowFilters(false);
     };
 
-    return (
-        <>
-            {!isTablet && (
-                <Animated.Slide in direction="right">
-                    <BaseGridFiltersRoot>
-                        <FiltersContainer>{children}</FiltersContainer>
-                    </BaseGridFiltersRoot>
-                </Animated.Slide>
-            )}
-            <FiltersModal animation="from-bottom" renderAtRoot={true} open={showFilters && isTablet} onClose={handleHide}>
+    return isTablet ? (
+        <FiltersModal animation="from-bottom" open={showFilters} onClose={handleHide}>
+            <FiltersContainer>{children}</FiltersContainer>
+        </FiltersModal>
+    ) : (
+        <Animated.Slide in direction="right">
+            <BaseGridFiltersRoot>
                 <FiltersContainer>{children}</FiltersContainer>
-            </FiltersModal>
-        </>
+            </BaseGridFiltersRoot>
+        </Animated.Slide>
     );
 }
 

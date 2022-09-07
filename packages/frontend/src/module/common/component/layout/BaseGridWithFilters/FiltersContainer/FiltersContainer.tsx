@@ -13,20 +13,22 @@ function FiltersContainer<T extends PaginatedData>({ children }: BaseGridFilters
     const setShowFilters = useSetRecoilState(filtersVisibilityState);
     const handleHideFilters = () => setShowFilters(false);
     return (
-        <Typography variant="body1" light>
-            <Col gap="1.25rem">
-                <Col gap="1rem">
-                    <HideFiltersWrapper className="hide-filters" onClick={handleHideFilters}>
+        <Col gap="1.25rem">
+            <Col gap="1rem">
+                <HideFiltersWrapper className="hide-filters" onClick={handleHideFilters}>
+                    <Typography variant="body1" light>
                         {t("hideFilters&Search")}
+                    </Typography>
+                    <Typography variant="body1" light className="hide-filters-icon">
                         <MenuIcon css={{ fontSize: "1.5rem" }} />
-                    </HideFiltersWrapper>
-                    <FiltersDivider />
-                </Col>
-                <Col flex={1} className="filters-cont">
-                    {children}
-                </Col>
+                    </Typography>
+                </HideFiltersWrapper>
+                <FiltersDivider />
             </Col>
-        </Typography>
+            <Col flex={1} className="filters-cont">
+                {children}
+            </Col>
+        </Col>
     );
 }
 
