@@ -1,4 +1,4 @@
-import { ComponentType, ReactElement, ReactNode } from "react";
+import { ComponentType, ReactNode } from "react";
 import { GridProps, InfiniteScrollProps } from "@peersyst/react-components";
 import { PaginatedData } from "query-utils";
 import { InfiniteData } from "react-query";

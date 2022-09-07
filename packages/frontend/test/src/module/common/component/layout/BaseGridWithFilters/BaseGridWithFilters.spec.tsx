@@ -1,7 +1,6 @@
 import BaseGridWithFilters from "module/common/component/layout/BaseGridWithFilters/BaseGridWithFilters";
-import { render, translate, waitFor } from "test-utils";
+import { render, translate } from "test-utils";
 import Skeletons from "module/common/component/feedback/Skeletons/Skeletons";
-import * as PeersystLib from "@peersyst/react-hooks";
 import * as Recoil from "recoil";
 import { fireEvent } from "@testing-library/dom";
 
