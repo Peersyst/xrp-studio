@@ -1,8 +1,7 @@
-import { Row } from "@peersyst/react-components";
-import Button from "module/common/component/input/Button/Button";
 import SecondaryPage from "module/common/component/layout/SecondaryPage/SecondaryPage";
 import useTranslate from "module/common/hook/useTranslate";
 import BaseNftsGrid from "module/nft/component/layout/BaseNftGrid/BaseNftGrid";
+import MyNftsPageHeader from "module/nft/component/layout/MyNftsPageHeader/MyNftsPageHeader";
 import { useGetMyNfts } from "module/nft/query/useGetMyNfts";
 
 const MyNftsPage = (): JSX.Element => {
@@ -11,16 +10,7 @@ const MyNftsPage = (): JSX.Element => {
     return (
         <SecondaryPage title={t("myNfts")}>
             {{
-                complement: (
-                    <Row gap="1rem" wrap wrapGap="1rem">
-                        <Button size="lg" appearance="secondary" css={{ whiteSpace: "nowrap" }}>
-                            {t("createCollection")}
-                        </Button>
-                        <Button size="lg" css={{ whiteSpace: "nowrap" }}>
-                            {t("createNft")}
-                        </Button>
-                    </Row>
-                ),
+                complement: <MyNftsPageHeader />,
                 bottomComponent: <>Filters</>,
                 content: (
                     <BaseNftsGrid

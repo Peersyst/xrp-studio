@@ -5,6 +5,8 @@ export enum NftRoutes {
     NFTS = "/nfts/",
     COLLECTIONS = "/collections/",
     MY_NFTS = "/my-nfts",
+    CREAT_NFT = "/create-nft",
+    CREATE_COLLECTION = "/create-collection",
 }
 
 export const useNftRoutes = (): RouteObject[] => {
