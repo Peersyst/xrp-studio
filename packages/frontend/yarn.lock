@@ -2448,23 +2448,23 @@
     mkdirp "^1.0.4"
     rimraf "^3.0.2"
 
-"@peersyst/react-components-core@^0.1.8":
-  version "0.1.8"
-  resolved "https://registry.yarnpkg.com/@peersyst/react-components-core/-/react-components-core-0.1.8.tgz#b2e45b2282a5d542c5781e547598524354807e77"
-  integrity sha512-71VwYkJG/1gV4AKjwoiIQlZqgSgpAvJamvIKrjv3C15NdW4zfZQ7TCxucHedpatrvo0s4hd8Bq2w1/RKT1I6Gg==
+"@peersyst/react-components-core@^0.1.11":
+  version "0.1.11"
+  resolved "https://registry.yarnpkg.com/@peersyst/react-components-core/-/react-components-core-0.1.11.tgz#2e7d1ddd46af6c778687d3049735a61b81fe3d4e"
+  integrity sha512-1V8xXxR1bjCnwF6k9/4fS4B8zWIa5/xhXI4Jd6TdwqkxM/nn5uCNIx+7pL6LxmvC67ITcLtjxuwdougwdngYvA==
   dependencies:
     "@babel/runtime" "^7.16.7"
     "@peersyst/react-hooks" "^1.3.0"
     "@peersyst/react-types" "^1.3.4"
     "@peersyst/react-utils" "^1.5.0"
 
-"@peersyst/react-components@^2.21.6":
-  version "2.21.6"
-  resolved "https://registry.yarnpkg.com/@peersyst/react-components/-/react-components-2.21.6.tgz#58b97b5c6242a75cffa5e3abeaa48068a744e78f"
-  integrity sha512-Fv5yXb6nPqESBt5IF84igVs9E/5/blMv33o2OJ/cfmOdZhBiHWIsC1Dv9E62+nWnhIiJyRxk/PndEcGA15Jyog==
+"@peersyst/react-components@^2.21.12":
+  version "2.21.12"
+  resolved "https://registry.yarnpkg.com/@peersyst/react-components/-/react-components-2.21.12.tgz#43dcd8dd6f29f233f2ef5f6f93ff1e304add58e9"
+  integrity sha512-67ttE19eqNRJbY1odJ7EW/yEFpVYIISMY3WTr7QzollhFVkEfpd8ZwXyoMIWOv73xmuiaGqyqFZT86xs39Gwqw==
   dependencies:
     "@babel/runtime" "^7.16.7"
-    "@peersyst/react-components-core" "^0.1.8"
+    "@peersyst/react-components-core" "^0.1.11"
     "@peersyst/react-hooks" "^1.3.0"
     "@peersyst/react-types" "^1.3.4"
     "@peersyst/react-utils" "^1.5.0"
