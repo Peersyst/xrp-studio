@@ -6,12 +6,12 @@ import { Suspense } from "react";
 import { BrowserRouter, Navigate, useRoutes } from "react-router-dom";
 import Footer from "module/common/component/navigation/Footer/Footer";
 import { config } from "config";
-import { useNftRouter } from "module/nft/NftRouter";
+import { useNftRoutes } from "module/nft/NftRouter";
 import { useLoad } from "module/common/hook/useLoad";
 
 const Routes = () => {
     const dashboardRoutes = useDashboardRoutes();
-    const nftRoutes = useNftRouter();
+    const nftRoutes = useNftRoutes();
     return useRoutes([...dashboardRoutes, ...nftRoutes, { path: "*", element: <Navigate to="/" /> }]);
 };
 

@@ -7,7 +7,7 @@ export enum NftRoutes {
     MY_NFTS = "/my-nfts",
 }
 
-export const useNftRouter = (): RouteObject[] => {
+export const useNftRoutes = (): RouteObject[] => {
     return [
         {
             path: NftRoutes.MY_NFTS,
