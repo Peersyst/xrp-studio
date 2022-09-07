@@ -1,9 +1,10 @@
 import BasePage from "module/common/component/layout/BasePage/BasePage";
-import { Select, SelectItem, Typography } from "@peersyst/react-components";
+import { Row, SelectItem, Typography } from "@peersyst/react-components";
 import useTranslate from "module/common/hook/useTranslate";
 import { config } from "config";
 import PageHeader from "module/common/component/layout/PageHeader/PageHeader";
 import PageContent from "module/common/component/layout/PageContent/PageContent";
+import Select from "module/common/component/input/Select/Select";
 
 export default function DashboardPage(): JSX.Element {
     const translate = useTranslate();
@@ -21,10 +22,12 @@ export default function DashboardPage(): JSX.Element {
                 ),
                 content: (
                     <PageContent>
-                        <Select placeholder="AAA">
-                            <SelectItem value={1}>Item1</SelectItem>
-                            <SelectItem value={2}>Item2</SelectItem>
-                        </Select>
+                        <Row>
+                            <Select placeholder="AAA" size="lg" appearance="primary" css={{ width: "20rem" }}>
+                                <SelectItem value={1}>Item1</SelectItem>
+                                <SelectItem value={2}>Item2</SelectItem>
+                            </Select>
+                        </Row>
                     </PageContent>
                 ),
             }}
