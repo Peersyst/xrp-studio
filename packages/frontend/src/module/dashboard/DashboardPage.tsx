@@ -23,7 +23,7 @@ export default function DashboardPage(): JSX.Element {
                 content: (
                     <PageContent>
                         <Row>
-                            <Select placeholder="AAA" size="lg" appearance="primary" css={{ width: "20rem" }}>
+                            <Select placeholder="AAA" size="lg" appearance="outlined" css={{ width: "20rem" }}>
                                 <SelectItem value={1}>Item1</SelectItem>
                                 <SelectItem value={2}>Item2</SelectItem>
                             </Select>

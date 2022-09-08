@@ -4,7 +4,7 @@ export interface SelectRootProps {
     /**
      * Appearance of the select
      */
-    appearance?: "primary" | "outlined";
+    appearance?: "outlined" | "filled";
     /**
      * Size of the select
      */

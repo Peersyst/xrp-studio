@@ -15,7 +15,7 @@ export const SelectStyles = css(({ theme }) => ({
             padding: "0.875rem 1.25rem",
         },
     },
-    ".FormControl.Primary": {
+    ".FormControl.Filled": {
         ".SelectDisplay": {
             backgroundColor: theme.palette.black[80],
         },
