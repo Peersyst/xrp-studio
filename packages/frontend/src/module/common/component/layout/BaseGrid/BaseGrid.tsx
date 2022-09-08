@@ -39,20 +39,18 @@ function BaseGrid<T extends PaginatedData>({
     };
 
     return (
-        <>
-            <InfiniteScroll {...infiniteScrollProps}>
-                <Row flex={1} justifyContent="center">
-                    {hasItems && (
-                        <BaseGridRoot {...gridProps}>
-                            {data?.pages.map((page, i) => (
-                                <Fragment key={i}>{renderItems(page.items)}</Fragment>
-                            ))}
-                            {loading && <Skeletons count={18} />}
-                        </BaseGridRoot>
-                    )}
-                </Row>
-            </InfiniteScroll>
-        </>
+        <InfiniteScroll {...infiniteScrollProps}>
+            <Row flex={1} justifyContent="center">
+                {hasItems && (
+                    <BaseGridRoot {...gridProps}>
+                        {data?.pages.map((page, i) => (
+                            <Fragment key={i}>{renderItems(page.items)}</Fragment>
+                        ))}
+                        {loading && <Skeletons count={18} />}
+                    </BaseGridRoot>
+                )}
+            </Row>
+        </InfiniteScroll>
     );
 }
 

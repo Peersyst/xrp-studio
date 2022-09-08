@@ -36,9 +36,11 @@ module.exports = {
         "!./src/module/common/service/BaseStorageService.ts",
         "!./src/Providers.tsx",
         "!./src/**/*Router.tsx",
+        "!./src/**/*Context.(ts|tsx)",
         "!./src/**/mock/**/*",
         "!./src/module/common/component/navigation/ScrollToTop/ScrollToTop.tsx",
         "!./src/query/QueryClientProvider.tsx",
+        "!./src/**/*Provider.tsx",
     ],
     coverageDirectory: "./coverage",
     coverageThreshold: {
