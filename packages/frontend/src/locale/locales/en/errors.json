@@ -14,5 +14,10 @@
     "invalid_number_gte": "The number must be greater or equal than {{n}}",
     "invalid_number_eq": "The number must be equal to {{n}}",
     "invalid_number_lt": "The number must be lower than {{n}}",
-    "invalid_number_lte": "The number must be lower or equal than {{n}}"
+    "invalid_number_lte": "The number must be lower or equal than {{n}}",
+    "invalid_required": "This field is required",
+    "insufficient_chars": "The field must contain at least {{chars}} characters",
+    "too_many_chars": "The field must contain less than {{chars}} characters",
+    "invalid_start": "The field must start with {{start}}",
+    "invalid_end": "The field must end with {{end}}"
 }
