@@ -1,9 +1,9 @@
-import { cx } from "@peersyst/react-utils";
+import { cx, capitalize } from "@peersyst/react-utils";
 import { TextFieldProps } from "./TextField.types";
 import { TextField as BaseTextField } from "@peersyst/react-components";
 
-const TextField = ({ appearance = "outlined", className, ...rest }: TextFieldProps): JSX.Element => {
-    const appearanceClassName = appearance[0].toUpperCase() + appearance.slice(1);
+const TextField = ({ variant = "outlined", className, ...rest }: TextFieldProps): JSX.Element => {
+    const appearanceClassName = capitalize(variant);
     return <BaseTextField {...rest} className={cx(className, appearanceClassName)} />;
 };
 
