@@ -22,7 +22,14 @@ export default function DashboardPage(): JSX.Element {
                 ),
                 content: (
                     <PageContent>
-                        <TextField required showValid label={"Title"} css={{ width: "20rem" }} placeholder="Escribe el nombre del nft" />
+                        <TextField
+                            variant="outlined"
+                            required
+                            showValid
+                            label={"Title"}
+                            css={{ width: "20rem" }}
+                            placeholder="Escribe el nombre del nft"
+                        />
                     </PageContent>
                 ),
             }}
