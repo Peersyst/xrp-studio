@@ -23,7 +23,7 @@ export default function DashboardPage(): JSX.Element {
                 content: (
                     <PageContent>
                         <Row gap="1rem">
-                            <SocialButtons />
+                            <SocialButtons userId="1234" twitterId="Peersyst" discordId="1234" />
                         </Row>
                     </PageContent>
                 ),

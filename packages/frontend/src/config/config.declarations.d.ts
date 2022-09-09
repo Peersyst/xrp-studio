@@ -11,6 +11,10 @@ declare module "@peersyst/react-components" {
         backendUrl: string;
         appStoreXummLink: string;
         playStoreXummLink: string;
+        socialLinks: {
+            twitterLink: string;
+            discordLink: string;
+        };
     }
 
     export interface CreateConfig {
@@ -18,5 +22,9 @@ declare module "@peersyst/react-components" {
         backendUrl: string;
         appStoreXummLink: string;
         playStoreXummLink: string;
+        socialLinks: {
+            twitterLink: string;
+            discordLink: string;
+        };
     }
 }

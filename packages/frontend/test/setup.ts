@@ -32,6 +32,8 @@ Object.defineProperty(window, "matchMedia", {
 
 window.IntersectionObserver = jest.fn().mockImplementation(IntersectionObserverMock);
 window.ResizeObserver = jest.fn().mockImplementation(ResizeObserverMock);
+window.navigator.share = jest.fn();
+window.navigator.canShare = jest.fn();
 
 // Turn off network queries error logging
 /* eslint-disable no-console  */
