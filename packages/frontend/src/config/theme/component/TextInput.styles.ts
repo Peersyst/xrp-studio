@@ -1,3 +1,4 @@
+import { alpha } from "@peersyst/react-utils";
 import { css } from "styled-components";
 
 export const TextInputStyles = css(({ theme }) => ({
@@ -15,8 +16,10 @@ export const TextInputStyles = css(({ theme }) => ({
             fontWeight: 500,
             fontSize: theme.typography.body1.style.fontSize,
         },
+        "input::placeholder": {
+            color: alpha(theme.palette.black[30], 0.4),
+        },
     },
-
     ".Focused.TextInput": {
         color: theme.palette.black[0],
         input: {
