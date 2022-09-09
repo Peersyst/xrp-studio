@@ -10,6 +10,7 @@ export const FormControlStyles = css(({ theme }) => ({
             fontWeight: 500,
 
             fontSize: theme.typography.body1.style.fontSize,
+            transition: "color 300ms",
         },
     },
     ".FormControl.Filled": {
