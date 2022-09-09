@@ -1,4 +1,4 @@
-import { SocialButtons } from "module/common/component/navigation/SocialButtons/SocialButtons";
+import SocialButtons from "module/common/component/navigation/SocialButtons/SocialButtons";
 import { UserRoutes } from "module/user/UserRouter";
 import { fireEvent, render, translate } from "test-utils";
 

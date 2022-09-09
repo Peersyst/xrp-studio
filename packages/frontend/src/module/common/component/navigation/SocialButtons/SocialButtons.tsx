@@ -5,7 +5,7 @@ import { useEffect, useState } from "react";
 import SocialButton from "../../input/SocialButton/SocialButton";
 import { SocialButtonsProps } from "./SocialButtons.types";
 
-export const SocialButtons = ({ userId, twitterId, discordId }: SocialButtonsProps): JSX.Element => {
+const SocialButtons = ({ userId, twitterId, discordId }: SocialButtonsProps): JSX.Element => {
     const [canShare, setCanShare] = useState(false);
     const { twitterLink, discordLink } = useConfig("socialLinks");
     const translate = useTranslate();
@@ -42,3 +42,5 @@ export const SocialButtons = ({ userId, twitterId, discordId }: SocialButtonsPro
         </Row>
     );
 };
+
+export default SocialButtons;

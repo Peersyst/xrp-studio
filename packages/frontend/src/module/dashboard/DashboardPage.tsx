@@ -4,7 +4,7 @@ import useTranslate from "module/common/hook/useTranslate";
 import { config } from "config";
 import PageHeader from "module/common/component/layout/PageHeader/PageHeader";
 import PageContent from "module/common/component/layout/PageContent/PageContent";
-import { SocialButtons } from "module/common/component/navigation/SocialButtons/SocialButtons";
+import SocialButtons from "module/common/component/navigation/SocialButtons/SocialButtons";
 
 export default function DashboardPage(): JSX.Element {
     const translate = useTranslate();
