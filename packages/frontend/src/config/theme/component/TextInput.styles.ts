@@ -11,6 +11,7 @@ export const TextInputStyles = css(({ theme }) => ({
         border: "1px solid " + theme.palette.black[80],
         height: "3.25rem",
         padding: "0.75rem 1rem",
+        transition: "color 300ms, border-color 300ms",
         input: {
             fontWeight: 500,
             fontSize: theme.typography.body1.style.fontSize,
