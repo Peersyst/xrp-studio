@@ -4,7 +4,7 @@ import useTranslate from "module/common/hook/useTranslate";
 import { config } from "config";
 import PageHeader from "module/common/component/layout/PageHeader/PageHeader";
 import PageContent from "module/common/component/layout/PageContent/PageContent";
-import SocialButtons from "module/common/component/navigation/SocialButtons/SocialButtons";
+import ArrowButton from "module/common/component/input/ArrowButton/ArrowButton";
 
 export default function DashboardPage(): JSX.Element {
     const translate = useTranslate();
@@ -23,7 +23,7 @@ export default function DashboardPage(): JSX.Element {
                 content: (
                     <PageContent>
                         <Row gap="1rem">
-                            <SocialButtons userId="1234" twitterId="Peersyst" discordId="1234" />
+                            <ArrowButton direction={"left"} />
                         </Row>
                     </PageContent>
                 ),
