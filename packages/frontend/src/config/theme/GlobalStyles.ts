@@ -1,3 +1,4 @@
+import { FormControlStyles } from "./component/FormControl.styles";
 import { Theme } from "@peersyst/react-components";
 import { createGlobalStyle } from "styled-components";
 import "./fonts.css";
@@ -6,6 +7,8 @@ import { BackdropStyles } from "config/theme/component/Backdrop.styles";
 import { TypographyStyles } from "config/theme/component/Typography.styles";
 import { SwitchStyles } from "config/theme/component/Switch.styles";
 import { ChipStyles } from "config/theme/component/Chip.styles";
+import { SelectStyles } from "config/theme/component/Select.styles";
+import { TextInputStyles } from "./component/TextInput.styles";
 
 export const GlobalStyles = createGlobalStyle<{ theme: Theme }>`
         ${RootStyles};
@@ -153,4 +156,7 @@ export const GlobalStyles = createGlobalStyle<{ theme: Theme }>`
         ${TypographyStyles}
         ${SwitchStyles};
         ${ChipStyles};
+        ${SelectStyles};
+        ${FormControlStyles};
+        ${TextInputStyles};
     `;

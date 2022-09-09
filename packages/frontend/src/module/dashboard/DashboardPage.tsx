@@ -1,13 +1,13 @@
 import BasePage from "module/common/component/layout/BasePage/BasePage";
-import { Typography } from "@peersyst/react-components";
+import { Row, Typography } from "@peersyst/react-components";
 import useTranslate from "module/common/hook/useTranslate";
 import { config } from "config";
 import PageHeader from "module/common/component/layout/PageHeader/PageHeader";
 import PageContent from "module/common/component/layout/PageContent/PageContent";
+import BackButton from "module/common/component/navigation/BackButton/BackButton";
 
 export default function DashboardPage(): JSX.Element {
     const translate = useTranslate();
-
     return (
         <BasePage>
             {{
@@ -19,7 +19,13 @@ export default function DashboardPage(): JSX.Element {
                         </Typography>
                     </PageHeader>
                 ),
-                content: <PageContent>CONTENT</PageContent>,
+                content: (
+                    <PageContent>
+                        <Row gap="1rem" wrap wrapGap="1rem">
+                            <BackButton />
+                        </Row>
+                    </PageContent>
+                ),
             }}
         </BasePage>
     );
