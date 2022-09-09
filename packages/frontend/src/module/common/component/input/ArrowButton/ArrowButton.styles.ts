@@ -17,7 +17,6 @@ export const ArrowButtonRoot = styled(IconButton)(
             height: 3rem;
             .Icon {
                 font-size: 1.67rem;
-                margin: auto;
             }
         }
     `,

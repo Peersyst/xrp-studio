@@ -22,7 +22,7 @@ const config = createConfig({
     ...envConfig,
 
     themes: {
-        light: darkTheme,
+        light: lightTheme,
         dark: darkTheme,
     },
 });

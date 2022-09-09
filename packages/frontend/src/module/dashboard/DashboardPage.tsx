@@ -4,11 +4,10 @@ import useTranslate from "module/common/hook/useTranslate";
 import { config } from "config";
 import PageHeader from "module/common/component/layout/PageHeader/PageHeader";
 import PageContent from "module/common/component/layout/PageContent/PageContent";
-import ArrowButton from "module/common/component/input/ArrowButton/ArrowButton";
+import BackButton from "module/common/component/navigation/BackButton/BackButton";
 
 export default function DashboardPage(): JSX.Element {
     const translate = useTranslate();
-
     return (
         <BasePage>
             {{
@@ -22,8 +21,8 @@ export default function DashboardPage(): JSX.Element {
                 ),
                 content: (
                     <PageContent>
-                        <Row gap="1rem">
-                            <ArrowButton direction={"left"} />
+                        <Row gap="1rem" wrap wrapGap="1rem">
+                            <BackButton />
                         </Row>
                     </PageContent>
                 ),
