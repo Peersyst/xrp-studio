@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom";
 import { BackButtonRoot } from "./BackButton.styles";
 import { BackButtonOnClick, BackButtonProps } from "./BackButton.types";
 
-const BackButton = ({ className, style }: BackButtonProps): JSX.Element => {
+const BackButton = ({ className, style, ...rest }: BackButtonProps): JSX.Element => {
     const navigate = useNavigate();
     const handleOnClick: BackButtonOnClick = () => {
         //Verify not leaving the site
@@ -14,7 +14,7 @@ const BackButton = ({ className, style }: BackButtonProps): JSX.Element => {
             navigate(-1);
         }
     };
-    return <BackButtonRoot className={cx("back-button", className)} style={style} direction="left" onClick={handleOnClick} />;
+    return <BackButtonRoot {...rest} className={cx("back-button", className)} style={style} direction="left" onClick={handleOnClick} />;
 };
 
 export default BackButton;

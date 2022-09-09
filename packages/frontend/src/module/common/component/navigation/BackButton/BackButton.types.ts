@@ -1,9 +1,5 @@
-import { CSSProperties } from "react";
-import { ArrowButtonProps } from "../../input/ArrowButton/ArrowButton.types";
+import { ArrowButtonProps } from "./../../input/ArrowButton/ArrowButton.types";
 
-export interface BackButtonProps {
-    className?: string;
-    style?: CSSProperties;
-}
+export type BackButtonProps = Omit<ArrowButtonProps, "children" | "direction">;
 
 export type BackButtonOnClick = ArrowButtonProps["onClick"];
