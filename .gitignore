@@ -24,3 +24,5 @@ yarn-error.log
 
 */**/coverage/
 .nyc_output/
+
+lerna-debug.log

@@ -1,7 +1,7 @@
 import { screen } from "@testing-library/react";
 import { render, translate } from "test-utils";
 import CollectionCard from "module/collection/component/display/CollectionCard/CollectionCard";
-import CollectionDtoMock from "../../../../../../__mocks__/collection.dto.mock";
+import { CollectionDtoMock } from "test-mocks";
 
 describe("CollectionCard", () => {
     const collectionMock = new CollectionDtoMock();

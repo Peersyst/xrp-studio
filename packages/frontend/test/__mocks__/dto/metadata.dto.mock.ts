@@ -1,7 +1,7 @@
 import { MetadataAttributeDto, MetadataDto } from "module/api/service";
-import MetadataAttributeDtoMock from "./metadata-attribute.dto.mock";
+import { MetadataAttributeDtoMock } from "./metadata-attribute.dto.mock";
 
-class MetadataDtoMock {
+export class MetadataDtoMock {
     name?: string;
     description?: string;
     image?: string;
@@ -28,5 +28,3 @@ class MetadataDtoMock {
         this.attributes = attributes;
     }
 }
-
-export default MetadataDtoMock;
