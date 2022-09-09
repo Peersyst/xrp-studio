@@ -8,6 +8,12 @@ const darkTheme = createTheme({
         primary: "#008CFF",
         text: "#FAFAFA",
         background: "#141A1F",
+        status: {
+            info: "#008CFF",
+            success: "#37FF33",
+            warning: "#F57C00",
+            error: "#FF3364",
+        },
         gray: {
             90: "#141A1F",
             "2.5": "#FAFAFA",

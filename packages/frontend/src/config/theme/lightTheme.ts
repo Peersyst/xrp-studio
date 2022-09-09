@@ -7,6 +7,13 @@ const lightTheme = createTheme({
         primary: "#008CFF",
         text: "#141A1F",
         background: "#FAFAFA",
+        status: {
+            info: "#008CFF",
+            success: "#29b32f",
+            warning: "#F57C00",
+            error: "#D32F2F",
+        },
+
         gray: {
             90: "#FAFAFA",
             "2.5": "#141A1F",

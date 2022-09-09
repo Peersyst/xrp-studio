@@ -9,7 +9,7 @@ export interface ConfigProviderProps {
 }
 
 const ConfigProvider = ({ children }: ConfigProviderProps): JSX.Element => {
-    const translate = useTranslate();
+    const translate = useTranslate("error");
 
     return (
         <GenesysConfigProvider config={{ ...config, translate }}>
