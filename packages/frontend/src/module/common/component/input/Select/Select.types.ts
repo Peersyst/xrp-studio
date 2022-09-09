@@ -1,14 +1,12 @@
 import { SelectProps as BaseSelectProps } from "@peersyst/react-components";
 
-export interface SelectRootProps {
+export type SelectProps<T> = BaseSelectProps<T> & {
     /**
-     * Appearance of the select
+     * Variant of the select
      */
-    appearance?: "outlined" | "filled";
+    variant?: "outlined" | "filled";
     /**
      * Size of the select
      */
     size?: "lg" | "md";
-}
-
-export type SelectProps<T> = BaseSelectProps<T> & SelectRootProps;
+};
