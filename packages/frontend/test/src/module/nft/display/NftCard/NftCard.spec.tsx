@@ -1,7 +1,7 @@
 import { screen } from "@testing-library/react";
 import NftCard from "module/nft/component/display/NftCard/NftCard";
 import { render } from "test-utils";
-import NftDtoMock from "../../../../../__mocks__/nft.dto.mock";
+import { NftDtoMock } from "test-mocks";
 
 describe("NftCard", () => {
     const nftMock = new NftDtoMock();

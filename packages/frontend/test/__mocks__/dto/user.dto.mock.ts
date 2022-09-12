@@ -1,6 +1,6 @@
 import { UserDto } from "module/api/service";
 
-class UserDtoMock {
+export class UserDtoMock {
     address: string;
     name?: string;
     description?: string;
@@ -27,5 +27,3 @@ class UserDtoMock {
         this.discord = discord;
     }
 }
-
-export default UserDtoMock;

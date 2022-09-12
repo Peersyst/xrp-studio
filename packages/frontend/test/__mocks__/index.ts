@@ -1,3 +1,4 @@
+export * from "./dto";
 export * from "./LocalStorageMock";
 export * from "./IntersectionObserverMock";
 export * from "./MatchMediaMock";

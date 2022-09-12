@@ -7,11 +7,13 @@ import { BrowserRouter, useRoutes } from "react-router-dom";
 import Footer from "module/common/component/navigation/Footer/Footer";
 import { config } from "config";
 import { useLoad } from "module/common/hook/useLoad";
+import { useUserRoutes } from "module/user/UserRouter";
 
 const Routes = () => {
     const dashboardRoutes = useDashboardRoutes();
+    const userRoutes = useUserRoutes();
 
-    return useRoutes([...dashboardRoutes]);
+    return useRoutes([...dashboardRoutes, ...userRoutes]);
 };
 
 const Router = (): JSX.Element => {
