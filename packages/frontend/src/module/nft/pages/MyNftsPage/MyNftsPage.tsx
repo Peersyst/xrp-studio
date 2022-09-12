@@ -24,7 +24,10 @@ const MyNftsPage = (): JSX.Element => {
                 bottomComponent: <>Filters</>,
                 content: (
                     <BaseNftsGrid
-                        data={data}
+                        data={{
+                            pages: [],
+                            pageParams: [],
+                        }}
                         callback={() => fetchNextPage({ cancelRefetch: false })}
                         end={!hasNextPage}
                         loading={isFetching}

@@ -8,7 +8,7 @@ const renderUseGetNftGridBreakpoints = () =>
     });
 
 describe("useGetNftGridBreakpoints test", () => {
-    test("Trigger singin correctly", () => {
+    test("Return the grid breakpoints correctly", () => {
         const nftsGrid = theme.breakpoints.values.nftsGrid;
         act(() => {
             const breakpoints = renderUseGetNftGridBreakpoints().result.current;
