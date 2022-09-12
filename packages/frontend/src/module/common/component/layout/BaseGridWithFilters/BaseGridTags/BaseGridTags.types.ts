@@ -1,10 +1,12 @@
-import { ReactNode } from "react";
-
 export interface BaseGridTagsProps {
     /**
      * The tags to display
      */
-    children?: ReactNode[];
+    tags?: string[];
+    /**
+     * The function to call when a tag is clicked
+     */
+    onTagClicked?: (tag: string) => void;
     /**
      * Clear tags fn
      */

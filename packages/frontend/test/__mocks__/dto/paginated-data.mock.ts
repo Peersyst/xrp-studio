@@ -1,12 +1,14 @@
-import { InfiniteData } from "react-query";
+import { PaginatedData } from "query-utils";
 import BaseMock from "../base.mock";
 
-export class PaginatedDataMock<T> extends BaseMock implements InfiniteData<T> {
-    pageParams: InfiniteData<T>["pageParams"];
-    pages: InfiniteData<T>["pages"];
-    constructor({ pageParams = [], pages = [] }: Partial<InfiniteData<T>> = {}) {
+export class PaginatedDataMock<T extends unknown[] = unknown[]> extends BaseMock implements PaginatedData<T> {
+    currentPage: number;
+    items: T;
+    pages: number;
+    constructor({ currentPage = 1, items = [] as any, pages = 1 }: Partial<PaginatedData<T>> = {}) {
         super();
-        this.pageParams = pageParams;
+        this.items = items;
+        this.currentPage = currentPage;
         this.pages = pages;
     }
 }

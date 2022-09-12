@@ -6,6 +6,7 @@ export { default as CopyIcon } from "./CopyIcon";
 export { default as DiscordIcon } from "./DiscordIcon";
 export { default as FilterLinesIcon } from "./FilterLinesIcon";
 export { default as MenuIcon } from "./MenuIcon";
+export { default as MinusCircleIcon } from "./MinusCircleIcon";
 export { default as ShareIcon } from "./ShareIcon";
 export { default as TwitterIcon } from "./TwitterIcon";
 export { default as WalletIcon } from "./WalletIcon";

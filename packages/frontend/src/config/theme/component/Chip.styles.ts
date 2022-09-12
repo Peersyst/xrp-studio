@@ -8,6 +8,12 @@ export const ChipStyles = css(({ theme }) => ({
             color: theme.palette.black[30],
             fontWeight: 500,
         },
+        "&.Lg": {
+            height: "2.75rem",
+            span: {
+                fontSize: "1rem",
+            },
+        },
         "&.Md": {
             fontSize: "0.875rem",
         },

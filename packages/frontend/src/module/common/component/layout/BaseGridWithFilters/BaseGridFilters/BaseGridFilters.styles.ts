@@ -9,7 +9,7 @@ export const BaseGridFiltersRoot = styled(Card)(
         padding: 1.25rem 1.25rem 1.75rem 1.25rem;
         position: fixed;
         z-index: 2;
-        top: 21.5rem;
+        top: 22.7rem;
     `,
 );
 

@@ -4,7 +4,7 @@ export const BasePageRoot = styled.div(
     ({ theme }) => css`
         margin: 0 auto;
         --horizontal-page-padding: 0;
-        max-width: 1120px;
+        max-width: 80rem;
 
         ${theme.breakpoints.down("md")} {
             max-width: unset;
