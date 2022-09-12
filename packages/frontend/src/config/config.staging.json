@@ -4,6 +4,10 @@
     "backendUrl": "",
     "appStoreXummLink": "https://apps.apple.com/us/app/xumm/id1492302343",
     "playStoreXummLink": "https://play.google.com/store/apps/details?id=com.xrpllabs.xumm",
+    "socialLinks": {
+        "twitterLink": "https://twitter.com/",
+        "discordLink": "https://discordapp.com/users/"
+    },
     "blockchainLinks": {
         "address": "https://devnet.xrpl.org/accounts/",
         "tx": "https://devnet.xrpl.org/transactions/"

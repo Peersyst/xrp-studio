@@ -1,10 +1,10 @@
 import BasePage from "module/common/component/layout/BasePage/BasePage";
-import { Typography } from "@peersyst/react-components";
+import { Row, Typography } from "@peersyst/react-components";
 import useTranslate from "module/common/hook/useTranslate";
 import { config } from "config";
 import PageHeader from "module/common/component/layout/PageHeader/PageHeader";
 import PageContent from "module/common/component/layout/PageContent/PageContent";
-import TextField from "module/common/component/input/TextField/TextField";
+import SocialButtons from "module/common/component/navigation/SocialButtons/SocialButtons";
 
 export default function DashboardPage(): JSX.Element {
     const translate = useTranslate();
@@ -22,13 +22,9 @@ export default function DashboardPage(): JSX.Element {
                 ),
                 content: (
                     <PageContent>
-                        <TextField
-                            variant="filled"
-                            required
-                            label={"Title"}
-                            css={{ width: "20rem" }}
-                            placeholder="Escribe el nombre del nft"
-                        />
+                        <Row gap="1rem">
+                            <SocialButtons userId="1234" twitterId="Peersyst" discordId="1234" />
+                        </Row>
                     </PageContent>
                 ),
             }}

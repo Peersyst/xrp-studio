@@ -12,6 +12,10 @@ declare module "@peersyst/react-components" {
         backendUrl: string;
         appStoreXummLink: string;
         playStoreXummLink: string;
+        socialLinks: {
+            twitterLink: string;
+            discordLink: string;
+        };
         blockchainLinks: BlockchainLinks;
     }
 
@@ -20,6 +24,10 @@ declare module "@peersyst/react-components" {
         backendUrl: string;
         appStoreXummLink: string;
         playStoreXummLink: string;
+        socialLinks: {
+            twitterLink: string;
+            discordLink: string;
+        };
         blockchainLinks: BlockchainLinks;
     }
 }
