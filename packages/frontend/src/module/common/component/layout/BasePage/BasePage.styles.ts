@@ -1,4 +1,4 @@
-import styled, { css }, { css } from "styled-components";
+import styled, { css } from "styled-components";
 
 export const BasePageRoot = styled.div(
     ({ theme }) => css`

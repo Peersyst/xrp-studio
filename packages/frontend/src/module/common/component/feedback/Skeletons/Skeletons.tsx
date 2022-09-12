@@ -1,6 +1,5 @@
 import { Skeleton, useConfig } from "@peersyst/react-components";
 import { SkeletonComponentProps, SkeletonsProps } from "module/common/component/feedback/Skeletons/Skeletons.types";
-import { NftImageSkeleton } from "module/nft/component/display/NftCard/NftCard.styles";
 import BaseCard from "module/nft/component/surface/BaseCard/BaseCard";
 
 const Skeletons = ({ count, ...rest }: SkeletonsProps): JSX.Element => (
@@ -16,13 +15,7 @@ export const BaseCardSkeletons = ({ count }: SkeletonComponentProps): JSX.Elemen
     return (
         <>
             {[...Array(count)].map((_, key) => (
-                <BaseCard
-                    key={key}
-                    loading
-                    to=""
-                    title="loading_title"
-                    cover={<NftImageSkeleton src={defaultImgUrl} alt="loading-img" />}
-                />
+                <BaseCard key={key} loading to="" title="loading_title" coverUrl={defaultImgUrl} defaultUrl={defaultImgUrl} />
             ))}
         </>
     );

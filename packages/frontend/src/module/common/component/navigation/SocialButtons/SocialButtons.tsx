@@ -12,7 +12,7 @@ const SocialButtons = ({ userId, twitterId, discordId }: SocialButtonsProps): JS
     const shareData = {
         title: "XRP Studio",
         text: translate("checkoutMyProfile"),
-        url: window.location.origin + UserRoutes.USER + userId,
+        url: window.location.origin + UserRoutes.PROFILE + userId,
     };
     useEffect(() => {
         try {

@@ -3,7 +3,6 @@ import PageHeader from "module/common/component/layout/PageHeader/PageHeader";
 import PageContent from "module/common/component/layout/PageContent/PageContent";
 import SecondaryPageHeader from "../SecondaryPageHeader/SecondaryPageHeader";
 import { SecondaryPageProps } from "./SecondaryPage.types";
-import { Col } from "@peersyst/react-components";
 
 export default function SecondaryPage({ title, children }: SecondaryPageProps): JSX.Element {
     const { content, ...rest } = children;
@@ -15,13 +14,7 @@ export default function SecondaryPage({ title, children }: SecondaryPageProps): 
                         <SecondaryPageHeader title={title}>{{ ...rest }}</SecondaryPageHeader>
                     </PageHeader>
                 ),
-                content: (
-                    <PageContent>
-                        <Col flex={1} css={{ paddingTop: "4rem", minHeight: "45vh" }}>
-                            {content}
-                        </Col>
-                    </PageContent>
-                ),
+                content: <PageContent>{content}</PageContent>,
             }}
         </BasePage>
     );
