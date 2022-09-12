@@ -1,6 +1,6 @@
 import { MetadataAttributeDto } from "module/api/service";
 
-class MetadataAttributeDtoMock {
+export class MetadataAttributeDtoMock {
     traitType: string;
     value: string;
     displayType?: string;
@@ -11,5 +11,3 @@ class MetadataAttributeDtoMock {
         this.displayType = displayType;
     }
 }
-
-export default MetadataAttributeDtoMock;

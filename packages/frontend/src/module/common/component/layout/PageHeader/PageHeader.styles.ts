@@ -1,13 +1,37 @@
 import styled, { css } from "styled-components";
 
-export const PageHeaderRoot = styled.header(
+export const PageHeaderRoot = styled.div`
+    display: contents;
+`;
+
+export const MainPageHeader = styled.header(
     ({ theme }) => css`
-        padding: 3rem var(--horizontal-page-padding);
+        --vertical-header-padding: 3rem;
+        margin-top: calc(var(--vertical-header-padding) + var(--appbar-height));
+        padding-left: var(--horizontal-page-padding);
+        padding-right: var(--horizontal-page-padding);
+        padding-bottom: var(--vertical-header-padding);
         background-color: ${theme.palette.background};
+        width: 100%;
+    `,
+);
+
+export const PageStickyHeader = styled.header(
+    ({ theme }) => css`
         position: fixed;
         top: var(--appbar-height);
         left: 0;
-        width: 100%;
         z-index: ${theme.zIndex.header};
+
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+        width: 100%;
+        height: 3.5rem;
+
+        background-color: ${theme.palette.background};
+
+        cursor: pointer;
     `,
 );

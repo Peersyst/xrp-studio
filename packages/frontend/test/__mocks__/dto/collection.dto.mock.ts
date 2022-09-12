@@ -1,7 +1,7 @@
 import { CollectionDto, UserDto } from "module/api/service";
-import UserDtoMock from "./user.dto.mock";
+import { UserDtoMock } from "./user.dto.mock";
 
-class CollectionDtoMock {
+export class CollectionDtoMock {
     id: number;
     taxon: number;
     name?: string;
@@ -31,5 +31,3 @@ class CollectionDtoMock {
         this.user = user;
     }
 }
-
-export default CollectionDtoMock;

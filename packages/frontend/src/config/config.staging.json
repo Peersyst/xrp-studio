@@ -7,5 +7,9 @@
     "socialLinks": {
         "twitterLink": "https://twitter.com/",
         "discordLink": "https://discordapp.com/users/"
+    },
+    "blockchainLinks": {
+        "address": "https://devnet.xrpl.org/accounts/",
+        "tx": "https://devnet.xrpl.org/transactions/"
     }
 }
