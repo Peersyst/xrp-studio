@@ -7,4 +7,8 @@ export interface TextFieldProps extends BaseTextFieldProps {
      * Text field appearance
      */
     variant?: TextFieldVariant;
+    /**
+     * Size of the select
+     */
+    size?: "lg" | "md";
 }

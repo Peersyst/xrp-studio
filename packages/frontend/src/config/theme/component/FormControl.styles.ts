@@ -8,10 +8,12 @@ export const FormControlStyles = css(({ theme }) => ({
         },
         ".Label": {
             fontWeight: 500,
-
             fontSize: theme.typography.body1.style.fontSize,
             transition: "color 300ms",
         },
+    },
+    ".Label": {
+        color: theme.palette.black[30],
     },
     ".FormControl.Filled": {
         ".Label": {

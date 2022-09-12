@@ -2,7 +2,10 @@ import { AppBar } from "@peersyst/react-components";
 import styled, { css } from "styled-components";
 
 export const AppBarRoot = styled(AppBar).attrs({ position: "fixed", elevation: 0 })(
-    () => css`
+    ({ theme }) => css`
+        top: 0;
+        left: 0;
+
         .Toolbar {
             height: var(--appbar-height);
             margin: 0 auto;

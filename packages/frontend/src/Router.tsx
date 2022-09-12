@@ -8,11 +8,13 @@ import Footer from "module/common/component/navigation/Footer/Footer";
 import { config } from "config";
 import { useNftRoutes } from "module/nft/NftRouter";
 import { useLoad } from "module/common/hook/useLoad";
+import { useUserRoutes } from "module/user/UserRouter";
 
 const Routes = () => {
     const dashboardRoutes = useDashboardRoutes();
+    const userRoutes = useUserRoutes();
     const nftRoutes = useNftRoutes();
-    return useRoutes([...dashboardRoutes, ...nftRoutes, { path: "*", element: <Navigate to="/" /> }]);
+    return useRoutes([...dashboardRoutes, ...userRoutes, ...nftRoutes, { path: "*", element: <Navigate to="/" /> }]);
 };
 
 const Router = (): JSX.Element => {

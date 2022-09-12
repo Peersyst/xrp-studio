@@ -29,7 +29,6 @@ describe("BaseGrid", () => {
                 end={false}
                 colGap={24}
                 rowGap={24}
-                breakpoints={[{ maxWidth: 1200, cols: 10 }]}
             >
                 {(letters) => letters.map((letter, key) => <p key={key}>{letter}</p>)}
             </BaseGrid>,
@@ -84,7 +83,6 @@ describe("BaseGrid", () => {
                 end={false}
                 colGap={24}
                 rowGap={24}
-                breakpoints={[{ maxWidth: 1200, cols: 10 }]}
             >
                 {(letters) => letters.map((letter, key) => <p key={key}>{letter as any}</p>)}
             </BaseGrid>,

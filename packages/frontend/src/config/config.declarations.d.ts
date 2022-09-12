@@ -1,5 +1,6 @@
 import "@peersyst/react-components";
 import { TFunction } from "react-i18next";
+import { BlockchainLinks } from "@peersyst/react-components";
 
 declare module "@peersyst/react-components" {
     export interface ConfigTypes {
@@ -11,6 +12,7 @@ declare module "@peersyst/react-components" {
         backendUrl: string;
         appStoreXummLink: string;
         playStoreXummLink: string;
+        blockchainLinks: BlockchainLinks;
         nftDefaultCoverUrl: string;
         socialLinks: {
             twitterLink: string;
@@ -28,5 +30,6 @@ declare module "@peersyst/react-components" {
             discordLink: string;
         };
         nftDefaultCoverUrl: string;
+        blockchainLinks: BlockchainLinks;
     }
 }

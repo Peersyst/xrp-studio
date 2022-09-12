@@ -20,6 +20,11 @@ const envConfig = envConfigs[envKey];
 
 const config = createConfig({
     ...envConfig,
+    components: {
+        BlockchainAddress: {
+            blockchainLinks: envConfig.blockchainLinks,
+        },
+    },
     themes: {
         light: lightTheme,
         dark: darkTheme,

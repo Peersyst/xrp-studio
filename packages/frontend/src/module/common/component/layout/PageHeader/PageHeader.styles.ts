@@ -1,15 +1,37 @@
 import styled, { css } from "styled-components";
-import { PageHeaderProps } from "./PageHeader";
 
-export const PageHeaderRoot = styled.header<PageHeaderProps>(
-    ({ theme, withBorder }) => css`
-        padding: 3.5rem var(--horizontal-page-padding) 2.5rem var(--horizontal-page-padding);
+export const PageHeaderRoot = styled.div`
+    display: contents;
+`;
+
+export const MainPageHeader = styled.header(
+    ({ theme }) => css`
+        --vertical-header-padding: 3rem;
+        margin-top: calc(var(--vertical-header-padding) + var(--appbar-height));
+        padding-left: var(--horizontal-page-padding);
+        padding-right: var(--horizontal-page-padding);
+        padding-bottom: var(--vertical-header-padding);
         background-color: ${theme.palette.background};
+        width: 100%;
+    `,
+);
+
+export const PageStickyHeader = styled.header(
+    ({ theme }) => css`
         position: fixed;
         top: var(--appbar-height);
         left: 0;
-        width: 100%;
         z-index: ${theme.zIndex.header};
-        border-bottom: ${withBorder ? "1px solid " + theme.palette.black["80"] : "none"};
+
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+        width: 100%;
+        height: 3.5rem;
+
+        background-color: ${theme.palette.background};
+
+        cursor: pointer;
     `,
 );
