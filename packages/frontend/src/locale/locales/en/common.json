@@ -8,5 +8,6 @@
     "scanXummQRExplanation": "Scan the QR code with your XUMM Wallet to proceed",
     "dismiss": "Dismiss",
     "getXummCTA": "Don't have XUMM Wallet? Get it here!",
-    "letsGetStarted": "Let's get started!"
+    "letsGetStarted": "Let's get started!",
+    "editProfile": "Edit Profile"
 }

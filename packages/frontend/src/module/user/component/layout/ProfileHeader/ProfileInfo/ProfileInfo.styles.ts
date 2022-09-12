@@ -1,9 +1,10 @@
 import styled, { css } from "styled-components";
-import { Col } from "@peersyst/react-components";
+import { Col, Row } from "@peersyst/react-components";
 
 export const ProfileInfoRoot = styled(Col).attrs({ flex: 1 })(
     ({ theme }) => css`
         padding-left: calc(var(--profile-avatar-width) + 1rem);
+        max-width: 100%;
 
         ${theme.breakpoints.down("md")} {
             .profile-name {
@@ -23,7 +24,17 @@ export const ProfileInfoRoot = styled(Col).attrs({ flex: 1 })(
     `,
 );
 
-export const ProfileButtons = styled.div(
+export const ProfileMainInfo = styled(Row).attrs({ gap: "1rem", alignItems: "center", breakpoint: { width: "mobile", gap: "1rem" } })(
+    ({ theme }) => css`
+        max-width: 70%;
+
+        ${theme.breakpoints.down("sm")} {
+            max-width: 100%;
+        }
+    `,
+);
+
+export const ProfileButtons = styled(Row)(
     ({ theme }) => css`
         ${theme.breakpoints.down("sm")} {
             position: absolute;
