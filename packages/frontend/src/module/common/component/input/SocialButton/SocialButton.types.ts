@@ -1,12 +1,10 @@
-import { CSSProperties } from "react";
+import { ButtonProps } from "@peersyst/react-components";
 
 export type SocialMedia = "twitter" | "discord" | "share";
 
 export type SocialButtonIconsType = Record<SocialMedia, JSX.Element>;
 
-export interface SocialButtonProps {
-    type: SocialMedia;
-    className?: string;
-    style?: CSSProperties;
-    onClick?: () => void;
+export interface SocialButtonProps extends ButtonProps {
+    icon: SocialMedia;
+    link?: string;
 }
