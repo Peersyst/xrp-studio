@@ -1,5 +1,6 @@
 import { Button } from "@peersyst/react-components";
 import styled, { css } from "styled-components";
+import { emphasize } from "@peersyst/react-utils";
 
 export const SocialButtonRoot = styled(Button)(
     ({ theme }) => css`
@@ -13,7 +14,7 @@ export const SocialButtonRoot = styled(Button)(
             background-color: ${theme.palette.primary};
         }
         &:active {
-            background-color: ${theme.palette.black[80]};
+            background-color: ${emphasize(theme.palette.primary, 0.3)};
         }
         .Icon {
             font-size: 1.3rem;
