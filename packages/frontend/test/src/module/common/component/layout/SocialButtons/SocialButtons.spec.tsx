@@ -52,7 +52,7 @@ describe("Test SocialButtons", () => {
         expect(mockedShare).toHaveBeenCalledWith({
             title: "XRP Studio",
             text: translate("checkoutMyProfile"),
-            url: window.location.origin + UserRoutes.USER + "1234",
+            url: window.location.origin + UserRoutes.PROFILE.replace(":address", "1234"),
         });
     });
 });
