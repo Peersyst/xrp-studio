@@ -9,5 +9,4 @@ export interface SocialButtonProps {
     className?: string;
     style?: CSSProperties;
     onClick?: () => void;
-    role?: string;
 }

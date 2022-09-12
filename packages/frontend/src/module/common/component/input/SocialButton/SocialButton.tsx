@@ -9,18 +9,10 @@ const SocialButtonInfo: SocialButtonIconsType = {
     share: <ShareIcon />,
 };
 
-const SocialButton = ({ type, className, style, onClick, role }: SocialButtonProps): JSX.Element => {
+const SocialButton = ({ type, className, style, onClick }: SocialButtonProps): JSX.Element => {
     const icon = SocialButtonInfo[type];
     return (
-        <SocialButtonRoot
-            role={role}
-            onClick={onClick}
-            style={style}
-            className={cx("social-button", className)}
-            flex={1}
-            justifyContent="center"
-            alignItems="center"
-        >
+        <SocialButtonRoot onClick={onClick} style={style} className={cx("social-button", className)}>
             {icon}
         </SocialButtonRoot>
     );

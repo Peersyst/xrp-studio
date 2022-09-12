@@ -38,7 +38,7 @@ const SocialButtons = ({ userId, twitterId, discordId }: SocialButtonsProps): JS
                     <SocialButton type="discord" />
                 </a>
             )}
-            {canShare && <SocialButton type="share" onClick={shareProfileLink} role="button" />}
+            {canShare && <SocialButton type="share" onClick={shareProfileLink} />}
         </Row>
     );
 };
