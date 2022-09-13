@@ -12,12 +12,12 @@ declare module "@peersyst/react-components" {
         backendUrl: string;
         appStoreXummLink: string;
         playStoreXummLink: string;
-        blockchainLinks: BlockchainLinks;
-        nftDefaultCoverUrl: string;
         socialLinks: {
             twitterLink: string;
             discordLink: string;
         };
+        blockchainLinks: BlockchainLinks;
+        nftDefaultCoverUrl: string;
     }
 
     export interface CreateConfig {
