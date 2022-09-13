@@ -1,18 +1,21 @@
+import { Col } from "@peersyst/react-components";
 import styled, { css } from "styled-components";
 import PageHeader from "../PageHeader/PageHeader";
 
 export const BasePageHeaderRoot = styled(PageHeader)(
     ({ theme }) => css`
-        .Divider {
-            width: 100vw;
-            position: absolute;
-            bottom: 0;
-            left: calc((var(--page-max-width) - 100vw) / 2);
+        .main-header {
+            border-bottom: 1px solid ${theme.palette.black[80]};
         }
+    `,
+);
+
+export const BasePageHeaderWrapper = styled(Col)(
+    ({ theme }) => css`
+        max-width: var(--page-max-width);
+        margin: 0 auto;
         ${theme.breakpoints.down("mobile")} {
-            .base-header-col {
-                row-gap: 1.5rem;
-            }
+            row-gap: 1.5rem;
         }
     `,
 );

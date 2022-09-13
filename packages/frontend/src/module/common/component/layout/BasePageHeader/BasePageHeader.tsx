@@ -1,9 +1,8 @@
-import { Col, Divider, Row, Typography } from "@peersyst/react-components";
+import { Col, Row, Typography } from "@peersyst/react-components";
 import { ReactElement } from "react";
 import { ArrowButtonProps } from "../../input/ArrowButton/ArrowButton.types";
 import BackButton from "../../navigation/BackButton/BackButton";
-import PageHeader from "../PageHeader/PageHeader";
-import { BasePageHeaderRoot } from "./BasePageHeader.styles";
+import { BasePageHeaderRoot, BasePageHeaderWrapper } from "./BasePageHeader.styles";
 
 interface BasePageHeaderProps {
     back?: boolean;
@@ -17,7 +16,7 @@ interface BasePageHeaderProps {
 const BasePageHeader = ({ back, title, subtitle, complement, footer, backIconSize }: BasePageHeaderProps): JSX.Element => {
     return (
         <BasePageHeaderRoot>
-            <Col gap="2.5rem" className="base-header-col">
+            <BasePageHeaderWrapper gap="2.5rem">
                 <Row justifyContent="space-between" wrap wrapGap="1.5rem">
                     <Row alignItems="center" gap="2rem">
                         {back && <BackButton size={backIconSize} />}
@@ -35,7 +34,7 @@ const BasePageHeader = ({ back, title, subtitle, complement, footer, backIconSiz
                     {complement}
                 </Row>
                 {footer}
-            </Col>
+            </BasePageHeaderWrapper>
         </BasePageHeaderRoot>
     );
 };
