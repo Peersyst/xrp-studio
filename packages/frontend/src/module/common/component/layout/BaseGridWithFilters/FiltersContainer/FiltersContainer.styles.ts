@@ -1,7 +1,7 @@
 import Button from "module/common/component/input/Button/Button";
 import styled, { css } from "styled-components";
 
-export const HideFiltersWrapper = styled(Button)(
+export const HideFiltersButton = styled(Button)(
     ({ theme }) => css`
         .hide-filters-icon {
             border-radius: 50%;

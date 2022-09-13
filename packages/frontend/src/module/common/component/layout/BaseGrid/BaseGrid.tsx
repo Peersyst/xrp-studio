@@ -50,7 +50,7 @@ function BaseGrid<T extends PaginatedData>({
                         {loading && <Skeletons count={18} />}
                     </BaseGridRoot>
                 ) : (
-                    <NothingToShow display={nothingToShow} css={{ paddingTop: "4rem" }} />
+                    <NothingToShow css={{ paddingTop: "4rem" }}>{nothingToShow}</NothingToShow>
                 )}
             </Row>
         </InfiniteScroll>

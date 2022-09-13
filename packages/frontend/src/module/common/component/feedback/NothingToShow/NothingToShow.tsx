@@ -4,14 +4,14 @@ import useTranslate from "module/common/hook/useTranslate";
 import { CSSProperties, ReactNode } from "react";
 
 export interface NothingToShowProps {
-    display?: ReactNode;
+    children?: ReactNode;
     className?: string;
     style?: CSSProperties;
 }
 
-const NothingToShow = ({ display, className, style }: NothingToShowProps): JSX.Element => {
+const NothingToShow = ({ children, className, style }: NothingToShowProps): JSX.Element => {
     const t = useTranslate("error");
-    const finalDisplay = display ?? t("nothingToShow");
+    const finalDisplay = children ?? t("nothingToShow");
     return typeof finalDisplay === "string" ? (
         <Typography
             className={cx("nothing-to-show", className)}
@@ -25,7 +25,7 @@ const NothingToShow = ({ display, className, style }: NothingToShowProps): JSX.E
             {finalDisplay}
         </Typography>
     ) : (
-        <>{display}</>
+        <>{children}</>
     );
 };
 

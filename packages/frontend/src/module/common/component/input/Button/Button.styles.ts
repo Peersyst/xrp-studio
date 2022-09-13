@@ -1,27 +1,33 @@
 import styled, { css } from "styled-components";
 import { Button } from "@peersyst/react-components";
 import { ButtonSizeStyle, ButtonVariantStyle } from "module/common/component/input/Button/Button.types";
-import { alpha } from "@peersyst/react-utils";
+import { emphasize } from "@peersyst/react-utils";
 
 const primaryVariant = css(
     ({ theme }) => css`
         background-color: ${theme.palette.primary};
         color: white;
         &:hover {
-            background-color: ${theme.palette.primary};
-            opacity: 0.9;
+            background-color: ${emphasize(theme.palette.primary, 0.15)};
+        }
+        &:active {
+            background-color: ${emphasize(theme.palette.primary, 0.3)};
         }
     `,
 );
-const secondaryVariant = css(
-    ({ theme }) => css`
-        background-color: ${theme.palette.mode === "light" ? theme.palette.black[20] : theme.palette.black[80]}};
+const secondaryVariant = css(({ theme }) => {
+    const light = theme.palette.mode === "light";
+    return css`
+        background-color: ${theme.palette.black[light ? 20 : 80]}};
         color: white;
         &:hover {
-            background-color: ${theme.palette.mode === "light" ? theme.palette.black[10] : theme.palette.black[75]}};
+            background-color: ${emphasize(theme.palette.black[light ? 20 : 80], 0.04)};
         }
-    `,
-);
+        &:active {
+            background-color: ${emphasize(theme.palette.black[light ? 20 : 80], 0.08)};
+        }
+    `;
+});
 
 const outlinedVariant = css(({ theme }) => {
     const light = theme.palette.mode === "light";
@@ -31,7 +37,11 @@ const outlinedVariant = css(({ theme }) => {
         color: ${theme.palette.black[30]};
         &:hover {
             color: ${theme.palette.black[30]};
-            background-color: ${alpha(theme.palette.black[light ? 60 : 75], 0.1)};
+            background-color: ${emphasize(theme.palette.black[light ? 60 : 75], 0.8)};
+        }
+        &:active {
+            color: ${theme.palette.black[30]};
+            background-color: ${emphasize(theme.palette.black[light ? 60 : 75], 0.6)};
         }
     `;
 });
