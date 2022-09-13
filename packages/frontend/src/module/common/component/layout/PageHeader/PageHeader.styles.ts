@@ -6,6 +6,7 @@ export const PageHeaderRoot = styled.div`
 
 export const MainPageHeader = styled.header(
     ({ theme }) => css`
+        position: relative;
         --vertical-header-padding: 3rem;
         margin-top: calc(var(--vertical-header-padding) + var(--appbar-height));
         padding-left: var(--horizontal-page-padding);

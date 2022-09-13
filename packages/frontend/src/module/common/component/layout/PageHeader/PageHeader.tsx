@@ -8,7 +8,6 @@ export interface PageHeaderProps {
     children?: ReactNode;
     className?: string;
     style?: CSSProperties;
-    withBorder?: boolean;
 }
 
 const PageHeader = ({ children, stickyTitle, ...rest }: PageHeaderProps): JSX.Element => {

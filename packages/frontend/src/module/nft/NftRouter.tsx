@@ -1,4 +1,5 @@
 import { RouteObject } from "react-router-dom";
+import MyNftsPage from "./pages/MyNftsPage";
 
 export enum NftRoutes {
     NFTS = "/nfts/",
@@ -12,7 +13,7 @@ export const useNftRoutes = (): RouteObject[] => {
             children: [
                 {
                     path: NftRoutes.MY_NFTS,
-                    element: <>MyNftsPage</>,
+                    element: <MyNftsPage />,
                 },
             ],
         },

@@ -1,7 +1,7 @@
 import { cx } from "@peersyst/react-utils";
 import { DashboardRoutes } from "module/dashboard/DashboardRouter";
 import { useNavigate } from "react-router-dom";
-import { BackButtonRoot } from "./BackButton.styles";
+import ArrowButton from "../../input/ArrowButton/ArrowButton";
 import { BackButtonOnClick, BackButtonProps } from "./BackButton.types";
 
 const BackButton = ({ className, ...rest }: BackButtonProps): JSX.Element => {
@@ -14,7 +14,7 @@ const BackButton = ({ className, ...rest }: BackButtonProps): JSX.Element => {
             navigate(-1);
         }
     };
-    return <BackButtonRoot {...rest} className={cx("back-button", className)} direction="left" onClick={handleOnClick} />;
+    return <ArrowButton {...rest} className={cx("back-button", className)} direction="left" onClick={handleOnClick} />;
 };
 
 export default BackButton;
