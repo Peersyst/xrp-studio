@@ -7,12 +7,14 @@ import { fireEvent } from "@testing-library/dom";
 describe("Test for the base grid with filters", () => {
     test("Renders correctly when loaded: children + filters + tags", () => {
         jest.spyOn(Recoil, "useRecoilState").mockReturnValueOnce([true, jest.fn()]);
-        const tags = ["Tag1", "Tag2", "Tag3"];
+        const tags = [
+            { label: "Tag1", value: 1 },
+            { label: "Tag2", value: 2 },
+            { label: "Tag3", value: 3 },
+        ];
         const screen = render(
             <BaseGridWithFilters
-                tags={tags.map((tag, key) => (
-                    <p key={key}>{tag}</p>
-                ))}
+                tags={tags}
                 filters={<>filters</>}
                 cols={3}
                 colGap={24}

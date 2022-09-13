@@ -13,13 +13,11 @@ describe("useGetNftGridBreakpoints test", () => {
         act(() => {
             const breakpoints = renderUseGetNftGridBreakpoints().result.current;
             expect(breakpoints).toEqual([
-                { maxWidth: nftsGrid.xxxl, cols: 10 },
-                { maxWidth: nftsGrid.xxl, cols: 8 },
                 { maxWidth: nftsGrid.xl, cols: 5 },
                 { maxWidth: nftsGrid.lg, cols: 4 },
                 { maxWidth: nftsGrid.md, cols: 3 },
-                { maxWidth: nftsGrid.mobile, cols: 2 },
-                { maxWidth: nftsGrid.mobileSm, cols: 1 },
+                { maxWidth: nftsGrid.xs, cols: 2 },
+                { maxWidth: nftsGrid.xxs, cols: 1 },
             ]);
         });
     });

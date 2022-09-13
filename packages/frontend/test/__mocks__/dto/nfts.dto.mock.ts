@@ -1,4 +1,3 @@
-import { NftDto, PaginatedNftDto } from "module/api/service";
 import BaseMock from "../base.mock";
 import { XRP_ADDRESS_MOCK } from "../wallet";
 import { NftDtoMock } from "./nft.dto.mock";
@@ -32,14 +31,14 @@ export class NftsDtoMock extends BaseMock implements NftsDtoMockType {
     }
 }
 
-export class PaginatedNftsMock extends BaseMock implements InfiniteDataMock<PaginatedDataMock> {
+export class PaginatedNftsMock extends BaseMock implements InfiniteDataMock<PaginatedDataMock<NftDtoMock[]>> {
     pageParams: number[];
-    pages: PaginatedDataMock[];
+    pages: PaginatedDataMock<NftDtoMock[]>[];
     constructor({ nftsParams = {}, pages = 1 }: PaginatedNftsDtoMockParams = {}) {
         super();
         this.pageParams = [];
         this.pages = [...Array(pages)].map(
-            (index) => new PaginatedDataMock({ items: new NftsDtoMock(nftsParams).nfts, pages, currentPage: index + 1 }),
+            (index) => new PaginatedDataMock<NftDtoMock[]>({ items: new NftsDtoMock(nftsParams).nfts, pages, currentPage: index + 1 }),
         );
     }
 }
