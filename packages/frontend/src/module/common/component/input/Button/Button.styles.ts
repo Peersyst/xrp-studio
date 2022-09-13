@@ -6,20 +6,19 @@ import { alpha } from "@peersyst/react-utils";
 const primaryAppearance = css(
     ({ theme }) => css`
         background-color: ${theme.palette.primary};
-        border: 0px;
         color: white;
         &:hover {
             background-color: ${theme.palette.primary};
+            opacity: 0.9;
         }
     `,
 );
 const secondaryAppearance = css(
     ({ theme }) => css`
         background-color: ${theme.palette.mode === "light" ? theme.palette.black[20] : theme.palette.black[80]}};
-        border: 0px;
         color: white;
         &:hover {
-            background-color: ${theme.palette.mode === "light" ? theme.palette.black[20] : theme.palette.black[80]}};
+            background-color: ${theme.palette.mode === "light" ? theme.palette.black[10] : theme.palette.black[75]}};
         }
     `,
 );
@@ -28,7 +27,7 @@ const outlinedAppearance = css(({ theme }) => {
     const light = theme.palette.mode === "light";
     return css`
         background-color: transparent;
-        border: 1px solid ${theme.palette.black[light ? 15 : 75]};
+        border-color: ${theme.palette.black[light ? 15 : 75]};
         color: ${theme.palette.black[30]};
         &:hover {
             background-color: ${alpha(theme.palette.black[light ? 15 : 75], 0.1)};
@@ -63,12 +62,11 @@ const buttonSizes = {
 
 export const ButtonRoot = styled(Button)<ButtonProps>(({ appearance, size }) => {
     return css`
-        ${buttonAppearances[appearance || "primary"]}
-        ${buttonSizes[size || "md"]};
         font-weight: 500;
         text-transform: none;
+        border: 1px solid transparent;
+        transition: background-color 200ms linear, opacity 200ms linear;
         &:disabled {
-            filter: unset;
             opacity: 0.4;
         }
         &.Loading {
@@ -77,12 +75,7 @@ export const ButtonRoot = styled(Button)<ButtonProps>(({ appearance, size }) => 
         :active {
             box-shadow: none;
         }
-        transition: filter 0.1s;
-        &:hover {
-            filter: brightness(1.1);
-        }
-        &:active {
-            filter: brightness(0.9);
-        }
+        ${buttonAppearances[appearance || "primary"]}
+        ${buttonSizes[size || "md"]};
     `;
 });

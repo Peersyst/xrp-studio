@@ -6,7 +6,7 @@ import { useRecoilState } from "recoil";
 import { filtersVisibilityState } from "../../state/FiltersVisibilityState";
 import BaseGrid from "../BaseGrid/BaseGrid";
 import BaseGridFilters from "./BaseGridFilters/BaseGridFilters";
-import { BaseGridTags } from "./BaseGridTags/BaseGridTags";
+import BaseGridTags from "./BaseGridTags/BaseGridTags";
 import { GridWrapper } from "./BaseGridWithFilters.styles";
 import { BaseGridWithFilterProps } from "./BaseGridWithFilters.types";
 
@@ -31,7 +31,7 @@ const gridAnimation: TransitionStyles = {
     },
 };
 
-function BaseGridWithFilters<T extends PaginatedData>({
+function BaseGridWithFilters<T extends PaginatedData, TagT>({
     filterBreakpoints,
     breakpoints,
     filters,
@@ -39,7 +39,7 @@ function BaseGridWithFilters<T extends PaginatedData>({
     onTagClicked,
     onClearTags,
     ...rest
-}: BaseGridWithFilterProps<T>): JSX.Element {
+}: BaseGridWithFilterProps<T, TagT>): JSX.Element {
     const {
         breakpoints: {
             values: { nftsGrid },

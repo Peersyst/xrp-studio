@@ -8,7 +8,7 @@ import { useSetRecoilState } from "recoil";
 import { filtersVisibilityState } from "module/common/component/state/FiltersVisibilityState";
 import { HideFiltersWrapper } from "./FiltersContainer.styles";
 
-function FiltersContainer<T extends PaginatedData>({ children }: BaseGridFiltersProps<T>): JSX.Element {
+function FiltersContainer<T extends PaginatedData, TagT>({ children }: BaseGridFiltersProps<T, TagT>): JSX.Element {
     const t = useTranslate();
     const setShowFilters = useSetRecoilState(filtersVisibilityState);
     const handleHideFilters = () => setShowFilters(false);

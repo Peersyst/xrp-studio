@@ -8,7 +8,7 @@ import { useRecoilState } from "recoil";
 import { Tag } from "./BaseGridTags.styles";
 import { BaseGridTagsProps } from "./BaseGridTags.types";
 
-export const BaseGridTags = ({ tags, onClear, onTagClicked }: BaseGridTagsProps): JSX.Element => {
+function BaseGridTags<T>({ tags, onClear, onTagClicked }: BaseGridTagsProps<T>): JSX.Element {
     const [showFilters, setShowFilters] = useRecoilState(filtersVisibilityState);
     const t = useTranslate();
     const handleClear = () => {
@@ -22,8 +22,8 @@ export const BaseGridTags = ({ tags, onClear, onTagClicked }: BaseGridTagsProps)
                     <FilterLinesIcon css={{ fontSize: "1.5rem" }} />
                 </Button>
             )}
-            {tags?.map((tag) => (
-                <Tag suffix={<MinusCircleIcon />} onClick={() => onTagClicked?.(tag)} label={tag} size="lg" />
+            {tags?.map(({ label, value }, index) => (
+                <Tag suffix={<MinusCircleIcon />} key={index} onClick={() => onTagClicked?.(value)} label={label} size="lg" />
             ))}
             {tags && tags.length > 0 ? (
                 <Button appearance="outlined" onClick={handleClear} size="lg">
@@ -36,4 +36,6 @@ export const BaseGridTags = ({ tags, onClear, onTagClicked }: BaseGridTagsProps)
             )}
         </Row>
     );
-};
+}
+
+export default BaseGridTags;

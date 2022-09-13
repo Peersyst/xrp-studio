@@ -7,7 +7,7 @@ import { filtersVisibilityState } from "module/common/component/state/FiltersVis
 import { useMediaQuery } from "@peersyst/react-hooks";
 import FiltersContainer from "../FiltersContainer/FiltersContainer";
 
-function BaseGridFilters<T extends PaginatedData>({ children }: BaseGridFiltersProps<T>): JSX.Element {
+function BaseGridFilters<T extends PaginatedData, TagT>({ children }: BaseGridFiltersProps<T, TagT>): JSX.Element {
     const {
         breakpoints: {
             values: { nftsGrid },

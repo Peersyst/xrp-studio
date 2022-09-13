@@ -3,7 +3,7 @@ import styled, { css } from "styled-components";
 
 export const Tag = styled(Chip)(
     ({ theme }) => css`
-        &:hover {
+        &.Filled:hover {
             background-color: ${theme.palette.black[80]};
         }
         .Icon {

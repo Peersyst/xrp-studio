@@ -4,12 +4,12 @@ import { ReactElement } from "react";
 import { BaseGridProps } from "../BaseGrid/BaseGrid.types";
 import { BaseGridTagsProps } from "./BaseGridTags/BaseGridTags.types";
 
-export interface BaseGridWithFilterProps<T extends PaginatedData> extends Omit<BaseGridProps<T>, "moveGrid"> {
+export interface BaseGridWithFilterProps<T extends PaginatedData, TagT> extends Omit<BaseGridProps<T>, "moveGrid"> {
     filterBreakpoints?: GridProps["breakpoints"];
     filters: ReactElement;
-    tags?: BaseGridTagsProps["tags"];
-    onTagClicked?: BaseGridTagsProps["onTagClicked"];
-    onClearTags?: BaseGridTagsProps["onClear"];
+    tags?: BaseGridTagsProps<TagT>["tags"];
+    onTagClicked?: BaseGridTagsProps<TagT>["onTagClicked"];
+    onClearTags?: BaseGridTagsProps<TagT>["onClear"];
 }
 
 export interface GridWrapperProps {

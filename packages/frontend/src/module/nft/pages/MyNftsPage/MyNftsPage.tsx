@@ -8,6 +8,7 @@ import { useGetMyNfts } from "module/nft/query/useGetMyNfts";
 const MyNftsPage = (): JSX.Element => {
     const t = useTranslate();
     const { data, hasNextPage, fetchNextPage, isFetching } = useGetMyNfts();
+
     return (
         <SecondaryPage title={t("myNfts")}>
             {{
