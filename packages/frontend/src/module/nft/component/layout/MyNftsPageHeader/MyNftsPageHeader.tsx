@@ -2,6 +2,7 @@ import { Row } from "@peersyst/react-components";
 import Button from "module/common/component/input/Button/Button";
 import BasePageHeader from "module/common/component/layout/BasePageHeader/BasePageHeader";
 import useTranslate from "module/common/hook/useTranslate";
+import MyNftsPageHeaderFooter from "./MyNftsPageHeaderFooter";
 
 const MyNftsPageHeader = (): JSX.Element => {
     const t = useTranslate();
@@ -16,6 +17,7 @@ const MyNftsPageHeader = (): JSX.Element => {
                     <Button size="lg">{t("createNft")}</Button>
                 </Row>
             }
+            footer={<MyNftsPageHeaderFooter />}
         />
     );
 };

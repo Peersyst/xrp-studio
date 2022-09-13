@@ -16,7 +16,7 @@ interface BasePageHeaderProps {
 const BasePageHeader = ({ back, title, subtitle, complement, footer, backIconSize }: BasePageHeaderProps): JSX.Element => {
     return (
         <BasePageHeaderRoot>
-            <BasePageHeaderWrapper gap="2.5rem">
+            <BasePageHeaderWrapper gap="2rem">
                 <Row justifyContent="space-between" wrap wrapGap="1.5rem">
                     <Row alignItems="center" gap="2rem">
                         {back && <BackButton size={backIconSize} />}
