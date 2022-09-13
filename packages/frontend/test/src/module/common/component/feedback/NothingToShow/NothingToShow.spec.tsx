@@ -8,11 +8,15 @@ describe("Nothing to show", () => {
     });
 
     test("should render custom component ", () => {
-        const { getByText } = render(<NothingToShow display={<>Custom component</>} />);
+        const { getByText } = render(
+            <NothingToShow>
+                <>Custom component</>
+            </NothingToShow>,
+        );
         expect(getByText("Custom component")).toBeInTheDocument();
     });
     test("should render custom text ", () => {
-        const { getByRole } = render(<NothingToShow display={"Custom text"} />);
+        const { getByRole } = render(<NothingToShow>{"Custom text"}</NothingToShow>);
         expect(getByRole("heading", { name: "Custom text" })).toBeInTheDocument();
     });
 });
