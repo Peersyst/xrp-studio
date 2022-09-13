@@ -1,10 +1,21 @@
 import { NftService, PaginatedNftDto } from "module/api/service";
 import useWallet from "module/wallet/component/hooks/useWallet";
-import { InfiniteQueryResult, useInfiniteQuery } from "query-utils";
+import { InfiniteData, InfiniteQueryResult, useInfiniteQuery } from "query-utils";
 
-export const useGetMyNfts = (): InfiniteQueryResult<PaginatedNftDto> => {
+interface UseGetMyNftsParams {
+    onSettled?: ((data: InfiniteData<PaginatedNftDto> | undefined, error: unknown) => void) | undefined;
+}
+
+export const useGetMyNfts = ({ onSettled }: UseGetMyNftsParams = {}): InfiniteQueryResult<PaginatedNftDto> => {
     const { address } = useWallet();
-    return useInfiniteQuery(["my-nfts", address], ({ pageParam = 1 }) =>
-        NftService.nftControllerGetNfts(pageParam, 30, undefined, undefined, "DESC", address),
+    return useInfiniteQuery(
+        ["my-nfts", address],
+        async ({ pageParam = 1 }) => {
+            await new Promise((resolve) => setTimeout(resolve, 1000));
+            return NftService.nftControllerGetNfts(pageParam, 30, undefined, undefined, "DESC");
+        },
+        {
+            onSettled,
+        },
     );
 };

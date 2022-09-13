@@ -1,21 +1,22 @@
 import { Col, Row, Typography } from "@peersyst/react-components";
-import { ReactElement } from "react";
-import { ArrowButtonProps } from "../../input/ArrowButton/ArrowButton.types";
+import { cx } from "@peersyst/react-utils";
+import MyNftsSearch from "module/nft/component/input/MyNftsSearch/MyNftsSearch";
 import BackButton from "../../navigation/BackButton/BackButton";
 import { BasePageHeaderRoot, BasePageHeaderWrapper } from "./BasePageHeader.styles";
+import { BasePageHeaderProps } from "./BasePageHeader.types";
 
-interface BasePageHeaderProps {
-    back?: boolean;
-    backIconSize?: ArrowButtonProps["size"];
-    title: string;
-    subtitle?: string;
-    complement?: ReactElement;
-    footer?: ReactElement;
-}
-
-const BasePageHeader = ({ back, title, subtitle, complement, footer, backIconSize }: BasePageHeaderProps): JSX.Element => {
+const BasePageHeader = ({
+    back,
+    title,
+    subtitle,
+    complement,
+    footer,
+    backIconSize,
+    style,
+    className,
+}: BasePageHeaderProps): JSX.Element => {
     return (
-        <BasePageHeaderRoot>
+        <BasePageHeaderRoot className={cx("base-page-header", className)} style={style}>
             <BasePageHeaderWrapper gap="2rem">
                 <Row justifyContent="space-between" wrap wrapGap="1.5rem">
                     <Row alignItems="center" gap="2rem">

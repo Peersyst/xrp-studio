@@ -3,7 +3,7 @@
     "name": "Charlie",
     "items": "Items",
     "formatNumber": "{{val, number}}",
-    "loginWithXumm": "Login with your XUMM Wallet",
+    "loginWithXumm": "Login with XUMM Wallet",
     "scanXummQR": "Scan the QR with XUMM app",
     "scanXummQRExplanation": "Scan the QR code with your XUMM Wallet to proceed",
     "dismiss": "Dismiss",

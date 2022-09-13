@@ -1,23 +1,24 @@
 import { Row } from "@peersyst/react-components";
 import Button from "module/common/component/input/Button/Button";
-import BasePageHeader from "module/common/component/layout/BasePageHeader/BasePageHeader";
 import useTranslate from "module/common/hook/useTranslate";
-import MyNftsPageHeaderFooter from "./MyNftsPageHeaderFooter";
+import MyNftsSearch from "../../input/MyNftsSearch/MyNftsSearch";
+import { MyNftsPageHeaderRoot } from "./MyNftsPageHeader.styles";
 
 const MyNftsPageHeader = (): JSX.Element => {
     const t = useTranslate();
+
     return (
-        <BasePageHeader
+        <MyNftsPageHeaderRoot
             title={t("myNfts")}
             complement={
-                <Row gap="1rem">
+                <Row gap="1rem" wrap wrapGap="1.5rem">
                     <Button size="lg" variant="secondary">
                         {t("createCollection")}
                     </Button>
                     <Button size="lg">{t("createNft")}</Button>
                 </Row>
             }
-            footer={<MyNftsPageHeaderFooter />}
+            footer={<MyNftsSearch />}
         />
     );
 };
