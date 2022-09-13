@@ -47,7 +47,7 @@ function BaseGridWithFilters<T extends PaginatedData, TagT>({
     } = useTheme();
     const [showFilters, setShowFilters] = useRecoilState(filtersVisibilityState);
     const finalBreakPoints = showFilters ? filterBreakpoints || breakpoints : breakpoints;
-    const isTablet = useMediaQuery(`(max-width: ${nftsGrid.tablet}px)`);
+    const isTablet = useMediaQuery(`(max-width: ${nftsGrid.sm}px)`);
     const finalMoveGrid = showFilters && !isTablet;
 
     useEffect(() => {

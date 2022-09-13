@@ -17,7 +17,7 @@ function BaseGridTags<T>({ tags, onClear, onTagClicked }: BaseGridTagsProps<T>):
     return (
         <Row gap="1rem" wrap alignItems="center" wrapGap="1rem" css={{ minHeight: "2.75rem" }}>
             {!showFilters && (
-                <Button onClick={() => setShowFilters(true)} size="lg">
+                <Button onClick={() => setShowFilters(true)} size="md">
                     {t("search&Filter")}
                     <FilterLinesIcon css={{ fontSize: "1.5rem" }} />
                 </Button>
@@ -26,7 +26,7 @@ function BaseGridTags<T>({ tags, onClear, onTagClicked }: BaseGridTagsProps<T>):
                 <Tag suffix={<MinusCircleIcon />} key={index} onClick={() => onTagClicked?.(value)} label={label} size="lg" />
             ))}
             {tags && tags.length > 0 ? (
-                <Button appearance="outlined" onClick={handleClear} size="lg">
+                <Button variant="outlined" onClick={handleClear} size="md">
                     {t("clearAll")}
                 </Button>
             ) : (

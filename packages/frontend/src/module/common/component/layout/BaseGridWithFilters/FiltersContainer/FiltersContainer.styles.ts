@@ -1,9 +1,8 @@
-import { Row } from "@peersyst/react-components";
+import Button from "module/common/component/input/Button/Button";
 import styled, { css } from "styled-components";
 
-export const HideFiltersWrapper = styled(Row).attrs({ justifyContent: "flex-end", alignItems: "center", gap: "0.5rem" })(
+export const HideFiltersWrapper = styled(Button)(
     ({ theme }) => css`
-        cursor: pointer;
         .hide-filters-icon {
             border-radius: 50%;
             padding: 0.5rem;

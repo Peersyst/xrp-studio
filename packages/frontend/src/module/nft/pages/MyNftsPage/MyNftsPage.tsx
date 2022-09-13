@@ -14,7 +14,7 @@ const MyNftsPage = (): JSX.Element => {
             {{
                 complement: (
                     <Row gap="1rem" wrap wrapGap="1rem">
-                        <Button size="lg" appearance="secondary" css={{ whiteSpace: "nowrap" }}>
+                        <Button size="lg" variant="secondary" css={{ whiteSpace: "nowrap" }}>
                             {t("createCollection")}
                         </Button>
                         <Button size="lg" css={{ whiteSpace: "nowrap" }}>

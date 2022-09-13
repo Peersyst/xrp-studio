@@ -1,12 +1,6 @@
-import { CSSProperties } from "react";
+import { ButtonSize, ButtonVariant } from "@peersyst/react-components";
+import { FlattenInterpolation, ThemeProps, DefaultTheme, css } from "styled-components";
 
-export type ButtonAppearance = "primary" | "secondary" | "outlined";
+export type ButtonSizeStyle = Record<ButtonSize, FlattenInterpolation<ThemeProps<DefaultTheme>>>;
 
-export type ButtonSize = "md" | "lg";
-
-export type ButtonSizeStyle = Record<ButtonSize, CSSProperties>;
-
-export interface ButtonProps {
-    appearance?: ButtonAppearance;
-    size?: ButtonSize;
-}
+export type ButtonVariantStyle = Record<ButtonVariant, ReturnType<typeof css>>;

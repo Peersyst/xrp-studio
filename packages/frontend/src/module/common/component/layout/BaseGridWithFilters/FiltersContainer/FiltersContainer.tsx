@@ -1,4 +1,4 @@
-import { Col, Typography } from "@peersyst/react-components";
+import { Col } from "@peersyst/react-components";
 import useTranslate from "module/common/hook/useTranslate";
 import MenuIcon from "module/common/icons/MenuIcon";
 import { FiltersDivider } from "../BaseGridFilters/BaseGridFilters.styles";
@@ -15,13 +15,9 @@ function FiltersContainer<T extends PaginatedData, TagT>({ children }: BaseGridF
     return (
         <Col gap="1.25rem">
             <Col gap="1rem">
-                <HideFiltersWrapper className="hide-filters" onClick={handleHideFilters}>
-                    <Typography variant="body1" light>
-                        {t("hideFilters&Search")}
-                    </Typography>
-                    <Typography variant="body1" light className="hide-filters-icon">
-                        <MenuIcon css={{ fontSize: "1.5rem" }} />
-                    </Typography>
+                <HideFiltersWrapper variant="text" size="lg" className="hide-filters" onClick={handleHideFilters}>
+                    {t("hideFilters&Search")}
+                    <MenuIcon className="hide-filters-icon" />
                 </HideFiltersWrapper>
                 <FiltersDivider />
             </Col>

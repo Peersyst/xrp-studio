@@ -1,9 +1,9 @@
 import styled, { css } from "styled-components";
 import { Button } from "@peersyst/react-components";
-import { ButtonProps } from "module/common/component/input/Button/Button.types";
+import { ButtonSizeStyle, ButtonVariantStyle } from "module/common/component/input/Button/Button.types";
 import { alpha } from "@peersyst/react-utils";
 
-const primaryAppearance = css(
+const primaryVariant = css(
     ({ theme }) => css`
         background-color: ${theme.palette.primary};
         color: white;
@@ -13,7 +13,7 @@ const primaryAppearance = css(
         }
     `,
 );
-const secondaryAppearance = css(
+const secondaryVariant = css(
     ({ theme }) => css`
         background-color: ${theme.palette.mode === "light" ? theme.palette.black[20] : theme.palette.black[80]}};
         color: white;
@@ -23,44 +23,68 @@ const secondaryAppearance = css(
     `,
 );
 
-const outlinedAppearance = css(({ theme }) => {
+const outlinedVariant = css(({ theme }) => {
     const light = theme.palette.mode === "light";
     return css`
         background-color: transparent;
-        border-color: ${theme.palette.black[light ? 15 : 75]};
+        border-color: ${theme.palette.black[light ? 50 : 75]};
         color: ${theme.palette.black[30]};
         &:hover {
-            background-color: ${alpha(theme.palette.black[light ? 15 : 75], 0.1)};
+            color: ${theme.palette.black[30]};
+            background-color: ${alpha(theme.palette.black[light ? 60 : 75], 0.1)};
         }
     `;
 });
 
-const buttonAppearances = {
-    primary: primaryAppearance,
-    secondary: secondaryAppearance,
-    outlined: outlinedAppearance,
+const textVariant = css(({ theme }) => {
+    return css`
+        text-transform: none;
+        color: ${theme.palette.black[30]};
+        padding: 0;
+        &:hover {
+            color: ${theme.palette.black[10]};
+        }
+    `;
+});
+
+const buttonVariants: ButtonVariantStyle = {
+    primary: primaryVariant,
+    secondary: secondaryVariant,
+    outlined: outlinedVariant,
+    text: textVariant,
 };
+
+const smSize = css(
+    ({ theme }) => css`
+        height: 2.375rem;
+        ${theme.typography.body2.style};
+        padding: 0.375rem 0.875rem;
+    `,
+);
 
 const mdSize = css(
     ({ theme }) => css`
-        ${theme.typography.body2.style};
-        padding: 0.375rem 0.75rem;
+        height: 2.75rem;
+        ${theme.typography.body1.style};
+        padding: 0.5rem 0.875rem;
     `,
 );
 
 const lgSize = css(
     ({ theme }) => css`
+        height: 3.25rem;
         ${theme.typography.body1.style};
         padding: 0.75rem 1.25rem;
     `,
 );
 
-const buttonSizes = {
+const buttonSizes: ButtonSizeStyle = {
     md: mdSize,
     lg: lgSize,
+    sm: smSize,
 };
 
-export const ButtonRoot = styled(Button)<ButtonProps>(({ appearance, size }) => {
+export const ButtonRoot = styled(Button)(({ variant, size }) => {
     return css`
         font-weight: 500;
         text-transform: none;
@@ -75,7 +99,7 @@ export const ButtonRoot = styled(Button)<ButtonProps>(({ appearance, size }) => 
         :active {
             box-shadow: none;
         }
-        ${buttonAppearances[appearance || "primary"]}
         ${buttonSizes[size || "md"]};
+        ${buttonVariants[variant || "primary"]}
     `;
 });

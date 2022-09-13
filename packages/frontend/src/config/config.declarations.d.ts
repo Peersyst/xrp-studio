@@ -7,6 +7,11 @@ declare module "@peersyst/react-components" {
         TranslateFn: TFunction<"translation">;
     }
 
+    export interface ButtonVariantOverrides {
+        filled: false;
+        secondary: true;
+    }
+
     export interface Config {
         publicUrl: string;
         backendUrl: string;

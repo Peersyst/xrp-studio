@@ -13,7 +13,7 @@ function BaseGridFilters<T extends PaginatedData, TagT>({ children }: BaseGridFi
             values: { nftsGrid },
         },
     } = useTheme();
-    const isTablet = useMediaQuery(`(max-width: ${nftsGrid.tablet}px)`);
+    const isTablet = useMediaQuery(`(max-width: ${nftsGrid.sm}px)`);
     const [showFilters, setShowFilters] = useRecoilState(filtersVisibilityState);
     const handleHide = () => {
         if (isTablet) setShowFilters(false);
