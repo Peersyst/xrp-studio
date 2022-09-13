@@ -30,10 +30,10 @@ describe("Test for the base grid with tags", () => {
         const tags = [{ label: "Tag1", value: 1 }];
         const mockedTagClicked = jest.fn();
         const screen = render(<BaseGridTags tags={tags} onTagClicked={mockedTagClicked} />);
-        const btn = screen.getByRole("button", { name: "Tag1" });
+        const btn = screen.getByRole("button", { name: tags[0].label });
         expect(btn).toBeInTheDocument();
         fireEvent.click(btn);
-        expect(mockedTagClicked).toHaveBeenCalled();
+        expect(mockedTagClicked).toHaveBeenCalledWith(tags[0].value);
     });
 
     test("Renders correctly without tags + triggers button correctly", () => {

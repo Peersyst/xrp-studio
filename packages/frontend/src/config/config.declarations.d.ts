@@ -9,6 +9,7 @@ declare module "@peersyst/react-components" {
 
     export interface ButtonVariantOverrides {
         filled: false;
+        primary: true;
         secondary: true;
     }
 
@@ -34,7 +35,7 @@ declare module "@peersyst/react-components" {
             twitterLink: string;
             discordLink: string;
         };
-        nftDefaultCoverUrl: string;
         blockchainLinks: BlockchainLinks;
+        nftDefaultCoverUrl: string;
     }
 }
