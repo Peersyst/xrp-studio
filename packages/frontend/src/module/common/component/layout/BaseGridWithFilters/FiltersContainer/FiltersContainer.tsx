@@ -6,7 +6,7 @@ import { PaginatedData } from "query-utils";
 import { BaseGridFiltersProps } from "../BaseGridFilters/BaseGridFilters.types";
 import { useSetRecoilState } from "recoil";
 import { filtersVisibilityState } from "module/common/component/state/FiltersVisibilityState";
-import { HideFiltersWrapper } from "./FiltersContainer.styles";
+import Button from "module/common/component/input/Button/Button";
 
 function FiltersContainer<T extends PaginatedData, TagT>({ children }: BaseGridFiltersProps<T, TagT>): JSX.Element {
     const t = useTranslate();
@@ -15,10 +15,10 @@ function FiltersContainer<T extends PaginatedData, TagT>({ children }: BaseGridF
     return (
         <Col gap="1.25rem">
             <Col gap="1rem">
-                <HideFiltersWrapper variant="text" size="lg" className="hide-filters" onClick={handleHideFilters}>
+                <Button variant="text" size="lg" className="hide-filters" onClick={handleHideFilters}>
                     {t("hideFilters&Search")}
-                    <MenuIcon className="hide-filters-icon" />
-                </HideFiltersWrapper>
+                    <MenuIcon css={{ fontSize: "1.5rem" }} />
+                </Button>
                 <FiltersDivider />
             </Col>
             <Col flex={1} className="filters-cont">
