@@ -23,8 +23,8 @@ const FileInput = ({
         }
     };
     return (
-        <FileInputCard className={(cx("file-input"), className)} style={style}>
-            <FileInputRoot multiple={false} onChange={handleFileChange} {...rest}>
+        <FileInputCard data-testid="upload" className={(cx("file-input"), className)} style={style}>
+            <FileInputRoot multiple={false} value={file} onChange={handleFileChange} {...rest}>
                 {(drag) => {
                     return (
                         <Col
