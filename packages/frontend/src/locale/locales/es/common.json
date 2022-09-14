@@ -3,7 +3,7 @@
     "name": "Manolo",
     "items": "Items",
     "formatNumber": "{{val, number}}",
-    "loginWithXumm": "Accede con tu XUMM Wallet",
+    "loginWithXumm": "Accede con XUMM Wallet",
     "scanXummQR": "Scanea el QR con XUMM app",
     "scanXummQRExplanation": "Scanea el QR con tu billetera de XUMM para continuar",
     "dismiss": "Cerrar",
@@ -17,5 +17,6 @@
     "noneApplied": "Ninguno aplicado",
     "checkoutMyProfile": "¡Échale un ojo a mi perfil de XRP Studio!",
     "editProfile": "Editar Perfil",
-    "search": "Buscar"
+    "search": "Buscar",
+    "goUp": "Subir"
 }

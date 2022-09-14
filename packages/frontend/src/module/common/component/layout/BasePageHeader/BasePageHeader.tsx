@@ -1,6 +1,5 @@
 import { Col, Row, Typography } from "@peersyst/react-components";
 import { cx } from "@peersyst/react-utils";
-import MyNftsSearch from "module/nft/component/input/MyNftsSearch/MyNftsSearch";
 import BackButton from "../../navigation/BackButton/BackButton";
 import { BasePageHeaderRoot, BasePageHeaderWrapper } from "./BasePageHeader.styles";
 import { BasePageHeaderProps } from "./BasePageHeader.types";
@@ -13,10 +12,11 @@ const BasePageHeader = ({
     footer,
     backIconSize,
     style,
+    stickyTitle,
     className,
 }: BasePageHeaderProps): JSX.Element => {
     return (
-        <BasePageHeaderRoot className={cx("base-page-header", className)} style={style}>
+        <BasePageHeaderRoot stickyTitle={stickyTitle} className={cx("base-page-header", className)} style={style}>
             <BasePageHeaderWrapper gap="2rem">
                 <Row justifyContent="space-between" wrap wrapGap="1.5rem">
                     <Row alignItems="center" gap="2rem">

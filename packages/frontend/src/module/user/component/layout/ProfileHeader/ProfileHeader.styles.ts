@@ -76,7 +76,7 @@ export const ProfileHeaderRoot = styled(PageHeader)<ProfileHeaderRootProps>(
 export const ProfileCover = styled(Image)(
     ({ theme }) => css`
         align-self: center;
-        width: 77rem;
+        width: calc(var(--page-max-width) + 7rem);
         height: var(--profile-cover-height);
         flex-shrink: 0;
         border-radius: ${theme.borderRadius};
@@ -97,7 +97,13 @@ export const ProfileHeaderFooter = styled(Row).attrs({ gap: "1rem", flex: 1 })(
         --profile-avatar-top: var(--profile-cover-height);
 
         min-height: calc(calc(calc(var(--profile-avatar-width) / 1.8)) - 2rem);
-
+        ${theme.breakpoints.up("sm")} {
+            margin-left: auto;
+            margin-right: auto;
+            max-width: 100%;
+            width: calc(var(--page-max-width) + 7rem);
+            padding: 0 2rem;
+        }
         ${theme.breakpoints.down("md")} {
             --profile-avatar-width: max(9.5rem, 13vw);
         }

@@ -3,7 +3,7 @@ import { MainPageHeader, PageHeaderRoot, PageStickyHeader } from "module/common/
 import { Animated, Typography } from "@peersyst/react-components";
 
 export interface PageHeaderProps {
-    stickyTitle?: ReactNode;
+    stickyTitle?: string;
     children?: ReactNode;
     className?: string;
     style?: CSSProperties;
@@ -44,13 +44,9 @@ const PageHeader = ({ children, stickyTitle, ...rest }: PageHeaderProps): JSX.El
             {stickyTitle && (
                 <Animated.Fade in={visible} duration={{ enter: 300, exit: 200 }}>
                     <PageStickyHeader onClick={scrollToTop} className="sticky-header">
-                        {typeof stickyTitle === "string" ? (
-                            <Typography variant="subtitle2" fontWeight={700}>
-                                {stickyTitle}
-                            </Typography>
-                        ) : (
-                            stickyTitle
-                        )}
+                        <Typography variant="subtitle2" fontWeight={700}>
+                            {stickyTitle}
+                        </Typography>
                     </PageStickyHeader>
                 </Animated.Fade>
             )}

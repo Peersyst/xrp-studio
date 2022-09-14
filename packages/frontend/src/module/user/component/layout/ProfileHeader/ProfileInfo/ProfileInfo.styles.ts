@@ -3,6 +3,7 @@ import { Col, Row } from "@peersyst/react-components";
 
 export const ProfileInfoRoot = styled(Col).attrs({ flex: 1 })(
     ({ theme }) => css`
+        max-width: 100%;
         padding-left: calc(var(--profile-avatar-width) + 1rem);
 
         ${theme.breakpoints.down("md")} {

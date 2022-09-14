@@ -5,7 +5,7 @@ export const RootStyles = css(
         :root {
             overflow-x: hidden;
             --appbar-height: 6.25rem;
-            --page-max-width: 80rem;
+            --page-max-width: 77rem;
             --horizontal-page-padding: 0;
             ${theme.breakpoints.down("md")} {
                 --horizontal-page-padding: 5rem;
