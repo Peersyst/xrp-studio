@@ -5,6 +5,8 @@ export { default as CloseIcon } from "./CloseIcon";
 export { default as CopyIcon } from "./CopyIcon";
 export { default as DiscordIcon } from "./DiscordIcon";
 export { default as FilterLinesIcon } from "./FilterLinesIcon";
+export { default as ImageIcon } from "./ImageIcon";
+export { default as ImageUpIcon } from "./ImageUpIcon";
 export { default as MenuIcon } from "./MenuIcon";
 export { default as MinusCircleIcon } from "./MinusCircleIcon";
 export { default as SearchIcon } from "./SearchIcon";

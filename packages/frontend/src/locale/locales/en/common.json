@@ -19,5 +19,10 @@
     "checkoutMyProfile": "Check out my XRP Studio profile!",
     "editProfile": "Edit Profile",
     "search": "Search",
-    "goUp": "Go up"
+    "goUp": "Go up",
+    "chooseFile": "Choose file",
+    "fileInputPlaceholder": "Upload an image, video or audio",
+    "onDragText": "Drop it like it's hot",
+    "filesSupported": "Files supported",
+    "selectAnotherFile": "Select another file"
 }

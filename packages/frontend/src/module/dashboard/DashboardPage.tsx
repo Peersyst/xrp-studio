@@ -4,7 +4,7 @@ import useTranslate from "module/common/hook/useTranslate";
 import { config } from "config";
 import PageHeader from "module/common/component/layout/PageHeader/PageHeader";
 import PageContent from "module/common/component/layout/PageContent/PageContent";
-import BackButton from "module/common/component/navigation/BackButton/BackButton";
+import FileInput from "module/common/component/input/FileInput/FileInput";
 
 export default function DashboardPage(): JSX.Element {
     const translate = useTranslate();
@@ -21,8 +21,8 @@ export default function DashboardPage(): JSX.Element {
                 ),
                 content: (
                     <PageContent>
-                        <Row gap="1rem" wrap wrapGap="1rem">
-                            <BackButton />
+                        <Row flex={1}>
+                            <FileInput css={{ maxWidth: "40rem" }} />
                         </Row>
                     </PageContent>
                 ),
