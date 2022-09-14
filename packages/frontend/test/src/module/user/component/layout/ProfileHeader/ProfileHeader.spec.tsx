@@ -16,8 +16,8 @@ describe("ProfileHeader", () => {
 
     test("Renders correctly", async () => {
         render(<ProfileHeader />);
-        // Header and StickyHeader
-        await waitFor(() => expect(screen.getAllByRole("heading", { name: userDtoMock.name })).toHaveLength(2));
+        // Header
+        await waitFor(() => expect(screen.getAllByRole("heading", { name: userDtoMock.name })).toHaveLength(1));
         const images = screen.getAllByRole("img");
         expect(images.some((image) => image.getAttribute("alt") === "profile-image")).toBe(true);
         expect(images.some((image) => image.getAttribute("alt") === "profile-header")).toBe(true);
