@@ -1,11 +1,12 @@
 import { Typography } from "@peersyst/react-components";
 import styled, { css } from "styled-components";
 
-const greyStyles = css(
-    ({ theme }) => css`
-        color: ${theme.palette.black[70]};
-    `,
-);
+const greyStyles = css(({ theme }) => {
+    const light = theme.palette.mode === "light";
+    return css`
+        color: ${theme.palette.black[light ? 40 : 70]};
+    `;
+});
 
 export const FileInputPlaceholderIcon = styled.div(
     ({ theme }) => css`

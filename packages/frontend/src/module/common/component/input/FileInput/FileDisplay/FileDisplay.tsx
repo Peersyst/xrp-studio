@@ -11,9 +11,12 @@ const FileDisplay = ({ file }: FileDisplayProps): JSX.Element => {
     const t = useTranslate();
     return (
         <Col alignItems="center" gap="2rem" css={{ maxWidth: "100%" }}>
-            <Col alignItems="center" gap="0.5rem" css={{ maxWidth: "100%" }}>
-                <ImageIcon css={{ fontSize: "8rem" }} />
-                <Typography variant="h6" fontWeight="800" textAlign="center" singleLine>
+            <Col alignItems="center" gap="0.75rem" css={{ maxWidth: "100%" }}>
+                <Typography light variant="h6" fontWeight="800" textAlign="center" singleLine>
+                    <ImageIcon css={{ fontSize: "8.5rem" }} />
+                </Typography>
+
+                <Typography light variant="h6" fontWeight="800" textAlign="center" singleLine>
                     {file.name}
                 </Typography>
             </Col>

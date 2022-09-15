@@ -2,7 +2,7 @@ import { IconButton, Upload } from "@peersyst/react-components";
 import styled, { css } from "styled-components";
 import Card from "../../surface/Card/Card";
 
-export const FileInputCard = styled(Card)(
+export const FileInputRoot = styled(Card)(
     ({ theme }) => css`
         position: relative;
         padding: 2rem;
@@ -18,7 +18,7 @@ export const FileInputCard = styled(Card)(
     `,
 );
 
-export const FileInputRoot = styled(Upload)(
+export const FileInputUpload = styled(Upload)(
     ({ theme }) => css`
         height: 100%;
         ${theme.breakpoints.down("mobile")} {

@@ -12,7 +12,7 @@ export interface FileInputPlaceholderProps {
 const FileInputPlaceholder = ({ drag, supportedFilesLabel }: FileInputPlaceholderProps): JSX.Element => {
     const t = useTranslate();
     return drag ? (
-        <Typography variant="h4" fontWeight="500" textAlign="center">
+        <Typography variant="h4" fontWeight="bold" textAlign="center">
             {t("onDragText")}
         </Typography>
     ) : (
