@@ -1,5 +1,4 @@
 import { FileInputPlaceholderProps } from "./FileInputPlaceholder/FileInputPlaceholder";
-import { CSSProperties } from "react";
 import { UploadProps } from "@peersyst/react-components";
 
 export type FileInputType = File | undefined;
