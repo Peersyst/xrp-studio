@@ -15,7 +15,6 @@ const FileDisplay = ({ file }: FileDisplayProps): JSX.Element => {
                 <Typography light variant="h6" fontWeight="800" textAlign="center" singleLine>
                     <ImageIcon css={{ fontSize: "8.5rem" }} />
                 </Typography>
-
                 <Typography light variant="h6" fontWeight="800" textAlign="center" singleLine>
                     {file.name}
                 </Typography>
