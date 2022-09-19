@@ -13,7 +13,7 @@ const ConnectXummButton = ({ className, style }: ConnectXummButtonProps): JSX.El
         showModal(ConnectXummModal);
     };
     return (
-        <Button className={cx("connect-xumm-btn", className)} style={style} onClick={handleOnClick}>
+        <Button className={cx("connect-xumm-btn", className)} style={style} onClick={handleOnClick} size="sm">
             <Row gap="0.5rem" alignItems="center" css={{ whiteSpace: "nowrap" }}>
                 <WalletIcon css={{ fontSize: "1rem" }} />
                 {translate("loginWithXumm")}

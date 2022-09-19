@@ -5,4 +5,5 @@ export * from "./MatchMediaMock";
 export * from "./ResizeObserverMock";
 export * from "./genesys";
 export * from "./xumm-react";
+export * from "./dto";
 export * from "./wallet";

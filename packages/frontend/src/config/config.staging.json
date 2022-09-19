@@ -4,12 +4,13 @@
     "backendUrl": "",
     "appStoreXummLink": "https://apps.apple.com/us/app/xumm/id1492302343",
     "playStoreXummLink": "https://play.google.com/store/apps/details?id=com.xrpllabs.xumm",
+    "blockchainLinks": {
+        "address": "https://devnet.xrpl.org/accounts/",
+        "tx": "https://devnet.xrpl.org/transactions/"
+    },
     "socialLinks": {
         "twitterLink": "https://twitter.com/",
         "discordLink": "https://discordapp.com/users/"
     },
-    "blockchainLinks": {
-        "address": "https://devnet.xrpl.org/accounts/",
-        "tx": "https://devnet.xrpl.org/transactions/"
-    }
+    "nftDefaultCoverUrl": "https://img.seadn.io/files/74359db46e0caf1e692464f4e777b373.png?fit=max&w=600"
 }

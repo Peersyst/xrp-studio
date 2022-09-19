@@ -3,6 +3,7 @@ import { BaseGridRoot } from "./BaseGrid.styles";
 import { PaginatedData } from "query-utils";
 import { BaseGridProps } from "module/common/component/layout/BaseGrid/BaseGrid.types";
 import { Fragment } from "react";
+import NothingToShow from "../../feedback/NothingToShow/NothingToShow";
 
 function BaseGrid<T extends PaginatedData>({
     loading,
@@ -23,10 +24,10 @@ function BaseGrid<T extends PaginatedData>({
     justifyContent,
     justifyItems,
     breakpoints,
+    nothingToShow,
 }: BaseGridProps<T>): JSX.Element {
-    const hasItems = loading || !!data;
-
-    const infiniteScrollProps = { container, loaderElement, end, endElement, callback, observerOffset, loading };
+    const hasItems = loading || !!data?.pages[0]?.items?.[0];
+    const infiniteScrollProps = { container, loaderElement, endElement, callback, observerOffset, loading };
     const gridProps = {
         rowSize,
         cols,
@@ -39,15 +40,17 @@ function BaseGrid<T extends PaginatedData>({
     };
 
     return (
-        <InfiniteScroll {...infiniteScrollProps}>
-            <Row flex={1} justifyContent="center">
-                {hasItems && (
+        <InfiniteScroll end={!hasItems || end} {...infiniteScrollProps}>
+            <Row flex={1} css={{ minHeight: "40vh" }}>
+                {hasItems ? (
                     <BaseGridRoot {...gridProps}>
                         {data?.pages.map((page, i) => (
                             <Fragment key={i}>{renderItems(page.items)}</Fragment>
                         ))}
                         {loading && <Skeletons count={18} />}
                     </BaseGridRoot>
+                ) : (
+                    <NothingToShow css={{ paddingTop: "4rem" }}>{nothingToShow}</NothingToShow>
                 )}
             </Row>
         </InfiniteScroll>

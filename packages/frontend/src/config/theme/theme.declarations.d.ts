@@ -6,6 +6,10 @@ import { CSSProp } from "styled-components";
 
 // Custom components theme
 declare module "@peersyst/react-components" {
+    export interface ThemeZIndex {
+        filters: number;
+    }
+
     export interface Theme {
         borderRadiusMd: string;
         borderRadiusLg: string;
@@ -52,6 +56,18 @@ declare module "@peersyst/react-components" {
             90: string;
             100: string;
             0: string;
+        };
+    }
+
+    export interface ThemeBreakpointValues {
+        nftsGrid: {
+            xl: number;
+            lg: number;
+            lg: number;
+            md: number;
+            sm: number;
+            xs: number;
+            xxs: number;
         };
     }
 }

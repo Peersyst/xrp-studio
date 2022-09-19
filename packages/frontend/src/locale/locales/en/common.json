@@ -7,8 +7,15 @@
     "scanXummQR": "Scan the QR with XUMM app",
     "scanXummQRExplanation": "Scan the QR code with your XUMM Wallet to proceed",
     "dismiss": "Dismiss",
-    "getXummCTA": "Don't have XUMM Wallet? Get it here!",
     "letsGetStarted": "Let's get started!",
-    "editProfile": "Edit Profile",
-    "checkoutMyProfile": "Check out my XRP Studio profile!"
+    "getXummCTA": "Don't have XUMM Wallet? Get it here",
+    "myNfts": "My NFTs",
+    "createCollection": "Create Collection",
+    "createNft": "Create NFT",
+    "hideFilters&Search": "Hide filters and search",
+    "search&Filter": "Search and filter",
+    "clearAll": "Clear all",
+    "noneApplied": "None applied",
+    "checkoutMyProfile": "Check out my XRP Studio profile!",
+    "editProfile": "Edit Profile"
 }

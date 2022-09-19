@@ -8,7 +8,13 @@
     "scanXummQRExplanation": "Scanea el QR con tu billetera de XUMM para continuar",
     "dismiss": "Cerrar",
     "getXummCTA": "¿Todavía no tienes Xumm? ¡Descárgalo aquí!",
-    "letsGetStarted": "¡Empecemos!",
-    "editProfile": "Editar Perfil",
-    "checkoutMyProfile": "¡Échale un ojo a mi perfil de XRP Studio!"
+    "myNfts": "Mis NFTs",
+    "createCollection": "Añadir colección",
+    "createNft": "Crear NFT",
+    "hideFilters&Search": "Cerrar filtros y búsqueda",
+    "search&Filter": "Buscar y filtrar",
+    "clearAll": "Borrar todo",
+    "noneApplied": "Ninguno aplicado",
+    "checkoutMyProfile": "¡Échale un ojo a mi perfil de XRP Studio!",
+    "editProfile": "Editar Perfil"
 }

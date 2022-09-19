@@ -17,6 +17,7 @@ declare module "@peersyst/react-components" {
             discordLink: string;
         };
         blockchainLinks: BlockchainLinks;
+        nftDefaultCoverUrl: string;
     }
 
     export interface CreateConfig {
@@ -29,5 +30,6 @@ declare module "@peersyst/react-components" {
             discordLink: string;
         };
         blockchainLinks: BlockchainLinks;
+        nftDefaultCoverUrl: string;
     }
 }

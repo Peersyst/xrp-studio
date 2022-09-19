@@ -8,8 +8,8 @@ import { XummAppLinkProps, XummAppLinkType } from "module/wallet/component/navig
 const XummAppLink: XummAppLinkType = (({ img, link, alt }: XummAppLinkProps): JSX.Element => {
     return (
         <a href={link} target="_blank" rel="noreferrer" className={cx("xumm-app-link", alt)}>
-            <Button>
-                <Image css={{ height: "90%", width: "fit-content" }} src={img} alt={alt} />
+            <Button size="lg">
+                <Image css={{ height: "2rem", width: "fit-content" }} src={img} alt={alt} />
             </Button>
         </a>
     );
