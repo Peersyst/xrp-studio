@@ -1,10 +1,10 @@
 import { Col, Row, Typography } from "@peersyst/react-components";
 import { cx } from "@peersyst/react-utils";
 import BackButton from "../../navigation/BackButton/BackButton";
-import { BasePageHeaderRoot, BasePageHeaderWrapper } from "./BasePageHeader.styles";
-import { BasePageHeaderProps } from "./BasePageHeader.types";
+import { MainPageHeaderRoot, MainPageHeaderWrapper } from "./MainPageHeader.styles";
+import { MainPageHeaderProps } from "./MainPageHeader.types";
 
-const BasePageHeader = ({
+const MainPageHeader = ({
     back,
     title,
     subtitle,
@@ -14,10 +14,10 @@ const BasePageHeader = ({
     style,
     stickyTitle,
     className,
-}: BasePageHeaderProps): JSX.Element => {
+}: MainPageHeaderProps): JSX.Element => {
     return (
-        <BasePageHeaderRoot stickyTitle={stickyTitle} className={cx("base-page-header", className)} style={style}>
-            <BasePageHeaderWrapper gap="2rem">
+        <MainPageHeaderRoot stickyTitle={stickyTitle} className={cx("base-page-header", className)} style={style}>
+            <MainPageHeaderWrapper gap="2rem">
                 <Row justifyContent="space-between" wrap wrapGap="1.5rem">
                     <Row alignItems="center" gap="2rem">
                         {back && <BackButton size={backIconSize} />}
@@ -35,9 +35,9 @@ const BasePageHeader = ({
                     {complement}
                 </Row>
                 {footer}
-            </BasePageHeaderWrapper>
-        </BasePageHeaderRoot>
+            </MainPageHeaderWrapper>
+        </MainPageHeaderRoot>
     );
 };
 
-export default BasePageHeader;
+export default MainPageHeader;

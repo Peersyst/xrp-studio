@@ -2,7 +2,7 @@ import PageContent from "module/common/component/layout/PageContent/PageContent"
 import { useGetMyNfts } from "module/nft/query/useGetMyNfts";
 import BaseNftsGrid from "../BaseNftGrid/BaseNftGrid";
 
-const MyNftsPageContent = () => {
+const MyNftsPageContent = (): JSX.Element => {
     const { data, hasNextPage, fetchNextPage, isFetching } = useGetMyNfts();
     return (
         <PageContent>

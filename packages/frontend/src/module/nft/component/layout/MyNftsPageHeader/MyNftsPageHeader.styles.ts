@@ -1,7 +1,7 @@
-import BasePageHeader from "module/common/component/layout/BasePageHeader/BasePageHeader";
+import MainPageHeader from "module/common/component/layout/MainPageHeader/MainPageHeader";
 import styled, { css } from "styled-components";
 
-export const MyNftsPageHeaderRoot = styled(BasePageHeader)(
+export const MyNftsPageHeaderRoot = styled(MainPageHeader)(
     ({ theme }) => css`
         .my-nfts-search {
             ${theme.breakpoints.down("mobile")} {

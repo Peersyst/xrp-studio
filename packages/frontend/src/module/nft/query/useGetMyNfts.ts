@@ -13,7 +13,6 @@ export const useGetMyNfts = ({ onSettled }: UseGetMyNftsParams = {}): InfiniteQu
         [Queries.GET_MY_NFTS, address],
         ({ pageParam = 1 }) => NftService.nftControllerGetNfts(pageParam, 30, undefined, undefined, "DESC", address),
         {
-            enabled: !!address,
             onSettled,
         },
     );

@@ -25,7 +25,6 @@ const SearchBar = ({ loading = false, className, variant = "filled", size = "md"
             placeholder={t("search")}
             onChange={handleChange}
             size={size}
-            showValid={false}
             suffix={loading ? <LoaderIcon /> : <SearchIcon />}
             {...rest}
             variant={variant}

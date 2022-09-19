@@ -1,9 +1,18 @@
 import { IconButton } from "@peersyst/react-components";
+import { emphasize } from "@peersyst/react-utils";
 import styled, { css } from "styled-components";
 
 export const ArrowButtonRoot = styled(IconButton)(
     ({ theme }) => css`
         background-color: ${theme.palette.black[80]};
+        transition: background-color 200ms linear;
+        &:hover {
+            opacity: 1;
+            background-color: ${emphasize(theme.palette.black[80], 0.05)};
+        }
+        &:active {
+            background-color: ${emphasize(theme.palette.black[80], 0.1)};
+        }
         color: ${theme.palette.black[0]};
         border-radius: ${theme.borderRadius};
         display: flex;
