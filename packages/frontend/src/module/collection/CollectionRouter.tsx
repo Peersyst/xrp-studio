@@ -1,4 +1,4 @@
 export enum CollectionRoutes {
     COLLECTIONS = "/collections/",
-    CREATE_COLLECTION = "/create-collection",
+    CREATE_COLLECTION = "/collections/creation",
 }
