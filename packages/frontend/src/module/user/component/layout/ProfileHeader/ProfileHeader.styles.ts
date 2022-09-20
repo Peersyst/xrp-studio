@@ -101,8 +101,7 @@ export const ProfileHeaderFooter = styled(Row).attrs({ gap: "1rem", flex: 1 })(
             margin-left: auto;
             margin-right: auto;
             max-width: 100%;
-            width: calc(var(--page-max-width) + 7rem);
-            padding: 0 2rem;
+            width: var(--page-max-width);
         }
         ${theme.breakpoints.down("md")} {
             --profile-avatar-width: max(9.5rem, 13vw);
