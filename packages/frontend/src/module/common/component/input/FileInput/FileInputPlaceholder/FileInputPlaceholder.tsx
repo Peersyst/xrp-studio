@@ -2,12 +2,9 @@ import { Col, Typography } from "@peersyst/react-components";
 import { ImageUpIcon } from "icons";
 import useTranslate from "module/common/hook/useTranslate";
 import Button from "../../Button/Button";
-import { FileInputPlaceholderIcon, FileInputPlaceholderLabel } from "./FileInputPlaceholder.styles";
-
-export interface FileInputPlaceholderProps {
-    drag: boolean;
-    supportedFilesLabel?: string;
-}
+import { FileInputBaseIcon } from "../FileInput.styles";
+import { FileInputPlaceholderLabel } from "./FileInputPlaceholder.styles";
+import { FileInputPlaceholderProps } from "./FileInputPlaceholder.types";
 
 const FileInputPlaceholder = ({ drag, supportedFilesLabel }: FileInputPlaceholderProps): JSX.Element => {
     const t = useTranslate();
@@ -17,13 +14,13 @@ const FileInputPlaceholder = ({ drag, supportedFilesLabel }: FileInputPlaceholde
         </Typography>
     ) : (
         <>
-            <FileInputPlaceholderIcon as={ImageUpIcon} />
+            <FileInputBaseIcon as={ImageUpIcon} />
             <Col gap="0.75rem">
-                <FileInputPlaceholderLabel className="file-input-label-md" variant="h5">
+                <FileInputPlaceholderLabel size="md" variant="h5">
                     {t("fileInputPlaceholder")}
                 </FileInputPlaceholderLabel>
                 {supportedFilesLabel && (
-                    <FileInputPlaceholderLabel className="file-input-label-sm" variant="body1">
+                    <FileInputPlaceholderLabel size="sm" variant="body1">
                         {supportedFilesLabel}
                     </FileInputPlaceholderLabel>
                 )}

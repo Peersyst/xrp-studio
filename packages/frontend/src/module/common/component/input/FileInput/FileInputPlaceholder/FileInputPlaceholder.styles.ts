@@ -1,35 +1,32 @@
 import { Typography } from "@peersyst/react-components";
 import styled, { css } from "styled-components";
+import { greyStyles } from "../FileInput.styles";
+import { FileInputPlaceholderLabelProps, FileInputPlaceholderLabelSizeStyles } from "./FileInputPlaceholder.types";
 
-const greyStyles = css(({ theme }) => {
-    const light = theme.palette.mode === "light";
-    return css`
-        color: ${theme.palette.black[light ? 40 : 70]};
-    `;
-});
-
-export const FileInputPlaceholderIcon = styled.div(
-    ({ theme }) => css`
-        ${greyStyles};
-        font-size: 9rem;
-        ${theme.breakpoints.down("mobile")} {
-            font-size: 5.5rem;
-        }
+const mdSize = css(
+    () => css`
+        font-size: 1.25rem;
     `,
 );
 
-export const FileInputPlaceholderLabel = styled(Typography)(
-    ({ theme }) => css`
+const smSize = css(
+    () => css`
+        font-size: 0.875rem;
+    `,
+);
+
+const sizeStyles: FileInputPlaceholderLabelSizeStyles = {
+    md: mdSize,
+    sm: smSize,
+};
+
+export const FileInputPlaceholderLabel = styled(Typography)<FileInputPlaceholderLabelProps>(
+    ({ theme, size }) => css`
         ${greyStyles}
         text-align: center;
         font-weight: 500;
         ${theme.breakpoints.down("mobile")} {
-            &.file-input-label-md {
-                font-size: 1.25rem;
-            }
-            &.file-input-label-sm {
-                font-size: 0.875rem;
-            }
+            ${sizeStyles[size]}
         }
     `,
 );

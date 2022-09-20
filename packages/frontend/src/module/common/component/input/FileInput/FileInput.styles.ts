@@ -64,3 +64,20 @@ export const RemoveFileIcon = styled(IconButton)(
         color: ${theme.palette.black[0]};
     `,
 );
+
+export const greyStyles = css(({ theme }) => {
+    const light = theme.palette.mode === "light";
+    return css`
+        color: ${theme.palette.black[light ? 40 : 70]};
+    `;
+});
+
+export const FileInputBaseIcon = styled.div(
+    ({ theme }) => css`
+        ${greyStyles};
+        font-size: 9rem;
+        ${theme.breakpoints.down("mobile")} {
+            font-size: 5.5rem;
+        }
+    `,
+);
