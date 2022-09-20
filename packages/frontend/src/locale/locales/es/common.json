@@ -22,5 +22,7 @@
     "fileInputPlaceholder": "Sube una imagen, una foto o un audio",
     "onDragText": "Suelta aquí el fichero",
     "filesSupported": "Ficheros soportados",
-    "selectAnotherFile": "Seleccionar otro fichero"
+    "selectAnotherFile": "Seleccionar otro fichero",
+    "andNMoreItems_one": "y {{count}} fichero más",
+    "andNMoreItems_other": "y {{count}} ficheros más"
 }

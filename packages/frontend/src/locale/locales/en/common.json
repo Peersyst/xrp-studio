@@ -23,5 +23,7 @@
     "fileInputPlaceholder": "Upload an image, video or audio",
     "onDragText": "Drop it like it's hot",
     "filesSupported": "Files supported",
-    "selectAnotherFile": "Select another file"
+    "selectAnotherFile": "Select another file",
+    "andNMoreItems_one": "and {{count}} more file",
+    "andNMoreItems_other": "and {{count}} more files"
 }

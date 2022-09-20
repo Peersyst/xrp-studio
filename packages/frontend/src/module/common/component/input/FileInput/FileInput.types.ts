@@ -1,11 +1,11 @@
 import { FileInputPlaceholderProps } from "./FileInputPlaceholder/FileInputPlaceholder";
 import { UploadProps } from "@peersyst/react-components";
 
-export type FileInputType = File | undefined;
+export type FileInputType = File | File[] | undefined;
 
-export type UploadFileType = FileInputType | FileList;
+export type UploadFileType = File | FileList | undefined;
 
-export interface FileInputProps extends Omit<UploadProps, "onChange" | "multiple" | "defaultValue" | "value"> {
+export interface FileInputProps extends Omit<UploadProps, "onChange" | "defaultValue" | "value"> {
     /**
      * Text displaying the files that are supported
      */

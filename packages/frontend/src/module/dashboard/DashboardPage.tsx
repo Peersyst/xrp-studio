@@ -21,8 +21,8 @@ export default function DashboardPage(): JSX.Element {
                 ),
                 content: (
                     <PageContent>
-                        <Row flex={1}>
-                            <FileInput css={{ maxWidth: "40rem" }} />
+                        <Row flex={1} css={{ maxWidth: "40rem" }}>
+                            <FileInput multiple />
                         </Row>
                     </PageContent>
                 ),
