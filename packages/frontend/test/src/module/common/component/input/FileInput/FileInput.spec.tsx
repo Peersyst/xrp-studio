@@ -28,4 +28,19 @@ describe("Test for the FileInput component", () => {
         userEvent.click(btn);
         expect(screen.getByRole("heading", { name: translate("fileInputPlaceholder") })).toBeInTheDocument();
     });
+    test("Show placeholder -> Upload files -> showArrayDisplay", () => {
+        const fileName = "test.png";
+        const file = new File(["hello"], fileName, { type: "image/png" });
+        const files = [file, file, file];
+        const screen = render(<FileInput multiple />);
+        //Placeholder
+        expect(screen.getByRole("heading", { name: translate("fileInputPlaceholder") })).toBeInTheDocument();
+        //Upload file
+        const input = screen.getByTestId("upload").getElementsByTagName("input")[0];
+        userEvent.upload(input, files);
+        expect(input.files).toHaveLength(3);
+        //Show array display
+        expect(screen.getByRole("heading", { name: fileName })).toBeInTheDocument();
+        expect(screen.getByRole("heading", { name: translate("andNMoreItems", { count: files.length - 1 }) })).toBeInTheDocument();
+    });
 });
