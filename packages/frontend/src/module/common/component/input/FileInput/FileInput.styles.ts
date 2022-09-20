@@ -1,6 +1,14 @@
-import { Col, IconButton, Upload } from "@peersyst/react-components";
+import { Col, IconButton } from "@peersyst/react-components";
 import { emphasize } from "@peersyst/react-utils";
 import styled, { css } from "styled-components";
+
+const hoverStyles = css(({ theme }) => {
+    const light = theme.palette.mode === "light";
+    const color = theme.palette.black[light ? "80" : "85"];
+    return css`
+        background: ${emphasize(color, 0.08)};
+    `;
+});
 
 export const FileInputRoot = styled(Col)(
     ({ theme }) => css`
@@ -11,26 +19,13 @@ export const FileInputRoot = styled(Col)(
         .FormControl {
             height: 100%;
         }
-        ${theme.breakpoints.down("mobile")} {
-            height: 22rem;
-        }
-    `,
-);
-
-const hoverStyles = css(({ theme }) => {
-    const light = theme.palette.mode === "light";
-    const color = theme.palette.black[light ? "80" : "85"];
-    return css`
-        background: ${emphasize(color, 0.08)};
-    `;
-});
-
-export const FileUpload = styled(Upload)(
-    () => css`
-        .Drag {
+        .Upload.Drag {
             .file-input-wrapper {
                 ${hoverStyles}
             }
+        }
+        ${theme.breakpoints.down("mobile")} {
+            height: 22rem;
         }
     `,
 );

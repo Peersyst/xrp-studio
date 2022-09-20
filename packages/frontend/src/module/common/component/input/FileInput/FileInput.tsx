@@ -1,12 +1,22 @@
 import { cx } from "@peersyst/react-utils";
 import { CloseIcon } from "icons";
 import FileDisplay from "./FileDisplay/FileDisplay";
-import { FileInputWrapper, RemoveFileIcon, FileInputRoot, FileUpload } from "./FileInput.styles";
+import { FileInputWrapper, RemoveFileIcon, FileInputRoot } from "./FileInput.styles";
 import FileInputPlaceholder from "./FileInputPlaceholder/FileInputPlaceholder";
 import { FileInputProps, FileInputType, UploadFileType } from "./FileInput.types";
 import { useControlled } from "@peersyst/react-hooks";
+import { Upload } from "@peersyst/react-components";
 
-const FileInput = ({ className, multiple, supportedFilesLabel, defaultValue, value, onChange, ...rest }: FileInputProps): JSX.Element => {
+const FileInput = ({
+    className,
+    style,
+    multiple,
+    supportedFilesLabel,
+    defaultValue,
+    value,
+    onChange,
+    ...rest
+}: FileInputProps): JSX.Element => {
     const [file, setFile] = useControlled<FileInputType>(defaultValue, value, onChange);
     const handleFileChange = (f: UploadFileType) => {
         if (f) {
@@ -25,8 +35,8 @@ const FileInput = ({ className, multiple, supportedFilesLabel, defaultValue, val
         setFile(undefined);
     };
     return (
-        <FileInputRoot className={(cx("file-input"), className)}>
-            <FileUpload data-testid="upload" multiple={multiple} onChange={handleFileChange} {...rest}>
+        <FileInputRoot className={(cx("file-input"), className)} data-testid="upload" style={style}>
+            <Upload multiple={multiple} onChange={handleFileChange} {...rest}>
                 {(drag) => {
                     return (
                         <FileInputWrapper className="file-input-wrapper">
@@ -38,7 +48,7 @@ const FileInput = ({ className, multiple, supportedFilesLabel, defaultValue, val
                         </FileInputWrapper>
                     );
                 }}
-            </FileUpload>
+            </Upload>
             {file && (
                 <RemoveFileIcon onClick={handleRemoveFiles}>
                     <CloseIcon />
