@@ -11,6 +11,10 @@ export interface FileInputProps extends Omit<UploadProps, "onChange" | "defaultV
      */
     supportedFilesLabel?: FileInputPlaceholderProps["supportedFilesLabel"];
     /**
+     * Text displaying the placeholder of the file input
+     */
+    textInputPlaceholder?: FileInputPlaceholderProps["textInputPlaceholder"];
+    /**
      * Function when triggered when a file is uploaded
      */
     onChange?: (file: FileInputType) => void;

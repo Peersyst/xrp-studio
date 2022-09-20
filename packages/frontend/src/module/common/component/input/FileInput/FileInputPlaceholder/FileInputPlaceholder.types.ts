@@ -3,6 +3,7 @@ import { FlattenInterpolation, ThemeProps, DefaultTheme } from "styled-component
 export interface FileInputPlaceholderProps {
     drag: boolean;
     supportedFilesLabel?: string;
+    textInputPlaceholder?: string;
 }
 
 export type FileInputPlaceholderLabelSize = "sm" | "md";

@@ -12,6 +12,7 @@ const FileInput = ({
     style,
     multiple,
     supportedFilesLabel,
+    textInputPlaceholder,
     defaultValue,
     value,
     onChange,
@@ -43,7 +44,11 @@ const FileInput = ({
                             {file ? (
                                 <FileDisplay file={file} />
                             ) : (
-                                <FileInputPlaceholder drag={drag} supportedFilesLabel={supportedFilesLabel} />
+                                <FileInputPlaceholder
+                                    drag={drag}
+                                    textInputPlaceholder={textInputPlaceholder}
+                                    supportedFilesLabel={supportedFilesLabel}
+                                />
                             )}
                         </FileInputWrapper>
                     );
