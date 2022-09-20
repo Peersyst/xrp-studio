@@ -23,7 +23,7 @@ const MyNftsPageHeader = (): JSX.Element => {
                     </Button>
                 </Row>
             }
-            stickyTitle={t("goUp").toUpperCase()}
+            stickyTitle={t("myNfts").toUpperCase()}
             footer={<MyNftsSearch />}
         />
     );

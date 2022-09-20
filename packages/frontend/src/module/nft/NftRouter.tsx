@@ -4,7 +4,7 @@ import MyNftsPage from "./pages/MyNftsPage";
 export enum NftRoutes {
     NFTS = "/nfts/",
     MY_NFTS = "/my-nfts",
-    CREATE_NFT = "/create-nft",
+    CREATE_NFT = "/nfts/creation",
 }
 
 export const useNftRoutes = (): RouteObject[] => {

@@ -19,7 +19,7 @@ const PageHeader = ({ children, stickyTitle, ...rest }: PageHeaderProps): JSX.El
                 setVisible(!entry.isIntersecting);
             },
             {
-                rootMargin: "-110px 0px 0px 0px",
+                rootMargin: "-100px 0px 0px 0px",
             },
         ),
     ).current;

@@ -1,7 +1,7 @@
 import { Row } from "@peersyst/react-components";
 import styled, { css } from "styled-components";
 
-export const WalletNotConnected = styled(Row)(
+export const WalletNotConnectedRoot = styled(Row)(
     ({ theme }) => css`
         ${theme.breakpoints.down("mobile")} {
             .get-started-text {
