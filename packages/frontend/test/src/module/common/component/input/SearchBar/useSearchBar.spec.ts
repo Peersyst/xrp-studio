@@ -2,7 +2,7 @@ import { useSearchBar } from "module/common/component/input/SearchBar/hook/useSe
 import { UseSearchBarParams } from "module/common/component/input/SearchBar/hook/useSearchBar.types";
 import { act, renderHook, waitFor } from "test-utils";
 
-const renderUseSearchBar = ({ onSearch = jest.fn() }: Partial<UseSearchBarParams> = {}) => renderHook(() => useSearchBar({ onSearch }));
+const renderUseSearchBar = ({ onQuery = jest.fn() }: Partial<UseSearchBarParams> = {}) => renderHook(() => useSearchBar({ onQuery }));
 
 describe("useSearchBar", () => {
     test("Return false by default", () => {
@@ -11,15 +11,15 @@ describe("useSearchBar", () => {
     });
     test("Return true when loading", () => {
         act(async () => {
-            const onSearch = jest.fn().mockReturnValue("test");
-            const { loading, onChange, value } = renderUseSearchBar({ onSearch }).result.current;
+            const onQuery = jest.fn().mockReturnValue("test");
+            const { loading, onChange, value } = renderUseSearchBar({ onQuery }).result.current;
             expect(loading).toBe(false);
-            expect(onSearch).toHaveBeenCalledTimes(0);
+            expect(onQuery).toHaveBeenCalledTimes(0);
             expect(value).toBeUndefined();
             onChange("test");
             await waitFor(() => {
                 expect(loading).toBe(true);
-                expect(onSearch).toHaveBeenCalled();
+                expect(onQuery).toHaveBeenCalled();
                 expect(value).toBe("test");
             });
         });
