@@ -15,8 +15,13 @@ export const ProfileHeaderRoot = styled(PageHeader)<ProfileHeaderRootProps>(
             display: flex;
             flex-direction: column;
             row-gap: 1rem;
-            margin-top: var(--appbar-height);
-            padding-bottom: 0;
+            margin: var(--appbar-height) auto 0;
+
+            max-width: var(--page-max-width);
+
+            align-self: center;
+
+            padding: 0 var(--horizontal-page-padding);
 
             --profile-cover-height: 15.25rem;
 
@@ -76,7 +81,7 @@ export const ProfileHeaderRoot = styled(PageHeader)<ProfileHeaderRootProps>(
 export const ProfileCover = styled(Image)(
     ({ theme }) => css`
         align-self: center;
-        width: calc(var(--page-max-width) + 7rem);
+        width: calc(var(--page-max-width) + 6.5rem);
         height: var(--profile-cover-height);
         flex-shrink: 0;
         border-radius: ${theme.borderRadius};
@@ -97,12 +102,8 @@ export const ProfileHeaderFooter = styled(Row).attrs({ gap: "1rem", flex: 1 })(
         --profile-avatar-top: var(--profile-cover-height);
 
         min-height: calc(calc(calc(var(--profile-avatar-width) / 1.8)) - 2rem);
-        ${theme.breakpoints.up("sm")} {
-            margin-left: auto;
-            margin-right: auto;
-            max-width: 100%;
-            width: var(--page-max-width);
-        }
+        width: 100%;
+
         ${theme.breakpoints.down("md")} {
             --profile-avatar-width: max(9.5rem, 13vw);
         }

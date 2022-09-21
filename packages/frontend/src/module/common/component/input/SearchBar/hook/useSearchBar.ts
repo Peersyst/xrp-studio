@@ -2,7 +2,7 @@ import { debounce } from "@peersyst/react-utils";
 import { useRef, useState } from "react";
 import { UseSearchBar } from "./useSearchBar.types";
 
-export const useSearchBar: UseSearchBar = ({ onSearch, delay = 600 }) => {
+export const useSearchBar: UseSearchBar = ({ onQuery, delay = 600 }) => {
     const [query, setQuery] = useState<string>();
     const [loading, setLoading] = useState(false);
     const handleChange = (q: string) => {
@@ -12,7 +12,7 @@ export const useSearchBar: UseSearchBar = ({ onSearch, delay = 600 }) => {
     };
     const changeQuery = useRef(
         debounce((q: string) => {
-            onSearch?.(q);
+            onQuery?.(q);
             setLoading(false);
         }, delay),
     ).current;

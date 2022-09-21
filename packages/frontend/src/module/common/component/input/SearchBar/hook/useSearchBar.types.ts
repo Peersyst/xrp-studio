@@ -1,7 +1,7 @@
 import { TextFieldProps } from "@peersyst/react-components";
 
 export interface UseSearchBarParams {
-    onSearch: TextFieldProps["onChange"];
+    onQuery: TextFieldProps["onChange"];
     delay?: number;
 }
 

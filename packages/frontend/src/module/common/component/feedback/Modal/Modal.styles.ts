@@ -8,6 +8,7 @@ export const ModalRoot = styled(Modal)(
         padding: 3rem;
         width: 37.5rem;
         max-width: 90vw;
+        max-height: 82vh;
         background: ${theme.palette.black["90"]};
         border-radius: ${theme.borderRadiusLg};
         border: 1px solid ${alpha(theme.palette.black["0"], 0.2)};
