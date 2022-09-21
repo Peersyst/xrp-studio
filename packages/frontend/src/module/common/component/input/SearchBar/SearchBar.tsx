@@ -16,7 +16,7 @@ const SearchBar = ({
     ...rest
 }: SearchBarProps): JSX.Element => {
     const t = useTranslate();
-    const { value, onChange, loading } = useSearchBar({ onSearch });
+    const { value, onChange, loading } = useSearchBar({ onQuery: onSearch });
 
     return (
         <TextField

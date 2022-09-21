@@ -11,6 +11,7 @@ export const ArrowButtonRoot = styled(IconButton)(
             background-color: ${emphasize(theme.palette.black[80], 0.05)};
         }
         &:active {
+            opacity: 1;
             background-color: ${emphasize(theme.palette.black[80], 0.1)};
         }
         color: ${theme.palette.black[0]};
