@@ -3,7 +3,7 @@ import { Wallet } from "../types";
 
 export const initialWalletState: Wallet = {
     isLogged: false,
-    address: "",
+    address: undefined,
     active: true,
 };
 

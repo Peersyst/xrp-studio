@@ -1,24 +1,27 @@
 import { createRef, CSSProperties, ReactNode, useEffect, useRef, useState } from "react";
 import { MainPageHeader, PageHeaderRoot, PageStickyHeader } from "module/common/component/layout/PageHeader/PageHeader.styles";
 import { Animated, Typography } from "@peersyst/react-components";
-import { useScrollTrigger } from "@peersyst/react-hooks";
 
 export interface PageHeaderProps {
     stickyTitle?: string;
     children?: ReactNode;
     className?: string;
     style?: CSSProperties;
-    withBorder?: boolean;
 }
 
 const PageHeader = ({ children, stickyTitle, ...rest }: PageHeaderProps): JSX.Element => {
-    const [headerHeight, setHeaderHeight] = useState<number>(0);
     const headerRef = createRef<HTMLDivElement>();
-
+    const [visible, setVisible] = useState<boolean>(false);
     const headerObserver = useRef(
-        new ResizeObserver(([headerObs]) => {
-            setHeaderHeight(headerObs.target.getBoundingClientRect().height);
-        }),
+        new IntersectionObserver(
+            (entries) => {
+                const entry = entries[0];
+                setVisible(!entry.isIntersecting);
+            },
+            {
+                rootMargin: "-100px 0px 0px 0px",
+            },
+        ),
     ).current;
 
     useEffect(() => {
@@ -28,8 +31,6 @@ const PageHeader = ({ children, stickyTitle, ...rest }: PageHeaderProps): JSX.El
             if (currentHeaderRef) headerObserver.disconnect();
         };
     }, [headerRef]);
-
-    const stickyTrigger = useScrollTrigger({ threshold: headerHeight - 100, disableHysteresis: true });
 
     const scrollToTop = () => {
         window.scrollTo(0, 0);
@@ -41,7 +42,7 @@ const PageHeader = ({ children, stickyTitle, ...rest }: PageHeaderProps): JSX.El
                 {children}
             </MainPageHeader>
             {stickyTitle && (
-                <Animated.Fade in={stickyTrigger} duration={{ enter: 300, exit: 200 }}>
+                <Animated.Fade in={visible} duration={{ enter: 300, exit: 200 }}>
                     <PageStickyHeader onClick={scrollToTop} className="sticky-header">
                         <Typography variant="subtitle2" fontWeight={700}>
                             {stickyTitle}
