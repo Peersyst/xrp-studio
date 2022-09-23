@@ -9,6 +9,7 @@ const ProfileNftsGrid = (): JSX.Element => {
             callback={() => fetchNextPage({ cancelRefetch: false })}
             end={!hasNextPage}
             loading={isFetching}
+            filters={<>Here profile filters</>}
         />
     );
 };

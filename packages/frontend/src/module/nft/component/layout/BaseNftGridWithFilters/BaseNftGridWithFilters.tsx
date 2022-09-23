@@ -1,15 +1,14 @@
-import { PaginatedData } from "query-utils";
 import { BaseCardSkeletons } from "module/common/component/feedback/Skeletons/Skeletons";
 import NftCard from "../../display/NftCard/NftCard";
 import { useGetNftGridBreakpoints } from "../BaseNftGrid/hook/useGetNftGridBreakpoints";
-import { BaseNftsGridProps } from "../BaseNftGrid/BaseNftGrid.types";
 import BaseGridWithFilters from "module/common/component/layout/BaseGridWithFilters/BaseGridWithFilters";
+import { BaseNftsGridWithFiltersProps } from "./BaseNftsGridWithFilters.types";
+import { PaginatedNftDto } from "module/api/service";
 
-function BaseNftGridWithFilters<T extends PaginatedData>({ data, loading, ...rest }: BaseNftsGridProps<T>): JSX.Element {
+function BaseNftGridWithFilters<TagT>({ data, loading, ...rest }: BaseNftsGridWithFiltersProps<TagT>): JSX.Element {
     const breakpoints = useGetNftGridBreakpoints();
     return (
-        <BaseGridWithFilters
-            filters={<></>}
+        <BaseGridWithFilters<PaginatedNftDto, TagT>
             cols={3}
             colGap={24}
             data={data}

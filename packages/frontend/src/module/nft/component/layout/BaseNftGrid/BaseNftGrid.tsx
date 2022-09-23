@@ -1,11 +1,10 @@
-import { PaginatedData } from "query-utils";
 import { BaseCardSkeletons } from "module/common/component/feedback/Skeletons/Skeletons";
 import { useGetNftGridBreakpoints } from "./hook/useGetNftGridBreakpoints";
 import { BaseNftsGridProps } from "./BaseNftGrid.types";
 import NftCard from "../../display/NftCard/NftCard";
 import BaseGrid from "module/common/component/layout/BaseGrid/BaseGrid";
 
-function BaseNftsGrid<T extends PaginatedData>({ data, loading, ...rest }: BaseNftsGridProps<T>): JSX.Element {
+function BaseNftsGrid({ data, loading, ...rest }: BaseNftsGridProps): JSX.Element {
     const breakpoints = useGetNftGridBreakpoints();
     return (
         <BaseGrid
