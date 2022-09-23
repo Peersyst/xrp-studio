@@ -7,8 +7,8 @@ import {
 } from "module/collection/component/display/CollectionCard/CollectionCard.styles";
 import { CollectionCardProps } from "module/collection/component/display/CollectionCard/CollectionCard.types";
 import useTranslate from "module/common/hook/useTranslate";
-import ConditionalLink from "module/common/component/navigation/ConditionalLink/ConditionalLink";
 import { CollectionRoutes } from "module/collection/CollectionRouter";
+import ConditionalLink from "module/common/component/navigation/ConditionalLink/ConditionalLink";
 
 const CollectionCard = ({
     collection: { id, name = "", image = "", items, header },
