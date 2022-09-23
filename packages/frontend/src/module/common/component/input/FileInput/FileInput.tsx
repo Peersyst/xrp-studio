@@ -36,7 +36,7 @@ const FileInput = ({
         setFile(undefined);
     };
     return (
-        <FileInputRoot className={(cx("file-input"), className)} data-testid="upload" style={style}>
+        <FileInputRoot className={cx("file-input", className)} data-testid="upload" style={style}>
             <Upload multiple={multiple} onChange={handleFileChange} {...rest}>
                 {(drag) => {
                     return (

@@ -13,8 +13,8 @@ const FileDisplay = ({ file }: FileDisplayProps): JSX.Element => {
     const t = useTranslate();
     return (
         <>
+            <FileDisplayIcon as={ImageIcon} />
             <Col alignItems="center" gap="0.75rem" css={{ maxWidth: "80%" }}>
-                <FileDisplayIcon as={ImageIcon} />
                 {"length" in file ? (
                     <FileArrayDisplay>{file}</FileArrayDisplay>
                 ) : (
