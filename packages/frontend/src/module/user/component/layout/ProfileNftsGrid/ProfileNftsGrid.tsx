@@ -1,10 +1,11 @@
-import BaseNftGridWithFilters from "module/nft/component/layout/BaseNftGridWithFilters/BaseNftGridWithFilters";
+import BaseNftsGridWithFilters from "module/nft/component/layout/BaseNftsGridWithFilters/BaseNftsGridWithFilters";
 import { useGetProfileNfts } from "module/user/query/useGetProfileNfts";
 
 const ProfileNftsGrid = (): JSX.Element => {
     const { data, hasNextPage, fetchNextPage, isFetching } = useGetProfileNfts();
+
     return (
-        <BaseNftGridWithFilters
+        <BaseNftsGridWithFilters
             data={data}
             callback={() => fetchNextPage({ cancelRefetch: false })}
             end={!hasNextPage}

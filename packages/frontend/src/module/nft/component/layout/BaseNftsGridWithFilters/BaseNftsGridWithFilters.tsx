@@ -5,7 +5,7 @@ import BaseGridWithFilters from "module/common/component/layout/BaseGridWithFilt
 import { BaseNftsGridWithFiltersProps } from "./BaseNftsGridWithFilters.types";
 import { PaginatedNftDto } from "module/api/service";
 
-function BaseNftGridWithFilters<TagT>({ data, loading, ...rest }: BaseNftsGridWithFiltersProps<TagT>): JSX.Element {
+function BaseNftsGridWithFilters<TagT>({ data, loading, ...rest }: BaseNftsGridWithFiltersProps<TagT>): JSX.Element {
     const breakpoints = useGetNftGridBreakpoints();
     return (
         <BaseGridWithFilters<PaginatedNftDto, TagT>
@@ -23,4 +23,4 @@ function BaseNftGridWithFilters<TagT>({ data, loading, ...rest }: BaseNftsGridWi
     );
 }
 
-export default BaseNftGridWithFilters;
+export default BaseNftsGridWithFilters;
