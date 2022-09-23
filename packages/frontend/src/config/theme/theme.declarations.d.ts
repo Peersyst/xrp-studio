@@ -62,9 +62,6 @@ declare module "@peersyst/react-components" {
     export interface ThemeBreakpointValues {
         nftsGrid: {
             xl: number;
-            lg: number;
-            lg: number;
-            md: number;
             sm: number;
             xs: number;
             xxs: number;

@@ -13,9 +13,7 @@ const theme = createTheme({
     breakpoints: {
         values: {
             nftsGrid: {
-                xl: 3000,
-                lg: 2000,
-                md: 1400,
+                xl: 300000, //Big number because the page has a maxwidth
                 sm: 1000,
                 xs: 767,
                 xxs: 500,
