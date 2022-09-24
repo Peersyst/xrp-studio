@@ -1,9 +1,11 @@
 import styled, { css } from "styled-components";
-import { Col, Image, Row } from "@peersyst/react-components";
+import { Image, Row } from "@peersyst/react-components";
 import Avatar from "module/common/component/display/Avatar/Avatar";
 
-export const CollectionCardRoot = styled(Col)(
+export const CollectionCardRoot = styled.div(
     ({ theme }) => css`
+        display: flex;
+        flex-direction: column;
         position: relative;
         width: 22.5rem;
         height: 12rem;

@@ -1,7 +1,6 @@
 {
     "welcome": "Hello",
     "name": "Charlie",
-    "items": "Items",
     "formatNumber": "{{val, number}}",
     "loginWithXumm": "Login with XUMM Wallet",
     "scanXummQR": "Scan the QR with XUMM app",
@@ -18,5 +17,7 @@
     "noneApplied": "None applied",
     "checkoutMyProfile": "Check out my XRP Studio profile!",
     "editProfile": "Edit Profile",
-    "search": "Search"
+    "search": "Search",
+    "itemWithCount_one": "{{count}} item",
+    "itemWithCount_other": "{{count}} items"
 }
