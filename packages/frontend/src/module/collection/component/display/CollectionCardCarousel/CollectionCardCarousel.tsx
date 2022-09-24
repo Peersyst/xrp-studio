@@ -1,7 +1,8 @@
-import { Carousel } from "@peersyst/react-components";
 import { CollectionDto } from "module/api/service";
+import Carousel from "module/common/component/display/Carousel/Carousel";
 import CollectionCardSkeleton from "../../feedback/CollectionCardSkeleton/CollectionCardSkeleton";
 import CollectionCard from "../CollectionCard/CollectionCard";
+import { useGetSkeletonCount } from "./useGetSkeletonCount/useGetSkeletonCount";
 
 interface CollectionCardCarouselProps {
     collections: CollectionDto[];
@@ -9,27 +10,13 @@ interface CollectionCardCarouselProps {
     skeletonCount?: number;
 }
 
-/**
- * It is used 2 carousels because of an edge case.
- * The edge case is when skeletonCount > collections.length and the arrows are shown by default (f.e. ipad)
- * The problem comes when the loading process is finished and the skeletons are replaced with the real cards,
- * bacause the arrows are still shown.
- * Another aproach to fix it, would be to calculte the number of skeletonCount based on screen width
- * with useMediaQuery hook
- */
-
-const CollectionCardCarousel = ({ isLoading, collections, skeletonCount = 3 }: CollectionCardCarouselProps): JSX.Element => {
-    return isLoading ? (
+const CollectionCardCarousel = ({ isLoading, collections, skeletonCount }: CollectionCardCarouselProps): JSX.Element => {
+    const defaultSkeletonCount = useGetSkeletonCount();
+    return (
         <Carousel>
-            {[...Array(skeletonCount)].map((_, i) => (
-                <CollectionCardSkeleton key={i} />
-            ))}
-        </Carousel>
-    ) : (
-        <Carousel>
-            {collections.map((collection) => (
-                <CollectionCard key={collection.id} collection={collection} />
-            ))}
+            {isLoading
+                ? [...Array(skeletonCount ?? defaultSkeletonCount)].map((_, i) => <CollectionCardSkeleton key={i} />)
+                : collections.map((collection) => <CollectionCard key={collection.id} collection={collection} />)}
         </Carousel>
     );
 };

@@ -11,6 +11,6 @@ describe("CollectionCard", () => {
         expect(screen.getByText(collectionMock!.name!)).toBeInTheDocument();
         expect(screen.getAllByRole("img")[0]).toHaveAttribute("alt", "collection-" + collectionMock.id + "-cover");
         expect(screen.getAllByRole("img")[1]).toHaveAttribute("alt", "collection-" + collectionMock.id + "-image");
-        expect(screen.getByText(`${translate("formatNumber", { val: collectionMock.items })} ${translate("items").toLowerCase()}`));
+        expect(screen.getByText(translate("itemWithCount", { count: collectionMock.items })));
     });
 });

@@ -5,13 +5,9 @@ import { useGetUserAddress } from "../hook/useGetUserAddress";
 
 export const useGetUserCollections = (addressParams?: string): UseInfiniteQueryResult<PaginatedCollectionDto, unknown> => {
     const address = useGetUserAddress(addressParams);
-    //TODO: implement profile filters
     return useInfiniteQuery(
-        [Queries.GET_USER_NFTS, address],
-        async ({ pageParam = 1 }) => {
-            await new Promise((resolve) => setTimeout(resolve, 3000));
-            return CollectionService.collectionControllerGetCollections(pageParam, 30, undefined, address, "DESC");
-        },
+        [Queries.GET_USER_COLLECTIONS, address],
+        async ({ pageParam = 1 }) => CollectionService.collectionControllerGetCollections(pageParam, 30, undefined, address, "DESC"),
         {
             enabled: !!address,
         },

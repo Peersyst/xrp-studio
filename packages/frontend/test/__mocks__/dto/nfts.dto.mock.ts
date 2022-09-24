@@ -27,7 +27,7 @@ export class NftsDtoMock extends BaseMock implements NftsDtoMockType {
         this.issuer = issuer;
         this.nfts =
             nfts ||
-            [...Array(length)].map((index) => new NftDtoMock({ issuer: issuer, id: index, user: new UserDtoMock({ address: issuer }) }));
+            [...Array(length)].map((_, index) => new NftDtoMock({ issuer: issuer, id: index, user: new UserDtoMock({ address: issuer }) }));
     }
 }
 
@@ -38,7 +38,7 @@ export class PaginatedNftsMock extends BaseMock implements InfiniteDataMock<Pagi
         super();
         this.pageParams = [];
         this.pages = [...Array(pages)].map(
-            (index) => new PaginatedDataMock<NftDtoMock[]>({ items: new NftsDtoMock(nftsParams).nfts, pages, currentPage: index + 1 }),
+            (_, index) => new PaginatedDataMock<NftDtoMock[]>({ items: new NftsDtoMock(nftsParams).nfts, pages, currentPage: index + 1 }),
         );
     }
 }
