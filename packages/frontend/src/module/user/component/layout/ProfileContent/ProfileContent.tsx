@@ -8,7 +8,7 @@ const ProfileContent = (): JSX.Element => {
         <PageContent>
             <Col flex={1} gap="4.25rem">
                 <ProfileCollections />
-                <ProfileNftsGrid />
+                {/*  <ProfileNftsGrid /> */}
             </Col>
         </PageContent>
     );
