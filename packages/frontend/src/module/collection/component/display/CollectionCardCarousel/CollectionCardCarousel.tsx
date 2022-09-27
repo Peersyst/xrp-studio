@@ -1,7 +1,6 @@
 import { Row } from "@peersyst/react-components";
 import { CollectionDto } from "module/api/service";
 import Carousel from "module/common/component/display/Carousel/Carousel";
-import { useMemo } from "react";
 import CollectionCardSkeleton from "../../feedback/CollectionCardSkeleton/CollectionCardSkeleton";
 import CollectionCard from "../CollectionCard/CollectionCard";
 import { useGetSkeletonCount } from "./useGetSkeletonCount/useGetSkeletonCount";
@@ -16,7 +15,7 @@ const CollectionCardCarousel = ({ isLoading, collections, skeletonCount }: Colle
     const defaultSkeletonCount = useGetSkeletonCount();
 
     return isLoading ? (
-        <Row>
+        <Row gap={20}>
             {[...Array(skeletonCount ?? defaultSkeletonCount)].map((_, i) => (
                 <CollectionCardSkeleton key={i} />
             ))}

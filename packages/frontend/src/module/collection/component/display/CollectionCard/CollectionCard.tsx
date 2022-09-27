@@ -10,6 +10,7 @@ import useTranslate from "module/common/hook/useTranslate";
 import ConditionalLink from "module/common/component/navigation/ConditionalLink/ConditionalLink";
 import { forwardRef } from "react";
 import { setRef } from "@peersyst/react-utils";
+import { CollectionRoutes } from "module/collection/CollectionRouter";
 
 const CollectionCard = forwardRef(
     (
