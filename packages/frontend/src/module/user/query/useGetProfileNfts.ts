@@ -8,9 +8,9 @@ export const useGetProfileNfts = (addressParams?: string): InfiniteQueryResult<P
     //TODO: implement profile filters
     return useInfiniteQuery(
         [Queries.GET_USER_NFTS, address],
-        ({ pageParam = 1 }) => NftService.nftControllerGetNfts(pageParam, 30, undefined, undefined, "DESC", undefined),
+        ({ pageParam = 1 }) => NftService.nftControllerGetNfts(pageParam, 30, undefined, undefined, "DESC", address),
         {
-            enabled: undefined,
+            enabled: !!address,
         },
     );
 };
