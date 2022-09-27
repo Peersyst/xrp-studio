@@ -21,7 +21,7 @@ export const FiltersDivider = styled(Divider)(
 
 const FILTER_MODAL_HEIGHT = "90vh";
 
-export const FiltersModal = styled(Modal)(() => ({
+export const FiltersModal = styled(Modal)(({ theme }) => ({
     bottom: 0,
     minWidth: "100%",
     alignSelf: "flex-end",
@@ -32,13 +32,10 @@ export const FiltersModal = styled(Modal)(() => ({
     borderLeft: "none",
     borderRight: "none",
     padding: "1.5rem 0",
-    borderRadius: "16px 16px 0 0",
+    borderRadius: `${theme.borderRadiusLg} ${theme.borderRadiusLg} 0 0`,
     ["> *"]: {
         overflow: "auto",
         maxHeight: `calc(${FILTER_MODAL_HEIGHT} - 69px)`,
-    },
-    ["p"]: {
-        fontSize: "1.15rem",
     },
     [".hide-filters"]: {
         justifyContent: "center",
