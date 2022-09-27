@@ -17,5 +17,12 @@
     "noneApplied": "Ninguno aplicado",
     "checkoutMyProfile": "¡Échale un ojo a mi perfil de XRP Studio!",
     "editProfile": "Editar Perfil",
-    "search": "Buscar"
+    "search": "Buscar",
+    "chooseFile": "Seleccionar archivo",
+    "fileInputPlaceholder": "Sube aquí tus ficheros",
+    "onDragText": "Suelta aquí el fichero",
+    "filesSupported": "Ficheros soportados",
+    "selectAnotherFile": "Seleccionar otro fichero",
+    "andNMoreItems_one": "y {{count}} fichero más",
+    "andNMoreItems_other": "y {{count}} ficheros más"
 }
