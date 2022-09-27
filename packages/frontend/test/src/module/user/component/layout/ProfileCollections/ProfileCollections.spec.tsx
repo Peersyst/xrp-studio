@@ -14,6 +14,7 @@ describe("Profile Collections test", () => {
         const data = new PaginatedDataMock<CollectionDtoMock[]>({ items: collections });
         jest.spyOn(CollectionService, "collectionControllerGetCollections").mockResolvedValue(data);
         const screen = render(<ProfileCollections />);
+        expect(screen.getByText("collection name loading"));
         await waitFor(() => expect(screen.getAllByText(collections[0].name ?? "")).toHaveLength(length));
         const imgs = screen.getAllByRole("img");
         expect(imgs).toHaveLength(length * 2);

@@ -7,10 +7,7 @@ export const useGetUserCollections = (addressParams?: string): UseInfiniteQueryR
     const address = useGetUserAddress(addressParams);
     return useInfiniteQuery(
         [Queries.GET_USER_COLLECTIONS, address],
-        async ({ pageParam = 1 }) => {
-            await new Promise((resolve) => setTimeout(resolve, 2000));
-            return CollectionService.collectionControllerGetCollections(pageParam, 30, undefined, address, "DESC");
-        },
+        async ({ pageParam = 1 }) => CollectionService.collectionControllerGetCollections(pageParam, 30, undefined, address, "DESC"),
         {
             enabled: !!address,
         },

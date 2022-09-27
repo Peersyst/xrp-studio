@@ -13,7 +13,6 @@ interface CollectionCardCarouselProps {
 
 const CollectionCardCarousel = ({ isLoading, collections, skeletonCount }: CollectionCardCarouselProps): JSX.Element => {
     const defaultSkeletonCount = useGetSkeletonCount();
-
     return isLoading ? (
         <Row gap={20}>
             {[...Array(skeletonCount ?? defaultSkeletonCount)].map((_, i) => (
