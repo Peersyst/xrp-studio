@@ -26,3 +26,5 @@ yarn-error.log
 .nyc_output/
 
 lerna-debug.log
+
+.vscode

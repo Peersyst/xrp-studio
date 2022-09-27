@@ -8,7 +8,6 @@ import {
 import { CollectionCardProps } from "module/collection/component/display/CollectionCard/CollectionCard.types";
 import useTranslate from "module/common/hook/useTranslate";
 import ConditionalLink from "module/common/component/navigation/ConditionalLink/ConditionalLink";
-import { CollectionRoutes } from "module/collection/CollectionRouter";
 import { forwardRef } from "react";
 import { setRef } from "@peersyst/react-utils";
 

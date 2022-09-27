@@ -10,7 +10,6 @@ export const useGetNftGridBreakpoints = (): NftGridBreakpoints => {
         },
     } = useTheme();
     return [
-        { maxWidth: nftsGrid.xl, cols: 3 },
         { maxWidth: nftsGrid.xs, cols: 2 },
         { maxWidth: nftsGrid.xxs, cols: 1 },
     ];

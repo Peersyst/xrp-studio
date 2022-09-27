@@ -1,4 +1,4 @@
-import { Col } from "@peersyst/react-components";
+import { Col, TransitionStyles } from "@peersyst/react-components";
 import styled, { css } from "styled-components";
 import { GridWrapperProps } from "./BaseGridWithFilters.types";
 
@@ -10,3 +10,24 @@ export const GridWrapper = styled(Col)<GridWrapperProps>(
         }
     `,
 );
+
+export const gridAnimation: TransitionStyles = {
+    enter: {
+        transform: "translateX(0)",
+    },
+    entering: {
+        transform: "translateX(18rem)",
+    },
+    entered: {
+        transform: "translateX(18rem)",
+    },
+    exit: {
+        transform: "translateX(18rem)",
+    },
+    exiting: {
+        transform: "translateX(0)",
+    },
+    exited: {
+        transform: "translateX(0)",
+    },
+};

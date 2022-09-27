@@ -11,10 +11,10 @@ export const useGetMyNfts = ({ onSettled }: UseGetMyNftsParams = {}): InfiniteQu
     const { address } = useWallet();
     return useInfiniteQuery(
         [Queries.GET_MY_NFTS, address],
-        ({ pageParam = 1 }) => NftService.nftControllerGetNfts(pageParam, 30, undefined, undefined, "DESC", address),
+        ({ pageParam = 1 }) => NftService.nftControllerGetNfts(pageParam, 30, undefined, undefined, "DESC", undefined),
         {
             onSettled,
-            enabled: !!address,
+            enabled: true,
         },
     );
 };

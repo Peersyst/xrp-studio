@@ -18,6 +18,13 @@
     "checkoutMyProfile": "Check out my XRP Studio profile!",
     "editProfile": "Edit Profile",
     "search": "Search",
+    "chooseFile": "Choose file",
+    "fileInputPlaceholder": "Upload here your files",
+    "onDragText": "Drop it like it's hot",
+    "filesSupported": "Files supported",
+    "selectAnotherFile": "Select another file",
+    "andNMoreItems_one": "and {{count}} more file",
+    "andNMoreItems_other": "and {{count}} more files",
     "itemWithCount_one": "{{count}} item",
     "itemWithCount_other": "{{count}} items"
 }
