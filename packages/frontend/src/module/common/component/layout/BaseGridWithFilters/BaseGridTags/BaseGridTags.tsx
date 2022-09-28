@@ -11,9 +11,11 @@ import { BaseGridTagsProps } from "./BaseGridTags.types";
 function BaseGridTags<T>({ tags, onClear, onTagClicked }: BaseGridTagsProps<T>): JSX.Element {
     const [showFilters, setShowFilters] = useRecoilState(filtersVisibilityState);
     const t = useTranslate();
+
     const handleClear = () => {
         onClear?.();
     };
+
     return (
         <Row gap="1rem" wrap alignItems="center" wrapGap="1rem" css={{ minHeight: "2.75rem" }}>
             {!showFilters && (

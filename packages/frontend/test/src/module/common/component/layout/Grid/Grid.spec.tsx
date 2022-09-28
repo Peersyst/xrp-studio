@@ -146,8 +146,7 @@ describe("Test for the Grid component", () => {
     });
 
     test("Renders correctly when has nothing to show + no tags + no Filters (with filters)", () => {
-        jest.spyOn(Recoil, "useRecoilState").mockReturnValueOnce([false, jest.fn()]);
-        jest.spyOn(Recoil, "useRecoilState").mockReturnValueOnce([false, jest.fn()]);
+        jest.spyOn(Recoil, "useRecoilState").mockReturnValue([false, jest.fn()]);
         const screen = render(
             <Grid
                 filters={<>filters</>}
@@ -215,6 +214,7 @@ describe("Test for the Grid component", () => {
         const mockedSetVisibility = jest.fn();
         //Only mock it in the Grid
         //Do not mock in the BaseGridFilters component that is why the mockImplementationOnce instead of mockImplementation
+        jest.spyOn(Recoil, "useRecoilState").mockReturnValueOnce([true, mockedSetVisibility]);
         jest.spyOn(Recoil, "useRecoilState").mockReturnValueOnce([true, mockedSetVisibility]);
         const screen = render(
             <Grid

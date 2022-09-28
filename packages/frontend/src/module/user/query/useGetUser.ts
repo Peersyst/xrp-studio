@@ -4,7 +4,8 @@ import Queries from "../../../query/queries";
 import { useGetUserAddress } from "../hook/useGetUserAddress";
 
 const useGetUser = (address?: string): UseQueryResult<UserDto> => {
-    const usedAddress = useGetUserAddress(address);
+    const paramsAddress = useGetUserAddress();
+    const usedAddress = address || paramsAddress;
     return useQuery([Queries.GET_USER, usedAddress], () => UserService.userControllerGetUser(usedAddress!), { enabled: !!usedAddress });
 };
 

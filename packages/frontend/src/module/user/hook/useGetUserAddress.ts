@@ -1,6 +1,6 @@
 import { useParams } from "react-router-dom";
 
-export const useGetUserAddress = (address?: string): string | undefined => {
+export const useGetUserAddress = (): string | undefined => {
     const { address: paramsAddress } = useParams<string>();
-    return address || paramsAddress;
+    return paramsAddress;
 };
