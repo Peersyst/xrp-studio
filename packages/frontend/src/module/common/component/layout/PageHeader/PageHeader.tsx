@@ -2,7 +2,7 @@ import { createRef, CSSProperties, ReactNode, useEffect, useRef } from "react";
 import { MainPageHeader, PageHeaderRoot, PageStickyHeader } from "module/common/component/layout/PageHeader/PageHeader.styles";
 import { Animated, Typography } from "@peersyst/react-components";
 import { useRecoilState } from "recoil";
-import { headerStickyState } from "./state/PageHeaderState";
+import { stickyHeaderState } from "./state/PageHeaderState";
 
 export interface PageHeaderProps {
     stickyTitle?: string;
@@ -13,7 +13,7 @@ export interface PageHeaderProps {
 
 const PageHeader = ({ children, stickyTitle, ...rest }: PageHeaderProps): JSX.Element => {
     const headerRef = createRef<HTMLDivElement>();
-    const [visible, setVisible] = useRecoilState(headerStickyState);
+    const [visible, setVisible] = useRecoilState(stickyHeaderState);
     const headerObserver = useRef(
         new IntersectionObserver(
             (entries) => {

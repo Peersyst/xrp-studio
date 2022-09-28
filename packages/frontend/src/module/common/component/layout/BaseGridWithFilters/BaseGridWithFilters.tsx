@@ -24,21 +24,25 @@ function BaseGridWithFilters<T extends PaginatedData, TagT>({
             values: { nftsGrid },
         },
     } = useTheme();
+
     const [showFilters, setShowFilters] = useRecoilState(filtersVisibilityState);
     const finalBreakPoints = showFilters ? filterBreakpoints || breakpoints : breakpoints;
     const isTablet = useMediaQuery(`(max-width: ${nftsGrid.sm}px)`);
     const finalMoveGrid = showFilters && !isTablet;
+
     useEffect(() => {
         if (isTablet) setShowFilters(false);
         return () => setShowFilters(true);
     }, []);
+
     return (
-        <Row css={{ position: "relative", overflow: "hidden" }}>
-            {showFilters && <BaseGridFilters>{filters}</BaseGridFilters>}
+        <Row css={{ position: "relative" }}>
+            <BaseGridFilters visible={showFilters}>{filters}</BaseGridFilters>
             <Animated
                 in={finalMoveGrid}
                 duration={500}
                 animation={gridAnimation}
+                delay={{ enter: 0, exit: 35 }}
                 animatedProperties="transform"
                 hideOnExit={false}
                 style={{ transformOrigin: "100% 0" }}
