@@ -69,7 +69,6 @@ describe("Test for the base grid with filters", () => {
 
     test("Renders correctly when has nothing to show + no tags + no Filters", () => {
         jest.spyOn(Recoil, "useRecoilState").mockReturnValueOnce([false, jest.fn()]);
-        jest.spyOn(Recoil, "useRecoilState").mockReturnValueOnce([false, jest.fn()]);
         const screen = render(
             <BaseGridWithFilters
                 filters={<>filters</>}
