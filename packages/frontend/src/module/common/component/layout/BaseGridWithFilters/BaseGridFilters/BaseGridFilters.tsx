@@ -22,7 +22,7 @@ function BaseGridFilters<T extends PaginatedData, TagT>({ children }: BaseGridFi
         if (isTablet) setShowFilters(false);
     };
 
-    return isTablet ? (
+    return showFilters && isTablet ? (
         <FiltersModal animation="from-bottom" open={showFilters} onClose={handleHide}>
             <FiltersContainer>{children}</FiltersContainer>
         </FiltersModal>
