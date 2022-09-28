@@ -24,4 +24,12 @@ describe("Profile Collections test", () => {
             expect(imgs[index * 2 + 1]).toHaveAttribute("alt", "collection-" + collection.id + "-image");
         });
     });
+
+    test("Renders correctly without collections", async () => {
+        const data = new PaginatedDataMock<CollectionDtoMock[]>({ items: [] });
+        jest.spyOn(CollectionService, "collectionControllerGetCollections").mockResolvedValue(data);
+        const screen = render(<ProfileCollections />);
+        expect(screen.getByText("collection name loading"));
+        await waitFor(() => expect(screen.getByRole("heading", { name: translate("youHaveNoCollections") })).toBeInTheDocument());
+    });
 });
