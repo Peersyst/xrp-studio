@@ -25,5 +25,7 @@
     "andNMoreItems_one": "y {{count}} fichero más",
     "andNMoreItems_other": "y {{count}} ficheros más",
     "itemWithCount_one": "{{count}} item",
-    "itemWithCount_other": "{{count}} items"
+    "itemWithCount_other": "{{count}} items",
+    "youHaveNoNfts": "No tienes NFTs",
+    "youHaveNoCollections": "No tienes collections"
 }

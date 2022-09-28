@@ -9,7 +9,7 @@ export const BaseGridFiltersRoot = styled(Card)<BaseGridFiltersRootProps>(
         width: 16.5rem;
         padding: 1.25rem 1.25rem 1.75rem 1.25rem;
         position: ${isHeaderSticky ? "fixed" : "absolute"};
-        top: ${isHeaderSticky ? "11.5rem" : "0rem"};
+        top: ${isHeaderSticky ? "25.5rem" : "0rem"};
     `,
 );
 
