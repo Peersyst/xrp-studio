@@ -14,7 +14,7 @@ describe("Profile Collections test", () => {
         const data = new PaginatedDataMock<CollectionDtoMock[]>({ items: collections });
         jest.spyOn(CollectionService, "collectionControllerGetCollections").mockResolvedValue(data);
         const screen = render(<ProfileCollections />);
-        expect(screen.getByText("collection name loading"));
+        expect(screen.getAllByText("collection name loading")).toHaveLength(3);
         await waitFor(() => expect(screen.getAllByText(collections[0].name ?? "")).toHaveLength(length));
         const imgs = screen.getAllByRole("img");
         expect(imgs).toHaveLength(length * 2);
@@ -29,7 +29,7 @@ describe("Profile Collections test", () => {
         const data = new PaginatedDataMock<CollectionDtoMock[]>({ items: [] });
         jest.spyOn(CollectionService, "collectionControllerGetCollections").mockResolvedValue(data);
         const screen = render(<ProfileCollections />);
-        expect(screen.getByText("collection name loading"));
+        expect(screen.getAllByText("collection name loading")).toHaveLength(3);
         await waitFor(() => expect(screen.getByRole("heading", { name: translate("youHaveNoCollections") })).toBeInTheDocument());
     });
 });

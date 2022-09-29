@@ -22,16 +22,17 @@ function BaseGridFilters<T extends PaginatedData, TagT>({ children }: BaseGridFi
         if (isTablet) setShowFilters(false);
     };
 
-    return showFilters && isTablet ? (
-        <FiltersModal animation="from-bottom" open={showFilters} onClose={handleHide}>
-            <FiltersContainer>{children}</FiltersContainer>
-        </FiltersModal>
-    ) : (
-        <Animated.Slide in={showFilters} direction="right" duration={500}>
-            <BaseGridFiltersRoot isHeaderSticky={isHeaderSticky}>
+    return (
+        <>
+            <FiltersModal animation="from-bottom" open={isTablet && showFilters} onClose={handleHide}>
                 <FiltersContainer>{children}</FiltersContainer>
-            </BaseGridFiltersRoot>
-        </Animated.Slide>
+            </FiltersModal>
+            <Animated.Slide in={!isTablet && showFilters} direction="right" duration={500}>
+                <BaseGridFiltersRoot isHeaderSticky={isHeaderSticky}>
+                    <FiltersContainer>{children}</FiltersContainer>
+                </BaseGridFiltersRoot>
+            </Animated.Slide>
+        </>
     );
 }
 

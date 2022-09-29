@@ -3,7 +3,6 @@ import { CollectionDto } from "module/api/service";
 import Carousel from "module/common/component/display/Carousel/Carousel";
 import CollectionCardSkeleton from "../../feedback/CollectionCardSkeleton/CollectionCardSkeleton";
 import CollectionCard from "../CollectionCard/CollectionCard";
-import { useGetSkeletonCount } from "./useGetSkeletonCount/useGetSkeletonCount";
 
 interface CollectionCardCarouselProps {
     collections: CollectionDto[];
@@ -11,11 +10,10 @@ interface CollectionCardCarouselProps {
     skeletonCount?: number;
 }
 
-const CollectionCardCarousel = ({ isLoading, collections, skeletonCount }: CollectionCardCarouselProps): JSX.Element => {
-    const defaultSkeletonCount = useGetSkeletonCount();
+const CollectionCardCarousel = ({ isLoading, collections, skeletonCount = 3 }: CollectionCardCarouselProps): JSX.Element => {
     return isLoading ? (
-        <Row gap={20}>
-            {[...Array(skeletonCount ?? defaultSkeletonCount)].map((_, i) => (
+        <Row gap={20} css={{ overflow: "hidden" }}>
+            {[...Array(skeletonCount)].map((_, i) => (
                 <CollectionCardSkeleton key={i} />
             ))}
         </Row>
