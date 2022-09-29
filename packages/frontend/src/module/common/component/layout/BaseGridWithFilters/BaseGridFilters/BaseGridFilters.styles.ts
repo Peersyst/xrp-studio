@@ -1,17 +1,20 @@
 import { Divider, Modal } from "@peersyst/react-components";
 import Card from "module/common/component/surface/Card/Card";
 import styled, { css } from "styled-components";
-import { BaseGridFiltersRootProps } from "./BaseGridFilters.types";
+import { STICKY_HEADER_HEIGHT } from "module/common/component/layout/PageHeader/PageHeader.styles";
+import { GRID_FILTERS_GAP } from "module/common/component/layout/BaseGridWithFilters/BaseGridWithFilters.styles";
 
-export const BaseGridFiltersRoot = styled(Card)<BaseGridFiltersRootProps>(
-    ({ isHeaderSticky }) => css`
-        height: fit-content;
-        width: 16.5rem;
-        padding: 1.25rem 1.25rem 1.75rem 1.25rem;
-        position: ${isHeaderSticky ? "fixed" : "absolute"};
-        top: ${isHeaderSticky ? "25.5rem" : "0rem"};
-    `,
-);
+export const BaseGridFiltersRoot = styled(Card)`
+    position: sticky;
+    top: calc(var(--appbar-height) + ${STICKY_HEADER_HEIGHT} + ${GRID_FILTERS_GAP});
+    height: fit-content;
+    width: 16.5rem;
+    padding: 1.25rem 1.25rem 1.75rem 1.25rem;
+    // Negative margin in order to remove the space occupied
+    margin-right: -16.5rem;
+    // Margin top in order to equal filter tags gap
+    margin-top: ${GRID_FILTERS_GAP};
+`;
 
 export const FiltersDivider = styled(Divider)(
     ({ theme }) => css`

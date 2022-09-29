@@ -6,7 +6,7 @@ import ProfileNftsGrid from "../ProfileNftsGrid/ProfileNftsGrid";
 const ProfileContent = (): JSX.Element => {
     return (
         <PageContent>
-            <Col flex={1} gap="4.25rem">
+            <Col flex={1} gap="2.25rem">
                 <ProfileCollections />
                 <ProfileNftsGrid />
             </Col>

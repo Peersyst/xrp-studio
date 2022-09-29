@@ -1,5 +1,7 @@
 import styled, { css } from "styled-components";
 
+export const STICKY_HEADER_HEIGHT = "3.5rem";
+
 export const PageHeaderRoot = styled.div`
     display: contents;
 `;
@@ -29,7 +31,7 @@ export const PageStickyHeader = styled.header(
         align-items: center;
 
         width: 100%;
-        height: 3.5rem;
+        height: ${STICKY_HEADER_HEIGHT};
 
         background-color: ${theme.palette.background};
 
