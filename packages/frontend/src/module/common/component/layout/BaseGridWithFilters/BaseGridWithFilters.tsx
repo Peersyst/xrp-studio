@@ -1,4 +1,4 @@
-import { Animated, Row, TransitionStyles, useTheme } from "@peersyst/react-components";
+import { Animated, Row, useTheme } from "@peersyst/react-components";
 import { useMediaQuery } from "@peersyst/react-hooks";
 import { PaginatedData } from "query-utils";
 import { useEffect } from "react";
@@ -7,29 +7,8 @@ import { filtersVisibilityState } from "../../state/FiltersVisibilityState";
 import BaseGrid from "../BaseGrid/BaseGrid";
 import BaseGridFilters from "./BaseGridFilters/BaseGridFilters";
 import BaseGridTags from "./BaseGridTags/BaseGridTags";
-import { GridWrapper } from "./BaseGridWithFilters.styles";
+import { gridAnimation, GridWrapper } from "./BaseGridWithFilters.styles";
 import { BaseGridWithFilterProps } from "./BaseGridWithFilters.types";
-
-const gridAnimation: TransitionStyles = {
-    enter: {
-        transform: "translateX(0)",
-    },
-    entering: {
-        transform: "translateX(18rem)",
-    },
-    entered: {
-        transform: "translateX(18rem)",
-    },
-    exit: {
-        transform: "translateX(18rem)",
-    },
-    exiting: {
-        transform: "translateX(0)",
-    },
-    exited: {
-        transform: "translateX(0)",
-    },
-};
 
 function BaseGridWithFilters<T extends PaginatedData, TagT>({
     filterBreakpoints,
@@ -45,6 +24,7 @@ function BaseGridWithFilters<T extends PaginatedData, TagT>({
             values: { nftsGrid },
         },
     } = useTheme();
+
     const [showFilters, setShowFilters] = useRecoilState(filtersVisibilityState);
     const finalBreakPoints = showFilters ? filterBreakpoints || breakpoints : breakpoints;
     const isTablet = useMediaQuery(`(max-width: ${nftsGrid.sm}px)`);
@@ -56,12 +36,13 @@ function BaseGridWithFilters<T extends PaginatedData, TagT>({
     }, []);
 
     return (
-        <Row css={{ position: "relative", overflow: "hidden" }}>
-            {showFilters && <BaseGridFilters>{filters}</BaseGridFilters>}
+        <Row css={{ position: "relative" }}>
+            <BaseGridFilters>{filters}</BaseGridFilters>
             <Animated
                 in={finalMoveGrid}
                 duration={500}
                 animation={gridAnimation}
+                delay={{ enter: 0, exit: 35 }}
                 animatedProperties="transform"
                 hideOnExit={false}
                 style={{ transformOrigin: "100% 0" }}

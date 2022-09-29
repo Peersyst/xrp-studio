@@ -20,6 +20,6 @@ describe("Test for the MyNftsPage", () => {
         const data = new PaginatedDataMock<NftDtoMock[]>();
         jest.spyOn(NftService, "nftControllerGetNfts").mockResolvedValue(data);
         const screen = render(<MyNftsPageContent />);
-        expect(screen.getByRole("heading", { name: "Nothing to show" })).toBeInTheDocument();
+        await waitFor(() => expect(screen.getByRole("heading", { name: "Nothing to show" })).toBeInTheDocument());
     });
 });

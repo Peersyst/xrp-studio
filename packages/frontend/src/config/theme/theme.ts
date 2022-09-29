@@ -13,9 +13,6 @@ const theme = createTheme({
     breakpoints: {
         values: {
             nftsGrid: {
-                xl: 3000,
-                lg: 2000,
-                md: 1400,
                 sm: 1000,
                 xs: 767,
                 xxs: 500,
