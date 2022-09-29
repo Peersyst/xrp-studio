@@ -3,7 +3,7 @@ import MyNftsPage from "./pages/MyNftsPage";
 
 export enum NftRoutes {
     NFTS = "/nfts/",
-    MY_NFTS = "/my-nfts",
+    MY_NFTS = "/nfts/my-nfts",
     CREATE_NFT = "/nfts/creation",
 }
 

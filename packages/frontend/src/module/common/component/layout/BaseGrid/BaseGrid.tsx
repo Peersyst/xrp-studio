@@ -3,7 +3,8 @@ import { BaseGridRoot } from "./BaseGrid.styles";
 import { PaginatedData } from "query-utils";
 import { BaseGridProps } from "module/common/component/layout/BaseGrid/BaseGrid.types";
 import { Fragment } from "react";
-import NothingToShow from "../../feedback/NothingToShow/NothingToShow";
+import useTranslate from "module/common/hook/useTranslate";
+import NothingToShow from "module/common/component/feedback/NothingToShow/NothingToShow";
 
 function BaseGrid<T extends PaginatedData>({
     loading,
@@ -39,6 +40,10 @@ function BaseGrid<T extends PaginatedData>({
         justifyItems,
     };
 
+    const t = useTranslate("error");
+
+    const finalNothingToShow = nothingToShow || t("nothingToShow");
+
     return (
         <InfiniteScroll end={!hasItems || end} {...infiniteScrollProps}>
             <Row flex={1} css={{ minHeight: "40vh" }}>
@@ -49,8 +54,12 @@ function BaseGrid<T extends PaginatedData>({
                         ))}
                         {loading && <Skeletons count={18} />}
                     </BaseGridRoot>
+                ) : typeof finalNothingToShow === "string" ? (
+                    <NothingToShow label={finalNothingToShow} css={{ width: "100%", paddingTop: "4rem" }}>
+                        {finalNothingToShow}
+                    </NothingToShow>
                 ) : (
-                    <NothingToShow css={{ paddingTop: "4rem" }}>{nothingToShow}</NothingToShow>
+                    finalNothingToShow
                 )}
             </Row>
         </InfiniteScroll>

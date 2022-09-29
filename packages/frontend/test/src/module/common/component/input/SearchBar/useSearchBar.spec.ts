@@ -6,22 +6,27 @@ const renderUseSearchBar = ({ onQuery = jest.fn() }: Partial<UseSearchBarParams>
 
 describe("useSearchBar", () => {
     test("Return false by default", () => {
-        const { loading } = renderUseSearchBar().result.current;
-        expect(loading).toBe(false);
+        const { result } = renderUseSearchBar();
+        expect(result.current.loading).toBe(false);
     });
-    test("Return true when loading", () => {
-        act(async () => {
-            const onQuery = jest.fn().mockReturnValue("test");
-            const { loading, onChange, value } = renderUseSearchBar({ onQuery }).result.current;
-            expect(loading).toBe(false);
-            expect(onQuery).toHaveBeenCalledTimes(0);
-            expect(value).toBeUndefined();
-            onChange("test");
-            await waitFor(() => {
-                expect(loading).toBe(true);
-                expect(onQuery).toHaveBeenCalled();
-                expect(value).toBe("test");
-            });
+    test("Return true when loading", async () => {
+        const onQuery = jest.fn().mockReturnValue("test");
+        const { result } = renderUseSearchBar({ onQuery });
+
+        expect(result.current.loading).toBe(false);
+        expect(onQuery).toHaveBeenCalledTimes(0);
+        expect(result.current.value).toBeUndefined();
+
+        act(() => {
+            result.current.onChange("test");
+        });
+
+        expect(result.current.loading).toBe(true);
+
+        await waitFor(() => {
+            expect(result.current.loading).toBe(false);
+            expect(onQuery).toHaveBeenCalled();
+            expect(result.current.value).toBe("test");
         });
     });
 });

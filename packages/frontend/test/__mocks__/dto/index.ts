@@ -1,4 +1,5 @@
 export * from "./collection.dto.mock";
+export * from "./collections.dto.mock";
 export * from "./nft.dto.mock";
 export * from "./nfts.dto.mock";
 export * from "./user.dto.mock";

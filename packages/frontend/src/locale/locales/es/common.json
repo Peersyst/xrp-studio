@@ -1,7 +1,6 @@
 {
     "welcome": "Hola",
     "name": "Manolo",
-    "items": "Items",
     "formatNumber": "{{val, number}}",
     "loginWithXumm": "Accede con XUMM Wallet",
     "scanXummQR": "Scanea el QR con XUMM app",
@@ -24,5 +23,9 @@
     "filesSupported": "Ficheros soportados",
     "selectAnotherFile": "Seleccionar otro fichero",
     "andNMoreItems_one": "y {{count}} fichero más",
-    "andNMoreItems_other": "y {{count}} ficheros más"
+    "andNMoreItems_other": "y {{count}} ficheros más",
+    "itemWithCount_one": "{{count}} item",
+    "itemWithCount_other": "{{count}} items",
+    "youHaveNoNfts": "No tienes NFTs",
+    "youHaveNoCollections": "No tienes collections"
 }

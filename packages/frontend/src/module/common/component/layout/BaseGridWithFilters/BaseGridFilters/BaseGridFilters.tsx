@@ -6,7 +6,6 @@ import { useRecoilState } from "recoil";
 import { filtersVisibilityState } from "module/common/component/state/FiltersVisibilityState";
 import { useMediaQuery } from "@peersyst/react-hooks";
 import FiltersContainer from "../FiltersContainer/FiltersContainer";
-import useStickyHeader from "module/common/component/layout/PageHeader/hook/useStickyHeader";
 
 function BaseGridFilters<T extends PaginatedData, TagT>({ children }: BaseGridFiltersProps<T, TagT>): JSX.Element {
     const {
@@ -16,22 +15,22 @@ function BaseGridFilters<T extends PaginatedData, TagT>({ children }: BaseGridFi
     } = useTheme();
     const isTablet = useMediaQuery(`(max-width: ${nftsGrid.sm}px)`);
     const [showFilters, setShowFilters] = useRecoilState(filtersVisibilityState);
-    const isHeaderSticky = useStickyHeader();
 
     const handleHide = () => {
         if (isTablet) setShowFilters(false);
     };
 
-    return showFilters && isTablet ? (
-        <FiltersModal animation="from-bottom" open={showFilters} onClose={handleHide}>
-            <FiltersContainer>{children}</FiltersContainer>
-        </FiltersModal>
-    ) : (
-        <Animated.Slide in={showFilters} direction="right" duration={500}>
-            <BaseGridFiltersRoot isHeaderSticky={isHeaderSticky}>
+    return (
+        <>
+            <FiltersModal animation="from-bottom" open={isTablet && showFilters} onClose={handleHide}>
                 <FiltersContainer>{children}</FiltersContainer>
-            </BaseGridFiltersRoot>
-        </Animated.Slide>
+            </FiltersModal>
+            <Animated.Slide in={!isTablet && showFilters} direction="right" duration={500}>
+                <BaseGridFiltersRoot>
+                    <FiltersContainer>{children}</FiltersContainer>
+                </BaseGridFiltersRoot>
+            </Animated.Slide>
+        </>
     );
 }
 

@@ -2,7 +2,7 @@ import { NftService } from "module/api/service";
 import MyNftsPageContent from "module/nft/component/layout/MyNftsPageContent/MyNftsPageContent";
 import * as UseWallet from "module/wallet/component/hooks/useWallet";
 import { NftDtoMock, NftsDtoMock, PaginatedDataMock, WalletMock } from "test-mocks";
-import { render, waitFor } from "test-utils";
+import { render, translate, waitFor } from "test-utils";
 
 describe("Test for the MyNftsPage", () => {
     test("Renders correctly with nfts", async () => {
@@ -20,6 +20,6 @@ describe("Test for the MyNftsPage", () => {
         const data = new PaginatedDataMock<NftDtoMock[]>();
         jest.spyOn(NftService, "nftControllerGetNfts").mockResolvedValue(data);
         const screen = render(<MyNftsPageContent />);
-        await waitFor(() => expect(screen.getByRole("heading", { name: "Nothing to show" })).toBeInTheDocument());
+        await waitFor(() => expect(screen.getByRole("heading", { name: translate("youHaveNoNfts") })).toBeInTheDocument());
     });
 });

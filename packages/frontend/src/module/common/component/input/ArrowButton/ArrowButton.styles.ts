@@ -49,5 +49,13 @@ export const ArrowButtonRoot = styled(IconButton)(
                 }
             }
         }
+        &.Sm {
+            display: flex;
+            width: 1.75rem;
+            height: 1.75rem;
+            .Icon {
+                font-size: 1rem;
+            }
+        }
     `,
 );
