@@ -1,11 +1,15 @@
 import CollectionCardCarousel from "module/collection/component/display/CollectionCardCarousel/CollectionCardCarousel";
 import { useGetUserCollections } from "module/user/query/useGetUserCollections";
-import { Button, Row } from "@peersyst/react-components";
+import { Row } from "@peersyst/react-components";
 import useTranslate from "module/common/hook/useTranslate";
 import NothingToShow from "module/common/component/feedback/NothingToShow/NothingToShow";
+import Button from "module/common/component/input/Button/Button";
+import { useNavigate } from "react-router-dom";
+import { CollectionRoutes } from "module/collection/CollectionRouter";
 
 const ProfileCollections = (): JSX.Element => {
     const translate = useTranslate();
+    const navigate = useNavigate();
 
     const { data: { pages } = { pages: [] }, isLoading } = useGetUserCollections();
     const collections = pages[0]?.items || [];
@@ -14,7 +18,7 @@ const ProfileCollections = (): JSX.Element => {
         <Row css={{ height: "12rem", width: "100%" }}>
             {collections.length === 0 && !isLoading ? (
                 <NothingToShow label={translate("youHaveNoCollections")}>
-                    <Button>{translate("createCollection")}</Button>
+                    <Button onClick={() => navigate(CollectionRoutes.CREATE_COLLECTION)}>{translate("createCollection")}</Button>
                 </NothingToShow>
             ) : (
                 <CollectionCardCarousel collections={collections} isLoading={isLoading} />
