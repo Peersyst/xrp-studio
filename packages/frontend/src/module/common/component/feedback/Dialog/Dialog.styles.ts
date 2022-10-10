@@ -13,6 +13,7 @@ export const DialogRoot = styled(Modal).attrs({
         max-height: unset;
         width: 100%;
         max-width: 36.75rem;
+        padding: 0;
         ${theme.breakpoints.down("mini")} {
             max-width: 100%;
         }

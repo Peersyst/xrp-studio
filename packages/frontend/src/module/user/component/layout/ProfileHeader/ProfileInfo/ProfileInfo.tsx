@@ -1,5 +1,5 @@
 import useGetUser from "module/user/query/useGetUser";
-import { BlockchainAddress, Col, Row, Skeleton, Typography, useTheme } from "@peersyst/react-components";
+import { BlockchainAddress, Col, Row, Skeleton, Typography, useModal, useTheme } from "@peersyst/react-components";
 import {
     ProfileButtons,
     ProfileInfoRoot,
@@ -8,19 +8,19 @@ import {
 import Button from "module/common/component/input/Button/Button";
 import { useMediaQuery } from "@peersyst/react-hooks";
 import useTranslate from "module/common/hook/useTranslate";
+import EditProfileModal from "module/user/component/feedback/EditProfileModal/EditProfileModal";
 
 const ProfileInfo = (): JSX.Element => {
     const translate = useTranslate();
-
     const { data: user, isLoading } = useGetUser();
     const { name = "name", address = "", description = "description" } = user || {};
-
     const {
         breakpoints: {
             values: { sm },
         },
     } = useTheme();
     const isSm = useMediaQuery(`(max-width: ${sm}px)`);
+    const { showModal } = useModal();
 
     return (
         <ProfileInfoRoot>
@@ -44,7 +44,7 @@ const ProfileInfo = (): JSX.Element => {
                     </ProfileMainInfo>
                     {!isLoading && (
                         <ProfileButtons>
-                            <Button>{translate("editProfile")}</Button>
+                            <Button onClick={() => showModal(EditProfileModal)}>{translate("editProfile")}</Button>
                         </ProfileButtons>
                     )}
                 </Row>
