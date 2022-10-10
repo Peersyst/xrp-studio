@@ -32,7 +32,7 @@ export class BlockchainService {
     async onApplicationBootstrap(): Promise<void> {
         // We can leave the xrp ws connected indefinitely as we are making requests every ~3 seconds, it will not timeout
         await this.xrpClient.connect();
-        if (process.env.NODE_ENV !== "test" && this.configService.get<boolean>("xrp.enableIndexer")) {
+        if (this.configService.get<boolean>("xrp.enableIndexer")) {
             const currentLedgerIndex = await this.getCurrentLedgerIndex();
             const index = currentLedgerIndex || this.configService.get<number>("xrp.startingLedgerIndex");
             await this.indexLedger(index);
