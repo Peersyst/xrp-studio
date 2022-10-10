@@ -27,6 +27,7 @@ export default (): any => ({
     },
     xrp: {
         node: process.env.XRP_NODE,
+        enableIndexer: process.env.ENABLE_INDEXER !== "false",
         startingLedgerIndex: parseInt(process.env.STARTING_LEDGER_INDEX),
     },
     xumm: {

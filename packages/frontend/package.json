@@ -5,6 +5,7 @@
     "scripts": {
         "prebuild": "rimraf build",
         "start": "npm run generate && craco start",
+        "start:e2e": "npm run generate && PORT=8182 yarn --cwd ./packages/frontend start",
         "build": "craco build",
         "eject": "craco eject",
         "generate": "npm run generate:openapi && npm run generate:icons && npm run generate:images",
