@@ -45,6 +45,6 @@ export class CollectionController {
         @Request() req,
         @Body() collection: UpdateCollectionRequest,
     ): Promise<void> {
-        return this.collectionService.updateCollection(id, "rwxmBgnEtpqAMerLSLkCCLfuSisi7GAvU6" /*req.user.address*/, collection);
+        return this.collectionService.updateCollection(id, req.user.address, collection);
     }
 }

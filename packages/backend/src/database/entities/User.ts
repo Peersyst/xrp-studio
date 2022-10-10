@@ -10,7 +10,7 @@ export class User {
     @Column({ type: "varchar", length: 255, unique: true, nullable: true })
     name?: string;
 
-    @Column({ type: "text", unique: true, nullable: true })
+    @Column({ type: "text", nullable: true })
     description?: string;
 
     @Column({ type: "text", nullable: true })
