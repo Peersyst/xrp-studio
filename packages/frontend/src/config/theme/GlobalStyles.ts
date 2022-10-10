@@ -10,6 +10,7 @@ import { ChipStyles } from "config/theme/component/Chip.styles";
 import { SelectStyles } from "config/theme/component/Select.styles";
 import { TextInputStyles } from "./component/TextInput.styles";
 import { BlockchainAddressStyles } from "config/theme/component/BlockchainAddress.styles";
+import { ModalStyles } from "./component/Modal.styles";
 
 export const GlobalStyles = createGlobalStyle<{ theme: Theme }>`
         ${RootStyles};
@@ -154,6 +155,7 @@ export const GlobalStyles = createGlobalStyle<{ theme: Theme }>`
         }
 
         ${BackdropStyles};
+        ${ModalStyles};
         ${TypographyStyles}
         ${SwitchStyles};
         ${ChipStyles};

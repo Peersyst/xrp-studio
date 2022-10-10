@@ -7,11 +7,14 @@ const BackdropProps: ModalProps["BackdropProps"] = { style: { padding: DialogPad
 
 export const DialogRoot = styled(Modal).attrs({
     BackdropProps,
-})(() => {
+})(({ theme }) => {
     return css`
         height: 100%;
         max-height: unset;
         width: 100%;
         max-width: 36.75rem;
+        ${theme.breakpoints.down("mini")} {
+            max-width: 100%;
+        }
     `;
 });
