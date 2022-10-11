@@ -1,7 +1,7 @@
 import styled, { css } from "styled-components";
 import { Button } from "@peersyst/react-components";
 import { ButtonSizeStyle, ButtonVariantStyle } from "module/common/component/input/Button/Button.types";
-import { emphasize } from "@peersyst/react-utils";
+import { alpha, emphasize } from "@peersyst/react-utils";
 
 const primaryVariant = css(
     ({ theme }) => css`
@@ -46,6 +46,25 @@ const outlinedVariant = css(({ theme }) => {
     `;
 });
 
+const glassVariant = css(({ theme }) => {
+    return css`
+        background: ${alpha(theme.palette.black[85], 0.72)};
+        box-shadow: 0px 0px 12px ${alpha(theme.palette.black[90], 0.48)};
+        backdrop-filter: blur(8px);
+        color: ${theme.palette.black[0]};
+        &:hover {
+            color: ${theme.palette.black[0]};
+            box-shadow: 0px 0px 8px ${alpha(theme.palette.black[90], 0.48)};
+            background: ${alpha(theme.palette.black[85], 0.76)};
+        }
+        &:active {
+            color: ${theme.palette.black[0]};
+            box-shadow: 0px 0px 4px ${alpha(theme.palette.black[90], 0.48)};
+            background: ${alpha(theme.palette.black[85], 0.9)};
+        }
+    `;
+});
+
 const textVariant = css(({ theme }) => {
     return css`
         text-transform: none;
@@ -62,6 +81,7 @@ const buttonVariants: ButtonVariantStyle = {
     secondary: secondaryVariant,
     outlined: outlinedVariant,
     text: textVariant,
+    glass: glassVariant,
 };
 
 const smSize = css(
@@ -69,6 +89,9 @@ const smSize = css(
         height: 2.375rem;
         ${theme.typography.body2.style};
         padding: 0.375rem 0.875rem;
+        &.Rounded {
+            border-radius: 1.1875rem;
+        }
     `,
 );
 
@@ -77,6 +100,9 @@ const mdSize = css(
         height: 2.75rem;
         ${theme.typography.body1.style};
         padding: 0.5rem 0.875rem;
+        &.Rounded {
+            border-radius: 1.375rem;
+        }
     `,
 );
 
@@ -85,6 +111,9 @@ const lgSize = css(
         height: 3.25rem;
         ${theme.typography.body1.style};
         padding: 0.75rem 1.25rem;
+        &.Rounded {
+            border-radius: 1.625rem;
+        }
     `,
 );
 

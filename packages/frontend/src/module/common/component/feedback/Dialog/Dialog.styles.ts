@@ -8,10 +8,11 @@ export const DialogRoot = styled(Modal).attrs({
     BackdropProps,
 })(({ theme }) => {
     return css`
+        --dialog-max-width: 36.75rem;
         height: 100%;
         max-height: unset;
         width: 100%;
-        max-width: 36.75rem;
+        max-width: var(--dialog-max-width);
         ${theme.breakpoints.down("mini")} {
             max-width: 100%;
         }

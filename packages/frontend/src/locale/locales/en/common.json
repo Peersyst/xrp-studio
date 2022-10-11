@@ -28,5 +28,6 @@
     "itemWithCount_one": "{{count}} item",
     "itemWithCount_other": "{{count}} items",
     "youHaveNoNfts": "You have no NFTs",
-    "youHaveNoCollections": "You have no collections"
+    "youHaveNoCollections": "You have no collections",
+    "change": "Change"
 }

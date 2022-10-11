@@ -8,11 +8,13 @@ import {
 import Button from "module/common/component/input/Button/Button";
 import { useMediaQuery } from "@peersyst/react-hooks";
 import useTranslate from "module/common/hook/useTranslate";
-import EditProfileModal from "module/user/component/feedback/EditProfileModal/EditProfileModal";
+import useWallet from "module/wallet/component/hooks/useWallet";
+import EditProfileDialogModal from "module/user/component/feedback/EditProfileDialogModal/EditProfileDialogModal";
 
 const ProfileInfo = (): JSX.Element => {
     const translate = useTranslate();
     const { data: user, isLoading } = useGetUser();
+    const { address: walletAddress } = useWallet();
     const { name = "name", address = "", description = "description" } = user || {};
     const {
         breakpoints: {
@@ -21,7 +23,7 @@ const ProfileInfo = (): JSX.Element => {
     } = useTheme();
     const isSm = useMediaQuery(`(max-width: ${sm}px)`);
     const { showModal } = useModal();
-
+    const showEditBtn = !isLoading && walletAddress === address;
     return (
         <ProfileInfoRoot>
             <Col flex={1} gap="0.5rem">
@@ -42,13 +44,13 @@ const ProfileInfo = (): JSX.Element => {
                             />
                         </Skeleton>
                     </ProfileMainInfo>
-                    {!isLoading && (
+                    {!showEditBtn && (
                         <ProfileButtons>
-                            <Button onClick={() => showModal(EditProfileModal)}>{translate("editProfile")}</Button>
+                            <Button onClick={() => showModal(EditProfileDialogModal)}>{translate("editProfile")}</Button>
                         </ProfileButtons>
                     )}
                 </Row>
-                <Skeleton width="90%" loading={isLoading}>
+                <Skeleton width="70%" loading={isLoading}>
                     <Typography className="profile-description" variant="body1" light singleLine>
                         {description}
                     </Typography>
