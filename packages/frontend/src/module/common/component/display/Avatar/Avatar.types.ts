@@ -1,6 +1,6 @@
 import { CSSProperties } from "react";
 
-export type AvatarSize = "lg" | "md" | "sm";
+export type AvatarSize = "lg" | "xl" | "md" | "sm";
 
 export interface AvatarProps {
     img: string;
