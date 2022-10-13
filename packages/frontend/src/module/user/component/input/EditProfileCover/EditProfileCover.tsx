@@ -1,31 +1,23 @@
 import { cx } from "@peersyst/react-utils";
-import { EditableImageProps } from "module/common/component/input/EditableImage/EditableImage.types";
-import useGetUser from "module/user/query/useGetUser";
-import useWallet from "module/wallet/component/hooks/useWallet";
-import { useState } from "react";
+import useGetWalletUser from "module/user/query/useGetWalletUser";
+import useUpdateUserFile from "module/user/query/useUpdateUserFile";
 import { EditProfileCoverRoot } from "./EditProfileCover.styles";
-
-export interface EditProfileCoverProps {
-    className?: string;
-    style?: EditableImageProps["style"];
-}
+import { EditProfileCoverProps } from "./EditProfileCover.types";
 
 const EditProfileCover = ({ className, style }: EditProfileCoverProps): JSX.Element => {
-    const { address = "rhqTdSsJAaEReRsR27YzddqyGoWTNMhEvC" } = useWallet();
-    const { data: { header } = {}, isLoading } = useGetUser(address);
-
-    const [updating, setUpdating] = useState(false);
-    const handleFileChange = (file: File) => {
-        setUpdating(true);
+    const { data: { header } = {}, isFetching } = useGetWalletUser();
+    const { updating, handleFileChange } = useUpdateUserFile();
+    const handleOnChange = (file: File) => {
+        handleFileChange(file, "header");
     };
     return (
         <EditProfileCoverRoot
             className={cx("edit-profile-cover", className)}
             style={style}
-            loading={isLoading}
-            onChange={handleFileChange}
+            loading={isFetching}
+            onChange={handleOnChange}
             updating={updating}
-            imageProps={{ src: header, alt: "cover-img", loading: isLoading }}
+            imageProps={{ src: header, alt: "cover-img", loading: isFetching }}
         />
     );
 };

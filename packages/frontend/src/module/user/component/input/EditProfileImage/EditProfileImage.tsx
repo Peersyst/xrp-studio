@@ -1,9 +1,8 @@
-import useGetUser from "module/user/query/useGetUser";
-import useWallet from "module/wallet/component/hooks/useWallet";
-import { useState } from "react";
 import EditableAvatar from "module/common/component/input/EditableAvatar/EditableAvatar";
 import { cx } from "@peersyst/react-utils";
 import { EditableImageProps } from "module/common/component/input/EditableImage/EditableImage.types";
+import useGetWalletUser from "module/user/query/useGetWalletUser";
+import useUpdateUserFile from "module/user/query/useUpdateUserFile";
 
 export interface EditableProfileImageProps {
     className?: string;
@@ -11,20 +10,18 @@ export interface EditableProfileImageProps {
 }
 
 const EditableProfileImage = ({ className, style }: EditableProfileImageProps): JSX.Element => {
-    const { address = "rhqTdSsJAaEReRsR27YzddqyGoWTNMhEvC" } = useWallet();
-    const { data: { image = "" } = {}, isLoading } = useGetUser(address);
-
-    const [updating, setUpdating] = useState(false);
-    const handleFileChange = (file: File) => {
-        setUpdating(true);
+    const { data: { image = "" } = {}, isFetching } = useGetWalletUser();
+    const { updating, handleFileChange } = useUpdateUserFile();
+    const handleOnChange = (file: File) => {
+        handleFileChange(file, "image");
     };
     return (
         <EditableAvatar
-            editableImageProps={{ onChange: handleFileChange, updating, className: cx("editable-profile-image", className), style }}
+            editableImageProps={{ onChange: handleOnChange, updating, className: cx("editable-profile-image", className), style }}
             avatarProps={{
                 img: image,
                 alt: "edit-profile-image",
-                loading: isLoading,
+                loading: isFetching,
             }}
         />
     );

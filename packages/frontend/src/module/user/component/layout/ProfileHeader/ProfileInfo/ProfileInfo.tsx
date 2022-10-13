@@ -44,7 +44,7 @@ const ProfileInfo = (): JSX.Element => {
                             />
                         </Skeleton>
                     </ProfileMainInfo>
-                    {!showEditBtn && (
+                    {showEditBtn && (
                         <ProfileButtons>
                             <Button onClick={() => showModal(EditProfileDialogModal)}>{translate("editProfile")}</Button>
                         </ProfileButtons>
