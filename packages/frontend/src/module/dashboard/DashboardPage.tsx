@@ -4,7 +4,7 @@ import useTranslate from "module/common/hook/useTranslate";
 import { config } from "config";
 import PageHeader from "module/common/component/layout/PageHeader/PageHeader";
 import PageContent from "module/common/component/layout/PageContent/PageContent";
-import FileInput from "module/common/component/input/FileInput/FileInput";
+import ColorInput from "module/common/component/input/ColorInput/ColorInput";
 
 export default function DashboardPage(): JSX.Element {
     const translate = useTranslate();
@@ -22,7 +22,7 @@ export default function DashboardPage(): JSX.Element {
                 content: (
                     <PageContent>
                         <Row flex={1} css={{ maxWidth: "40rem" }}>
-                            <FileInput multiple />
+                            <ColorInput css={{ flex: 1 }} TextFieldProps={{ variant: "filled" }} />
                         </Row>
                     </PageContent>
                 ),
