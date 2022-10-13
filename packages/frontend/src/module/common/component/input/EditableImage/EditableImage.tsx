@@ -29,7 +29,7 @@ const EditableImage = ({
             onChange={handleFileChange}
             multiple={false}
             fileTypes="image/*"
-            className={cx("editable-image", updating && "updating", className)}
+            className={cx("editable-image", updating && "updating", loading && "loading", className)}
             {...uploadProps}
         >
             {(drag) => {
@@ -44,7 +44,7 @@ const EditableImage = ({
                             variant="glass"
                             size="sm"
                             rounded
-                            className={cx("upload-btn", loading && "loading", updating && "updating")}
+                            className={cx("upload-btn", drag && "drag", loading && "loading", updating && "updating")}
                         >
                             <Row gap="0.5rem" alignItems="center">
                                 <ImageIcon css={{ fontSize: "1.4rem" }} />
