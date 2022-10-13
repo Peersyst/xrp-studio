@@ -1,13 +1,7 @@
 import Avatar from "../../display/Avatar/Avatar";
-import { EditableImageProps } from "../EditableImage/EditableImage.types";
-import { AvatarProps } from "../../display/Avatar/Avatar.types";
 import { cx } from "@peersyst/react-utils";
 import EditableImage from "../EditableImage/EditableImage";
-
-export interface EditableAvatarProps {
-    avatarProps: AvatarProps;
-    editableImageProps: Omit<EditableImageProps, "imageProps" | "backdrop">;
-}
+import { EditableAvatarProps } from "./EditableAvatar.types";
 
 const EditableAvatar = ({
     avatarProps,
