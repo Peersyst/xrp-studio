@@ -1,8 +1,10 @@
-import { UploadProps } from "@peersyst/react-components";
-import { ReactElement } from "react";
+import { ImageProps, UploadProps } from "@peersyst/react-components";
+import { ReactNode } from "react";
 
-export interface EditableImageProps extends Omit<UploadProps, "children"> {
-    children: ReactElement;
+export interface EditableImageProps extends Omit<UploadProps, "children" | "value" | "onChange" | "fileTypes" | "multiple"> {
     updating?: boolean;
-    onUpdate?: () => void;
+    loading?: boolean;
+    onChange: (file: File) => void;
+    imageProps?: ImageProps;
+    children?: ReactNode;
 }

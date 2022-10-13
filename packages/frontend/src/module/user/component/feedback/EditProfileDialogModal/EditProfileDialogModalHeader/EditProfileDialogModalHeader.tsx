@@ -1,24 +1,15 @@
-import { Col, Row } from "@peersyst/react-components";
-import EditableAvatar from "module/common/component/input/EditableAvatar/EditableAvatar";
-import EditableImage from "module/common/component/input/EditableImage/EditableImage";
-import useGetUser from "module/user/query/useGetUser";
-import useWallet from "module/wallet/component/hooks/useWallet";
-import { EditCoverImage } from "./EditProfileDialogModalHeader.styles";
+import { Col } from "@peersyst/react-components";
+import EditProfileCover from "module/user/component/input/EditProfileCover/EditProfileCover";
+import EditableProfileImage from "module/user/component/input/EditProfileImage/EditProfileImage";
 
 const EditProfileDialogModalHeader = (): JSX.Element => {
-    const { address = "rhqTdSsJAaEReRsR27YzddqyGoWTNMhEvC" } = useWallet();
-    const { data: user, isLoading } = useGetUser(address);
-    const { image = "", header = "" } = user || {};
-
     return (
         <Col alignItems="center">
-            <Row css={{ position: "relative", width: "100%" }}>
-                <EditableImage updating={false}>
-                    <EditCoverImage src={header} alt={""} loading={isLoading} />
-                </EditableImage>
-            </Row>
-            <EditableAvatar img={image} alt={""} loading={isLoading} css={{ objectFit: "contain", marginTop: "-5rem", zIndex: "2" }} />
-            <Col css={{ padding: "1.5rem" }} gap="1rem"></Col>
+            <EditProfileCover />
+            <EditableProfileImage css={{ marginTop: "-4.5rem" }} />
+            <Col css={{ padding: "1.5rem" }} gap="1rem">
+                <h1 css={{ fontSize: "1.5rem", fontWeight: "bold" }}>Edit Profile</h1>
+            </Col>
         </Col>
     );
 };
