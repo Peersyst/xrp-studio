@@ -7,7 +7,7 @@ const EditProfileDialogModalHeader = (): JSX.Element => {
         <Col alignItems="center">
             <EditProfileCover />
             <Row>
-                <EditProfileImage css={{ marginTop: "-4.5rem" }} />
+                <EditProfileImage css={{ marginTop: "-5.25rem" }} />
             </Row>
         </Col>
     );

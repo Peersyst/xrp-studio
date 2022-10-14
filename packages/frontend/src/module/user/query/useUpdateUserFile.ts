@@ -1,6 +1,6 @@
-import { UpdateUserRequest } from "module/api/service";
 import useUploadFile from "module/common/query/useUploadFile";
 import { useState } from "react";
+import { getUserRequestFromUserDTO } from "../util/getUserRequestFromUserDTO";
 import useGetWalletUser from "./useGetWalletUser";
 import { useUpdateUser } from "./useUpdateUser";
 
@@ -17,11 +17,11 @@ const useUpdateUserFile = (): UseUpdateUserFileReturn => {
     //Hooks
     const { mutateAsync: uploadFile } = useUploadFile();
     const { mutateAsync: updateUser } = useUpdateUser();
-    const { refetch } = useGetWalletUser();
+    const { refetch, data: user = { address: "" } } = useGetWalletUser();
 
     const handleFileChange = async (file: File, type: UserRequestFile) => {
-        const req: UpdateUserRequest = {};
         setUpdating(true);
+        const req = getUserRequestFromUserDTO(user);
         req[type] = await uploadFile(file);
         await updateUser(req);
         await refetch();

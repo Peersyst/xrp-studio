@@ -20,7 +20,7 @@ export const EditProfileCoverRoot = styled(EditableImage)(
             left: auto;
         }
         .editable-image-loader.updating {
-            transform: translate(-50%, -150%);
+            transform: translate(-50%, -175%);
         }
     `,
 );
