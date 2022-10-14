@@ -2458,14 +2458,14 @@
     "@peersyst/react-types" "^1.4.0"
     "@peersyst/react-utils" "^1.7.0"
 
-"@peersyst/react-components@^2.23.3":
-  version "2.23.3"
-  resolved "https://registry.yarnpkg.com/@peersyst/react-components/-/react-components-2.23.3.tgz#47edcf1a9c526083430c67861e670db6a7abedbf"
-  integrity sha512-z5oRMraokNzdApBOUQLUmwpXIgUPJY2+JBso0lAFSxXlSJjPM/ohs6g9ljezTPxWbXRt4QsSTxwUz1VDxM/ZQw==
+"@peersyst/react-components@^2.23.4":
+  version "2.23.4"
+  resolved "https://registry.yarnpkg.com/@peersyst/react-components/-/react-components-2.23.4.tgz#1023bbe7d3c6060024ce519ce50a09d6a52409f6"
+  integrity sha512-ECZaB9ToI0XOETkhafZ0gbhA22tw+zQaLOMKV4NRq4W0OPaO0ScMqCFqNi6z845LhP7w3q1Y+f56oj7XfZVzPA==
   dependencies:
     "@babel/runtime" "^7.16.7"
     "@peersyst/react-components-core" "^0.2.8"
-    "@peersyst/react-hooks" "^1.4.1"
+    "@peersyst/react-hooks" "^1.4.0"
     "@peersyst/react-types" "^1.4.0"
     "@peersyst/react-utils" "^1.7.0"
     "@popperjs/core" "^2.11.5"
@@ -2486,7 +2486,7 @@
     "@babel/runtime" "^7.16.7"
     "@peersyst/react-utils" "^1.4.7"
 
-"@peersyst/react-hooks@^1.4.1":
+"@peersyst/react-hooks@^1.4.0", "@peersyst/react-hooks@^1.4.1":
   version "1.4.1"
   resolved "https://registry.yarnpkg.com/@peersyst/react-hooks/-/react-hooks-1.4.1.tgz#b0cd2712322590a9125252f368ddca12f4314ef1"
   integrity sha512-gkLaLYQcA6FlOX1XXQi0mYpnSpjd+52UjiXG6nkCapnvGwP28PA9ZiYHElqMmCgT4IkQ9ud9iX3Tfv/tJ1mtaQ==
