@@ -11,6 +11,7 @@ import { SelectStyles } from "config/theme/component/Select.styles";
 import { TextInputStyles } from "./component/TextInput.styles";
 import { BlockchainAddressStyles } from "config/theme/component/BlockchainAddress.styles";
 import { ModalStyles } from "./component/Modal.styles";
+import { DrawerStyles } from "./component/Drawer.styles";
 
 export const GlobalStyles = createGlobalStyle<{ theme: Theme }>`
         ${RootStyles};
@@ -155,6 +156,7 @@ export const GlobalStyles = createGlobalStyle<{ theme: Theme }>`
         }
 
         ${BackdropStyles};
+        ${DrawerStyles};
         ${ModalStyles};
         ${TypographyStyles}
         ${SwitchStyles};

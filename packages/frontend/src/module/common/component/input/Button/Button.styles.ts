@@ -49,17 +49,17 @@ const outlinedVariant = css(({ theme }) => {
 const glassVariant = css(({ theme }) => {
     return css`
         background: ${alpha(theme.palette.black[85], 0.72)};
-        box-shadow: 0px 0px 12px ${alpha(theme.palette.black[90], 0.48)};
+        box-shadow: 0 0 12px ${alpha(theme.palette.black[90], 0.48)};
         backdrop-filter: blur(8px);
         color: ${theme.palette.black[0]};
         &:hover {
             color: ${theme.palette.black[0]};
-            box-shadow: 0px 0px 8px ${alpha(theme.palette.black[90], 0.48)};
+            box-shadow: 0 0 8px ${alpha(theme.palette.black[90], 0.48)};
             background: ${alpha(theme.palette.black[85], 0.76)};
         }
         &:active {
             color: ${theme.palette.black[0]};
-            box-shadow: 0px 0px 4px ${alpha(theme.palette.black[90], 0.48)};
+            box-shadow: 0 0 4px ${alpha(theme.palette.black[90], 0.48)};
             background: ${alpha(theme.palette.black[85], 0.9)};
         }
     `;
@@ -128,7 +128,7 @@ export const ButtonRoot = styled(Button)(({ variant, size }) => {
         font-weight: 500;
         text-transform: none;
         border: 1px solid transparent;
-        transition: background-color 200ms linear, opacity 200ms linear;
+        transition: background-color 200ms linear, opacity 200ms linear, box-shadow 200ms linear;
         &:disabled {
             opacity: 0.4;
         }
