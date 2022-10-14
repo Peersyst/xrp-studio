@@ -1,5 +1,5 @@
 import useGetUser from "module/user/query/useGetUser";
-import { BlockchainAddress, Col, Row, Skeleton, Typography, useModal, useTheme } from "@peersyst/react-components";
+import { BlockchainAddress, Col, Row, Skeleton, Typography, useDrawer, useTheme } from "@peersyst/react-components";
 import {
     ProfileButtons,
     ProfileInfoRoot,
@@ -22,7 +22,7 @@ const ProfileInfo = (): JSX.Element => {
         },
     } = useTheme();
     const isSm = useMediaQuery(`(max-width: ${sm}px)`);
-    const { showModal } = useModal();
+    const { showDrawer } = useDrawer();
     const showEditBtn = !isLoading && walletAddress === address;
     return (
         <ProfileInfoRoot>
@@ -45,7 +45,7 @@ const ProfileInfo = (): JSX.Element => {
                         </Skeleton>
                     </ProfileMainInfo>
                     <ProfileButtons>
-                        {showEditBtn && <Button onClick={() => showModal(EditProfileDrawer)}>{translate("editProfile")}</Button>}
+                        {showEditBtn && <Button onClick={() => showDrawer(EditProfileDrawer)}>{translate("editProfile")}</Button>}
                     </ProfileButtons>
                 </Row>
                 <Skeleton width="70%" loading={isLoading}>

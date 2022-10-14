@@ -2,11 +2,9 @@ import { Col, createModal, DrawerProps } from "@peersyst/react-components";
 import { EditProfileDrawerRoot } from "./EditProfileDrawer.styles";
 import EditProfileDrawerHeader from "./EditProfileDrawerHeader/EditProfileDrawerHeader";
 
-export interface EditProfileDrawerModalProps extends DrawerProps {}
-
-const EditProfileDrawer = createModal(({ ...modalProps }: EditProfileDrawerModalProps) => {
+const EditProfileDrawer = createModal(({ ...drawerProps }: DrawerProps) => {
     return (
-        <EditProfileDrawerRoot {...modalProps} position="right">
+        <EditProfileDrawerRoot {...drawerProps}>
             <EditProfileDrawerHeader />
             <Col css={{ padding: "1.5rem" }} gap="1rem">
                 <h1 css={{ fontSize: "1.5rem", fontWeight: "bold" }}>Edit Profile</h1>

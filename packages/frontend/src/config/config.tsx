@@ -24,6 +24,11 @@ const config = createConfig({
         BlockchainAddress: {
             blockchainLinks: envConfig.blockchainLinks,
         },
+        Drawer: {
+            defaultProps: {
+                position: "right",
+            },
+        },
     },
     themes: {
         light: lightTheme,
