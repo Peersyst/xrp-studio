@@ -1,6 +1,5 @@
 import userEvent from "@testing-library/user-event";
 import EditableAvatar from "module/common/component/input/EditableAvatar/EditableAvatar";
-import EditableImage from "module/common/component/input/EditableImage/EditableImage";
 import { render, translate } from "test-utils";
 
 describe("Test EditableAvatar", () => {

@@ -4,12 +4,12 @@ import { EditableImageProps } from "module/common/component/input/EditableImage/
 import useGetWalletUser from "module/user/query/useGetWalletUser";
 import useUpdateUserFile from "module/user/query/useUpdateUserFile";
 
-export interface EditableProfileImageProps {
+export interface EditProfileImageProps {
     className?: string;
     style?: EditableImageProps["style"];
 }
 
-const EditableProfileImage = ({ className, style }: EditableProfileImageProps): JSX.Element => {
+const EditProfileImage = ({ className, style }: EditProfileImageProps): JSX.Element => {
     const { data: { image = "" } = {}, isFetching } = useGetWalletUser();
     const { updating, handleFileChange } = useUpdateUserFile();
     const handleOnChange = (file: File) => {
@@ -27,4 +27,4 @@ const EditableProfileImage = ({ className, style }: EditableProfileImageProps): 
     );
 };
 
-export default EditableProfileImage;
+export default EditProfileImage;

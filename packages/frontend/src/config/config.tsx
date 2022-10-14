@@ -26,7 +26,7 @@ const config = createConfig({
         },
     },
     themes: {
-        light: darkTheme,
+        light: lightTheme,
         dark: darkTheme,
     },
 });
