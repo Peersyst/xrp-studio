@@ -1,5 +1,6 @@
 import { Col, createModal, ModalProps } from "@peersyst/react-components";
 import { EditProfileDialogModalRoot } from "./EditProfileDialogModal.styles";
+import EditProfileDialogModalBody from "./EditProfileDialogModalBody/EditProfileDialogModalBody";
 import EditProfileDialogModalHeader from "./EditProfileDialogModalHeader/EditProfileDialogModalHeader";
 
 export interface EditProfileDialogModalProps extends ModalProps {}
@@ -7,9 +8,9 @@ export interface EditProfileDialogModalProps extends ModalProps {}
 const EditProfileDialogModal = createModal(({ ...modalProps }: EditProfileDialogModalProps) => {
     return (
         <EditProfileDialogModalRoot {...modalProps}>
-            <EditProfileDialogModalHeader />
-            <Col css={{ padding: "1.5rem" }} gap="1rem">
-                <h1 css={{ fontSize: "1.5rem", fontWeight: "bold" }}>Edit Profile</h1>
+            <Col flex={1} gap="3.5rem" css={{ height: "100%" }}>
+                <EditProfileDialogModalHeader />
+                <EditProfileDialogModalBody />
             </Col>
         </EditProfileDialogModalRoot>
     );

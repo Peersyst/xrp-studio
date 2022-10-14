@@ -1,6 +1,6 @@
 {
     "welcome": "Hello",
-    "name": "Charlie",
+    "name": "name",
     "formatNumber": "{{val, number}}",
     "loginWithXumm": "Login with XUMM Wallet",
     "scanXummQR": "Scan the QR with XUMM app",
@@ -29,5 +29,9 @@
     "itemWithCount_other": "{{count}} items",
     "youHaveNoNfts": "You have no NFTs",
     "youHaveNoCollections": "You have no collections",
-    "change": "Change"
+    "change": "Change",
+    "cancel": "Cancel",
+    "writeYour": "Write your {{name}}",
+    "bio": "bio",
+    "updateProfile": "Update profile"
 }
