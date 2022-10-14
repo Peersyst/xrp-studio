@@ -3,7 +3,7 @@ import { UserDtoMock, WalletMock } from "test-mocks";
 import { render, translate } from "test-utils";
 import * as Router from "react-router-dom";
 import * as UseWallet from "module/wallet/component/hooks/useWallet";
-import EditProfileDrawerHeader from "module/user/component/feedback/EditProfileDialogModal/EditProfileDrawerHeader/EditProfileDrawerHeader";
+import EditProfileDrawerHeader from "module/user/component/feedback/EditProfileDrawer/EditProfileDrawerHeader/EditProfileDrawerHeader";
 
 describe("EditProfileDrawerHeader", () => {
     const userDtoMock = new UserDtoMock();

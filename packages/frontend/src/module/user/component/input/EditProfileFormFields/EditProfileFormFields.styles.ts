@@ -1,4 +1,4 @@
-import { Form } from "@peersyst/react-components";
+import { Col } from "@peersyst/react-components";
 import TextField from "module/common/component/input/TextField/TextField";
 import styled, { css } from "styled-components";
 
@@ -9,7 +9,7 @@ export const HalfWidthTextField = styled(TextField)(
     `,
 );
 
-export const EditProfileFieldsFormRoot = styled(Form)(
+export const EditProfileFieldsFormRoot = styled(Col)(
     () => css`
         flex: 1;
         display: flex;

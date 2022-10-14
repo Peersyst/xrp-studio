@@ -1,21 +1,13 @@
 import { Col, Row } from "@peersyst/react-components";
 import { capitalize } from "@peersyst/react-utils";
-import { UpdateUserRequest } from "module/api/service";
 import Button from "module/common/component/input/Button/Button";
 import TextArea from "module/common/component/input/TextArea/TextArea";
 import useTranslate from "module/common/hook/useTranslate";
 import useGetWalletUser from "module/user/query/useGetWalletUser";
-import { useUpdateUser } from "module/user/query/useUpdateUser";
-import { getUserRequestFromUserDTO } from "module/user/util/getUserRequestFromUserDTO";
 import { useState } from "react";
+import { UpdateUserFields } from "../../feedback/EditProfileDrawer/EditProfileDrawer.types";
 import EditProfileName from "../EditProfileName/EditProfileName";
-import { EditProfileFieldsFormRoot, HalfWidthTextField } from "./EditProfileFieldsForm.styles";
-
-type UpdateUserFieldsRequest = Omit<UpdateUserRequest, "image" | "header">;
-
-type UpdateUserFields = keyof UpdateUserFieldsRequest;
-
-type HandleSumbitParams = Required<UpdateUserFieldsRequest>;
+import { EditProfileFieldsFormRoot, HalfWidthTextField } from "./EditProfileFormFields.styles";
 
 export const userEditNames: Record<UpdateUserFields, UpdateUserFields> = {
     name: "name",
@@ -24,23 +16,14 @@ export const userEditNames: Record<UpdateUserFields, UpdateUserFields> = {
     discord: "discord",
 };
 
-const EditProfileFieldsForm = (): JSX.Element => {
+const EditProfileFormFields = (): JSX.Element => {
     const t = useTranslate();
-    const { data: user = { address: "" } } = useGetWalletUser();
-    const { mutateAsync: updateUser } = useUpdateUser();
-    const { description, twitter, discord } = user;
+    const { data: user } = useGetWalletUser();
+    const { description, twitter, discord } = user ?? {};
     const [validating, setValidating] = useState(false);
-    const handleSubmit = async (values: HandleSumbitParams) => {
-        const finalUser = { ...user };
-        Object.entries(values).forEach(([key, value]) => {
-            if (value) {
-                finalUser[key as keyof UpdateUserRequest] = value;
-            }
-        });
-        await updateUser(getUserRequestFromUserDTO(finalUser));
-    };
+
     return (
-        <EditProfileFieldsFormRoot onSubmit={handleSubmit} css={{ flex: 1 }}>
+        <EditProfileFieldsFormRoot flex={1}>
             <Col flex={1} gap="1.5rem">
                 <EditProfileName setValidating={setValidating} validating={validating} />
                 <TextArea
@@ -76,4 +59,4 @@ const EditProfileFieldsForm = (): JSX.Element => {
     );
 };
 
-export default EditProfileFieldsForm;
+export default EditProfileFormFields;
