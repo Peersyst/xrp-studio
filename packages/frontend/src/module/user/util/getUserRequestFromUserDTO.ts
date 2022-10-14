@@ -6,7 +6,8 @@ import { UserDto } from "module/api/service";
  * @param user as UserDto
  * @returns req as UpdateUserRequest
  */
-export const getUserRequestFromUserDTO = (user: UserDto): UpdateUserRequest => {
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+export const getUserRequestFromUserDTO = ({ address, ...user }: UserDto): UpdateUserRequest => {
     const req: UpdateUserRequest = { ...user };
     for (const key in req) {
         if (!req[key as keyof UpdateUserRequest]) {

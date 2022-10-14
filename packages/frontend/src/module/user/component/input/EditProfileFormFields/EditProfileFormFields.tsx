@@ -4,6 +4,7 @@ import Button from "module/common/component/input/Button/Button";
 import TextArea from "module/common/component/input/TextArea/TextArea";
 import useTranslate from "module/common/hook/useTranslate";
 import useGetWalletUser from "module/user/query/useGetWalletUser";
+import { useUpdateUser } from "module/user/query/useUpdateUser";
 import { useState } from "react";
 import { UpdateUserFields } from "../../feedback/EditProfileDrawer/EditProfileDrawer.types";
 import EditProfileName from "../EditProfileName/EditProfileName";
@@ -19,6 +20,7 @@ export const userEditNames: Record<UpdateUserFields, UpdateUserFields> = {
 const EditProfileFormFields = (): JSX.Element => {
     const t = useTranslate();
     const { data: user } = useGetWalletUser();
+    const { isLoading } = useUpdateUser();
     const { description, twitter, discord } = user ?? {};
     const [validating, setValidating] = useState(false);
 
@@ -52,7 +54,7 @@ const EditProfileFormFields = (): JSX.Element => {
                     />
                 </Row>
             </Col>
-            <Button disabled={validating} type="submit">
+            <Button disabled={validating} type="submit" loading={isLoading}>
                 {t("updateProfile")}
             </Button>
         </EditProfileFieldsFormRoot>

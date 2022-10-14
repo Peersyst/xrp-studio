@@ -1,4 +1,3 @@
-import { useFormNotification } from "@peersyst/react-components";
 import { cx } from "@peersyst/react-utils";
 import useGetWalletUser from "module/user/query/useGetWalletUser";
 import { useNotifyFileEditProfileForm } from "module/user/query/useNotifyFileEditProfileForm";
@@ -7,7 +6,7 @@ import { EditProfileCoverProps } from "./EditProfileCover.types";
 
 const EditProfileCover = ({ className, style }: EditProfileCoverProps): JSX.Element => {
     const { data: user = { header: "" }, isFetching } = useGetWalletUser();
-    const handleOnChange = useNotifyFileEditProfileForm("header");
+    const handleOnChange = useNotifyFileEditProfileForm("header", user.header ?? "");
 
     return (
         <EditProfileCoverRoot

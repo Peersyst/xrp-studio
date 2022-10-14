@@ -10,8 +10,8 @@ export interface EditProfileImageProps {
 }
 
 const EditProfileImage = ({ className, style }: EditProfileImageProps): JSX.Element => {
-    const { data: { image = "" } = {}, isFetching } = useGetWalletUser();
-    const handleOnChange = useNotifyFileEditProfileForm("image");
+    const { data: user = { image: "" }, isFetching } = useGetWalletUser();
+    const handleOnChange = useNotifyFileEditProfileForm("image", user.image ?? "");
     return (
         <EditableAvatar
             editableImageProps={{
@@ -20,7 +20,7 @@ const EditProfileImage = ({ className, style }: EditProfileImageProps): JSX.Elem
                 style,
             }}
             avatarProps={{
-                img: image,
+                img: user.image ?? "",
                 alt: "edit-profile-image",
                 loading: isFetching,
             }}
