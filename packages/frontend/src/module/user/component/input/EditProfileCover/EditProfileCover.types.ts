@@ -1,6 +1,6 @@
-import { EditableImageProps } from "module/common/component/input/EditableImage/EditableImage.types";
+import { CSSProperties } from "styled-components";
 
 export interface EditProfileCoverProps {
     className?: string;
-    style?: EditableImageProps["style"];
+    style?: CSSProperties;
 }

@@ -10,12 +10,13 @@ import { useMediaQuery } from "@peersyst/react-hooks";
 import useTranslate from "module/common/hook/useTranslate";
 import useWallet from "module/wallet/component/hooks/useWallet";
 import EditProfileDrawer from "module/user/component/feedback/EditProfileDialogModal/EditProfileDrawer";
+import SocialButtons from "module/common/component/navigation/SocialButtons/SocialButtons";
 
 const ProfileInfo = (): JSX.Element => {
     const translate = useTranslate();
     const { data: user, isLoading } = useGetUser();
     const { address: walletAddress } = useWallet();
-    const { name = "name", address = "", description = "description" } = user || {};
+    const { name = "name", address = "", description = "description", discord, twitter } = user || {};
     const {
         breakpoints: {
             values: { sm },
@@ -44,8 +45,13 @@ const ProfileInfo = (): JSX.Element => {
                             />
                         </Skeleton>
                     </ProfileMainInfo>
-                    <ProfileButtons>
-                        {showEditBtn && <Button onClick={() => showDrawer(EditProfileDrawer)}>{translate("editProfile")}</Button>}
+                    <ProfileButtons gap="0.5rem">
+                        <SocialButtons userId={address} twitterId={twitter} discordId={discord} />
+                        {showEditBtn && (
+                            <Button size="sm" onClick={() => showDrawer(EditProfileDrawer)}>
+                                {translate("editProfile")}
+                            </Button>
+                        )}
                     </ProfileButtons>
                 </Row>
                 <Skeleton width="70%" loading={isLoading}>

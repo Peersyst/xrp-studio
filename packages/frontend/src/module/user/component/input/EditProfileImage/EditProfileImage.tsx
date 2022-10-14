@@ -1,23 +1,25 @@
 import EditableAvatar from "module/common/component/input/EditableAvatar/EditableAvatar";
 import { cx } from "@peersyst/react-utils";
-import { EditableImageProps } from "module/common/component/input/EditableImage/EditableImage.types";
 import useGetWalletUser from "module/user/query/useGetWalletUser";
-import useUpdateUserFile from "module/user/query/useUpdateUserFile";
+import { CSSProperties } from "styled-components";
 
 export interface EditProfileImageProps {
     className?: string;
-    style?: EditableImageProps["style"];
+    style?: CSSProperties;
 }
 
 const EditProfileImage = ({ className, style }: EditProfileImageProps): JSX.Element => {
     const { data: { image = "" } = {}, isFetching } = useGetWalletUser();
-    const { updating, handleFileChange } = useUpdateUserFile();
-    const handleOnChange = (file: File) => {
-        handleFileChange(file, "image");
+    const handleOnChange = (url: string) => {
+        window.alert(url);
     };
     return (
         <EditableAvatar
-            editableImageProps={{ onChange: handleOnChange, updating, className: cx("editable-profile-image", className), style }}
+            editableImageProps={{
+                onChange: handleOnChange,
+                className: cx("editable-profile-image", className),
+                style,
+            }}
             avatarProps={{
                 img: image,
                 alt: "edit-profile-image",
