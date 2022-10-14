@@ -9,7 +9,7 @@ import Button from "module/common/component/input/Button/Button";
 import { useMediaQuery } from "@peersyst/react-hooks";
 import useTranslate from "module/common/hook/useTranslate";
 import useWallet from "module/wallet/component/hooks/useWallet";
-import EditProfileDialogModal from "module/user/component/feedback/EditProfileDialogModal/EditProfileDialogModal";
+import EditProfileDrawer from "module/user/component/feedback/EditProfileDialogModal/EditProfileDrawer";
 
 const ProfileInfo = (): JSX.Element => {
     const translate = useTranslate();
@@ -44,11 +44,9 @@ const ProfileInfo = (): JSX.Element => {
                             />
                         </Skeleton>
                     </ProfileMainInfo>
-                    {showEditBtn && (
-                        <ProfileButtons>
-                            <Button onClick={() => showModal(EditProfileDialogModal)}>{translate("editProfile")}</Button>
-                        </ProfileButtons>
-                    )}
+                    <ProfileButtons>
+                        {showEditBtn && <Button onClick={() => showModal(EditProfileDrawer)}>{translate("editProfile")}</Button>}
+                    </ProfileButtons>
                 </Row>
                 <Skeleton width="70%" loading={isLoading}>
                     <Typography className="profile-description" variant="body1" light singleLine>
