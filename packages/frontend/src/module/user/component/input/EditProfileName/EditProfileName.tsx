@@ -5,38 +5,37 @@ import TextField from "module/common/component/input/TextField/TextField";
 import useTranslate from "module/common/hook/useTranslate";
 import useCheckNameAvailability from "module/user/query/useCheckNameAvailability";
 import useGetWalletUser from "module/user/query/useGetWalletUser";
-import { Dispatch, SetStateAction } from "react";
+import { Dispatch, SetStateAction, useState } from "react";
 import { userEditNames } from "../../feedback/EditProfileDrawer/EditProfileDrawer";
 import { UserValidator } from "./util/ProfileValidator";
 
 interface EditProfileNameProps {
-    setName: Dispatch<SetStateAction<string>>;
-    name: string;
+    setValidating: Dispatch<SetStateAction<boolean>>;
+    validating: boolean;
 }
 
-const EditProfileName = ({ setName, name }: EditProfileNameProps): JSX.Element => {
+const EditProfileName = ({ setValidating, validating }: EditProfileNameProps): JSX.Element => {
     const { data: user = { name: "" } } = useGetWalletUser();
-    const { data: valid = true, isLoading } = useCheckNameAvailability(name);
-    console.log("valid", valid);
-    console.log("isLoading", isLoading);
+    const [qName, setQName] = useState(user.name);
+    const { data: exist, isLoading } = useCheckNameAvailability(qName);
     const t = useTranslate();
     const tErr = useTranslate("error");
     const onQuery = (value: string) => {
-        setName(value);
+        setQName(value);
     };
-    const { value, onChange } = useSearchBar({ onQuery, delay: 800 });
-
+    const { value, onChange, loading: debouncing } = useSearchBar({ onQuery, delay: 800 });
+    const finalLoading = isLoading || debouncing;
     return (
         <TextField
             prefix="@"
             value={value}
-            customValidators={[new UserValidator(tErr("userAlreadyExists"), valid)]}
+            customValidators={[new UserValidator(tErr("userAlreadyExists"), !exist)]}
             onChange={onChange}
             placeholder={t("writeYour", { name: t("name") })}
             label={capitalize(t("name"))}
             name={userEditNames.name}
             defaultValue={user?.name}
-            suffix={isLoading && <LoaderIcon />}
+            suffix={finalLoading && <LoaderIcon />}
         />
     );
 };

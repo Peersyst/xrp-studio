@@ -3,6 +3,7 @@
 /* eslint-disable */
 import type { UpdateUserRequest } from '../models/UpdateUserRequest';
 import type { UserDto } from '../models/UserDto';
+import type { ValidDto } from '../models/ValidDto';
 
 import type { CancelablePromise } from '../core/CancelablePromise';
 import { OpenAPI } from '../core/OpenAPI';
@@ -31,12 +32,12 @@ export class UserService {
     /**
      * Check if the name of a user already exists.
      * @param name
-     * @returns boolean
+     * @returns ValidDto
      * @throws ApiError
      */
     public static userControllerCheckUserName(
         name: string,
-    ): CancelablePromise<boolean> {
+    ): CancelablePromise<ValidDto> {
         return __request(OpenAPI, {
             method: 'GET',
             url: '/api/user/check-username/{name}',
