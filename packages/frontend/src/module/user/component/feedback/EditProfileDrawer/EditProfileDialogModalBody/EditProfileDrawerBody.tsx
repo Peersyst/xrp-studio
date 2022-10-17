@@ -8,6 +8,7 @@ import { EditProfileDrawerBodyRoot } from "./EditProfileDrawerBody.styles";
 const EditProfileDrawerBody = (): JSX.Element => {
     const t = useTranslate();
     const { hideDrawer } = useDrawer();
+
     return (
         <EditProfileDrawerBodyRoot>
             <Typography variant="h3" fontWeight={800}>

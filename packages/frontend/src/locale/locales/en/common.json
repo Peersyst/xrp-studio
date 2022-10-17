@@ -33,5 +33,5 @@
     "cancel": "Cancel",
     "writeYour": "Write your {{name}}",
     "bio": "bio",
-    "updateProfile": "Update profile"
+    "profileUpdated": "Update profile"
 }

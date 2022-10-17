@@ -1,5 +1,6 @@
 import { createDrawer, DrawerProps, useToast } from "@peersyst/react-components";
 import { UserDto } from "module/api/service";
+import useTranslate from "module/common/hook/useTranslate";
 import useGetWalletUser from "module/user/query/useGetWalletUser";
 import { useUpdateUser } from "module/user/query/useUpdateUser";
 import { getUserRequestFromUserDTO } from "module/user/util/getUserRequestFromUserDTO";
@@ -27,6 +28,8 @@ const EditProfileDrawer = createDrawer(({ ...drawerProps }: DrawerProps) => {
     const { mutateAsync: updateUser } = useUpdateUser();
     const { showToast } = useToast();
     const { data: user = { address: "" }, refetch } = useGetWalletUser();
+    const tSuccess = useTranslate("success");
+
     const handleSumbit = async (newUser: UserDto) => {
         const finalUser = {
             ...user,
@@ -34,7 +37,7 @@ const EditProfileDrawer = createDrawer(({ ...drawerProps }: DrawerProps) => {
         };
         await updateUser(getUserRequestFromUserDTO(finalUser));
         await refetch();
-        showToast("Profile updated", { type: "success", position: "top-left" });
+        showToast(tSuccess("profileUpdated"), { type: "success", position: "top-left" });
     };
     return (
         <EditProfileDrawerRoot {...drawerProps}>
