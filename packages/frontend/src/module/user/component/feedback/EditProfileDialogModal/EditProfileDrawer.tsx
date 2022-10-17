@@ -1,8 +1,8 @@
-import { Col, createModal, DrawerProps } from "@peersyst/react-components";
+import { Col, createDrawer, DrawerProps } from "@peersyst/react-components";
 import { EditProfileDrawerRoot } from "./EditProfileDrawer.styles";
 import EditProfileDrawerHeader from "./EditProfileDrawerHeader/EditProfileDrawerHeader";
 
-const EditProfileDrawer = createModal(({ ...drawerProps }: DrawerProps) => {
+const EditProfileDrawer = createDrawer(({ ...drawerProps }: DrawerProps) => {
     return (
         <EditProfileDrawerRoot {...drawerProps}>
             <EditProfileDrawerHeader />
