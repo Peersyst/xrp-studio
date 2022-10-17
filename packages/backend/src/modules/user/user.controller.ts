@@ -8,7 +8,7 @@ import { GetUserParamsRequest } from "./request/get-user-params.request";
 import { XummAuthenticated } from "@peersyst/xumm-module";
 import { UpdateUserRequest } from "./request/update-user.request";
 import { CheckUserNameRequest } from "./request/check-user-name.request";
-import { ExistDto } from "./dto/existDto.dto";
+import { ExistDto } from "./dto/exist.dto";
 
 @ApiTags("user")
 @Controller("user")

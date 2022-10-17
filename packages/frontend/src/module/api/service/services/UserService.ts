@@ -1,30 +1,28 @@
 /* istanbul ignore file */
 /* tslint:disable */
 /* eslint-disable */
-import type { UpdateUserRequest } from '../models/UpdateUserRequest';
-import type { UserDto } from '../models/UserDto';
-import type { ValidDto } from '../models/ValidDto';
+import type { ExistDto } from "../models/ExistDto";
+import type { UpdateUserRequest } from "../models/UpdateUserRequest";
+import type { UserDto } from "../models/UserDto";
+import type { ValidDto } from "../models/ValidDto";
 
-import type { CancelablePromise } from '../core/CancelablePromise';
-import { OpenAPI } from '../core/OpenAPI';
-import { request as __request } from '../core/request';
+import type { CancelablePromise } from "../core/CancelablePromise";
+import { OpenAPI } from "../core/OpenAPI";
+import { request as __request } from "../core/request";
 
 export class UserService {
-
     /**
      * Gets a user
      * @param address
      * @returns UserDto
      * @throws ApiError
      */
-    public static userControllerGetUser(
-        address: string,
-    ): CancelablePromise<UserDto> {
+    public static userControllerGetUser(address: string): CancelablePromise<UserDto> {
         return __request(OpenAPI, {
-            method: 'GET',
-            url: '/api/user/{address}',
+            method: "GET",
+            url: "/api/user/{address}",
             path: {
-                'address': address,
+                address: address,
             },
         });
     }
@@ -32,17 +30,15 @@ export class UserService {
     /**
      * Check if the name of a user already exists.
      * @param name
-     * @returns ValidDto
+     * @returns ExistDto
      * @throws ApiError
      */
-    public static userControllerCheckUserName(
-        name: string,
-    ): CancelablePromise<ValidDto> {
+    public static userControllerCheckUserName(name: string): CancelablePromise<ExistDto> {
         return __request(OpenAPI, {
-            method: 'GET',
-            url: '/api/user/check-username/{name}',
+            method: "GET",
+            url: "/api/user/check-username/{name}",
             path: {
-                'name': name,
+                name: name,
             },
         });
     }
@@ -53,15 +49,12 @@ export class UserService {
      * @returns void
      * @throws ApiError
      */
-    public static userControllerUpdateUser(
-        requestBody: UpdateUserRequest,
-    ): CancelablePromise<void> {
+    public static userControllerUpdateUser(requestBody: UpdateUserRequest): CancelablePromise<void> {
         return __request(OpenAPI, {
-            method: 'PUT',
-            url: '/api/user',
+            method: "PUT",
+            url: "/api/user",
             body: requestBody,
-            mediaType: 'application/json',
+            mediaType: "application/json",
         });
     }
-
 }
