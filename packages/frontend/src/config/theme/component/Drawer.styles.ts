@@ -9,7 +9,7 @@ export const DrawerStyles = css(({ theme }) => {
             border: 1px solid ${alpha(theme.palette.black["0"], 0.2)};
             height: calc(100% - 3rem);
             right: 1.5rem;
-            width: 100%;
+            width: calc(100% - 3rem);
             max-width: 36.75rem;
             ${theme.breakpoints.down("mini")} {
                 max-width: 100%;

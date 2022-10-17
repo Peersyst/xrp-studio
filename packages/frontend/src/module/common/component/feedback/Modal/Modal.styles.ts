@@ -8,6 +8,7 @@ export const ModalRoot = styled(Modal)(
         width: 37.5rem;
         max-width: 90vw;
         max-height: 82vh;
+        border-radius: ${theme.borderRadiusLg};
         ${theme.breakpoints.down("mobile")} {
             height: auto;
             padding: 2rem;
