@@ -22,7 +22,7 @@ export class UserController {
     }
 
     @Get("check-username/:name")
-    @ApiOperation({ description: "Check if a name of a user already exists" })
+    @ApiOperation({ description: "Check if the name of a user already exists." })
     async checkUserName(@EnhancedParams() { name }: CheckUserNameRequest): Promise<boolean> {
         return this.userService.findName(name);
     }
