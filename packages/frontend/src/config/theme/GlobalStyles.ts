@@ -10,6 +10,7 @@ import { ChipStyles } from "config/theme/component/Chip.styles";
 import { SelectStyles } from "config/theme/component/Select.styles";
 import { TextInputStyles } from "./component/TextInput.styles";
 import { BlockchainAddressStyles } from "config/theme/component/BlockchainAddress.styles";
+import { ColorInputStyles } from "config/theme/component/ColorInput.styles";
 
 export const GlobalStyles = createGlobalStyle<{ theme: Theme }>`
         ${RootStyles};
@@ -161,4 +162,5 @@ export const GlobalStyles = createGlobalStyle<{ theme: Theme }>`
         ${FormControlStyles};
         ${TextInputStyles};
         ${BlockchainAddressStyles};
+        ${ColorInputStyles};
     `;
