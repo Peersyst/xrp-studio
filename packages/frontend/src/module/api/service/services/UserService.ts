@@ -29,7 +29,7 @@ export class UserService {
     }
 
     /**
-     * Check if a name of a user already exists
+     * Check if the name of a user already exists.
      * @param name
      * @returns boolean
      * @throws ApiError
