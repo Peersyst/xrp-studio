@@ -1,6 +1,7 @@
 /* istanbul ignore file */
 /* tslint:disable */
 /* eslint-disable */
+import type { ExistDto } from '../models/ExistDto';
 import type { UpdateUserRequest } from '../models/UpdateUserRequest';
 import type { UserDto } from '../models/UserDto';
 
@@ -31,12 +32,12 @@ export class UserService {
     /**
      * Check if the name of a user already exists.
      * @param name
-     * @returns boolean
+     * @returns ExistDto
      * @throws ApiError
      */
     public static userControllerCheckUserName(
         name: string,
-    ): CancelablePromise<boolean> {
+    ): CancelablePromise<ExistDto> {
         return __request(OpenAPI, {
             method: 'GET',
             url: '/api/user/check-username/{name}',

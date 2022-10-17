@@ -8,6 +8,7 @@ import { GetUserParamsRequest } from "./request/get-user-params.request";
 import { XummAuthenticated } from "@peersyst/xumm-module";
 import { UpdateUserRequest } from "./request/update-user.request";
 import { CheckUserNameRequest } from "./request/check-user-name.request";
+import { ExistDto } from "./dto/exist.dto";
 
 @ApiTags("user")
 @Controller("user")
@@ -23,8 +24,8 @@ export class UserController {
 
     @Get("check-username/:name")
     @ApiOperation({ description: "Check if the name of a user already exists." })
-    async checkUserName(@EnhancedParams() { name }: CheckUserNameRequest): Promise<boolean> {
-        return this.userService.findName(name);
+    async checkUserName(@EnhancedParams() { name }: CheckUserNameRequest): Promise<ExistDto> {
+        return { exist: await this.userService.findName(name) };
     }
 
     @Put()
