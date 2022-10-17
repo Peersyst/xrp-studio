@@ -1,9 +1,9 @@
 import { UserService } from "module/api/service";
 import { UserDtoMock, WalletMock } from "test-mocks";
-import { render, translate } from "test-utils";
+import { render, translate, waitFor } from "test-utils";
 import * as Router from "react-router-dom";
 import * as UseWallet from "module/wallet/component/hooks/useWallet";
-import EditProfileDrawerHeader from "module/user/component/feedback/EditProfileDialogModal/EditProfileDrawerHeader/EditProfileDrawerHeader";
+import EditProfileDrawerHeader from "module/user/component/feedback/EditProfileDrawer/EditProfileDrawerHeader/EditProfileDrawerHeader";
 
 describe("EditProfileDrawerHeader", () => {
     const userDtoMock = new UserDtoMock();
@@ -14,10 +14,10 @@ describe("EditProfileDrawerHeader", () => {
         jest.spyOn(Router, "useParams").mockReturnValue({ address: userDtoMock.address });
         jest.spyOn(UseWallet, "default").mockReturnValue(wallet);
     });
-    test("renders correctly", () => {
+    test("renders correctly", async () => {
         const screen = render(<EditProfileDrawerHeader />);
         expect(screen.getAllByRole("button", { name: translate("change") })).toHaveLength(2);
-        const imgs = screen.getAllByRole("img");
-        expect(imgs).toHaveLength(6);
+        //Wait until the image is loaded
+        await waitFor(() => expect(screen.getAllByRole("img")).toHaveLength(6));
     });
 });
