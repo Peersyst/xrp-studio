@@ -3,6 +3,7 @@ import { cx } from "@peersyst/react-utils";
 import useGetWalletUser from "module/user/query/useGetWalletUser";
 import { CSSProperties } from "styled-components";
 import { useNotifyFileEditProfileForm } from "module/user/query/useNotifyFileEditProfileForm";
+import { userEditNames } from "../../feedback/EditProfileDrawer/EditProfileDrawer";
 
 export interface EditProfileImageProps {
     className?: string;
@@ -11,7 +12,7 @@ export interface EditProfileImageProps {
 
 const EditProfileImage = ({ className, style }: EditProfileImageProps): JSX.Element => {
     const { data: user = { image: "" }, isFetching } = useGetWalletUser();
-    const handleOnChange = useNotifyFileEditProfileForm("image", user.image ?? "");
+    const handleOnChange = useNotifyFileEditProfileForm(userEditNames.image, user.image ?? "");
     return (
         <EditableAvatar
             editableImageProps={{

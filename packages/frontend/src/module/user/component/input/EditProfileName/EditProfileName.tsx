@@ -5,7 +5,7 @@ import TextField from "module/common/component/input/TextField/TextField";
 import useTranslate from "module/common/hook/useTranslate";
 import useGetWalletUser from "module/user/query/useGetWalletUser";
 import { Dispatch, SetStateAction, useState } from "react";
-import { userEditNames } from "../EditProfileFormFields/EditProfileFormFields";
+import { userEditNames } from "../../feedback/EditProfileDrawer/EditProfileDrawer";
 import { UserValidator } from "./util/ProfileValidator";
 
 interface EditProfileNameProps {

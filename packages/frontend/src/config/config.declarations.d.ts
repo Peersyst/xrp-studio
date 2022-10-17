@@ -18,6 +18,7 @@ declare module "@peersyst/react-components" {
         };
         blockchainLinks: BlockchainLinks;
         nftDefaultCoverUrl: string;
+        maxBioChars: number;
     }
 
     export interface CreateConfig {
@@ -31,5 +32,6 @@ declare module "@peersyst/react-components" {
         };
         blockchainLinks: BlockchainLinks;
         nftDefaultCoverUrl: string;
+        maxBioChars: number;
     }
 }

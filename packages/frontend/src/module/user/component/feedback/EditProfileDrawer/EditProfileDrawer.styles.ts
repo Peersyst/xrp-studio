@@ -15,6 +15,6 @@ export const EditProfileForm = styled(Form)(
         justify-content: space-between;
         display: flex;
         height: 100%;
-        row-gap: 3.5rem;
+        row-gap: 3rem;
     `,
 );

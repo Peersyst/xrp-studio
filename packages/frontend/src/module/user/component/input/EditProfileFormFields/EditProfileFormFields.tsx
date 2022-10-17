@@ -6,32 +6,26 @@ import useTranslate from "module/common/hook/useTranslate";
 import useGetWalletUser from "module/user/query/useGetWalletUser";
 import { useUpdateUser } from "module/user/query/useUpdateUser";
 import { useState } from "react";
-import { UpdateUserFields } from "../../feedback/EditProfileDrawer/EditProfileDrawer.types";
+import { userEditNames } from "../../feedback/EditProfileDrawer/EditProfileDrawer";
 import EditProfileName from "../EditProfileName/EditProfileName";
 import { EditProfileFieldsFormRoot, HalfWidthTextField } from "./EditProfileFormFields.styles";
-
-export const userEditNames: Record<UpdateUserFields, UpdateUserFields> = {
-    name: "name",
-    description: "description",
-    twitter: "twitter",
-    discord: "discord",
-};
+import { config } from "config";
 
 const EditProfileFormFields = (): JSX.Element => {
     const t = useTranslate();
-    const { data: user } = useGetWalletUser();
+    const { data: user, isFetching } = useGetWalletUser();
     const { isLoading } = useUpdateUser();
     const { description, twitter, discord } = user ?? {};
     const [validating, setValidating] = useState(false);
-
+    const maxBioChars = config.maxBioChars;
     return (
         <EditProfileFieldsFormRoot flex={1}>
             <Col flex={1} gap="1.5rem">
                 <EditProfileName setValidating={setValidating} validating={validating} />
                 <TextArea
                     displayLength
-                    maxLength={160}
-                    validators={{ maxChars: 160 }}
+                    maxLength={maxBioChars}
+                    validators={{ maxChars: maxBioChars }}
                     placeholder={t("writeYour", { name: t("bio") })}
                     label={capitalize(t("bio"))}
                     name={userEditNames.description}
@@ -54,7 +48,7 @@ const EditProfileFormFields = (): JSX.Element => {
                     />
                 </Row>
             </Col>
-            <Button disabled={validating} type="submit" loading={isLoading}>
+            <Button disabled={validating} type="submit" loading={isLoading || isFetching}>
                 {t("updateProfile")}
             </Button>
         </EditProfileFieldsFormRoot>
