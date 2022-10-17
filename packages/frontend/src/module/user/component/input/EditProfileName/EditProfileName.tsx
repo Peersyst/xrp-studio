@@ -3,26 +3,26 @@ import { capitalize } from "@peersyst/react-utils";
 import { useSearchBar } from "module/common/component/input/SearchBar/hook/useSearchBar";
 import TextField from "module/common/component/input/TextField/TextField";
 import useTranslate from "module/common/hook/useTranslate";
+import useCheckNameAvailability from "module/user/query/useCheckNameAvailability";
 import useGetWalletUser from "module/user/query/useGetWalletUser";
-import { Dispatch, SetStateAction, useState } from "react";
+import { Dispatch, SetStateAction } from "react";
 import { userEditNames } from "../../feedback/EditProfileDrawer/EditProfileDrawer";
 import { UserValidator } from "./util/ProfileValidator";
 
 interface EditProfileNameProps {
-    setValidating: Dispatch<SetStateAction<boolean>>;
-    validating: boolean;
+    setName: Dispatch<SetStateAction<string>>;
+    name: string;
 }
 
-const EditProfileName = ({ setValidating, validating }: EditProfileNameProps): JSX.Element => {
+const EditProfileName = ({ setName, name }: EditProfileNameProps): JSX.Element => {
     const { data: user = { name: "" } } = useGetWalletUser();
-    const [isValid, setIsValid] = useState(true);
+    const { data: valid = true, isLoading } = useCheckNameAvailability(name);
+    console.log("valid", valid);
+    console.log("isLoading", isLoading);
     const t = useTranslate();
     const tErr = useTranslate("error");
-    const onQuery = async (value: string) => {
-        setValidating(true);
-        await new Promise((resolve) => setTimeout(resolve, 500));
-        setIsValid(value.length % 7 !== 0);
-        setValidating(false);
+    const onQuery = (value: string) => {
+        setName(value);
     };
     const { value, onChange } = useSearchBar({ onQuery, delay: 800 });
 
@@ -30,13 +30,13 @@ const EditProfileName = ({ setValidating, validating }: EditProfileNameProps): J
         <TextField
             prefix="@"
             value={value}
-            customValidators={[new UserValidator(tErr("userAlreadyExists"), isValid)]}
+            customValidators={[new UserValidator(tErr("userAlreadyExists"), valid)]}
             onChange={onChange}
             placeholder={t("writeYour", { name: t("name") })}
             label={capitalize(t("name"))}
             name={userEditNames.name}
             defaultValue={user?.name}
-            suffix={validating && <LoaderIcon />}
+            suffix={isLoading && <LoaderIcon />}
         />
     );
 };

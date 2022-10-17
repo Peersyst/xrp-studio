@@ -10,18 +10,20 @@ import { userEditNames } from "../../feedback/EditProfileDrawer/EditProfileDrawe
 import EditProfileName from "../EditProfileName/EditProfileName";
 import { EditProfileFieldsFormRoot, HalfWidthTextField } from "./EditProfileFormFields.styles";
 import { config } from "config";
+import useCheckNameAvailability from "module/user/query/useCheckNameAvailability";
 
 const EditProfileFormFields = (): JSX.Element => {
     const t = useTranslate();
     const { data: user, isFetching } = useGetWalletUser();
     const { isLoading } = useUpdateUser();
     const { description, twitter, discord } = user ?? {};
-    const [validating, setValidating] = useState(false);
+    const [name, setName] = useState(user?.name ?? "");
+    const { isLoading: validating } = useCheckNameAvailability(name);
     const maxBioChars = config.maxBioChars;
     return (
         <EditProfileFieldsFormRoot flex={1}>
             <Col flex={1} gap="1.5rem">
-                <EditProfileName setValidating={setValidating} validating={validating} />
+                <EditProfileName name={name} setName={setName} />
                 <TextArea
                     displayLength
                     maxLength={maxBioChars}
