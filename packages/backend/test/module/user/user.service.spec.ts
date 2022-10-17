@@ -81,4 +81,40 @@ describe("UserService", () => {
             }).rejects.toEqual(new BusinessException(ErrorCode.USER_NOT_FOUND));
         });
     });
+
+    describe("findOneByName", () => {
+        const name = "Manolito";
+        test("Returns an existing user", async () => {
+            const userMock = new UserMock({ address: ADDRESS, name });
+            userRepositoryMock.findOne.mockResolvedValueOnce(userMock);
+            const user = await userService.findOneByName(name);
+            expect(user).toEqual(userMock);
+            expect(userRepositoryMock.findOne).toHaveBeenCalledWith({ name });
+        });
+
+        test("User does not exist and throws USER_NOT_FOUND_ERROR", async () => {
+            userRepositoryMock.findOne.mockResolvedValueOnce(undefined);
+            await expect(async () => {
+                await userService.findOneByName(name);
+            }).rejects.toEqual(new BusinessException(ErrorCode.USER_NOT_FOUND));
+        });
+    });
+
+    describe("findName", () => {
+        const name = "Manolito";
+        test("Finds the name", async () => {
+            const userMock = new UserMock({ address: ADDRESS, name });
+            userRepositoryMock.findOne.mockResolvedValueOnce(userMock);
+            const exist = await userService.findName(name);
+            expect(exist).toEqual(true);
+            expect(userRepositoryMock.findOne).toHaveBeenCalledWith({ name });
+        });
+
+        test("Does not find the name", async () => {
+            userRepositoryMock.findOne.mockResolvedValueOnce(undefined);
+            const exist = await userService.findName(name);
+            expect(exist).toEqual(false);
+            expect(userRepositoryMock.findOne).toHaveBeenCalledWith({ name });
+        });
+    });
 });
