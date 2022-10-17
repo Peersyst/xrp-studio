@@ -16,6 +16,7 @@
     "invalid_number_lt": "The number must be lower than {{n}}",
     "invalid_number_lte": "The number must be lower or equal than {{n}}",
     "invalid_required": "This field is required",
+    "invalid_color": "Invalid color",
     "insufficient_chars": "The field must contain at least {{chars}} characters",
     "too_many_chars": "The field must contain less than {{chars}} characters",
     "invalid_start": "The field must start with {{start}}",
