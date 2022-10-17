@@ -6,6 +6,7 @@ export const ModalStyles = css(({ theme }) => {
         .Modal {
             background: ${theme.palette.black["90"]};
             border: 1px solid ${alpha(theme.palette.black["0"], 0.2)};
+            border-radius: ${theme.borderRadiusLg};
         }
     `;
 });
