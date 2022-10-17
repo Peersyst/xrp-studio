@@ -25,7 +25,6 @@ export type { UpdateCollectionRequest } from './models/UpdateCollectionRequest';
 export type { UpdateNftDraftRequest } from './models/UpdateNftDraftRequest';
 export type { UpdateUserRequest } from './models/UpdateUserRequest';
 export type { UserDto } from './models/UserDto';
-export type { ValidDto } from './models/ValidDto';
 
 export { $ApiException } from './schemas/$ApiException';
 export { $CollectionDto } from './schemas/$CollectionDto';
@@ -46,7 +45,6 @@ export { $UpdateCollectionRequest } from './schemas/$UpdateCollectionRequest';
 export { $UpdateNftDraftRequest } from './schemas/$UpdateNftDraftRequest';
 export { $UpdateUserRequest } from './schemas/$UpdateUserRequest';
 export { $UserDto } from './schemas/$UserDto';
-export { $ValidDto } from './schemas/$ValidDto';
 
 export { CollectionService } from './services/CollectionService';
 export { FileService } from './services/FileService';
