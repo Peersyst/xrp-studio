@@ -5,6 +5,8 @@ import useGetUser from "./useGetUser";
 
 const useGetWalletUser = (): UseQueryResult<UserDto> => {
     const { address } = useWallet();
+    /* eslint-disable no-console*/
+    if (address) console.warn("WARNING [useGetWalletUser]: address is undefined.");
     return useGetUser(address);
 };
 

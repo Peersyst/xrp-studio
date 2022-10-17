@@ -7,6 +7,7 @@ import * as UseWallet from "module/wallet/component/hooks/useWallet";
 import userEvent from "@testing-library/user-event";
 import * as uploadFile from "module/api/service/helper/uploadFile";
 import * as Genesys from "@peersyst/react-components";
+
 describe("Test for the editProfileCover component", () => {
     const userDtoMock = new UserDtoMock();
     const wallet = new WalletMock({ address: "0x123" });
