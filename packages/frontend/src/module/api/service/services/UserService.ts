@@ -29,6 +29,24 @@ export class UserService {
     }
 
     /**
+     * Check if a name of a user already exists
+     * @param name
+     * @returns boolean
+     * @throws ApiError
+     */
+    public static userControllerCheckUserName(
+        name: string,
+    ): CancelablePromise<boolean> {
+        return __request(OpenAPI, {
+            method: 'GET',
+            url: '/api/user/check-username/{name}',
+            path: {
+                'name': name,
+            },
+        });
+    }
+
+    /**
      * Updates a user
      * @param requestBody
      * @returns void
