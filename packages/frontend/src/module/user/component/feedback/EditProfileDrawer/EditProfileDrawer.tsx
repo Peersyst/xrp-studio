@@ -1,5 +1,5 @@
 import { createDrawer, DrawerProps, useToast } from "@peersyst/react-components";
-import { UpdateUserRequest } from "module/api/service";
+import { UserDto } from "module/api/service";
 import useGetWalletUser from "module/user/query/useGetWalletUser";
 import { useUpdateUser } from "module/user/query/useUpdateUser";
 import { getUserRequestFromUserDTO } from "module/user/util/getUserRequestFromUserDTO";
@@ -12,7 +12,7 @@ import EditProfileDrawerHeader from "./EditProfileDrawerHeader/EditProfileDrawer
  * This json is used as a way to typecheck all names of the form.
  * The Form component does not have a way to ensure that all fields are typed correctly.
  * This typechecking will be necessary in the handleSumbit fn
- * handleSumbit(newUser: UpdateUserRequest) => Promise<void>
+ * handleSumbit(newUser: UserDto) => Promise<void>
  */
 export const userEditNames: Record<UpdateUserFields, UpdateUserFields> = {
     name: "name",
@@ -27,7 +27,7 @@ const EditProfileDrawer = createDrawer(({ ...drawerProps }: DrawerProps) => {
     const { mutateAsync: updateUser } = useUpdateUser();
     const { showToast } = useToast();
     const { data: user = { address: "" }, refetch } = useGetWalletUser();
-    const handleSumbit = async (newUser: UpdateUserRequest) => {
+    const handleSumbit = async (newUser: UserDto) => {
         const finalUser = {
             ...user,
             ...newUser,

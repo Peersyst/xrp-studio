@@ -5,31 +5,31 @@ import TextField from "module/common/component/input/TextField/TextField";
 import useTranslate from "module/common/hook/useTranslate";
 import useCheckNameAvailability from "module/user/query/useCheckNameAvailability";
 import useGetWalletUser from "module/user/query/useGetWalletUser";
-import { Dispatch, SetStateAction, useState } from "react";
+import { Dispatch, SetStateAction, useEffect, useState } from "react";
 import { userEditNames } from "../../feedback/EditProfileDrawer/EditProfileDrawer";
-import { UserValidator } from "./util/ProfileValidator";
+import { UserNameValidator } from "./util/UserNameValidator";
 
 interface EditProfileNameProps {
     setValidating: Dispatch<SetStateAction<boolean>>;
-    validating: boolean;
 }
 
-const EditProfileName = ({ setValidating, validating }: EditProfileNameProps): JSX.Element => {
+const EditProfileName = ({ setValidating }: EditProfileNameProps): JSX.Element => {
     const { data: user = { name: "" } } = useGetWalletUser();
     const [qName, setQName] = useState(user.name);
-    const { data: exist, isLoading } = useCheckNameAvailability(qName);
+    const { data: { exist } = { exist: true }, isLoading } = useCheckNameAvailability(qName);
     const t = useTranslate();
     const tErr = useTranslate("error");
-    const onQuery = (value: string) => {
-        setQName(value);
-    };
+    const onQuery = (value: string) => setQName(value);
     const { value, onChange, loading: debouncing } = useSearchBar({ onQuery, delay: 800 });
     const finalLoading = isLoading || debouncing;
+    useEffect(() => {
+        setValidating(finalLoading);
+    }, [finalLoading]);
     return (
         <TextField
             prefix="@"
             value={value}
-            customValidators={[new UserValidator(tErr("userAlreadyExists"), !exist)]}
+            customValidators={[new UserNameValidator(tErr("userAlreadyExists"), exist, user.name ?? "", finalLoading)]}
             onChange={onChange}
             placeholder={t("writeYour", { name: t("name") })}
             label={capitalize(t("name"))}

@@ -15,7 +15,7 @@ const TextArea = ({
     ...rest
 }: TextAreaProps): JSX.Element => {
     const appearanceClassName = capitalize(variant);
-    const [length, setLength] = useState(0);
+    const [length, setLength] = useState(defaultValue.length);
     const [value, setValue] = useControlled<string>(defaultValue, valueProp, onChange);
     const handleChange = (e: string) => {
         setValue(e);
@@ -24,7 +24,7 @@ const TextArea = ({
 
     return (
         <BaseTextArea
-            hint={displayLength ? `${length}/${maxLength}` : ""}
+            hint={displayLength ? `${maxLength ? length + "/" + maxLength : length}` : ""}
             {...rest}
             onChange={handleChange}
             value={value}

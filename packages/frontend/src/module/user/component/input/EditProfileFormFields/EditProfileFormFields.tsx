@@ -5,12 +5,11 @@ import TextArea from "module/common/component/input/TextArea/TextArea";
 import useTranslate from "module/common/hook/useTranslate";
 import useGetWalletUser from "module/user/query/useGetWalletUser";
 import { useUpdateUser } from "module/user/query/useUpdateUser";
-import { SetStateAction, useState } from "react";
+import { useState } from "react";
 import { userEditNames } from "../../feedback/EditProfileDrawer/EditProfileDrawer";
 import EditProfileName from "../EditProfileName/EditProfileName";
 import { EditProfileFieldsFormRoot, HalfWidthTextField } from "./EditProfileFormFields.styles";
 import { config } from "config";
-import useCheckNameAvailability from "module/user/query/useCheckNameAvailability";
 
 const EditProfileFormFields = (): JSX.Element => {
     const t = useTranslate();
@@ -18,12 +17,12 @@ const EditProfileFormFields = (): JSX.Element => {
     const { isLoading } = useUpdateUser();
     const { description, twitter, discord } = user ?? {};
     const [validating, setValidating] = useState(false);
-
     const maxBioChars = config.maxBioChars;
+
     return (
         <EditProfileFieldsFormRoot flex={1}>
             <Col flex={1} gap="1.5rem">
-                <EditProfileName setValidating={setValidating} validating={validating} />
+                <EditProfileName setValidating={setValidating} />
                 <TextArea
                     displayLength
                     maxLength={maxBioChars}
