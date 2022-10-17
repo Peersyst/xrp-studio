@@ -15,13 +15,13 @@ export const devCollections = [
     },
     {
         id: 2,
-        taxon: "1",
+        taxon: "0",
         name: "Moonbirds",
         description:
             "A collection of 10,000 utility-enabled PFPs that feature a richly diverse and unique pool of rarity-powered traits. What's more, each Moonbird unlocks private club membership and additional benefits the longer you hold them. We call it nesting – because, obviously.",
         image: "https://lh3.googleusercontent.com/H-eyNE1MwL5ohL-tCfn_Xa1Sl9M9B4612tLYeUlQubzt4ewhr4huJIR5OLuyO3Z5PpJFSwdm7rq-TikAh7f5eUw338A2cy6HRH75=s168",
         header: "https://lh3.googleusercontent.com/ouzjfA0LotbHC92vuDph9JDeg7Z4ZFo12Pr9GJpfSAZSrnXDOubJn0eTvinwzUTPsWhnLLq5ocjcDSrpNV0_MYIjueVJrzFlE6p0=h600",
-        user: devUsers[2],
+        user: devUsers[1],
         createdAt: new Date(),
         updatedAt: new Date(),
     },
