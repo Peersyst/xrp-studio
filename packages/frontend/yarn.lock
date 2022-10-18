@@ -2448,23 +2448,23 @@
     mkdirp "^1.0.4"
     rimraf "^3.0.2"
 
-"@peersyst/react-components-core@^0.2.10":
-  version "0.2.10"
-  resolved "https://registry.yarnpkg.com/@peersyst/react-components-core/-/react-components-core-0.2.10.tgz#ccd8b9627fed50de0c22a5b70019702334b1a526"
-  integrity sha512-yXayYYsTxutOrw8/yOXhArg3J6aoZisjnze3uaA+Y6Kv7ea3AMtrLh1AQm8ia13HfXlf6KhpLTbDSr0YWg15zA==
+"@peersyst/react-components-core@^0.2.11":
+  version "0.2.11"
+  resolved "https://registry.yarnpkg.com/@peersyst/react-components-core/-/react-components-core-0.2.11.tgz#b867c5a4e1181afa7e396324d9efe85e821129de"
+  integrity sha512-8SeJ5eUCSdIPlaBUnoho0pVhWj63PPbLD27Xcj3/2wyJ7Yg/+GLWACWem9r1zV0UDkuSR0v0T5p/sKt9J5Oy7Q==
   dependencies:
     "@babel/runtime" "^7.16.7"
     "@peersyst/react-hooks" "^1.4.2"
     "@peersyst/react-types" "^1.4.0"
     "@peersyst/react-utils" "^1.7.2"
 
-"@peersyst/react-components@^2.23.6":
-  version "2.23.6"
-  resolved "https://registry.yarnpkg.com/@peersyst/react-components/-/react-components-2.23.6.tgz#aa442830737d053e150e42072d3f7808b166760b"
-  integrity sha512-5/tT8XDzYwFYfuXongD/gP3egBQLDyh0Co+ukQcq5kZLlVdjk5IVN4NTEAe8X3cQz12QnE+IJZnpooCMWueBWw==
+"@peersyst/react-components@^2.23.7":
+  version "2.23.7"
+  resolved "https://registry.yarnpkg.com/@peersyst/react-components/-/react-components-2.23.7.tgz#5d9bf282f8cc323610efe7f821a49ad055fa08c3"
+  integrity sha512-Q8cSvQ88OL6AVvhWFSzlXTaUS3U8DkXSt8iMsvO/fTzFToqBUZNZvc976rleIBhONZJj5xFKSt0/alpD5f4hYQ==
   dependencies:
     "@babel/runtime" "^7.16.7"
-    "@peersyst/react-components-core" "^0.2.10"
+    "@peersyst/react-components-core" "^0.2.11"
     "@peersyst/react-hooks" "^1.4.2"
     "@peersyst/react-types" "^1.4.0"
     "@peersyst/react-utils" "^1.7.2"
