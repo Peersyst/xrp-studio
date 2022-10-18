@@ -1,21 +1,21 @@
-import { useSearchBar } from "module/common/component/input/SearchBar/hook/useSearchBar";
-import { UseSearchBarParams } from "module/common/component/input/SearchBar/hook/useSearchBar.types";
+import { useDebounce } from "module/common/hook/useDebounce/useDebounce";
+import { UseDebounceParams } from "module/common/hook/useDebounce/useDebounce.types";
 import { act, renderHook, waitFor } from "test-utils";
 
-const renderUseSearchBar = ({ onQuery = jest.fn() }: Partial<UseSearchBarParams> = {}) => renderHook(() => useSearchBar({ onQuery }));
+const renderUseDebounce = ({ onQuery = jest.fn() }: Partial<UseDebounceParams> = {}) => renderHook(() => useDebounce({ onQuery }));
 
-describe("useSearchBar", () => {
+describe("useDebounce", () => {
     test("Return false by default", () => {
-        const { result } = renderUseSearchBar();
+        const { result } = renderUseDebounce();
         expect(result.current.loading).toBe(false);
     });
     test("Return true when loading", async () => {
         const onQuery = jest.fn().mockReturnValue("test");
-        const { result } = renderUseSearchBar({ onQuery });
+        const { result } = renderUseDebounce({ onQuery });
 
         expect(result.current.loading).toBe(false);
         expect(onQuery).toHaveBeenCalledTimes(0);
-        expect(result.current.value).toBeUndefined();
+        expect(result.current.value).toBe("");
 
         act(() => {
             result.current.onChange("test");
