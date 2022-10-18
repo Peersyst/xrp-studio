@@ -8,7 +8,7 @@ const EditProfileCover = (props: EditProfileCoverProps): JSX.Element => {
 
     return (
         <EditProfileCoverRoot
-            name="header"
+            name={userEditNames.header}
             defaultValue={header}
             alt="header-image"
             className="edit-profile-header"
