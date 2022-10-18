@@ -24,6 +24,8 @@ const EditProfileName = ({ setValidating }: EditProfileNameProps): JSX.Element =
     const onQuery = (value: string) => setQName(value);
     const { value, onChange, loading: debouncing } = useSearchBar({ onQuery, delay: 800 });
 
+    const handleChange = (name: string) => onChange(name.trim());
+
     const finalLoading = nameLoading || debouncing || userLoading;
     useEffect(() => {
         setValidating(finalLoading);
@@ -34,7 +36,7 @@ const EditProfileName = ({ setValidating }: EditProfileNameProps): JSX.Element =
             prefix="@"
             value={value}
             customValidators={[new UserNameValidator(tErr("userAlreadyExists"), exist, user.name ?? "", finalLoading)]}
-            onChange={onChange}
+            onChange={handleChange}
             placeholder={t("writeYour", { name: t("name") })}
             label={capitalize(t("name"))}
             name={userEditNames.name}
