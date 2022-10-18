@@ -14,6 +14,7 @@ describe("Test for the EditProfileImage component", () => {
         jest.spyOn(Router, "useParams").mockReturnValue({ address: userDtoMock.address });
         jest.spyOn(UseWallet, "default").mockReturnValue(wallet);
     });
+
     test("Renders correctly an uploads image", async () => {
         const screen = render(<EditProfileImage />);
         const btn = screen.getByRole("button", { name: translate("change") });
