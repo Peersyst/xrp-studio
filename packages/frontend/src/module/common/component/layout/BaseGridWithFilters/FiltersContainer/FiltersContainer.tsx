@@ -13,7 +13,7 @@ function FiltersContainer<T extends PaginatedData, TagT>({ children }: BaseGridF
     const setShowFilters = useSetRecoilState(filtersVisibilityState);
     const handleHideFilters = () => setShowFilters(false);
     return (
-        <Col gap="1.25rem">
+        <Col gap="1.5rem">
             <Col gap="1rem">
                 <Button variant="text" size="lg" className="hide-filters" onClick={handleHideFilters}>
                     {t("hideFilters&Search")}
