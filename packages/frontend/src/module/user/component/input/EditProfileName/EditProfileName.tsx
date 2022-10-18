@@ -17,14 +17,14 @@ const EditProfileName = ({ setValidating }: EditProfileNameProps): JSX.Element =
     const t = useTranslate();
     const tErr = useTranslate("error");
 
-    const { data: user = { name: "" } } = useGetWalletUser();
+    const { data: user = { name: "" }, isLoading: userLoading } = useGetWalletUser();
     const [qName, setQName] = useState(user.name);
-    const { data: { exist } = { exist: true }, isLoading } = useCheckNameAvailability(qName);
+    const { data: { exist } = { exist: true }, isLoading: nameLoading } = useCheckNameAvailability(qName);
 
     const onQuery = (value: string) => setQName(value);
     const { value, onChange, loading: debouncing } = useSearchBar({ onQuery, delay: 800 });
 
-    const finalLoading = isLoading || debouncing;
+    const finalLoading = nameLoading || debouncing || userLoading;
     useEffect(() => {
         setValidating(finalLoading);
     }, [finalLoading]);

@@ -8,7 +8,8 @@ import EditProfileDrawerBody from "./EditProfileDrawerBody/EditProfileDrawerBody
 import { EditProfileDrawerRoot, EditProfileForm } from "./EditProfileDrawer.styles";
 import { UpdateUserFields } from "./EditProfileDrawer.types";
 import EditProfileDrawerHeader from "./EditProfileDrawerHeader/EditProfileDrawerHeader";
-
+import { useRefetchQueries } from "../../../../../query/useRefetchQueries";
+import Queries from "../../../../../query/queries";
 /**
  * This json is used as a way to typecheck all names of the form.
  * The Form component does not have a way to ensure that all fields are typed correctly.
@@ -27,7 +28,8 @@ export const userEditNames: Record<UpdateUserFields, UpdateUserFields> = {
 const EditProfileDrawer = createDrawer(({ ...drawerProps }: Omit<DrawerProps, "children">) => {
     const { mutateAsync: updateUser } = useUpdateUser();
     const { showToast } = useToast();
-    const { data: user = { address: "" }, refetch } = useGetWalletUser();
+    const { data: user = { address: "" }, refetch: refetchGetWalletUser } = useGetWalletUser();
+    const refetchQueries = useRefetchQueries();
     const tSuccess = useTranslate("success");
 
     const handleSumbit = async (newUser: UserDto) => {
@@ -36,7 +38,9 @@ const EditProfileDrawer = createDrawer(({ ...drawerProps }: Omit<DrawerProps, "c
             ...newUser,
         };
         await updateUser(getUserRequestFromUserDTO(finalUser));
-        await refetch();
+        await refetchGetWalletUser();
+        await refetchQueries([Queries.GET_NAME_AVAILABILITY, user.name || ""]);
+
         showToast(tSuccess("profileUpdated"), { type: "success", position: "top-left" });
     };
     return (
