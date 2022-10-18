@@ -14,17 +14,21 @@ interface EditProfileNameProps {
 }
 
 const EditProfileName = ({ setValidating }: EditProfileNameProps): JSX.Element => {
+    const t = useTranslate();
+    const tErr = useTranslate("error");
+
     const { data: user = { name: "" } } = useGetWalletUser();
     const [qName, setQName] = useState(user.name);
     const { data: { exist } = { exist: true }, isLoading } = useCheckNameAvailability(qName);
-    const t = useTranslate();
-    const tErr = useTranslate("error");
+
     const onQuery = (value: string) => setQName(value);
     const { value, onChange, loading: debouncing } = useSearchBar({ onQuery, delay: 800 });
+
     const finalLoading = isLoading || debouncing;
     useEffect(() => {
         setValidating(finalLoading);
     }, [finalLoading]);
+
     return (
         <TextField
             prefix="@"

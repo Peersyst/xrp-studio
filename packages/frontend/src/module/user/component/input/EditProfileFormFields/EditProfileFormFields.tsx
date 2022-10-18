@@ -50,7 +50,7 @@ const EditProfileFormFields = (): JSX.Element => {
                 </Row>
             </Col>
             <Button disabled={validating} type="submit" loading={isLoading || isFetching}>
-                {t("profileUpdated")}
+                {t("updateProfile")}
             </Button>
         </EditProfileFieldsFormRoot>
     );

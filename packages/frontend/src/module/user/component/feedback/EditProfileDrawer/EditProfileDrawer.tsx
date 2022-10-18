@@ -4,7 +4,7 @@ import useTranslate from "module/common/hook/useTranslate";
 import useGetWalletUser from "module/user/query/useGetWalletUser";
 import { useUpdateUser } from "module/user/query/useUpdateUser";
 import { getUserRequestFromUserDTO } from "module/user/util/getUserRequestFromUserDTO";
-import EditProfileDrawerBody from "./EditProfileDialogModalBody/EditProfileDrawerBody";
+import EditProfileDrawerBody from "./EditProfileDrawerBody/EditProfileDrawerBody";
 import { EditProfileDrawerRoot, EditProfileForm } from "./EditProfileDrawer.styles";
 import { UpdateUserFields } from "./EditProfileDrawer.types";
 import EditProfileDrawerHeader from "./EditProfileDrawerHeader/EditProfileDrawerHeader";
@@ -24,7 +24,7 @@ export const userEditNames: Record<UpdateUserFields, UpdateUserFields> = {
     image: "image",
 };
 
-const EditProfileDrawer = createDrawer(({ ...drawerProps }: DrawerProps) => {
+const EditProfileDrawer = createDrawer(({ ...drawerProps }: Omit<DrawerProps, "children">) => {
     const { mutateAsync: updateUser } = useUpdateUser();
     const { showToast } = useToast();
     const { data: user = { address: "" }, refetch } = useGetWalletUser();
