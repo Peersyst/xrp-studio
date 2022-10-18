@@ -10,6 +10,7 @@ describe("Test for the Profile Page", () => {
         jest.spyOn(UserService, "userControllerGetUser").mockResolvedValue(userDtoMock);
         jest.spyOn(Router, "useParams").mockReturnValue({ address: userDtoMock.address });
     });
+
     test("Renders correctly with nfts", async () => {
         //Collections
         const collectionData = new PaginatedDataMock<CollectionDtoMock[]>({ items: new CollectionsDtoMock({ length: 10 }).collections });

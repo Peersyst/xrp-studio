@@ -1,8 +1,6 @@
-import EditableAvatar from "module/common/component/input/EditableAvatar/EditableAvatar";
-import { cx } from "@peersyst/react-utils";
 import useGetWalletUser from "module/user/query/useGetWalletUser";
 import { CSSProperties } from "styled-components";
-import { useNotifyFileEditProfileForm } from "module/user/query/useNotifyFileEditProfileForm";
+import AvatarInput from "module/common/component/input/AvatarInput/AvatarInput";
 import { userEditNames } from "../../feedback/EditProfileDrawer/EditProfileDrawer";
 
 export interface EditProfileImageProps {
@@ -10,23 +8,10 @@ export interface EditProfileImageProps {
     style?: CSSProperties;
 }
 
-const EditProfileImage = ({ className, style }: EditProfileImageProps): JSX.Element => {
-    const { data: user = { image: "" }, isFetching } = useGetWalletUser();
-    const handleOnChange = useNotifyFileEditProfileForm(userEditNames.image, user.image ?? "");
-    return (
-        <EditableAvatar
-            editableImageProps={{
-                onChange: handleOnChange,
-                className: cx("editable-profile-image", className),
-                style,
-            }}
-            avatarProps={{
-                img: user.image ?? "",
-                alt: "edit-profile-image",
-                loading: isFetching,
-            }}
-        />
-    );
+const EditProfileImage = (props: EditProfileImageProps): JSX.Element => {
+    const { data: { image } = {}, isFetching } = useGetWalletUser();
+
+    return <AvatarInput name="image" defaultValue={image} size="lg" loading={isFetching} alt="edit-profile-image" {...props} />;
 };
 
 export default EditProfileImage;

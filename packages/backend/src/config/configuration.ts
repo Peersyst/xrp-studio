@@ -45,4 +45,8 @@ export default (): any => ({
         bucketName: process.env.AWS_BUCKET_NAME,
         bucketUrl: process.env.AWS_BUCKET_URL,
     },
+    defaultImages: {
+        profile: process.env.DEFAULT_PROFILE_IMG_URL,
+        header: process.env.DEFAULT_HEADER_IMG_URL,
+    },
 });
