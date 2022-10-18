@@ -8,6 +8,8 @@ export const ModalRoot = styled(Modal)(
         width: 37.5rem;
         max-width: 90vw;
         max-height: 82vh;
+        border-radius: ${theme.borderRadiusLg};
+
         ${theme.breakpoints.down("mobile")} {
             height: auto;
             padding: 2rem;
@@ -27,6 +29,7 @@ export const CloseModalButton = styled(IconButton)(
         top: 1rem;
         right: 1rem;
         font-size: 0.75rem;
+
         svg {
             color: ${theme.palette.text};
         }
