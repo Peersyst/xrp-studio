@@ -13,6 +13,10 @@ class ConfigServiceMock extends BaseMock {
                 return 10;
             case "pinata.gateway":
                 return "https://pinata.gateway.com/";
+            case "defaultImages.profile":
+                return "default_profile_img_url";
+            case "defaultImages.header":
+                return "default_header_img_url";
             default:
                 return "default-config-setting";
         }

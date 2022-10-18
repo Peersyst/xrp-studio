@@ -2,15 +2,17 @@ import { Loader, Upload } from "@peersyst/react-components";
 import styled, { css } from "styled-components";
 import Button from "../Button/Button";
 
-export const EditableImageRoot = styled(Upload)(
+export const UploadInputRoot = styled(Upload)(
     () => css`
-        flex: 1;
         position: relative;
+
         display: flex;
         align-items: center;
+
         &.FormControl {
             overflow: hidden;
         }
+
         &.updating,
         .Upload.Drag {
             img {
@@ -20,7 +22,7 @@ export const EditableImageRoot = styled(Upload)(
     `,
 );
 
-export const EditableImageLoader = styled(Loader)(
+export const UploadInputLoader = styled(Loader)(
     () => css`
         position: absolute;
         font-size: 1.8rem;
@@ -28,7 +30,7 @@ export const EditableImageLoader = styled(Loader)(
         left: 50%;
         transform: translate(-50%, 150%);
         opacity: 0;
-        transition: opacity 100ms, transform 300ms;
+        transition: opacity 200ms;
         &.updating {
             opacity: 1;
             transform: translate(-50%, -50%);
@@ -44,6 +46,7 @@ export const UploadBtn = styled(Button)(
         transform: translate(-50%, -50%);
         opacity: 1;
         transition: opacity 0.1s ease-in-out;
+
         &.drag,
         &.updating {
             opacity: 0;

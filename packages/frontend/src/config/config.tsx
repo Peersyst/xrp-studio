@@ -27,7 +27,12 @@ const config = createConfig({
         Drawer: {
             defaultProps: {
                 position: "right",
-                elevation: 0,
+                elevation: 3,
+            },
+        },
+        Modal: {
+            defaultProps: {
+                elevation: 3,
             },
         },
     },
