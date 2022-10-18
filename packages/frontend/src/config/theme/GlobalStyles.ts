@@ -12,6 +12,7 @@ import { TextInputStyles } from "./component/TextInput.styles";
 import { BlockchainAddressStyles } from "config/theme/component/BlockchainAddress.styles";
 import { ModalStyles } from "./component/Modal.styles";
 import { DrawerStyles } from "./component/Drawer.styles";
+import { ColorInputStyles } from "config/theme/component/ColorInput.styles";
 
 export const GlobalStyles = createGlobalStyle<{ theme: Theme }>`
         ${RootStyles};
@@ -165,4 +166,5 @@ export const GlobalStyles = createGlobalStyle<{ theme: Theme }>`
         ${FormControlStyles};
         ${TextInputStyles};
         ${BlockchainAddressStyles};
+        ${ColorInputStyles};
     `;
