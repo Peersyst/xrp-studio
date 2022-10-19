@@ -1,6 +1,11 @@
 import { TextFieldProps as BaseTextFieldProps } from "@peersyst/react-components";
 
-export type TextFieldVariant = "outlined" | "filled";
+/**
+ * outlined: input with border
+ * filled: input with background
+ * standard: input with background when is inside a card
+ */
+export type TextFieldVariant = "outlined" | "filled" | "cardfilled";
 
 export interface TextFieldProps extends BaseTextFieldProps {
     /**
