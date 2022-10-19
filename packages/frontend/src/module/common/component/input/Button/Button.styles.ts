@@ -18,7 +18,7 @@ const primaryVariant = css(
 const secondaryVariant = css(({ theme }) => {
     const light = theme.palette.mode === "light";
     return css`
-        background-color: ${theme.palette.black[light ? 20 : 80]}};
+        background-color: ${theme.palette.black[light ? 20 : 80]};
         color: white;
         &:hover {
             background-color: ${emphasize(theme.palette.black[light ? 20 : 80], 0.04)};

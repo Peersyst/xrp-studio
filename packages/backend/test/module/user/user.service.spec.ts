@@ -7,12 +7,15 @@ import UserMock from "../__mock__/user.mock";
 import { BusinessException } from "../../../src/modules/common/exception/business.exception";
 import { ErrorCode } from "../../../src/modules/common/exception/error-codes";
 import { UpdateUserRequest } from "../../../src/modules/user/request/update-user.request";
+import { ConfigService } from "@nestjs/config";
+import ConfigServiceMock from "../__mock__/config.service.mock";
 
 describe("UserService", () => {
     const ADDRESS = "rNCFjv8Ek5oDrNiMJ3pw6eLLFtMjZLJnf2";
 
     let userService: UserService;
     const userRepositoryMock = new UserRepositoryMock();
+    const configServiceMock = new ConfigServiceMock();
 
     beforeEach(async () => {
         const module = await Test.createTestingModule({
@@ -21,18 +24,27 @@ describe("UserService", () => {
                     provide: getRepositoryToken(User),
                     useValue: userRepositoryMock,
                 },
+                {
+                    provide: ConfigService,
+                    useValue: configServiceMock,
+                },
                 UserService,
             ],
         }).compile();
         userService = module.get(UserService);
         userRepositoryMock.clear();
+        configServiceMock.clear();
     });
 
     describe("createIfNotExists", () => {
         test("Executes save on repository", async () => {
             const user = await userService.createIfNotExists(ADDRESS);
-            expect(user).toEqual(new User({ address: ADDRESS }));
-            expect(userRepositoryMock.save).toHaveBeenCalledWith({ address: ADDRESS });
+            expect(user).toEqual(new User({ address: ADDRESS, image: "default_profile_img_url", header: "default_header_img_url" }));
+            expect(userRepositoryMock.save).toHaveBeenCalledWith({
+                address: ADDRESS,
+                image: "default_profile_img_url",
+                header: "default_header_img_url",
+            });
         });
     });
 

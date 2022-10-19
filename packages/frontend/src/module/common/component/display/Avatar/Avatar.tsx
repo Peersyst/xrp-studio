@@ -50,7 +50,12 @@ const Avatar = ({ img, alt, size = "lg", loading: loadingProp, className, style 
             </clipPath>
             <foreignObject width="100%" height="100%" clipPath={`url(#${id})`}>
                 <Skeleton width={`${width}px`} height={`${height}px`} loading={loadingProp || loading}>
-                    <img src={img} alt={alt} onLoad={() => setLoading(false)} style={{ width: `${width}px`, height: `${height}px` }} />
+                    <img
+                        src={img}
+                        alt={alt}
+                        onLoad={() => setLoading(false)}
+                        style={{ width: `${width}px`, height: `${height}px`, objectFit: "cover" }}
+                    />
                 </Skeleton>
             </foreignObject>
             <path d={d} {...(strokeWidth ? { stroke: "white", strokeWidth } : {})} />

@@ -4,7 +4,8 @@ import useTranslate from "module/common/hook/useTranslate";
 import { config } from "config";
 import PageHeader from "module/common/component/layout/PageHeader/PageHeader";
 import PageContent from "module/common/component/layout/PageContent/PageContent";
-import FileInput from "module/common/component/input/FileInput/FileInput";
+import NftPreviewCarousel from "module/nft/component/display/NftPreviewCarousel/NftPreviewCarousel";
+import { NftDto } from "module/api/service";
 
 export default function DashboardPage(): JSX.Element {
     const translate = useTranslate();
@@ -22,7 +23,18 @@ export default function DashboardPage(): JSX.Element {
                 content: (
                     <PageContent>
                         <Row flex={1} css={{ maxWidth: "40rem" }}>
-                            <FileInput multiple />
+                            <NftPreviewCarousel
+                                nfts={[
+                                    { metadata: { name: "AAA" } } as NftDto,
+                                    { metadata: { name: "AAA" } } as NftDto,
+                                    { metadata: { name: "AAA" } } as NftDto,
+                                    { metadata: { name: "AAA" } } as NftDto,
+                                    { metadata: { name: "AAA" } } as NftDto,
+                                    { metadata: { name: "AAA" } } as NftDto,
+                                    { metadata: { name: "AAA" } } as NftDto,
+                                    { metadata: { name: "AAA" } } as NftDto,
+                                ]}
+                            />
                         </Row>
                     </PageContent>
                 ),

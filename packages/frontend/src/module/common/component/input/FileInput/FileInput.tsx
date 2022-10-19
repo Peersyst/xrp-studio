@@ -19,6 +19,7 @@ const FileInput = ({
     ...rest
 }: FileInputProps): JSX.Element => {
     const [file, setFile] = useControlled<FileInputType>(defaultValue, value, onChange);
+
     const handleFileChange = (f: UploadFileType) => {
         if (f) {
             if ("length" in f) {
@@ -32,9 +33,11 @@ const FileInput = ({
             }
         }
     };
+
     const handleRemoveFiles = () => {
         setFile(undefined);
     };
+
     return (
         <FileInputRoot className={cx("file-input", className)} data-testid="upload" style={style}>
             <Upload multiple={multiple} onChange={handleFileChange} {...rest}>
