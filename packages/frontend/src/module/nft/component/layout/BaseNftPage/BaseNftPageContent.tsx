@@ -13,6 +13,7 @@ import ImageInput from "module/common/component/input/ImageInput/ImageInput";
 import useBaseNftPagePlaceholders from "module/nft/component/layout/BaseNftPage/hook/useBaseNftPagePlaceholders";
 import Collapsable from "module/common/component/util/Collapsable/Collapsable";
 import NftPreviewCarousel from "module/nft/component/display/NftPreviewCarousel/NftPreviewCarousel";
+import { config } from "config";
 
 const BaseNftPageContent = ({
     nft: { metadata: nftMetadata, collection: nftCollection, flags },
@@ -58,8 +59,8 @@ const BaseNftPageContent = ({
                             name="description"
                             label={translate("description")}
                             placeholder={descriptionPlaceholder}
-                            maxLength={256}
-                            displayLength
+                            maxLength={config.maxNftDescChars}
+                            displayLength={!readonly}
                             defaultValue={nftMetadata?.description}
                             readonly={readonly}
                         />
