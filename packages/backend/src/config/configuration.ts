@@ -43,5 +43,10 @@ export default (): any => ({
         accessKeyId: process.env.AWS_ACCESS_KEY_ID,
         secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY,
         bucketName: process.env.AWS_BUCKET_NAME,
+        bucketUrl: process.env.AWS_BUCKET_URL,
+    },
+    defaultImages: {
+        profile: process.env.DEFAULT_PROFILE_IMG_URL,
+        header: process.env.DEFAULT_HEADER_IMG_URL,
     },
 });
