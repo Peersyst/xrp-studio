@@ -26,11 +26,10 @@ const EditProfileFormFields = (): JSX.Element => {
                 <TextArea
                     displayLength
                     maxLength={maxBioChars}
-                    validators={{ maxChars: maxBioChars }}
                     placeholder={t("writeYour", { name: t("bio") })}
                     label={capitalize(t("bio"))}
                     name={userEditNames.description}
-                    defaultValue={description}
+                    defaultValue={description || ""}
                 />
                 <Row wrap wrapGap="1.5rem" css={{ width: "100%" }} justifyContent="space-between" gap="1.5rem">
                     <HalfWidthTextField

@@ -16,8 +16,8 @@ describe("EditProfileDrawerHeader", () => {
     });
     test("renders correctly", async () => {
         const screen = render(<EditProfileDrawerHeader />);
-        expect(screen.getAllByRole("button", { name: translate("change") })).toHaveLength(2);
+        expect(screen.getAllByRole("button", { name: translate("chooseFile") })).toHaveLength(2);
         //Wait until the image is loaded
-        await waitFor(() => expect(screen.getAllByRole("img")).toHaveLength(6));
+        await waitFor(() => expect(screen.getAllByRole("img")).toHaveLength(2));
     });
 });

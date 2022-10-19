@@ -1,6 +1,6 @@
 {
     "welcome": "Hello",
-    "name": "name",
+    "name": "Name",
     "formatNumber": "{{val, number}}",
     "loginWithXumm": "Login with XUMM Wallet",
     "scanXummQR": "Scan the QR with XUMM app",
@@ -36,5 +36,22 @@
     "cancel": "Cancel",
     "writeYour": "Write your {{name}}",
     "bio": "bio",
-    "updateProfile": "Update profile"
+    "updateProfile": "Update profile",
+    "description": "Description",
+    "collection": "Collection",
+    "externalLink": "External link",
+    "backgroundColor": "Background color",
+    "burnable": "Burnable",
+    "onlyXRP": "Only XRP",
+    "trustLine": "Trust line",
+    "transferable": "Transferable",
+    "attributes": "Attributes",
+    "namePlaceholder": "Enter a name for your NFT",
+    "descriptionPlaceholder": "Enter a description for your NFT",
+    "collectionPlaceholder": "No collection selected",
+    "externalLinkPlaceholder": "https://an-external-link.com",
+    "backgroundColorPlaceholder": "Your NFT's background color",
+    "noCollectionPlaceholder": "Doesn't belong to any collection",
+    "showCollection": "Show collection",
+    "hideCollection": "Hide collection"
 }

@@ -10,5 +10,5 @@ export interface UploadInputProps extends FormControlledComponentProps<CoreUploa
     loading?: boolean;
     fileTypes?: UploadProps["fileTypes"];
     uploadPath: string;
-    children: (url: string | undefined) => ReactNode;
+    children: { display: (url: string, drag: boolean) => ReactNode; placeholder?: (drag: boolean) => ReactNode };
 }

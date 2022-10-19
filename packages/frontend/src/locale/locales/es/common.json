@@ -1,6 +1,6 @@
 {
     "welcome": "Hola",
-    "name": "nombre",
+    "name": "Nombre",
     "formatNumber": "{{val, number}}",
     "loginWithXumm": "Accede con XUMM Wallet",
     "scanXummQR": "Scanea el QR con XUMM app",
@@ -35,5 +35,16 @@
     "cancel": "Cancelar",
     "writeYour": "Escribe tu {{name}}",
     "bio": "bio",
-    "updateProfile": "Actualizar perfil"
+    "updateProfile": "Actualizar perfil",
+    "description": "Descripción",
+    "collection": "Colección",
+    "externalLink": "Link externo",
+    "backgroundColor": "Color de fondo",
+    "burnable": "Consumible",
+    "onlyXRP": "Solo XRP",
+    "trustLine": "Línea de confianza",
+    "transferable": "Transferible",
+    "attributes": "Atributos",
+    "showCollection": "Enseñar colección",
+    "hideCollection": "Esconder colección"
 }

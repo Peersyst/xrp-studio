@@ -39,7 +39,7 @@ const EditProfileDrawer = createDrawer(({ ...drawerProps }: Omit<DrawerProps, "c
         };
         await updateUser(getUserRequestFromUserDTO(finalUser));
         await refetchGetWalletUser();
-        await refetchQueries([Queries.GET_NAME_AVAILABILITY, user.name || ""]);
+        await refetchQueries([Queries.NAME_AVAILABILITY, user.name || ""]);
 
         showToast(tSuccess("profileUpdated"), { type: "success", position: "top-left" });
     };

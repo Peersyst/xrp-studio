@@ -35,6 +35,13 @@ const config = createConfig({
                 elevation: 3,
             },
         },
+        Switch: {
+            defaultProps: {
+                LabelProps: {
+                    placement: "right",
+                },
+            },
+        },
     },
     themes: {
         light: lightTheme,

@@ -17,11 +17,9 @@ describe("Test for the EditProfileImage component", () => {
 
     test("Renders correctly an uploads image", async () => {
         const screen = render(<EditProfileImage />);
-        const btn = screen.getByRole("button", { name: translate("change") });
+        const btn = screen.getByRole("button", { name: translate("chooseFile") });
         expect(btn).toBeInTheDocument();
         //Wait until the image is loaded
-        await waitFor(() => expect(screen.getAllByRole("img")).toHaveLength(3));
-        const img = screen.getAllByRole("img")[0];
-        expect(img).toHaveAttribute("alt", "edit-profile-image");
+        await waitFor(() => expect(screen.getAllByRole("img").some((img) => img.getAttribute("src") === userDtoMock.image)));
     });
 });

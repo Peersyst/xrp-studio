@@ -14,12 +14,11 @@ describe("Test for the editProfileCover component", () => {
         jest.spyOn(Router, "useParams").mockReturnValue({ address: userDtoMock.address });
         jest.spyOn(UseWallet, "default").mockReturnValue(wallet);
     });
-    test("Renders correctly an uploads image", async () => {
+
+    test("Renders correctly", async () => {
         const screen = render(<EditProfileCover />);
-        expect(screen.getByRole("button", { name: translate("change") })).toBeInTheDocument();
+        expect(screen.getByRole("button", { name: translate("chooseFile") })).toBeInTheDocument();
         //Wait until the image is loaded
-        await waitFor(() => expect(screen.getAllByRole("img")).toHaveLength(3));
-        const img = screen.getAllByRole("img")[0];
-        expect(img).toHaveAttribute("alt", "header-image");
+        await waitFor(() => expect(screen.getAllByRole("img").some((img) => img.getAttribute("src") === userDtoMock.header)));
     });
 });
