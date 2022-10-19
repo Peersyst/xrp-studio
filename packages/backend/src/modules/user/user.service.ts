@@ -41,4 +41,25 @@ export class UserService {
         if (!user) throw new BusinessException(ErrorCode.USER_NOT_FOUND);
         return UserDto.fromEntity(user);
     }
+
+    /**
+     * Gets a user by its name
+     */
+    async findOneByName(name: string): Promise<UserDto> {
+        const user = await this.userRepository.findOne({ name });
+        if (!user) throw new BusinessException(ErrorCode.USER_NOT_FOUND);
+        return UserDto.fromEntity(user);
+    }
+
+    /**
+     * Checks if a userName already exists
+     */
+    async findName(name: string): Promise<boolean> {
+        try {
+            await this.findOneByName(name);
+            return true;
+        } catch (e) {
+            return false;
+        }
+    }
 }
