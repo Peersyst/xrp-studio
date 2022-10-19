@@ -2448,28 +2448,29 @@
     mkdirp "^1.0.4"
     rimraf "^3.0.2"
 
-"@peersyst/react-components-core@^0.2.4":
-  version "0.2.4"
-  resolved "https://registry.yarnpkg.com/@peersyst/react-components-core/-/react-components-core-0.2.4.tgz#c7f5512f7b9f24b742bfe0a3040e3c88d62b88ae"
-  integrity sha512-84RdvdLCO5/kDjYX7eM4XVM65EffYzpHRUyJx3YT0UKTICRqEbhUktKgQzxyWlsb2cJuM9dsUVEqqtvnwy2lnQ==
+"@peersyst/react-components-core@^0.2.10":
+  version "0.2.10"
+  resolved "https://registry.yarnpkg.com/@peersyst/react-components-core/-/react-components-core-0.2.10.tgz#ccd8b9627fed50de0c22a5b70019702334b1a526"
+  integrity sha512-yXayYYsTxutOrw8/yOXhArg3J6aoZisjnze3uaA+Y6Kv7ea3AMtrLh1AQm8ia13HfXlf6KhpLTbDSr0YWg15zA==
   dependencies:
     "@babel/runtime" "^7.16.7"
-    "@peersyst/react-hooks" "^1.4.0"
+    "@peersyst/react-hooks" "^1.4.2"
     "@peersyst/react-types" "^1.4.0"
-    "@peersyst/react-utils" "^1.6.0"
+    "@peersyst/react-utils" "^1.7.2"
 
-"@peersyst/react-components@^2.22.7":
-  version "2.22.7"
-  resolved "https://registry.yarnpkg.com/@peersyst/react-components/-/react-components-2.22.7.tgz#38e2811dde98bfd6f23c5ecf609d54408523d939"
-  integrity sha512-csYJYFfhZ+atGohP832PbhWSl6g69RPVSZqyXJTLoBDojgc5IVGGzO2jutZDDFRANjH86FvqYcopqTC/agbdhQ==
+"@peersyst/react-components@^2.23.6":
+  version "2.23.6"
+  resolved "https://registry.yarnpkg.com/@peersyst/react-components/-/react-components-2.23.6.tgz#aa442830737d053e150e42072d3f7808b166760b"
+  integrity sha512-5/tT8XDzYwFYfuXongD/gP3egBQLDyh0Co+ukQcq5kZLlVdjk5IVN4NTEAe8X3cQz12QnE+IJZnpooCMWueBWw==
   dependencies:
     "@babel/runtime" "^7.16.7"
-    "@peersyst/react-components-core" "^0.2.4"
-    "@peersyst/react-hooks" "^1.4.0"
+    "@peersyst/react-components-core" "^0.2.8"
+    "@peersyst/react-hooks" "^1.4.1"
     "@peersyst/react-types" "^1.4.0"
-    "@peersyst/react-utils" "^1.6.0"
+    "@peersyst/react-utils" "^1.7.2"
     "@popperjs/core" "^2.11.5"
     clsx "^1.2.1"
+    color "^4.2.3"
     highcharts "^9.3.2"
     highcharts-react-official "^3.1.0"
     prop-types "^15.8.1"
@@ -2486,13 +2487,13 @@
     "@babel/runtime" "^7.16.7"
     "@peersyst/react-utils" "^1.4.7"
 
-"@peersyst/react-hooks@^1.4.0":
-  version "1.4.0"
-  resolved "https://registry.yarnpkg.com/@peersyst/react-hooks/-/react-hooks-1.4.0.tgz#1603be840ced60a59ce9570f781e4a4fd2f29b32"
-  integrity sha512-G/N6d46O9/wZEDrPvmVi1TUumpSNUQ8rMho9siF/Lid/gRO3gfCX06qKz5RTsoP/356+wKP227GEQRGHoXtXyg==
+"@peersyst/react-hooks@^1.4.2":
+  version "1.4.2"
+  resolved "https://registry.yarnpkg.com/@peersyst/react-hooks/-/react-hooks-1.4.2.tgz#31eb8d48511a764fc4052b890606bbe43b4e54ca"
+  integrity sha512-MgwxnP4KKNsMOGej4mSEPO4XRGPcQWG2qgisalOPUzAniVNxacaTdUNP51m8slzjyvbQCS5dW1yvd3bLHYqU7g==
   dependencies:
     "@babel/runtime" "^7.16.7"
-    "@peersyst/react-utils" "^1.6.0"
+    "@peersyst/react-utils" "^1.7.2"
 
 "@peersyst/react-types@^1.3.3":
   version "1.3.3"
@@ -2525,13 +2526,14 @@
     "@babel/runtime" "^7.16.7"
     "@peersyst/react-types" "^1.3.4"
 
-"@peersyst/react-utils@^1.6.0":
-  version "1.6.0"
-  resolved "https://registry.yarnpkg.com/@peersyst/react-utils/-/react-utils-1.6.0.tgz#27400958d4b1195b8348effb1520e59540dc23c3"
-  integrity sha512-Ez3fX7Rbh57Iq0gdO5In46RtYtUqP7TJIeJp0/795sryaQywpydCyFOwC8rnLPpxCYYcwX73SSmps9pMunqhrg==
+"@peersyst/react-utils@^1.7.2":
+  version "1.7.2"
+  resolved "https://registry.yarnpkg.com/@peersyst/react-utils/-/react-utils-1.7.2.tgz#0102bdf6331c1476d1296ab15a8f9eb36878b8b6"
+  integrity sha512-XbatvrLNvgEdy140GRNMI6x8MYyR/IMmGQ1nZLgGRwNWsLyf9kQ04xy6hs4mRgKaJ2kneoSUk8hSks1zZ+I2Sw==
   dependencies:
     "@babel/runtime" "^7.16.7"
     "@peersyst/react-types" "^1.4.0"
+    validate-color "^2.2.1"
 
 "@pmmmwh/react-refresh-webpack-plugin@0.4.3":
   version "0.4.3"
@@ -4764,7 +4766,7 @@ color-name@^1.0.0, color-name@~1.1.4:
   resolved "https://registry.yarnpkg.com/color-name/-/color-name-1.1.4.tgz#c2a09a87acbde69543de6f63fa3995c826c536a2"
   integrity sha512-dOy+3AuW3a2wNbZHIuMZpTcgjGuLU/uBL/ubcZF9OXbDo8ff4O8yVp5Bf0efS8uEoYo5q4Fx7dY9OgQGXgAsQA==
 
-color-string@^1.6.0:
+color-string@^1.6.0, color-string@^1.9.0:
   version "1.9.1"
   resolved "https://registry.yarnpkg.com/color-string/-/color-string-1.9.1.tgz#4467f9146f036f855b764dfb5bf8582bf342c7a4"
   integrity sha512-shrVawQFojnZv6xM40anx4CkoDP+fZsw/ZerEMsW/pyzsRbElpsL/DBVW7q3ExxwusdNXI3lXpuhEZkzs8p5Eg==
@@ -4779,6 +4781,14 @@ color@^3.0.0:
   dependencies:
     color-convert "^1.9.3"
     color-string "^1.6.0"
+
+color@^4.2.3:
+  version "4.2.3"
+  resolved "https://registry.yarnpkg.com/color/-/color-4.2.3.tgz#d781ecb5e57224ee43ea9627560107c0e0c6463a"
+  integrity sha512-1rXeuUUiGGrykh+CeBdu5Ie7OJwinCgQY0bc7GCRxy5xVHy+moaqkpL/jqQq0MtQOeYcrqEz4abc5f0KtU7W4A==
+  dependencies:
+    color-convert "^2.0.1"
+    color-string "^1.9.0"
 
 combined-stream@^1.0.8:
   version "1.0.8"
@@ -13219,6 +13229,11 @@ v8-to-istanbul@^7.0.0:
     "@types/istanbul-lib-coverage" "^2.0.1"
     convert-source-map "^1.6.0"
     source-map "^0.7.3"
+
+validate-color@^2.2.1:
+  version "2.2.1"
+  resolved "https://registry.yarnpkg.com/validate-color/-/validate-color-2.2.1.tgz#f97214883304f87eaa9dc1eb8e9d8cd8b606a5d1"
+  integrity sha512-1eDb1zqP6W6bbfKKl6dRXObelNoQpW7aF3BUTh2AivWuhcD0pa3ejwURWqrVsyKJMLBMlHLFcM3sj5J+dSFhbg==
 
 validate-npm-package-license@^3.0.1:
   version "3.0.4"
