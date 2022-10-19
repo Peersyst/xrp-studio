@@ -1,9 +1,9 @@
 import { debounce } from "@peersyst/react-utils";
 import { useRef, useState } from "react";
-import { UseSearchBar } from "./useSearchBar.types";
+import { UseDebounce } from "./useDebounce.types";
 
-export const useSearchBar: UseSearchBar = ({ onQuery, delay = 600 }) => {
-    const [query, setQuery] = useState<string>();
+export const useDebounce: UseDebounce = ({ onQuery, delay = 600, defaultValue }) => {
+    const [query, setQuery] = useState<string>(defaultValue || "");
     const [loading, setLoading] = useState(false);
     const handleChange = (q: string) => {
         setLoading(true);

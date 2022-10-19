@@ -1,14 +1,15 @@
 import { TextFieldProps } from "@peersyst/react-components";
 
-export interface UseSearchBarParams {
+export interface UseDebounceParams {
     onQuery: TextFieldProps["onChange"];
     delay?: number;
+    defaultValue?: string | undefined;
 }
 
-export interface UseSearchBarReturn {
+export interface UseDebounceReturn {
     value: string | undefined;
     loading: boolean;
     onChange: (value: string) => void;
 }
 
-export type UseSearchBar = (params: UseSearchBarParams) => UseSearchBarReturn;
+export type UseDebounce = (params: UseDebounceParams) => UseDebounceReturn;

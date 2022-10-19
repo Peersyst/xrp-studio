@@ -5,7 +5,6 @@ export const devUsers: User[] = [
         address: "rsgi7ENscrVaXC44JE2m94XzKQrmAVX2gV",
         name: "acarrera",
         image: "https://avatars.githubusercontent.com/u/23333654?v=4",
-        header: "https://valenciaplaza.com/public/Image/2022/3/44c4f700-f74c-4ec2-b9c2-8dd0a5bb2ba6_alta-libre-aspect-ratio_default_0_NoticiaAmpliada.jpg",
         createdAt: new Date(),
         updatedAt: new Date(),
     },

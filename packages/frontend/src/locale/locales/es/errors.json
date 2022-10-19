@@ -22,5 +22,6 @@
     "invalid_start": "El campo debe empezar con {{start}}",
     "invalid_end": "El campo debe terminar con {{end}}",
     "nothingToShow": "No hay nada que mostrar",
-    "userAlreadyExists": "El usuario ya existe"
+    "userAlreadyExists": "El usuario ya existe",
+    "nameCanNotBeEmpty": "El nombre no puede estar vacío"
 }
