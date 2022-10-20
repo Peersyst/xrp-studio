@@ -67,6 +67,7 @@ const BaseNftPageContent = ({ nft, collections, readonly, collectionNfts }: Base
                     <Card css={{ width: "100%", padding: "1.5rem" }}>
                         <Col gap="1.5rem" flex={1}>
                             <Select
+                                clear={translate("none", { context: "female" })}
                                 name="collection"
                                 label={translate("collection")}
                                 placeholder={collectionPlaceholder}

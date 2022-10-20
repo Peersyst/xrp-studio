@@ -13,7 +13,6 @@ const lightTheme = createTheme({
             warning: "#F57C00",
             error: "#D32F2F",
         },
-
         gray: {
             90: "#FAFAFA",
             "2.5": "#141A1F",

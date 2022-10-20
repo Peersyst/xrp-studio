@@ -6,8 +6,7 @@ import { emphasize } from "@peersyst/react-utils";
 
 export const UploadInputPlaceholderRoot = styled(Col).attrs({ alignItems: "center", justifyContent: "center", gap: "7.5%" })(
     ({ theme }) => {
-        const light = theme.palette.mode === "light";
-        const color = theme.palette.black[light ? "80" : "85"];
+        const color = theme.palette.black["85"];
         return css`
             height: 100%;
             width: 100%;

@@ -51,7 +51,10 @@
     "collectionPlaceholder": "No collection selected",
     "externalLinkPlaceholder": "https://an-external-link.com",
     "backgroundColorPlaceholder": "Your NFT's background color",
-    "noCollectionPlaceholder": "Doesn't belong to any collection",
+    "noCollectionPlaceholder": "No collection",
     "showCollection": "Show collection",
-    "hideCollection": "Hide collection"
+    "hideCollection": "Hide collection",
+    "none": "None",
+    "none_male": "None",
+    "none_female": "None"
 }
