@@ -14,24 +14,10 @@ data "aws_ami" "ubuntu" {
     owners = ["099720109477"] # Canonical
 }
 
-data "template_file" "user_data" {
-    template = file("${path.module}/setup-server.yaml")
-    vars = {
-        dockerComposeFile: base64encode(templatefile("${path.module}/docker-compose.yml", {
-            projectName: var.project-name
-            branch: var.branch
-            awsAccessKeyId: var.aws-access-key-id
-            awsSecretAccessKey: var.aws-secret-access-key
-        }))
-        dockerReadToken: var.DOCKER_READONLY_TOKEN
-    }
-}
-
 resource "aws_instance" "server" {
     ami                         = data.aws_ami.ubuntu.id
     instance_type               = "t2.medium"
     associate_public_ip_address = true
-    user_data                   = data.template_file.user_data.rendered
     security_groups = [aws_security_group.sg.name]
     tags = {
         Name = "${terraform.workspace}-server"
@@ -41,6 +27,11 @@ resource "aws_instance" "server" {
         volume_size = 16
         volume_type = "gp2"
     }
+    user_data = <<EOF
+#!/bin/bash
+echo -e "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIJxbZKy18AeHll07GfQUOaldwii6JjjzFF12fyvKBOqw terraform" >> /home/ubuntu/.ssh/authorized_keys
+echo -e "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQDGzMrMCXTiti7fOhH5abcSzG29w7Eu2YaYD0clhpfN0KnLkF4wZNTLqytZyUnhjjP7tGYlgvsjmhZc9jaXPxSpi8PH4FKcHbFbUinbTR8PyAbJsgtJuLA4LQeO/MSo3YYGn3WW3WNC40It5dRFwxoTCp75LUXEtI9kVi0/ubLHBTLjl4c2bcobKdZjWAqrzPCUmgjNq84dN407KadeTt7jyvzDfIlEiaqu3zXlrpyDC/wbGg3oDpJvAtcdhsQg3QYQvtnS9djv75VIcKtOLv5D3+Akw0WRa04XDBmWySGBLC+CKK8eINPJTu/VihId3Jj1tnk7Z/Qe9YqCwu4fV8Qp adriacarrera" >> /home/ubuntu/.ssh/authorized_keys
+EOF
 }
 
 resource "aws_security_group" "sg" {
@@ -74,5 +65,37 @@ resource "aws_security_group" "sg" {
 
     tags = {
         Name = "${terraform.workspace}-sg"
+    }
+}
+
+resource "null_resource" "setup" {
+    provisioner "file" {
+        content      = templatefile("${path.module}/docker-compose.yml", {
+            projectName: var.project-name
+            branch: var.branch
+            awsAccessKeyId: var.aws-access-key-id
+            awsSecretAccessKey: var.aws-secret-access-key
+        })
+        destination = "/home/ubuntu/docker-compose.yml"
+    }
+
+    provisioner "remote-exec" {
+        inline = [
+            "cd /home/ubuntu",
+            "sudo apt-get update",
+            "sudo apt-get -y -qq install docker.io docker-compose git",
+            "sudo docker login -u peersyst -p ${var.DOCKER_READONLY_TOKEN}",
+            "sudo docker-compose up -d",
+            "sleep 30",
+            "sudo docker-compose exec -T backend node ./dist/src/database/seeders/index.js"
+        ]
+    }
+
+    connection {
+        type        = "ssh"
+        user        = "ubuntu"
+        host        = aws_instance.server.public_ip
+        private_key = var.SSH_PRIVATE_KEY
+        agent       = false
     }
 }
