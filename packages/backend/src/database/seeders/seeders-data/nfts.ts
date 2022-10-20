@@ -153,7 +153,7 @@ export const devNfts = [
 ];
 
 export default function getByEnv(env: string) {
-    if (env === "development") {
+    if (env === "development" || env === "preview") {
         return devNfts;
     }
     if (env === "test") {

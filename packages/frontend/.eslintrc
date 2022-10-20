@@ -1,14 +1,26 @@
 {
+    "parser": "@typescript-eslint/parser",
     "plugins": [
+        "@typescript-eslint",
+        "prettier",
         "react"
     ],
     "extends": [
-        "../../.eslintrc",
+        "eslint:recommended",
+        "plugin:@typescript-eslint/eslint-recommended",
+        "plugin:@typescript-eslint/recommended",
+        "plugin:prettier/recommended",
         "plugin:react/jsx-runtime",
         "plugin:react-hooks/recommended"
     ],
     "rules": {
-        "react-hooks/exhaustive-deps": 0
+        "react-hooks/exhaustive-deps": 0,
+        "no-console": 1,
+        "no-empty": 0,
+        "@typescript-eslint/no-empty-interface": 0,
+        "@typescript-eslint/no-explicit-any": 0,
+        "@typescript-eslint/ban-ts-comment": 0,
+        "@typescript-eslint/no-non-null-assertion": 0
     },
     "parserOptions": {
         "ecmaFeatures": {
