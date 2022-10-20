@@ -4,7 +4,7 @@ import * as UseWallet from "module/wallet/component/hooks/useWallet";
 import { UserService } from "module/api/service";
 import EditProfileDrawer from "module/user/component/feedback/EditProfileDrawer/EditProfileDrawer";
 import * as useUpdateUser from "module/user/query/useUpdateUser";
-import { getUserRequestFromUserDTO } from "module/user/util/getUserRequestFromUserDTO";
+import createUserRequestFromUserDTO from "module/user/util/createUserRequestFromUserDTO";
 import userEvent from "@testing-library/user-event";
 import * as uploadFile from "module/api/service/helper/uploadFile";
 
@@ -37,10 +37,11 @@ describe("EditProfileDrawer", () => {
         jest.spyOn(useUpdateUser, "useUpdateUser").mockReturnValue({ mutateAsync: mockedUseUpdateUser } as any);
 
         const screen = render(<EditProfileDrawer />);
+
         //title
         expect(screen.getByRole("heading", { name: translate("editProfile") })).toBeInTheDocument();
         /**
-         * IMATGES
+         * IMAGES
          */
         //Cover
         //Upload a new cover image
@@ -92,7 +93,7 @@ describe("EditProfileDrawer", () => {
         const updateBtn = screen.getByRole("button", { name: translate("updateProfile") });
         expect(updateBtn).toBeInTheDocument();
         fireEvent.click(updateBtn);
-        await waitFor(() => expect(mockedUseUpdateUser).toHaveBeenCalledWith(getUserRequestFromUserDTO(newUserDtoMock)));
+        await waitFor(() => expect(mockedUseUpdateUser).toHaveBeenCalledWith(createUserRequestFromUserDTO(newUserDtoMock)));
         await waitFor(() => expect(mockedCloseDrawer).toHaveBeenCalledWith(EditProfileDrawer.id));
         expect(mockedShowToast).toHaveBeenCalledWith(translate("profileUpdated", { ns: "success" }), { type: "success" });
     });

@@ -19,6 +19,7 @@ declare module "@peersyst/react-components" {
         blockchainLinks: BlockchainLinks;
         nftDefaultCoverUrl: string;
         maxBioChars: number;
+        maxUsernameChars: number;
         maxNftDescChars: number;
     }
 
@@ -34,6 +35,7 @@ declare module "@peersyst/react-components" {
         blockchainLinks: BlockchainLinks;
         nftDefaultCoverUrl: string;
         maxBioChars: number;
+        maxUsernameChars: number;
         maxNftDescChars: number;
     }
 }

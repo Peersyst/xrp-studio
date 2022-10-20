@@ -7,7 +7,7 @@ import useGetWalletUser from "module/user/query/useGetWalletUser";
 import { useUpdateUser } from "module/user/query/useUpdateUser";
 import { userEditNames } from "../../feedback/EditProfileDrawer/EditProfileDrawer";
 import EditProfileName from "../EditProfileName/EditProfileName";
-import { EditProfileFieldsFormRoot, HalfWidthTextField } from "./EditProfileFormFields.styles";
+import { HalfWidthTextField } from "./EditProfileFormFields.styles";
 import { config } from "config";
 
 const EditProfileFormFields = (): JSX.Element => {
@@ -18,7 +18,7 @@ const EditProfileFormFields = (): JSX.Element => {
     const maxBioChars = config.maxBioChars;
 
     return (
-        <EditProfileFieldsFormRoot flex={1}>
+        <Col flex={1} gap="2.5rem">
             <Col key={JSON.stringify(user)} flex={1} gap="1.5rem">
                 <EditProfileName />
                 <TextArea
@@ -29,7 +29,7 @@ const EditProfileFormFields = (): JSX.Element => {
                     name={userEditNames.description}
                     defaultValue={description || ""}
                 />
-                <Row wrap wrapGap="1.5rem" css={{ width: "100%" }} justifyContent="space-between" gap="1.5rem">
+                <Row flex={1} justifyContent="space-between" gap="1.5rem" wrap wrapGap="1.5rem">
                     <HalfWidthTextField
                         prefix="@"
                         placeholder={t("writeYour", { name: "Discord @id" })}
@@ -49,7 +49,7 @@ const EditProfileFormFields = (): JSX.Element => {
             <Button type="submit" loading={updatingUser} disabled={loadingUser}>
                 {t("updateProfile")}
             </Button>
-        </EditProfileFieldsFormRoot>
+        </Col>
     );
 };
 
