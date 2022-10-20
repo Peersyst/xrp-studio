@@ -22,6 +22,7 @@ docker/data/
 yarn-error.log
 */**/yarn-error.log
 
+coverage
 */**/coverage/
 .nyc_output/
 
