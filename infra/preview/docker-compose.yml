@@ -7,6 +7,11 @@ services:
             POSTGRES_DB: db_database
             POSTGRES_USER: db_user
             POSTGRES_PASSWORD: db_password
+    redis:
+        image: redis:6.2
+        command: "redis-server --requirepass redis_password"
+        environment:
+            REDIS_PASSWORD: redis_password
     backend:
         image: peersyst/${projectName}-backend:${branch}
         restart: always
