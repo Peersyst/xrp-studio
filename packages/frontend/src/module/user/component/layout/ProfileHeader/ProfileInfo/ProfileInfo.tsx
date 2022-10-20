@@ -1,5 +1,5 @@
 import useGetUser from "module/user/query/useGetUser";
-import { BlockchainAddress, Col, Row, Skeleton, Typography, useTheme } from "@peersyst/react-components";
+import { BlockchainAddress, Col, Row, Skeleton, Typography, useDrawer, useTheme } from "@peersyst/react-components";
 import {
     ProfileButtons,
     ProfileInfoRoot,
@@ -8,20 +8,23 @@ import {
 import Button from "module/common/component/input/Button/Button";
 import { useMediaQuery } from "@peersyst/react-hooks";
 import useTranslate from "module/common/hook/useTranslate";
+import useWallet from "module/wallet/component/hooks/useWallet";
+import EditProfileDrawer from "module/user/component/feedback/EditProfileDrawer/EditProfileDrawer";
+import SocialButtons from "module/common/component/navigation/SocialButtons/SocialButtons";
 
 const ProfileInfo = (): JSX.Element => {
     const translate = useTranslate();
-
     const { data: user, isLoading } = useGetUser();
-    const { name = "name", address = "", description = "description" } = user || {};
-
+    const { address: walletAddress } = useWallet();
+    const { name = "name", address = "", description = "description", discord, twitter } = user || {};
     const {
         breakpoints: {
             values: { sm },
         },
     } = useTheme();
     const isSm = useMediaQuery(`(max-width: ${sm}px)`);
-
+    const { showDrawer } = useDrawer();
+    const showEditBtn = !isLoading && walletAddress === address;
     return (
         <ProfileInfoRoot>
             <Col flex={1} gap="0.5rem">
@@ -42,13 +45,16 @@ const ProfileInfo = (): JSX.Element => {
                             />
                         </Skeleton>
                     </ProfileMainInfo>
-                    {!isLoading && (
-                        <ProfileButtons>
-                            <Button>{translate("editProfile")}</Button>
-                        </ProfileButtons>
-                    )}
+                    <ProfileButtons gap="0.5rem">
+                        <SocialButtons userId={address} twitterId={twitter} discordId={discord} />
+                        {showEditBtn && (
+                            <Button size="sm" onClick={() => showDrawer(EditProfileDrawer)}>
+                                {translate("editProfile")}
+                            </Button>
+                        )}
+                    </ProfileButtons>
                 </Row>
-                <Skeleton width="90%" loading={isLoading}>
+                <Skeleton width="70%" loading={isLoading}>
                     <Typography className="profile-description" variant="body1" light singleLine>
                         {description}
                     </Typography>

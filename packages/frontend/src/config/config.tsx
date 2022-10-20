@@ -26,6 +26,17 @@ const config = createConfig({
         BlockchainAddress: {
             blockchainLinks: envConfig.blockchainLinks,
         },
+        Drawer: {
+            defaultProps: {
+                position: "right",
+                elevation: 3,
+            },
+        },
+        Modal: {
+            defaultProps: {
+                elevation: 3,
+            },
+        },
     },
     themes: {
         light: lightTheme,

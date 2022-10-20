@@ -8,6 +8,7 @@ describe("Profile Collections test", () => {
     beforeAll(() => {
         jest.spyOn(Router, "useParams").mockReturnValue({ address: "0x" });
     });
+
     test("Renders correctly with collections", async () => {
         const length = 10;
         const { collections } = new CollectionsDtoMock({ length });

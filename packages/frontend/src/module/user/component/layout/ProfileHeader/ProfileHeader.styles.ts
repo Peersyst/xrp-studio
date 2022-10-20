@@ -114,7 +114,7 @@ export const ProfileHeaderFooter = styled(Row).attrs({ gap: "1rem", flex: 1 })(
     `,
 );
 
-export const ProfileAvatar = styled(Avatar).attrs({ size: "lg" })(
+export const ProfileAvatar = styled(Avatar).attrs({ size: "xl" })(
     ({ theme }) => css`
         position: absolute;
         top: var(--profile-avatar-top);

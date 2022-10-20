@@ -7,12 +7,15 @@ import UserMock from "../__mock__/user.mock";
 import { BusinessException } from "../../../src/modules/common/exception/business.exception";
 import { ErrorCode } from "../../../src/modules/common/exception/error-codes";
 import { UpdateUserRequest } from "../../../src/modules/user/request/update-user.request";
+import { ConfigService } from "@nestjs/config";
+import ConfigServiceMock from "../__mock__/config.service.mock";
 
 describe("UserService", () => {
     const ADDRESS = "rNCFjv8Ek5oDrNiMJ3pw6eLLFtMjZLJnf2";
 
     let userService: UserService;
     const userRepositoryMock = new UserRepositoryMock();
+    const configServiceMock = new ConfigServiceMock();
 
     beforeEach(async () => {
         const module = await Test.createTestingModule({
@@ -21,18 +24,27 @@ describe("UserService", () => {
                     provide: getRepositoryToken(User),
                     useValue: userRepositoryMock,
                 },
+                {
+                    provide: ConfigService,
+                    useValue: configServiceMock,
+                },
                 UserService,
             ],
         }).compile();
         userService = module.get(UserService);
         userRepositoryMock.clear();
+        configServiceMock.clear();
     });
 
     describe("createIfNotExists", () => {
         test("Executes save on repository", async () => {
             const user = await userService.createIfNotExists(ADDRESS);
-            expect(user).toEqual(new User({ address: ADDRESS }));
-            expect(userRepositoryMock.save).toHaveBeenCalledWith({ address: ADDRESS });
+            expect(user).toEqual(new User({ address: ADDRESS, image: "default_profile_img_url", header: "default_header_img_url" }));
+            expect(userRepositoryMock.save).toHaveBeenCalledWith({
+                address: ADDRESS,
+                image: "default_profile_img_url",
+                header: "default_header_img_url",
+            });
         });
     });
 
@@ -79,6 +91,42 @@ describe("UserService", () => {
             await expect(async () => {
                 await userService.findOne(ADDRESS);
             }).rejects.toEqual(new BusinessException(ErrorCode.USER_NOT_FOUND));
+        });
+    });
+
+    describe("findOneByName", () => {
+        const name = "Manolito";
+        test("Returns an existing user", async () => {
+            const userMock = new UserMock({ address: ADDRESS, name });
+            userRepositoryMock.findOne.mockResolvedValueOnce(userMock);
+            const user = await userService.findOneByName(name);
+            expect(user).toEqual(userMock);
+            expect(userRepositoryMock.findOne).toHaveBeenCalledWith({ name });
+        });
+
+        test("User does not exist and throws USER_NOT_FOUND_ERROR", async () => {
+            userRepositoryMock.findOne.mockResolvedValueOnce(undefined);
+            await expect(async () => {
+                await userService.findOneByName(name);
+            }).rejects.toEqual(new BusinessException(ErrorCode.USER_NOT_FOUND));
+        });
+    });
+
+    describe("findName", () => {
+        const name = "Manolito";
+        test("Finds the name", async () => {
+            const userMock = new UserMock({ address: ADDRESS, name });
+            userRepositoryMock.findOne.mockResolvedValueOnce(userMock);
+            const exist = await userService.findName(name);
+            expect(exist).toEqual(true);
+            expect(userRepositoryMock.findOne).toHaveBeenCalledWith({ name });
+        });
+
+        test("Does not find the name", async () => {
+            userRepositoryMock.findOne.mockResolvedValueOnce(undefined);
+            const exist = await userService.findName(name);
+            expect(exist).toEqual(false);
+            expect(userRepositoryMock.findOne).toHaveBeenCalledWith({ name });
         });
     });
 });
