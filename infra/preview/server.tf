@@ -16,7 +16,7 @@ data "aws_ami" "ubuntu" {
 
 resource "aws_instance" "server" {
     ami                         = data.aws_ami.ubuntu.id
-    instance_type               = "t2.micro"
+    instance_type               = "t2.medium"
     associate_public_ip_address = true
     security_groups = [aws_security_group.sg.name]
     tags = {

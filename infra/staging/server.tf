@@ -29,7 +29,7 @@ data "template_file" "user_data" {
 
 resource "aws_instance" "server" {
     ami                         = data.aws_ami.ubuntu.id
-    instance_type               = "t2.micro"
+    instance_type               = "t2.medium"
     associate_public_ip_address = true
     user_data                   = data.template_file.user_data.rendered
     security_groups = [aws_security_group.sg.name]
