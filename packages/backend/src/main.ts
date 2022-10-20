@@ -10,12 +10,15 @@ import * as packageJson from "../package.json";
 import registerBullBoard from "./register-bull-board";
 import { ValidationPipe } from "@nestjs/common";
 import { useContainer } from "class-validator";
+import { getConfigEnv } from "./config/util/config.utils";
+import { runSeeders } from "./database/seeders/seed";
 
 async function bootstrap() {
+    if (getConfigEnv() === "preview") await runSeeders(true);
     const app = await NestFactory.create(AppModule);
     const configService = app.get("ConfigService");
     const logLevel = configService.get("logger.logLevel");
-    const logFileName = configService.get("logger.logFileName");
+    const logFileName = configService.get("logger.logFile");
     const serverPort = configService.get("server.port");
 
     const logger = WinstonModule.createLogger({
@@ -31,7 +34,7 @@ async function bootstrap() {
         ],
     });
 
-    app.useLogger(configService.get("logger.enable") ? logger : false);
+    app.useLogger(logger);
     app.use(helmet());
     app.use(morgan("tiny"));
     app.setGlobalPrefix("api");
@@ -41,7 +44,7 @@ async function bootstrap() {
     // Enables custom validators injections
     useContainer(app.select(AppModule), { fallbackOnErrors: true });
 
-    if (configService.get("server.enableCORS")) {
+    if (configService.get("server.enableCors")) {
         app.enableCors();
     }
     const options = new DocumentBuilder()
