@@ -1,6 +1,6 @@
 {
     "welcome": "Hello",
-    "name": "Charlie",
+    "name": "name",
     "formatNumber": "{{val, number}}",
     "loginWithXumm": "Login with XUMM Wallet",
     "scanXummQR": "Scan the QR with XUMM app",
@@ -32,5 +32,9 @@
     "traitType": "Trait type",
     "value": "Value",
     "addProperty": "Add property",
-    "change": "Change"
+    "change": "Change",
+    "cancel": "Cancel",
+    "writeYour": "Write your {{name}}",
+    "bio": "Bio",
+    "updateProfile": "Update profile"
 }

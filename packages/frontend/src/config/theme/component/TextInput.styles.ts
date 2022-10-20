@@ -23,11 +23,11 @@ export const TextInputStyles = css(({ theme }) => ({
         color: theme.palette.black[30],
         border: "1px solid " + theme.palette.black[80],
         transition: "color 300ms, border-color 300ms",
-        input: {
+        ["input, textarea"]: {
             fontWeight: 500,
             fontSize: theme.typography.body1.style.fontSize,
         },
-        "input::placeholder": {
+        ["input::placeholder, textarea::placeholder"]: {
             color: alpha(theme.palette.black[30], 0.4),
         },
     },

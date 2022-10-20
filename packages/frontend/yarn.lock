@@ -2448,24 +2448,24 @@
     mkdirp "^1.0.4"
     rimraf "^3.0.2"
 
-"@peersyst/react-components-core@^0.2.10":
-  version "0.2.16"
-  resolved "https://registry.yarnpkg.com/@peersyst/react-components-core/-/react-components-core-0.2.16.tgz#a81edbfd19b6e644cb1115d258ef3104ee58d926"
-  integrity sha512-DloWHTPDvVBN8NNUFaBAmWmppxDoIFDmOFcp1Wff7DDuisA5PHAFB9jfYRSBAsrldvTg71+NsJSGJykBDe5vHg==
+"@peersyst/react-components-core@^0.2.17":
+  version "0.2.17"
+  resolved "https://registry.yarnpkg.com/@peersyst/react-components-core/-/react-components-core-0.2.17.tgz#296d978ce83630e23bb863eac5f650fbc2630142"
+  integrity sha512-IWGrhOYDH7G3S+P819d4NMGJ/xu5ZdesEoFEZbB+ZxJUiawyy2cT5CcCR4pS5m57P0kDnqIP7KZvKhKBrfnN1Q==
   dependencies:
     "@babel/runtime" "^7.16.7"
-    "@peersyst/react-hooks" "^1.4.4"
+    "@peersyst/react-hooks" "^1.5.0"
     "@peersyst/react-types" "^1.4.0"
     "@peersyst/react-utils" "^1.7.2"
 
-"@peersyst/react-components@^2.23.6":
-  version "2.23.6"
-  resolved "https://registry.yarnpkg.com/@peersyst/react-components/-/react-components-2.23.6.tgz#aa442830737d053e150e42072d3f7808b166760b"
-  integrity sha512-5/tT8XDzYwFYfuXongD/gP3egBQLDyh0Co+ukQcq5kZLlVdjk5IVN4NTEAe8X3cQz12QnE+IJZnpooCMWueBWw==
+"@peersyst/react-components@^2.23.18":
+  version "2.23.18"
+  resolved "https://registry.yarnpkg.com/@peersyst/react-components/-/react-components-2.23.18.tgz#8935b261036f124db4808fb2bc424d813bc0912c"
+  integrity sha512-TtTrLI5mhTcL+LIZsdFzeBIRQD+DtdCSh4f+D9kOITRa76ylTg4TDmwdULDuDGTN249b/S3taRo4TEAhRzPOgw==
   dependencies:
     "@babel/runtime" "^7.16.7"
-    "@peersyst/react-components-core" "^0.2.10"
-    "@peersyst/react-hooks" "^1.4.2"
+    "@peersyst/react-components-core" "^0.2.17"
+    "@peersyst/react-hooks" "^1.5.0"
     "@peersyst/react-types" "^1.4.0"
     "@peersyst/react-utils" "^1.7.2"
     "@popperjs/core" "^2.11.5"
@@ -2479,18 +2479,10 @@
     react-player "^2.9.0"
     react-transition-group "^4.4.2"
 
-"@peersyst/react-hooks@^1.2.5":
-  version "1.2.5"
-  resolved "https://registry.yarnpkg.com/@peersyst/react-hooks/-/react-hooks-1.2.5.tgz#db8929e82061ecfaa736a6f932e6c90729a736cc"
-  integrity sha512-mJxtiQQyw6LV8L92MWBiZGpYANTkfxlDHyBcJbRkuR4sh6/mKhMpXMXaziN5t44Rftfu1O6BpXnSIreXcp3v9g==
-  dependencies:
-    "@babel/runtime" "^7.16.7"
-    "@peersyst/react-utils" "^1.4.7"
-
-"@peersyst/react-hooks@^1.4.2", "@peersyst/react-hooks@^1.4.4":
-  version "1.4.4"
-  resolved "https://registry.yarnpkg.com/@peersyst/react-hooks/-/react-hooks-1.4.4.tgz#97b2f2328958dd3f3acb745f833a6b17ed4795e2"
-  integrity sha512-Q0ONAdbipaQJMNb7Ob3x9ehaORCG9FdDTpnuYkt0+8mOPjiRxzWs9WIT7xA63lMwm4b2YTQj2gbxFXPWIazrIA==
+"@peersyst/react-hooks@^1.5.0":
+  version "1.5.0"
+  resolved "https://registry.yarnpkg.com/@peersyst/react-hooks/-/react-hooks-1.5.0.tgz#cab4db1f4d3348c767d09d2a1af76751b5dbebfe"
+  integrity sha512-ihqx3SSPb/OMfqxMFYSdNEZNrVFNZ5559cw8i6wK8rBivFqpApYBo5hmgvz/wjbqqlNgmd9V8/BvNZ/Yc2PJxA==
   dependencies:
     "@babel/runtime" "^7.16.7"
     "@peersyst/react-utils" "^1.7.2"
@@ -2509,14 +2501,6 @@
   version "1.4.0"
   resolved "https://registry.yarnpkg.com/@peersyst/react-types/-/react-types-1.4.0.tgz#538df3cdcff0a378e34d75450610a4b61668d4ed"
   integrity sha512-vYeFUjr8/C5hZSWVm5qaa9S+Y5eLGQZPf/g0n1HZWoSm4LKHvxEfkNQzkRnzvEWLrGUe5F185DyrioW2cNwX7g==
-
-"@peersyst/react-utils@^1.4.7":
-  version "1.4.7"
-  resolved "https://registry.yarnpkg.com/@peersyst/react-utils/-/react-utils-1.4.7.tgz#0f7ba3d0fe3bdf7a9c127cb95ecb697c7defb441"
-  integrity sha512-VA1M9UvJzSHb0zOXDm3xnHvwMo3rq+Rui7xvafzP+WwFrBHUjqsLyVsW1m07KxDpi8YGWhvRrqF9/5aQRx/Hpg==
-  dependencies:
-    "@babel/runtime" "^7.16.7"
-    "@peersyst/react-types" "^1.3.3"
 
 "@peersyst/react-utils@^1.5.0":
   version "1.5.0"
@@ -6034,11 +6018,6 @@ escodegen@^2.0.0:
   optionalDependencies:
     source-map "~0.6.1"
 
-eslint-config-prettier@8.5.0:
-  version "8.5.0"
-  resolved "https://registry.yarnpkg.com/eslint-config-prettier/-/eslint-config-prettier-8.5.0.tgz#5a81680ec934beca02c7b1a61cf8ca34b66feab1"
-  integrity sha512-obmWKLUNCnhtQRKc+tmnYuQl0pFU1ibYJQ5BGhTVB08bHe9wC8qUeG7c08dj9XX+AuPj1YSGSQIHl1pnDHZR0Q==
-
 eslint-config-react-app@^6.0.0:
   version "6.0.0"
   resolved "https://registry.yarnpkg.com/eslint-config-react-app/-/eslint-config-react-app-6.0.0.tgz#ccff9fc8e36b322902844cbd79197982be355a0e"
@@ -6082,7 +6061,7 @@ eslint-plugin-flowtype@^5.2.0:
     lodash "^4.17.15"
     string-natural-compare "^3.0.1"
 
-eslint-plugin-import@2.26.0, eslint-plugin-import@^2.22.1:
+eslint-plugin-import@^2.22.1:
   version "2.26.0"
   resolved "https://registry.yarnpkg.com/eslint-plugin-import/-/eslint-plugin-import-2.26.0.tgz#f812dc47be4f2b72b478a021605a59fc6fe8b88b"
   integrity sha512-hYfi3FXaM8WPLf4S1cikh/r4IxnO6zrhZbEGz2b660EJRbuxgpDS5gkCuYgGWg2xxh2rBuIr4Pvhve/7c31koA==
@@ -6126,13 +6105,6 @@ eslint-plugin-jsx-a11y@^6.3.1:
     language-tags "^1.0.5"
     minimatch "^3.1.2"
     semver "^6.3.0"
-
-eslint-plugin-prettier@4.2.1:
-  version "4.2.1"
-  resolved "https://registry.yarnpkg.com/eslint-plugin-prettier/-/eslint-plugin-prettier-4.2.1.tgz#651cbb88b1dab98bfd42f017a12fa6b2d993f94b"
-  integrity sha512-f/0rXLXUt0oFYs8ra4w49wYZBG5GKZpAYsJSm6rnYL5uVDjd+zowwMwVZHnAjf4edNrKpCDYfXDgmRE/Ak7QyQ==
-  dependencies:
-    prettier-linter-helpers "^1.0.0"
 
 eslint-plugin-react-hooks@^4.2.0, eslint-plugin-react-hooks@^4.6.0:
   version "4.6.0"
@@ -6484,11 +6456,6 @@ fast-deep-equal@^3.1.1, fast-deep-equal@^3.1.3:
   version "3.1.3"
   resolved "https://registry.yarnpkg.com/fast-deep-equal/-/fast-deep-equal-3.1.3.tgz#3a7d56b559d6cbc3eb512325244e619a65c6c525"
   integrity sha512-f3qQ9oQy9j2AhBe/H9VC91wLmKBCCU/gDOnKNAYG5hswO7BLKj09Hc5HYNz9cGI++xlpDCIgDaitVs03ATR84Q==
-
-fast-diff@^1.1.2:
-  version "1.2.0"
-  resolved "https://registry.yarnpkg.com/fast-diff/-/fast-diff-1.2.0.tgz#73ee11982d86caaf7959828d519cfe927fac5f03"
-  integrity sha512-xJuoT5+L99XlZ8twedaRf6Ax2TgQVxvgZOYoPKqZufmJib0tL2tegPBOZb1pVNgIhlqDlA0eO0c3wBvQcmzx4w==
 
 fast-glob@^3.1.1, fast-glob@^3.2.9:
   version "3.2.11"
@@ -10822,13 +10789,6 @@ prepend-http@^1.0.0:
   version "1.0.4"
   resolved "https://registry.yarnpkg.com/prepend-http/-/prepend-http-1.0.4.tgz#d4f4562b0ce3696e41ac52d0e002e57a635dc6dc"
   integrity sha512-PhmXi5XmoyKw1Un4E+opM2KcsJInDvKyuOumcjjw3waw86ZNjHwVUOOWLc4bCzLdcKNaWBH9e99sbWzDQsVaYg==
-
-prettier-linter-helpers@^1.0.0:
-  version "1.0.0"
-  resolved "https://registry.yarnpkg.com/prettier-linter-helpers/-/prettier-linter-helpers-1.0.0.tgz#d23d41fe1375646de2d0104d3454a3008802cf7b"
-  integrity sha512-GbK2cP9nraSSUF9N2XwUwqfzlAFlMNYYl+ShE/V+H8a9uNl/oUqB1w2EL54Jh0OlyRSd8RfWYJ3coVS4TROP2w==
-  dependencies:
-    fast-diff "^1.1.2"
 
 prettier@^2.6.2:
   version "2.7.1"
