@@ -1,6 +1,6 @@
 import { LoaderIcon } from "@peersyst/react-components";
 import { cx } from "@peersyst/react-utils";
-import { useDebounce } from "module/common/hook/useDebounce/useDebounce";
+import { useDebounce } from "@peersyst/react-hooks";
 import useTranslate from "module/common/hook/useTranslate";
 import SearchIcon from "module/common/icons/SearchIcon";
 import TextField from "../TextField/TextField";
@@ -13,19 +13,20 @@ const SearchBar = ({
     variant = "filled",
     size = "md",
     onChange: onSearch,
+    defaultValue = "",
     ...rest
 }: SearchBarProps): JSX.Element => {
     const t = useTranslate();
-    const { value, onChange, loading } = useDebounce({ onQuery: onSearch });
+    const { value, handleChange, debouncing } = useDebounce(defaultValue, onSearch);
 
     return (
         <TextField
             className={cx("search-bar", className)}
             value={value}
             placeholder={t("search")}
-            onChange={onChange}
+            onChange={handleChange}
             size={size}
-            suffix={showLoading && (loadingProp || loading) ? <LoaderIcon /> : <SearchIcon />}
+            suffix={showLoading && (loadingProp || debouncing) ? <LoaderIcon /> : <SearchIcon />}
             {...rest}
             variant={variant}
         />

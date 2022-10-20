@@ -4,11 +4,11 @@ import * as UseWallet from "module/wallet/component/hooks/useWallet";
 import { UserService } from "module/api/service";
 import EditProfileDrawer from "module/user/component/feedback/EditProfileDrawer/EditProfileDrawer";
 import * as useUpdateUser from "module/user/query/useUpdateUser";
-import { getUserRequestFromUserDTO } from "module/user/util/getUserRequestFromUserDTO";
+import createUserRequestFromUserDTO from "module/user/util/createUserRequestFromUserDTO";
 import userEvent from "@testing-library/user-event";
 import * as uploadFile from "module/api/service/helper/uploadFile";
 
-describe("Renders correclty", () => {
+describe("EditProfileDrawer", () => {
     const wallet = new WalletMock({ address: "0x123" });
     const userDtoMock = new UserDtoMock({ name: "", description: "", twitter: "", discord: "" });
     const newUserDtoMock = new UserDtoMock({
@@ -19,11 +19,13 @@ describe("Renders correclty", () => {
         header: "new_img_url",
         image: "new_img_url",
     });
+
     beforeAll(() => {
         jest.spyOn(UseWallet, "default").mockReturnValue(wallet);
         jest.spyOn(UserService, "userControllerGetUser").mockResolvedValue(userDtoMock);
         jest.spyOn(UserService, "userControllerCheckUserName").mockResolvedValue({ exist: false });
     });
+
     test("Renders correctly + updates profile", async () => {
         const mockedUseUpdateUser = jest.fn();
         const mockedUpload = jest.fn().mockResolvedValue("new_img_url");
@@ -33,11 +35,13 @@ describe("Renders correclty", () => {
         new DrawerMock({ hideDrawer: mockedCloseDrawer });
         jest.spyOn(uploadFile, "uploadFile").mockImplementation(mockedUpload);
         jest.spyOn(useUpdateUser, "useUpdateUser").mockReturnValue({ mutateAsync: mockedUseUpdateUser } as any);
+
         const screen = render(<EditProfileDrawer />);
+
         //title
         expect(screen.getByRole("heading", { name: translate("editProfile") })).toBeInTheDocument();
         /**
-         * IMATGES
+         * IMAGES
          */
         //Wait until the images are loaded
         await waitFor(() => expect(screen.getAllByRole("img")).toHaveLength(6));
@@ -95,7 +99,7 @@ describe("Renders correclty", () => {
         const updateBtn = screen.getByRole("button", { name: translate("updateProfile") });
         expect(updateBtn).toBeInTheDocument();
         fireEvent.click(updateBtn);
-        await waitFor(() => expect(mockedUseUpdateUser).toHaveBeenCalledWith(getUserRequestFromUserDTO(newUserDtoMock)));
+        await waitFor(() => expect(mockedUseUpdateUser).toHaveBeenCalledWith(createUserRequestFromUserDTO(newUserDtoMock)));
         await waitFor(() => expect(mockedCloseDrawer).toHaveBeenCalledWith(EditProfileDrawer.id));
         expect(mockedShowToast).toHaveBeenCalledWith(translate("profileUpdated", { ns: "success" }), { type: "success" });
     });
