@@ -62,6 +62,7 @@
         "@bull-board/express": "^4.0.0",
         "@nanogiants/nestjs-swagger-api-exception-decorator": "^1.4.3",
         "@nestjs/bull": "^0.5.5",
+        "@nestjs/cli": "7.6.0",
         "@nestjs/common": "7.6.15",
         "@nestjs/config": "^0.6.3",
         "@nestjs/core": "7.6.15",
@@ -103,7 +104,6 @@
         "yargs": "^17.1.1"
     },
     "devDependencies": {
-        "@nestjs/cli": "7.6.0",
         "@nestjs/schematics": "7.3.1",
         "@nestjs/testing": "7.6.15",
         "@types/bcrypt": "^5.0.0",
