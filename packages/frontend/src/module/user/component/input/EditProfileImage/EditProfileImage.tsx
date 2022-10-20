@@ -9,15 +9,16 @@ export interface EditProfileImageProps {
 }
 
 const EditProfileImage = (props: EditProfileImageProps): JSX.Element => {
-    const { data: { image } = {}, isFetching, isRefetching } = useGetWalletUser();
+    const { data: { image = "loading_profile_image" } = {}, isFetching, isRefetching } = useGetWalletUser();
 
     return (
         <AvatarInput
+            key={image}
             name={userEditNames.image}
             defaultValue={image}
             size="lg"
             loading={isFetching && !isRefetching}
-            alt="edit-profile-image"
+            alt="profile-image"
             {...props}
         />
     );

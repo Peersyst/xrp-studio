@@ -4,10 +4,11 @@ import { EditProfileCoverRoot } from "./EditProfileCover.styles";
 import { EditProfileCoverProps } from "./EditProfileCover.types";
 
 const EditProfileCover = (props: EditProfileCoverProps): JSX.Element => {
-    const { data: { header } = {}, isFetching, isRefetching } = useGetWalletUser();
+    const { data: { header = "loading_header_image" } = {}, isFetching, isRefetching } = useGetWalletUser();
 
     return (
         <EditProfileCoverRoot
+            key={header}
             name={userEditNames.header}
             defaultValue={header}
             alt="header-image"

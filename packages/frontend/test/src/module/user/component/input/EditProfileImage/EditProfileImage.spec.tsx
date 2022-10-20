@@ -1,6 +1,6 @@
 import { UserService } from "module/api/service";
 import { UserDtoMock, WalletMock } from "test-mocks";
-import { render, translate, waitFor } from "test-utils";
+import { render, waitFor } from "test-utils";
 import * as Router from "react-router-dom";
 import * as UseWallet from "module/wallet/component/hooks/useWallet";
 import EditProfileImage from "module/user/component/input/EditProfileImage/EditProfileImage";
@@ -17,9 +17,7 @@ describe("Test for the EditProfileImage component", () => {
 
     test("Renders correctly an uploads image", async () => {
         const screen = render(<EditProfileImage />);
-        const btn = screen.getByRole("button", { name: translate("chooseFile") });
-        expect(btn).toBeInTheDocument();
         //Wait until the image is loaded
-        await waitFor(() => expect(screen.getAllByRole("img").some((img) => img.getAttribute("src") === userDtoMock.image)));
+        await waitFor(() => expect(screen.getByAltText("profile-image")).toHaveAttribute("src", userDtoMock.image));
     });
 });

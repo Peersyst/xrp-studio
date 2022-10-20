@@ -8,9 +8,9 @@ import { getUserRequestFromUserDTO } from "module/user/util/getUserRequestFromUs
 import userEvent from "@testing-library/user-event";
 import * as uploadFile from "module/api/service/helper/uploadFile";
 
-describe("Renders correclty", () => {
+describe("EditProfileDrawer", () => {
     const wallet = new WalletMock({ address: "0x123" });
-    const userDtoMock = new UserDtoMock({ name: "", description: "", twitter: "", discord: "" });
+    const userDtoMock = new UserDtoMock({ name: "", description: "", twitter: "", discord: "", header: undefined, image: undefined });
     const newUserDtoMock = new UserDtoMock({
         name: "Manolito Gafotas",
         description: "newDescription",
@@ -19,11 +19,13 @@ describe("Renders correclty", () => {
         header: "new_img_url",
         image: "new_img_url",
     });
+
     beforeAll(() => {
         jest.spyOn(UseWallet, "default").mockReturnValue(wallet);
         jest.spyOn(UserService, "userControllerGetUser").mockResolvedValue(userDtoMock);
         jest.spyOn(UserService, "userControllerCheckUserName").mockResolvedValue({ exist: false });
     });
+
     test("Renders correctly + updates profile", async () => {
         const mockedUseUpdateUser = jest.fn();
         const mockedUpload = jest.fn().mockResolvedValue("new_img_url");
@@ -33,20 +35,18 @@ describe("Renders correclty", () => {
         new DrawerMock({ hideDrawer: mockedCloseDrawer });
         jest.spyOn(uploadFile, "uploadFile").mockImplementation(mockedUpload);
         jest.spyOn(useUpdateUser, "useUpdateUser").mockReturnValue({ mutateAsync: mockedUseUpdateUser } as any);
+
         const screen = render(<EditProfileDrawer />);
         //title
         expect(screen.getByRole("heading", { name: translate("editProfile") })).toBeInTheDocument();
         /**
          * IMATGES
          */
-        //Wait until the images are loaded
-        await waitFor(() => expect(screen.getAllByRole("img")).toHaveLength(6));
         //Cover
-        const coverImg = screen.getAllByRole("img")[0];
-        expect(coverImg).toHaveAttribute("alt", "header-image");
         //Upload a new cover image
+        await waitFor(() => expect(screen.getByAltText("header-image")).toHaveAttribute("src", userDtoMock.header));
         const newCover = new File(["hello"], "cover.png", { type: "image/png" });
-        const coverInput = coverImg.parentElement?.parentElement?.getElementsByTagName("input")[0];
+        const coverInput = screen.container.getElementsByTagName("input")[0];
         userEvent.upload(coverInput!, newCover);
         // Act has to be used as state is updated after uploading a file
         await act(async () => {
@@ -54,10 +54,7 @@ describe("Renders correclty", () => {
         });
         //Avatar
         const newAvatar = new File(["hello"], "newAvatar.png", { type: "image/png" });
-        const avatarImg = screen.getAllByRole("img")[3];
-        expect(avatarImg).toHaveAttribute("alt", "edit-profile-image");
-        const uploadAvatarBtn = screen.getAllByRole("button", { name: translate("change") })[1];
-        const avatarInput = uploadAvatarBtn.parentElement?.getElementsByTagName("input")[0];
+        const avatarInput = screen.container.getElementsByTagName("input")[1];
         userEvent.upload(avatarInput!, newAvatar);
         // Act has to be used as state is updated after uploading a file
         await act(async () => {

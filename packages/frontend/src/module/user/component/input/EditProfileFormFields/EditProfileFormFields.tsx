@@ -19,7 +19,7 @@ const EditProfileFormFields = (): JSX.Element => {
 
     return (
         <EditProfileFieldsFormRoot flex={1}>
-            <Col flex={1} gap="1.5rem">
+            <Col key={JSON.stringify(user)} flex={1} gap="1.5rem">
                 <EditProfileName />
                 <TextArea
                     displayLength

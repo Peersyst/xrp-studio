@@ -15,13 +15,10 @@ import Collapsable from "module/common/component/util/Collapsable/Collapsable";
 import NftPreviewCarousel from "module/nft/component/display/NftPreviewCarousel/NftPreviewCarousel";
 import { config } from "config";
 
-const BaseNftPageContent = ({
-    nft: { metadata: nftMetadata, collection: nftCollection, flags },
-    collections,
-    readonly,
-    collectionNfts,
-}: BaseNftPageContentProps): JSX.Element => {
+const BaseNftPageContent = ({ nft, collections, readonly, collectionNfts }: BaseNftPageContentProps): JSX.Element => {
     const translate = useTranslate();
+
+    const { metadata: nftMetadata, collection: nftCollection, flags } = nft;
 
     // Generate collections Select options
     const collectionOptions: SelectOption<number>[] = (collections || (nftCollection ? [nftCollection] : [])).map((collection) => ({
@@ -38,7 +35,7 @@ const BaseNftPageContent = ({
 
     return (
         <PageContent>
-            <Row gap="1.5rem" flex={1} breakpoint={{ width: "mini", alignItems: "stretch", gap: "1.5rem" }}>
+            <Row key={JSON.stringify(nft)} gap="1.5rem" flex={1} breakpoint={{ width: "mini", alignItems: "stretch", gap: "1.5rem" }}>
                 <Col gap="3rem" flex={1}>
                     <ImageInput
                         name="image"

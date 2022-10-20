@@ -17,7 +17,7 @@ const EditProfileName = (): JSX.Element => {
     const { data: { exist } = { exist: true }, isLoading: nameLoading } = useCheckNameAvailability(qName);
 
     const onQuery = (value: string) => setQName(value.trim());
-    const { value, onChange, loading: debouncing } = useDebounce({ onQuery, delay: 800, defaultValue: user?.name });
+    const { value, onChange, loading: debouncing } = useDebounce({ onQuery, delay: 800, defaultValue: user.name });
 
     const finalLoading = nameLoading || debouncing || userLoading;
 
@@ -34,7 +34,6 @@ const EditProfileName = (): JSX.Element => {
             placeholder={t("writeYour", { name: t("name") })}
             label={capitalize(t("name"))}
             name={userEditNames.name}
-            defaultValue={user?.name ?? ""}
             suffix={finalLoading && <LoaderIcon />}
             hideError={finalLoading}
         />
