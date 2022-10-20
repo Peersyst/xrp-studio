@@ -6,8 +6,8 @@ import { useUpdateUser } from "module/user/query/useUpdateUser";
 import { getUserRequestFromUserDTO } from "module/user/util/getUserRequestFromUserDTO";
 import EditProfileDrawerBody from "./EditProfileDrawerBody/EditProfileDrawerBody";
 import { EditProfileDrawerRoot, EditProfileForm } from "./EditProfileDrawer.styles";
-import { UpdateUserFields } from "./EditProfileDrawer.types";
 import EditProfileDrawerHeader from "./EditProfileDrawerHeader/EditProfileDrawerHeader";
+import { UpdateUserFields } from "./EditProfileDrawer.types";
 
 /**
  * This json is used as a way to typecheck all names of the form.
