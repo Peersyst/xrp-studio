@@ -87,7 +87,7 @@ export const devNftMetadata = [
 ];
 
 export default function getByEnv(env: string) {
-    if (env === "development") {
+    if (env === "development" || env === "preview") {
         return devNftMetadata;
     }
     if (env === "test") {

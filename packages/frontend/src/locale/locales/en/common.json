@@ -1,6 +1,6 @@
 {
     "welcome": "Hello",
-    "name": "Charlie",
+    "name": "name",
     "formatNumber": "{{val, number}}",
     "loginWithXumm": "Login with XUMM Wallet",
     "scanXummQR": "Scan the QR with XUMM app",
@@ -19,7 +19,7 @@
     "editProfile": "Edit Profile",
     "search": "Search",
     "chooseFile": "Choose file",
-    "fileInputPlaceholder": "Upload here your files",
+    "fileInputPlaceholder": "Upload your files here",
     "onDragText": "Drop it like it's hot",
     "filesSupported": "Files supported",
     "selectAnotherFile": "Select another file",
@@ -31,5 +31,10 @@
     "youHaveNoCollections": "You have no collections",
     "traitType": "Trait type",
     "value": "Value",
-    "addProperty": "Add property"
+    "addProperty": "Add property",
+    "change": "Change",
+    "cancel": "Cancel",
+    "writeYour": "Write your {{name}}",
+    "bio": "Bio",
+    "updateProfile": "Update profile"
 }

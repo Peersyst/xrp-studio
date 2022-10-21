@@ -5,5 +5,6 @@ declare module "@peersyst/react-components" {
         filled: false;
         primary: true;
         secondary: true;
+        glass: true;
     }
 }

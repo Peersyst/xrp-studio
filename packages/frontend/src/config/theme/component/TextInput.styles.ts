@@ -34,7 +34,11 @@ export const TextInputStyles = css(({ theme }) => {
                 fontWeight: 500,
                 fontSize: theme.typography.body1.style.fontSize,
             },
-            "input::placeholder": {
+            ["input, textarea"]: {
+                fontWeight: 500,
+                fontSize: theme.typography.body1.style.fontSize,
+            },
+            ["input::placeholder, textarea::placeholder"]: {
                 color: alpha(theme.palette.black[30], 0.4),
             },
         },

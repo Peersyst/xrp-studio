@@ -11,8 +11,9 @@ data/
 */**/data/
 logs/
 */**/logs/
+*/**/*.log
 
-docker/data/
+docker/
 
 .env*
 */**/.env
