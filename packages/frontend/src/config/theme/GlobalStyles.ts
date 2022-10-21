@@ -1,8 +1,7 @@
-import { FormControlStyles } from "./component/FormControl.styles";
-import { Theme } from "@peersyst/react-components";
 import { createGlobalStyle } from "styled-components";
 import "./fonts.css";
 import { RootStyles } from "config/theme/component/root.styles";
+import { FormControlStyles } from "./component/FormControl.styles";
 import { BackdropStyles } from "config/theme/component/Backdrop.styles";
 import { TypographyStyles } from "config/theme/component/Typography.styles";
 import { SwitchStyles } from "config/theme/component/Switch.styles";
@@ -14,7 +13,7 @@ import { ModalStyles } from "./component/Modal.styles";
 import { DrawerStyles } from "./component/Drawer.styles";
 import { ColorInputStyles } from "config/theme/component/ColorInput.styles";
 
-export const GlobalStyles = createGlobalStyle<{ theme: Theme }>`
+export const GlobalStyles = createGlobalStyle`
         ${RootStyles};
 
         html,
@@ -155,16 +154,16 @@ export const GlobalStyles = createGlobalStyle<{ theme: Theme }>`
         a {
             text-decoration: none;
         }
-
-        ${BackdropStyles};
-        ${DrawerStyles};
-        ${ModalStyles};
-        ${TypographyStyles}
-        ${SwitchStyles};
-        ${ChipStyles};
-        ${SelectStyles};
-        ${FormControlStyles};
-        ${TextInputStyles};
-        ${BlockchainAddressStyles};
-        ${ColorInputStyles};
+        
+      ${BackdropStyles};
+      ${DrawerStyles};
+      ${ModalStyles};
+      ${TypographyStyles}
+      ${SwitchStyles};
+      ${ChipStyles};
+      ${SelectStyles};
+      ${FormControlStyles};
+      ${TextInputStyles};
+      ${BlockchainAddressStyles};
+      ${ColorInputStyles};
     `;

@@ -1,17 +1,15 @@
-import { StrictMode, Fragment } from "react";
+import { StrictMode } from "react";
 import ReactDOM from "react-dom";
 import Providers from "./Providers";
 import Router from "./Router";
 import "module/api/OpenApiConfig";
 import "./locale/i18n";
 
-const Root = process.env.NODE_ENV === "development" ? StrictMode : Fragment;
-
 ReactDOM.render(
-    <Root>
+    <StrictMode>
         <Providers>
             <Router />
         </Providers>
-    </Root>,
+    </StrictMode>,
     document.getElementById("root"),
 );

@@ -79,7 +79,7 @@ const BaseNftPageForm = ({ nft, collections, loading, readonly, fixedCollection 
                                 defaultValue={nftCollection?.taxon}
                                 readonly={readonly}
                                 disabled={fixedCollection}
-                                DropdownComponent={readonly ? () => <></> : undefined}
+                                dropdownElement={readonly ? false : undefined}
                             />
                             <TextField
                                 name="externalLink"
