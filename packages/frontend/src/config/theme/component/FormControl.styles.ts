@@ -16,10 +16,20 @@ export const FormControlStyles = css(({ theme }) => ({
             ".Label": {
                 color: theme.palette.black[50],
             },
+            "&.Disabled": {
+                ".Label": {
+                    color: theme.palette.black[50],
+                },
+            },
         },
         "&.Outlined": {
             ".Label": {
                 color: theme.palette.black[60],
+            },
+            "&.Disabled": {
+                ".Label": {
+                    color: theme.palette.black[60],
+                },
             },
         },
         "&.Focused": {

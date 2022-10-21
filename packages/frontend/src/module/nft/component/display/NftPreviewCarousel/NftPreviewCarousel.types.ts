@@ -9,3 +9,8 @@ export interface NftPreviewCarouselProps {
     className?: string;
     style?: CSSProperties;
 }
+
+export interface NftPreviewCarouselItemProps {
+    active: boolean;
+    isLink: boolean;
+}
