@@ -1,0 +1,36 @@
+version: '3.5'
+services:
+    db:
+        image: postgres:14.2
+        restart: always
+        environment:
+            POSTGRES_DB: db_database
+            POSTGRES_USER: db_user
+            POSTGRES_PASSWORD: db_password
+    redis:
+        image: redis:6.2
+        command: "redis-server --requirepass redis_password"
+        environment:
+            REDIS_PASSWORD: redis_password
+    backend:
+        image: peersyst/${projectName}-backend:${branch}
+        restart: always
+        environment:
+            CONFIG_ENV: staging
+            AWS_REGION: eu-west-1
+            AWS_SECRET_ID: staging/${projectName}
+            AWS_ACCESS_KEY_ID: ${awsAccessKeyId}
+            AWS_SECRET_ACCESS_KEY: ${awsSecretAccessKey}
+    http:
+        image: peersyst/${projectName}-http:${branch}
+        restart: always
+        ports:
+            - '80:80'
+        environment:
+            BACKEND_UPSTREAM: "server backend:3000;"
+    watchtower:
+        image: containrrr/watchtower
+        volumes:
+            - /var/run/docker.sock:/var/run/docker.sock
+            - /root/.docker/config.json:/config.json
+        command: --interval 30

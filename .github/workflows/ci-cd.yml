@@ -1,0 +1,183 @@
+name: "Continuous integration"
+
+on:
+    pull_request:
+        types: [opened, synchronize, closed]
+    push:
+        branches:
+            - 'main'
+            - 'prod'
+
+jobs:
+    backend:
+        name: "Build and push Backend docker"
+        runs-on: ubuntu-latest
+        if: github.event_name != 'pull_request' || github.event.action != 'closed'
+        steps:
+            -   name: Checkout
+                uses: actions/checkout@v2
+            -   name: Set up QEMU
+                uses: docker/setup-qemu-action@v2
+
+            -   name: Set up Docker Buildx
+                uses: docker/setup-buildx-action@v2
+
+            -   name: Login to DockerHub
+                uses: docker/login-action@v2
+                with:
+                    username: ${{ secrets.DOCKER_USERNAME }}
+                    password: ${{ secrets.DOCKER_PUSH_TOKEN }}
+            # Configure tag name
+            -   name: Sets env vars for pull request
+                if: github.event_name == 'pull_request'
+                run: |
+                    echo "DOCKER_IMAGE_NAME=${{ secrets.DOCKER_USERNAME }}/${{ github.event.repository.name }}-backend:${{ github.event.pull_request.number }}" >> $GITHUB_ENV
+            -   name: Sets env vars for staging
+                if: github.event_name != 'pull_request' && github.ref != 'refs/heads/prod'
+                run: |
+                    echo "DOCKER_IMAGE_NAME=${{ secrets.DOCKER_USERNAME }}/${{ github.event.repository.name }}-backend:${GITHUB_REF#refs/heads/}" >> $GITHUB_ENV
+            -   name: Sets env vars for production
+                if: github.event_name != 'pull_request' && github.ref == 'refs/heads/prod'
+                run: |
+                    echo "DOCKER_IMAGE_NAME=${{ secrets.DOCKER_USERNAME }}/${{ github.event.repository.name }}-backend:latest" >> $GITHUB_ENV
+            # Build and push image
+            -   name: Build backend image
+                working-directory: packages/backend
+                run: |
+                    docker build -t ${{ env.DOCKER_IMAGE_NAME }} .
+            -   name: Push backend image
+                run: |
+                    docker push ${{ env.DOCKER_IMAGE_NAME }}
+    http:
+        name: "Build and push Frontend docker"
+        runs-on: ubuntu-latest
+        if: github.event_name != 'pull_request' || github.event.action != 'closed'
+        steps:
+            -   name: Checkout
+                uses: actions/checkout@v2
+
+            -   name: Set up QEMU
+                uses: docker/setup-qemu-action@v2
+
+            -   name: Set up Docker Buildx
+                uses: docker/setup-buildx-action@v2
+
+            -   name: Login to DockerHub
+                uses: docker/login-action@v2
+                with:
+                    username: ${{ secrets.DOCKER_USERNAME }}
+                    password: ${{ secrets.DOCKER_PUSH_TOKEN }}
+            # Configure tag name
+            -   name: Sets env vars for pull request
+                if: github.event_name == 'pull_request'
+                run: |
+                    echo "DOCKER_IMAGE_NAME=${{ secrets.DOCKER_USERNAME }}/${{ github.event.repository.name }}-http:${{ github.event.pull_request.number }}" >> $GITHUB_ENV
+                    echo "CONFIG_ENV=preview" >> $GITHUB_ENV
+            -   name: Sets env vars for staging
+                if: github.event_name != 'pull_request' && github.ref != 'refs/heads/prod'
+                run: |
+                    echo "DOCKER_IMAGE_NAME=${{ secrets.DOCKER_USERNAME }}/${{ github.event.repository.name }}-http:${GITHUB_REF#refs/heads/}" >> $GITHUB_ENV
+                    echo "CONFIG_ENV=staging" >> $GITHUB_ENV
+            -   name: Sets env vars for production
+                if: github.event_name != 'pull_request' && github.ref == 'refs/heads/prod'
+                run: |
+                    echo "DOCKER_IMAGE_NAME=${{ secrets.DOCKER_USERNAME }}/${{ github.event.repository.name }}-http:latest" >> $GITHUB_ENV
+                    echo "CONFIG_ENV=production" >> $GITHUB_ENV
+            # Build and push image
+            -   name: Build http image
+                working-directory: packages/frontend
+                run: |
+                    docker build -t ${{ env.DOCKER_IMAGE_NAME }} --build-arg CONFIG_ENV=${{ env.CONFIG_ENV }} .
+            -   name: Push http image
+                run: |
+                    docker push ${{ env.DOCKER_IMAGE_NAME }}
+
+    preview-environment:
+        name: "Deploy Preview environment"
+        needs: [backend, http]
+        if: ${{ always() && github.event_name == 'pull_request' }}
+        runs-on: ubuntu-latest
+        env:
+            TF_WORKSPACE: ${{ github.event.repository.name }}_${{ github.event.pull_request.number }}
+        defaults:
+            run:
+                working-directory: infra/preview
+        steps:
+            - name: Checkout
+              uses: actions/checkout@v2
+            # Only set up preview environment for pull requests
+            - name: Setup Terraform
+              uses: hashicorp/setup-terraform@v2
+              with:
+                  cli_config_credentials_token: ${{ secrets.TFC_API_TOKEN }}
+            # Initialize terraform
+            - name: Initialize terraform
+              run: |
+                  curl --header "Authorization: Bearer ${{ secrets.TFC_API_TOKEN }}" --header "Content-Type: application/vnd.api+json" --request POST --data '{"data":{"attributes":{"name":"${{ env.TF_WORKSPACE }}"}}}' "https://app.terraform.io/api/v2/organizations/Peersyst/workspaces"
+                  sed -i 's/__WORKSPACE__/${{ env.TF_WORKSPACE }}/g' main.tf
+                  terraform init -input=false
+            # Builds and deploys preview environments
+            - name: Build and deploy preview environment
+              if: github.event.action != 'closed'
+              run: |
+                  terraform apply --auto-approve -var="branch=${{ github.event.pull_request.number }}" -var="project-name=${{ github.event.repository.name }}" -var="aws-secret-access-key=${{ secrets.AWS_SECRET_MANAGER_KEY }}" -var="aws-access-key-id=${{ secrets.AWS_SECRET_MANAGER_KEY_ID }}"
+            # Runs Terraform output to display the preview environment URL
+            - name: Terraform Output
+              id: output
+              if: github.event.action != 'closed'
+              run: |
+                  terraform output -no-color
+              continue-on-error: true
+            # Creates comments on pull request with Terraform output
+            - name: Create comment with Terraform output
+              uses: actions/github-script@0.9.0
+              if: github.event.action != 'closed'
+              env:
+                  OUTPUT: "${{ steps.output.outputs.stdout }}"
+              with:
+                  github-token: ${{ secrets.GITHUB_TOKEN }}
+                  script: |
+                      const output = `#### Preview environment info 🖌
+                      ${process.env.OUTPUT}
+                      `
+                      github.issues.createComment({
+                        issue_number: context.issue.number,
+                        owner: context.repo.owner,
+                        repo: context.repo.repo,
+                        body: output
+                      })
+            # When user closes or merges pull request, this will destroy the resources then delete the TFC workspace
+            - name: Destroy preview environment
+              if: github.event.action == 'closed'
+              run: |
+                  terraform destroy --auto-approve -var="branch=${{ github.event.pull_request.number }}" -var="project-name=${{ github.event.repository.name }}" -var="aws-secret-access-key=${{ secrets.AWS_SECRET_MANAGER_KEY }}" -var="aws-access-key-id=${{ secrets.AWS_SECRET_MANAGER_KEY_ID }}"
+                  curl --header "Authorization: Bearer ${{ secrets.TFC_API_TOKEN }}" --header "Content-Type: application/vnd.api+json" --request DELETE "https://app.terraform.io/api/v2/organizations/Peersyst/workspaces/${TF_WORKSPACE}"
+
+    staging-environment:
+        name: "Deploy Staging environment"
+        needs: [backend, http]
+        if: github.event_name != 'pull_request'
+        runs-on: ubuntu-latest
+        env:
+            TF_WORKSPACE: ${{ github.event.repository.name }}_staging
+        defaults:
+            run:
+                working-directory: infra/staging
+        steps:
+            - name: Checkout
+              uses: actions/checkout@v2
+            # Only set up preview environment for pull requests
+            - name: Setup Terraform
+              uses: hashicorp/setup-terraform@v2
+              with:
+                  cli_config_credentials_token: ${{ secrets.TFC_API_TOKEN }}
+            # Initialize terraform
+            - name: Initialize terraform
+              run: |
+                  curl --header "Authorization: Bearer ${{ secrets.TFC_API_TOKEN }}" --header "Content-Type: application/vnd.api+json" --request POST --data '{"data":{"attributes":{"name":"${{ env.TF_WORKSPACE }}"}}}' "https://app.terraform.io/api/v2/organizations/Peersyst/workspaces"
+                  sed -i 's/__WORKSPACE__/${{ env.TF_WORKSPACE }}/g' main.tf
+                  terraform init -input=false
+            # Builds and deploys environment
+            - name: Build and deploy preview environment
+              run: |
+                  terraform apply --auto-approve -var="branch=${GITHUB_REF#refs/heads/}" -var="project-name=${{ github.event.repository.name }}" -var="aws-secret-access-key=${{ secrets.AWS_SECRET_MANAGER_KEY }}" -var="aws-access-key-id=${{ secrets.AWS_SECRET_MANAGER_KEY_ID }}"

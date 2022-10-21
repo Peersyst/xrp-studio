@@ -27,7 +27,7 @@ export const devUsers: User[] = [
 ];
 
 export default function getByEnv(env: string) {
-    if (env === "development") {
+    if (env === "development" || env === "preview") {
         return devUsers;
     }
     if (env === "test") {
