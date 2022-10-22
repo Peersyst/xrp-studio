@@ -47,7 +47,7 @@ function SelectGroup<T, Multiple extends boolean = false, D extends SelectorDire
         Label = FormControlLabel,
         options,
         direction = "column" as D,
-        type = "checkbox",
+        type = "switch",
         className,
         selectorWrapperProps = { gap: "1rem" },
         ...rest

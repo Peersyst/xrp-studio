@@ -36,5 +36,6 @@
     "cancel": "Cancel",
     "writeYour": "Write your {{name}}",
     "bio": "Bio",
-    "updateProfile": "Update profile"
+    "updateProfile": "Update profile",
+    "loadingFilters": "Loading filters..."
 }

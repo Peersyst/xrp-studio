@@ -1,9 +1,10 @@
-import { CSSProperties, ReactElement } from "react";
+import { ExpandableProps } from "@peersyst/react-components";
+import { ReactElement } from "react";
 
-export interface ExpandableFiltersProps {
-    children: ReactElement[];
+export interface ExpandableFiltersProps extends Omit<ExpandableProps, "children"> {
+    children: ReactElement;
     title: string;
     currentValue: string | number;
-    className?: string;
-    style?: CSSProperties;
+    loading?: boolean;
+    loadingText?: string;
 }
