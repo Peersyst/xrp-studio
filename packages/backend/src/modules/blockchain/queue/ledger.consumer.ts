@@ -18,12 +18,12 @@ export class LedgerConsumer {
      */
     @Process("index-ledger")
     async indexLedger({ data: { index } }: Job<{ index: number }>) {
-        /* this.logger.log(`CONSUMING LEDGER ${index}`); */
+        this.logger.log(`CONSUMING LEDGER ${index}`);
 
         try {
             const ledger = await this.blockchainService.getLedger(index);
             if (ledger.validated) {
-                /*  this.logger.log(`INDEXED LEDGER ${index}`); */
+                this.logger.log(`INDEXED LEDGER ${index}`);
                 const job = await this.transactionsQueue.add("process-transactions", {
                     transactions: ledger.transactions,
                     ledgerIndex: index,
