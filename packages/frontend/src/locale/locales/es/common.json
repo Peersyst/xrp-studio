@@ -30,5 +30,8 @@
     "youHaveNoCollections": "No tienes collections",
     "traitType": "Atributo",
     "value": "Valor",
-    "addProperty": "Añadir propiedad"
+    "addProperty": "Añadir propiedad",
+    "profile" : "Perfil",
+    "settings" : "Configuraciones",
+    "logout" : "Cerrar Sessión"
 }

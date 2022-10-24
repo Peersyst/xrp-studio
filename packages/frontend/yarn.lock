@@ -2448,10 +2448,10 @@
     mkdirp "^1.0.4"
     rimraf "^3.0.2"
 
-"@peersyst/react-components-core@^0.2.10":
-  version "0.2.10"
-  resolved "https://registry.yarnpkg.com/@peersyst/react-components-core/-/react-components-core-0.2.10.tgz#ccd8b9627fed50de0c22a5b70019702334b1a526"
-  integrity sha512-yXayYYsTxutOrw8/yOXhArg3J6aoZisjnze3uaA+Y6Kv7ea3AMtrLh1AQm8ia13HfXlf6KhpLTbDSr0YWg15zA==
+"@peersyst/react-components-core@^0.2.8":
+  version "0.2.14"
+  resolved "https://registry.yarnpkg.com/@peersyst/react-components-core/-/react-components-core-0.2.14.tgz#08b1abec2a5dab0f389ec32ddc76e6ff246629a8"
+  integrity sha512-U75yGwhLeiKqA0WYwB8BDyLBKC6Y2AnmC2vOr0iVIeLloex90mW8FWCFsFJ/UV2gZskkyEpqYMZnvLB/70Cnjg==
   dependencies:
     "@babel/runtime" "^7.16.7"
     "@peersyst/react-hooks" "^1.4.2"
@@ -2464,8 +2464,8 @@
   integrity sha512-5/tT8XDzYwFYfuXongD/gP3egBQLDyh0Co+ukQcq5kZLlVdjk5IVN4NTEAe8X3cQz12QnE+IJZnpooCMWueBWw==
   dependencies:
     "@babel/runtime" "^7.16.7"
-    "@peersyst/react-components-core" "^0.2.8"
-    "@peersyst/react-hooks" "^1.4.1"
+    "@peersyst/react-components-core" "^0.2.10"
+    "@peersyst/react-hooks" "^1.4.2"
     "@peersyst/react-types" "^1.4.0"
     "@peersyst/react-utils" "^1.7.2"
     "@popperjs/core" "^2.11.5"
@@ -2487,7 +2487,7 @@
     "@babel/runtime" "^7.16.7"
     "@peersyst/react-utils" "^1.4.7"
 
-"@peersyst/react-hooks@^1.4.2":
+"@peersyst/react-hooks@^1.4.1", "@peersyst/react-hooks@^1.4.2":
   version "1.4.2"
   resolved "https://registry.yarnpkg.com/@peersyst/react-hooks/-/react-hooks-1.4.2.tgz#31eb8d48511a764fc4052b890606bbe43b4e54ca"
   integrity sha512-MgwxnP4KKNsMOGej4mSEPO4XRGPcQWG2qgisalOPUzAniVNxacaTdUNP51m8slzjyvbQCS5dW1yvd3bLHYqU7g==

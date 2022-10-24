@@ -18,6 +18,7 @@ declare module "@peersyst/react-components" {
         };
         blockchainLinks: BlockchainLinks;
         nftDefaultCoverUrl: string;
+        network: string;
     }
 
     export interface CreateConfig {
