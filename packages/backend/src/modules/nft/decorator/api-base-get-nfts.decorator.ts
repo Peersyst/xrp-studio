@@ -19,8 +19,9 @@ export function ApiBaseGetNftsDecorator(): MethodDecorator {
             required: false,
         }),
         ApiQuery({
-            name: "collection",
+            name: "collections",
             type: "integer",
+            isArray: true,
             required: false,
         }),
         ApiQuery({

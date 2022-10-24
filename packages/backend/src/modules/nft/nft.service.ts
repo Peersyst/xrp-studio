@@ -425,7 +425,7 @@ export class NftService {
      * Gets all nfts
      */
     private async nftsQuery(
-        { page = 1, pageSize = 15, query, collection, order = Order.DESC }: BaseGetNftsRequest = {},
+        { page = 1, pageSize = 15, query, collections, order = Order.DESC }: BaseGetNftsRequest = {},
         ...wheres: Where<Nft>[]
     ): Promise<Paginated<NftWithCollection>> {
         const take = pageSize;
@@ -438,7 +438,7 @@ export class NftService {
 
         if (query)
             qb.andWhere("LOWER(collection.name) like :query OR LOWER(metadata.name) like :query", { query: `${query.toLowerCase()}` });
-        if (collection) qb.andWhere("collection.id = :collection", { collection });
+        if (collections) qb.andWhere("collection.id IN (:...collections)", { collections });
         if (wheres.length) wheres.forEach(([where, params]) => qb.andWhere(where, params));
 
         qb.orderBy("nft.id", order);

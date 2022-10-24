@@ -672,7 +672,7 @@ describe("NftService", () => {
                 pageSize: 10,
                 order: Order.ASC,
                 query: "asd",
-                collection: 1,
+                collections: [1],
                 account: ADDRESS,
             });
             expect(nftRepositoryMock.take).toHaveBeenCalledWith(10);
@@ -681,7 +681,7 @@ describe("NftService", () => {
                 "LOWER(collection.name) like :query OR LOWER(metadata.name) like :query",
                 { query: "asd" },
             );
-            expect(nftRepositoryMock.andWhere).toHaveBeenCalledWith("collection.id = :collection", { collection: 1 });
+            expect(nftRepositoryMock.andWhere).toHaveBeenCalledWith("collection.id IN (:...collections)", { collections: [1] });
             expect(nftRepositoryMock.andWhere).toHaveBeenCalledWith("nft.status = :confirmed", { confirmed: NftStatus.CONFIRMED });
             expect(nftRepositoryMock.andWhere).toHaveBeenCalledWith("user.address = :account", { account: ADDRESS });
             expect(nftRepositoryMock.orderBy).toHaveBeenCalledWith("nft.id", Order.ASC);
@@ -714,7 +714,7 @@ describe("NftService", () => {
                 pageSize: 10,
                 order: Order.ASC,
                 query: "asd",
-                collection: 1,
+                collections: [1],
                 status: NftDraftStatus.DRAFT,
             });
             expect(nftRepositoryMock.take).toHaveBeenCalledWith(10);
@@ -723,7 +723,7 @@ describe("NftService", () => {
                 "LOWER(collection.name) like :query OR LOWER(metadata.name) like :query",
                 { query: "asd" },
             );
-            expect(nftRepositoryMock.andWhere).toHaveBeenCalledWith("collection.id = :collection", { collection: 1 });
+            expect(nftRepositoryMock.andWhere).toHaveBeenCalledWith("collection.id IN (:...collections)", { collections: [1] });
             expect(nftRepositoryMock.andWhere).toHaveBeenCalledWith("user.address = :address", { address: ADDRESS });
             expect(nftRepositoryMock.andWhere).toHaveBeenCalledWith("nft.status != :confirmed", { confirmed: NftStatus.CONFIRMED });
             expect(nftRepositoryMock.andWhere).toHaveBeenCalledWith("nft.status = :status", { status: NftStatus.DRAFT });
