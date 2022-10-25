@@ -33,6 +33,6 @@ describe("Test for the ProfileNftsGrid", () => {
         const btn = screen.getByRole("button", { name: translate("createNft") });
         expect(btn).toBeInTheDocument();
         fireEvent.click(btn);
-        expect(mockedNavigate).toHaveBeenCalledWith(NftRoutes.CREATE_NFT);
+        expect(mockedNavigate).toHaveBeenCalledWith(NftRoutes.NFT_CREATION);
     });
 });

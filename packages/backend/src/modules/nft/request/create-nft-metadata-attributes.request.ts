@@ -20,6 +20,7 @@ export class CreateNftMetadataAttributeRequest {
         type: "string",
         maxLength: 255,
         required: false,
+        nullable: true,
     })
     displayType?: string;
 }

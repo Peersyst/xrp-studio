@@ -47,6 +47,16 @@ class NftRepositoryMock extends BaseMock {
         skip: this.skip,
         getManyAndCount: this.getManyAndCount,
     }));
+    leftJoinAndMapMany = jest.fn(() => ({
+        leftJoinAndSelect: this.leftJoinAndSelect,
+        take: this.take,
+        where: this.where,
+        getOne: this.getOne,
+        andWhere: this.andWhere,
+        orderBy: this.orderBy,
+        skip: this.skip,
+        getManyAndCount: this.getManyAndCount,
+    }));
     loadRelationCountAndMap = jest.fn(() => ({ where: this.where, leftJoinAndSelect: this.leftJoinAndSelect }));
     createQueryBuilder = jest.fn(() => ({
         select: this.select,

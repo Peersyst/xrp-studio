@@ -21,7 +21,21 @@
     "too_many_chars": "El campo debe contener menos de {{chars}} carácteres",
     "invalid_start": "El campo debe empezar con {{start}}",
     "invalid_end": "El campo debe terminar con {{end}}",
+    "invalid_url": "Url inválida",
     "nothingToShow": "No hay nada que mostrar",
     "userAlreadyExists": "El usuario ya existe",
-    "nameCanNotBeEmpty": "El nombre no puede estar vacío"
+    "nameCanNotBeEmpty": "El nombre no puede estar vacío",
+    "invalidAddress": "Dirección inválida",
+    "COLLECTION_NOT_FOUND": "No se ha encontrado la colección",
+    "NFT_NOT_FOUND": "No se ha encontrado el NFT",
+    "NFT_DRAFT_NOT_FOUND": "No se ha encontrado el esbozo de NFT",
+    "INVALID_IMAGE": "Imagen inválida",
+    "NFT_DRAFT_NOT_OWNED": "No eres propietario del esbozo de NFT",
+    "NFT_DRAFT_ALREADY_PUBLISHED": "El esbozo de NFT ya ha sido publicado",
+    "BAD_DRAFT_STATUS_REQUEST": "Petición de estado de esbozo de NFT incorrecta",
+    "USER_NOT_FOUND": "No se ha encontrado el usuario",
+    "COLLECTION_TAXON_ALREADY_EXISTS": "Ya existe una colección con ese taxon",
+    "NO_MORE_TAXONS_AVAILABLE": "No quedan más taxones disponibles",
+    "COLLECTION_NOT_OWNED": "No eres propietario de la colección",
+    "NFT_TRANSFERABLE_NOT_SET": "No se puede especificar una tarifa de transferencia sin el atributo \"transferible\""
 }

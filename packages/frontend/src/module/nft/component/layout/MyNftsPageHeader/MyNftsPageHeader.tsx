@@ -8,22 +8,22 @@ import MyNftsSearch from "../../input/MyNftsSearch/MyNftsSearch";
 import { MyNftsPageHeaderRoot } from "./MyNftsPageHeader.styles";
 
 const MyNftsPageHeader = (): JSX.Element => {
-    const t = useTranslate();
+    const translate = useTranslate();
     const navigate = useNavigate();
     return (
         <MyNftsPageHeaderRoot
-            title={t("myNfts")}
+            title={translate("myNfts")}
             complement={
                 <Row gap="1rem" wrap wrapGap="1.5rem">
                     <Button onClick={() => navigate(CollectionRoutes.CREATE_COLLECTION)} size="lg" variant="secondary">
-                        {t("createCollection")}
+                        {translate("createCollection")}
                     </Button>
-                    <Button onClick={() => navigate(NftRoutes.CREATE_NFT)} size="lg">
-                        {t("createNft")}
+                    <Button onClick={() => navigate(NftRoutes.NFT_CREATION)} size="lg">
+                        {translate("createNft")}
                     </Button>
                 </Row>
             }
-            stickyTitle={t("myNfts").toUpperCase()}
+            stickyTitle={translate("myNfts").toUpperCase()}
             footer={<MyNftsSearch />}
         />
     );

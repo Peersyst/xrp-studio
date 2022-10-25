@@ -1,5 +1,10 @@
 import { createRef, CSSProperties, ReactNode, useEffect, useRef, useState } from "react";
-import { MainPageHeader, PageHeaderRoot, PageStickyHeader } from "module/common/component/layout/PageHeader/PageHeader.styles";
+import {
+    MainPageHeader,
+    MainPageHeaderContent,
+    PageHeaderRoot,
+    PageStickyHeader,
+} from "module/common/component/layout/PageHeader/PageHeader.styles";
 import { Animated, Typography } from "@peersyst/react-components";
 
 export interface PageHeaderProps {
@@ -39,7 +44,7 @@ const PageHeader = ({ children, stickyTitle, ...rest }: PageHeaderProps): JSX.El
     return (
         <PageHeaderRoot {...rest}>
             <MainPageHeader ref={headerRef} className="main-header">
-                {children}
+                <MainPageHeaderContent>{children}</MainPageHeaderContent>
             </MainPageHeader>
             {stickyTitle && (
                 <Animated.Fade in={visible} duration={{ enter: 300, exit: 200 }}>

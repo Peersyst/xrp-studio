@@ -1,11 +1,12 @@
 import { screen } from "@testing-library/react";
-import { NftDtoMock } from "test-mocks";
+import { NftDtoMock, WalletMock } from "test-mocks";
 import { render, translate } from "test-utils";
 import BaseNftPageForm from "module/nft/component/layout/BaseNftPage/BaseNftPageForm";
 
 describe("BaseNftPageForm", () => {
     test("Renders correctly", () => {
         const nftMock = new NftDtoMock();
+        const walletMock = new WalletMock({ isLogged: true, address: "address_mock" });
 
         render(<BaseNftPageForm nft={nftMock} />);
 
@@ -24,6 +25,15 @@ describe("BaseNftPageForm", () => {
         // collection
         expect(screen.getByText(translate("collection"))).toBeInTheDocument();
         expect(screen.getByText(translate("collectionPlaceholder"))).toBeInTheDocument();
+
+        // issuer
+        expect(screen.getByText(translate("issuer"))).toBeInTheDocument();
+        expect(screen.getByPlaceholderText(walletMock.address!)).toBeInTheDocument();
+
+        // transfer fee
+        expect(screen.getByText(translate("transferFee"))).toBeInTheDocument();
+        expect(screen.getByPlaceholderText("0")).toBeInTheDocument();
+        expect(screen.getByText("%")).toBeInTheDocument();
 
         // external link
         expect(screen.getByText(translate("externalLink"))).toBeInTheDocument();

@@ -1,11 +1,12 @@
 import { ReactElement } from "react";
-import { CollectionDto, NftDto } from "module/api/service";
+import { CollectionDto } from "module/api/service";
 import { NftPreviewCarouselProps } from "module/nft/component/display/NftPreviewCarousel/NftPreviewCarousel.types";
+import { Nft } from "module/nft/types";
 
 export interface BaseNftPageProps {
     header: ReactElement;
-    nft: NftDto | undefined;
-    collectionNfts?: NftDto[];
+    nft?: Nft | undefined;
+    collectionNfts?: Nft[];
     collectionNftLink?: NftPreviewCarouselProps["to"];
     collections?: CollectionDto[];
     loadingNft?: boolean;

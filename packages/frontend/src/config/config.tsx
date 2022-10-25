@@ -5,6 +5,7 @@ import prodConfig from "./config.prod.json";
 import previewConfig from "./config.preview.json";
 import devConfig from "./config.dev.json";
 import stagingConfig from "./config.staging.json";
+import { XrplAddressValidator } from "config/validators/XrplAddressValidator";
 
 const envConfigs: Record<string, CreateConfig> = {
     test: devConfig,
@@ -53,6 +54,9 @@ const config = createConfig({
     themes: {
         light: lightTheme,
         dark: darkTheme,
+    },
+    validators: {
+        address: XrplAddressValidator,
     },
 });
 

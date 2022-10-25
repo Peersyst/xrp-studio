@@ -18,7 +18,7 @@ const MainPageHeader = ({
     return (
         <MainPageHeaderRoot stickyTitle={stickyTitle} className={cx("base-page-header", className)} style={style}>
             <MainPageHeaderWrapper gap="2rem">
-                <Row justifyContent="space-between" wrap wrapGap="1.5rem" css={{ columnGap: "2.5rem" }}>
+                <Row justifyContent="space-between" wrap wrapGap="1.5rem" gap="2.5rem">
                     <Row alignItems="center" gap="2rem">
                         {back && <BackButton size={backIconSize} />}
                         <Col justifyContent="center" gap="0.75rem">

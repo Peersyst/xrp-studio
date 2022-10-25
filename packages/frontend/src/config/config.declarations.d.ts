@@ -1,10 +1,11 @@
 import "@peersyst/react-components";
 import { TFunction } from "react-i18next";
 import { BlockchainLinks } from "@peersyst/react-components";
+import { Validator } from "react";
 
 declare module "@peersyst/react-components" {
     export interface ConfigTypes {
-        TranslateFn: TFunction<"translation">;
+        TranslateFn: TFunction<"error">;
     }
 
     export interface Config {
@@ -37,5 +38,9 @@ declare module "@peersyst/react-components" {
         maxBioChars: number;
         maxUsernameChars: number;
         maxNftDescChars: number;
+    }
+
+    export interface ExtraValidators {
+        address: Validator;
     }
 }
