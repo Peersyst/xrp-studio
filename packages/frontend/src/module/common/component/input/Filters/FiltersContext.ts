@@ -4,7 +4,7 @@ export type FiltersBaseContextValue = Record<string, unknown>;
 
 export interface FiltersContext<T extends FiltersBaseContextValue> {
     value: T;
-    setValue: (value: unknown) => void;
+    setValue: (value: FiltersBaseContextValue) => void;
 }
 
 export const FiltersContext = createContext<any>({

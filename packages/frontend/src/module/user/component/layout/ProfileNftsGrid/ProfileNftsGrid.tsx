@@ -6,6 +6,7 @@ import NothingToShow from "module/common/component/feedback/NothingToShow/Nothin
 import { useNavigate } from "react-router-dom";
 import { NftRoutes } from "module/nft/NftRouter";
 import { useCallback, useState } from "react";
+import { FiltersBaseContextValue } from "module/common/component/input/Filters/FiltersContext";
 
 const ProfileNftsGrid = (): JSX.Element => {
     const translate = useTranslate();
@@ -14,7 +15,7 @@ const ProfileNftsGrid = (): JSX.Element => {
     const [filters, setFilters] = useState({});
     const { data, hasNextPage, fetchNextPage, isFetching } = useGetProfileNfts();
     const handleFilterChange = useCallback(
-        (newFilters: any) => setFilters((oldFilters) => ({ ...oldFilters, ...newFilters })),
+        (newFilters: FiltersBaseContextValue) => setFilters((oldFilters) => ({ ...oldFilters, ...newFilters })),
         [setFilters],
     );
     const navigate = useNavigate();
