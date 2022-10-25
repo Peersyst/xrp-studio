@@ -4,9 +4,11 @@ import useTranslate from "module/common/hook/useTranslate";
 import { Row } from "@peersyst/react-components";
 import Button from "module/common/component/input/Button/Button";
 import { NftCreationPageHeaderProps } from "module/nft/component/layout/NftCreationPageHeader/NftCreationPageHeader.types";
+import useGoBack from "module/common/hook/useGoBack";
 
 const NftCreationPageHeader = ({ loading, saving, publishing }: NftCreationPageHeaderProps): JSX.Element => {
     const translate = useTranslate();
+    const goBack = useGoBack();
     const [searchParams] = useSearchParams();
 
     const isEdition = !!searchParams.get("id");
@@ -18,7 +20,7 @@ const NftCreationPageHeader = ({ loading, saving, publishing }: NftCreationPageH
             title={isEdition ? translate("editNft") : translate("createNft")}
             complement={
                 <Row gap="1rem" wrap wrapGap="1.5rem">
-                    <Button size="lg" variant="secondary" disabled={disableCancel}>
+                    <Button size="lg" variant="secondary" disabled={disableCancel} onClick={goBack}>
                         {translate("cancel")}
                     </Button>
                     <Button size="lg" type="submit" action="save" loading={saving} disabled={loading || publishing}>

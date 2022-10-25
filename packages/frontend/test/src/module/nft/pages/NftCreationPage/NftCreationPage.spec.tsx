@@ -22,7 +22,7 @@ describe("NftCreationPage", () => {
         onlyXRP: false,
         trustLine: false,
         transferable: false,
-        backgroundColor: new Color("#FFFFFF"),
+        backgroundColor: new Color(),
         attributes: [],
     });
     const UPDATE_NFT_REQUEST = createNftRequestFromForm({
@@ -71,9 +71,11 @@ describe("NftCreationPage", () => {
 
         render(<NftCreationPage />);
 
-        userEvent.type(screen.getByPlaceholderText(translate("namePlaceholder")), NFT_NAME);
         const saveButton = screen.getByRole("button", { name: translate("save") });
         await waitFor(expect(saveButton).not.toBeDisabled);
+        const nameInput = screen.getByDisplayValue(nftDraftMockMetadata!.name!);
+        userEvent.clear(nameInput);
+        userEvent.type(nameInput, NFT_NAME);
         userEvent.click(saveButton);
 
         await waitFor(() => expect(updateNftDraftMock).toHaveBeenCalledWith(1, UPDATE_NFT_REQUEST, undefined));
@@ -87,9 +89,11 @@ describe("NftCreationPage", () => {
 
         render(<NftCreationPage />);
 
-        userEvent.type(screen.getByPlaceholderText(translate("namePlaceholder")), NFT_NAME);
         const publishButton = screen.getByRole("button", { name: translate("publish") });
         await waitFor(expect(publishButton).not.toBeDisabled);
+        const nameInput = screen.getByDisplayValue(nftDraftMockMetadata!.name!);
+        userEvent.clear(nameInput);
+        userEvent.type(nameInput, NFT_NAME);
         userEvent.click(publishButton);
 
         await waitFor(() => expect(updateNftDraftMock).toHaveBeenCalledWith(1, UPDATE_NFT_REQUEST, true));

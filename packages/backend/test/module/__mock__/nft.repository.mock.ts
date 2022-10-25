@@ -36,7 +36,11 @@ class NftRepositoryMock extends BaseMock {
     andWhere = jest.fn(() => ({ andWhere: this.andWhere, orderBy: this.orderBy }));
     skip = jest.fn();
     take = jest.fn();
-    innerJoinAndSelect = jest.fn(() => ({ leftJoinAndSelect: this.leftJoinAndSelect, where: this.where }));
+    innerJoinAndSelect = jest.fn(() => ({
+        leftJoinAndSelect: this.leftJoinAndSelect,
+        where: this.where,
+        leftJoinAndMapMany: this.leftJoinAndMapMany,
+    }));
     leftJoinAndSelect = jest.fn(() => ({
         leftJoinAndSelect: this.leftJoinAndSelect,
         take: this.take,
@@ -46,6 +50,7 @@ class NftRepositoryMock extends BaseMock {
         orderBy: this.orderBy,
         skip: this.skip,
         getManyAndCount: this.getManyAndCount,
+        leftJoinAndMapMany: this.leftJoinAndMapMany,
     }));
     leftJoinAndMapMany = jest.fn(() => ({
         leftJoinAndSelect: this.leftJoinAndSelect,
@@ -57,11 +62,16 @@ class NftRepositoryMock extends BaseMock {
         skip: this.skip,
         getManyAndCount: this.getManyAndCount,
     }));
-    loadRelationCountAndMap = jest.fn(() => ({ where: this.where, leftJoinAndSelect: this.leftJoinAndSelect }));
+    loadRelationCountAndMap = jest.fn(() => ({
+        where: this.where,
+        leftJoinAndSelect: this.leftJoinAndSelect,
+        leftJoinAndMapMany: this.leftJoinAndMapMany,
+    }));
     createQueryBuilder = jest.fn(() => ({
         select: this.select,
         innerJoinAndSelect: this.innerJoinAndSelect,
         leftJoinAndSelect: this.leftJoinAndSelect,
+        leftJoinAndMapMany: this.leftJoinAndMapMany,
         take: this.take,
         where: this.where,
         getOne: this.getOne,
