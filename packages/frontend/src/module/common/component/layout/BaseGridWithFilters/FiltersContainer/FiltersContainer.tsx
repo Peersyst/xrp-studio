@@ -2,13 +2,17 @@ import { Col } from "@peersyst/react-components";
 import useTranslate from "module/common/hook/useTranslate";
 import MenuIcon from "module/common/icons/MenuIcon";
 import { FiltersDivider } from "../BaseGridFilters/BaseGridFilters.styles";
-import { PaginatedData } from "query-utils";
 import { BaseGridFiltersProps } from "../BaseGridFilters/BaseGridFilters.types";
 import { useSetRecoilState } from "recoil";
 import { filtersVisibilityState } from "module/common/component/state/FiltersVisibilityState";
 import Button from "module/common/component/input/Button/Button";
+import { ReactElement } from "react";
 
-function FiltersContainer<T extends PaginatedData, TagT>({ children }: BaseGridFiltersProps<T, TagT>): JSX.Element {
+export interface FiltersContainerProps {
+    children: ReactElement;
+}
+
+function FiltersContainer({ children }: FiltersContainerProps): JSX.Element {
     const t = useTranslate();
     const setShowFilters = useSetRecoilState(filtersVisibilityState);
     const handleHideFilters = () => setShowFilters(false);

@@ -3,7 +3,6 @@ import styled, { css } from "styled-components";
 
 export const ExpandableFiltersRoot = styled(Expandable)(
     ({ theme }) => css`
-        padding: 0 0.5rem;
         .ExpandableDisplay {
             border-bottom: none;
             padding: 0;

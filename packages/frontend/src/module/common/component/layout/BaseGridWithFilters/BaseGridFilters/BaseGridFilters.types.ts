@@ -1,6 +1,6 @@
-import { PaginatedData } from "query-utils";
-import { BaseGridWithFilterProps } from "../BaseGridWithFilters.types";
+import { FiltersProps } from "module/common/component/input/Filters/Filters.types";
+import { FiltersContext } from "module/common/component/input/Filters/FiltersContext";
 
-export interface BaseGridFiltersProps<T extends PaginatedData, TagT> {
-    children: BaseGridWithFilterProps<T, TagT>["filters"];
+export interface BaseGridFiltersProps<F> extends FiltersProps {
+    filtersContext: FiltersContext<F>;
 }

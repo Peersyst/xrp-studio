@@ -36,5 +36,8 @@
     "writeYour": "Escribe tu {{name}}",
     "bio": "Bio",
     "updateProfile": "Actualizar perfil",
-    "loadingFilters": "Cargando filtros..."
+    "loadingFilters": "Cargando filtros...",
+    "OrderBy": "Ordenar por",
+    "Latest": "Más recientes",
+    "Oldest": "Más antiguos"
 }

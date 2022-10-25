@@ -38,5 +38,7 @@
     "bio": "Bio",
     "updateProfile": "Update profile",
     "loadingFilters": "Loading filters...",
-    "Order": "Order"
+    "OrderBy": "Order by",
+    "Latest": "Latest",
+    "Oldest": "Oldest"
 }

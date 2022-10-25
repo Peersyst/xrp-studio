@@ -10,15 +10,16 @@ import BaseGridTags from "./BaseGridTags/BaseGridTags";
 import { gridAnimation, GridWrapper } from "./BaseGridWithFilters.styles";
 import { BaseGridWithFilterProps } from "./BaseGridWithFilters.types";
 
-function BaseGridWithFilters<T extends PaginatedData, TagT>({
+function BaseGridWithFilters<T extends PaginatedData, TagT, F>({
     filterBreakpoints,
     breakpoints,
     filters,
+    filtersContext,
     tags,
     onTagClicked,
     onClearTags,
     ...rest
-}: BaseGridWithFilterProps<T, TagT>): JSX.Element {
+}: BaseGridWithFilterProps<T, TagT, F>): JSX.Element {
     const {
         breakpoints: {
             values: { nftsGrid },
@@ -37,7 +38,7 @@ function BaseGridWithFilters<T extends PaginatedData, TagT>({
 
     return (
         <Row css={{ position: "relative" }}>
-            <BaseGridFilters>{filters}</BaseGridFilters>
+            <BaseGridFilters filtersContext={filtersContext}>{filters}</BaseGridFilters>
             <Animated
                 in={finalMoveGrid}
                 duration={500}
