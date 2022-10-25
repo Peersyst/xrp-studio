@@ -2,24 +2,28 @@ import { registerDecorator, ValidationOptions, ValidatorConstraint, ValidatorCon
 import { Injectable } from "@nestjs/common";
 import { InjectRepository } from "@nestjs/typeorm";
 import { Collection } from "../../../database/entities/Collection";
-import { Repository } from "typeorm";
+import { In, Repository } from "typeorm";
 
 @ValidatorConstraint({ async: true })
 @Injectable()
-export class CollectionExistsConstraint implements ValidatorConstraintInterface {
+export class CollectionsExistsConstraint implements ValidatorConstraintInterface {
     constructor(@InjectRepository(Collection) private readonly collectionRepository: Repository<Collection>) {}
 
-    async validate(id: number) {
-        const collection = await this.collectionRepository.findOne({ where: { id } });
-        return !!collection;
+    async validate(ids: number[]) {
+        try {
+            const count = await this.collectionRepository.find({ where: { id: In(ids) } });
+            return count.length === ids.length;
+        } catch (e) {
+            return false;
+        }
     }
 
     defaultMessage() {
-        return `Collection not found`;
+        return `Collection/s not found`;
     }
 }
 
-export function CollectionExists(validationOptions?: ValidationOptions) {
+export function CollectionsExists(validationOptions?: ValidationOptions) {
     return function (object: any, propertyName: string) {
         registerDecorator({
             name: "IsCollectionId",
@@ -27,7 +31,7 @@ export function CollectionExists(validationOptions?: ValidationOptions) {
             propertyName,
             constraints: [],
             options: validationOptions,
-            validator: CollectionExistsConstraint,
+            validator: CollectionsExistsConstraint,
         });
     };
 }

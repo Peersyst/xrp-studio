@@ -1,5 +1,5 @@
 import { ApiProperty } from "@nestjs/swagger";
-import { CollectionExists } from "../../collection/validator/CollectionExists";
+import { CollectionsExists } from "../../collection/validator/CollectionsExists";
 import { IsOptional } from "class-validator";
 import { Order } from "../../common/types";
 
@@ -26,13 +26,14 @@ export class BaseGetNftsRequest {
     query?: string;
 
     @ApiProperty({
-        name: "collection",
+        name: "collections",
         type: "integer",
+        isArray: true,
         required: false,
     })
     @IsOptional()
-    @CollectionExists()
-    collection?: number;
+    @CollectionsExists()
+    collections?: number[];
 
     @ApiProperty({
         name: "order",
