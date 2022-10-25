@@ -173,6 +173,7 @@ const BaseNftPageForm = ({ nft, collections, loading, readonly, fixedCollection 
                                 label={translate("attributes")}
                                 defaultValue={nftMetadata?.attributes}
                                 readonly={readonly}
+                                variant="filled"
                             />
                         </Col>
                     </Card>
