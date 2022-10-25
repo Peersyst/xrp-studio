@@ -19,8 +19,8 @@ const theme = createTheme({
             },
             collectionsGrid: {
                 sm: 1000,
-                xs: 767,
-                xxs: 500,
+                xs: 1288,
+                xxs: 800,
             },
         },
     },
