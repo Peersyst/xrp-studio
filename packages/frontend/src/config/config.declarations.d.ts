@@ -19,6 +19,8 @@ declare module "@peersyst/react-components" {
         blockchainLinks: BlockchainLinks;
         nftDefaultCoverUrl: string;
         network: string;
+        xrpNodeUrl: string;
+        currencyTokenPrice: FiatCurrencyType;
     }
 
     export interface CreateConfig {

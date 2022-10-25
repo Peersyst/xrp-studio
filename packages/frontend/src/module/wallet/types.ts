@@ -3,3 +3,4 @@ export interface Wallet {
     address: string | undefined;
     active: boolean;
 }
+export type FiatCurrencyType = "cny" | "usd" | "eur" | "jpy" | "gbp";

@@ -17,6 +17,7 @@ const Menu = (): JSX.Element => {
             active: false,
         });
     };
+
     return (
         <CardRoot>
             <Col gap="1.25rem">

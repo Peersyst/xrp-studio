@@ -2,9 +2,9 @@ import { Paper } from "@peersyst/react-components";
 import styled, { css } from "styled-components";
 
 export const CardRoot = styled(Paper).attrs({ elevation: 0 })(({ theme }) => {
-    const light = theme.palette.mode === "light";
+    const backgroundColor = theme.palette.mode === "light" ? theme.palette.background : theme.palette.black["85"];
     return css`
-        background: ${theme.palette.black[light ? "80" : "85"]};
+        background: ${backgroundColor};
         border-radius: ${theme.borderRadiusMd};
     `;
 });

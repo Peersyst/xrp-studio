@@ -1,12 +1,13 @@
 import { Col, Hash, Popover, Row } from "@peersyst/react-components";
 import Avatar from "module/common/component/display/Avatar/Avatar";
 import useWallet from "../../hooks/useWallet";
-import BlockchainAddressLabel from "../../display/BlockchainAddressLabel/BlockchainAddressLabel";
 import Menu from "../../navigation/Menu/Menu";
 import NetworkConnect from "../../display/NetworkConnect/NetworkConnect";
+import useGetUser from "module/user/query/useGetUser";
 
 const WalletConnected = (): JSX.Element => {
     const { address } = useWallet();
+    const { data: user } = useGetUser(address);
     return (
         <Popover showOn="click" position="bottom" arrow>
             <Popover.Popper>
@@ -15,11 +16,10 @@ const WalletConnected = (): JSX.Element => {
             <Popover.Content>
                 <Row gap={10}>
                     <Row alignItems={"center"}>
-                        <Avatar size={"sm"} img={"https://avatars.githubusercontent.com/u/2675924?s=40&v=4"} alt="avatar" />
+                        <Avatar size={"sm"} img={user?.image ? user?.image : ""} alt="avatar" />
                     </Row>
                     <Col gap={2} css={{ cursor: "pointer" }}>
-                        <Hash hash={address as string} length={6} variant="body2" />
-                        <BlockchainAddressLabel address={address as string} type="address" length={6} variant="body2" />
+                        <Hash hash={address as string} length={6} variant="body2" copy={false} />
                         <NetworkConnect />
                     </Col>
                 </Row>

@@ -21,5 +21,7 @@
     "too_many_chars": "El campo debe contener menos de {{chars}} carácteres",
     "invalid_start": "El campo debe empezar con {{start}}",
     "invalid_end": "El campo debe terminar con {{end}}",
-    "nothingToShow": "No hay nada que mostrar"
+    "nothingToShow": "No hay nada que mostrar",
+    "xrplAccountNotActiveError": "Your xrpl account is not active yet",
+    "queryXrpBalance": "Error loading Xrp balance"
 }
