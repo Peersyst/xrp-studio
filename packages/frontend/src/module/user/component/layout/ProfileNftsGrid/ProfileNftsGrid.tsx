@@ -16,6 +16,7 @@ const ProfileNftsGrid = (): JSX.Element => {
     const [filters, setFilters] = useState({});
     const { data, hasNextPage, fetchNextPage, isFetching } = useGetProfileNfts();
     const { data: te } = useGetUserCollections();
+    console.log(te);
     /**
      * Not memoized with a useCallBack because the memoization is done by the useGetProfileNfts
      */

@@ -3,11 +3,13 @@ import Queries from "../../../query/queries";
 import { NftService, PaginatedNftDto } from "module/api/service";
 import { UseInfiniteQueryOptions, UseInfiniteQueryResult } from "react-query/types/react/types";
 
+export type NftControllerGetNftsParams = Parameters<typeof NftService.nftControllerGetNfts>;
+
 export interface UseGetNftsOptions {
-    query?: string;
-    collections?: number[];
-    order?: "ASC" | "DESC";
-    account?: string;
+    query?: NftControllerGetNftsParams[2];
+    collections?: NftControllerGetNftsParams[3];
+    order?: NftControllerGetNftsParams[4];
+    account?: NftControllerGetNftsParams[5];
 }
 
 export default function (
@@ -16,7 +18,7 @@ export default function (
 ): UseInfiniteQueryResult<PaginatedNftDto> {
     return useInfiniteQuery(
         [Queries.NFTS, query, collections, order, account],
-        ({ pageParam = 1 }) => NftService.nftControllerGetNfts(pageParam, 30, query, collections, order, account),
+        ({ pageParam = 1 }) => NftService.nftControllerGetNfts(pageParam, 30, query, collections, order, undefined),
         options,
     );
 }

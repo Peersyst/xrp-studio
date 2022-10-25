@@ -11,10 +11,10 @@ import ProfileInfo from "module/user/component/layout/ProfileHeader/ProfileInfo/
 const ProfileHeader = (): JSX.Element => {
     const { data: user, isLoading } = useGetUser();
 
-    const { header, image = "", address = "", description } = user || {};
+    const { header, image = "", name = "", address = "", description } = user || {};
 
     return (
-        <ProfileHeaderRoot image={header} stickyTitle={header}>
+        <ProfileHeaderRoot image={header} stickyTitle={name}>
             <Col gap="1rem">
                 <ProfileCover loading={isLoading} src={header} alt="profile-header" />
                 <ProfileHeaderFooter>
