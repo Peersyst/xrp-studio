@@ -5,7 +5,9 @@ import ImageInput from "module/common/component/input/ImageInput/ImageInput";
 const AvatarInput = ({ size, alt, ...rest }: AvatarInputProps): JSX.Element => {
     return (
         <ImageInput alt={alt} {...rest}>
-            {(url) => <Avatar size={size} img={url} alt={alt} />}
+            {{
+                display: (url) => <Avatar size={size} img={url} alt={alt} />,
+            }}
         </ImageInput>
     );
 };

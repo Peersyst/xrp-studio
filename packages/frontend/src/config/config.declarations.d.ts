@@ -20,6 +20,7 @@ declare module "@peersyst/react-components" {
         nftDefaultCoverUrl: string;
         maxBioChars: number;
         maxUsernameChars: number;
+        maxNftDescChars: number;
     }
 
     export interface CreateConfig {
@@ -35,5 +36,6 @@ declare module "@peersyst/react-components" {
         nftDefaultCoverUrl: string;
         maxBioChars: number;
         maxUsernameChars: number;
+        maxNftDescChars: number;
     }
 }

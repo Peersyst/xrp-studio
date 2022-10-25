@@ -1,9 +1,9 @@
 import { Col, Typography } from "@peersyst/react-components";
 import { ImageIcon } from "icons";
 import useTranslate from "module/common/hook/useTranslate";
-import Button from "../../Button/Button";
+import Button from "../../input/Button/Button";
 import FileArrayDisplay from "./FileArrayDisplay";
-import { FileDisplayIcon } from "./FileDisplay.styles";
+import { UploadInputBaseIcon } from "module/common/component/input/UploadInput/UploadInput.styles";
 
 export interface FileDisplayProps {
     file: File | File[];
@@ -13,8 +13,8 @@ const FileDisplay = ({ file }: FileDisplayProps): JSX.Element => {
     const t = useTranslate();
     return (
         <>
-            <FileDisplayIcon as={ImageIcon} />
-            <Col alignItems="center" gap="0.75rem" css={{ maxWidth: "80%" }}>
+            <UploadInputBaseIcon as={ImageIcon} />
+            <Col alignItems="center" css={{ maxWidth: "80%" }}>
                 {"length" in file ? (
                     <FileArrayDisplay>{file}</FileArrayDisplay>
                 ) : (

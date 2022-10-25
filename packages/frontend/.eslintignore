@@ -3,6 +3,7 @@ build
 coverage
 .idea
 craco.config.js
+tsconfig.json
 package-lock.json
 openapi-spec.json
 /test/unit/__mocks__/file.mock.js

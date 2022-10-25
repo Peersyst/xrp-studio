@@ -1,4 +1,4 @@
-import FileArrayDisplay from "module/common/component/input/FileInput/FileDisplay/FileArrayDisplay";
+import FileArrayDisplay from "module/common/component/display/FileDisplay/FileArrayDisplay";
 import { render, translate } from "test-utils";
 
 describe("Test for the FileArrayDisplay component", () => {

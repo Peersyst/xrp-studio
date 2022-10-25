@@ -17,12 +17,28 @@ describe("UploadInput", () => {
         uploadFileMock.mockClear();
     });
 
-    test("Renders correctly", async () => {
+    test("Renders default placeholder correctly", async () => {
+        render(<UploadInput uploadPath="test">{{ display: (url) => <p>{url}</p> }}</UploadInput>);
+
+        //Placeholder
+        expect(screen.getByTestId("ImageUpIcon")).toBeInTheDocument();
+        expect(screen.getByRole("button", { name: translate("chooseFile") })).toBeInTheDocument();
+        expect(screen.getByRole("heading", { name: translate("fileInputPlaceholder") })).toBeInTheDocument();
+    });
+
+    test("Renders custom placeholder correctly", async () => {
+        render(<UploadInput uploadPath="test">{{ display: (url) => <p>{url}</p>, placeholder: () => <p>placeholder</p> }}</UploadInput>);
+
+        //Placeholder
+        expect(screen.getByText("placeholder")).toBeInTheDocument();
+    });
+
+    test("Uploads correctly", async () => {
         const testFile = new File(["hello"], "test.png", { type: "image/png" });
 
         render(
             <UploadInput defaultValue="default_url" uploadPath="test">
-                {(url) => <p>{url}</p>}
+                {{ display: (url) => <p>{url}</p> }}
             </UploadInput>,
         );
 

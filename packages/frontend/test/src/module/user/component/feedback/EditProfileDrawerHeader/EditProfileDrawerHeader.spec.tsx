@@ -1,6 +1,6 @@
 import { UserService } from "module/api/service";
 import { UserDtoMock, WalletMock } from "test-mocks";
-import { render, translate, waitFor } from "test-utils";
+import { render, waitFor } from "test-utils";
 import * as Router from "react-router-dom";
 import * as UseWallet from "module/wallet/component/hooks/useWallet";
 import EditProfileDrawerHeader from "module/user/component/feedback/EditProfileDrawer/EditProfileDrawerHeader/EditProfileDrawerHeader";
@@ -16,7 +16,6 @@ describe("EditProfileDrawerHeader", () => {
     });
     test("renders correctly", async () => {
         const screen = render(<EditProfileDrawerHeader />);
-        expect(screen.getAllByRole("button", { name: translate("change") })).toHaveLength(2);
         //Wait until the image is loaded
         await waitFor(() => expect(screen.getAllByRole("img")).toHaveLength(6));
     });

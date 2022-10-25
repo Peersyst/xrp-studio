@@ -19,12 +19,11 @@ const EditProfileFormFields = (): JSX.Element => {
 
     return (
         <Col flex={1} gap="2.5rem">
-            <Col flex={1} gap="1.5rem">
+            <Col key={JSON.stringify(user)} flex={1} gap="1.5rem">
                 <EditProfileName />
                 <TextArea
                     displayLength
                     maxLength={maxBioChars}
-                    validators={{ maxChars: maxBioChars }}
                     placeholder={t("writeYour", { name: t("bio") })}
                     label={capitalize(t("bio"))}
                     name={userEditNames.description}

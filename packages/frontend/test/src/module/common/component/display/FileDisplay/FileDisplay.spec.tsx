@@ -1,4 +1,4 @@
-import FileDisplay from "module/common/component/input/FileInput/FileDisplay/FileDisplay";
+import FileDisplay from "module/common/component/display/FileDisplay/FileDisplay";
 import { render, translate } from "test-utils";
 
 describe("Test for the FileDisplay component", () => {

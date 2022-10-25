@@ -1,6 +1,6 @@
 import styled, { css } from "styled-components";
 import { Col, Button } from "@peersyst/react-components";
-import { PropertiesInputRootProps } from "module/nft/component/input/PropertiesInput/PropertiesInput.types";
+import { AddPropertyButtonProps, PropertiesInputRootProps } from "module/nft/component/input/PropertiesInput/PropertiesInput.types";
 
 export const PropertiesInputRoot = styled(Col).attrs({ gap: "1rem" })<PropertiesInputRootProps>(
     ({ hasLabel }) => css`
@@ -9,10 +9,10 @@ export const PropertiesInputRoot = styled(Col).attrs({ gap: "1rem" })<Properties
 );
 
 // Picked react-components Button instead of custom xrp-studio Button as it fits more accurately into this custom button
-export const AddPropertyButton = styled(Button).attrs({ variant: "text", size: "sm", fullWidth: true })(
-    ({ theme }) => css`
+export const AddPropertyButton = styled(Button).attrs({ variant: "text", size: "sm", fullWidth: true })<AddPropertyButtonProps>(
+    ({ theme, disabled }) => css`
         height: auto;
         text-transform: none;
-        color: ${theme.palette.primary};
+        color: ${disabled ? theme.palette.disabled : theme.palette.primary};
     `,
 );
