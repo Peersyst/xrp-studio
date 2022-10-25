@@ -65,6 +65,11 @@ declare module "@peersyst/react-components" {
             xs: number;
             xxs: number;
         };
+        collectionsGrid: {
+            sm: number;
+            xs: number;
+            xxs: number;
+        };
     }
 }
 
