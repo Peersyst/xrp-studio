@@ -72,7 +72,7 @@
         "@nestjs/swagger": "~4.8.0",
         "@nestjs/typeorm": "^7.1.5",
         "@peersyst/ipfs-module": "^0.12.40",
-        "@peersyst/storage-module": "^0.12.40",
+        "@peersyst/storage-module": "^0.12.69",
         "@peersyst/xumm-module": "^0.12.56",
         "axios": "^0.27.2",
         "bcrypt": "^5.0.1",

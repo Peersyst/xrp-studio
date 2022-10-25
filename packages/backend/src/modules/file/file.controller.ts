@@ -36,6 +36,6 @@ export class FileController {
             path: fileName,
         });
 
-        return this.configService.get("aws.bucketUrl") + "/" + fileName;
+        return `https://${this.configService.get("aws.bucketName")}.s3.${this.configService.get("aws.region")}.amazonaws.com/${fileName}`;
     }
 }

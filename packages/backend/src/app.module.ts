@@ -87,8 +87,19 @@ import { StorageModule, StorageType } from "@peersyst/storage-module/src/storage
             inject: [ConfigService],
             imports: [ConfigModule],
         }),
-        StorageModule.register(ConfigModule, {
-            storageType: StorageType.S3,
+        StorageModule.registerAsync({
+            useFactory: async (config: ConfigService) => {
+                await new Promise((resolve) => setTimeout(resolve, 2000));
+                return {
+                    storageType: StorageType.S3,
+                    awsRegion: config.get("aws.region"),
+                    awsAccessKeyId: config.get("aws.accessKeyId"),
+                    awsSecretAccessKey: config.get("aws.secretAccessKey"),
+                    awsBucket: config.get("aws.bucketName"),
+                };
+            },
+            inject: [ConfigService],
+            imports: [ConfigModule],
         }),
     ],
     providers: [TypeORMSeederAdapter, { provide: APP_FILTER, useClass: ErrorFilter }],
