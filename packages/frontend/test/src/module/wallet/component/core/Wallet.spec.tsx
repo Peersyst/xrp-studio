@@ -1,9 +1,18 @@
 import { screen } from "@testing-library/react";
-import { WalletMock, XRP_ADDRESS_MOCK } from "test-mocks";
+import { UserDtoMock, WalletMock, XRP_ADDRESS_MOCK } from "test-mocks";
 import { render, translate } from "test-utils";
 import Wallet from "module/wallet/component/core/Wallet/Wallet";
+import * as useGetUser from "module/user/query/useGetUser";
+import * as useGetXrpBalance from "module/wallet/component/hooks/useGetXrpBalance/useGetXrpBalance";
+import * as useGetXrpTokenPrice from "module/wallet/component/hooks/useGetXrpTokenPrice/useGetXrpTokenPrice";
 
 describe("Wallet", () => {
+    beforeEach(() => {
+        jest.spyOn(useGetUser, "default").mockReturnValue({ data: UserDtoMock } as any);
+        jest.spyOn(useGetXrpBalance, "useGetXrpBalance").mockReturnValue({ data: 15 } as any);
+        jest.spyOn(useGetXrpTokenPrice, "useGetXrpTokenPrice").mockReturnValue({ data: 2 } as any);
+    });
+
     test("Renders correctly when not connected", () => {
         new WalletMock({ isLogged: false, address: undefined, active: false });
         render(<Wallet />);
