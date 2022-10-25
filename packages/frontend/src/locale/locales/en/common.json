@@ -1,6 +1,6 @@
 {
     "welcome": "Hello",
-    "name": "Name",
+    "name": "name",
     "formatNumber": "{{val, number}}",
     "loginWithXumm": "Login with XUMM Wallet",
     "scanXummQR": "Scan the QR with XUMM app",

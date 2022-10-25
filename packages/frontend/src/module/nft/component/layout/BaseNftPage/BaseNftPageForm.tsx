@@ -11,6 +11,7 @@ import PropertiesInput from "module/nft/component/input/PropertiesInput/Properti
 import useBaseNftPagePlaceholders from "module/nft/component/layout/BaseNftPage/hook/useBaseNftPagePlaceholders";
 import useTranslate from "module/common/hook/useTranslate";
 import parseFlags from "module/nft/util/parseFlags";
+import { capitalize } from "@peersyst/react-utils";
 
 const BaseNftPageForm = ({ nft, collections, loading, readonly, fixedCollection }: BaseNftPageFormProps): JSX.Element => {
     const translate = useTranslate();
@@ -46,7 +47,7 @@ const BaseNftPageForm = ({ nft, collections, loading, readonly, fixedCollection 
                     <Skeleton loading={loading} width="100%">
                         <TextField
                             name="name"
-                            label={translate("name")}
+                            label={capitalize(translate("name"))}
                             placeholder={namePlaceholder}
                             defaultValue={nftMetadata?.name}
                             readonly={readonly}
