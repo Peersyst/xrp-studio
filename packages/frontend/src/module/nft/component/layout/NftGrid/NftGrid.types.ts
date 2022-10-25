@@ -1,10 +1,12 @@
-import { PaginatedNftDto } from "module/api/service";
-import { FiltersBaseContextValue } from "module/common/component/input/Filters/FiltersContext";
+import { CollectionDto, PaginatedNftDto } from "module/api/service";
 import { GridProps } from "module/common/component/layout/Grid/Grid.types";
+import { UseGetNftsOptions } from "module/nft/query/useGetNfts";
 
 export type CollectionId = number;
 
-export type NftGridProps<F extends FiltersBaseContextValue> = Omit<
-    GridProps<PaginatedNftDto, CollectionId, F>,
-    "children" | "Skeletons" | "breakpoints" | "filterBreakpoints" | "filters"
->;
+export type NftGridProps = Omit<
+    GridProps<PaginatedNftDto, CollectionId, UseGetNftsOptions>,
+    "children" | "Skeletons" | "breakpoints" | "filterBreakpoints" | "filters" | "tags"
+> & {
+    collections?: CollectionDto[];
+};

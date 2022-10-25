@@ -8,15 +8,16 @@ import { NftRoutes } from "module/nft/NftRouter";
 import { useState } from "react";
 import { FiltersBaseContextValue } from "module/common/component/input/Filters/FiltersContext";
 import { useGetUserCollections } from "module/user/query/useGetUserCollections";
+import { UseGetNftsOptions } from "module/nft/query/useGetNfts";
 
 const ProfileNftsGrid = (): JSX.Element => {
     const translate = useTranslate();
     const navigate = useNavigate();
     //If there is a need of persistency it can be used recoil instead of useState
-    const [filters, setFilters] = useState({});
-    const { data, hasNextPage, fetchNextPage, isFetching } = useGetProfileNfts();
-    const { data: te } = useGetUserCollections();
-    console.log(te);
+    const [filters, setFilters] = useState<UseGetNftsOptions>({});
+    const { data, hasNextPage, fetchNextPage, isFetching } = useGetProfileNfts(filters);
+    const { data: { pages: [{ items: collections }] } = { pages: [{ items: [] }], pageParams: undefined } } = useGetUserCollections();
+
     /**
      * Not memoized with a useCallBack because the memoization is done by the useGetProfileNfts
      */
@@ -29,6 +30,7 @@ const ProfileNftsGrid = (): JSX.Element => {
             end={!hasNextPage}
             filtersContext={{ value: filters, setValue: handleFilterChange }}
             loading={isFetching}
+            collections={collections}
             nothingToShow={
                 <NothingToShow css={{ height: "12rem" }} label={translate("youHaveNoNfts")}>
                     <Button onClick={() => navigate(NftRoutes.CREATE_NFT)}>{translate("createNft")}</Button>

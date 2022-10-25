@@ -13,7 +13,7 @@ function Grid<T extends PaginatedData, TagT, F extends FiltersBaseContextValue>(
     onTagClicked,
     ...baseGridProps
 }: GridProps<T, TagT, F>): JSX.Element {
-    return filters && filtersContext ? (
+    return filtersContext ? (
         <BaseGridWithFilters<T, TagT, F>
             filtersContext={filtersContext}
             filterBreakpoints={filterBreakpoints}

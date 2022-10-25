@@ -5,12 +5,12 @@ import { UseInfiniteQueryOptions, UseInfiniteQueryResult } from "react-query/typ
 
 export type NftControllerGetNftsParams = Parameters<typeof NftService.nftControllerGetNfts>;
 
-export interface UseGetNftsOptions {
-    query?: NftControllerGetNftsParams[2];
-    collections?: NftControllerGetNftsParams[3];
-    order?: NftControllerGetNftsParams[4];
-    account?: NftControllerGetNftsParams[5];
-}
+export type UseGetNftsOptions = {
+    query?: string;
+    collections?: Array<number>;
+    order?: "ASC" | "DESC";
+    account?: string;
+};
 
 export default function (
     { query, collections, order = "DESC", account }: UseGetNftsOptions = {},

@@ -6,7 +6,7 @@ import { BaseFiltersNames, FiltersProps, Order } from "./Filters.types";
 import useTranslate from "module/common/hook/useTranslate";
 import ExpandableSelectorGroupFilters from "./ExpandableSelectorGroupFilters/ExpandableSelectorGroupFilters";
 
-function Filters({ children: { content, header } }: FiltersProps): JSX.Element {
+function Filters({ children }: FiltersProps): JSX.Element {
     const translate = useTranslate();
     const orderOptions: SelectorOption<Order>[] = [
         { label: translate("Oldest"), value: "DESC" },
@@ -23,14 +23,14 @@ function Filters({ children: { content, header } }: FiltersProps): JSX.Element {
                         title={translate("OrderBy")}
                         defaultValue={orderOptions[0].value}
                     />
-                    {header}
+                    {children?.header}
                 </Col>
             </Col>
-            {content && (
+            {children?.content && (
                 <>
                     <FiltersDivider />
                     <Col gap="1rem" css={{ padding: "0 0.5rem" }}>
-                        {content}
+                        {children.content}
                     </Col>
                 </>
             )}

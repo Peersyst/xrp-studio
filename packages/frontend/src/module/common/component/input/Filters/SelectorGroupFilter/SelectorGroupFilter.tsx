@@ -17,7 +17,7 @@ function SelectorGroupFilter<T, Multiple extends boolean = false>({
         setFilters({ [name]: value });
     };
 
-    return <SelectorGroup<T, Multiple> value={value} onChange={handleChange} {...rest} />;
+    return <SelectorGroup<T, Multiple> css={{ maxHeight: "14.5rem", overflowY: "auto" }} value={value} onChange={handleChange} {...rest} />;
 }
 
 export default SelectorGroupFilter;

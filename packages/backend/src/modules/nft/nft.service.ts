@@ -437,7 +437,7 @@ export class NftService {
         qb.skip(skip);
 
         if (query)
-            qb.andWhere("LOWER(collection.name) like :query OR LOWER(metadata.name) like :query", { query: `${query.toLowerCase()}` });
+            qb.andWhere("LOWER(collection.name) like :query OR LOWER(metadata.name) like :query", { query: `%${query.toLowerCase()}%` });
         if (collections) qb.andWhere("collection.id IN (:...collections)", { collections });
         if (wheres.length) wheres.forEach(([where, params]) => qb.andWhere(where, params));
 

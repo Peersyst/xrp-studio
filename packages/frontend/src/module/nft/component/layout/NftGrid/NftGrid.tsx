@@ -5,35 +5,34 @@ import { CollectionId, NftGridProps } from "./NftGrid.types";
 import Grid from "module/common/component/layout/Grid/Grid";
 import { useGetNftGridBreakpoints } from "./hook/useGetNftGridBreakpoints";
 import { SelectorOption } from "@peersyst/react-components-core";
-import { FiltersBaseContextValue } from "module/common/component/input/Filters/FiltersContext";
 import SelectorGroupFilter from "module/common/component/input/Filters/SelectorGroupFilter/SelectorGroupFilter";
+import { UseGetNftsOptions } from "module/nft/query/useGetNfts";
 
-function NftGrid<F extends FiltersBaseContextValue>({ loading, ...rest }: NftGridProps<F>): JSX.Element {
+function NftGrid({ loading, collections = [], ...rest }: NftGridProps): JSX.Element {
     const breakpoints = useGetNftGridBreakpoints();
-    const tags: SelectorOption<CollectionId>[] = [
-        { label: "All", value: 1 },
-        { label: "Art", value: 2 },
-        { label: "Music", value: 3 },
-    ];
+    const tags: SelectorOption<CollectionId>[] = collections.map(({ id, name }) => ({ value: id, label: name ?? "Collection" + id }));
     return (
-        <Grid<PaginatedNftDto, CollectionId, F>
+        <Grid<PaginatedNftDto, CollectionId, UseGetNftsOptions>
             filters={{
-                content: (
-                    <SelectorGroupFilter
-                        multiple={true}
-                        name="collection"
-                        options={tags}
-                        type="switch"
-                        css={{
-                            [".Label"]: {
-                                width: "unset",
-                                flex: "1",
-                            },
-                        }}
-                    />
-                ),
+                ...(tags.length > 0 && {
+                    content: (
+                        <SelectorGroupFilter
+                            css={{
+                                [".Label"]: {
+                                    width: "unset",
+                                    flex: "1",
+                                },
+                            }}
+                            multiple={true}
+                            name="collection"
+                            options={tags}
+                            type="switch"
+                        />
+                    ),
+                }),
             }}
             loading={loading}
+            tags={tags}
             breakpoints={breakpoints}
             Skeletons={BaseCardSkeletons}
             {...rest}

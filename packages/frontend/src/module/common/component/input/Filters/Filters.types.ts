@@ -8,5 +8,5 @@ export enum BaseFiltersNames {
 }
 
 export interface FiltersProps {
-    children: { header?: ReactElement; content?: ReactElement };
+    children?: { header?: ReactElement; content?: ReactElement };
 }
