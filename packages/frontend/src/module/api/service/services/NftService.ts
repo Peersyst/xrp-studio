@@ -178,24 +178,6 @@ export class NftService {
     }
 
     /**
-     * Get a single NFT (status = confirmed)
-     * @param id
-     * @returns NftDto
-     * @throws ApiError
-     */
-    public static nftControllerGetNft(
-        id: number,
-    ): CancelablePromise<NftDto> {
-        return __request(OpenAPI, {
-            method: 'GET',
-            url: '/api/nft/{id}',
-            path: {
-                'id': id,
-            },
-        });
-    }
-
-    /**
      * Get the status of a single or many NFT drafts
      * @param id
      * @param ids
@@ -212,6 +194,24 @@ export class NftService {
             query: {
                 'id': id,
                 'ids': ids,
+            },
+        });
+    }
+
+    /**
+     * Get a single NFT (status = confirmed)
+     * @param id
+     * @returns NftDto
+     * @throws ApiError
+     */
+    public static nftControllerGetNft(
+        id: number,
+    ): CancelablePromise<NftDto> {
+        return __request(OpenAPI, {
+            method: 'GET',
+            url: '/api/nft/{id}',
+            path: {
+                'id': id,
             },
         });
     }
