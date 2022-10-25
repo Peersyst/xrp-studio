@@ -10,10 +10,15 @@ import { UserDtoMock } from "../../../../../__mocks__/dto";
 import WalletCard from "module/wallet/component/display/WalletCard/WalletCard";
 
 describe("WalletConnected test", () => {
+    beforeEach(() => {
+        jest.spyOn(useGetUser, "default").mockReturnValue({ data: UserDtoMock } as any);
+        jest.spyOn(useGetXrpBalance, "useGetXrpBalance").mockReturnValue({ data: 15 } as any);
+        jest.spyOn(useGetXrpTokenPrice, "useGetXrpTokenPrice").mockReturnValue({ data: 2 } as any);
+    });
+
     test("Renders correctly", () => {
         const wallet = new WalletMock({ address: "0x123" });
         jest.spyOn(UseWallet, "default").mockReturnValue(wallet);
-        jest.spyOn(useGetUser, "default").mockReturnValue({ data: UserDtoMock } as any);
 
         render(<WalletConnected />);
         expect(screen.getAllByRole("img")[0]).toHaveAttribute("alt", "avatar");
@@ -23,7 +28,6 @@ describe("WalletConnected test", () => {
     test("Renders Menu", () => {
         const wallet = new WalletMock({ address: "0x123" });
         jest.spyOn(UseWallet, "default").mockReturnValue(wallet);
-        jest.spyOn(useGetUser, "default").mockReturnValue({ data: UserDtoMock } as any);
 
         render(<WalletConnected />);
         expect(screen.getByText(translate("profile"))).toBeInTheDocument();
