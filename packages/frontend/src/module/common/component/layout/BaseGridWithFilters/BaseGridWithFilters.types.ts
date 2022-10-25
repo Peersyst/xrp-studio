@@ -10,7 +10,6 @@ export interface BaseGridWithFilterProps<T extends PaginatedData, TagT, F extend
     filters: BaseGridFiltersProps<F>["children"];
     filtersContext: BaseGridFiltersProps<F>["filtersContext"];
     tags?: BaseGridTagsProps<TagT>["tags"];
-    showTags?: boolean;
     onTagClicked?: BaseGridTagsProps<TagT>["onTagClicked"];
     onClearTags?: BaseGridTagsProps<TagT>["onClear"];
 }

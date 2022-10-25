@@ -5,20 +5,22 @@ import Button from "module/common/component/input/Button/Button";
 import NothingToShow from "module/common/component/feedback/NothingToShow/NothingToShow";
 import { useNavigate } from "react-router-dom";
 import { NftRoutes } from "module/nft/NftRouter";
-import { useCallback, useState } from "react";
+import { useState } from "react";
 import { FiltersBaseContextValue } from "module/common/component/input/Filters/FiltersContext";
+import { useGetUserCollections } from "module/user/query/useGetUserCollections";
 
 const ProfileNftsGrid = (): JSX.Element => {
     const translate = useTranslate();
-    //TODO: pass the filters to useGetProfileNfts
-    //If need of persistency it can be update to recoil
+    const navigate = useNavigate();
+    //If there is a need of persistency it can be used recoil instead of useState
     const [filters, setFilters] = useState({});
     const { data, hasNextPage, fetchNextPage, isFetching } = useGetProfileNfts();
-    const handleFilterChange = useCallback(
-        (newFilters: FiltersBaseContextValue) => setFilters((oldFilters) => ({ ...oldFilters, ...newFilters })),
-        [setFilters],
-    );
-    const navigate = useNavigate();
+    const { data: te } = useGetUserCollections();
+    /**
+     * Not memoized with a useCallBack because the memoization is done by the useGetProfileNfts
+     */
+    const handleFilterChange = (newFilters: FiltersBaseContextValue) => setFilters((oldFilters) => ({ ...oldFilters, ...newFilters }));
+
     return (
         <NftGrid
             data={data}

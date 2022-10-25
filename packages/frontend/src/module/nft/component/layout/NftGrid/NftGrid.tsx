@@ -20,6 +20,7 @@ function NftGrid<F extends FiltersBaseContextValue>({ loading, ...rest }: NftGri
             filters={{
                 content: (
                     <SelectorGroupFilter
+                        multiple={true}
                         name="collection"
                         options={tags}
                         type="switch"
