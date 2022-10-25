@@ -5,18 +5,18 @@ import { UseInfiniteQueryOptions, UseInfiniteQueryResult } from "react-query/typ
 
 export interface UseGetNftsOptions {
     query?: string;
-    collection?: number;
+    collections?: number[];
     order?: "ASC" | "DESC";
     account?: string;
 }
 
 export default function (
-    { query, collection, order = "DESC", account }: UseGetNftsOptions = {},
+    { query, collections, order = "DESC", account }: UseGetNftsOptions = {},
     options?: Omit<UseInfiniteQueryOptions<PaginatedNftDto, unknown, PaginatedNftDto>, "queryKey" | "queryFn">,
 ): UseInfiniteQueryResult<PaginatedNftDto> {
     return useInfiniteQuery(
-        [Queries.NFTS, query, collection, order, account],
-        ({ pageParam = 1 }) => NftService.nftControllerGetNfts(pageParam, 30, query, collection, order, account),
+        [Queries.NFTS, query, collections, order, account],
+        ({ pageParam = 1 }) => NftService.nftControllerGetNfts(pageParam, 30, query, collections, order, account),
         options,
     );
 }

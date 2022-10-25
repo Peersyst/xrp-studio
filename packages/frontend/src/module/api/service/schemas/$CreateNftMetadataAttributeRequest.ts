@@ -15,6 +15,7 @@ export const $CreateNftMetadataAttributeRequest = {
         },
         displayType: {
             type: 'string',
+            isNullable: true,
             maxLength: 255,
         },
     },
