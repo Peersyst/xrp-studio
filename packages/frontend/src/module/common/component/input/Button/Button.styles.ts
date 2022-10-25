@@ -15,6 +15,7 @@ const primaryVariant = css(
         }
     `,
 );
+
 const secondaryVariant = css(({ theme }) => {
     const light = theme.palette.mode === "light";
     return css`
@@ -25,6 +26,20 @@ const secondaryVariant = css(({ theme }) => {
         }
         &:active {
             background-color: ${emphasize(theme.palette.black[light ? 20 : 80], 0.08)};
+        }
+    `;
+});
+
+const tertiaryVariant = css(({ theme }) => {
+    const bgColor = theme.palette.black[0];
+    return css`
+        background-color: ${bgColor};
+        color: ${theme.palette.black[80]};
+        &:hover {
+            background-color: ${emphasize(bgColor, 0.04)};
+        }
+        &:active {
+            background-color: ${emphasize(bgColor, 0.08)};
         }
     `;
 });
@@ -79,6 +94,7 @@ const textVariant = css(({ theme }) => {
 const buttonVariants: ButtonVariantStyle = {
     primary: primaryVariant,
     secondary: secondaryVariant,
+    tertiary: tertiaryVariant,
     outlined: outlinedVariant,
     text: textVariant,
     glass: glassVariant,

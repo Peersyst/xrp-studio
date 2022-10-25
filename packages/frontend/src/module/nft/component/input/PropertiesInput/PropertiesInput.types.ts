@@ -9,3 +9,7 @@ export type PropertiesInputProps = FormControlledComponentProps<CorePropertiesIn
 export interface PropertiesInputRootProps {
     hasLabel: boolean;
 }
+
+export interface AddPropertyButtonProps {
+    disabled?: boolean;
+}

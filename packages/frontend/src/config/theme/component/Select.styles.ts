@@ -1,5 +1,4 @@
 import { css } from "styled-components";
-import { SelectDropdown } from "@peersyst/react-components";
 
 export const SelectStyles = css(({ theme }) => ({
     ".FormControl.Md": {
@@ -27,7 +26,7 @@ export const SelectStyles = css(({ theme }) => ({
             borderColor: theme.palette.black[80],
             padding: "0.5rem 0.875rem",
             transition: "border-color 300ms",
-            [SelectDropdown]: {
+            ".SelectDropdown": {
                 color: theme.palette.black[60],
             },
             "&.Open": {

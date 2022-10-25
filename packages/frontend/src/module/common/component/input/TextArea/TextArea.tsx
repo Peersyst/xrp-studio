@@ -14,7 +14,7 @@ const TextArea = ({
     ...rest
 }: TextAreaProps): JSX.Element => {
     const appearanceClassName = capitalize(variant);
-    const [value, setValue] = useControlled<string>(defaultValue, valueProp, onChange);
+    const [value, setValue] = useControlled(defaultValue, valueProp, onChange);
     const length = value.length;
 
     const handleChange = (newVal: string) => {

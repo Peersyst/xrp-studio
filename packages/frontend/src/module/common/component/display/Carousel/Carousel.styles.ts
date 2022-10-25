@@ -9,7 +9,7 @@ export const CarouselRoot = styled(Carousel)<CarouselRootProps>(
             opacity: 1 !important;
         }
 
-        ${theme.breakpoints.up("md")} {
+        ${theme.breakpoints.up("mini")} {
             .CarouselLeftArrow {
                 left: -${gap}px;
                 transform: translate(-100%, -50%);

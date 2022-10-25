@@ -1,20 +1,9 @@
-import { NftService, PaginatedNftDto } from "module/api/service";
+import { PaginatedNftDto } from "module/api/service";
+import { InfiniteQueryResult } from "query-utils";
+import { useGetProfileNfts } from "module/user/query/useGetProfileNfts";
 import useWallet from "module/wallet/component/hooks/useWallet";
-import { InfiniteData, InfiniteQueryResult, useInfiniteQuery } from "query-utils";
-import Queries from "../../../query/queries";
 
-interface UseGetMyNftsParams {
-    onSettled?: ((data: InfiniteData<PaginatedNftDto> | undefined, error: unknown) => void) | undefined;
-}
-
-export const useGetMyNfts = ({ onSettled }: UseGetMyNftsParams = {}): InfiniteQueryResult<PaginatedNftDto> => {
+export const useGetMyNfts = (): InfiniteQueryResult<PaginatedNftDto> => {
     const { address } = useWallet();
-    return useInfiniteQuery(
-        [Queries.GET_MY_NFTS, address],
-        ({ pageParam = 1 }) => NftService.nftControllerGetNfts(pageParam, 30, undefined, undefined, "DESC", address),
-        {
-            onSettled,
-            enabled: !!address,
-        },
-    );
+    return useGetProfileNfts(address);
 };
