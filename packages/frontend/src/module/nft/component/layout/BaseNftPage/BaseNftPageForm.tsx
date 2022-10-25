@@ -11,6 +11,7 @@ import PropertiesInput from "module/nft/component/input/PropertiesInput/Properti
 import useBaseNftPagePlaceholders from "module/nft/component/layout/BaseNftPage/hook/useBaseNftPagePlaceholders";
 import useTranslate from "module/common/hook/useTranslate";
 import parseFlags from "module/nft/util/parseFlags";
+import Color from "color";
 import { capitalize } from "@peersyst/react-utils";
 
 const BaseNftPageForm = ({ nft, collections, loading, readonly, fixedCollection }: BaseNftPageFormProps): JSX.Element => {
@@ -94,7 +95,7 @@ const BaseNftPageForm = ({ nft, collections, loading, readonly, fixedCollection 
                                 name="backgroundColor"
                                 label={translate("backgroundColor")}
                                 TextFieldProps={{ variant: "filled", placeholder: backgroundColorPlaceholder }}
-                                defaultValue={nftMetadata?.backgroundColor}
+                                defaultValue={nftMetadata?.backgroundColor ? new Color(nftMetadata?.backgroundColor) : undefined}
                                 readonly={readonly}
                             />
                             <Divider />
