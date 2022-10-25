@@ -36,7 +36,7 @@ export class NftService {
      * @param page
      * @param pageSize
      * @param query
-     * @param collection
+     * @param collections
      * @param order
      * @param account
      * @returns PaginatedNftDto
@@ -46,7 +46,7 @@ export class NftService {
         page?: number,
         pageSize?: number,
         query?: string,
-        collection?: number,
+        collections?: Array<number>,
         order?: 'ASC' | 'DESC',
         account?: string,
     ): CancelablePromise<PaginatedNftDto> {
@@ -57,7 +57,7 @@ export class NftService {
                 'page': page,
                 'pageSize': pageSize,
                 'query': query,
-                'collection': collection,
+                'collections': collections,
                 'order': order,
                 'account': account,
             },
@@ -86,7 +86,7 @@ export class NftService {
      * @param page
      * @param pageSize
      * @param query
-     * @param collection
+     * @param collections
      * @param order
      * @param status
      * @returns PaginatedNftDraftDto
@@ -96,7 +96,7 @@ export class NftService {
         page?: number,
         pageSize?: number,
         query?: string,
-        collection?: number,
+        collections?: Array<number>,
         order?: 'ASC' | 'DESC',
         status?: 'draft' | 'pending' | 'failed',
     ): CancelablePromise<PaginatedNftDraftDto> {
@@ -107,7 +107,7 @@ export class NftService {
                 'page': page,
                 'pageSize': pageSize,
                 'query': query,
-                'collection': collection,
+                'collections': collections,
                 'order': order,
                 'status': status,
             },
