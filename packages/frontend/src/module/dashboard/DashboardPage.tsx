@@ -3,6 +3,7 @@ import useTranslate from "module/common/hook/useTranslate";
 import { config } from "config";
 import PageHeader from "module/common/component/layout/PageHeader/PageHeader";
 import BaseNftPage from "module/nft/component/layout/BaseNftPage/BaseNftPage";
+import { capitalize } from "@peersyst/react-utils";
 
 export default function DashboardPage(): JSX.Element {
     const translate = useTranslate();
@@ -25,7 +26,7 @@ export default function DashboardPage(): JSX.Element {
             }}
             header={
                 <PageHeader>
-                    <Typography variant="subtitle1">{translate("name")}</Typography>
+                    <Typography variant="subtitle1">{capitalize(translate("name"))}</Typography>
                     <Typography variant="body2" fontWeight="bold">
                         {config.projectName}
                     </Typography>
