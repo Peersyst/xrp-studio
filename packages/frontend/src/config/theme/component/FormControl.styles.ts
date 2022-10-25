@@ -6,7 +6,7 @@ export const FormControlStyles = css(({ theme }) => ({
         ".FormControlHint": {
             marginLeft: 0,
         },
-        ".FormControlLabelRoot .Label": {
+        ".Label": {
             fontWeight: 500,
             color: theme.palette.black[30],
             fontSize: theme.typography.body1.style.fontSize,
@@ -17,7 +17,7 @@ export const FormControlStyles = css(({ theme }) => ({
                 color: theme.palette.black[50],
             },
             "&.Disabled": {
-                "> .Label": {
+                ".FormControlLabelRoot .Label": {
                     color: theme.palette.black[50],
                 },
             },
