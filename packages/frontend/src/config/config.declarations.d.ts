@@ -21,6 +21,8 @@ declare module "@peersyst/react-components" {
         network: string;
         xrpNodeUrl: string;
         currencyTokenPrice: FiatCurrencyType;
+        maxBioChars: number;
+        maxUsernameChars: number;
     }
 
     export interface CreateConfig {
@@ -34,5 +36,7 @@ declare module "@peersyst/react-components" {
         };
         blockchainLinks: BlockchainLinks;
         nftDefaultCoverUrl: string;
+        maxBioChars: number;
+        maxUsernameChars: number;
     }
 }

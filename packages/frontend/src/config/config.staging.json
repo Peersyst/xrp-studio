@@ -1,6 +1,6 @@
 {
     "projectName": "xrp-studio",
-    "publicUrl": "/xrp-studio",
+    "publicUrl": "/",
     "backendUrl": "",
     "appStoreXummLink": "https://apps.apple.com/us/app/xumm/id1492302343",
     "playStoreXummLink": "https://play.google.com/store/apps/details?id=com.xrpllabs.xumm",
@@ -15,5 +15,7 @@
     "nftDefaultCoverUrl": "https://img.seadn.io/files/74359db46e0caf1e692464f4e777b373.png?fit=max&w=600",
     "network" : "MAINNET",
     "xrpNodeUrl" : "wss://xls20-sandbox.rippletest.net:51233",
-    "currencyTokenPrice" : "usd"
+    "currencyTokenPrice" : "usd",
+    "maxBioChars": 255,
+    "maxUsernameChars": 255
 }

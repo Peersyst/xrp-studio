@@ -22,7 +22,7 @@ export class FileController {
     @UseInterceptors(
         FileInterceptor("file", {
             limits: {
-                fileSize: 1,
+                fileSize: 20000000,
             },
             fileFilter: imageFileFilter,
         }),
@@ -30,7 +30,12 @@ export class FileController {
     @XummAuthenticated()
     async uploadFile(@UploadedFile() file: Express.Multer.File): Promise<string> {
         const fileName = uuidv4() + "." + file.originalname.split(".").pop();
-        await this.storageService.storeFileFromBuffer(file.buffer, { mimetype: file.mimetype, size: file.size, path: fileName });
-        return this.configService.get("aws.bucketName") + "/" + fileName;
+        await this.storageService.storeFileFromBuffer(file.buffer, {
+            mimetype: file.mimetype,
+            size: file.size,
+            path: fileName,
+        });
+
+        return this.configService.get("aws.bucketUrl") + "/" + fileName;
     }
 }

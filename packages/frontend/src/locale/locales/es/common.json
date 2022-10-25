@@ -1,6 +1,6 @@
 {
     "welcome": "Hola",
-    "name": "Manolo",
+    "name": "nombre",
     "formatNumber": "{{val, number}}",
     "loginWithXumm": "Accede con XUMM Wallet",
     "scanXummQR": "Scanea el QR con XUMM app",
@@ -33,5 +33,10 @@
     "addProperty": "Añadir propiedad",
     "profile" : "Perfil",
     "settings" : "Configuraciones",
-    "logout" : "Cerrar Sessión"
+    "logout" : "Cerrar Sessión",
+    "change": "Cambiar",
+    "cancel": "Cancelar",
+    "writeYour": "Escribe tu {{name}}",
+    "bio": "Bio",
+    "updateProfile": "Actualizar perfil"
 }
