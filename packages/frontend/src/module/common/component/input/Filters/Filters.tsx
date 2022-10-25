@@ -9,19 +9,19 @@ import ExpandableSelectorGroupFilters from "./ExpandableSelectorGroupFilters/Exp
 function Filters({ children: { content, header } }: FiltersProps): JSX.Element {
     const translate = useTranslate();
     const orderOptions: SelectorOption<Order>[] = [
-        { label: translate("Latest"), value: "ASC" },
         { label: translate("Oldest"), value: "DESC" },
+        { label: translate("Latest"), value: "ASC" },
     ];
     return (
         <Col gap="1.5rem">
             <Col gap="1rem">
                 <SearchFilter name={BaseFiltersNames.QUERY} />
                 <Col gap="1rem" css={{ padding: "0 0.5rem" }}>
-                    <ExpandableSelectorGroupFilters<Order>
-                        type="checkbox"
+                    <ExpandableSelectorGroupFilters<Order, BaseFiltersNames.ORDER>
                         name={BaseFiltersNames.ORDER}
                         options={orderOptions}
                         title={translate("OrderBy")}
+                        defaultValue={orderOptions[0].value}
                     />
                     {header}
                 </Col>

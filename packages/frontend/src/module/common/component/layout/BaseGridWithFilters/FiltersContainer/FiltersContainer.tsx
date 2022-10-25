@@ -2,7 +2,6 @@ import { Col } from "@peersyst/react-components";
 import useTranslate from "module/common/hook/useTranslate";
 import MenuIcon from "module/common/icons/MenuIcon";
 import { FiltersDivider } from "../BaseGridFilters/BaseGridFilters.styles";
-import { BaseGridFiltersProps } from "../BaseGridFilters/BaseGridFilters.types";
 import { useSetRecoilState } from "recoil";
 import { filtersVisibilityState } from "module/common/component/state/FiltersVisibilityState";
 import Button from "module/common/component/input/Button/Button";

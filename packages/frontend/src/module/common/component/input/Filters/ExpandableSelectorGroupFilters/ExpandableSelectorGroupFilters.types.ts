@@ -1,6 +1,8 @@
-import { SelectorGroupProps } from "@peersyst/react-components";
 import { ExpandableFiltersProps } from "../ExpandableFilters/ExpandableFilters.types";
+import { SelectorGroupFilterProps } from "../SelectorGroupFilter/SelectorGroupFilter.types";
 
-export type ExpandableSelectorGroupFiltersProps<T> = Pick<ExpandableFiltersProps, "title"> &
-    Omit<SelectorGroupProps<T>, "children" | "options" | "name"> &
-    Required<Pick<SelectorGroupProps<T>, "options" | "name">>;
+export type ExpandableSelectorGroupFiltersProps<T, Name extends string> = Pick<ExpandableFiltersProps, "title"> &
+    Omit<SelectorGroupFilterProps<T>, "children" | "options" | "name" | "onChange"> &
+    Required<Pick<SelectorGroupFilterProps<T>, "options">> & {
+        name: Name;
+    };

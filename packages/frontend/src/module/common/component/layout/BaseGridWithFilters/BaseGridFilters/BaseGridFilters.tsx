@@ -6,9 +6,9 @@ import { filtersVisibilityState } from "module/common/component/state/FiltersVis
 import { useMediaQuery } from "@peersyst/react-hooks";
 import FiltersContainer from "../FiltersContainer/FiltersContainer";
 import Filters from "module/common/component/input/Filters/Filters";
-import { FiltersProvider } from "module/common/component/input/Filters/FiltersContext";
+import { FiltersBaseContextValue, FiltersProvider } from "module/common/component/input/Filters/FiltersContext";
 
-function BaseGridFilters<F>({ filtersContext, children }: BaseGridFiltersProps<F>): JSX.Element {
+function BaseGridFilters<F extends FiltersBaseContextValue>({ filtersContext, children }: BaseGridFiltersProps<F>): JSX.Element {
     const {
         breakpoints: {
             values: { nftsGrid },

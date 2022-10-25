@@ -37,6 +37,15 @@ const config = createConfig({
                 elevation: 3,
             },
         },
+        SelectGroup: {
+            defaultProps: {
+                selectorLabelProps: {
+                    placement: "left",
+                    alignment: "space-between",
+                    singleLine: true,
+                },
+            },
+        },
     },
     themes: {
         light: lightTheme,

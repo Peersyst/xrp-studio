@@ -3,6 +3,7 @@ import { useMediaQuery } from "@peersyst/react-hooks";
 import { PaginatedData } from "query-utils";
 import { useEffect } from "react";
 import { useRecoilState } from "recoil";
+import { FiltersBaseContextValue } from "../../input/Filters/FiltersContext";
 import { filtersVisibilityState } from "../../state/FiltersVisibilityState";
 import BaseGrid from "../BaseGrid/BaseGrid";
 import BaseGridFilters from "./BaseGridFilters/BaseGridFilters";
@@ -10,7 +11,7 @@ import BaseGridTags from "./BaseGridTags/BaseGridTags";
 import { gridAnimation, GridWrapper } from "./BaseGridWithFilters.styles";
 import { BaseGridWithFilterProps } from "./BaseGridWithFilters.types";
 
-function BaseGridWithFilters<T extends PaginatedData, TagT, F>({
+function BaseGridWithFilters<T extends PaginatedData, TagT, F extends FiltersBaseContextValue>({
     filterBreakpoints,
     breakpoints,
     filters,

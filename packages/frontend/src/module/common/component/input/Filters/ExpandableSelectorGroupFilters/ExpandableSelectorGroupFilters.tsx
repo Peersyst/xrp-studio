@@ -1,35 +1,25 @@
-import { SelectorGroup } from "@peersyst/react-components";
 import { cx } from "@peersyst/react-utils";
 import { useMemo, useState } from "react";
 import ExpandableFilters from "../ExpandableFilters/ExpandableFilters";
 import useFilters from "../hooks/useFilters";
+import SelectorGroupFilter from "../SelectorGroupFilter/SelectorGroupFilter";
 import { ExpandableSelectorGroupFiltersProps } from "./ExpandableSelectorGroupFilters.types";
 
-function ExpandableSelectorGroupFilters<T>({
+function ExpandableSelectorGroupFilters<T, Name extends string>({
     options,
     title,
     name,
     className,
+    defaultValue,
     ...rest
-}: ExpandableSelectorGroupFiltersProps<T>): JSX.Element {
-    const [value, setValue] = useState<T>(options[0].value);
-    const { setValue: setFilters } = useFilters();
+}: ExpandableSelectorGroupFiltersProps<T, Name>): JSX.Element {
+    const { value: filters } = useFilters<Record<Name, T>>();
+    const [value, setValue] = useState<T | undefined>(filters[name] || defaultValue);
     const currentLabel = useMemo(() => options.find((option) => option.value === value)?.label, [value, options]);
-
-    const handleChange = (value: T) => {
-        setValue(value);
-        setFilters({ [name]: value });
-    };
 
     return (
         <ExpandableFilters className={cx("ExpandableSelectorGroupFilters", className)} title={title} currentValue={currentLabel ?? ""}>
-            <SelectorGroup<T>
-                value={value}
-                onChange={handleChange}
-                selectorLabelProps={{ placement: "left", alignment: "space-between" }}
-                options={options}
-                {...rest}
-            />
+            <SelectorGroupFilter<T> name={name} onChange={(value) => setValue(value)} value={value} options={options} {...rest} />
         </ExpandableFilters>
     );
 }

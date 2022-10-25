@@ -1,8 +1,10 @@
 import { createContext } from "react";
 
-export interface FiltersContext<T> {
+export type FiltersBaseContextValue = Record<string, unknown>;
+
+export interface FiltersContext<T extends FiltersBaseContextValue> {
     value: T;
-    setValue: (value: T) => void;
+    setValue: (value: unknown) => void;
 }
 
 export const FiltersContext = createContext<any>({

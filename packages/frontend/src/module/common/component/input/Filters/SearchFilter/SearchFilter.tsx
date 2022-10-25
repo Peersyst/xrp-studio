@@ -5,14 +5,14 @@ import SearchBar from "../../SearchBar/SearchBar";
 import useFilters from "../hooks/useFilters";
 import { SearchFiltersProps } from "./SearchFilter.types";
 
-const SearchFilter = ({ name, variant, className, ...rest }: SearchFiltersProps): JSX.Element => {
+function SearchFilter<FS extends Record<string, unknown>>({ name, variant, className, ...rest }: SearchFiltersProps): JSX.Element {
     const {
         breakpoints: {
             values: { nftsGrid },
         },
     } = useTheme();
     const isTablet = useMediaQuery(`(max-width: ${nftsGrid.sm}px)`);
-    const { setValue } = useFilters();
+    const { setValue } = useFilters<FS>();
     const handleSearch = (value: string) => setValue({ [name]: value });
 
     return (
@@ -23,6 +23,6 @@ const SearchFilter = ({ name, variant, className, ...rest }: SearchFiltersProps)
             {...rest}
         />
     );
-};
+}
 
 export default SearchFilter;
