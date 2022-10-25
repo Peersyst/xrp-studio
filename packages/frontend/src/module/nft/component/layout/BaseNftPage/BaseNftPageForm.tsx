@@ -14,6 +14,7 @@ import parseFlags from "module/nft/util/parseFlags";
 import Color from "color";
 import useWallet from "module/wallet/component/hooks/useWallet";
 import { NftCreationForm } from "module/nft/types";
+import { capitalize } from "@peersyst/react-utils";
 
 export const NftFormFields: Record<keyof NftCreationForm, keyof NftCreationForm> = {
     image: "image",
@@ -69,7 +70,7 @@ const BaseNftPageForm = ({ nft, collections, loading, readonly, fixedCollection 
                     <Skeleton loading={loading} width="100%">
                         <TextField
                             name={NftFormFields.name}
-                            label={translate("name")}
+                            label={capitalize(translate("name"))}
                             placeholder={namePlaceholder}
                             defaultValue={nftMetadata?.name}
                             readonly={readonly}

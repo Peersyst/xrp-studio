@@ -2,6 +2,7 @@ import { screen } from "@testing-library/react";
 import { CollectionDtoMock, NftDtoMock, NftsDtoMock } from "test-mocks";
 import { render, translate } from "test-utils";
 import BaseNftPageContent from "module/nft/component/layout/BaseNftPage/BaseNftPageContent";
+import { capitalize } from "@peersyst/react-utils";
 
 describe("BaseNftPageContent", () => {
     test("Renders correctly with default values", () => {
@@ -14,7 +15,7 @@ describe("BaseNftPageContent", () => {
         const imgs = screen.getAllByRole("img");
         expect(imgs.some((img) => img.getAttribute("src") === nftMock.metadata!.image!)).toBeTruthy();
         // name
-        expect(screen.getByText(translate("name"))).toBeInTheDocument();
+        expect(screen.getByText(capitalize(translate("name")))).toBeInTheDocument();
         expect(screen.getByDisplayValue(nftMock.metadata!.name!)).toBeInTheDocument();
         // attributes
         expect(screen.getByText(translate("attributes"))).toBeInTheDocument();

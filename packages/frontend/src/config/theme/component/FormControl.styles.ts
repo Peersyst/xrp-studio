@@ -6,14 +6,14 @@ export const FormControlStyles = css(({ theme }) => ({
         ".FormControlHint": {
             marginLeft: 0,
         },
-        "> .Label": {
+        ".FormControlLabelRoot .Label": {
             fontWeight: 500,
             color: theme.palette.black[30],
             fontSize: theme.typography.body1.style.fontSize,
             transition: "color 300ms",
         },
         "&.Filled": {
-            "> .Label": {
+            ".FormControlLabelRoot .Label": {
                 color: theme.palette.black[50],
             },
             "&.Disabled": {
@@ -23,17 +23,17 @@ export const FormControlStyles = css(({ theme }) => ({
             },
         },
         "&.Outlined": {
-            "> .Label": {
+            ".FormControlLabelRoot .Label": {
                 color: theme.palette.black[60],
             },
             "&.Disabled": {
-                "> .Label": {
+                ".FormControlLabelRoot .Label": {
                     color: theme.palette.black[60],
                 },
             },
         },
         "&.Focused": {
-            "> .Label": {
+            ".FormControlLabelRoot .Label": {
                 color: theme.palette.primary,
             },
         },
