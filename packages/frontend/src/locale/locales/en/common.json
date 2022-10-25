@@ -59,5 +59,8 @@
     "hideCollection": "Hide collection",
     "none": "None",
     "none_male": "None",
-    "none_female": "None"
+    "none_female": "None",
+    "devnet": "DEVNET",
+    "testnet": "TESTNET",
+    "mainnet": "MAINNET"
 }
