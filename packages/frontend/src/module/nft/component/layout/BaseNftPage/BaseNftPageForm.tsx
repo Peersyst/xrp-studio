@@ -13,6 +13,23 @@ import useTranslate from "module/common/hook/useTranslate";
 import parseFlags from "module/nft/util/parseFlags";
 import Color from "color";
 import useWallet from "module/wallet/component/hooks/useWallet";
+import { NftCreationForm } from "module/nft/types";
+
+export const NftFormFields: Record<keyof NftCreationForm, keyof NftCreationForm> = {
+    image: "image",
+    name: "name",
+    description: "description",
+    collection: "collection",
+    issuer: "issuer",
+    transferFee: "transferFee",
+    externalUrl: "externalUrl",
+    backgroundColor: "backgroundColor",
+    burnable: "burnable",
+    onlyXRP: "onlyXRP",
+    trustLine: "trustLine",
+    transferable: "transferable",
+    attributes: "attributes",
+};
 
 const BaseNftPageForm = ({ nft, collections, loading, readonly, fixedCollection }: BaseNftPageFormProps): JSX.Element => {
     const translate = useTranslate();
@@ -41,7 +58,7 @@ const BaseNftPageForm = ({ nft, collections, loading, readonly, fixedCollection 
             <Col gap="3rem" flex={1}>
                 <Skeleton loading={loading} width="100%" style={{ aspectRatio: "1" }}>
                     <ImageInput
-                        name="image"
+                        name={NftFormFields.image}
                         alt="nft-image"
                         defaultValue={nftMetadata?.image}
                         readonly={readonly}
@@ -51,7 +68,7 @@ const BaseNftPageForm = ({ nft, collections, loading, readonly, fixedCollection 
                 <Col gap="1.5rem" flex={1}>
                     <Skeleton loading={loading} width="100%">
                         <TextField
-                            name="name"
+                            name={NftFormFields.name}
                             label={translate("name")}
                             placeholder={namePlaceholder}
                             defaultValue={nftMetadata?.name}
@@ -60,7 +77,7 @@ const BaseNftPageForm = ({ nft, collections, loading, readonly, fixedCollection 
                     </Skeleton>
                     <Skeleton loading={loading} width="100%">
                         <TextArea
-                            name="description"
+                            name={NftFormFields.description}
                             label={translate("description")}
                             placeholder={descriptionPlaceholder}
                             maxLength={config.maxNftDescChars}
@@ -77,7 +94,7 @@ const BaseNftPageForm = ({ nft, collections, loading, readonly, fixedCollection 
                         <Col gap="1.5rem" flex={1}>
                             <Select
                                 clear={translate("none", { context: "female" })}
-                                name="collection"
+                                name={NftFormFields.collection}
                                 label={translate("collection")}
                                 placeholder={collectionPlaceholder}
                                 size="lg"
@@ -88,7 +105,7 @@ const BaseNftPageForm = ({ nft, collections, loading, readonly, fixedCollection 
                                 dropdownElement={readonly ? false : undefined}
                             />
                             <TextField
-                                name="issuer"
+                                name={NftFormFields.issuer}
                                 label={translate("issuer")}
                                 placeholder={showIssuerBlockchainAddress ? undefined : connectedWalletAddress}
                                 variant="filled"
@@ -102,7 +119,7 @@ const BaseNftPageForm = ({ nft, collections, loading, readonly, fixedCollection 
                                 }
                             />
                             <TextField
-                                name="transferFee"
+                                name={NftFormFields.transferFee}
                                 label={translate("transferFee")}
                                 placeholder="0"
                                 variant="filled"
@@ -114,7 +131,7 @@ const BaseNftPageForm = ({ nft, collections, loading, readonly, fixedCollection 
                                 hint={translate("roundsToNDecimals", { decimals: 3 })}
                             />
                             <TextField
-                                name="externalUrl"
+                                name={NftFormFields.externalUrl}
                                 label={translate("externalLink")}
                                 placeholder={externalLinkPlaceholder}
                                 variant="filled"
@@ -123,20 +140,35 @@ const BaseNftPageForm = ({ nft, collections, loading, readonly, fixedCollection 
                                 validators={{ url: true }}
                             />
                             <ColorInput
-                                name="backgroundColor"
+                                name={NftFormFields.backgroundColor}
                                 label={translate("backgroundColor")}
                                 TextFieldProps={{ variant: "filled", placeholder: backgroundColorPlaceholder }}
                                 defaultValue={nftMetadata?.backgroundColor ? new Color(nftMetadata?.backgroundColor) : undefined}
                                 readonly={readonly}
                             />
                             <Divider />
-                            <Switch name="burnable" label={translate("burnable")} defaultValue={burnable} readonly={readonly} />
-                            <Switch name="onlyXRP" label={translate("onlyXRP")} defaultValue={onlyXRP} readonly={readonly} />
-                            <Switch name="trustLine" label={translate("trustLine")} defaultValue={trustLine} readonly={readonly} />
-                            <Switch name="transferable" label={translate("transferable")} defaultValue={transferable} readonly={readonly} />
+                            <Switch
+                                name={NftFormFields.burnable}
+                                label={translate("burnable")}
+                                defaultValue={burnable}
+                                readonly={readonly}
+                            />
+                            <Switch name={NftFormFields.onlyXRP} label={translate("onlyXRP")} defaultValue={onlyXRP} readonly={readonly} />
+                            <Switch
+                                name={NftFormFields.trustLine}
+                                label={translate("trustLine")}
+                                defaultValue={trustLine}
+                                readonly={readonly}
+                            />
+                            <Switch
+                                name={NftFormFields.transferable}
+                                label={translate("transferable")}
+                                defaultValue={transferable}
+                                readonly={readonly}
+                            />
                             <Divider />
                             <PropertiesInput
-                                name="attributes"
+                                name={NftFormFields.attributes}
                                 label={translate("attributes")}
                                 defaultValue={nftMetadata?.attributes}
                                 readonly={readonly}

@@ -1,5 +1,5 @@
 import useGetWalletUser from "module/user/query/useGetWalletUser";
-import { userEditNames } from "../../feedback/EditProfileDrawer/EditProfileDrawer";
+import { UpdateUserFields } from "../../feedback/EditProfileDrawer/EditProfileDrawer";
 import { EditProfileCoverRoot } from "./EditProfileCover.styles";
 import { EditProfileCoverProps } from "./EditProfileCover.types";
 
@@ -9,7 +9,7 @@ const EditProfileCover = (props: EditProfileCoverProps): JSX.Element => {
     return (
         <EditProfileCoverRoot
             key={header}
-            name={userEditNames.header}
+            name={UpdateUserFields.header}
             defaultValue={header}
             alt="header-image"
             className="edit-profile-header"
