@@ -37,5 +37,6 @@
     "writeYour": "Write your {{name}}",
     "bio": "Bio",
     "updateProfile": "Update profile",
-    "loadingFilters": "Loading filters..."
+    "loadingFilters": "Loading filters...",
+    "Order": "Order"
 }

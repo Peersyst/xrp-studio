@@ -13,17 +13,17 @@ export const FormControlStyles = css(({ theme }) => ({
             transition: "color 300ms",
         },
         "&.Filled": {
-            ".Label": {
+            "> .Label": {
                 color: theme.palette.black[50],
             },
         },
         "&.Outlined": {
-            ".Label": {
+            "> .Label": {
                 color: theme.palette.black[60],
             },
         },
         "&.Focused": {
-            ".Label": {
+            "> .Label": {
                 color: theme.palette.primary,
             },
         },
