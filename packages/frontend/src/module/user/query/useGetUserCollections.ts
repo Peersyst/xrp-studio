@@ -1,14 +1,13 @@
-import { CollectionService, PaginatedCollectionDto } from "module/api/service";
-import { useInfiniteQuery, UseInfiniteQueryResult } from "query-utils";
-import Queries from "../../../query/queries";
+import { PaginatedCollectionDto } from "module/api/service";
+import { UseInfiniteQueryResult } from "query-utils";
 import { useGetUserAddress } from "../hook/useGetUserAddress";
+import useGetCollections from "module/collection/query/useGetCollections";
 
 export const useGetUserCollections = (addressParams?: string): UseInfiniteQueryResult<PaginatedCollectionDto, unknown> => {
     const address = useGetUserAddress();
     const usedAddress = address || addressParams;
-    return useInfiniteQuery(
-        [Queries.GET_USER_COLLECTIONS, address],
-        async ({ pageParam = 1 }) => CollectionService.collectionControllerGetCollections(pageParam, 30, undefined, usedAddress, "DESC"),
+    return useGetCollections(
+        { account: usedAddress },
         {
             enabled: !!usedAddress,
         },

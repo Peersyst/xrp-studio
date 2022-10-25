@@ -1,8 +1,9 @@
-import { ConfigProvider as GenesysConfigProvider } from "@peersyst/react-components";
 import { ReactNode } from "react";
-import config from "./config";
 import { GlobalStyles } from "./theme/GlobalStyles";
+import config from "./config";
+import { ConfigProvider as GenesysConfigProvider } from "@peersyst/react-components";
 import useTranslate from "module/common/hook/useTranslate";
+import { StyleSheetManager } from "styled-components";
 
 export interface ConfigProviderProps {
     children?: ReactNode;
@@ -13,7 +14,9 @@ const ConfigProvider = ({ children }: ConfigProviderProps): JSX.Element => {
 
     return (
         <GenesysConfigProvider config={{ ...config, translate }}>
-            <GlobalStyles />
+            <StyleSheetManager target={document.head}>
+                <GlobalStyles />
+            </StyleSheetManager>
             {children}
         </GenesysConfigProvider>
     );

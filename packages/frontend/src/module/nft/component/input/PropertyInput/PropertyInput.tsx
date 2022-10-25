@@ -1,6 +1,6 @@
 import { PropertyInputProps } from "module/nft/component/input/PropertyInput/PropertyInput.types";
 import useTranslate from "module/common/hook/useTranslate";
-import { FormControl, FormControlLabel } from "@peersyst/react-components";
+import { FormControl, FormControlLabel, useFormControl } from "@peersyst/react-components";
 import { MetadataAttributeDto } from "module/api/service";
 import {
     DeletePropertyButton,
@@ -16,9 +16,16 @@ const PropertyInput = ({
     variant,
     size,
     onDelete,
+    autoFocus,
     ...rest
 }: PropertyInputProps): JSX.Element => {
     const translate = useTranslate();
+    const { setFocused } = useFormControl();
+
+    const handleDelete = () => {
+        setFocused(false);
+        onDelete?.();
+    };
 
     return (
         <FormControl<MetadataAttributeDto> Label={[Label, LabelProps]} label={label} defaultValue={defaultValue} {...rest}>
@@ -39,6 +46,7 @@ const PropertyInput = ({
                             placeholder={translate("traitType")}
                             value={values.traitType}
                             onChange={handleTraitTypeChange}
+                            autoFocus={autoFocus}
                         />
                         <PropertyInputTextField
                             variant={variant}
@@ -47,7 +55,7 @@ const PropertyInput = ({
                             value={values.value}
                             onChange={handleValueChange}
                         />
-                        {onDelete && <DeletePropertyButton onClick={onDelete} />}
+                        {onDelete && <DeletePropertyButton onClick={handleDelete} />}
                     </PropertyInputRoot>
                 );
             }}

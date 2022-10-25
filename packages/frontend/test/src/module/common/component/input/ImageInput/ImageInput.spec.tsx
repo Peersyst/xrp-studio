@@ -35,7 +35,11 @@ describe("ImageInput", () => {
     });
 
     test("Renders correctly with children", () => {
-        const screen = render(<ImageInput alt="test-img">{() => <p>Children</p>}</ImageInput>);
+        const screen = render(
+            <ImageInput alt="test-img" value="url">
+                {{ display: () => <p>Children</p> }}
+            </ImageInput>,
+        );
         expect(screen.getByRole("button", { name: translate("change") })).toBeInTheDocument();
         expect(screen.getByText("Children")).toBeInTheDocument();
     });

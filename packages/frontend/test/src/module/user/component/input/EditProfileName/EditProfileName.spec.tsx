@@ -11,6 +11,7 @@ describe("EditProfileName", () => {
     beforeAll(() => {
         jest.spyOn(UseWallet, "default").mockReturnValue(wallet);
     });
+
     test("Renders correctly and validates correctly", async () => {
         const userDtoMock = new UserDtoMock({ name: "" });
         jest.spyOn(UserService, "userControllerGetUser").mockResolvedValue(userDtoMock);

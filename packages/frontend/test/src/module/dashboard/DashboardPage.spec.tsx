@@ -1,3 +1,4 @@
+import { capitalize } from "@peersyst/react-utils";
 import { screen } from "@testing-library/react";
 import DashboardPage from "module/dashboard/DashboardPage";
 import { render, translate } from "test-utils";
@@ -9,6 +10,6 @@ describe("Login integration tests", () => {
 
     test("Renders the page", () => {
         render(<DashboardPage />);
-        screen.getByRole("heading", { name: translate("name") });
+        screen.getByRole("heading", { name: capitalize(translate("name")) });
     });
 });

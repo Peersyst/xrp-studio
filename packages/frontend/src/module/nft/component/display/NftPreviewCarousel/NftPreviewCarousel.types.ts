@@ -4,7 +4,13 @@ import { CSSProperties } from "react";
 export interface NftPreviewCarouselProps {
     nfts: NftDto[];
     loading?: boolean;
+    activeId?: number;
     to?: (nft: NftDto) => string;
     className?: string;
     style?: CSSProperties;
+}
+
+export interface NftPreviewCarouselItemProps {
+    active: boolean;
+    isLink: boolean;
 }

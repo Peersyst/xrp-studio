@@ -7,6 +7,7 @@ export const UploadInputRoot = styled(Upload)(
         position: relative;
 
         display: flex;
+        flex: 1;
         align-items: center;
 
         &.FormControl {
@@ -51,5 +52,19 @@ export const UploadBtn = styled(Button)(
         &.updating {
             opacity: 0;
         }
+    `,
+);
+
+export const greyStyles = css(({ theme }) => {
+    const light = theme.palette.mode === "light";
+    return css`
+        color: ${theme.palette.black[light ? 40 : 70]};
+    `;
+});
+
+export const UploadInputBaseIcon = styled.div(
+    () => css`
+        ${greyStyles};
+        font-size: 750%;
     `,
 );
