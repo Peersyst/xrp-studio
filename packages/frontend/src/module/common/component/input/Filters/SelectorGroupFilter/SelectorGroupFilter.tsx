@@ -7,7 +7,7 @@ function SelectorGroupFilter<T, Multiple extends boolean = false>({
     name,
     ...rest
 }: SelectorGroupFilterProps<T, Multiple>): JSX.Element {
-    const { setValue: setFilters, value: filters } = useFilters<Record<string, Multiple extends true ? T[] : T>>();
+    const { setFilters, filters } = useFilters<Record<string, Multiple extends true ? T[] : T>>();
     const value = filters[name];
     const handleChange = (value: Multiple extends true ? T[] : T) => {
         setFilters({ [name]: value });

@@ -3,13 +3,13 @@ import { createContext } from "react";
 export type FiltersBaseContextValue = Record<string, unknown>;
 
 export interface FiltersContext<T extends FiltersBaseContextValue> {
-    value: T;
-    setValue: (value: FiltersBaseContextValue) => void;
+    filters: T;
+    setFilters: (newFilters: Partial<FiltersBaseContextValue>) => void;
 }
 
 export const FiltersContext = createContext<any>({
-    value: undefined,
-    setOpen: () => undefined,
+    filters: undefined,
+    setFilters: () => undefined,
 });
 
 export const FiltersProvider = FiltersContext.Provider;

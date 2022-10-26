@@ -12,12 +12,12 @@ function SearchFilter<FS extends Record<string, string>>({ name, variant, classN
         },
     } = useTheme();
     const isTablet = useMediaQuery(`(max-width: ${nftsGrid.sm}px)`);
-    const { setValue, value } = useFilters<FS>();
-    const handleSearch = (value: string) => setValue({ [name]: value });
+    const { setFilters, filters } = useFilters<FS>();
+    const handleSearch = (value: string) => setFilters({ [name]: value });
 
     return (
         <SearchBar
-            defaultValue={value[name]}
+            defaultValue={filters[name]}
             onChange={handleSearch}
             className={cx("SearchFilter", className)}
             variant={variant || isTablet ? "filled" : "cardfilled"}

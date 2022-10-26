@@ -5,7 +5,7 @@ import { useMemo } from "react";
 import { NftCollectionTag } from "../NftGrid.types";
 
 export default function useGetNftTags(collections: CollectionDto[]): NftCollectionTag[] {
-    const { value: filters } = useFilters<UseGetNftsOptions>();
+    const { filters } = useFilters<UseGetNftsOptions>();
     const tags: NftCollectionTag[] = useMemo(() => {
         const newTags: NftCollectionTag[] = [];
         const filteredCollections = filters["collections"] || [];

@@ -12,7 +12,7 @@ function ExpandableSelectorGroupFilters<T, Name extends string>({
     className,
     ...rest
 }: ExpandableSelectorGroupFiltersProps<T, Name>): JSX.Element {
-    const { value: filters } = useFilters<Record<Name, T>>();
+    const { filters } = useFilters<Record<Name, T>>();
     const value = filters[name];
     const currentLabel = useMemo(() => options.find((option) => option.value === value)?.label, [value, options]);
 
