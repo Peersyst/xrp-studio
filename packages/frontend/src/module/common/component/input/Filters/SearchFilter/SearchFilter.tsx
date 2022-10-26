@@ -9,7 +9,6 @@ function SearchFilter({ name, variant, className, onChange, ...rest }: SearchFil
         setFilters({ [name]: value });
         onChange?.(value);
     };
-
     return (
         <SearchBar
             defaultValue={filters[name]}

@@ -4,7 +4,15 @@ import useTranslate from "module/common/hook/useTranslate";
 import { CurrentValueText, ExpandableFiltersRoot } from "./ExpandableFilters.styles";
 import { ExpandableFiltersProps } from "./ExpandableFilters.types";
 
-const ExpandableFilters = ({ title, currentValue, children, className, loading, ...rest }: ExpandableFiltersProps): JSX.Element => {
+const ExpandableFilters = ({
+    title,
+    currentValue,
+    loadingText,
+    children,
+    className,
+    loading,
+    ...rest
+}: ExpandableFiltersProps): JSX.Element => {
     const translate = useTranslate();
     return (
         <ExpandableFiltersRoot {...rest} className={cx("expandable-filters", className)}>
@@ -27,7 +35,7 @@ const ExpandableFilters = ({ title, currentValue, children, className, loading, 
                     <Col flex={1} gap="0.75rem">
                         {loading ? (
                             <Typography variant="body2" textAlign="center" light>
-                                {translate("loadingFilters")}
+                                {loadingText || translate("loadingFilters")}
                             </Typography>
                         ) : (
                             children
