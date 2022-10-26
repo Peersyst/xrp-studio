@@ -6,7 +6,6 @@ import { NftRoutes } from "module/nft/NftRouter";
 import NothingToShow from "module/common/component/feedback/NothingToShow/NothingToShow";
 import { useNavigate } from "react-router-dom";
 import useTranslate from "module/common/hook/useTranslate";
-import { FiltersProvider } from "module/common/component/input/Filters/FiltersContext";
 
 const MyNftsPageContent = (): JSX.Element => {
     const translate = useTranslate();
@@ -15,19 +14,17 @@ const MyNftsPageContent = (): JSX.Element => {
 
     return (
         <PageContent>
-            <FiltersProvider value={{ value: {}, setFilters: () => undefined }}>
-                <NftGrid
-                    data={data}
-                    callback={() => fetchNextPage({ cancelRefetch: false })}
-                    end={!hasNextPage}
-                    loadingNfts={isFetching}
-                    nothingToShow={
-                        <NothingToShow css={{ height: "12rem" }} label={translate("youHaveNoNfts")}>
-                            <Button onClick={() => navigate(NftRoutes.CREATE_NFT)}>{translate("createNft")}</Button>
-                        </NothingToShow>
-                    }
-                />
-            </FiltersProvider>
+            <NftGrid
+                data={data}
+                callback={() => fetchNextPage({ cancelRefetch: false })}
+                end={!hasNextPage}
+                loadingNfts={isFetching}
+                nothingToShow={
+                    <NothingToShow css={{ height: "12rem" }} label={translate("youHaveNoNfts")}>
+                        <Button onClick={() => navigate(NftRoutes.CREATE_NFT)}>{translate("createNft")}</Button>
+                    </NothingToShow>
+                }
+            />
         </PageContent>
     );
 };

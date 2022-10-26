@@ -5,7 +5,6 @@ import Button from "module/common/component/input/Button/Button";
 import NothingToShow from "module/common/component/feedback/NothingToShow/NothingToShow";
 import { useNavigate } from "react-router-dom";
 import { NftRoutes } from "module/nft/NftRouter";
-import { FiltersProvider } from "module/common/component/input/Filters/FiltersContext";
 import { useGetUserCollections } from "module/user/query/useGetUserCollections";
 import useNftsFiltersReducer from "module/nft/hook/useNftsFiltersReducer";
 
@@ -20,21 +19,20 @@ const ProfileNftsGrid = (): JSX.Element => {
     } = useGetUserCollections();
 
     return (
-        <FiltersProvider value={{ filters, setFilters }}>
-            <NftGrid
-                data={data}
-                callback={() => fetchNextPage({ cancelRefetch: false })}
-                end={!hasNextPage}
-                loadingNfts={isLoadingNfts}
-                loadingCollections={isLoadingCollections}
-                collections={collections}
-                nothingToShow={
-                    <NothingToShow css={{ height: "20rem" }} label={translate("youHaveNoNfts")}>
-                        <Button onClick={() => navigate(NftRoutes.CREATE_NFT)}>{translate("createNft")}</Button>
-                    </NothingToShow>
-                }
-            />
-        </FiltersProvider>
+        <NftGrid
+            filtersContext={{ filters, setFilters }}
+            data={data}
+            callback={() => fetchNextPage({ cancelRefetch: false })}
+            end={!hasNextPage}
+            loadingNfts={isLoadingNfts}
+            loadingCollections={isLoadingCollections}
+            collections={collections}
+            nothingToShow={
+                <NothingToShow css={{ height: "20rem" }} label={translate("youHaveNoNfts")}>
+                    <Button onClick={() => navigate(NftRoutes.CREATE_NFT)}>{translate("createNft")}</Button>
+                </NothingToShow>
+            }
+        />
     );
 };
 

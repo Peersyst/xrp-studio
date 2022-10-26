@@ -8,8 +8,9 @@ import useGetNftTags from "./hook/useGetNftTags";
 import useGetCollectionOptions from "./hook/useGetCollectionOptions";
 import useCleanCollections from "./hook/useCleanCollections";
 import NftCollectionsSelectorGroup from "../../input/NftColletionsSelectorGroup/NftCollectionsSelectorGroup";
+import { FiltersProvider } from "module/common/component/input/Filters/FiltersContext";
 
-function NftGrid({ loadingNfts, loadingCollections, collections, ...rest }: NftGridProps): JSX.Element {
+function InnerNftGrid({ loadingNfts, loadingCollections, collections, ...rest }: Omit<NftGridProps, "filters">): JSX.Element {
     const breakpoints = useGetNftGridBreakpoints();
     const tags = useGetNftTags(collections || []);
     const collectionsOptions = useGetCollectionOptions(collections || []);
@@ -32,6 +33,16 @@ function NftGrid({ loadingNfts, loadingCollections, collections, ...rest }: NftG
         >
             {(nfts) => nfts.map((nft, key) => <NftCard nft={nft} key={key} loading={loadingNfts} />)}
         </Grid>
+    );
+}
+
+function NftGrid({ filtersContext, ...rest }: NftGridProps) {
+    return filtersContext ? (
+        <FiltersProvider value={filtersContext}>
+            <InnerNftGrid {...rest} />
+        </FiltersProvider>
+    ) : (
+        <InnerNftGrid {...rest} />
     );
 }
 

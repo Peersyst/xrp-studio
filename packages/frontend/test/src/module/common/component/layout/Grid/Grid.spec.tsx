@@ -93,7 +93,7 @@ describe("Test for the Grid component", () => {
         const screen = render(
             <Grid
                 tags={tags}
-                filters={<>filters</>}
+                filters={{ content: <>filters</> }}
                 cols={3}
                 colGap={24}
                 rowGap={24}
@@ -149,7 +149,7 @@ describe("Test for the Grid component", () => {
         jest.spyOn(Recoil, "useRecoilState").mockReturnValue([false, jest.fn()]);
         const screen = render(
             <Grid
-                filters={<>filters</>}
+                filters={{ content: <>filters</> }}
                 cols={3}
                 colGap={24}
                 nothingToShow="Nothing to show"
@@ -201,7 +201,7 @@ describe("Test for the Grid component", () => {
                 colGap={24}
                 rowGap={24}
                 breakpoints={[{ maxWidth: 1200, cols: 10 }]}
-                filters={<>filters</>}
+                filters={{ content: <>filters</> }}
             >
                 {(letters) => letters.map((letter, key) => <p key={key}>{letter}</p>)}
             </Grid>,
@@ -218,7 +218,7 @@ describe("Test for the Grid component", () => {
         jest.spyOn(Recoil, "useRecoilState").mockReturnValueOnce([true, mockedSetVisibility]);
         const screen = render(
             <Grid
-                filters={<>filters</>}
+                filters={{ content: <>filters</> }}
                 cols={3}
                 colGap={24}
                 rowGap={24}
