@@ -2,7 +2,6 @@ import { alpha } from "@peersyst/react-utils";
 import { css } from "styled-components";
 
 export const TextInputStyles = css(({ theme }) => {
-    const light = theme.palette.mode === "light";
     return {
         ".FormControl.Md": {
             ".TextInput": {
@@ -19,11 +18,6 @@ export const TextInputStyles = css(({ theme }) => {
         ".Filled": {
             ".TextInput": {
                 backgroundColor: theme.palette.black[80],
-            },
-        },
-        ".Cardfilled": {
-            ".TextInput": {
-                backgroundColor: theme.palette.black[light ? 75 : 80],
             },
         },
         ".TextInput": {
