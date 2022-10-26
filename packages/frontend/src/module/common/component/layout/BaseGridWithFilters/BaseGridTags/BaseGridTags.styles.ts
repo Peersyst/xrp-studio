@@ -38,12 +38,10 @@ export const TagCarousel = styled(Carousel)(
         ${theme.breakpoints.up("mini")} {
             .CarouselLeftArrow {
                 left: 2.3rem;
-                transform: translate(-100%, -50%);
             }
 
             .CarouselRightArrow {
                 right: 2.3rem;
-                transform: translate(100%, -50%);
             }
         }
     `,

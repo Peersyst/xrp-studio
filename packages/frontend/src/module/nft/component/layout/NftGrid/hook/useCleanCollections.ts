@@ -8,8 +8,10 @@ export interface UseCleanCollectionsReturn {
 
 export default function useCleanCollections(): UseCleanCollectionsReturn {
     const { setFilters, filters } = useFilters<UseGetNftsOptions>();
-    const cleanAllCollections = () => setFilters({ [NftFilterNames.COLLECTIONS]: undefined });
-    const cleanCollection = (tag: number) =>
-        setFilters({ [NftFilterNames.COLLECTIONS]: filters[NftFilterNames.COLLECTIONS]?.filter((t) => t !== tag) });
+    const updateCollections = (value: number[] | undefined) => {
+        setFilters({ [NftFilterNames.COLLECTIONS]: value });
+    };
+    const cleanAllCollections = () => updateCollections(undefined);
+    const cleanCollection = (tag: number) => updateCollections(filters[NftFilterNames.COLLECTIONS]?.filter((t) => t !== tag));
     return { cleanAllCollections, cleanCollection };
 }

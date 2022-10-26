@@ -24,7 +24,7 @@ function BaseGridTags<T>({ tags, onClear, onTagClicked }: BaseGridTagsProps<T>):
                     <FilterLinesIcon css={{ fontSize: "1.5rem" }} />
                 </Button>
             )}
-            {tags && (
+            {tags !== undefined && tags.length !== 0 && (
                 <TagCarousel arrowSize="sm">
                     {tags.map(({ label, value }, index) => (
                         <Tag suffix={<MinusCircleIcon />} key={index} onClick={() => onTagClicked?.(value)} label={label} size="lg" />

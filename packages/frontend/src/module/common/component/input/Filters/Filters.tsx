@@ -10,8 +10,8 @@ import { BaseFiltersNames } from "./FiltersContext";
 function Filters({ children }: FiltersProps): JSX.Element {
     const translate = useTranslate();
     const orderOptions: SelectorOption<Order>[] = [
-        { label: translate("Oldest"), value: "DESC" },
-        { label: translate("Latest"), value: "ASC" },
+        { label: translate("Latest"), value: "DESC" },
+        { label: translate("Oldest"), value: "ASC" },
     ];
     return (
         <Col gap="1.5rem">
