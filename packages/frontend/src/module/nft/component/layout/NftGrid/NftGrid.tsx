@@ -9,16 +9,18 @@ import useGetCollectionOptions from "./hook/useGetCollectionOptions";
 import useCleanCollections from "./hook/useCleanCollections";
 import NftCollectionsSelectorGroup from "../../input/NftColletionsSelectorGroup/NftCollectionsSelectorGroup";
 
-function NftGrid({ loadingNfts, loadingCollections, collections = [], ...rest }: NftGridProps): JSX.Element {
+function NftGrid({ loadingNfts, loadingCollections, collections, ...rest }: NftGridProps): JSX.Element {
     const breakpoints = useGetNftGridBreakpoints();
-    const tags = useGetNftTags(collections);
-    const collectionsOptions = useGetCollectionOptions(collections);
+    const tags = useGetNftTags(collections || []);
+    const collectionsOptions = useGetCollectionOptions(collections || []);
     const { cleanAllCollections, cleanCollection } = useCleanCollections();
 
     return (
         <Grid<PaginatedNftDto, CollectionId>
             filters={{
-                content: <NftCollectionsSelectorGroup multiple loading={loadingCollections} options={collectionsOptions} />,
+                ...(collections && {
+                    content: <NftCollectionsSelectorGroup multiple loading={loadingCollections} options={collectionsOptions} />,
+                }),
             }}
             onClearTags={cleanAllCollections}
             onTagClicked={cleanCollection}

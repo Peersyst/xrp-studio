@@ -1,12 +1,5 @@
 import { css } from "styled-components";
 
-const labelStyles = css(({ theme }) => ({
-    fontWeight: 500,
-    color: theme.palette.black[30],
-    fontSize: theme.typography.body1.style.fontSize,
-    transition: "color 300ms",
-}));
-
 export const FormControlStyles = css(({ theme }) => ({
     ".FormControl": {
         rowGap: "0.75rem",

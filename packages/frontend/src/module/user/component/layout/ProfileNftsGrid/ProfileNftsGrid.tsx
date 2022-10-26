@@ -7,13 +7,11 @@ import { useNavigate } from "react-router-dom";
 import { NftRoutes } from "module/nft/NftRouter";
 import { FiltersProvider } from "module/common/component/input/Filters/FiltersContext";
 import { useGetUserCollections } from "module/user/query/useGetUserCollections";
-import { UseGetNftsOptions } from "module/nft/query/useGetNfts";
 import useNftsFiltersReducer from "module/nft/hook/useNftsFiltersReducer";
 
 const ProfileNftsGrid = (): JSX.Element => {
     const translate = useTranslate();
     const navigate = useNavigate();
-    //If there is a need of persistency it can be used recoil instead of useReducer
     const [filters, setFilters] = useNftsFiltersReducer();
     const { data, hasNextPage, fetchNextPage, isFetching: isLoadingNfts } = useGetProfileNfts(filters);
     const {
@@ -21,14 +19,8 @@ const ProfileNftsGrid = (): JSX.Element => {
         isLoading: isLoadingCollections,
     } = useGetUserCollections();
 
-    /**
-     * Not memoized with a useCallBack because with the useReducer it is not necessary
-     * Moreover as useGetProfileNfts memoizes the query it is not necessary to memoize the function
-     */
-    const handleFilterChange = (newFilters: Partial<UseGetNftsOptions>) => setFilters(newFilters);
-
     return (
-        <FiltersProvider value={{ filters, setFilters: handleFilterChange }}>
+        <FiltersProvider value={{ filters, setFilters }}>
             <NftGrid
                 data={data}
                 callback={() => fetchNextPage({ cancelRefetch: false })}
