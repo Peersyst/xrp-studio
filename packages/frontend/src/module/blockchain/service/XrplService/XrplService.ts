@@ -20,14 +20,8 @@ class XrplService {
         return balance;
     }
 
-    public async getAvailableBalance(address: string): Promise<string> {
-        const balance = await this.getAccountBalance(address);
-        const dropsBalance = XrplService.xrpToDrops(balance);
-        if (BigInt(dropsBalance) <= BigInt(XrplService.xrpToDrops("10"))) return "0";
-        else {
-            const finalBalance = BigInt(dropsBalance) - BigInt(XrplService.xrpToDrops("10"));
-            return XrplService.dropsToXrp(finalBalance.toString());
-        }
+    public async getAvailableBalance(address: string): Promise<number> {
+        return Number(await this.getAccountBalance(address));
     }
 
     static dropsToXrp(xrpToConvert: string): string {

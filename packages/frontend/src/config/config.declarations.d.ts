@@ -1,7 +1,8 @@
 import "@peersyst/react-components";
 import { TFunction } from "react-i18next";
 import { BlockchainLinks } from "@peersyst/react-components";
-import { FiatCurrencyType } from "module/wallet/types";
+
+export type NetworkType = "mainnet" | "testnet" | "devnet";
 
 declare module "@peersyst/react-components" {
     export interface ConfigTypes {
@@ -19,9 +20,8 @@ declare module "@peersyst/react-components" {
         };
         blockchainLinks: BlockchainLinks;
         nftDefaultCoverUrl: string;
-        network: "mainnet" | "testnet" | "devnet";
+        network: NetworkType;
         xrpNodeUrl: string;
-        currencyTokenPrice: FiatCurrencyType;
         maxBioChars: number;
         maxUsernameChars: number;
         maxNftDescChars: number;

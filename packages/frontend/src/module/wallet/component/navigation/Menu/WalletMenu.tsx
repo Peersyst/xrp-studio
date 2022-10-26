@@ -5,12 +5,16 @@ import { walletState } from "module/wallet/state/WalletState";
 import { useSetRecoilState } from "recoil";
 import WalletCard from "../../display/WalletCard/WalletCard";
 import { CardRoot, BaseLink } from "./Menu.styles";
+import useWallet from "module/wallet/component/hooks/useWallet";
+import { AuthTokenStorage } from "module/auth/AuthTokenStorage";
 
-const Menu = (): JSX.Element => {
-    const t = useTranslate();
+const WalletMenu = (): JSX.Element => {
+    const translate = useTranslate();
+    const { address } = useWallet();
     const setWalletState = useSetRecoilState(walletState);
 
     const logout = () => {
+        AuthTokenStorage.clear();
         setWalletState({
             isLogged: false,
             address: "",
@@ -22,14 +26,18 @@ const Menu = (): JSX.Element => {
         <CardRoot>
             <Col gap="1.25rem">
                 <Col className="Content" gap="1rem">
-                    <BaseLink to="/profile">{t("profile")}</BaseLink>
-                    <BaseLink to="/settings">{t("settings")}</BaseLink>
+                    <BaseLink to={`/user/${address}`} type="router">
+                        {translate("profile")}
+                    </BaseLink>
+                    <BaseLink to="/settings" type="router">
+                        {translate("settings")}
+                    </BaseLink>
                     <WalletCard />
                 </Col>
                 <FiltersDivider />
                 <Col className="Content">
-                    <BaseLink as={"a"} onClick={() => logout()}>
-                        {t("logout")}
+                    <BaseLink to="/" type="router" onClick={() => logout()}>
+                        {translate("logout")}
                     </BaseLink>
                 </Col>
             </Col>
@@ -37,4 +45,4 @@ const Menu = (): JSX.Element => {
     );
 };
 
-export default Menu;
+export default WalletMenu;

@@ -5,31 +5,30 @@ import useWallet from "../useWallet";
 import { useToast } from "@peersyst/react-components";
 import useTranslate from "module/common/hook/useTranslate";
 
-export const useGetXrpBalance = (): UseQueryResult<string> => {
+export const useGetXrpBalance = (): UseQueryResult<number> => {
     const { showToast } = useToast();
-    const t = useTranslate("error");
+    const translate = useTranslate("error");
     const xrplService = new XrplService();
     const { address } = useWallet();
     return useQuery(
         ["xrp-balance", address],
         async () => {
             try {
-                const balance = await xrplService.getAvailableBalance(address ?? "");
-                return balance;
+                return await xrplService.getAvailableBalance(address ?? "");
             } catch (e) {
                 if (e instanceof Error) {
                     if (e.message === XrplServiceErrors.ACCOUNT_NOT_FOUND) {
-                        showToast(t("xrplAccountNotActiveError"), { type: "info" });
+                        showToast(translate("xrplAccountNotActiveError"), { type: "info" });
                     } else {
-                        showToast(t("queryXrpBalance"), { type: "error" });
+                        showToast(translate("queryXrpBalance"), { type: "error" });
                     }
                 }
-                return "0";
+                return 0;
             }
         },
         {
             onError: () => {
-                showToast(t("queryXrpBalance"), { type: "error" });
+                showToast(translate("queryXrpBalance"), { type: "error" });
             },
         },
     );

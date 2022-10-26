@@ -3,26 +3,24 @@ import { useGetXrpBalance } from "../../hooks/useGetXrpBalance/useGetXrpBalance"
 import useWallet from "../../hooks/useWallet";
 import NetworkConnect from "../NetworkConnect/NetworkConnect";
 import { WalletCardRoot } from "./WalletCard.styles";
-import { config } from "config";
 import { useGetXrpTokenPrice } from "../../hooks/useGetXrpTokenPrice/useGetXrpTokenPrice";
-import { FiatCurrencyType } from "module/wallet/types";
-import { useGetTokenPriceBalance } from "../../hooks/useGetTokenPriceBalance/useGetTokenPriceBalance";
+import { formatCurrency, formatNumber } from "module/common/util/format";
+import { useRecoilState } from "recoil";
+import { settingsState } from "module/settings/SettingsState";
 
 const WalletCard = (): JSX.Element => {
     const { address } = useWallet();
     const { data: availableBalance } = useGetXrpBalance();
-    const currency: FiatCurrencyType = config.currencyTokenPrice;
-    const { data: tokenValue } = useGetXrpTokenPrice(currency);
+    const [settings] = useRecoilState(settingsState);
+    const { data: tokenValue } = useGetXrpTokenPrice(settings.currency);
+    const fiatCurrencyBalance = (tokenValue ?? 0) * (availableBalance ?? 0);
     return (
         <WalletCardRoot>
             <Col gap={15}>
-                <BlockchainAddress address={address as string} type="address" length={12} variant="caption" light />
+                <BlockchainAddress address={address!} type="address" length={12} variant="caption" light />
                 <Col gap={10}>
-                    <Typography variant="h5">{availableBalance}</Typography>
-                    <Typography variant="caption">{`( =  ${useGetTokenPriceBalance(
-                        Number(tokenValue),
-                        Number(availableBalance),
-                    )} ${currency} )`}</Typography>
+                    <Typography variant="h5">{formatNumber(availableBalance ?? 0)}</Typography>
+                    <Typography variant="caption">{`( =  ${formatCurrency(fiatCurrencyBalance, settings.currency)} )`}</Typography>
                 </Col>
                 <NetworkConnect />
             </Col>

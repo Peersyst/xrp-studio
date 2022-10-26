@@ -1,13 +1,13 @@
 import { Row, Typography } from "@peersyst/react-components";
-import ConnectedDot from "../ConnectedDot/ConnectedDot";
 import { config } from "config";
 import useTranslate from "module/common/hook/useTranslate";
+import NetworkDot from "module/wallet/component/display/NetworkDot/NetworkDot";
 
 const NetworkConnect = (): JSX.Element => {
     const translate = useTranslate();
     return (
         <Row gap={5} alignItems={"center"}>
-            <ConnectedDot active={true} />
+            <NetworkDot network={config.network} />
             <Typography fontWeight={600} variant="caption">
                 {translate(config.network)}
             </Typography>

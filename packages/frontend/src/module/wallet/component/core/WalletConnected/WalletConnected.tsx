@@ -1,25 +1,29 @@
-import { Col, Hash, Popover, Row } from "@peersyst/react-components";
+import { Col, Hash, Popover, Row, Typography } from "@peersyst/react-components";
 import Avatar from "module/common/component/display/Avatar/Avatar";
 import useWallet from "../../hooks/useWallet";
-import Menu from "../../navigation/Menu/Menu";
+import WalletMenu from "../../navigation/Menu/WalletMenu";
 import NetworkConnect from "../../display/NetworkConnect/NetworkConnect";
 import useGetUser from "module/user/query/useGetUser";
 
 const WalletConnected = (): JSX.Element => {
-    const { address } = useWallet();
+    const { address = "" } = useWallet();
     const { data: user } = useGetUser(address);
     return (
         <Popover showOn="click" position="bottom" arrow>
             <Popover.Popper>
-                <Menu />
+                <WalletMenu />
             </Popover.Popper>
             <Popover.Content>
                 <Row gap={10}>
                     <Row alignItems={"center"}>
-                        <Avatar size={"sm"} img={user?.image ? user?.image : ""} alt="avatar" />
+                        <Avatar size={"sm"} img={user?.image ?? ""} alt="avatar" />
                     </Row>
                     <Col gap={2} css={{ cursor: "pointer" }}>
-                        <Hash hash={address as string} length={6} variant="body2" copy={false} />
+                        {user?.name ? (
+                            <Typography variant={"body2"}>@{user.name}</Typography>
+                        ) : (
+                            <Hash hash={address} length={6} variant="body2" copy={false} />
+                        )}
                         <NetworkConnect />
                     </Col>
                 </Row>
