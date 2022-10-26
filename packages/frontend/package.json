@@ -20,7 +20,7 @@
     },
     "dependencies": {
         "@craco/craco": "^6.4.4",
-        "@peersyst/react-components": "^2.23.26",
+        "@peersyst/react-components": "^2.23.29",
         "@peersyst/react-hooks": "^1.5.1",
         "@peersyst/react-types": "^1.5.0",
         "@peersyst/react-utils": "^1.7.3",
@@ -40,7 +40,8 @@
         "styled-components": "^5.3.5",
         "typescript": "^4.7.4",
         "web-vitals": "^1.0.1",
-        "xumm-react": "^1.0.3"
+        "xumm-react": "^1.0.3",
+        "xrpl": "^2.3.1"
     },
     "devDependencies": {
         "@babel/plugin-proposal-class-properties": "^7.18.6",

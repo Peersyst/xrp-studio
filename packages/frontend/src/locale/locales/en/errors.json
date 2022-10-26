@@ -22,6 +22,8 @@
     "invalid_start": "The field must start with {{start}}",
     "invalid_end": "The field must end with {{end}}",
     "nothingToShow": "Nothing to show",
+    "xrplAccountNotActiveError": "Your xrpl account is not active yet",
+    "queryXrpBalance": "Error loading Xrp balance",
     "userAlreadyExists": "User already exists",
     "nameCanNotBeEmpty": "Name can't be empty"
 }

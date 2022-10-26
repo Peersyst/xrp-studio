@@ -31,6 +31,9 @@
     "traitType": "Atributo",
     "value": "Valor",
     "addProperty": "Añadir propiedad",
+    "profile": "Perfil",
+    "settings": "Configuraciones",
+    "logout": "Cerrar Sessión",
     "change": "Cambiar",
     "cancel": "Cancelar",
     "writeYour": "Escribe tu {{name}}",
@@ -55,5 +58,8 @@
     "hideCollection": "Esconder colección",
     "none": "Ninguno",
     "none_male": "Ninguno",
-    "none_female": "Ninguna"
+    "none_female": "Ninguna",
+    "devnet": "DEVNET",
+    "testnet": "TESTNET",
+    "mainnet": "MAINNET"
 }
