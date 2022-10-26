@@ -14,7 +14,7 @@ export default function useGetNftActiveTags(collections: CollectionDto[]): NftCo
             const collection = collections.find((collection) => collection.id === filterCollectionId);
             if (collection) newTags.push(getCollectionTag(collection));
         });
-        return [];
+        return newTags;
     }, [collections, filters[NftFilterNames.COLLECTIONS]]);
 
     return tags;
