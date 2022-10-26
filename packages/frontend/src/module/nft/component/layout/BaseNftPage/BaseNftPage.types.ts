@@ -1,22 +1,20 @@
-import { ReactElement } from "react";
-import { CollectionDto } from "module/api/service";
+import { ReactElement, ReactNode } from "react";
 import { NftPreviewCarouselProps } from "module/nft/component/display/NftPreviewCarousel/NftPreviewCarousel.types";
 import { Nft } from "module/nft/types";
 
-export interface BaseNftPageProps {
+export interface BaseNftPageChildren {
     header: ReactElement;
-    nft?: Nft | undefined;
-    collectionNfts?: Nft[];
-    collectionNftLink?: NftPreviewCarouselProps["to"];
-    collections?: CollectionDto[];
-    loadingNft?: boolean;
-    loadingCollectionNfts?: boolean;
-    readonly?: boolean;
-    fixedCollection?: boolean;
+    content: ReactNode;
 }
 
-export type BaseNftPageContentProps = Omit<BaseNftPageProps, "header">;
+export interface BaseNftPageProps {
+    collectionNfts?: Nft[];
+    collectionNftLink?: NftPreviewCarouselProps["to"];
+    loadingCollectionNfts?: boolean;
+    activeCarouselNftId?: number;
+    children: BaseNftPageChildren;
+}
 
-export type BaseNftPageFormProps = Pick<BaseNftPageProps, "nft" | "collections" | "readonly" | "fixedCollection"> & {
+export type BaseNftPageFormProps = {
     loading?: boolean;
 };

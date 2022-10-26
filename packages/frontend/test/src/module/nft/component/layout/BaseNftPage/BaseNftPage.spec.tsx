@@ -8,7 +8,7 @@ describe("BaseNftPage", () => {
     test("Renders correctly", () => {
         const nftMock = new NftDtoMock();
 
-        render(<BaseNftPage header={<>header</>} nft={nftMock} />);
+        render(<BaseNftPage>{{ header: <>header</>, content: <></> }}</BaseNftPage>);
 
         // header
         expect(screen.getByText("header")).toBeInTheDocument();
