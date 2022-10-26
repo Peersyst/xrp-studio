@@ -5,6 +5,10 @@ import { UseInfiniteQueryOptions, UseInfiniteQueryResult } from "react-query/typ
 
 export type NftControllerGetNftsParams = Parameters<typeof NftService.nftControllerGetNfts>;
 
+export enum NftFilterNames {
+    COLLECTIONS = "collections",
+}
+
 export type UseGetNftsOptions = {
     query?: string;
     collections?: Array<number>;

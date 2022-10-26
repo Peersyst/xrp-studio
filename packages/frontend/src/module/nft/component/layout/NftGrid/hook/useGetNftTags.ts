@@ -1,6 +1,6 @@
 import { CollectionDto } from "module/api/service";
 import useFilters from "module/common/component/input/Filters/hooks/useFilters";
-import { UseGetNftsOptions } from "module/nft/query/useGetNfts";
+import { NftFilterNames, UseGetNftsOptions } from "module/nft/query/useGetNfts";
 import { useMemo } from "react";
 import { NftCollectionTag } from "../NftGrid.types";
 
@@ -8,7 +8,7 @@ export default function useGetNftTags(collections: CollectionDto[]): NftCollecti
     const { filters } = useFilters<UseGetNftsOptions>();
     const tags: NftCollectionTag[] = useMemo(() => {
         const newTags: NftCollectionTag[] = [];
-        const filteredCollections = filters["collections"] || [];
+        const filteredCollections = filters[NftFilterNames.COLLECTIONS] || [];
         filteredCollections.forEach((filterCollectionId) => {
             const collection = collections.find((collection) => collection.id === filterCollectionId);
             if (collection) {
@@ -16,7 +16,7 @@ export default function useGetNftTags(collections: CollectionDto[]): NftCollecti
             }
         });
         return newTags;
-    }, [collections, filters["collections"]]);
+    }, [collections, filters[NftFilterNames.COLLECTIONS]]);
 
     return tags;
 }

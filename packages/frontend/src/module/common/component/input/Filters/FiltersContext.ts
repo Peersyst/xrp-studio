@@ -7,6 +7,11 @@ export interface FiltersContext<T extends FiltersBaseContextValue> {
     setFilters: (newFilters: Partial<FiltersBaseContextValue>) => void;
 }
 
+export enum BaseFiltersNames {
+    QUERY = "query",
+    ORDER = "order",
+}
+
 export const FiltersContext = createContext<any>({
     filters: undefined,
     setFilters: () => undefined,

@@ -1,7 +1,7 @@
 import { Dispatch, useReducer } from "react";
 import { UseGetNftsOptions } from "../query/useGetNfts";
 
-export default function useNftsFilters(
+export default function useNftsFiltersReducer(
     initialState: Partial<UseGetNftsOptions> = {},
 ): [UseGetNftsOptions, Dispatch<Partial<UseGetNftsOptions>>] {
     return useReducer(

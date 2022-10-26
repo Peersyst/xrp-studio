@@ -8,7 +8,9 @@ export type NftCollectionTag = SelectorOption<CollectionId>;
 
 export type NftGridProps = Omit<
     GridProps<PaginatedNftDto, CollectionId>,
-    "children" | "Skeletons" | "breakpoints" | "filterBreakpoints" | "filters" | "tags" | "filtersContext"
+    "children" | "Skeletons" | "breakpoints" | "filterBreakpoints" | "filters" | "tags" | "filtersContext" | "loading"
 > & {
     collections?: CollectionDto[];
+    loadingNfts: boolean;
+    loadingCollections?: boolean;
 };
