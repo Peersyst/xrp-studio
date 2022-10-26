@@ -23,5 +23,6 @@
     "invalid_end": "The field must end with {{end}}",
     "nothingToShow": "Nothing to show",
     "userAlreadyExists": "User already exists",
-    "nameCanNotBeEmpty": "Name can't be empty"
+    "nameCanNotBeEmpty": "Name can't be empty",
+    "withoutCollections": "Without collections"
 }

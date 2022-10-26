@@ -46,13 +46,13 @@ function BaseGrid<T extends PaginatedData>({
 
     return (
         <InfiniteScroll end={!hasItems || end} {...infiniteScrollProps}>
-            <Row flex={1} css={{ minHeight: "40vh" }}>
+            <Row flex={1}>
                 {hasItems ? (
                     <BaseGridRoot {...gridProps}>
                         {data?.pages.map((page, i) => (
                             <Fragment key={i}>{renderItems(page.items)}</Fragment>
                         ))}
-                        {loading && <Skeletons count={9} />}
+                        {loading && <Skeletons count={6} />}
                     </BaseGridRoot>
                 ) : typeof finalNothingToShow === "string" ? (
                     <NothingToShow label={finalNothingToShow} css={{ width: "100%", paddingTop: "4rem" }}>

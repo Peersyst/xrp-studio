@@ -37,7 +37,7 @@ const ProfileNftsGrid = (): JSX.Element => {
                 loadingCollections={isLoadingCollections}
                 collections={collections}
                 nothingToShow={
-                    <NothingToShow css={{ height: "12rem" }} label={translate("youHaveNoNfts")}>
+                    <NothingToShow css={{ height: "20rem" }} label={translate("youHaveNoNfts")}>
                         <Button onClick={() => navigate(NftRoutes.CREATE_NFT)}>{translate("createNft")}</Button>
                     </NothingToShow>
                 }

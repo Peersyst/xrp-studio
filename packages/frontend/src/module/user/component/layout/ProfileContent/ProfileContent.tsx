@@ -8,7 +8,9 @@ const ProfileContent = (): JSX.Element => {
         <PageContent>
             <Col flex={1} gap="2.25rem">
                 <ProfileCollections />
-                <ProfileNftsGrid />
+                <div style={{ minHeight: "78vh" }}>
+                    <ProfileNftsGrid />
+                </div>
             </Col>
         </PageContent>
     );
