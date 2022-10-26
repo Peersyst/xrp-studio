@@ -679,7 +679,7 @@ describe("NftService", () => {
             expect(nftRepositoryMock.skip).toHaveBeenCalledWith(10);
             expect(nftRepositoryMock.andWhere).toHaveBeenCalledWith(
                 "LOWER(collection.name) like :query OR LOWER(metadata.name) like :query",
-                { query: "asd" },
+                { query: "%asd%" },
             );
             expect(nftRepositoryMock.andWhere).toHaveBeenCalledWith("collection.id IN (:...collections)", { collections: [1] });
             expect(nftRepositoryMock.andWhere).toHaveBeenCalledWith("nft.status = :confirmed", { confirmed: NftStatus.CONFIRMED });
@@ -721,7 +721,7 @@ describe("NftService", () => {
             expect(nftRepositoryMock.skip).toHaveBeenCalledWith(10);
             expect(nftRepositoryMock.andWhere).toHaveBeenCalledWith(
                 "LOWER(collection.name) like :query OR LOWER(metadata.name) like :query",
-                { query: "asd" },
+                { query: "%asd%" },
             );
             expect(nftRepositoryMock.andWhere).toHaveBeenCalledWith("collection.id IN (:...collections)", { collections: [1] });
             expect(nftRepositoryMock.andWhere).toHaveBeenCalledWith("user.address = :address", { address: ADDRESS });
