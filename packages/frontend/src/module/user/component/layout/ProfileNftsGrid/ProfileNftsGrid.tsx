@@ -30,7 +30,7 @@ const ProfileNftsGrid = (): JSX.Element => {
     const handleFilterChange = (newFilters: Partial<UseGetNftsOptions>) => setFilters(newFilters);
 
     return (
-        <FiltersProvider value={{ filters, setValue: handleFilterChange }}>
+        <FiltersProvider value={{ filters, setFilters: handleFilterChange }}>
             <NftGrid
                 data={data}
                 callback={() => fetchNextPage({ cancelRefetch: false })}
