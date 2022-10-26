@@ -5,7 +5,7 @@ export type ExpandableSelectorGroupFiltersProps<T, Name extends string, Multiple
     ExpandableFiltersProps,
     "title"
 > &
-    Omit<SelectorGroupFilterProps<T, Multiple>, "children" | "options" | "name" | "onChange"> &
+    Omit<SelectorGroupFilterProps<T, Multiple>, "children" | "options" | "name"> &
     Required<Pick<SelectorGroupFilterProps<T, Multiple>, "options">> & {
         name: Name;
     };

@@ -5,9 +5,8 @@ import useTranslate from "module/common/hook/useTranslate";
 import FilterLinesIcon from "module/common/icons/FilterLinesIcon";
 import MinusCircleIcon from "module/common/icons/MinusCircleIcon";
 import { useRecoilState } from "recoil";
-import { BaseGridTagsRoot, Tag } from "./BaseGridTags.styles";
+import { BaseGridTagsRoot, Tag, TagCarousel } from "./BaseGridTags.styles";
 import { BaseGridTagsProps } from "./BaseGridTags.types";
-import Carousel from "module/common/component/display/Carousel/Carousel";
 
 function BaseGridTags<T>({ tags, onClear, onTagClicked }: BaseGridTagsProps<T>): JSX.Element {
     const [showFilters, setShowFilters] = useRecoilState(filtersVisibilityState);
@@ -26,11 +25,11 @@ function BaseGridTags<T>({ tags, onClear, onTagClicked }: BaseGridTagsProps<T>):
                 </Button>
             )}
             {tags && (
-                <Carousel css={{ maxWidth: "100%" }} arrowSize="sm">
+                <TagCarousel arrowSize="sm">
                     {tags.map(({ label, value }, index) => (
                         <Tag suffix={<MinusCircleIcon />} key={index} onClick={() => onTagClicked?.(value)} label={label} size="lg" />
                     ))}
-                </Carousel>
+                </TagCarousel>
             )}
             {tags && tags.length > 0 ? (
                 <Button variant="outlined" onClick={handleClear} size="md">

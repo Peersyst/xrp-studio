@@ -21,7 +21,6 @@ function Filters({ children }: FiltersProps): JSX.Element {
                         name={BaseFiltersNames.ORDER}
                         options={orderOptions}
                         title={translate("OrderBy")}
-                        defaultValue={orderOptions[0].value}
                     />
                     {children?.header}
                 </Col>

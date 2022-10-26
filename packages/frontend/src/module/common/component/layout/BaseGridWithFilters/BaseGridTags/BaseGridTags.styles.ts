@@ -2,6 +2,7 @@ import { Chip, Row } from "@peersyst/react-components";
 import styled, { css } from "styled-components";
 import { STICKY_HEADER_HEIGHT } from "module/common/component/layout/PageHeader/PageHeader.styles";
 import { GRID_FILTERS_GAP } from "module/common/component/layout/BaseGridWithFilters/BaseGridWithFilters.styles";
+import Carousel from "module/common/component/display/Carousel/Carousel";
 
 export const BaseGridTagsRoot = styled(Row).attrs({
     gap: "1rem",
@@ -26,6 +27,24 @@ export const Tag = styled(Chip)(
         }
         .Icon {
             font-size: 1.5rem;
+        }
+    `,
+);
+
+export const TagCarousel = styled(Carousel)(
+    ({ theme }) => css`
+        max-width: 100%;
+        width: unset;
+        ${theme.breakpoints.up("mini")} {
+            .CarouselLeftArrow {
+                left: 2.3rem;
+                transform: translate(-100%, -50%);
+            }
+
+            .CarouselRightArrow {
+                right: 2.3rem;
+                transform: translate(100%, -50%);
+            }
         }
     `,
 );

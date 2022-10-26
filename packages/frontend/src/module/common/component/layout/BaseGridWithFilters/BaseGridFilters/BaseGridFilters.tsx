@@ -6,9 +6,8 @@ import { filtersVisibilityState } from "module/common/component/state/FiltersVis
 import { useMediaQuery } from "@peersyst/react-hooks";
 import FiltersContainer from "../FiltersContainer/FiltersContainer";
 import Filters from "module/common/component/input/Filters/Filters";
-import { FiltersBaseContextValue, FiltersProvider } from "module/common/component/input/Filters/FiltersContext";
 
-function BaseGridFilters<F extends FiltersBaseContextValue>({ filtersContext, children }: BaseGridFiltersProps<F>): JSX.Element {
+function BaseGridFilters({ children }: BaseGridFiltersProps): JSX.Element {
     const {
         breakpoints: {
             values: { nftsGrid },
@@ -22,7 +21,7 @@ function BaseGridFilters<F extends FiltersBaseContextValue>({ filtersContext, ch
     };
 
     return (
-        <FiltersProvider value={filtersContext}>
+        <>
             <FiltersModal animation="from-bottom" open={isTablet && showFilters} onClose={handleHide}>
                 <FiltersContainer>
                     <Filters>{children}</Filters>
@@ -35,7 +34,7 @@ function BaseGridFilters<F extends FiltersBaseContextValue>({ filtersContext, ch
                     </FiltersContainer>
                 </BaseGridFiltersRoot>
             </Animated.Slide>
-        </FiltersProvider>
+        </>
     );
 }
 

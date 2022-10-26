@@ -1,21 +1,18 @@
 import { PaginatedData } from "query-utils";
-import { FiltersBaseContextValue } from "../../input/Filters/FiltersContext";
 import BaseGrid from "../BaseGrid/BaseGrid";
 import BaseGridWithFilters from "../BaseGridWithFilters/BaseGridWithFilters";
 import { GridProps } from "./Grid.types";
 
-function Grid<T extends PaginatedData, TagT, F extends FiltersBaseContextValue>({
+function Grid<T extends PaginatedData, TagT>({
     filterBreakpoints,
     filters,
-    filtersContext,
     tags,
     onClearTags,
     onTagClicked,
     ...baseGridProps
-}: GridProps<T, TagT, F>): JSX.Element {
-    return filtersContext ? (
-        <BaseGridWithFilters<T, TagT, F>
-            filtersContext={filtersContext}
+}: GridProps<T, TagT>): JSX.Element {
+    return filters ? (
+        <BaseGridWithFilters<T, TagT>
             filterBreakpoints={filterBreakpoints}
             filters={filters}
             tags={tags}
