@@ -5,20 +5,27 @@ import useFilters from "../hooks/useFilters";
 import SelectorGroupFilter from "../SelectorGroupFilter/SelectorGroupFilter";
 import { ExpandableSelectorGroupFiltersProps } from "./ExpandableSelectorGroupFilters.types";
 
-function ExpandableSelectorGroupFilters<T, Name extends string>({
+function ExpandableSelectorGroupFilters<T, Name extends string, Multiple extends boolean>({
     options,
     title,
     name,
     className,
     ...rest
-}: ExpandableSelectorGroupFiltersProps<T, Name>): JSX.Element {
-    const { filters } = useFilters<Record<Name, T>>();
+}: ExpandableSelectorGroupFiltersProps<T, Name, Multiple>): JSX.Element {
+    const { filters } = useFilters<Record<Name, Multiple extends true ? T[] : T>>();
     const value = filters[name];
-    const currentLabel = useMemo(() => options.find((option) => option.value === value)?.label, [value, options]);
+    const currentLabel = useMemo(() => {
+        if (Array.isArray(value)) {
+            const currentValues = options.filter((item) => value.includes(item)).map((val) => val.label);
+            return currentValues.join(", ");
+        } else {
+            return options.find((option) => option.value === value)?.label;
+        }
+    }, [value, options]);
 
     return (
         <ExpandableFilters className={cx("ExpandableSelectorGroupFilters", className)} title={title} currentValue={currentLabel ?? ""}>
-            <SelectorGroupFilter<T> name={name} options={options} {...rest} />
+            <SelectorGroupFilter<T, Multiple> name={name} options={options} {...rest} />
         </ExpandableFilters>
     );
 }
