@@ -2025,7 +2025,7 @@
     webpack "5.28.0"
     webpack-node-externals "2.5.2"
 
-"@nestjs/common@7.6.15", "@nestjs/common@^6.0.0 || ^7.0.0 || ^8.0.0", "@nestjs/common@~7.6.15":
+"@nestjs/common@7.6.15", "@nestjs/common@^6.0.0 || ^7.0.0 || ^8.0.0":
   version "7.6.15"
   resolved "https://registry.npmjs.org/@nestjs/common/-/common-7.6.15.tgz"
   integrity sha512-H/3Nk7M02Fc4YN9St05i34gZKVuzE54gd5eXAX6WwisqU5fQ00kss1pYGbltjb2QGu3A/fpO1MdYEwOA18Z/VQ==
@@ -2198,19 +2198,16 @@
     rxjs "^6.0.0"
     stream "0.0.2"
 
-"@peersyst/storage-module@^0.12.40":
-  version "0.12.40"
-  resolved "https://registry.yarnpkg.com/@peersyst/storage-module/-/storage-module-0.12.40.tgz#a616d2704afc11d8690c1c38671197160cc9a48b"
-  integrity sha512-sBUtrt8nGuJAib2n7pR68GNQHY4Ulq3JsmTTEgS0J8N91hIdbPXeb6b3nDCffl56XI2rytosJxmT0fENv+kkiQ==
+"@peersyst/storage-module@^0.12.69":
+  version "0.12.69"
+  resolved "https://registry.yarnpkg.com/@peersyst/storage-module/-/storage-module-0.12.69.tgz#59f81bfae117d7978af3b047110fc34fa246df66"
+  integrity sha512-JpLKjK1KLZApdA5QHzIq46GiXgPWeph3YBtb9tSTFv8p2/dreVJ47UfsinmdMIzmI5EhpEEAUrPum0tFKXgjVA==
   dependencies:
-    "@nestjs/common" "~7.6.15"
-    "@nestjs/config" "~0.6.3"
-    "@nestjs/core" "~7.6.15"
     aws-sdk "^2.1046.0"
     class-transformer "~0.4.0"
     class-validator "~0.13.2"
     reflect-metadata "0.1.13"
-    rxjs "^6.0.0"
+    rxjs "^7.2.0"
 
 "@peersyst/xumm-module@^0.12.56":
   version "0.12.56"
@@ -11178,6 +11175,13 @@ rxjs@^6.0.0, rxjs@^6.6.0:
   version "7.5.6"
   resolved "https://registry.yarnpkg.com/rxjs/-/rxjs-7.5.6.tgz#0446577557862afd6903517ce7cae79ecb9662bc"
   integrity sha512-dnyv2/YsXhnm461G+R/Pe5bWP41Nm6LBXEYWI6eiFP4fiwx6WRI/CD0zbdVAudd9xwLEF2IDcKXLHit0FYjUzw==
+  dependencies:
+    tslib "^2.1.0"
+
+rxjs@^7.2.0:
+  version "7.5.7"
+  resolved "https://registry.yarnpkg.com/rxjs/-/rxjs-7.5.7.tgz#2ec0d57fdc89ece220d2e702730ae8f1e49def39"
+  integrity sha512-z9MzKh/UcOqB3i20H6rtrlaE/CgjLOvheWK/9ILrbhROGTweAi1BaFsTT9FbwZi5Trr1qNRs+MXkhmR06awzQA==
   dependencies:
     tslib "^2.1.0"
 

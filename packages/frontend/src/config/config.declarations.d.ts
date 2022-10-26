@@ -3,6 +3,8 @@ import { TFunction } from "react-i18next";
 import { BlockchainLinks } from "@peersyst/react-components";
 import { Validator } from "react";
 
+export type NetworkType = "mainnet" | "testnet" | "devnet";
+
 declare module "@peersyst/react-components" {
     export interface ConfigTypes {
         TranslateFn: TFunction<"error">;
@@ -19,6 +21,8 @@ declare module "@peersyst/react-components" {
         };
         blockchainLinks: BlockchainLinks;
         nftDefaultCoverUrl: string;
+        network: NetworkType;
+        xrpNodeUrl: string;
         maxBioChars: number;
         maxUsernameChars: number;
         maxNftDescChars: number;
