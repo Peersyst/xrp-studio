@@ -19,8 +19,8 @@ export const CollectionsSelectorSkeletons = ({ count }: CollectionsSelectorSkele
     return (
         <>
             {[...Array(count)].map((_, key) => (
-                <Skeleton loading={true} width="100%">
-                    <Selector key={key} label="Loading collection" value={0} type="switch" />
+                <Skeleton loading={true} width="100%" key={key}>
+                    <Selector label="Loading collection" value={0} type="switch" />
                 </Skeleton>
             ))}
         </>
