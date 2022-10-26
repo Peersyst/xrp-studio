@@ -10,7 +10,7 @@ export function handleErrorMessage(error: ApiError | any, translate: (text: stri
     const message: string = error.body?.message || error.statusText;
 
     return {
-        message: translate([message, "somethingWentWrong"]),
+        message: translate(message || "somethingWentWrong"),
         type: code >= 400 && code < 500 ? "warning" : "error",
     };
 }
