@@ -17,7 +17,7 @@ const ExpandableFilters = ({
     return (
         <ExpandableFiltersRoot {...rest} className={cx("expandable-filters", className)}>
             <Expandable.Display>
-                <Row flex={1} justifyContent="space-between" css={{ maxWidth: "90%" }}>
+                <Row flex={1} justifyContent="space-between" css={{ maxWidth: "100%" }}>
                     <Typography variant="body1" singleLine css={{ maxWidth: "60%" }} light>
                         {title}
                     </Typography>

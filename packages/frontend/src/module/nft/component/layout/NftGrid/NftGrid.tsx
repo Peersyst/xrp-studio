@@ -4,7 +4,7 @@ import { PaginatedNftDto } from "module/api/service";
 import { CollectionId, NftGridProps } from "./NftGrid.types";
 import Grid from "module/common/component/layout/Grid/Grid";
 import { useGetNftGridBreakpoints } from "./hook/useGetNftGridBreakpoints";
-import useGetNftTags from "./hook/useGetNftTags";
+import useGetNftActiveTags from "./hook/useGetNftActiveTags";
 import useGetCollectionOptions from "./hook/useGetCollectionOptions";
 import useCleanCollections from "./hook/useCleanCollections";
 import NftCollectionsSelectorGroup from "../../input/NftColletionsSelectorGroup/NftCollectionsSelectorGroup";
@@ -12,7 +12,7 @@ import { FiltersProvider } from "module/common/component/input/Filters/FiltersCo
 
 function InnerNftGrid({ loadingNfts, loadingCollections, collections, ...rest }: Omit<NftGridProps, "filters">): JSX.Element {
     const breakpoints = useGetNftGridBreakpoints();
-    const tags = useGetNftTags(collections || []);
+    const tags = useGetNftActiveTags(collections || []);
     const collectionsOptions = useGetCollectionOptions(collections || []);
     const { cleanAllCollections, cleanCollection } = useCleanCollections();
 
@@ -36,7 +36,7 @@ function InnerNftGrid({ loadingNfts, loadingCollections, collections, ...rest }:
     );
 }
 
-function NftGrid({ filtersContext, ...rest }: NftGridProps) {
+function NftGrid({ filtersContext, ...rest }: NftGridProps): JSX.Element {
     return filtersContext ? (
         <FiltersProvider value={filtersContext}>
             <InnerNftGrid {...rest} />

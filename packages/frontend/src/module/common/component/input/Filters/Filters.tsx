@@ -18,11 +18,7 @@ function Filters({ children }: FiltersProps): JSX.Element {
             <Col gap="1rem">
                 <SearchFilter name={BaseFiltersNames.QUERY} />
                 <Col gap="1rem" css={{ padding: "0 0.5rem" }}>
-                    <ExpandableSelectorGroupFilters<Order, BaseFiltersNames.ORDER>
-                        name={BaseFiltersNames.ORDER}
-                        options={orderOptions}
-                        title={translate("OrderBy")}
-                    />
+                    <ExpandableSelectorGroupFilters name={BaseFiltersNames.ORDER} options={orderOptions} title={translate("OrderBy")} />
                     {children?.header}
                 </Col>
             </Col>
