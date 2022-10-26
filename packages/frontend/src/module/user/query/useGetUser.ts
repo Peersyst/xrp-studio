@@ -6,7 +6,7 @@ import { useGetUserAddress } from "../hook/useGetUserAddress";
 const useGetUser = (address?: string): UseQueryResult<UserDto> => {
     const paramsAddress = useGetUserAddress();
     const usedAddress = address || paramsAddress;
-    return useQuery([Queries.GET_USER, usedAddress], () => UserService.userControllerGetUser(usedAddress!), { enabled: !!usedAddress });
+    return useQuery([Queries.USER, usedAddress], () => UserService.userControllerGetUser(usedAddress!), { enabled: !!usedAddress });
 };
 
 export default useGetUser;

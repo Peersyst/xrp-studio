@@ -1,9 +1,9 @@
 import { NftPreviewCarouselProps } from "module/nft/component/display/NftPreviewCarousel/NftPreviewCarousel.types";
 import Carousel from "module/common/component/display/Carousel/Carousel";
-import NftPreview from "module/nft/component/display/NftPreview/NftPreview";
 import NftPreviewSkeleton from "../../feedback/NftPreviewSkeleton";
+import { NftPreviewCarouselItem } from "module/nft/component/display/NftPreviewCarousel/NftPreviewCarousel.styles";
 
-const NftPreviewCarousel = ({ nfts, loading, to, ...rest }: NftPreviewCarouselProps): JSX.Element => {
+const NftPreviewCarousel = ({ nfts, loading, to, activeId, ...rest }: NftPreviewCarouselProps): JSX.Element => {
     // Prevents to?.(nft) to be evaluated for each NftPreview rendered
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
     const normalizedToCb = to || ((_) => undefined);
@@ -11,7 +11,13 @@ const NftPreviewCarousel = ({ nfts, loading, to, ...rest }: NftPreviewCarouselPr
     return (
         <Carousel loading={loading} Skeleton={NftPreviewSkeleton} skeletonCount={7} arrowSize="md" {...rest}>
             {nfts.map((nft, index) => (
-                <NftPreview key={index} nft={nft} to={normalizedToCb(nft)} />
+                <NftPreviewCarouselItem
+                    active={activeId === undefined || activeId === nft.id}
+                    isLink={!!to}
+                    key={index}
+                    nft={nft}
+                    to={normalizedToCb(nft)}
+                />
             ))}
         </Carousel>
     );

@@ -14,7 +14,7 @@ export default function (
     options?: Omit<UseInfiniteQueryOptions<PaginatedCollectionDto, unknown, PaginatedCollectionDto>, "queryKey" | "queryFn">,
 ): UseInfiniteQueryResult<PaginatedCollectionDto> {
     return useInfiniteQuery(
-        [Queries.GET_USER_COLLECTIONS, query, order, account],
+        [Queries.COLLECTIONS, query, order, account],
         ({ pageParam = 1 }) => CollectionService.collectionControllerGetCollections(pageParam, 30, query, account, order),
         options,
     );

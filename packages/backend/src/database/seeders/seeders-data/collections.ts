@@ -40,7 +40,7 @@ export const devCollections = [
 ];
 
 export default function getByEnv(env: string) {
-    if (env === "development") {
+    if (env === "development" || env === "preview") {
         return devCollections;
     }
     if (env === "test") {

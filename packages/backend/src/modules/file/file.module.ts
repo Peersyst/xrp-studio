@@ -1,14 +1,9 @@
 import { Module } from "@nestjs/common";
 import { FileController } from "./file.controller";
-import { StorageModule, StorageType } from "@peersyst/storage-module/src/storage.module";
-import { ConfigModule } from "@nestjs/config";
+import { StorageModule } from "@peersyst/storage-module/src/storage.module";
 
 @Module({
-    imports: [
-        StorageModule.register(ConfigModule, {
-            storageType: StorageType.S3,
-        }),
-    ],
+    imports: [StorageModule],
     controllers: [FileController],
     providers: [],
     exports: [],

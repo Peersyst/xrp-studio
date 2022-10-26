@@ -45,4 +45,10 @@ describe("PropertiesInput", () => {
             }
         }
     });
+
+    test("Renders readonly correctly", () => {
+        render(<PropertiesInput readonly />);
+
+        expect(screen.queryByText(translate("addProperty"))).toBeNull();
+    });
 });

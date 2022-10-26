@@ -2,7 +2,7 @@ import { MiddlewareConsumer, Module } from "@nestjs/common";
 import { TypeOrmModule } from "@nestjs/typeorm";
 import { UserModule } from "./modules/user/user.module";
 import { ConfigModule, ConfigService } from "@nestjs/config";
-import configuration from "./config/configuration";
+import configuration from "./config";
 import { join } from "path";
 import * as OpenApiValidator from "express-openapi-validator";
 import { APP_FILTER } from "@nestjs/core";
@@ -18,19 +18,21 @@ import { CollectionModule } from "./modules/collection/collection.module";
 import { IpfsModule } from "@peersyst/ipfs-module/src/ipfs.module";
 import { FileModule } from "./modules/file/file.module";
 import { StorageModule, StorageType } from "@peersyst/storage-module/src/storage.module";
+import { waitForAwsSecrets } from "./config/util/loadAwsSecrets";
 
 @Module({
     imports: [
         ConfigModule.forRoot({
-            load: [configuration],
+            load: [async () => configuration()],
             expandVariables: true,
             isGlobal: true,
         }),
         TypeOrmModule.forRootAsync({
             inject: [ConfigService],
             imports: [ConfigModule],
-            useFactory: (config: ConfigService) =>
-                ({
+            useFactory: async (config: ConfigService) => {
+                await waitForAwsSecrets();
+                return {
                     type: config.get("database.type"),
                     host: config.get("database.host"),
                     port: config.get("database.port"),
@@ -43,7 +45,8 @@ import { StorageModule, StorageType } from "@peersyst/storage-module/src/storage
                     migrations: config.get("database.migrations"),
                     cli: config.get("database.cli"),
                     migrationsRun: config.get("database.migrationsRun"),
-                } as any),
+                } as any;
+            },
         }),
         CommandModule,
         UserModule,
@@ -85,8 +88,19 @@ import { StorageModule, StorageType } from "@peersyst/storage-module/src/storage
             inject: [ConfigService],
             imports: [ConfigModule],
         }),
-        StorageModule.register(ConfigModule, {
-            storageType: StorageType.S3,
+        StorageModule.registerAsync({
+            useFactory: async (config: ConfigService) => {
+                await waitForAwsSecrets();
+                return {
+                    storageType: StorageType.S3,
+                    awsRegion: config.get("aws.region"),
+                    awsAccessKeyId: config.get("aws.accessKeyId"),
+                    awsSecretAccessKey: config.get("aws.secretAccessKey"),
+                    awsBucket: config.get("aws.bucketName"),
+                };
+            },
+            inject: [ConfigService],
+            imports: [ConfigModule],
         }),
     ],
     providers: [TypeORMSeederAdapter, { provide: APP_FILTER, useClass: ErrorFilter }],

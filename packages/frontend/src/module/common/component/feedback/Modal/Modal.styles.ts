@@ -1,6 +1,5 @@
 import styled, { css } from "styled-components";
 import { IconButton, Modal } from "@peersyst/react-components";
-import { alpha } from "@peersyst/react-utils";
 
 export const ModalRoot = styled(Modal)(
     ({ theme }) => css`
@@ -9,9 +8,8 @@ export const ModalRoot = styled(Modal)(
         width: 37.5rem;
         max-width: 90vw;
         max-height: 82vh;
-        background: ${theme.palette.black["90"]};
         border-radius: ${theme.borderRadiusLg};
-        border: 1px solid ${alpha(theme.palette.black["0"], 0.2)};
+
         ${theme.breakpoints.down("mobile")} {
             height: auto;
             padding: 2rem;
@@ -31,6 +29,7 @@ export const CloseModalButton = styled(IconButton)(
         top: 1rem;
         right: 1rem;
         font-size: 0.75rem;
+
         svg {
             color: ${theme.palette.text};
         }

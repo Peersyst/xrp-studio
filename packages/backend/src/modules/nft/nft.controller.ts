@@ -68,12 +68,6 @@ export class NftController {
         return this.nftService.findAll(queryParams);
     }
 
-    @Get(":id")
-    @ApiOperation({ description: "Get a single NFT (status = confirmed)" })
-    async getNft(@Param("id", ParseIntPipe) id: number): Promise<NftDto> {
-        return this.nftService.findOne(id);
-    }
-
     @Get("draft")
     @ApiOperation({ description: "Get all user NFT drafts (status != confirmed) paginated" })
     @ApiGetNftDraftsDecorator()
@@ -100,5 +94,11 @@ export class NftController {
     @XummAuthenticated()
     async getNftDraft(@Request() req, @Param("id", ParseIntPipe) id: number): Promise<NftDraftDto> {
         return this.nftService.findOneDraft(id, req.user.address);
+    }
+
+    @Get(":id")
+    @ApiOperation({ description: "Get a single NFT (status = confirmed)" })
+    async getNft(@Param("id", ParseIntPipe) id: number): Promise<NftDto> {
+        return this.nftService.findOne(id);
     }
 }

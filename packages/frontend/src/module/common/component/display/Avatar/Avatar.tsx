@@ -5,11 +5,17 @@ import { useState } from "react";
 import { cx } from "@peersyst/react-utils";
 
 const AVATAR_SIZES: Record<AvatarSize, AvatarSizeParams> = {
-    lg: {
+    xl: {
         width: 216,
         height: 192,
         d: "M209.199 90.001L209.199 90.0009L168.437 15.9916L168.437 15.9914C164.352 8.57561 156.464 4 147.937 4L68.0632 4C59.5361 4 51.648 8.57551 47.5634 15.9916L6.80087 90.0009L10.3023 91.9294L6.80085 90.0009C2.85442 97.1663 3.09336 105.848 7.42292 112.793L7.42293 112.793L47.4966 177.069L47.4967 177.069C51.7451 183.883 59.2886 188 67.3742 188H148.625C156.711 188 164.255 183.883 168.503 177.069C168.503 177.069 168.503 177.069 168.503 177.069L208.577 112.793L205.183 110.677L208.577 112.793C212.907 105.848 213.145 97.1663 209.199 90.001Z",
         strokeWidth: 8,
+    },
+    lg: {
+        width: 192,
+        height: 170,
+        d: "M186.552 79.8968L186.552 79.8967L149.866 13.4566L149.866 13.4564C146.296 6.99118 139.4 3 131.943 3L60.0569 3C52.6 3 45.7042 6.99111 42.1342 13.4566L5.44789 79.8967L5.44788 79.8967C1.99882 86.1432 2.20758 93.7114 5.99158 99.7655L5.9916 99.7656L42.0579 157.468L44.6019 155.878L42.058 157.468C45.7713 163.409 52.3661 167 59.4368 167H132.563C139.634 167 146.229 163.409 149.942 157.468L186.008 99.7656L183.464 98.1755L186.008 99.7656C189.793 93.7113 190.001 86.1432 186.552 79.8968Z",
+        strokeWidth: 6,
     },
     md: {
         width: 108,
@@ -44,7 +50,12 @@ const Avatar = ({ img, alt, size = "lg", loading: loadingProp, className, style 
             </clipPath>
             <foreignObject width="100%" height="100%" clipPath={`url(#${id})`}>
                 <Skeleton width={`${width}px`} height={`${height}px`} loading={loadingProp || loading}>
-                    <img src={img} alt={alt} onLoad={() => setLoading(false)} style={{ width: `${width}px`, height: `${height}px` }} />
+                    <img
+                        src={img}
+                        alt={alt}
+                        onLoad={() => setLoading(false)}
+                        style={{ width: `${width}px`, height: `${height}px`, objectFit: "cover" }}
+                    />
                 </Skeleton>
             </foreignObject>
             <path d={d} {...(strokeWidth ? { stroke: "white", strokeWidth } : {})} />
