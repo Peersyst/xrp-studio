@@ -6,13 +6,12 @@ import { GridProps } from "./Grid.types";
 function Grid<T extends PaginatedData, TagT>({
     filterBreakpoints,
     filters,
-    withFilters = true,
     tags,
     onClearTags,
     onTagClicked,
     ...baseGridProps
 }: GridProps<T, TagT>): JSX.Element {
-    return withFilters ? (
+    return filters ? (
         <BaseGridWithFilters<T, TagT>
             filterBreakpoints={filterBreakpoints}
             filters={filters}

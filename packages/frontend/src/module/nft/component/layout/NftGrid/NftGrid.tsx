@@ -9,15 +9,27 @@ import useGetCollectionOptions from "./hook/useGetCollectionOptions";
 import useCleanCollections from "./hook/useCleanCollections";
 import NftCollectionsSelectorGroup from "../../input/NftColletionsSelectorGroupFilter/NftCollectionsSelectorGroupFilter";
 import { FiltersProvider } from "module/common/component/input/Filters/FiltersContext";
+import { GridProps } from "module/common/component/layout/Grid/Grid.types";
 
-function InnerNftGrid({ loadingNfts, loadingCollections, collections, ...rest }: Omit<NftGridProps, "filters">): JSX.Element {
+function InnerNftGrid({
+    loading,
+    ...rest
+}: Omit<GridProps<PaginatedNftDto, CollectionId>, "Skeletons" | "children" | "breakpoints">): JSX.Element {
     const breakpoints = useGetNftGridBreakpoints();
+    return (
+        <Grid<PaginatedNftDto, CollectionId> breakpoints={breakpoints} loading={loading} Skeletons={BaseCardSkeletons} {...rest}>
+            {(nfts) => nfts.map((nft, key) => <NftCard nft={nft} key={key} loading={loading} />)}
+        </Grid>
+    );
+}
+
+function InnerNftGridWithFilters({ loadingNfts, loadingCollections, collections, ...rest }: Omit<NftGridProps, "filters">): JSX.Element {
     const tags = useGetNftActiveTags(collections || []);
     const collectionsOptions = useGetCollectionOptions(collections || []);
     const { cleanAllCollections, cleanCollection } = useCleanCollections();
 
     return (
-        <Grid<PaginatedNftDto, CollectionId>
+        <InnerNftGrid
             filters={{
                 ...(collections && {
                     content: <NftCollectionsSelectorGroup multiple loading={loadingCollections} options={collectionsOptions} />,
@@ -27,22 +39,18 @@ function InnerNftGrid({ loadingNfts, loadingCollections, collections, ...rest }:
             onTagClicked={cleanCollection}
             loading={loadingNfts}
             tags={tags}
-            breakpoints={breakpoints}
-            Skeletons={BaseCardSkeletons}
             {...rest}
-        >
-            {(nfts) => nfts.map((nft, key) => <NftCard nft={nft} key={key} loading={loadingNfts} />)}
-        </Grid>
+        />
     );
 }
 
-function NftGrid({ filtersContext, ...rest }: NftGridProps): JSX.Element {
+function NftGrid({ filtersContext, loadingNfts, ...rest }: NftGridProps): JSX.Element {
     return filtersContext ? (
         <FiltersProvider value={filtersContext}>
-            <InnerNftGrid {...rest} />
+            <InnerNftGridWithFilters loadingNfts={loadingNfts} {...rest} />
         </FiltersProvider>
     ) : (
-        <InnerNftGrid {...rest} />
+        <InnerNftGrid loading={loadingNfts} {...rest} />
     );
 }
 
