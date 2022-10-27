@@ -3,8 +3,10 @@ import { render, translate } from "test-utils";
 import Skeletons from "module/common/component/feedback/Skeletons/Skeletons";
 import * as Recoil from "recoil";
 import { fireEvent } from "@testing-library/dom";
+import { UseFilterMock } from "test-mocks";
 
 describe("Test for the base grid with filters", () => {
+    new UseFilterMock();
     test("Renders correctly when loaded: children + filters + tags", () => {
         jest.spyOn(Recoil, "useRecoilState").mockReturnValueOnce([true, jest.fn()]);
         const tags = [
@@ -129,7 +131,7 @@ describe("Test for the base grid with filters", () => {
             </BaseGridWithFilters>,
         );
         const grid = screen.getByRole("grid");
-        expect(grid.getElementsByClassName("Skeleton").length).toBe(18);
+        expect(grid.getElementsByClassName("Skeleton").length).toBe(6);
     });
 
     test("Hide/Show filters", async () => {
