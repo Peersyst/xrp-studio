@@ -123,12 +123,11 @@ export default function ({ nft, loading = false }: UserViewNftPageSlots): ReactN
                 <Divider />
                 <Col>
                     <PropertiesInput label={translate("attributes")} value={attributes} readonly variant="filled" />
-                    {!attributes ||
-                        (attributes.length === 0 && (
-                            <Typography variant="body1" fontStyle="italic">
-                                {translate("none", { context: "male" })}
-                            </Typography>
-                        ))}
+                    {(!attributes || attributes.length === 0) && (
+                        <Typography variant="body1" fontStyle="italic">
+                            {translate("none", { context: "male" })}
+                        </Typography>
+                    )}
                 </Col>
             </BaseNftPageContent.Right>
         </>
