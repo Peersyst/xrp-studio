@@ -6,19 +6,19 @@ import { Row } from "@peersyst/react-components";
 import Button from "module/common/component/input/Button/Button";
 
 const MyCollectionsPageHeader = (): JSX.Element => {
-    const t = useTranslate();
+    const translate = useTranslate();
     const navigate = useNavigate();
     return (
         <MainPageHeader
-            title={t("myCollections")}
+            title={translate("myCollections")}
             complement={
                 <Row>
                     <Button onClick={() => navigate(CollectionRoutes.CREATE_COLLECTION)} size="lg" variant="primary">
-                        {t("createCollection")}
+                        {translate("createCollection")}
                     </Button>
                 </Row>
             }
-            stickyTitle={t("myCollections").toUpperCase()}
+            stickyTitle={translate("myCollections").toUpperCase()}
         />
     );
 };

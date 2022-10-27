@@ -8,7 +8,7 @@ import { CollectionRoutes } from "module/collection/CollectionRouter";
 import Button from "module/common/component/input/Button/Button";
 
 const MyCollectionsPageContent = (): JSX.Element => {
-    const t = useTranslate();
+    const translate = useTranslate();
     const navigate = useNavigate();
     const { data, hasNextPage, fetchNextPage, isFetching } = useGetMyCollections();
     return (
@@ -19,8 +19,8 @@ const MyCollectionsPageContent = (): JSX.Element => {
                 end={!hasNextPage}
                 loading={isFetching}
                 nothingToShow={
-                    <NothingToShow label={t("youHaveNoCollections")}>
-                        <Button onClick={() => navigate(CollectionRoutes.CREATE_COLLECTION)}>{t("createCollection")}</Button>
+                    <NothingToShow label={translate("youHaveNoCollections")}>
+                        <Button onClick={() => navigate(CollectionRoutes.CREATE_COLLECTION)}>{translate("createCollection")}</Button>
                     </NothingToShow>
                 }
             />
