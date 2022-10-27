@@ -15,7 +15,7 @@ describe("Test for the base grid with filters", () => {
         const screen = render(
             <BaseGridWithFilters
                 tags={tags}
-                filters={<>filters</>}
+                filters={{ content: <>filters</> }}
                 cols={3}
                 colGap={24}
                 rowGap={24}
@@ -71,7 +71,7 @@ describe("Test for the base grid with filters", () => {
         jest.spyOn(Recoil, "useRecoilState").mockReturnValue([false, jest.fn()]);
         const screen = render(
             <BaseGridWithFilters
-                filters={<>filters</>}
+                filters={{ content: <>filters</> }}
                 cols={3}
                 colGap={24}
                 nothingToShow="Nothing to show"
@@ -123,7 +123,7 @@ describe("Test for the base grid with filters", () => {
                 colGap={24}
                 rowGap={24}
                 breakpoints={[{ maxWidth: 1200, cols: 10 }]}
-                filters={<>filters</>}
+                filters={{ content: <>filters</> }}
             >
                 {(letters) => letters.map((letter, key) => <p key={key}>{letter}</p>)}
             </BaseGridWithFilters>,
@@ -140,7 +140,7 @@ describe("Test for the base grid with filters", () => {
         jest.spyOn(Recoil, "useRecoilState").mockReturnValueOnce([true, mockedSetVisibility]);
         const screen = render(
             <BaseGridWithFilters
-                filters={<>filters</>}
+                filters={{ content: <>filters</> }}
                 cols={3}
                 colGap={24}
                 rowGap={24}
