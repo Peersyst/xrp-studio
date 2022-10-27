@@ -47,7 +47,7 @@ function BaseGridWithFilters<T extends PaginatedData, TagT>({
                 hideOnExit={false}
                 style={{ transformOrigin: "100% 0" }}
             >
-                <GridWrapper flex={1} justifyContent="center" isOpen={showFilters}>
+                <GridWrapper flex={1} justifyContent="center" isOpen={showFilters} gap="1rem">
                     <BaseGridTags tags={tags} onTagClicked={onTagClicked} onClear={onClearTags} />
                     <BaseGrid<T> justifyContent={isTablet ? "center" : "flex-start"} {...rest} breakpoints={finalBreakPoints} />
                 </GridWrapper>
