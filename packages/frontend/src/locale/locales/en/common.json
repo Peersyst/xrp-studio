@@ -69,5 +69,7 @@
     "editNft": "Edit NFT",
     "save": "Save",
     "publish": "Publish",
-    "roundsToNDecimals": "Rounds to {{decimals}} decimals"
+    "roundsToNDecimals": "Rounds to {{decimals}} decimals",
+    "creator": "Creator",
+    "mintTransactionHash": "Mint transaction hash"
 }

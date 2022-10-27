@@ -58,6 +58,11 @@ const darkTheme = createTheme({
         gray,
         blue,
         black,
+        label: {
+            default: black[30],
+            filled: black[50],
+            outlined: black[60],
+        },
     },
 });
 
