@@ -7,7 +7,7 @@ import { useGetNftGridBreakpoints } from "./hook/useGetNftGridBreakpoints";
 import useGetNftActiveTags from "./hook/useGetNftActiveTags";
 import useGetCollectionOptions from "./hook/useGetCollectionOptions";
 import useCleanCollections from "./hook/useCleanCollections";
-import NftCollectionsSelectorGroup from "../../input/NftColletionsSelectorGroup/NftCollectionsSelectorGroup";
+import NftCollectionsSelectorGroup from "../../input/NftColletionsSelectorGroupFilter/NftCollectionsSelectorGroupFilter";
 import { FiltersProvider } from "module/common/component/input/Filters/FiltersContext";
 
 function InnerNftGrid({ loadingNfts, loadingCollections, collections, ...rest }: Omit<NftGridProps, "filters">): JSX.Element {

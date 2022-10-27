@@ -30,4 +30,31 @@ describe("ExpandableSelectorGroupFilters component", () => {
         fireEvent.click(radioBtn);
         expect(mockedSetFilters).toHaveBeenCalledWith({ [name]: 2 });
     });
+    test("With multiple elements selected", () => {
+        const name = "selector";
+        const options: SelectorOption<number>[] = [
+            {
+                label: "Label1",
+                value: 1,
+            },
+            {
+                label: "Label2",
+                value: 2,
+            },
+        ];
+        const queryFilter = { [name]: [1, 2] };
+        const mockedSetFilters = jest.fn();
+        new UseFilterMock({ filters: queryFilter, setFilters: mockedSetFilters });
+        const screen = render(<ExpandableSelectorGroupFilters multiple title="title" name={name} options={options} />);
+        expect(screen.getByText("title")).toBeInTheDocument();
+        expect(screen.getByText("Label1")).toBeInTheDocument();
+        expect(screen.getByText("Label2")).toBeInTheDocument();
+        expect(screen.getByText("Label1, Label2")).toBeInTheDocument(); //default value coma separated
+        const radioBtns = screen.getAllByTestId("RadioCheckedIcon");
+        expect(radioBtns).toHaveLength(2);
+        const radioBtn = radioBtns[0];
+        expect(radioBtn).toBeInTheDocument();
+        fireEvent.click(radioBtn);
+        expect(mockedSetFilters).toHaveBeenCalledWith({ [name]: [2] });
+    });
 });
