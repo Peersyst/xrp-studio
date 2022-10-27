@@ -99,7 +99,6 @@ describe("Test for the Grid component", () => {
                 cols={3}
                 colGap={24}
                 rowGap={24}
-                withFilters
                 breakpoints={[{ maxWidth: 1200, cols: 10 }]}
                 data={{
                     pageParams: [],
@@ -223,7 +222,6 @@ describe("Test for the Grid component", () => {
             <Grid
                 filters={{ content: <>filters</> }}
                 cols={3}
-                withFilters
                 colGap={24}
                 rowGap={24}
                 breakpoints={[{ maxWidth: 1200, cols: 10 }]}
