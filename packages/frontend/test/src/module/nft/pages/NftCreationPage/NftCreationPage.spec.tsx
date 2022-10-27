@@ -1,14 +1,15 @@
 import { screen } from "@testing-library/react";
 import { render, translate } from "test-utils";
-import NftCreationPage from "module/nft/pages/NftCreationPage";
+import NftCreationPage from "module/nft/pages/NftCreationPage/NftCreationPage";
 import userEvent from "@testing-library/user-event";
 import { NftService } from "module/api/service";
 import createNftRequestFromForm from "module/nft/util/createNftRequestFromForm";
-import { NftDtoMock } from "test-mocks";
+import { NftDtoMock, WalletMock } from "test-mocks";
 import { waitFor } from "@testing-library/dom";
 import Color from "color";
 import { UseSearchParamsMock } from "../../../../../__mocks__/router/useSearchParams.mock";
 import parseFlags from "module/nft/util/parseFlags";
+import { capitalize } from "@peersyst/react-utils";
 
 describe("NftCreationPage", () => {
     const nftDraftMock = new NftDtoMock({ status: "draft" });
@@ -41,61 +42,150 @@ describe("NftCreationPage", () => {
         attributes: nftDraftMockMetadata?.attributes,
     });
 
-    test("Create an NFT draft", async () => {
-        const createNftDraftMock = jest.spyOn(NftService, "nftControllerCreateNftDraft").mockResolvedValueOnce(new NftDtoMock());
+    describe("Creation", () => {
+        let useSearchParamsMock: UseSearchParamsMock;
+        let walletMock: WalletMock;
 
-        render(<NftCreationPage />);
+        beforeAll(() => {
+            useSearchParamsMock = new UseSearchParamsMock();
+            walletMock = new WalletMock({ active: true, address: "address" });
+        });
 
-        userEvent.type(screen.getByPlaceholderText(translate("namePlaceholder")), NFT_NAME);
-        userEvent.click(screen.getByRole("button", { name: translate("save") }));
+        afterAll(() => {
+            useSearchParamsMock.restore();
+            walletMock.restore();
+        });
 
-        await waitFor(() => expect(createNftDraftMock).toHaveBeenCalledWith(CREATE_NFT_REQUEST));
+        test("Renders creation correctly", () => {
+            render(<NftCreationPage />);
+
+            // header
+            expect(screen.getByText(translate("createNft")));
+
+            // image
+            expect(screen.getByText(capitalize(translate("fileInputPlaceholder")))).toBeInTheDocument();
+            // name
+            expect(screen.getByText(capitalize(translate("name")))).toBeInTheDocument();
+            expect(screen.getByPlaceholderText(translate("namePlaceholder"))).toBeInTheDocument();
+            // decription
+            expect(screen.getByText(translate("description"))).toBeInTheDocument();
+            expect(screen.getByPlaceholderText(translate("descriptionPlaceholder"))).toBeInTheDocument();
+            // collection
+            expect(screen.getByText(translate("collection"))).toBeInTheDocument();
+            expect(screen.getByText(translate("collectionPlaceholder"))).toBeInTheDocument();
+            // issuer
+            expect(screen.getByText(translate("issuer"))).toBeInTheDocument();
+            expect(screen.getByPlaceholderText(translate(walletMock.address))).toBeInTheDocument();
+            // transfer fee
+            expect(screen.getByText(translate("transferFee"))).toBeInTheDocument();
+            expect(screen.getByPlaceholderText("0")).toBeInTheDocument();
+            // external url
+            expect(screen.getByText(translate("externalLink"))).toBeInTheDocument();
+            expect(screen.getByPlaceholderText(translate("externalLinkPlaceholder"))).toBeInTheDocument();
+            // background color
+            expect(screen.getByText(translate("backgroundColor"))).toBeInTheDocument();
+            expect(screen.getByPlaceholderText(translate("backgroundColorPlaceholder"))).toBeInTheDocument();
+            // flags
+            expect(screen.getByText(translate("burnable")));
+            expect(screen.getByText(translate("onlyXRP")));
+            expect(screen.getByText(translate("trustLine")));
+            expect(screen.getByText(translate("transferable")));
+            // attributes
+            expect(screen.getByText(translate("attributes"))).toBeInTheDocument();
+        });
+
+        test("Create an NFT draft", async () => {
+            const createNftDraftMock = jest.spyOn(NftService, "nftControllerCreateNftDraft").mockResolvedValueOnce(new NftDtoMock());
+
+            render(<NftCreationPage />);
+
+            const saveButton = screen.getByRole("button", { name: translate("save") });
+            await waitFor(() => expect(saveButton).not.toBeDisabled());
+            userEvent.type(screen.getByPlaceholderText(translate("namePlaceholder")), NFT_NAME);
+            userEvent.click(saveButton);
+
+            await waitFor(() => expect(createNftDraftMock).toHaveBeenCalledWith(CREATE_NFT_REQUEST));
+        });
+
+        test("Create published NFT", async () => {
+            const createNftMock = jest.spyOn(NftService, "nftControllerCreateNft").mockResolvedValueOnce(new NftDtoMock());
+
+            render(<NftCreationPage />);
+
+            const publishButton = screen.getByRole("button", { name: translate("publish") });
+            await waitFor(() => expect(publishButton).not.toBeDisabled());
+            userEvent.type(screen.getByPlaceholderText(translate("namePlaceholder")), NFT_NAME);
+            userEvent.click(publishButton);
+
+            await waitFor(() => expect(createNftMock).toHaveBeenCalledWith(CREATE_NFT_REQUEST));
+        });
     });
 
-    test("Create published NFT", async () => {
-        const createNftMock = jest.spyOn(NftService, "nftControllerCreateNft").mockResolvedValueOnce(new NftDtoMock());
+    describe("Edition", () => {
+        let useSearchParamsMock: UseSearchParamsMock;
+        let getNftMock: jest.SpyInstance;
 
-        render(<NftCreationPage />);
+        beforeAll(() => {
+            useSearchParamsMock = new UseSearchParamsMock({ id: "1" });
+            getNftMock = jest.spyOn(NftService, "nftControllerGetNftDraft").mockResolvedValue(nftDraftMock);
+        });
 
-        userEvent.type(screen.getByPlaceholderText(translate("namePlaceholder")), NFT_NAME);
-        userEvent.click(screen.getByRole("button", { name: translate("publish") }));
+        afterAll(() => {
+            useSearchParamsMock.restore();
+            getNftMock.mockRestore();
+        });
 
-        await waitFor(() => expect(createNftMock).toHaveBeenCalledWith(CREATE_NFT_REQUEST));
-    });
+        test("Renders edition correctly", async () => {
+            render(<NftCreationPage />);
 
-    test("Updates an NFT draft", async () => {
-        new UseSearchParamsMock({ id: "1" });
+            const saveButton = screen.getByRole("button", { name: translate("save") });
+            await waitFor(() => expect(saveButton).not.toBeDisabled());
 
-        jest.spyOn(NftService, "nftControllerGetNftDraft").mockResolvedValue(new NftDtoMock());
-        const updateNftDraftMock = jest.spyOn(NftService, "nftControllerUpdateNftDraft").mockResolvedValueOnce(undefined);
+            // header
+            expect(screen.getByText(translate("editNft")));
 
-        render(<NftCreationPage />);
+            // image
+            const imgs = screen.getAllByRole("img");
+            expect(imgs.some((img) => img.getAttribute("src") === nftDraftMock.metadata!.image!)).toBeTruthy();
+            // name
+            expect(screen.getByDisplayValue(nftDraftMock.metadata!.name!)).toBeInTheDocument();
+            // decription
+            expect(screen.getByDisplayValue(nftDraftMock.metadata!.description!)).toBeInTheDocument();
+            // attributes
+            expect(screen.getByDisplayValue(nftDraftMock.metadata!.attributes![0].traitType)).toBeInTheDocument();
+            expect(screen.getByDisplayValue(nftDraftMock.metadata!.attributes![0].value)).toBeInTheDocument();
+            expect(screen.getByDisplayValue(nftDraftMock.metadata!.attributes![1].traitType)).toBeInTheDocument();
+            expect(screen.getByDisplayValue(nftDraftMock.metadata!.attributes![1].value)).toBeInTheDocument();
+        });
 
-        const saveButton = screen.getByRole("button", { name: translate("save") });
-        await waitFor(expect(saveButton).not.toBeDisabled);
-        const nameInput = screen.getByDisplayValue(nftDraftMockMetadata!.name!);
-        userEvent.clear(nameInput);
-        userEvent.type(nameInput, NFT_NAME);
-        userEvent.click(saveButton);
+        test("Updates an NFT draft", async () => {
+            const updateNftDraftMock = jest.spyOn(NftService, "nftControllerUpdateNftDraft").mockResolvedValueOnce(undefined);
 
-        await waitFor(() => expect(updateNftDraftMock).toHaveBeenCalledWith(1, UPDATE_NFT_REQUEST, undefined));
-    });
+            render(<NftCreationPage />);
 
-    test("Publishes an NFT draft", async () => {
-        new UseSearchParamsMock({ id: "1" });
+            const saveButton = screen.getByRole("button", { name: translate("save") });
+            await waitFor(() => expect(saveButton).not.toBeDisabled());
+            const nameInput = screen.getByDisplayValue(nftDraftMockMetadata!.name!);
+            userEvent.clear(nameInput);
+            userEvent.type(nameInput, NFT_NAME);
+            userEvent.click(saveButton);
 
-        jest.spyOn(NftService, "nftControllerGetNftDraft").mockResolvedValue(new NftDtoMock());
-        const updateNftDraftMock = jest.spyOn(NftService, "nftControllerUpdateNftDraft").mockResolvedValueOnce(undefined);
+            await waitFor(() => expect(updateNftDraftMock).toHaveBeenCalledWith(1, UPDATE_NFT_REQUEST, undefined));
+        });
 
-        render(<NftCreationPage />);
+        test("Publishes an NFT draft", async () => {
+            const updateNftDraftMock = jest.spyOn(NftService, "nftControllerUpdateNftDraft").mockResolvedValueOnce(undefined);
 
-        const publishButton = screen.getByRole("button", { name: translate("publish") });
-        await waitFor(expect(publishButton).not.toBeDisabled);
-        const nameInput = screen.getByDisplayValue(nftDraftMockMetadata!.name!);
-        userEvent.clear(nameInput);
-        userEvent.type(nameInput, NFT_NAME);
-        userEvent.click(publishButton);
+            render(<NftCreationPage />);
 
-        await waitFor(() => expect(updateNftDraftMock).toHaveBeenCalledWith(1, UPDATE_NFT_REQUEST, true));
+            const publishButton = screen.getByRole("button", { name: translate("publish") });
+            await waitFor(() => expect(publishButton).not.toBeDisabled());
+            const nameInput = screen.getByDisplayValue(nftDraftMockMetadata!.name!);
+            userEvent.clear(nameInput);
+            userEvent.type(nameInput, NFT_NAME);
+            userEvent.click(publishButton);
+
+            await waitFor(() => expect(updateNftDraftMock).toHaveBeenCalledWith(1, UPDATE_NFT_REQUEST, true));
+        });
     });
 });

@@ -1,6 +1,6 @@
 import { RouteObject } from "react-router-dom";
 import MyNftsPage from "./pages/MyNftsPage";
-import NftCreationPage from "module/nft/pages/NftCreationPage";
+import NftCreationPage from "module/nft/pages/NftCreationPage/NftCreationPage";
 
 export enum NftRoutes {
     NFTS = "/nfts/",

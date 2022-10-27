@@ -65,6 +65,7 @@ declare module "@peersyst/react-components" {
             xs: number;
             xxs: number;
         };
+        nftPage: number;
     }
 }
 
