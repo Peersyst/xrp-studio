@@ -32,6 +32,9 @@
     "traitType": "Trait type",
     "value": "Value",
     "addProperty": "Add property",
+    "profile": "Profile",
+    "settings": "Settings",
+    "logout": "Log out",
     "change": "Change",
     "cancel": "Cancel",
     "writeYour": "Write your {{name}}",
@@ -60,5 +63,8 @@
     "loadingFilters": "Loading filters...",
     "OrderBy": "Order by",
     "Latest": "Latest",
-    "Oldest": "Oldest"
+    "Oldest": "Oldest",
+    "devnet": "DEVNET",
+    "testnet": "TESTNET",
+    "mainnet": "MAINNET"
 }

@@ -31,6 +31,9 @@
     "traitType": "Atributo",
     "value": "Valor",
     "addProperty": "Añadir propiedad",
+    "profile": "Perfil",
+    "settings": "Configuraciones",
+    "logout": "Cerrar Sessión",
     "change": "Cambiar",
     "cancel": "Cancelar",
     "writeYour": "Escribe tu {{name}}",
@@ -59,5 +62,8 @@
     "loadingFilters": "Cargando filtros...",
     "OrderBy": "Ordenar por",
     "Latest": "Más recientes",
-    "Oldest": "Más antiguos"
+    "Oldest": "Más antiguos",
+    "devnet": "DEVNET",
+    "testnet": "TESTNET",
+    "mainnet": "MAINNET"
 }

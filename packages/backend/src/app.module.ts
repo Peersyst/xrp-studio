@@ -18,6 +18,7 @@ import { CollectionModule } from "./modules/collection/collection.module";
 import { IpfsModule } from "@peersyst/ipfs-module/src/ipfs.module";
 import { FileModule } from "./modules/file/file.module";
 import { StorageModule, StorageType } from "@peersyst/storage-module/src/storage.module";
+import { waitForAwsSecrets } from "./config/util/loadAwsSecrets";
 
 @Module({
     imports: [
@@ -30,7 +31,7 @@ import { StorageModule, StorageType } from "@peersyst/storage-module/src/storage
             inject: [ConfigService],
             imports: [ConfigModule],
             useFactory: async (config: ConfigService) => {
-                await new Promise((resolve) => setTimeout(resolve, 2000));
+                await waitForAwsSecrets();
                 return {
                     type: config.get("database.type"),
                     host: config.get("database.host"),
@@ -87,8 +88,19 @@ import { StorageModule, StorageType } from "@peersyst/storage-module/src/storage
             inject: [ConfigService],
             imports: [ConfigModule],
         }),
-        StorageModule.register(ConfigModule, {
-            storageType: StorageType.S3,
+        StorageModule.registerAsync({
+            useFactory: async (config: ConfigService) => {
+                await waitForAwsSecrets();
+                return {
+                    storageType: StorageType.S3,
+                    awsRegion: config.get("aws.region"),
+                    awsAccessKeyId: config.get("aws.accessKeyId"),
+                    awsSecretAccessKey: config.get("aws.secretAccessKey"),
+                    awsBucket: config.get("aws.bucketName"),
+                };
+            },
+            inject: [ConfigService],
+            imports: [ConfigModule],
         }),
     ],
     providers: [TypeORMSeederAdapter, { provide: APP_FILTER, useClass: ErrorFilter }],

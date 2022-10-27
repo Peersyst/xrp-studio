@@ -40,7 +40,8 @@
         "styled-components": "^5.3.5",
         "typescript": "^4.7.4",
         "web-vitals": "^1.0.1",
-        "xumm-react": "^1.0.3"
+        "xumm-react": "^1.0.3",
+        "xrpl": "^2.3.1"
     },
     "devDependencies": {
         "@babel/plugin-proposal-class-properties": "^7.18.6",
