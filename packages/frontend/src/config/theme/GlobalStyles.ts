@@ -13,6 +13,7 @@ import { ModalStyles } from "./component/Modal.styles";
 import { DrawerStyles } from "./component/Drawer.styles";
 import { ColorInputStyles } from "config/theme/component/ColorInput.styles";
 import { SelectorStyles } from "./component/SelectorStyles";
+import { RadioGroupStyles } from "./component/RadioGroup.styles";
 
 export const GlobalStyles = createGlobalStyle`
         ${RootStyles};
@@ -162,6 +163,7 @@ export const GlobalStyles = createGlobalStyle`
       ${TypographyStyles}
       ${SwitchStyles};
       ${ChipStyles};
+      ${RadioGroupStyles};
       ${SelectStyles};
       ${SelectorStyles};
       ${FormControlStyles};
