@@ -7,5 +7,5 @@ export interface UseUpdateNftDraftParams extends UpdateNftDraftRequest {
 }
 
 export default function (): UseMutationResult<void, unknown, UseUpdateNftDraftParams> {
-    return useMutation("aaa", ({ id, publish, ...nftDraft }) => NftService.nftControllerUpdateNftDraft(id, nftDraft, publish));
+    return useMutation(({ id, publish, ...nftDraft }) => NftService.nftControllerUpdateNftDraft(id, nftDraft, publish));
 }
