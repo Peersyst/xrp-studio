@@ -12,7 +12,6 @@ const Balance = ({
     ...typographyProps
 }: BalanceProps): JSX.Element => {
     const formattedBalance = useFormatBalance();
-
     return isLoading ? (
         <Loader />
     ) : (

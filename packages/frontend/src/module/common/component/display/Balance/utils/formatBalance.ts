@@ -3,7 +3,7 @@ import { ACTION_LABEL } from "./actionLabels";
 import { CurrencyUnit, CURRENCY_UNIT } from "./currencies";
 
 export interface FormatBalanceOptions {
-    numberFormatOptions?: Omit<Intl.NumberFormatOptions, "useGrouping">;
+    numberFormatOptions?: Intl.NumberFormatOptions;
     units?: BalanceProps["units"];
     unitsPosition?: BalanceProps["unitsPosition"];
     action?: BalanceAction;
