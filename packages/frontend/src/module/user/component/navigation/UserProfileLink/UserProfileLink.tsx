@@ -3,6 +3,7 @@ import { CSSProperties } from "react";
 import Avatar from "module/common/component/display/Avatar/Avatar";
 import { Hash, Row, Typography, TypographyProps } from "@peersyst/react-components";
 import { UserProfileLinkRoot } from "module/user/component/navigation/UserProfileLink/UserProfileLink.styles";
+import { UserRoutes } from "module/user/UserRouter";
 
 export interface UserProfileLinkProps {
     user: UserDto;
@@ -19,7 +20,7 @@ const UserProfileLink = ({
     ...rest
 }: UserProfileLinkProps): JSX.Element => {
     return (
-        <UserProfileLinkRoot to={`/user/${address}`} {...rest}>
+        <UserProfileLinkRoot to={UserRoutes.PROFILE.replace(":address", address)} {...rest}>
             <Row flex={1} alignItems="center" gap="0.75rem">
                 <Avatar img={image} alt={`${name || "user"}-image`} size="sm" />
                 <span css={{ width: "100%", maxWidth: "75%" }}>

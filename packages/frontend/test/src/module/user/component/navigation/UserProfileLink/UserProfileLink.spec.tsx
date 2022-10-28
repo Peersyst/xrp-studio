@@ -2,6 +2,7 @@ import { screen } from "@testing-library/react";
 import UserProfileLink from "module/user/component/navigation/UserProfileLink/UserProfileLink";
 import { UserDtoMock } from "test-mocks";
 import { render } from "test-utils";
+import { UserRoutes } from "module/user/UserRouter";
 
 describe("UserProfileLink", () => {
     test("Renders correctly with a user with name", () => {
@@ -19,7 +20,7 @@ describe("UserProfileLink", () => {
 
         render(<UserProfileLink user={userMock} />);
 
-        expect(screen.getByRole("link")).toHaveAttribute("href", `/user/${userMock.address}`);
+        expect(screen.getByRole("link")).toHaveAttribute("href", UserRoutes.PROFILE.replace(":address", userMock.address));
         expect(screen.getByAltText("user-image")).toBeInTheDocument();
         expect(screen.getByText(userMock.address)).toBeInTheDocument();
     });
