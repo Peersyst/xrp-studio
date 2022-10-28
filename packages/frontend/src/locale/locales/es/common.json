@@ -69,5 +69,6 @@
     "editNft": "Editar NFT",
     "save": "Guardar",
     "publish": "Publicar",
-    "roundsToNDecimals": "Se redondea a {{decimals}} decimales"
+    "roundsToNDecimals": "Se redondea a {{decimals}} decimales",
+    "saveChanges": "Guardar cambios"
 }
