@@ -4,7 +4,7 @@ import useTranslate from "module/common/hook/useTranslate";
 import { walletState } from "module/wallet/state/WalletState";
 import { useSetRecoilState } from "recoil";
 import WalletCard from "../../display/WalletCard/WalletCard";
-import { CardRoot, BaseLink } from "./Menu.styles";
+import { CardRoot, BaseLink } from "./WalletMenu.styles";
 import useWallet from "module/wallet/component/hooks/useWallet";
 import { AuthTokenStorage } from "module/auth/AuthTokenStorage";
 import { WalletRoutes } from "module/wallet/WalletRouter";
