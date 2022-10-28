@@ -7,7 +7,7 @@ export interface HandleApiErrorMessageResult {
 
 export function handleErrorMessage(error: ApiError | any, translate: (text: string | string[]) => string): HandleApiErrorMessageResult {
     const code: number = error.body?.statusCode || error.status || error.code || 500;
-    const message: string = error.body?.message || error.statusText;
+    const message: string = error.body?.message || error.statusText || "Unknown error";
     const parsedMessage = message.includes(" ")
         ? message
         : message
