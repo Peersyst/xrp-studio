@@ -50,6 +50,11 @@ const config = createConfig({
                 },
             },
         },
+        Paper: {
+            defaultProps: {
+                elevation: 0,
+            },
+        },
     },
     themes: {
         light: lightTheme,

@@ -1,10 +1,9 @@
-import { Col } from "@peersyst/react-components";
-import { FiltersDivider } from "module/common/component/layout/BaseGridWithFilters/BaseGridFilters/BaseGridFilters.styles";
+import { Col, Divider } from "@peersyst/react-components";
 import useTranslate from "module/common/hook/useTranslate";
 import { walletState } from "module/wallet/state/WalletState";
 import { useSetRecoilState } from "recoil";
 import WalletCard from "../../display/WalletCard/WalletCard";
-import { CardRoot, BaseLink, CardContent } from "./WalletMenu.styles";
+import { WalletMenuRoot, BaseLink, CardContent } from "./WalletMenu.styles";
 import useWallet from "module/wallet/component/hooks/useWallet";
 import { AuthTokenStorage } from "module/auth/AuthTokenStorage";
 import { UserRoutes } from "module/user/UserRouter";
@@ -25,10 +24,10 @@ const WalletMenu = (): JSX.Element => {
     };
 
     return (
-        <CardRoot>
-            <Col gap="1.25rem">
+        <WalletMenuRoot>
+            <Col gap="1rem">
                 <CardContent gap="1rem">
-                    <BaseLink to={UserRoutes.PROFILE.replace(":address", address)} type="router">
+                    <BaseLink variant="body2" to={UserRoutes.PROFILE.replace(":address", address)} type="router">
                         {translate("profile")}
                     </BaseLink>
                     <BaseLink to={BaseRoutes.SETTINGS} type="router">
@@ -36,14 +35,14 @@ const WalletMenu = (): JSX.Element => {
                     </BaseLink>
                     <WalletCard />
                 </CardContent>
-                <FiltersDivider />
+                <Divider color={"black.70"} />
                 <CardContent>
                     <BaseLink to={BaseRoutes.HOME} type="router" onClick={() => logout()}>
                         {translate("logout")}
                     </BaseLink>
                 </CardContent>
             </Col>
-        </CardRoot>
+        </WalletMenuRoot>
     );
 };
 

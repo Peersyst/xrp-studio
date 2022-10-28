@@ -4,23 +4,24 @@ import useWallet from "../../hooks/useWallet";
 import NetworkConnect from "../NetworkConnect/NetworkConnect";
 import { WalletCardRoot } from "./WalletCard.styles";
 import { useGetXrpTokenPrice } from "../../hooks/useGetXrpTokenPrice/useGetXrpTokenPrice";
-import { formatCurrency, formatNumber } from "module/common/util/format";
-import { useRecoilState } from "recoil";
-import { settingsState } from "module/settings/SettingsState";
+import { useFormatBalance } from "module/common/component/display/Balance/hook/useFormatBalance";
 
 const WalletCard = (): JSX.Element => {
     const { address } = useWallet();
     const { data: availableBalance } = useGetXrpBalance();
-    const [settings] = useRecoilState(settingsState);
-    const { data: tokenValue } = useGetXrpTokenPrice(settings.currency);
+    const { data: tokenValue } = useGetXrpTokenPrice();
+    const formatBalance = useFormatBalance();
     const fiatCurrencyBalance = (tokenValue ?? 0) * (availableBalance ?? 0);
     return (
         <WalletCardRoot>
-            <Col gap={15}>
-                <BlockchainAddress address={address!} type="address" length={12} variant="caption" light />
-                <Col gap={10}>
-                    <Typography variant="h5">{formatNumber(availableBalance ?? 0)}</Typography>
-                    <Typography variant="caption">{`( =  ${formatCurrency(fiatCurrencyBalance, settings.currency)} )`}</Typography>
+            <Col gap="0.7rem" flex={1}>
+                <BlockchainAddress address={address!} type="address" variant="body2" light css={{ width: "100%" }} />
+                <Col gap="0.3rem">
+                    <Typography variant="body2">{formatBalance(availableBalance ?? 0)}</Typography>
+                    <Typography variant="caption" css={{ fontSize: "0.625rem" }}>{`( ${formatBalance(fiatCurrencyBalance, {
+                        action: "round",
+                        units: "fiat",
+                    })} )`}</Typography>
                 </Col>
                 <NetworkConnect />
             </Col>
