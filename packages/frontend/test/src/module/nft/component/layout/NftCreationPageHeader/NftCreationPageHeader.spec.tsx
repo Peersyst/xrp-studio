@@ -1,6 +1,6 @@
 import { screen, render, translate } from "test-utils";
 import NftCreationPageHeader from "module/nft/component/layout/NftCreationPageHeader/NftCreationPageHeader";
-import { UseSearchParamsMock } from "../../../../../../__mocks__/router/useSearchParams.mock";
+import { UseSearchParamsMock } from "test-mocks";
 
 describe("NftCreationPageHeader", () => {
     test("Renders create NFT correctly", () => {
