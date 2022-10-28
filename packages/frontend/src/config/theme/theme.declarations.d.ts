@@ -67,9 +67,9 @@ declare module "@peersyst/react-components" {
         };
         nftPage: number;
         collectionsGrid: {
-            xs: number,
-            xxs: number,
-        }
+            xs: number;
+            xxs: number;
+        };
     }
 }
 

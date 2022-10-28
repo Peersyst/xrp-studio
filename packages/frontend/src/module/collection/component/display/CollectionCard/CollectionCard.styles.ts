@@ -8,7 +8,7 @@ export const CollectionCardRoot = styled.div(
         flex-direction: column;
         position: relative;
         width: 22.5rem;
-        height: 12rem;
+        height: 18.75rem;
         border-radius: ${theme.borderRadiusMd};
         background-color: ${theme.palette.black["85"]};
     `,
@@ -17,7 +17,7 @@ export const CollectionCardRoot = styled.div(
 export const CollectionCardCover = styled(Image)(
     ({ theme }) => css`
         width: inherit;
-        height: 67%;
+        height: 78%;
         border-radius: ${theme.borderRadiusMd};
     `,
 );
