@@ -17,6 +17,8 @@ const PropertyInput = ({
     size,
     onDelete,
     autoFocus,
+    readonly,
+    disabled,
     ...rest
 }: PropertyInputProps): JSX.Element => {
     const translate = useTranslate();
@@ -28,7 +30,14 @@ const PropertyInput = ({
     };
 
     return (
-        <FormControl<MetadataAttributeDto> Label={[Label, LabelProps]} label={label} defaultValue={defaultValue} {...rest}>
+        <FormControl<MetadataAttributeDto>
+            Label={[Label, LabelProps]}
+            label={label}
+            defaultValue={defaultValue}
+            readonly={readonly}
+            disabled={disabled}
+            {...rest}
+        >
             {(values, setValues) => {
                 const handleTraitTypeChange = (traitType: string) => {
                     setValues({ ...values, traitType });
@@ -47,6 +56,8 @@ const PropertyInput = ({
                             value={values.traitType}
                             onChange={handleTraitTypeChange}
                             autoFocus={autoFocus}
+                            readonly={readonly}
+                            disabled={disabled}
                         />
                         <PropertyInputTextField
                             variant={variant}
@@ -54,8 +65,10 @@ const PropertyInput = ({
                             placeholder={translate("value")}
                             value={values.value}
                             onChange={handleValueChange}
+                            readonly={readonly}
+                            disabled={disabled}
                         />
-                        {onDelete && <DeletePropertyButton onClick={handleDelete} />}
+                        {!readonly && onDelete && <DeletePropertyButton onClick={handleDelete} />}
                     </PropertyInputRoot>
                 );
             }}

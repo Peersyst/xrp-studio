@@ -22,7 +22,7 @@ export class FileController {
     @UseInterceptors(
         FileInterceptor("file", {
             limits: {
-                fileSize: 20000000,
+                fileSize: 4000000,
             },
             fileFilter: imageFileFilter,
         }),

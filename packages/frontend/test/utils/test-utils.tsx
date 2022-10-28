@@ -55,16 +55,12 @@ export const createWrapper = ({ queryClientConfig }: CreateWrapperConfig = {}): 
 
 const customRender = (
     ui: ReactElement,
-    {
-        queryClientConfig,
-        router: { path = "/", ...memoryRouterProps } = {},
-        ...rest
-    }: Omit<RenderOptions, "wrapper"> & CreateWrapperConfig & { router?: RouterConfig } = {},
+    { queryClientConfig, router, ...rest }: Omit<RenderOptions, "wrapper"> & CreateWrapperConfig & { router?: RouterConfig } = {},
 ): RenderResult => {
     return render(
-        <MemoryRouter {...memoryRouterProps}>
+        <MemoryRouter {...router}>
             <Routes>
-                <Route path={path} element={ui} />
+                <Route path="*" element={ui} />
             </Routes>
         </MemoryRouter>,
         {

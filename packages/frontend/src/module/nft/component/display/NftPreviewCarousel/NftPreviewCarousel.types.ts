@@ -1,11 +1,11 @@
-import { NftDto } from "module/api/service";
 import { CSSProperties } from "react";
+import { Nft } from "module/nft/types";
 
 export interface NftPreviewCarouselProps {
-    nfts: NftDto[];
+    nfts: Nft[];
     loading?: boolean;
     activeId?: number;
-    to?: (nft: NftDto) => string;
+    to?: (nft: Nft) => string;
     className?: string;
     style?: CSSProperties;
 }
