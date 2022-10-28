@@ -1,10 +1,10 @@
 import { render, translate } from "test-utils";
 import { screen } from "@testing-library/react";
-import { WalletMock } from "../../../../../__mocks__/wallet";
 import * as UseWallet from "module/wallet/component/hooks/useWallet";
 import * as useGetXrpBalance from "module/wallet/component/hooks/useGetXrpBalance/useGetXrpBalance";
 import * as useGetXrpTokenPrice from "module/wallet/component/hooks/useGetXrpTokenPrice/useGetXrpTokenPrice";
 import WalletCard from "module/wallet/component/display/WalletCard/WalletCard";
+import { WalletMock } from "test-mocks";
 
 describe("WalletCard", () => {
     test("Renders WalletCard", () => {
