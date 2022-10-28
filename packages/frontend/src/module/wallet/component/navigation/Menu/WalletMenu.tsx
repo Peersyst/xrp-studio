@@ -7,12 +7,12 @@ import WalletCard from "../../display/WalletCard/WalletCard";
 import { CardRoot, BaseLink } from "./Menu.styles";
 import useWallet from "module/wallet/component/hooks/useWallet";
 import { AuthTokenStorage } from "module/auth/AuthTokenStorage";
+import { WalletRoutes } from "module/wallet/WalletRouter";
 
 const WalletMenu = (): JSX.Element => {
     const translate = useTranslate();
     const { address } = useWallet();
     const setWalletState = useSetRecoilState(walletState);
-
     const logout = () => {
         AuthTokenStorage.clear();
         setWalletState({
@@ -26,10 +26,10 @@ const WalletMenu = (): JSX.Element => {
         <CardRoot>
             <Col gap="1.25rem">
                 <Col className="Content" gap="1rem">
-                    <BaseLink to={`/user/${address}`} type="router">
+                    <BaseLink to={`${WalletRoutes.PROFILE}/${address}`} type="router">
                         {translate("profile")}
                     </BaseLink>
-                    <BaseLink to="/settings" type="router">
+                    <BaseLink to={`${WalletRoutes.SETTINGS}`} type="router">
                         {translate("settings")}
                     </BaseLink>
                     <WalletCard />
