@@ -4,15 +4,15 @@ import useTranslate from "module/common/hook/useTranslate";
 import { walletState } from "module/wallet/state/WalletState";
 import { useSetRecoilState } from "recoil";
 import WalletCard from "../../display/WalletCard/WalletCard";
-import { CardRoot, BaseLink } from "./WalletMenu.styles";
+import { CardRoot, BaseLink, CardContent } from "./WalletMenu.styles";
 import useWallet from "module/wallet/component/hooks/useWallet";
 import { AuthTokenStorage } from "module/auth/AuthTokenStorage";
-import { WalletRoutes } from "module/wallet/WalletRouter";
-import { BaseRoutes } from "Router";
+import { UserRoutes } from "module/user/UserRouter";
+import { BaseRoutes } from "../../../../../Router";
 
 const WalletMenu = (): JSX.Element => {
     const translate = useTranslate();
-    const { address } = useWallet();
+    const { address = "" } = useWallet();
     const setWalletState = useSetRecoilState(walletState);
 
     const logout = () => {
@@ -27,21 +27,21 @@ const WalletMenu = (): JSX.Element => {
     return (
         <CardRoot>
             <Col gap="1.25rem">
-                <Col className="Content" gap="1rem">
-                    <BaseLink to={`${WalletRoutes.PROFILE}/${address}`} type="router">
+                <CardContent gap="1rem">
+                    <BaseLink to={UserRoutes.PROFILE.replace(":address", address)} type="router">
                         {translate("profile")}
                     </BaseLink>
-                    <BaseLink to={`${WalletRoutes.SETTINGS}`} type="router">
+                    <BaseLink to={BaseRoutes.SETTINGS} type="router">
                         {translate("settings")}
                     </BaseLink>
                     <WalletCard />
-                </Col>
+                </CardContent>
                 <FiltersDivider />
-                <Col className="Content">
+                <CardContent>
                     <BaseLink to={BaseRoutes.HOME} type="router" onClick={() => logout()}>
                         {translate("logout")}
                     </BaseLink>
-                </Col>
+                </CardContent>
             </Col>
         </CardRoot>
     );
