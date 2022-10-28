@@ -7,7 +7,7 @@ import createNftRequestFromForm from "module/nft/util/createNftRequestFromForm";
 import { NftDtoMock, WalletMock } from "test-mocks";
 import { waitFor } from "@testing-library/dom";
 import Color from "color";
-import { UseSearchParamsMock } from "../../../../../__mocks__/router/useSearchParams.mock";
+import { UseSearchParamsMock } from "test-mocks";
 import parseFlags from "module/nft/util/parseFlags";
 import { capitalize } from "@peersyst/react-utils";
 
@@ -170,7 +170,7 @@ describe("NftCreationPage", () => {
             userEvent.type(nameInput, NFT_NAME);
             userEvent.click(saveButton);
 
-            await waitFor(() => expect(updateNftDraftMock).toHaveBeenCalledWith(1, UPDATE_NFT_REQUEST, undefined));
+            await waitFor(() => expect(updateNftDraftMock).toHaveBeenCalledWith(1, UPDATE_NFT_REQUEST, false));
         });
 
         test("Publishes an NFT draft", async () => {
