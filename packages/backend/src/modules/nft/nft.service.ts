@@ -483,7 +483,8 @@ export class NftService {
             qb.loadRelationCountAndMap("collection.items", "collection.nfts");
         }
         if (relations.metadata) qb.leftJoinAndSelect("nft.metadata", "metadata");
-        if (relations.attribute) qb.leftJoinAndSelect("NftMetadataAttribute", "attribute", "attribute.nft_metadata_id = nft.id");
+        if (relations.attribute)
+            qb.leftJoinAndMapMany("metadata.attributes", NftMetadataAttribute, "attribute", "attribute.nft_metadata_id = nft.id");
         return qb as SelectQueryBuilder<WithCollection extends true ? NftWithCollection : Nft>;
     }
 }

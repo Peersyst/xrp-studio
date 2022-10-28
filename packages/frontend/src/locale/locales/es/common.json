@@ -6,6 +6,7 @@
     "scanXummQR": "Scanea el QR con XUMM app",
     "scanXummQRExplanation": "Scanea el QR con tu billetera de XUMM para continuar",
     "dismiss": "Cerrar",
+    "letsGetStarted": "Empieza ahora!",
     "getXummCTA": "¿Todavía no tienes Xumm? ¡Descárgalo aquí!",
     "myNfts": "Mis NFTs",
     "createCollection": "Añadir colección",
@@ -41,6 +42,8 @@
     "updateProfile": "Actualizar perfil",
     "description": "Descripción",
     "collection": "Colección",
+    "issuer": "Distribuidor",
+    "transferFee": "Tarifa de transferencia",
     "externalLink": "Link externo",
     "backgroundColor": "Color de fondo",
     "burnable": "Consumible",
@@ -51,6 +54,7 @@
     "namePlaceholder": "Escribe un nombre para tu NFT",
     "descriptionPlaceholder": "Escribe una descripción para tu NFT",
     "collectionPlaceholder": "Ninguna colleción seleccionada",
+    "issuerPlaceholder": "Escribe una dirección de distribuidor válida",
     "externalLinkPlaceholder": "https://link-externo.com",
     "backgroundColorPlaceholder": "El color de fondo de tu NFT",
     "noCollectionPlaceholder": "Sin colección",
@@ -61,5 +65,9 @@
     "none_female": "Ninguna",
     "devnet": "DEVNET",
     "testnet": "TESTNET",
-    "mainnet": "MAINNET"
+    "mainnet": "MAINNET",
+    "editNft": "Editar NFT",
+    "save": "Guardar",
+    "publish": "Publicar",
+    "roundsToNDecimals": "Se redondea a {{decimals}} decimales"
 }

@@ -17,6 +17,7 @@ const theme = createTheme({
                 xs: 767,
                 xxs: 500,
             },
+            nftPage: 900,
         },
     },
 });

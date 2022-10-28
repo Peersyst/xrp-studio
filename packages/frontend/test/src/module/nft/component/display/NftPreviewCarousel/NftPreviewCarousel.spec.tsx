@@ -2,14 +2,14 @@ import { screen } from "@testing-library/react";
 import { NftsDtoMock } from "test-mocks";
 import { render } from "test-utils";
 import NftPreviewCarousel from "module/nft/component/display/NftPreviewCarousel/NftPreviewCarousel";
-import { NftDto } from "module/api/service";
+import { Nft } from "module/nft/types";
 
 const NFT_PREVIEWS_LENGTH = 5;
 
 describe("NftPreviewCarousel", () => {
     const nftMocks = new NftsDtoMock({ length: NFT_PREVIEWS_LENGTH }).nfts;
 
-    const to = (nft: NftDto): string => {
+    const to = (nft: Nft): string => {
         return `/nft/creation?id=${nft.id}`;
     };
 

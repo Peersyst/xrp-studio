@@ -5,7 +5,7 @@ import { useDebounce } from "@peersyst/react-hooks";
 import useTranslate from "module/common/hook/useTranslate";
 import useCheckNameAvailability from "module/user/query/useCheckNameAvailability";
 import useGetWalletUser from "module/user/query/useGetWalletUser";
-import { userEditNames } from "../../feedback/EditProfileDrawer/EditProfileDrawer";
+import { UpdateUserFields } from "../../feedback/EditProfileDrawer/EditProfileDrawer";
 import { config } from "config";
 
 const EditProfileName = (): JSX.Element => {
@@ -25,7 +25,7 @@ const EditProfileName = (): JSX.Element => {
 
     return (
         <TextField
-            name={userEditNames.name}
+            name={UpdateUserFields.name}
             label={capitalize(translate("name"))}
             placeholder={translate("writeYour", { name: translate("name") })}
             defaultValue={username}

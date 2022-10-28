@@ -5,8 +5,7 @@ import { NftPreviewCarouselItem } from "module/nft/component/display/NftPreviewC
 
 const NftPreviewCarousel = ({ nfts, loading, to, activeId, ...rest }: NftPreviewCarouselProps): JSX.Element => {
     // Prevents to?.(nft) to be evaluated for each NftPreview rendered
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    const normalizedToCb = to || ((_) => undefined);
+    const normalizedToCb = to || (() => undefined);
 
     return (
         <Carousel loading={loading} Skeleton={NftPreviewSkeleton} skeletonCount={7} arrowSize="md" {...rest}>

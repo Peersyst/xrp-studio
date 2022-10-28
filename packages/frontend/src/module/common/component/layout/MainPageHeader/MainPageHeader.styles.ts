@@ -12,8 +12,6 @@ export const MainPageHeaderRoot = styled(PageHeader)(
 
 export const MainPageHeaderWrapper = styled(Col)(
     ({ theme }) => css`
-        max-width: var(--page-max-width);
-        margin: 0 auto;
         ${theme.breakpoints.down("mobile")} {
             row-gap: 1.5rem;
         }
