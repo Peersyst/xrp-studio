@@ -1,50 +1,69 @@
-import { Loader, Upload } from "@peersyst/react-components";
+import { Upload } from "@peersyst/react-components";
 import styled, { css } from "styled-components";
 import Button from "../Button/Button";
+import {
+    UploadBtnProps,
+    UploadInputLabelHorizontalAlignment,
+    UploadInputLabelVerticalAlignment,
+} from "module/common/component/input/UploadInput/UploadInput.types";
 
 export const UploadInputRoot = styled(Upload)(
-    () => css`
+    ({ theme }) => css`
         position: relative;
 
         display: flex;
         flex: 1;
         align-items: center;
 
-        &.FormControl {
+        overflow: hidden;
+
+        .Upload {
+            display: flex;
+            width: 100%;
+            height: 100%;
             overflow: hidden;
-        }
-
-        &.updating,
-        .Upload.Drag {
-            img {
-                filter: blur(4px);
-            }
+            border-radius: ${theme.borderRadiusLg};
         }
     `,
 );
 
-export const UploadInputLoader = styled(Loader)(
-    () => css`
-        position: absolute;
-        font-size: 1.8rem;
-        top: 50%;
-        left: 50%;
-        transform: translate(-50%, 150%);
-        opacity: 0;
-        transition: opacity 200ms;
-        &.updating {
-            opacity: 1;
-            transform: translate(-50%, -50%);
-        }
-    `,
-);
+const UploadButtonTopPos: Record<UploadInputLabelVerticalAlignment, string> = {
+    top: "0",
+    center: "50%",
+    bottom: "100%",
+};
 
-export const UploadBtn = styled(Button)(
-    () => css`
+const UploadButtonLeftPos: Record<UploadInputLabelHorizontalAlignment, string> = {
+    left: "0",
+    center: "50%",
+    right: "100%",
+};
+
+const UploadButtonMarginTop: Record<UploadInputLabelVerticalAlignment, string> = {
+    top: "1rem",
+    center: "0",
+    bottom: "-1rem",
+};
+
+const UploadButtonMarginLeft: Record<UploadInputLabelHorizontalAlignment, string> = {
+    left: "1rem",
+    center: "0",
+    right: "-1rem",
+};
+
+export const UploadBtn = styled(Button)<UploadBtnProps>(({ alignment }) => {
+    const vertical = alignment?.vertical || "center";
+    const horizontal = alignment?.horizontal || "center";
+    const top = UploadButtonTopPos[vertical];
+    const left = UploadButtonLeftPos[horizontal];
+
+    return css`
         position: absolute;
-        top: 50%;
-        left: 50%;
-        transform: translate(-50%, -50%);
+        top: ${top};
+        left: ${left};
+        margin-top: ${UploadButtonMarginTop[vertical]};
+        margin-left: ${UploadButtonMarginLeft[horizontal]};
+        transform: translate(-${left}, -${top});
         opacity: 1;
         transition: opacity 0.1s ease-in-out;
 
@@ -52,19 +71,5 @@ export const UploadBtn = styled(Button)(
         &.updating {
             opacity: 0;
         }
-    `,
-);
-
-export const greyStyles = css(({ theme }) => {
-    const light = theme.palette.mode === "light";
-    return css`
-        color: ${theme.palette.black[light ? 40 : 70]};
     `;
 });
-
-export const UploadInputBaseIcon = styled.div(
-    () => css`
-        ${greyStyles};
-        font-size: 750%;
-    `,
-);

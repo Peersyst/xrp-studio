@@ -70,11 +70,8 @@ describe("EditProfileDrawer", () => {
         fireEvent.change(nameInput, { target: { value: newUserDtoMock.name } });
         jest.spyOn(UserService, "userControllerCheckUserName").mockResolvedValueOnce({ exist: false });
         //Name updated
-        await waitFor(() => expect(screen.queryByText(translate("userAlreadyExists", { ns: "error" }))).not.toBeInTheDocument());
-        //Not Loading
-        await waitFor(() => expect(screen.queryAllByTestId("LoaderIcon")).toHaveLength(2)); //2 bc of the avatar and cover
-        //Name updated
-        await waitFor(() => expect(screen.queryByText(translate("userAlreadyExists", { ns: "error" }))).not.toBeInTheDocument());
+        await waitFor(() => expect(screen.getByTestId("SuccessIcon")).toBeInTheDocument());
+
         const bioInput = screen.getByPlaceholderText(translate("writeYour", { name: translate("bio") }));
         expect(bioInput).toBeInTheDocument();
         userEvent.type(bioInput, newUserDtoMock.description!);
