@@ -8,11 +8,13 @@ import { CardRoot, BaseLink } from "./WalletMenu.styles";
 import useWallet from "module/wallet/component/hooks/useWallet";
 import { AuthTokenStorage } from "module/auth/AuthTokenStorage";
 import { WalletRoutes } from "module/wallet/WalletRouter";
+import { BaseRoutes } from "Router";
 
 const WalletMenu = (): JSX.Element => {
     const translate = useTranslate();
     const { address } = useWallet();
     const setWalletState = useSetRecoilState(walletState);
+
     const logout = () => {
         AuthTokenStorage.clear();
         setWalletState({
@@ -36,7 +38,7 @@ const WalletMenu = (): JSX.Element => {
                 </Col>
                 <FiltersDivider />
                 <Col className="Content">
-                    <BaseLink to="/" type="router" onClick={() => logout()}>
+                    <BaseLink to={BaseRoutes.HOME} type="router" onClick={() => logout()}>
                         {translate("logout")}
                     </BaseLink>
                 </Col>
