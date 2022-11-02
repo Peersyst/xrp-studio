@@ -1,5 +1,5 @@
 import { screen } from "@testing-library/react";
-import { UseSearchParamsMock } from "../../../../../__mocks__/router/useSearchParams.mock";
+import { UseSearchParamsMock } from "test-mocks";
 import { NftService } from "module/api/service";
 import { CollectionDtoMock, MetadataAttributeDtoMock, MetadataDtoMock, NftDtoMock, PaginatedNftsMock } from "test-mocks";
 import { render, translate } from "test-utils";
