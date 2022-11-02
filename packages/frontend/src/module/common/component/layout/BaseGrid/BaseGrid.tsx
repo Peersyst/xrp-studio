@@ -19,13 +19,14 @@ function BaseGrid<T extends PaginatedData>({
     rowSize,
     Skeletons,
     cols = 3,
-    colGap = 24,
-    rowGap = "2rem",
+    colGap = "1.5rem",
+    rowGap = "1.5rem",
     alignItems,
     justifyContent,
     justifyItems,
     breakpoints,
     nothingToShow,
+    className,
 }: BaseGridProps<T>): JSX.Element {
     const hasItems = loading || !!data?.pages[0]?.items?.[0];
     const infiniteScrollProps = { container, loaderElement, endElement, callback, observerOffset, loading };
@@ -38,6 +39,7 @@ function BaseGrid<T extends PaginatedData>({
         alignItems,
         justifyContent,
         justifyItems,
+        className,
     };
 
     const t = useTranslate("error");

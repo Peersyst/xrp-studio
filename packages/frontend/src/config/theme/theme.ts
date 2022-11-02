@@ -19,7 +19,7 @@ const theme = createTheme({
             },
             nftPage: 900,
             collectionsGrid: {
-                xs: 1288,
+                xs: 1345,
                 xxs: 800,
             },
         },

@@ -8,7 +8,13 @@ import CollectionCard from "module/collection/component/display/CollectionCard/C
 function CollectionGrid<TagT>({ loading, ...rest }: CollectionGridProps<TagT>): JSX.Element {
     const breakpoints = useGetCollectionGridBreakpoints();
     return (
-        <Grid<PaginatedCollectionDto, TagT> loading={loading} breakpoints={breakpoints} Skeletons={BaseCardSkeletons} {...rest}>
+        <Grid<PaginatedCollectionDto, TagT>
+            loading={loading}
+            breakpoints={breakpoints}
+            Skeletons={BaseCardSkeletons}
+            css={{ width: "fit-content" }}
+            {...rest}
+        >
             {(collections) => collections.map((collection, key) => <CollectionCard size="lg" collection={collection} key={key} />)}
         </Grid>
     );

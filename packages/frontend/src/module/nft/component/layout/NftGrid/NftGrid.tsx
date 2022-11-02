@@ -8,7 +8,13 @@ import { useGetNftGridBreakpoints } from "./hook/useGetNftGridBreakpoints";
 function NftGrid<TagT>({ loading, ...rest }: NftGridProps<TagT>): JSX.Element {
     const breakpoints = useGetNftGridBreakpoints();
     return (
-        <Grid<PaginatedNftDto, TagT> loading={loading} breakpoints={breakpoints} Skeletons={BaseCardSkeletons} {...rest}>
+        <Grid<PaginatedNftDto, TagT>
+            loading={loading}
+            breakpoints={breakpoints}
+            Skeletons={BaseCardSkeletons}
+            css={{ width: "100%" }}
+            {...rest}
+        >
             {(nfts) => nfts.map((nft, key) => <NftCard nft={nft} key={key} loading={loading} />)}
         </Grid>
     );
