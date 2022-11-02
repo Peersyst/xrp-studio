@@ -2,7 +2,7 @@ import { CollectionDtoMock, CollectionsDtoMock, PaginatedDataMock, WalletMock } 
 import * as UseWallet from "module/wallet/component/hooks/useWallet";
 import { CollectionService } from "module/api/service";
 import { render, translate } from "test-utils";
-import MyCollectionsPage from "module/collection/pages/CollectionsPage";
+import MyCollectionsPage from "module/collection/pages/MyCollectionsPage";
 import { waitFor } from "@testing-library/dom";
 
 describe("Test for MyCollectionsPageContent", () => {

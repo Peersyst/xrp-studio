@@ -2,7 +2,7 @@ import { GridProps, useTheme } from "@peersyst/react-components";
 
 export type CollectionGridBreakpoints = GridProps["breakpoints"];
 
-export const useGetCollectionGridBreakpoints = (): CollectionGridBreakpoints => {
+export const useCollectionGridBreakpoints = (): CollectionGridBreakpoints => {
     const {
         breakpoints: {
             values: { collectionsGrid },

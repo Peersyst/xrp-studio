@@ -1,5 +1,5 @@
 import { RouteObject } from "react-router-dom";
-import CollectionsPage from "module/collection/pages/CollectionsPage";
+import CollectionsPage from "module/collection/pages/MyCollectionsPage";
 
 export enum CollectionRoutes {
     COLLECTIONS = "/collections/",
