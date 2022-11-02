@@ -28,6 +28,6 @@ describe("Test for the MyNftsPage", () => {
         const data = new PaginatedDataMock<NftDtoMock[]>();
         jest.spyOn(NftService, "nftControllerGetNfts").mockResolvedValue(data);
         const screen = render(<MyNftsPage />);
-        await waitFor(() => expect(screen.getByRole("heading", { name: translate("youHaveNoNfts") })).toBeInTheDocument());
+        await waitFor(() => expect(screen.getByRole("heading", { name: translate("youHaveNoNfts", { ns: "error" }) })).toBeInTheDocument());
     });
 });

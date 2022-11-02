@@ -10,14 +10,14 @@ import { CollectionRoutes } from "module/collection/CollectionRouter";
 const ProfileCollections = (): JSX.Element => {
     const translate = useTranslate();
     const navigate = useNavigate();
-
+    const translateError = useTranslate("error");
     const { data: { pages } = { pages: [] }, isLoading } = useGetUserCollections();
     const collections = pages[0]?.items || [];
 
     return (
         <Row css={{ height: "12rem", width: "100%" }}>
             {collections.length === 0 && !isLoading ? (
-                <NothingToShow label={translate("youHaveNoCollections")}>
+                <NothingToShow label={translateError("youHaveNoCollections")}>
                     <Button onClick={() => navigate(CollectionRoutes.CREATE_COLLECTION)}>{translate("createCollection")}</Button>
                 </NothingToShow>
             ) : (
