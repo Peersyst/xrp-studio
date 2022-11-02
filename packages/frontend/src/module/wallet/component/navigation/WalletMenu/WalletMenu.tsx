@@ -7,7 +7,6 @@ import { WalletMenuRoot, BaseLink, CardContent } from "./WalletMenu.styles";
 import useWallet from "module/wallet/component/hooks/useWallet";
 import { AuthTokenStorage } from "module/auth/AuthTokenStorage";
 import { UserRoutes } from "module/user/UserRouter";
-import { BaseRoutes } from "../../../../../Router";
 import { useNavigate } from "react-router-dom";
 import { Dispatch, SetStateAction } from "react";
 
