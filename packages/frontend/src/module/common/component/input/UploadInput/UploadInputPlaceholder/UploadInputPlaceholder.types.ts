@@ -6,6 +6,13 @@ export type UploadInputPlaceholderTypeProps<PT extends UploadInputPlaceholderTyp
     ? ExtendedUploadInputPlaceholderProps
     : CompactUploadInputPlaceholderProps;
 
+export type UploadInputPlaceholderVariant = "primary" | "secondary";
+
 export type UploadInputPlaceholderProps<PT extends UploadInputPlaceholderType = UploadInputPlaceholderType> = {
     type?: PT;
+    variant?: UploadInputPlaceholderVariant;
 } & UploadInputPlaceholderTypeProps<PT>;
+
+export interface UploadInputPlaceholderRootProps {
+    variant: UploadInputPlaceholderVariant;
+}

@@ -1,6 +1,6 @@
 import { screen } from "@testing-library/react";
 import { render, translate } from "test-utils";
-import NftCreationPage from "module/nft/pages/NftCreationPage/NftCreationPage";
+import NftCreationPage from "module/nft/page/NftCreationPage/NftCreationPage";
 import userEvent from "@testing-library/user-event";
 import { NftService } from "module/api/service";
 import createNftRequestFromForm from "module/nft/util/createNftRequestFromForm";
@@ -66,10 +66,10 @@ describe("NftCreationPage", () => {
             expect(screen.getByText(capitalize(translate("fileInputPlaceholder")))).toBeInTheDocument();
             // name
             expect(screen.getByText(capitalize(translate("name")))).toBeInTheDocument();
-            expect(screen.getByPlaceholderText(translate("namePlaceholder"))).toBeInTheDocument();
+            expect(screen.getByPlaceholderText(translate("nftNamePlaceholder"))).toBeInTheDocument();
             // decription
             expect(screen.getByText(translate("description"))).toBeInTheDocument();
-            expect(screen.getByPlaceholderText(translate("descriptionPlaceholder"))).toBeInTheDocument();
+            expect(screen.getByPlaceholderText(translate("nftDescriptionPlaceholder"))).toBeInTheDocument();
             // collection
             expect(screen.getByText(translate("collection"))).toBeInTheDocument();
             expect(screen.getByText(translate("collectionPlaceholder"))).toBeInTheDocument();
@@ -84,7 +84,7 @@ describe("NftCreationPage", () => {
             expect(screen.getByPlaceholderText(translate("externalLinkPlaceholder"))).toBeInTheDocument();
             // background color
             expect(screen.getByText(translate("backgroundColor"))).toBeInTheDocument();
-            expect(screen.getByPlaceholderText(translate("backgroundColorPlaceholder"))).toBeInTheDocument();
+            expect(screen.getByPlaceholderText(translate("nftBackgroundColorPlaceholder"))).toBeInTheDocument();
             // flags
             expect(screen.getByText(translate("burnable")));
             expect(screen.getByText(translate("onlyXRP")));
@@ -101,7 +101,7 @@ describe("NftCreationPage", () => {
 
             const saveButton = screen.getByRole("button", { name: translate("save") });
             await waitFor(() => expect(saveButton).not.toBeDisabled());
-            userEvent.type(screen.getByPlaceholderText(translate("namePlaceholder")), NFT_NAME);
+            userEvent.type(screen.getByPlaceholderText(translate("nftNamePlaceholder")), NFT_NAME);
             userEvent.click(saveButton);
 
             await waitFor(() => expect(createNftDraftMock).toHaveBeenCalledWith(CREATE_NFT_REQUEST));
@@ -114,7 +114,7 @@ describe("NftCreationPage", () => {
 
             const publishButton = screen.getByRole("button", { name: translate("publish") });
             await waitFor(() => expect(publishButton).not.toBeDisabled());
-            userEvent.type(screen.getByPlaceholderText(translate("namePlaceholder")), NFT_NAME);
+            userEvent.type(screen.getByPlaceholderText(translate("nftNamePlaceholder")), NFT_NAME);
             userEvent.click(publishButton);
 
             await waitFor(() => expect(createNftMock).toHaveBeenCalledWith(CREATE_NFT_REQUEST));

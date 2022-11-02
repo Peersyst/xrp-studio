@@ -15,7 +15,7 @@ import ColorInput from "module/common/component/input/ColorInput/ColorInput";
 import Color from "color";
 import PropertiesInput from "module/nft/component/input/PropertiesInput/PropertiesInput";
 import { BaseNftPageContentLeftSlot } from "module/nft/component/layout/BaseNftPage/BaseNftPageContent/BaseNftPageContentSlots";
-import { NftFormFields } from "module/nft/pages/NftCreationPage/NftCreationPage.types";
+import { NftFormFields } from "module/nft/page/NftCreationPage/NftCreationPage.types";
 import { CreationNft } from "module/nft/types";
 
 export interface UseNftCreationPageSlotsParams {
@@ -64,14 +64,14 @@ export default function ({ nft, collections, fixedCollection, loading = false }:
                         key={"name: " + name}
                         name={NftFormFields.name}
                         label={capitalize(translate("name"))}
-                        placeholder={translate("namePlaceholder")}
+                        placeholder={translate("nftNamePlaceholder")}
                         defaultValue={name}
                     />
                     <TextArea
                         key={"description: " + description}
                         name={NftFormFields.description}
                         label={translate("description")}
-                        placeholder={translate("descriptionPlaceholder")}
+                        placeholder={translate("nftDescriptionPlaceholder")}
                         maxLength={config.maxNftDescChars}
                         defaultValue={description || ""}
                     />
@@ -123,7 +123,7 @@ export default function ({ nft, collections, fixedCollection, loading = false }:
                     key={"backgroundColor: " + backgroundColor}
                     name={NftFormFields.backgroundColor}
                     label={translate("backgroundColor")}
-                    TextFieldProps={{ variant: "filled", placeholder: translate("backgroundColorPlaceholder") }}
+                    TextFieldProps={{ variant: "filled", placeholder: translate("nftBackgroundColorPlaceholder") }}
                     defaultValue={backgroundColor ? new Color(backgroundColor) : undefined}
                 />
                 <Divider />

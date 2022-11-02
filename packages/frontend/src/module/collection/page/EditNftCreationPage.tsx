@@ -1,5 +1,5 @@
 import EditNftCreationPageHeader from "module/collection/component/layout/EditNftCreationPageHeader/EditNftCreationPageHeader";
-import useNftCreationPageSlots from "module/nft/pages/NftCreationPage/hook/useNftCreationPageSlots";
+import useNftCreationPageSlots from "module/nft/page/NftCreationPage/hook/useNftCreationPageSlots";
 import BaseNftPage from "module/nft/component/layout/BaseNftPage/BaseNftPage";
 import { Form } from "@peersyst/react-components";
 import { useNavigate, useSearchParams } from "react-router-dom";
