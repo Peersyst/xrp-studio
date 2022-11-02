@@ -3,6 +3,7 @@ import { rack } from "@peersyst/react-utils";
 import {
     BaseNftPageContentCard,
     BaseNftPageImageWrapper,
+    BaseNftPageInfoWrapper,
 } from "module/nft/component/layout/BaseNftPage/BaseNftPageContent/BaseNftPageContent.styles";
 import { Children } from "react";
 import { BaseNftPageSlotProps } from "module/nft/component/layout/BaseNftPage/BaseNftPageContent/BaseNftPageContent.types";
@@ -12,9 +13,7 @@ export const BaseNftPageContentLeftSlot = rack(
         return (
             <>
                 {slots.Image}
-                <Col gap="1.5rem" flex={1}>
-                    {slots.Info}
-                </Col>
+                <BaseNftPageInfoWrapper>{slots.Info}</BaseNftPageInfoWrapper>
             </>
         );
     },

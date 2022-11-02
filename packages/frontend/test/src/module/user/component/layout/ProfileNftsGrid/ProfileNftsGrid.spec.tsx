@@ -29,7 +29,7 @@ describe("Test for the ProfileNftsGrid", () => {
         /**
          * Content
          */
-        await waitFor(() => expect(screen.getByRole("heading", { name: translate("youHaveNoNfts") })).toBeInTheDocument());
+        await waitFor(() => expect(screen.getByRole("heading", { name: translate("youHaveNoNfts", { ns: "error" }) })).toBeInTheDocument());
         const btn = screen.getByRole("button", { name: translate("createNft") });
         expect(btn).toBeInTheDocument();
         fireEvent.click(btn);

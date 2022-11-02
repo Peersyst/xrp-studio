@@ -1,5 +1,5 @@
 import useGetUser from "module/user/query/useGetUser";
-import { BlockchainAddress, Col, Row, Skeleton, Typography, useDrawer, useTheme } from "@peersyst/react-components";
+import { Col, Row, Skeleton, Typography, useDrawer, useTheme } from "@peersyst/react-components";
 import {
     ProfileButtons,
     ProfileInfoRoot,
@@ -11,6 +11,7 @@ import useTranslate from "module/common/hook/useTranslate";
 import useWallet from "module/wallet/component/hooks/useWallet";
 import EditProfileDrawer from "module/user/component/feedback/EditProfileDrawer/EditProfileDrawer";
 import SocialButtons from "module/common/component/navigation/SocialButtons/SocialButtons";
+import ChipBlockchainAddress from "module/wallet/component/display/ChipBlockchainAddress/ChipBlockchainAddress";
 
 const ProfileInfo = (): JSX.Element => {
     const translate = useTranslate();
@@ -36,7 +37,7 @@ const ProfileInfo = (): JSX.Element => {
                             </Typography>
                         </Skeleton>
                         <Skeleton width="331px" loading={isLoading}>
-                            <BlockchainAddress
+                            <ChipBlockchainAddress
                                 className="account-address"
                                 variant="body1"
                                 address={address}
