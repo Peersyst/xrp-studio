@@ -4,7 +4,7 @@ import EditNftCreationPage from "module/collection/pages/EditNftCreationPage";
 export enum CollectionRoutes {
     COLLECTIONS = "/collections/",
     CREATE_COLLECTION = "/collections/creation",
-    EDIT_NFT_CREATE_COLLECTION = "/collections/creation/nft",
+    EDIT_NFT_CREATE_COLLECTION = "/collections/creation/:id",
 }
 
 export const useCollectionRoutes = (): RouteObject[] => {
