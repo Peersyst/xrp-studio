@@ -38,7 +38,7 @@ const WalletMenu = ({ setVisible }: WalletMenuProps): JSX.Element => {
                     <BaseLink onClick={() => handleNavigate(UserRoutes.PROFILE.replace(":address", address))}>
                         {translate("profile")}
                     </BaseLink>
-                    <BaseLink onClick={() => handleNavigate(BaseRoutes.SETTINGS)}>{translate("settings")}</BaseLink>
+                    <BaseLink onClick={() => handleNavigate(UserRoutes.SETTINGS)}>{translate("settings")}</BaseLink>
                     <WalletCard />
                 </CardContent>
                 <Divider color={"black.70"} />

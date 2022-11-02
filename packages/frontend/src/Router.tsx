@@ -12,7 +12,6 @@ import { useUserRoutes } from "module/user/UserRouter";
 
 export enum BaseRoutes {
     HOME = "/",
-    SETTINGS = "/settings",
 }
 
 const Routes = () => {

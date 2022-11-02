@@ -9,7 +9,6 @@ import * as Recoil from "recoil";
 import { AuthTokenStorage } from "module/auth/AuthTokenStorage";
 import * as ReactRouter from "react-router-dom";
 import { UserRoutes } from "module/user/UserRouter";
-import { BaseRoutes } from "../../../../../../src/Router";
 
 describe("WalletMenu", () => {
     const wallet = new WalletMock({ address: "0x123" });
@@ -61,6 +60,6 @@ describe("WalletMenu", () => {
         const settingsBtn = screen.getByRole("button", { name: translate("settings") });
         expect(settingsBtn).toBeInTheDocument();
         fireEvent.click(settingsBtn);
-        expect(mockedNavigate).toHaveBeenCalledWith(BaseRoutes.SETTINGS);
+        expect(mockedNavigate).toHaveBeenCalledWith(UserRoutes.SETTINGS);
     });
 });
