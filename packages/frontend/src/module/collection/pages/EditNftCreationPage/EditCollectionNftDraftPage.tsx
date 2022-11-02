@@ -8,7 +8,7 @@ import useCollectionCreationState from "module/collection/hook/useCollectionCrea
 import createNftRequestFromForm from "module/nft/util/createNftRequestFromForm";
 import { CollectionRoutes } from "module/collection/CollectionRouter";
 
-const EditNftCreationPage = () => {
+const EditCollectionNftDraftPage = () => {
     const [searchParams] = useSearchParams();
     const navigate = useNavigate();
     const nftDraftIndex = searchParams.get("index");
@@ -17,7 +17,7 @@ const EditNftCreationPage = () => {
     const nft = nfts[Number(nftDraftIndex)];
     const slots = useNftCreationPageSlots({ nft, fixedCollection: true });
 
-    if (!nftDraftIndex || !(Number(nftDraftIndex) in nfts)) {
+    if (!nftDraftIndex && !(Number(nftDraftIndex) in nfts)) {
         navigate(CollectionRoutes.CREATE_COLLECTION);
     }
 
@@ -41,4 +41,4 @@ const EditNftCreationPage = () => {
     );
 };
 
-export default EditNftCreationPage;
+export default EditCollectionNftDraftPage;
