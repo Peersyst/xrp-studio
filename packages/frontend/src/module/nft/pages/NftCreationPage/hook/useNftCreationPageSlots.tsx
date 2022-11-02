@@ -45,7 +45,7 @@ export default function ({ nft, collections, fixedCollection, loading = false }:
         flags = 0,
     } = nft || {};
     const taxon = nftCollection?.taxon;
-    const { burnable, onlyXRP, trustLine, transferable } = parseFlags(flags);
+    const { burnable, onlyXRP, trustLine, transferable } = typeof flags === "number" ? parseFlags(flags) : flags;
 
     const collectionOptions: SelectOption<number>[] = (collections || (nftCollection ? [nftCollection] : [])).map((collection) => ({
         value: collection.taxon,

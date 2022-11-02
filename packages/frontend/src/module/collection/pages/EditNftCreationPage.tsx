@@ -2,17 +2,35 @@ import EditNftCreationPageHeader from "module/collection/component/layout/EditNf
 import useNftCreationPageSlots from "module/nft/pages/NftCreationPage/hook/useNftCreationPageSlots";
 import BaseNftPage from "module/nft/component/layout/BaseNftPage/BaseNftPage";
 import { Form } from "@peersyst/react-components";
-import { useSearchParams } from "react-router-dom";
-import useGetNftDraft from "module/nft/query/useGetNftDraft";
+import { useNavigate, useSearchParams } from "react-router-dom";
+import { NftCreationForm } from "module/nft/types";
+import useCollectionCreationState from "module/collection/hook/useCollectionCreationState";
+import createNftRequestFromForm from "module/nft/util/createNftRequestFromForm";
+import { CollectionRoutes } from "module/collection/CollectionRouter";
 
 const EditNftCreationPage = () => {
     const [searchParams] = useSearchParams();
-    const nftDraftId = searchParams.get("id");
-    const { data: nftDraft, isLoading: nftDraftLoading } = useGetNftDraft(nftDraftId ? Number(nftDraftId) : undefined);
-    const slots = useNftCreationPageSlots({ nft: nftDraft, loading: nftDraftLoading });
+    const navigate = useNavigate();
+    const nftDraftIndex = searchParams.get("index");
+    const [collectionCreationState, setCollectionCreationState] = useCollectionCreationState();
+    const nfts = collectionCreationState.nfts;
+    const nft = nfts[Number(nftDraftIndex)];
+    const slots = useNftCreationPageSlots({ nft: { ...(nft as any) }, fixedCollection: true });
+
+    if (!nftDraftIndex || !(Number(nftDraftIndex) in nfts)) {
+        navigate(CollectionRoutes.CREATE_COLLECTION);
+    }
+
+    const handleSubmit = (data: NftCreationForm) => {
+        const requestNft = createNftRequestFromForm(data);
+        setCollectionCreationState({
+            ...collectionCreationState,
+            nfts: { ...collectionCreationState.nfts, [Number(nftDraftIndex)]: requestNft },
+        });
+    };
 
     return (
-        <Form onSubmit={() => undefined}>
+        <Form onSubmit={handleSubmit}>
             <BaseNftPage>
                 {{
                     header: <EditNftCreationPageHeader />,
