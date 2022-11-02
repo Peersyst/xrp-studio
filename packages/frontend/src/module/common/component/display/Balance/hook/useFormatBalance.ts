@@ -5,7 +5,7 @@ import formatBalance, { FormatBalanceOptions } from "../utils/formatBalance";
 
 export type FormatBalance = (
     balance: bigint | number | string,
-    { numberFormatOptions, units, unitsPosition, action }?: FormatBalanceOptions,
+    { numberFormatOptions, units, unitsPosition, action }: FormatBalanceOptions,
 ) => string;
 
 export const useFormatBalance = (): FormatBalance => {
@@ -13,7 +13,7 @@ export const useFormatBalance = (): FormatBalance => {
     const { fiat } = useRecoilValue(settingsState);
     const formatBalanceReturn = (
         balance: bigint | number | string,
-        { numberFormatOptions, units, unitsPosition, action }: FormatBalanceOptions = { numberFormatOptions: {} },
+        { numberFormatOptions, units, unitsPosition, action }: FormatBalanceOptions = {},
     ) => {
         const unsignedBalance = balance.toString().replace("-", "");
         const formattedBalance = formatNumber(unsignedBalance, numberFormatOptions);

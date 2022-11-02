@@ -13,7 +13,7 @@ export interface NumberFormatOptions {
 }
 
 export interface FormatBalanceOptions {
-    numberFormatOptions: NumberFormatOptions;
+    numberFormatOptions?: NumberFormatOptions;
     units?: BalanceProps["units"];
     unitsPosition?: BalanceProps["unitsPosition"];
     action?: BalanceAction;
