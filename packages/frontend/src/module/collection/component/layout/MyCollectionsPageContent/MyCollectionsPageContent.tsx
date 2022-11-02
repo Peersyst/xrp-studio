@@ -9,6 +9,7 @@ import Button from "module/common/component/input/Button/Button";
 
 const MyCollectionsPageContent = (): JSX.Element => {
     const translate = useTranslate();
+    const translateError = useTranslate("error");
     const navigate = useNavigate();
     const { data, hasNextPage, fetchNextPage, isFetching } = useGetMyCollections();
     return (
@@ -19,7 +20,7 @@ const MyCollectionsPageContent = (): JSX.Element => {
                 end={!hasNextPage}
                 loading={isFetching}
                 nothingToShow={
-                    <NothingToShow label={translate("youHaveNoCollections")}>
+                    <NothingToShow label={translateError("youHaveNoCollections")}>
                         <Button onClick={() => navigate(CollectionRoutes.CREATE_COLLECTION)}>{translate("createCollection")}</Button>
                     </NothingToShow>
                 }

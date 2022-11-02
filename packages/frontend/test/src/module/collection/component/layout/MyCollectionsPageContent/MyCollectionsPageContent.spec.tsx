@@ -20,6 +20,6 @@ describe("Test for MyCollectionsPageContent", () => {
         const data = new PaginatedDataMock<CollectionDtoMock[]>();
         jest.spyOn(CollectionService, "collectionControllerGetCollections").mockResolvedValue(data);
         const screen = render(<MyCollectionsPage />);
-        await waitFor(() => expect(screen.getByRole("heading", { name: translate("youHaveNoCollections") })));
+        await waitFor(() => expect(screen.getByRole("heading", { name: translate("youHaveNoCollections", { ns: "error" }) })));
     });
 });
