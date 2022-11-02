@@ -1,4 +1,4 @@
-import { CollectionDto, NftDraftDto } from "module/api/service";
+import { CollectionDto } from "module/api/service";
 import { ReactNode } from "react";
 import useTranslate from "module/common/hook/useTranslate";
 import useWallet from "module/wallet/component/hooks/useWallet";
@@ -16,9 +16,10 @@ import Color from "color";
 import PropertiesInput from "module/nft/component/input/PropertiesInput/PropertiesInput";
 import { BaseNftPageContentLeftSlot } from "module/nft/component/layout/BaseNftPage/BaseNftPageContent/BaseNftPageContentSlots";
 import { NftFormFields } from "module/nft/pages/NftCreationPage/NftCreationPage.types";
+import { CreationNft } from "module/nft/types";
 
 export interface UseNftCreationPageSlotsParams {
-    nft: NftDraftDto | undefined;
+    nft: CreationNft | undefined;
     collections?: CollectionDto[];
     fixedCollection?: boolean;
     loading?: boolean;
@@ -45,7 +46,7 @@ export default function ({ nft, collections, fixedCollection, loading = false }:
         flags = 0,
     } = nft || {};
     const taxon = nftCollection?.taxon;
-    const { burnable, onlyXRP, trustLine, transferable } = parseFlags(flags);
+    const { burnable, onlyXRP, trustLine, transferable } = typeof flags === "number" ? parseFlags(flags) : flags;
 
     const collectionOptions: SelectOption<number>[] = (collections || (nftCollection ? [nftCollection] : [])).map((collection) => ({
         value: collection.taxon,
@@ -55,7 +56,7 @@ export default function ({ nft, collections, fixedCollection, loading = false }:
     return (
         <>
             <BaseNftPageContent.Left>
-                <BaseNftPageContentLeftSlot.Image loading={loading} key={nft?.id}>
+                <BaseNftPageContentLeftSlot.Image loading={loading}>
                     <ImageInput key={"image: " + image} name={NftFormFields.image} alt="nft-image" defaultValue={image} />
                 </BaseNftPageContentLeftSlot.Image>
                 <BaseNftPageContentLeftSlot.Info loading={loading}>

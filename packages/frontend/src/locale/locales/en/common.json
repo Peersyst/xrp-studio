@@ -72,5 +72,6 @@
     "roundsToNDecimals": "Rounds to {{decimals}} decimals",
     "creator": "Creator",
     "mintTransactionHash": "Mint transaction hash",
-    "changeFile": "Change file"
+    "changeFile": "Change file",
+    "saveChanges": "Save changes"
 }

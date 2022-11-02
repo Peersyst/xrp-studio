@@ -72,5 +72,6 @@
     "roundsToNDecimals": "Se redondea a {{decimals}} decimales",
     "creator": "Creador",
     "mintTransactionHash": "Hash de la transacción de mint",
-    "changeFile": "Cambiar archivo"
+    "changeFile": "Cambiar archivo",
+    "saveChanges": "Guardar cambios"
 }
