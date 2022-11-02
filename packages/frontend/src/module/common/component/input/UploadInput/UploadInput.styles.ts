@@ -66,10 +66,5 @@ export const UploadBtn = styled(Button)<UploadBtnProps>(({ alignment }) => {
         transform: translate(-${left}, -${top});
         opacity: 1;
         transition: opacity 0.1s ease-in-out;
-
-        &.drag,
-        &.updating {
-            opacity: 0;
-        }
     `;
 });
