@@ -31,6 +31,8 @@ describe("Profile Collections test", () => {
         jest.spyOn(CollectionService, "collectionControllerGetCollections").mockResolvedValue(data);
         const screen = render(<ProfileCollections />);
         expect(screen.getAllByText("collection name loading")).toHaveLength(3);
-        await waitFor(() => expect(screen.getByRole("heading", { name: translate("youHaveNoCollections") })).toBeInTheDocument());
+        await waitFor(() =>
+            expect(screen.getByRole("heading", { name: translate("youHaveNoCollections", { ns: "error" }) })).toBeInTheDocument(),
+        );
     });
 });

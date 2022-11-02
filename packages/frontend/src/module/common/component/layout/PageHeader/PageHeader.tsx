@@ -46,8 +46,8 @@ const PageHeader = ({ children, stickyTitle, ...rest }: PageHeaderProps): JSX.El
             <MainPageHeader ref={headerRef} className="main-header">
                 <MainPageHeaderContent>{children}</MainPageHeaderContent>
             </MainPageHeader>
-            {stickyTitle && (
-                <Animated.Fade in={visible} duration={{ enter: 300, exit: 200 }}>
+            {stickyTitle !== undefined && (
+                <Animated.Fade in={visible} duration={{ enter: 250, exit: 200 }}>
                     <PageStickyHeader onClick={scrollToTop} className="sticky-header">
                         <Typography variant="subtitle2" fontWeight={700}>
                             {stickyTitle}

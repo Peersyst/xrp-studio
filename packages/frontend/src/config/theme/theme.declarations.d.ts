@@ -57,6 +57,11 @@ declare module "@peersyst/react-components" {
             100: string;
             0: string;
         };
+        label: {
+            default: string;
+            filled: string;
+            outlined: string;
+        };
     }
 
     export interface ThemeBreakpointValues {
