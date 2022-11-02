@@ -9,7 +9,7 @@ function CollectionGrid<TagT>({ loading, ...rest }: CollectionGridProps<TagT>): 
     const breakpoints = useGetCollectionGridBreakpoints();
     return (
         <Grid<PaginatedCollectionDto, TagT> loading={loading} breakpoints={breakpoints} Skeletons={BaseCardSkeletons} {...rest}>
-            {(collections) => collections.map((collection, key) => <CollectionCard collection={collection} key={key} />)}
+            {(collections) => collections.map((collection, key) => <CollectionCard size="lg" collection={collection} key={key} />)}
         </Grid>
     );
 }
