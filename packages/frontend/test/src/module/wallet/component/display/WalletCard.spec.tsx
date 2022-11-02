@@ -16,5 +16,6 @@ describe("WalletCard", () => {
         render(<WalletCard />);
         expect(screen.getByText(translate("0x123"))).toBeInTheDocument();
         expect(screen.getByText(translate(15))).toBeInTheDocument();
+        expect(screen.getByText("≈ " + translate(15 * 2) + " $")).toBeInTheDocument();
     });
 });

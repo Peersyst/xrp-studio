@@ -1,5 +1,5 @@
 import { Col, Divider } from "@peersyst/react-components";
-import Link from "module/common/component/navigation/Link/Link";
+import Button from "module/common/component/input/Button/Button";
 import Card from "module/common/component/surface/Card/Card";
 import styled, { css } from "styled-components";
 
@@ -19,13 +19,15 @@ export const CardContent = styled(Col)(
     `,
 );
 
-export const BaseLink = styled(Link)(
+export const BaseLink = styled(Button).attrs({ variant: "text" })(
     ({ theme }) => css`
         cursor: pointer;
         color: ${theme.palette.black[60]};
         font-size: 0.875rem;
         font-weight: 400;
-        width: 100%;
+        height: auto;
+        display: flex;
+        justify-content: flex-start;
     `,
 );
 

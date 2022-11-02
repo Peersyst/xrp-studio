@@ -4,18 +4,19 @@ import useWallet from "../../hooks/useWallet";
 import WalletMenu from "../../navigation/WalletMenu/WalletMenu";
 import NetworkConnect from "../../display/NetworkConnect/NetworkConnect";
 import useGetUser from "module/user/query/useGetUser";
+import { useState } from "react";
 
 const WalletConnected = (): JSX.Element => {
     const { address = "" } = useWallet();
     const { data: user } = useGetUser(address);
-
+    const [visible, setVisible] = useState(false);
     return (
-        <Popover showOn="click" position="bottom-end" disablePortal>
+        <Popover showOn="click" position="bottom-end" onHide={() => setVisible(false)} visible={visible} disablePortal>
             <Popover.Popper elevation={0}>
-                <WalletMenu />
+                <WalletMenu setVisible={setVisible} />
             </Popover.Popper>
             <Popover.Content>
-                <Row gap={10} css={{ cursor: "pointer" }}>
+                <Row gap={10} css={{ cursor: "pointer" }} onClick={() => setVisible((v) => !v)}>
                     <Row alignItems={"center"}>
                         <Avatar size={"sm"} img={user?.image ?? ""} alt="avatar" />
                     </Row>

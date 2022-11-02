@@ -1,4 +1,3 @@
-import { screen } from "@testing-library/react";
 import WalletConnected from "module/wallet/component/core/WalletConnected/WalletConnected";
 import { render, translate } from "test-utils";
 import * as UseWallet from "module/wallet/component/hooks/useWallet";
@@ -17,7 +16,8 @@ describe("WalletConnected test", () => {
     test("Renders correctly", () => {
         const wallet = new WalletMock({ address: "0x123" });
         jest.spyOn(UseWallet, "default").mockReturnValue(wallet);
-        render(<WalletConnected />);
+
+        const screen = render(<WalletConnected />);
         expect(screen.getAllByRole("img")[0]).toHaveAttribute("alt", "avatar");
         expect(screen.getAllByText("0x123").length).toBeLessThanOrEqual(2);
         //Menu

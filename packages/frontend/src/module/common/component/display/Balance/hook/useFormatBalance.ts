@@ -13,12 +13,12 @@ export const useFormatBalance = (): FormatBalance => {
     const { fiat } = useRecoilValue(settingsState);
     const formatBalanceReturn = (
         balance: bigint | number | string,
-        { numberFormatOptions, units, unitsPosition, action }: FormatBalanceOptions = {},
+        { numberFormatOptions, units, unitsPosition, action }: FormatBalanceOptions = { numberFormatOptions: {} },
     ) => {
         const unsignedBalance = balance.toString().replace("-", "");
         const formattedBalance = formatNumber(unsignedBalance, numberFormatOptions);
         const finalUnits = units && units === "fiat" ? fiat : units;
-        return formatBalance(formattedBalance, { action, units: finalUnits, unitsPosition });
+        return formatBalance(formattedBalance, { action, units: finalUnits, unitsPosition, numberFormatOptions });
     };
     return formatBalanceReturn;
 };

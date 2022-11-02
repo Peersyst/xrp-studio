@@ -7,14 +7,14 @@ import { useGetXrpTokenPrice } from "../../hooks/useGetXrpTokenPrice/useGetXrpTo
 import Balance from "module/common/component/display/Balance/Balance";
 
 const WalletCard = (): JSX.Element => {
-    const { address } = useWallet();
+    const { address = "" } = useWallet();
     const { data: availableBalance } = useGetXrpBalance();
     const { data: tokenValue } = useGetXrpTokenPrice();
     const fiatCurrencyBalance = (tokenValue ?? 0) * (availableBalance ?? 0);
     return (
         <WalletCardRoot>
             <Col gap="0.7rem" flex={1}>
-                <BlockchainAddress address={address!} type="address" variant="body2" light css={{ width: "100%" }} />
+                <BlockchainAddress address={address} type="address" variant="body2" light css={{ width: "100%" }} />
                 <Col gap="0.3rem">
                     <Balance variant="body2" balance={availableBalance ?? 0} />
                     <Balance variant="body2" css={{ fontSize: "0.625rem" }} balance={fiatCurrencyBalance} units="fiat" action="round" />
