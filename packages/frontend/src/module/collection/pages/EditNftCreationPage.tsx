@@ -15,7 +15,7 @@ const EditNftCreationPage = () => {
     const [collectionCreationState, setCollectionCreationState] = useCollectionCreationState();
     const nfts = collectionCreationState.nfts;
     const nft = nfts[Number(nftDraftIndex)];
-    const slots = useNftCreationPageSlots({ nft: { ...(nft as any) }, fixedCollection: true });
+    const slots = useNftCreationPageSlots({ nft, fixedCollection: true });
 
     if (!nftDraftIndex || !(Number(nftDraftIndex) in nfts)) {
         navigate(CollectionRoutes.CREATE_COLLECTION);
