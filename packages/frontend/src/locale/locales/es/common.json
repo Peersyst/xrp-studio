@@ -69,5 +69,6 @@
     "publish": "Publicar",
     "roundsToNDecimals": "Se redondea a {{decimals}} decimales",
     "creator": "Creador",
-    "mintTransactionHash": "Hash de la transacción de mint"
+    "mintTransactionHash": "Hash de la transacción de mint",
+    "changeFile": "Cambiar archivo"
 }
