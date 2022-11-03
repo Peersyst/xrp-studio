@@ -17,6 +17,11 @@ const theme = createTheme({
                 xs: 767,
                 xxs: 500,
             },
+            nftPage: 900,
+            collectionsGrid: {
+                xs: 1345,
+                xxs: 800,
+            },
         },
     },
 });

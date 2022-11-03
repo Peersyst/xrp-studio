@@ -6,29 +6,23 @@ export const FormControlStyles = css(({ theme }) => ({
         ".FormControlHint": {
             marginLeft: 0,
         },
-        ".FormControlLabelRoot .Label": {
-            fontWeight: 500,
-            color: theme.palette.black[30],
-            fontSize: theme.typography.body1.style.fontSize,
-            transition: "color 300ms",
-        },
         "&.Filled": {
             ".FormControlLabelRoot .Label": {
-                color: theme.palette.black[50],
+                color: theme.palette.label.filled,
             },
             "&.Disabled": {
-                "> .Label": {
-                    color: theme.palette.black[50],
+                ".FormControlLabelRoot .Label": {
+                    color: theme.palette.label.filled,
                 },
             },
         },
         "&.Outlined": {
             ".FormControlLabelRoot .Label": {
-                color: theme.palette.black[60],
+                color: theme.palette.label.outlined,
             },
             "&.Disabled": {
                 ".FormControlLabelRoot .Label": {
-                    color: theme.palette.black[60],
+                    color: theme.palette.label.outlined,
                 },
             },
         },

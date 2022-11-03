@@ -2,5 +2,5 @@ import { UploadInputProps } from "module/common/component/input/UploadInput/Uplo
 
 export interface ImageInputProps extends Omit<UploadInputProps, "fileTypes" | "uploadPath" | "children"> {
     alt: string;
-    children?: Partial<UploadInputProps["children"]>;
+    children?: UploadInputProps["children"];
 }

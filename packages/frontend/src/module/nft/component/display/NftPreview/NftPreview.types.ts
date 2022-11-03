@@ -1,8 +1,8 @@
-import { NftDto } from "module/api/service";
 import { CSSProperties } from "react";
+import { Nft } from "module/nft/types";
 
 export interface NftPreviewProps {
-    nft: NftDto | undefined;
+    nft: Nft | undefined;
     to?: string;
     loading?: boolean;
     className?: string;

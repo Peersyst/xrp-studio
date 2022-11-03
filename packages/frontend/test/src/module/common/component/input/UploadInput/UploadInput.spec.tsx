@@ -18,7 +18,7 @@ describe("UploadInput", () => {
     });
 
     test("Renders default placeholder correctly", async () => {
-        render(<UploadInput uploadPath="test">{{ display: (url) => <p>{url}</p> }}</UploadInput>);
+        render(<UploadInput uploadPath="test">{(url) => <p>{url}</p>}</UploadInput>);
 
         //Placeholder
         expect(screen.getByTestId("ImageUpIcon")).toBeInTheDocument();
@@ -27,7 +27,11 @@ describe("UploadInput", () => {
     });
 
     test("Renders custom placeholder correctly", async () => {
-        render(<UploadInput uploadPath="test">{{ display: (url) => <p>{url}</p>, placeholder: () => <p>placeholder</p> }}</UploadInput>);
+        render(
+            <UploadInput uploadPath="test" placeholder={<p>placeholder</p>}>
+                {(url) => <p>{url}</p>}
+            </UploadInput>,
+        );
 
         //Placeholder
         expect(screen.getByText("placeholder")).toBeInTheDocument();
@@ -38,7 +42,7 @@ describe("UploadInput", () => {
 
         render(
             <UploadInput defaultValue="default_url" uploadPath="test">
-                {{ display: (url) => <p>{url}</p> }}
+                {(url) => <p>{url}</p>}
             </UploadInput>,
         );
 

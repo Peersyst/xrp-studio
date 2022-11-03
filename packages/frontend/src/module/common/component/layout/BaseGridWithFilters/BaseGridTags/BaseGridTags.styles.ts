@@ -17,6 +17,9 @@ export const BaseGridTagsRoot = styled(Row).attrs({
         top: calc(var(--appbar-height) + ${STICKY_HEADER_HEIGHT});
         background-color: ${theme.palette.background};
         padding: ${GRID_FILTERS_GAP} 0;
+        // Prevent browser rem rounding gaps between elements
+        margin-left: -1px;
+        width: calc(100% + 2px);
     `,
 );
 

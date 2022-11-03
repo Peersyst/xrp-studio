@@ -5,6 +5,6 @@
 export type CreateNftMetadataAttributeRequest = {
     traitType: string;
     value: string;
-    displayType?: string;
+    displayType?: string | null;
 };
 

@@ -1,15 +1,12 @@
-import UploadInput from "module/common/component/input/UploadInput/UploadInput";
 import { ImageInputProps } from "module/common/component/input/ImageInput/ImageInput.types";
-import { ImageInputDisplay } from "module/common/component/input/ImageInput/ImageInput.styles";
+import { Image } from "@peersyst/react-components";
+import { ImageInputRoot } from "module/common/component/input/ImageInput/ImageInput.styles";
 
-const ImageInput = ({ children: { display, placeholder } = {}, alt, loading = false, ...rest }: ImageInputProps): JSX.Element => {
+const ImageInput = ({ children, placeholder, alt, loading = false, ...rest }: ImageInputProps): JSX.Element => {
     return (
-        <UploadInput fileTypes="image/*" uploadPath="image" loading={loading} {...rest}>
-            {{
-                display: display || ((url) => <ImageInputDisplay src={url} alt={alt} loading={loading} className="image-input-img" />),
-                placeholder,
-            }}
-        </UploadInput>
+        <ImageInputRoot fileTypes="image/*" uploadPath="image" loading={loading} placeholder={placeholder} {...rest}>
+            {children || ((url) => <Image src={url} alt={alt} loading={loading} className="image-input-img" />)}
+        </ImageInputRoot>
     );
 };
 

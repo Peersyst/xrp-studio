@@ -5,8 +5,9 @@ import {
     ProfileHeaderFooter,
     ProfileHeaderRoot,
 } from "module/user/component/layout/ProfileHeader/ProfileHeader.styles";
-import { BlockchainAddress, Col, Skeleton, Typography } from "@peersyst/react-components";
+import { Col, Skeleton, Typography } from "@peersyst/react-components";
 import ProfileInfo from "module/user/component/layout/ProfileHeader/ProfileInfo/ProfileInfo";
+import ChipBlockchainAddress from "module/wallet/component/display/ChipBlockchainAddress/ChipBlockchainAddress";
 
 const ProfileHeader = (): JSX.Element => {
     const { data: user, isLoading } = useGetUser();
@@ -23,7 +24,7 @@ const ProfileHeader = (): JSX.Element => {
                 </ProfileHeaderFooter>
             </Col>
             <Skeleton width="134px" loading={isLoading}>
-                <BlockchainAddress className="account-address" variant="body2" address={address} type="address" length={3} />
+                <ChipBlockchainAddress className="account-address" variant="body2" address={address} type="address" length={3} />
             </Skeleton>
             <Skeleton width="90%" loading={isLoading}>
                 <Typography className="profile-description" variant="body2" light>

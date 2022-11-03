@@ -4,6 +4,7 @@ export * from "./IntersectionObserverMock";
 export * from "./MatchMediaMock";
 export * from "./ResizeObserverMock";
 export * from "./genesys";
+export * from "./router";
 export * from "./xumm-react";
 export * from "./dto";
 export * from "./wallet";

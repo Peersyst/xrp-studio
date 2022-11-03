@@ -11,13 +11,18 @@ export const MainPageHeader = styled.header(
         position: relative;
         --vertical-header-padding: 3rem;
         margin-top: calc(var(--vertical-header-padding) + var(--appbar-height));
-        padding-left: var(--horizontal-page-padding);
-        padding-right: var(--horizontal-page-padding);
         padding-bottom: var(--vertical-header-padding);
         background-color: ${theme.palette.background};
         width: 100%;
     `,
 );
+
+export const MainPageHeaderContent = styled.div`
+    width: 100%;
+    max-width: var(--page-max-width);
+    margin: 0 auto;
+    padding: 0 var(--horizontal-page-padding);
+`;
 
 export const PageStickyHeader = styled.header(
     ({ theme }) => css`
@@ -31,7 +36,8 @@ export const PageStickyHeader = styled.header(
         align-items: center;
 
         width: 100%;
-        height: ${STICKY_HEADER_HEIGHT};
+        // +1px prevents gaps when the browser rounds rem units
+        height: calc(${STICKY_HEADER_HEIGHT} + 1px);
 
         background-color: ${theme.palette.background};
 

@@ -5,7 +5,7 @@ import { PageHeaderProps } from "../PageHeader/PageHeader";
 export interface MainPageHeaderProps extends Pick<PageHeaderProps, "stickyTitle"> {
     back?: boolean;
     backIconSize?: ArrowButtonProps["size"];
-    title: string;
+    title?: string;
     subtitle?: string;
     complement?: ReactElement;
     footer?: ReactElement;

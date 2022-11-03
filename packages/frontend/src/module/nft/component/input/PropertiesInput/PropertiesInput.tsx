@@ -69,6 +69,7 @@ const PropertiesInput = ({
                                 onDelete={() => handleDelete(index)}
                                 variant={variant}
                                 size={size}
+                                readonly={readonly}
                             />
                         ))}
                         {!readonly && (

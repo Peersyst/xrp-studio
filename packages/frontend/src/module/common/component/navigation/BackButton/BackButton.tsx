@@ -1,20 +1,11 @@
 import { cx } from "@peersyst/react-utils";
-import { DashboardRoutes } from "module/dashboard/DashboardRouter";
-import { useNavigate } from "react-router-dom";
 import ArrowButton from "../../input/ArrowButton/ArrowButton";
-import { BackButtonOnClick, BackButtonProps } from "./BackButton.types";
+import { BackButtonProps } from "./BackButton.types";
+import useGoBack from "module/common/hook/useGoBack";
 
 const BackButton = ({ className, ...rest }: BackButtonProps): JSX.Element => {
-    const navigate = useNavigate();
-    const handleOnClick: BackButtonOnClick = () => {
-        //Verify not leaving the site
-        if (!window.history?.state || window.history?.state?.idx === 0) {
-            navigate(DashboardRoutes.MAIN);
-        } else {
-            navigate(-1);
-        }
-    };
-    return <ArrowButton {...rest} className={cx("back-button", className)} direction="left" onClick={handleOnClick} />;
+    const goBack = useGoBack();
+    return <ArrowButton {...rest} className={cx("back-button", className)} direction="left" onClick={goBack} />;
 };
 
 export default BackButton;

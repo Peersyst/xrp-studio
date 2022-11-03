@@ -30,6 +30,6 @@ describe("Test for the MyNftsPageHeader test", () => {
         const screen = render(<MyNftsPageHeader />);
         const button = screen.getByRole("button", { name: translate("createNft") });
         userEvent.click(button);
-        expect(mockedNavigate).toHaveBeenCalledWith(NftRoutes.CREATE_NFT);
+        expect(mockedNavigate).toHaveBeenCalledWith(NftRoutes.NFT_CREATION);
     });
 });

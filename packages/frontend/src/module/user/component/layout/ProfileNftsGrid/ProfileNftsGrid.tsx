@@ -10,6 +10,8 @@ import useNftsFiltersReducer from "module/nft/hook/useNftsFiltersReducer";
 
 const ProfileNftsGrid = (): JSX.Element => {
     const translate = useTranslate();
+    const translateError = useTranslate("error");
+    const { data, hasNextPage, fetchNextPage, isFetching } = useGetProfileNfts();
     const navigate = useNavigate();
     const [filters, setFilters] = useNftsFiltersReducer();
     const { data, hasNextPage, fetchNextPage, isFetching: isLoadingNfts } = useGetProfileNfts(filters);
@@ -28,8 +30,8 @@ const ProfileNftsGrid = (): JSX.Element => {
             loadingCollections={isLoadingCollections}
             collections={collections}
             nothingToShow={
-                <NothingToShow css={{ height: "20rem" }} label={translate("youHaveNoNfts")}>
-                    <Button onClick={() => navigate(NftRoutes.CREATE_NFT)}>{translate("createNft")}</Button>
+                <NothingToShow css={{ height: "12rem" }} label={translateError("youHaveNoNfts")}>
+                    <Button onClick={() => navigate(NftRoutes.NFT_CREATION)}>{translate("createNft")}</Button>
                 </NothingToShow>
             }
         />

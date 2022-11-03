@@ -5,16 +5,10 @@ import { useUpdateUser } from "module/user/query/useUpdateUser";
 import EditProfileDrawerBody from "./EditProfileDrawerBody/EditProfileDrawerBody";
 import { EditProfileDrawerRoot, EditProfileForm } from "./EditProfileDrawer.styles";
 import EditProfileDrawerHeader from "./EditProfileDrawerHeader/EditProfileDrawerHeader";
-import { EditUserFormFields, UpdateUserFields } from "./EditProfileDrawer.types";
+import { EditUserFormFields, UpdateUserFields as UpdateUserFieldsType } from "./EditProfileDrawer.types";
 import createUserRequestFromUserDTO from "module/user/util/createUserRequestFromUserDTO";
 
-/**
- * This json is used as a way to typecheck all names of the form.
- * The Form component does not have a way to ensure that all fields are typed correctly.
- * This typechecking will be necessary in the handleSumbit fn
- * handleSumbit(newUser: UserDto) => Promise<void>
- */
-export const userEditNames: Record<UpdateUserFields, UpdateUserFields> = {
+export const UpdateUserFields: Record<UpdateUserFieldsType, UpdateUserFieldsType> = {
     name: "name",
     description: "description",
     twitter: "twitter",
