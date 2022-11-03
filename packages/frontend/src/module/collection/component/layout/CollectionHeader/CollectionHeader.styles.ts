@@ -59,11 +59,13 @@ export const CollectionHeaderFooter = styled(Row).attrs({ gap: "1rem", flex: 1 }
         ${theme.breakpoints.down("md")} {
             --collection-avatar-width: max(9.5rem, 13vw);
             --collection-avatar-left: 18vw;
+            --collection-back-left: 10vw;
         }
 
-        ${theme.breakpoints.down("mini")} {
-            --collection-avatar-width: max(6rem, 20vw);
+        ${theme.breakpoints.down("mobile")} {
+            --collection-avatar-width: max(2rem, 15vw);
             --collection-avatar-left: 15vw;
+            --collection-back-left: 5vw;
         }
 
         min-height: calc(calc(calc(var(--collection-avatar-width) / 1.8)) - 2rem);
@@ -72,7 +74,7 @@ export const CollectionHeaderFooter = styled(Row).attrs({ gap: "1rem", flex: 1 }
 
         .collection-back {
             position: absolute;
-            left: --collection-back-left;
+            left: var(--collection-back-left);
         }
     `,
 );
