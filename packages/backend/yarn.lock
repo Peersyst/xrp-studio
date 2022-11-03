@@ -12402,7 +12402,7 @@ typeorm-model-generator@^0.4.6:
     typeorm "^0.2.37"
     yargs "^16.2.0"
 
-typeorm@^0.2.37, typeorm@^0.2.38, typeorm@^0.2.41:
+typeorm@0.2.41, typeorm@^0.2.37, typeorm@^0.2.38, typeorm@^0.2.41:
   version "0.2.41"
   resolved "https://registry.npmjs.org/typeorm/-/typeorm-0.2.41.tgz"
   integrity sha512-/d8CLJJxKPgsnrZWiMyPI0rz2MFZnBQrnQ5XP3Vu3mswv2WPexb58QM6BEtmRmlTMYN5KFWUz8SKluze+wS9xw==
