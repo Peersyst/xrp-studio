@@ -6,7 +6,6 @@ export enum CollectionRoutes {
     MY_COLLECTIONS = "/collections/my-collections",
     CREATE_COLLECTION = "/collections/creation",
     EDIT_NFT_CREATE_COLLECTION = "/collections/creation/:id",
-    COLLECTION = "/collection/:id",
 }
 
 const CollectionPage = lazy(() => import("./page/CollectionPage"));
@@ -31,7 +30,7 @@ export const useCollectionRoutes = (): RouteObject[] => {
             ],
         },
         {
-            path: CollectionRoutes.COLLECTION,
+            path: CollectionRoutes.VIEW_COLLECTION,
             element: <CollectionPage />,
         },
     ];
