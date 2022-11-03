@@ -1,4 +1,4 @@
-import EditCollectionNftDraftPage from "module/collection/pages/EditNftCreationPage/EditCollectionNftDraftPage";
+import EditCollectionNftDraftPage from "module/collection/page/EditNftCreationPage/EditCollectionNftDraftPage";
 import { render, translate } from "test-utils";
 import { UseCollectionCreationStateMock, WalletMock } from "test-mocks";
 import { screen } from "@testing-library/react";

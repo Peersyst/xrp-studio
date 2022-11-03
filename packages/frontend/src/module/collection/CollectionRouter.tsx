@@ -1,5 +1,5 @@
 import { RouteObject } from "react-router-dom";
-import EditCollectionNftDraftPage from "module/collection/pages/EditNftCreationPage/EditCollectionNftDraftPage";
+import EditCollectionNftDraftPage from "module/collection/page/EditNftCreationPage/EditCollectionNftDraftPage";
 
 export enum CollectionRoutes {
     COLLECTIONS = "/collections/",

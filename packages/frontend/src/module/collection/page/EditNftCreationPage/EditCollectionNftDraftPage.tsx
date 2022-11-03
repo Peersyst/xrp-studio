@@ -1,4 +1,4 @@
-import EditNftCreationPageHeader from "module/collection/component/layout/EditNftCreationPageHeader/EditNftCreationPageHeader";
+import EditNftCreationPageHeader from "module/collection/component/layout/EditCollectionNftDraftHeader/EditCollectionNftDraftHeader";
 import useNftCreationPageSlots from "module/nft/pages/NftCreationPage/hook/useNftCreationPageSlots";
 import BaseNftPage from "module/nft/component/layout/BaseNftPage/BaseNftPage";
 import { Form } from "@peersyst/react-components";
@@ -17,9 +17,9 @@ const EditCollectionNftDraftPage = () => {
     const nft = nfts[Number(nftDraftIndex)];
     const slots = useNftCreationPageSlots({ nft, fixedCollection: true });
 
-    /* if (!nftDraftIndex && !(Number(nftDraftIndex) in nfts)) {
+    if (!nftDraftIndex && !(Number(nftDraftIndex) in nfts)) {
         navigate(CollectionRoutes.CREATE_COLLECTION);
-    }*/
+    }
 
     const handleSubmit = (data: NftCreationForm) => {
         const requestNft = createNftRequestFromForm(data);
