@@ -12,11 +12,11 @@ const UploadInputPlaceholders: Record<UploadInputPlaceholderType, JSXElementCons
     compact: CompactUploadInputPlaceholder,
 };
 
-const UploadInputPlaceholder = ({ type = "extended", ...props }: UploadInputPlaceholderProps): JSX.Element => {
+const UploadInputPlaceholder = ({ type = "extended", variant = "primary", ...props }: UploadInputPlaceholderProps): JSX.Element => {
     const UploadInputPlaceholderComponent = UploadInputPlaceholders[type];
 
     return (
-        <UploadInputPlaceholderRoot>
+        <UploadInputPlaceholderRoot variant={variant}>
             <UploadInputPlaceholderComponent {...props} />
         </UploadInputPlaceholderRoot>
     );

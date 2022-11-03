@@ -62,6 +62,7 @@ const lightTheme = createTheme({
             filled: black[50],
             outlined: black[60],
         },
+        card: black[85],
     },
 });
 

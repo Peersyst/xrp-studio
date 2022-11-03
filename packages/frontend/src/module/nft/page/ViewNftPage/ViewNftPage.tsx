@@ -2,7 +2,7 @@ import BaseNftPage from "module/nft/component/layout/BaseNftPage/BaseNftPage";
 import { useParams } from "react-router-dom";
 import useGetNft from "module/nft/query/useGetNft";
 import MainPageHeader from "module/common/component/layout/MainPageHeader/MainPageHeader";
-import useViewNftPageSlots from "module/nft/pages/ViewNftPage/hook/useViewNftPageSlots";
+import useViewNftPageSlots from "module/nft/page/ViewNftPage/hook/useViewNftPageSlots";
 import useGetNfts from "module/nft/query/useGetNfts";
 import { usePaginatedList } from "@peersyst/react-hooks";
 import { NftRoutes } from "module/nft/NftRouter";

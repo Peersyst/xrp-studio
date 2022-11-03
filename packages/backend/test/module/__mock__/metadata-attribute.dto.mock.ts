@@ -3,7 +3,7 @@ import { MetadataAttributeDto } from "../../../src/modules/nft/dto/metadata-attr
 class MetadataAttributeDtoMock {
     traitType: string;
     value: string;
-    displayType?: string;
+    displayType?: string | null;
 
     constructor({ traitType, value, displayType }: Partial<MetadataAttributeDto> = {}) {
         this.traitType = traitType;

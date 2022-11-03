@@ -3,7 +3,7 @@ import { UseSearchParamsMock } from "test-mocks";
 import { NftService } from "module/api/service";
 import { CollectionDtoMock, MetadataAttributeDtoMock, MetadataDtoMock, NftDtoMock, PaginatedNftsMock } from "test-mocks";
 import { render, translate } from "test-utils";
-import ViewNftPage from "module/nft/pages/ViewNftPage/ViewNftPage";
+import ViewNftPage from "module/nft/page/ViewNftPage/ViewNftPage";
 import { capitalize } from "@peersyst/react-utils";
 import { waitFor } from "@testing-library/dom";
 
