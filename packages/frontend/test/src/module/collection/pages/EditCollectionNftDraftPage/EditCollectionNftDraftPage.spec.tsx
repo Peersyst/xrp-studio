@@ -3,6 +3,8 @@ import { render, translate } from "test-utils";
 import { WalletMock } from "test-mocks";
 import { screen } from "@testing-library/react";
 import { capitalize } from "@peersyst/react-utils";
+import { waitFor } from "@testing-library/dom";
+import userEvent from "@testing-library/user-event";
 
 describe("EditCollectionNftDraftPage", () => {
     describe("Edition", () => {
@@ -53,7 +55,18 @@ describe("EditCollectionNftDraftPage", () => {
         });
 
         test("Saves changes", async () => {
+            const useCollectionCreationStateMock = jest.fn();
+            jest.mock("module/collection/hook/useCollectionCreationState", () => {
+                return jest.fn(() => [{}, () => useCollectionCreationStateMock]);
+            });
+
             render(<EditCollectionNftDraftPage />);
+
+            const saveButton = screen.getByRole("button", { name: translate("saveChanges") });
+            await waitFor(() => expect(saveButton).not.toBeDisabled());
+            userEvent.click(saveButton);
+
+            await waitFor(() => expect(useCollectionCreationStateMock).toBeCalled());
         });
     });
 });

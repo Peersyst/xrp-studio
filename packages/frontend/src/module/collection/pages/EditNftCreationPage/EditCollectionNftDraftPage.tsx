@@ -17,9 +17,9 @@ const EditCollectionNftDraftPage = () => {
     const nft = nfts[Number(nftDraftIndex)];
     const slots = useNftCreationPageSlots({ nft, fixedCollection: true });
 
-    if (!nftDraftIndex && !(Number(nftDraftIndex) in nfts)) {
+    /* if (!nftDraftIndex && !(Number(nftDraftIndex) in nfts)) {
         navigate(CollectionRoutes.CREATE_COLLECTION);
-    }
+    }*/
 
     const handleSubmit = (data: NftCreationForm) => {
         const requestNft = createNftRequestFromForm(data);
