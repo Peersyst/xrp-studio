@@ -9,6 +9,7 @@ import { useNavigate } from "react-router-dom";
 import { useParams } from "react-router-dom";
 
 const CollectionContent = (): JSX.Element => {
+    const translateError = useTranslate("error");
     const translate = useTranslate();
     const { id } = useParams<string>();
     const navigate = useNavigate();
@@ -21,7 +22,7 @@ const CollectionContent = (): JSX.Element => {
                 end={!hasNextPage}
                 loading={isFetching}
                 nothingToShow={
-                    <NothingToShow css={{ height: "12rem" }} label={translate("youHaveNoNfts")}>
+                    <NothingToShow css={{ height: "12rem" }} label={translateError("youHaveNoNfts")}>
                         <Button onClick={() => navigate(NftRoutes.NFT_CREATION)}>{translate("createNft")}</Button>
                     </NothingToShow>
                 }
