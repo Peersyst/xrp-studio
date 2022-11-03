@@ -9,12 +9,14 @@ import { config } from "config";
 import { useNftRoutes } from "module/nft/NftRouter";
 import { useLoad } from "module/common/hook/useLoad";
 import { useUserRoutes } from "module/user/UserRouter";
+import { useCollectionRoutes } from "module/collection/CollectionRouter";
 
 const Routes = () => {
     const dashboardRoutes = useDashboardRoutes();
     const userRoutes = useUserRoutes();
+    const collectionRoutes = useCollectionRoutes();
     const nftRoutes = useNftRoutes();
-    return useRoutes([...dashboardRoutes, ...userRoutes, ...nftRoutes, { path: "*", element: <Navigate to="/" /> }]);
+    return useRoutes([...dashboardRoutes, ...userRoutes, ...collectionRoutes, ...nftRoutes, { path: "*", element: <Navigate to="/" /> }]);
 };
 
 const Router = (): JSX.Element => {
