@@ -10,13 +10,6 @@ export const devNftMetadata = [
         updatedAt: new Date(),
     },
     {
-        nft: devNfts[1],
-        name: "7925",
-        image: "https://img.seadn.io/files/07e5cfcfeabc324b17b35a1a89f5d32a.png?auto=format&fit=max&w=384",
-        createdAt: new Date(),
-        updatedAt: new Date(),
-    },
-    {
         nft: devNfts[2],
         name: "3045",
         image: "https://img.seadn.io/files/8e0d54940097c33e857e554dabbd6be4.png?auto=format&fit=max&w=384",

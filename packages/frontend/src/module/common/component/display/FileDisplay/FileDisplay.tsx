@@ -3,7 +3,6 @@ import { ImageIcon } from "icons";
 import useTranslate from "module/common/hook/useTranslate";
 import Button from "../../input/Button/Button";
 import FileArrayDisplay from "./FileArrayDisplay";
-import { UploadInputBaseIcon } from "module/common/component/input/UploadInput/UploadInput.styles";
 
 export interface FileDisplayProps {
     file: File | File[];
@@ -13,7 +12,7 @@ const FileDisplay = ({ file }: FileDisplayProps): JSX.Element => {
     const t = useTranslate();
     return (
         <>
-            <UploadInputBaseIcon as={ImageIcon} />
+            <ImageIcon css={{ fontSize: "750%" }} />
             <Col alignItems="center" css={{ maxWidth: "80%" }}>
                 {"length" in file ? (
                     <FileArrayDisplay>{file}</FileArrayDisplay>

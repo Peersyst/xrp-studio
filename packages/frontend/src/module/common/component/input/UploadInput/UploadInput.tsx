@@ -1,15 +1,16 @@
 import { UploadInputProps } from "module/common/component/input/UploadInput/UploadInput.types";
 import { FormControl, FormControlLabel, Row } from "@peersyst/react-components";
-import { UploadBtn, UploadInputLoader, UploadInputRoot } from "./UploadInput.styles";
+import { UploadBtn, UploadInputRoot } from "./UploadInput.styles";
 import { ImageIcon } from "icons";
 import useUploadFile from "module/common/query/useUploadFile";
 import { cx } from "@peersyst/react-utils";
 import useTranslate from "module/common/hook/useTranslate";
-import UploadInputPlaceholder from "module/common/component/input/UploadInput/FileInputPlaceholder/UploadInputPlaceholder";
+import UploadInputPlaceholder from "module/common/component/input/UploadInput/UploadInputPlaceholder/UploadInputPlaceholder";
+import { isValidElement } from "react";
 
 const UploadInput = ({
     loading = false,
-    children: { display, placeholder },
+    children,
     Label = FormControlLabel,
     LabelProps = {},
     defaultValue,
@@ -17,6 +18,8 @@ const UploadInput = ({
     fileTypes,
     readonly,
     disabled,
+    changeButton,
+    placeholder,
     ...rest
 }: UploadInputProps): JSX.Element => {
     const translate = useTranslate();
@@ -25,8 +28,18 @@ const UploadInput = ({
 
     const { mutateAsync: uploadFile, isLoading: updating } = useUploadFile(uploadPath);
 
+    const changeButtonLabel = changeButton?.label ?? true;
+    const parsedChangeButtonLabel = changeButtonLabel === true ? translate("change") : changeButtonLabel;
+
     return (
-        <FormControl Label={[Label, LabelProps]} defaultValue={defaultValue} readonly={readonly} disabled={disabled} {...rest}>
+        <FormControl
+            Label={[Label, LabelProps]}
+            defaultValue={defaultValue}
+            readonly={readonly}
+            disabled={disabled}
+            css={{ alignSelf: "unset" }}
+            {...rest}
+        >
             {(value, setValue) => {
                 const handleFileChange = async (file: File | undefined) => {
                     if (file) {
@@ -48,24 +61,28 @@ const UploadInput = ({
                             <>
                                 {value ? (
                                     <>
-                                        {display(value, drag)}
-                                        <UploadInputLoader className={cx("upload-input-loader", drag && "drag", updating && "updating")} />
+                                        {children(value, drag)}
                                         {editable && (
                                             <UploadBtn
+                                                alignment={changeButton?.alignment}
                                                 variant="glass"
                                                 size="sm"
                                                 rounded
                                                 className={cx("upload-btn", drag && "drag", updating && "updating", loading && "loading")}
+                                                loading={updating}
                                             >
                                                 <Row gap="0.5rem" alignItems="center">
-                                                    <ImageIcon css={{ fontSize: "1.4rem" }} />
-                                                    {translate("change")}
+                                                    <ImageIcon css={{ fontSize: "1.5rem" }} />
+                                                    {parsedChangeButtonLabel}
                                                 </Row>
                                             </UploadBtn>
                                         )}
                                     </>
+                                ) : // as any is safe here, as placeholder type is ensured by placeholderChild presence
+                                isValidElement(placeholder) ? (
+                                    placeholder
                                 ) : (
-                                    placeholder?.(drag) || <UploadInputPlaceholder drag={drag} />
+                                    <UploadInputPlaceholder {...placeholder} />
                                 )}
                             </>
                         )}

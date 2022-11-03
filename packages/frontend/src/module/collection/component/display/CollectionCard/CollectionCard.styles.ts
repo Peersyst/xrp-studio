@@ -1,23 +1,24 @@
 import styled, { css } from "styled-components";
 import { Image, Row } from "@peersyst/react-components";
 import Avatar from "module/common/component/display/Avatar/Avatar";
+import { CollectionCardSizeProps } from "module/collection/component/display/CollectionCard/CollectionCard.types";
 
-export const CollectionCardRoot = styled.div(
-    ({ theme }) => css`
+export const CollectionCardRoot = styled.div<CollectionCardSizeProps>(
+    ({ theme, size }) => css`
         display: flex;
         flex-direction: column;
         position: relative;
         width: 22.5rem;
-        height: 12rem;
+        height: ${size == "md" ? "12rem" : "18.75rem"};
         border-radius: ${theme.borderRadiusMd};
         background-color: ${theme.palette.black["85"]};
     `,
 );
 
-export const CollectionCardCover = styled(Image)(
-    ({ theme }) => css`
+export const CollectionCardCover = styled(Image)<CollectionCardSizeProps>(
+    ({ theme, size }) => css`
         width: inherit;
-        height: 67%;
+        height: ${size == "md" ? "67%" : "78%"};
         border-radius: ${theme.borderRadiusMd};
     `,
 );

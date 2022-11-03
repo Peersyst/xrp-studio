@@ -9,6 +9,7 @@
     "letsGetStarted": "Let's get started!",
     "getXummCTA": "Don't have XUMM Wallet? Get it here",
     "myNfts": "My NFTs",
+    "myCollections": "My Collections",
     "createCollection": "Create Collection",
     "createNft": "Create NFT",
     "hideFilters&Search": "Hide filters and search",
@@ -27,8 +28,6 @@
     "andNMoreItems_other": "and {{count}} more files",
     "itemWithCount_one": "{{count}} item",
     "itemWithCount_other": "{{count}} items",
-    "youHaveNoNfts": "You have no NFTs",
-    "youHaveNoCollections": "You have no collections",
     "traitType": "Trait type",
     "value": "Value",
     "addProperty": "Add property",
@@ -69,5 +68,8 @@
     "editNft": "Edit NFT",
     "save": "Save",
     "publish": "Publish",
-    "roundsToNDecimals": "Rounds to {{decimals}} decimals"
+    "roundsToNDecimals": "Rounds to {{decimals}} decimals",
+    "creator": "Creator",
+    "mintTransactionHash": "Mint transaction hash",
+    "changeFile": "Change file"
 }

@@ -23,7 +23,7 @@ describe("ImageInput", () => {
 
         expect(screen.getByRole("button", { name: translate("change") })).toBeInTheDocument();
         const imgs = screen.getAllByRole("img");
-        expect(imgs).toHaveLength(3);
+        expect(imgs).toHaveLength(2);
         const img = imgs[0];
         expect(img).toHaveAttribute("alt", "test-img");
         const input = img.parentElement?.parentElement?.getElementsByTagName("input")[0];
@@ -37,7 +37,7 @@ describe("ImageInput", () => {
     test("Renders correctly with children", () => {
         const screen = render(
             <ImageInput alt="test-img" value="url">
-                {{ display: () => <p>Children</p> }}
+                {() => <p>Children</p>}
             </ImageInput>,
         );
         expect(screen.getByRole("button", { name: translate("change") })).toBeInTheDocument();

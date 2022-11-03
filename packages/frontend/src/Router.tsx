@@ -14,9 +14,9 @@ import { useCollectionRoutes } from "module/collection/CollectionRouter";
 const Routes = () => {
     const dashboardRoutes = useDashboardRoutes();
     const userRoutes = useUserRoutes();
-    const collectionRoutes = useCollectionRoutes();
     const nftRoutes = useNftRoutes();
-    return useRoutes([...dashboardRoutes, ...userRoutes, ...collectionRoutes, ...nftRoutes, { path: "*", element: <Navigate to="/" /> }]);
+    const collectionRoutes = useCollectionRoutes();
+    return useRoutes([...dashboardRoutes, ...userRoutes, ...nftRoutes, ...collectionRoutes, { path: "*", element: <Navigate to="/" /> }]);
 };
 
 const Router = (): JSX.Element => {
