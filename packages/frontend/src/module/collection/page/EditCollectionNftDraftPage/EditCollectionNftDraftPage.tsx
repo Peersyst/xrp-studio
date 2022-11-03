@@ -24,7 +24,6 @@ const EditCollectionNftDraftPage = () => {
     const handleSubmit = (data: NftCreationForm) => {
         const requestNft = createNftRequestFromForm(data);
         setCollectionCreationState({
-            ...collectionCreationState,
             nfts: { ...collectionCreationState.nfts, [Number(nftDraftIndex)]: requestNft },
         });
     };
