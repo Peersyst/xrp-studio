@@ -3,12 +3,13 @@ import { CreateNftDraftRequest, MetadataAttributeDto } from "module/api/service"
 import Color from "color";
 
 export interface CollectionCreationState {
-    cover?: string;
+    header?: string;
     image?: string;
     name?: string;
     description?: string;
     issuer?: string;
     transferFee?: number;
+    externalUrl?: string;
     backgroundColor?: Color;
     burnable: boolean;
     onlyXRP: boolean;

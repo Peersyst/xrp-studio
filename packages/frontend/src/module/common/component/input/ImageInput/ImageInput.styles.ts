@@ -1,8 +1,20 @@
 import styled, { css } from "styled-components";
-import { Image } from "@peersyst/react-components";
+import UploadInput from "module/common/component/input/UploadInput/UploadInput";
 
-export const ImageInputDisplay = styled(Image)(
-    ({ theme }) => css`
-        border-radius: ${theme.borderRadiusLg};
+export const ImageInputRoot = styled(UploadInput)(
+    () => css`
+        .Skeleton {
+            width: 100%;
+            max-width: 100%;
+        }
+
+        .upload-input {
+            &.updating,
+            &.Drag {
+                img {
+                    filter: blur(4px);
+                }
+            }
+        }
     `,
 );

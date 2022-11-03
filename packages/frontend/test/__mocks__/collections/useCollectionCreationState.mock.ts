@@ -5,7 +5,7 @@ import { CreateNftDraftRequest, MetadataAttributeDto } from "module/api/service"
 import { CollectionCreationState } from "module/collection/state/CollectionCreationState";
 
 export class UseCollectionCreationStateMock extends BaseMock {
-    cover?: string;
+    header?: string;
     image?: string;
     name?: string;
     description?: string;
@@ -22,7 +22,7 @@ export class UseCollectionCreationStateMock extends BaseMock {
     setCollectionCreationState = jest.fn();
 
     constructor({
-        cover = "",
+        header = "",
         image = "",
         name = "name",
         description = "description",
@@ -37,7 +37,7 @@ export class UseCollectionCreationStateMock extends BaseMock {
         nfts = {},
     }: CollectionCreationState) {
         super();
-        this.cover = cover;
+        this.header = header;
         this.image = image;
         this.name = name;
         this.description = description;
@@ -52,7 +52,7 @@ export class UseCollectionCreationStateMock extends BaseMock {
         this.nfts = nfts;
         this.mock = jest.spyOn(useCollectionCreationState, "default").mockReturnValue([
             {
-                cover: this.cover,
+                header: this.header,
                 image: this.image,
                 name: this.name,
                 description: this.description,

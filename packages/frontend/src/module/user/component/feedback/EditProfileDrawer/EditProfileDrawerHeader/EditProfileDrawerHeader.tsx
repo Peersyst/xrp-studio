@@ -1,4 +1,4 @@
-import { Col, Row } from "@peersyst/react-components";
+import { Col } from "@peersyst/react-components";
 import EditProfileCover from "module/user/component/input/EditProfileCover/EditProfileCover";
 import EditProfileImage from "module/user/component/input/EditProfileImage/EditProfileImage";
 
@@ -6,9 +6,9 @@ const EditProfileDrawerHeader = (): JSX.Element => {
     return (
         <Col alignItems="center">
             <EditProfileCover />
-            <Row>
-                <EditProfileImage css={{ marginTop: "-5.25rem" }} />
-            </Row>
+            <div css={{ marginTop: "-5.25rem", position: "relative" }}>
+                <EditProfileImage />
+            </div>
         </Col>
     );
 };

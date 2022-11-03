@@ -8,6 +8,7 @@ import { NftRoutes } from "module/nft/NftRouter";
 
 const ProfileNftsGrid = (): JSX.Element => {
     const translate = useTranslate();
+    const translateError = useTranslate("error");
     const { data, hasNextPage, fetchNextPage, isFetching } = useGetProfileNfts();
     const navigate = useNavigate();
     return (
@@ -18,7 +19,7 @@ const ProfileNftsGrid = (): JSX.Element => {
             loading={isFetching}
             filters={<>Here profile filters</>}
             nothingToShow={
-                <NothingToShow css={{ height: "12rem" }} label={translate("youHaveNoNfts")}>
+                <NothingToShow css={{ height: "12rem" }} label={translateError("youHaveNoNfts")}>
                     <Button onClick={() => navigate(NftRoutes.NFT_CREATION)}>{translate("createNft")}</Button>
                 </NothingToShow>
             }

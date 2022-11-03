@@ -36,7 +36,8 @@ export const PageStickyHeader = styled.header(
         align-items: center;
 
         width: 100%;
-        height: ${STICKY_HEADER_HEIGHT};
+        // +1px prevents gaps when the browser rounds rem units
+        height: calc(${STICKY_HEADER_HEIGHT} + 1px);
 
         background-color: ${theme.palette.background};
 

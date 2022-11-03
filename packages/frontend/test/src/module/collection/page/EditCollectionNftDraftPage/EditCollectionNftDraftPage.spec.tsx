@@ -1,4 +1,4 @@
-import EditCollectionNftDraftPage from "module/collection/page/EditNftCreationPage/EditCollectionNftDraftPage";
+import EditCollectionNftDraftPage from "module/collection/page/EditCollectionNftDraftPage/EditCollectionNftDraftPage";
 import { render, translate } from "test-utils";
 import { UseCollectionCreationStateMock, WalletMock } from "test-mocks";
 import { screen } from "@testing-library/react";
@@ -15,7 +15,7 @@ describe("EditCollectionNftDraftPage", () => {
         beforeAll(() => {
             walletMock = new WalletMock({ active: true, address: "address" });
             useCollectionCreationStateMock = new UseCollectionCreationStateMock({
-                cover: "",
+                header: "",
                 image: "",
                 name: "name",
                 description: "description",
@@ -44,10 +44,10 @@ describe("EditCollectionNftDraftPage", () => {
             expect(screen.getByText(capitalize(translate("fileInputPlaceholder")))).toBeInTheDocument();
             // name
             expect(screen.getByText(capitalize(translate("name")))).toBeInTheDocument();
-            expect(screen.getByPlaceholderText(translate("namePlaceholder"))).toBeInTheDocument();
+            expect(screen.getByPlaceholderText(translate("nftNamePlaceholder"))).toBeInTheDocument();
             // decription
             expect(screen.getByText(translate("description"))).toBeInTheDocument();
-            expect(screen.getByPlaceholderText(translate("descriptionPlaceholder"))).toBeInTheDocument();
+            expect(screen.getByPlaceholderText(translate("nftDescriptionPlaceholder"))).toBeInTheDocument();
             // collection
             expect(screen.getByText(translate("collection"))).toBeInTheDocument();
             expect(screen.getByText(translate("collectionPlaceholder"))).toBeInTheDocument();
@@ -62,7 +62,7 @@ describe("EditCollectionNftDraftPage", () => {
             expect(screen.getByPlaceholderText(translate("externalLinkPlaceholder"))).toBeInTheDocument();
             // background color
             expect(screen.getByText(translate("backgroundColor"))).toBeInTheDocument();
-            expect(screen.getByPlaceholderText(translate("backgroundColorPlaceholder"))).toBeInTheDocument();
+            expect(screen.getByPlaceholderText(translate("nftBackgroundColorPlaceholder"))).toBeInTheDocument();
             // flags
             expect(screen.getByText(translate("burnable")));
             expect(screen.getByText(translate("onlyXRP")));

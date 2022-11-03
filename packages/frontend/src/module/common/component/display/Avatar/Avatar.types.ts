@@ -1,19 +1,6 @@
-import { CSSProperties } from "react";
+import { ExtendableHexagonProps } from "module/common/component/display/Hexagon/Hexagon.types";
 
-export type AvatarSize = "xl" | "lg" | "md" | "sm";
-
-export interface AvatarProps {
+export interface AvatarProps extends ExtendableHexagonProps {
     img: string | undefined;
     alt: string;
-    size?: AvatarSize;
-    loading?: boolean;
-    className?: string;
-    style?: CSSProperties;
-}
-
-export interface AvatarSizeParams {
-    width: number;
-    height: number;
-    d: string;
-    strokeWidth?: number;
 }

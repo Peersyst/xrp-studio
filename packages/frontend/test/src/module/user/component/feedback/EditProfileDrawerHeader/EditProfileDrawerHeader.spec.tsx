@@ -17,6 +17,6 @@ describe("EditProfileDrawerHeader", () => {
     test("renders correctly", async () => {
         const screen = render(<EditProfileDrawerHeader />);
         //Wait until the image is loaded
-        await waitFor(() => expect(screen.getAllByRole("img")).toHaveLength(6));
+        await waitFor(() => expect(screen.getAllByRole("img")).toHaveLength(4));
     });
 });
