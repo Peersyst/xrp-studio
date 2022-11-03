@@ -1,6 +1,6 @@
 import EditCollectionNftDraftPage from "module/collection/pages/EditNftCreationPage/EditCollectionNftDraftPage";
 import { render, translate } from "test-utils";
-import { WalletMock } from "test-mocks";
+import { useCollectionCreationStateMock, WalletMock } from "test-mocks";
 import { screen } from "@testing-library/react";
 import { capitalize } from "@peersyst/react-utils";
 import { waitFor } from "@testing-library/dom";
@@ -9,9 +9,11 @@ import userEvent from "@testing-library/user-event";
 describe("EditCollectionNftDraftPage", () => {
     describe("Edition", () => {
         let walletMock: WalletMock;
+        let useCollectionCreationStateMock: useCollectionCreationStateMock;
 
         beforeAll(() => {
             walletMock = new WalletMock({ active: true, address: "address" });
+            useCollectionCreationStateMock = new useCollectionCreationStateMock();
         });
 
         afterAll(() => {
