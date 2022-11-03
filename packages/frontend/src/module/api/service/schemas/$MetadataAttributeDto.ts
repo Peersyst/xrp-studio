@@ -13,6 +13,7 @@ export const $MetadataAttributeDto = {
         },
         displayType: {
             type: 'string',
+            isNullable: true,
         },
     },
 } as const;

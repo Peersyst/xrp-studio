@@ -10,7 +10,7 @@ import useUpdateNftDraft from "module/nft/query/useUpdateNftDraft";
 import createNftRequestFromForm from "module/nft/util/createNftRequestFromForm";
 import { useGetMyCollections } from "module/collection/query/useGetMyCollections";
 import { usePaginatedList } from "@peersyst/react-hooks";
-import useNftCreationPageSlots from "module/nft/pages/NftCreationPage/hook/useNftCreationPageSlots";
+import useNftCreationPageSlots from "module/nft/page/NftCreationPage/hook/useNftCreationPageSlots";
 
 const NftCreationPage = (): JSX.Element => {
     const [searchParams] = useSearchParams();

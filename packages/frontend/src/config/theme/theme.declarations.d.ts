@@ -62,6 +62,7 @@ declare module "@peersyst/react-components" {
             filled: string;
             outlined: string;
         };
+        card: string;
     }
 
     export interface ThemeBreakpointValues {

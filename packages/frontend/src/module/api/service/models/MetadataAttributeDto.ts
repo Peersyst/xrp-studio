@@ -5,6 +5,6 @@
 export type MetadataAttributeDto = {
     traitType: string;
     value: string;
-    displayType?: string;
+    displayType?: string | null;
 };
 

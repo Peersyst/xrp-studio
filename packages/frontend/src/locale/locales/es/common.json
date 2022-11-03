@@ -50,12 +50,12 @@
     "trustLine": "Línea de confianza",
     "transferable": "Transferible",
     "attributes": "Atributos",
-    "namePlaceholder": "Escribe un nombre para tu NFT",
-    "descriptionPlaceholder": "Escribe una descripción para tu NFT",
+    "nftNamePlaceholder": "Escribe un nombre para tu NFT",
+    "nftDescriptionPlaceholder": "Escribe una descripción para tu NFT",
     "collectionPlaceholder": "Ninguna colleción seleccionada",
     "issuerPlaceholder": "Escribe una dirección de distribuidor válida",
     "externalLinkPlaceholder": "https://link-externo.com",
-    "backgroundColorPlaceholder": "El color de fondo de tu NFT",
+    "nftBackgroundColorPlaceholder": "El color de fondo de tu NFT",
     "noCollectionPlaceholder": "Sin colección",
     "showCollection": "Enseñar colección",
     "hideCollection": "Esconder colección",
@@ -71,5 +71,10 @@
     "roundsToNDecimals": "Se redondea a {{decimals}} decimales",
     "creator": "Creador",
     "mintTransactionHash": "Hash de la transacción de mint",
-    "changeFile": "Cambiar archivo"
+    "changeFile": "Cambiar archivo",
+    "saveChanges": "Guardar cambios",
+    "editCollection": "Edit collection",
+    "collectionNamePlaceholder": "Escribe un nombre para tu colección",
+    "collectionDescriptionPlaceholder": "Escribe una descripción para tu colección",
+    "collectionBackgroundColorPlaceholder": "El color de fondo de tus NFTs"
 }
