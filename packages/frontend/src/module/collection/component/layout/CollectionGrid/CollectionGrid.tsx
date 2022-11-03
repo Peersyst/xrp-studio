@@ -5,10 +5,10 @@ import { useCollectionGridBreakpoints } from "module/collection/component/layout
 import { BaseCardSkeletons } from "module/common/component/feedback/Skeletons/Skeletons";
 import CollectionCard from "module/collection/component/display/CollectionCard/CollectionCard";
 
-function CollectionGrid<TagT>({ loading, ...rest }: CollectionGridProps<TagT>): JSX.Element {
+function CollectionGrid({ loading, ...rest }: CollectionGridProps): JSX.Element {
     const breakpoints = useCollectionGridBreakpoints();
     return (
-        <Grid<PaginatedCollectionDto, TagT>
+        <Grid<PaginatedCollectionDto, any>
             loading={loading}
             breakpoints={breakpoints}
             Skeletons={BaseCardSkeletons}
