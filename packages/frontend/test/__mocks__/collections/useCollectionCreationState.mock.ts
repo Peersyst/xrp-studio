@@ -4,7 +4,7 @@ import Color from "color";
 import { CreateNftDraftRequest, MetadataAttributeDto } from "module/api/service";
 import { CollectionCreationState } from "module/collection/state/CollectionCreationState";
 
-export class useCollectionCreationStateMock extends BaseMock {
+export class UseCollectionCreationStateMock extends BaseMock {
     cover?: string;
     image?: string;
     name?: string;
@@ -18,7 +18,8 @@ export class useCollectionCreationStateMock extends BaseMock {
     transferable: boolean;
     attributes?: MetadataAttributeDto[];
     nfts: Record<number, CreateNftDraftRequest>;
-    useCollectionCreationState = jest.fn();
+
+    setCollectionCreationState = jest.fn();
 
     constructor({
         cover = "",
@@ -32,6 +33,7 @@ export class useCollectionCreationStateMock extends BaseMock {
         onlyXRP = false,
         trustLine = false,
         transferable = false,
+        attributes = [],
         nfts = {},
     }: CollectionCreationState) {
         super();
@@ -46,6 +48,7 @@ export class useCollectionCreationStateMock extends BaseMock {
         this.onlyXRP = onlyXRP;
         this.trustLine = trustLine;
         this.transferable = transferable;
+        this.attributes = attributes;
         this.nfts = nfts;
         this.mock = jest.spyOn(useCollectionCreationState, "default").mockReturnValue([
             {
@@ -60,9 +63,10 @@ export class useCollectionCreationStateMock extends BaseMock {
                 onlyXRP: this.onlyXRP,
                 trustLine: this.trustLine,
                 transferable: this.transferable,
+                attributes: this.attributes,
                 nfts: this.nfts,
             },
-            this.useCollectionCreationState(),
+            this.setCollectionCreationState,
         ]);
     }
 }

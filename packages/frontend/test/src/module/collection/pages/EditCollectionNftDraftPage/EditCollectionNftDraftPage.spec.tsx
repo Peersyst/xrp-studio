@@ -1,30 +1,46 @@
 import EditCollectionNftDraftPage from "module/collection/pages/EditNftCreationPage/EditCollectionNftDraftPage";
 import { render, translate } from "test-utils";
-import { useCollectionCreationStateMock, WalletMock } from "test-mocks";
+import { UseCollectionCreationStateMock, WalletMock } from "test-mocks";
 import { screen } from "@testing-library/react";
 import { capitalize } from "@peersyst/react-utils";
 import { waitFor } from "@testing-library/dom";
 import userEvent from "@testing-library/user-event";
+import Color from "color";
 
 describe("EditCollectionNftDraftPage", () => {
     describe("Edition", () => {
         let walletMock: WalletMock;
-        let useCollectionCreationStateMock: useCollectionCreationStateMock;
+        let useCollectionCreationStateMock: UseCollectionCreationStateMock;
 
         beforeAll(() => {
             walletMock = new WalletMock({ active: true, address: "address" });
-            useCollectionCreationStateMock = new useCollectionCreationStateMock();
+            useCollectionCreationStateMock = new UseCollectionCreationStateMock({
+                cover: "",
+                image: "",
+                name: "name",
+                description: "description",
+                issuer: "",
+                transferFee: 0,
+                backgroundColor: Color.rgb(),
+                burnable: false,
+                onlyXRP: false,
+                trustLine: false,
+                transferable: false,
+                attributes: [],
+                nfts: {},
+            });
         });
 
         afterAll(() => {
             walletMock.restore();
+            useCollectionCreationStateMock.restore();
         });
 
         test("Edition renders correctly", async () => {
             render(<EditCollectionNftDraftPage />);
 
             expect(screen.getByText(translate("editNft"))).toBeInTheDocument();
-            // image
+            // imageEt
             expect(screen.getByText(capitalize(translate("fileInputPlaceholder")))).toBeInTheDocument();
             // name
             expect(screen.getByText(capitalize(translate("name")))).toBeInTheDocument();
@@ -57,18 +73,13 @@ describe("EditCollectionNftDraftPage", () => {
         });
 
         test("Saves changes", async () => {
-            const useCollectionCreationStateMock = jest.fn();
-            jest.mock("module/collection/hook/useCollectionCreationState", () => {
-                return jest.fn(() => [{}, () => useCollectionCreationStateMock]);
-            });
-
             render(<EditCollectionNftDraftPage />);
 
             const saveButton = screen.getByRole("button", { name: translate("saveChanges") });
             await waitFor(() => expect(saveButton).not.toBeDisabled());
             userEvent.click(saveButton);
 
-            await waitFor(() => expect(useCollectionCreationStateMock).toBeCalled());
+            await waitFor(() => expect(useCollectionCreationStateMock.setCollectionCreationState).toBeCalled());
         });
     });
 });
