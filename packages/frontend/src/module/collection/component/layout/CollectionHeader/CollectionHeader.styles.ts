@@ -55,21 +55,27 @@ export const CollectionHeaderFooter = styled(Row).attrs({ gap: "1rem", flex: 1 }
         --collection-avatar-left: 26vw;
         --collection-back-left: 20vw;
         --collection-avatar-top: var(--collection-cover-height);
+        width: calc(var(--page-max-width));
 
         ${theme.breakpoints.down("md")} {
             --collection-avatar-width: max(9.5rem, 13vw);
             --collection-avatar-left: 18vw;
             --collection-back-left: 10vw;
+            width: 100%;
         }
 
         ${theme.breakpoints.down("mobile")} {
             --collection-avatar-width: max(2rem, 15vw);
             --collection-avatar-left: 15vw;
-            --collection-back-left: 5vw;
+            --collection-back-left: 1vw;
+            width: 100%;
+            .collection-back {
+                width: 2rem;
+                height: 2rem;
+            }
         }
 
         min-height: calc(calc(calc(var(--collection-avatar-width) / 1.8)) - 2rem);
-        width: calc(var(--page-max-width));
         margin: auto;
 
         .collection-back {
