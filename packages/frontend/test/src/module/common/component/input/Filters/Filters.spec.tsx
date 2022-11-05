@@ -1,11 +1,11 @@
 import Filters from "module/common/component/input/Filters/Filters";
 import { BaseFiltersNames } from "module/common/component/input/Filters/FiltersContext";
-import { UseFilterMock } from "test-mocks";
+import { UseFilterContextMock } from "test-mocks";
 import { render, translate } from "test-utils";
 
 describe("Test for the Filters", () => {
     test("Renders correctly", () => {
-        new UseFilterMock({ filters: { [BaseFiltersNames.ORDER]: "DESC" }, setFilters: jest.fn() });
+        new UseFilterContextMock({ filters: { [BaseFiltersNames.ORDER]: "DESC" }, setFilters: jest.fn() });
         const screen = render(
             <Filters>
                 {{

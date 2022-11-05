@@ -4,7 +4,7 @@ import { FiltersDivider } from "../../layout/BaseGridWithFilters/BaseGridFilters
 import SearchFilter from "./SearchFilter/SearchFilter";
 import { FiltersProps, Order } from "./Filters.types";
 import useTranslate from "module/common/hook/useTranslate";
-import ExpandableSelectorGroupFilters from "./ExpandableSelectorGroupFilters/ExpandableSelectorGroupFilters";
+import ExpandableSelectorGroupFilter from "./ExpandableSelectorGroupFilter/ExpandableSelectorGroupFilter";
 import { BaseFiltersNames } from "./FiltersContext";
 
 function Filters({ children }: FiltersProps): JSX.Element {
@@ -18,7 +18,7 @@ function Filters({ children }: FiltersProps): JSX.Element {
             <Col gap="1rem">
                 <SearchFilter name={BaseFiltersNames.QUERY} />
                 <Col gap="1rem" css={{ padding: "0 0.5rem" }}>
-                    <ExpandableSelectorGroupFilters name={BaseFiltersNames.ORDER} options={orderOptions} title={translate("OrderBy")} />
+                    <ExpandableSelectorGroupFilter name={BaseFiltersNames.ORDER} options={orderOptions} title={translate("OrderBy")} />
                     {children?.header}
                 </Col>
             </Col>

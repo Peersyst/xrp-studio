@@ -16,10 +16,13 @@ export const BaseGridTagsRoot = styled(Row).attrs({
         position: sticky;
         top: calc(var(--appbar-height) + ${STICKY_HEADER_HEIGHT});
         background-color: ${theme.palette.background};
-        padding: ${GRID_FILTERS_GAP} 0;
+        padding-top: ${GRID_FILTERS_GAP};
+        padding-bottom: 1.5rem;
+        margin-bottom: 0.25rem;
         // Prevent browser rem rounding gaps between elements
         margin-left: -1px;
         width: calc(100% + 2px);
+        z-index: 2;
     `,
 );
 
@@ -36,9 +39,10 @@ export const Tag = styled(Chip)(
 
 export const TagCarousel = styled(Carousel)(
     ({ theme }) => css`
-        max-width: 100%;
         width: unset;
+        max-width: 100%;
         ${theme.breakpoints.up("mini")} {
+            max-width: calc(100% - 6.8rem);
             .CarouselLeftArrow {
                 left: 2.3rem;
             }

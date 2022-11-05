@@ -1,9 +1,9 @@
 import { render, translate } from "test-utils";
-import { CollectionsDtoMock, UseFilterMock } from "test-mocks";
+import { CollectionsDtoMock, UseFilterContextMock } from "test-mocks";
 import NftCollectionsSelectorGroupFilter from "module/nft/component/input/NftColletionsSelectorGroupFilter/NftCollectionsSelectorGroupFilter";
 
 describe("Test for the NftCollectionsSelectorGroupFilter", () => {
-    new UseFilterMock();
+    new UseFilterContextMock();
     test("Renders correctly", () => {
         const { collections } = new CollectionsDtoMock({ length: 4 });
         const options = collections.map((col) => ({ value: col.id, label: col.name! }));
@@ -17,6 +17,6 @@ describe("Test for the NftCollectionsSelectorGroupFilter", () => {
     test("Renders correctly when loading", () => {
         const screen = render(<NftCollectionsSelectorGroupFilter options={[]} loading />);
         //Selector Skeletons
-        expect(screen.getAllByText("Loading collection")).toHaveLength(3);
+        expect(screen.getAllByText("Loading selector")).toHaveLength(3);
     });
 });

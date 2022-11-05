@@ -19,20 +19,18 @@ function BaseGridFilters({ children }: BaseGridFiltersProps): JSX.Element {
     const handleHide = () => {
         if (isTablet) setShowFilters(false);
     };
-
+    const content = (
+        <FiltersContainer>
+            <Filters>{children}</Filters>
+        </FiltersContainer>
+    );
     return (
         <>
             <FiltersModal animation="from-bottom" open={isTablet && showFilters} onClose={handleHide}>
-                <FiltersContainer>
-                    <Filters>{children}</Filters>
-                </FiltersContainer>
+                {content}
             </FiltersModal>
             <Animated.Slide in={!isTablet && showFilters} direction="right" duration={500}>
-                <BaseGridFiltersRoot>
-                    <FiltersContainer>
-                        <Filters>{children}</Filters>
-                    </FiltersContainer>
-                </BaseGridFiltersRoot>
+                <BaseGridFiltersRoot>{content}</BaseGridFiltersRoot>
             </Animated.Slide>
         </>
     );

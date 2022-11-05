@@ -1,6 +1,6 @@
 import { css } from "styled-components";
 
-export const RadioGroupStyles = css(({ theme }) => ({
+export const RadioButtonStyles = css(({ theme }) => ({
     ".RadioButton": {
         color: theme.palette.black[30],
     },

@@ -1,10 +1,10 @@
 import { fireEvent } from "@testing-library/react";
-import ExpandableSelectorGroupFilters from "module/common/component/input/Filters/ExpandableSelectorGroupFilters/ExpandableSelectorGroupFilters";
+import ExpandableSelectorGroupFilter from "module/common/component/input/Filters/ExpandableSelectorGroupFilter/ExpandableSelectorGroupFilter";
 import { SelectorOption } from "@peersyst/react-components-core";
-import { UseFilterMock } from "test-mocks";
+import { UseFilterContextMock } from "test-mocks";
 import { render } from "test-utils";
 
-describe("ExpandableSelectorGroupFilters component", () => {
+describe("ExpandableSelectorGroupFilter component", () => {
     test("Renders correctly", () => {
         const name = "selector";
         const options: SelectorOption<number>[] = [
@@ -19,8 +19,8 @@ describe("ExpandableSelectorGroupFilters component", () => {
         ];
         const queryFilter = { [name]: 1 };
         const mockedSetFilters = jest.fn();
-        new UseFilterMock({ filters: queryFilter, setFilters: mockedSetFilters });
-        const screen = render(<ExpandableSelectorGroupFilters title="title" name={name} options={options} />);
+        new UseFilterContextMock({ filters: queryFilter, setFilters: mockedSetFilters });
+        const screen = render(<ExpandableSelectorGroupFilter title="title" name={name} options={options} />);
         expect(screen.getByText("title")).toBeInTheDocument();
         //Have length 2 because it is the default value of the queryFilter
         expect(screen.getAllByText("label1")).toHaveLength(2);
@@ -44,8 +44,8 @@ describe("ExpandableSelectorGroupFilters component", () => {
         ];
         const queryFilter = { [name]: [1, 2] };
         const mockedSetFilters = jest.fn();
-        new UseFilterMock({ filters: queryFilter, setFilters: mockedSetFilters });
-        const screen = render(<ExpandableSelectorGroupFilters multiple title="title" name={name} options={options} />);
+        new UseFilterContextMock({ filters: queryFilter, setFilters: mockedSetFilters });
+        const screen = render(<ExpandableSelectorGroupFilter multiple title="title" name={name} options={options} />);
         expect(screen.getByText("title")).toBeInTheDocument();
         expect(screen.getByText("Label1")).toBeInTheDocument();
         expect(screen.getByText("Label2")).toBeInTheDocument();

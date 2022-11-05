@@ -1,19 +1,19 @@
 import { cx } from "@peersyst/react-utils";
 import { useMemo } from "react";
-import ExpandableFilters from "../ExpandableFilters/ExpandableFilters";
+import ExpandableFilter from "../ExpandableFilter/ExpandableFilter";
 import useFilters from "../hooks/useFilters";
 import SelectorGroupFilter from "../SelectorGroupFilter/SelectorGroupFilter";
-import { ExpandableSelectorGroupFiltersProps } from "./ExpandableSelectorGroupFilters.types";
+import { ExpandableSelectorGroupFilterProps } from "./ExpandableSelectorGroupFilter.types";
 
-function ExpandableSelectorGroupFilters<T, Name extends string, Multiple extends boolean>({
+function ExpandableSelectorGroupFilter<T, Multiple extends boolean = false>({
     options,
     title,
     name,
     className,
     ...rest
-}: ExpandableSelectorGroupFiltersProps<T, Name, Multiple>): JSX.Element {
-    const { filters } = useFilters<Record<Name, Multiple extends true ? T[] : T>>();
-    const value = filters[name];
+}: ExpandableSelectorGroupFilterProps<T, Multiple>): JSX.Element {
+    const [value] = useFilters<T, Multiple>(name);
+
     const currentLabel = useMemo(() => {
         if (Array.isArray(value)) {
             if (value.length === 0) return "";
@@ -27,10 +27,10 @@ function ExpandableSelectorGroupFilters<T, Name extends string, Multiple extends
     }, [value, options]);
 
     return (
-        <ExpandableFilters className={cx("ExpandableSelectorGroupFilters", className)} title={title} currentValue={currentLabel ?? ""}>
+        <ExpandableFilter className={cx("ExpandableSelectorGroupFilter", className)} title={title} currentValue={currentLabel ?? ""}>
             <SelectorGroupFilter<T, Multiple> name={name} options={options} {...rest} />
-        </ExpandableFilters>
+        </ExpandableFilter>
     );
 }
 
-export default ExpandableSelectorGroupFilters;
+export default ExpandableSelectorGroupFilter;

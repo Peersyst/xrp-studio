@@ -1,7 +1,7 @@
 import SelectorGroupFilter from "module/common/component/input/Filters/SelectorGroupFilter/SelectorGroupFilter";
 import { fireEvent, render } from "test-utils";
 import { SelectorOption } from "@peersyst/react-components-core";
-import { UseFilterMock } from "test-mocks";
+import { UseFilterContextMock } from "test-mocks";
 
 describe("SelectorGroupFilter", () => {
     test("Renders correctly without multiple", () => {
@@ -18,7 +18,7 @@ describe("SelectorGroupFilter", () => {
         ];
         const queryFilter = { [name]: 1 };
         const mockedSetFilters = jest.fn();
-        new UseFilterMock({ filters: queryFilter, setFilters: mockedSetFilters });
+        new UseFilterContextMock({ filters: queryFilter, setFilters: mockedSetFilters });
         const screen = render(<SelectorGroupFilter name={name} options={options} />);
         expect(screen.getByText("label1"));
         expect(screen.getByText("label2"));

@@ -1,12 +1,12 @@
 import userEvent from "@testing-library/user-event";
 import SearchFilter from "module/common/component/input/Filters/SearchFilter/SearchFilter";
-import { UseFilterMock } from "test-mocks";
+import { UseFilterContextMock } from "test-mocks";
 import { act, render, translate, waitFor } from "test-utils";
 
 describe("Test for the SearchFilter", () => {
     test("Renders correcly without default value", () => {
         const name = "query";
-        new UseFilterMock();
+        new UseFilterContextMock();
         const screen = render(<SearchFilter name={name} />);
         const input = screen.getByRole("textbox");
         expect(input).toBeInTheDocument();
@@ -19,7 +19,7 @@ describe("Test for the SearchFilter", () => {
         const value = "default_query";
         const queryFilter = { [key]: value };
         const mockedSetFilters = jest.fn();
-        new UseFilterMock({ filters: queryFilter, setFilters: mockedSetFilters });
+        new UseFilterContextMock({ filters: queryFilter, setFilters: mockedSetFilters });
         const screen = render(<SearchFilter name={key} />);
         const input = screen.getByRole("textbox");
         expect(input).toBeInTheDocument();

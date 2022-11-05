@@ -1,6 +1,6 @@
 import { act, renderHook } from "test-utils";
 import useCleanCollections from "module/nft/component/layout/NftGrid/hook/useCleanCollections";
-import { UseFilterMock } from "test-mocks";
+import { UseFilterContextMock } from "test-mocks";
 
 const renderUseCleanCollections = () =>
     renderHook(() => {
@@ -14,7 +14,7 @@ describe("useCleanCollections test", () => {
 
     test("Remove collections", () => {
         const mockedSetFilters = jest.fn();
-        new UseFilterMock({ filters: { ["collections"]: [1, 2, 3] }, setFilters: mockedSetFilters });
+        new UseFilterContextMock({ filters: { ["collections"]: [1, 2, 3] }, setFilters: mockedSetFilters });
         act(() => {
             const { cleanAllCollections, cleanCollection } = renderUseCleanCollections().result.current;
             cleanCollection(2);

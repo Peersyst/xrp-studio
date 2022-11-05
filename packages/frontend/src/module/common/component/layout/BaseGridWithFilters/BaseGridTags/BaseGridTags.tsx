@@ -3,7 +3,7 @@ import Button from "module/common/component/input/Button/Button";
 import { filtersVisibilityState } from "module/common/component/state/FiltersVisibilityState";
 import useTranslate from "module/common/hook/useTranslate";
 import FilterLinesIcon from "module/common/icons/FilterLinesIcon";
-import MinusCircleIcon from "module/common/icons/MinusCircleIcon";
+import DeleteIcon from "module/common/icons/MinusCircleIcon";
 import { useRecoilState } from "recoil";
 import { BaseGridTagsRoot, Tag, TagCarousel } from "./BaseGridTags.styles";
 import { BaseGridTagsProps } from "./BaseGridTags.types";
@@ -27,7 +27,7 @@ function BaseGridTags<T>({ tags, onClear, onTagClicked }: BaseGridTagsProps<T>):
             {tags !== undefined && tags.length !== 0 && (
                 <TagCarousel arrowSize="sm">
                     {tags.map(({ label, value }, index) => (
-                        <Tag suffix={<MinusCircleIcon />} key={index} onClick={() => onTagClicked?.(value)} label={label} size="lg" />
+                        <Tag suffix={<DeleteIcon />} key={index} onClick={() => onTagClicked?.(value)} label={label} size="lg" />
                     ))}
                 </TagCarousel>
             )}

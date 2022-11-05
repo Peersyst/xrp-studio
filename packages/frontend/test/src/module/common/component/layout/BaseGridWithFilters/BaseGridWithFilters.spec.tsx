@@ -3,10 +3,10 @@ import { render, translate } from "test-utils";
 import Skeletons from "module/common/component/feedback/Skeletons/Skeletons";
 import * as Recoil from "recoil";
 import { fireEvent } from "@testing-library/dom";
-import { UseFilterMock } from "test-mocks";
+import { UseFilterContextMock } from "test-mocks";
 
 describe("Test for the base grid with filters", () => {
-    new UseFilterMock();
+    new UseFilterContextMock();
     test("Renders correctly when loaded: children + filters + tags", () => {
         jest.spyOn(Recoil, "useRecoilState").mockReturnValueOnce([true, jest.fn()]);
         const tags = [

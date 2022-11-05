@@ -36,7 +36,7 @@ function BaseGridWithFilters<T extends PaginatedData, TagT>({
     }, []);
 
     return (
-        <Row css={{ position: "relative" }}>
+        <Row css={{ position: "relative", minHeight: "76vh" }}>
             <BaseGridFilters>{filters}</BaseGridFilters>
             <Animated
                 in={finalMoveGrid}
@@ -47,7 +47,7 @@ function BaseGridWithFilters<T extends PaginatedData, TagT>({
                 hideOnExit={false}
                 style={{ transformOrigin: "100% 0" }}
             >
-                <GridWrapper flex={1} justifyContent="center" isOpen={showFilters} gap="1rem">
+                <GridWrapper flex={1} justifyContent="center" isOpen={showFilters}>
                     <BaseGridTags tags={tags} onTagClicked={onTagClicked} onClear={onClearTags} />
                     <BaseGrid<T> justifyContent={isTablet ? "center" : "flex-start"} {...rest} breakpoints={finalBreakPoints} />
                 </GridWrapper>

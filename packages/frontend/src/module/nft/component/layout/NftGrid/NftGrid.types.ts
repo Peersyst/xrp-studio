@@ -1,7 +1,7 @@
 import { CollectionDto, PaginatedNftDto } from "module/api/service";
 import { GridProps } from "module/common/component/layout/Grid/Grid.types";
 import { SelectorOption } from "@peersyst/react-components-core";
-import { FiltersContext } from "module/common/component/input/Filters/FiltersContext";
+import { FiltersContextType } from "module/common/component/input/Filters/FiltersContext";
 import { UseGetNftsOptions } from "module/nft/query/useGetNfts";
 
 export type CollectionId = number;
@@ -15,5 +15,5 @@ export type NftGridProps = Omit<
     collections?: CollectionDto[];
     loadingNfts: boolean;
     loadingCollections?: boolean;
-    filtersContext?: FiltersContext<UseGetNftsOptions>;
+    filtersContext?: FiltersContextType<UseGetNftsOptions>;
 };

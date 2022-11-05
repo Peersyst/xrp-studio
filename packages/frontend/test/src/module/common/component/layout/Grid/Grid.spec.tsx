@@ -2,10 +2,10 @@ import Grid from "module/common/component/layout/Grid/Grid";
 import { fireEvent, render, translate } from "test-utils";
 import Skeletons from "module/common/component/feedback/Skeletons/Skeletons";
 import * as Recoil from "recoil";
-import { UseFilterMock } from "test-mocks";
+import { UseFilterContextMock } from "test-mocks";
 
 describe("Test for the Grid component", () => {
-    new UseFilterMock();
+    new UseFilterContextMock();
     /**
      * Tests for the Grid component without filters
      */

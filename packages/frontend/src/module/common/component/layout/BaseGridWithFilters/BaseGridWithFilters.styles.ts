@@ -2,7 +2,7 @@ import { Col, TransitionStyles } from "@peersyst/react-components";
 import styled, { css } from "styled-components";
 import { GridWrapperProps } from "./BaseGridWithFilters.types";
 
-export const GRID_FILTERS_GAP = "2.9rem";
+export const GRID_FILTERS_GAP = "3rem";
 
 export const GridWrapper = styled(Col)<GridWrapperProps>(
     ({ isOpen, theme }) => css`

@@ -1,7 +1,7 @@
-import { Expandable, Typography } from "@peersyst/react-components";
+import { Expandable } from "@peersyst/react-components";
 import styled, { css } from "styled-components";
 
-export const ExpandableFiltersRoot = styled(Expandable)(
+export const ExpandableFilterRoot = styled(Expandable)(
     ({ theme }) => css`
         .ExpandableDisplay {
             border-bottom: none;
@@ -14,12 +14,5 @@ export const ExpandableFiltersRoot = styled(Expandable)(
         .ExpandableContent {
             padding: 0.75rem 0 0;
         }
-    `,
-);
-
-export const CurrentValueText = styled(Typography)(
-    ({ theme }) => css`
-        color: ${theme.palette.black["60"]};
-        text-align: end;
     `,
 );

@@ -1,5 +1,5 @@
 import NftGrid from "module/nft/component/layout/NftGrid/NftGrid";
-import { CollectionsDtoMock, PaginatedNftsMock, UseFilterMock } from "test-mocks";
+import { CollectionsDtoMock, PaginatedNftsMock, UseFilterContextMock } from "test-mocks";
 import { render, translate } from "test-utils";
 import * as Recoil from "recoil";
 
@@ -30,7 +30,7 @@ describe("Test for the NftGrid component", () => {
         jest.spyOn(Recoil, "useRecoilState").mockReturnValueOnce([true, jest.fn()]);
         const { collections } = new CollectionsDtoMock({ length: 4 });
         const data = new PaginatedNftsMock({ nftsParams: { length: 10 } });
-        new UseFilterMock({ filters: { ["collections"]: [0, 1] }, setFilters: jest.fn() });
+        new UseFilterContextMock({ filters: { ["collections"]: [0, 1] }, setFilters: jest.fn() });
         const screen = render(
             <NftGrid
                 filtersContext={contextMock}
@@ -60,7 +60,7 @@ describe("Test for the NftGrid component", () => {
 
     test("Renders correctly with filters closed + without tags (with grid with filters)", () => {
         const data = new PaginatedNftsMock({ nftsParams: { length: 10 } });
-        new UseFilterMock();
+        new UseFilterContextMock();
         const screen = render(
             <NftGrid
                 filtersContext={contextMock}

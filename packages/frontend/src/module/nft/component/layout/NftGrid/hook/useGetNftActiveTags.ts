@@ -6,16 +6,16 @@ import { NftCollectionTag } from "../NftGrid.types";
 import getCollectionTag from "../util/getCollectionTag";
 
 export default function useGetNftActiveTags(collections: CollectionDto[]): NftCollectionTag[] {
-    const { filters } = useFilters<UseGetNftsOptions>();
+    const [filters] = useFilters<UseGetNftsOptions["collections"]>(NftFilterNames.COLLECTIONS);
     const tags: NftCollectionTag[] = useMemo(() => {
         const newTags: NftCollectionTag[] = [];
-        const filteredCollections = filters[NftFilterNames.COLLECTIONS] || [];
+        const filteredCollections = filters || [];
         filteredCollections.forEach((filterCollectionId) => {
             const collection = collections.find((collection) => collection.id === filterCollectionId);
             if (collection) newTags.push(getCollectionTag(collection));
         });
         return newTags;
-    }, [collections, filters[NftFilterNames.COLLECTIONS]]);
+    }, [collections, filters]);
 
     return tags;
 }

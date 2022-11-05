@@ -1,7 +1,7 @@
 import { ExpandableProps } from "@peersyst/react-components";
 import { ReactElement } from "react";
 
-export interface ExpandableFiltersProps extends Omit<ExpandableProps, "children"> {
+export interface ExpandableFilterProps extends Omit<ExpandableProps, "children"> {
     children: ReactElement;
     title: string;
     currentValue: string | number;

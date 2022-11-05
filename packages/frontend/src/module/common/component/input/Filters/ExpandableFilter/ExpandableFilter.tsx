@@ -1,50 +1,45 @@
 import { Col, Expandable, Loader, Row, Typography } from "@peersyst/react-components";
 import { cx } from "@peersyst/react-utils";
+import { SelectorSkeletons } from "module/common/component/feedback/Skeletons/Skeletons";
 import useTranslate from "module/common/hook/useTranslate";
-import { CurrentValueText, ExpandableFiltersRoot } from "./ExpandableFilters.styles";
-import { ExpandableFiltersProps } from "./ExpandableFilters.types";
+import { ExpandableFilterRoot } from "./ExpandableFilter.styles";
+import { ExpandableFilterProps } from "./ExpandableFilter.types";
 
-const ExpandableFilters = ({
+const ExpandableFilter = ({
     title,
     currentValue,
-    loadingText,
     children,
     className,
+    loadingText,
     loading,
     ...rest
-}: ExpandableFiltersProps): JSX.Element => {
+}: ExpandableFilterProps): JSX.Element => {
     const translate = useTranslate();
     return (
-        <ExpandableFiltersRoot {...rest} className={cx("expandable-filters", className)}>
+        <ExpandableFilterRoot {...rest} className={cx("expandable-filters", className)}>
             <Expandable.Display>
                 <Row flex={1} justifyContent="space-between" css={{ maxWidth: "100%" }}>
                     <Typography variant="body1" singleLine css={{ maxWidth: "60%" }} light>
-                        {title}
+                        {loading ? loadingText || translate("loadingFilters") : title}
                     </Typography>
                     {loading ? (
                         <Loader style={{ fontSize: "1rem" }} />
                     ) : (
-                        <CurrentValueText variant="body1" singleLine css={{ maxWidth: "35%" }} textAlign="end">
+                        <Typography color="gray.60" variant="body1" singleLine css={{ maxWidth: "35%" }} textAlign="end">
                             {currentValue}
-                        </CurrentValueText>
+                        </Typography>
                     )}
                 </Row>
             </Expandable.Display>
             <Expandable.Body>
                 <Expandable.Content>
                     <Col flex={1} gap="0.75rem">
-                        {loading ? (
-                            <Typography variant="body2" textAlign="center" light>
-                                {loadingText || translate("loadingFilters")}
-                            </Typography>
-                        ) : (
-                            children
-                        )}
+                        {loading ? <SelectorSkeletons count={3} /> : children}
                     </Col>
                 </Expandable.Content>
             </Expandable.Body>
-        </ExpandableFiltersRoot>
+        </ExpandableFilterRoot>
     );
 };
 
-export default ExpandableFilters;
+export default ExpandableFilter;

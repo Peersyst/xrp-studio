@@ -13,8 +13,7 @@ import { ModalStyles } from "./component/Modal.styles";
 import { DrawerStyles } from "./component/Drawer.styles";
 import { ColorInputStyles } from "config/theme/component/ColorInput.styles";
 import { LabelStyles } from "config/theme/component/Label.styles";
-import { SelectorStyles } from "./component/SelectorStyles";
-import { RadioGroupStyles } from "./component/RadioGroup.styles";
+import { RadioButtonStyles } from "./component/RadioButton.styles";
 
 export const GlobalStyles = createGlobalStyle`
         ${RootStyles};
@@ -164,10 +163,9 @@ export const GlobalStyles = createGlobalStyle`
       ${TypographyStyles}
       ${SwitchStyles};
       ${ChipStyles};
-      ${RadioGroupStyles};
+      ${RadioButtonStyles};
       ${SelectStyles};  
       ${LabelStyles};
-      ${SelectorStyles};
       ${FormControlStyles};
       ${TextInputStyles};
       ${BlockchainAddressStyles};

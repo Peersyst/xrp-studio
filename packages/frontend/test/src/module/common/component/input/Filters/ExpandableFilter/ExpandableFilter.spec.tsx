@@ -1,12 +1,12 @@
-import ExpandableFilters from "module/common/component/input/Filters/ExpandableFilters/ExpandableFilters";
+import ExpandableFilter from "module/common/component/input/Filters/ExpandableFilter/ExpandableFilter";
 import { render } from "test-utils";
 
-describe("Test for the ExpandableFilters", () => {
+describe("Test for the ExpandableFilter", () => {
     test("Renders correctly", () => {
         const screen = render(
-            <ExpandableFilters currentValue={"currentValue"} title="title">
+            <ExpandableFilter currentValue={"currentValue"} title="title">
                 <p>test</p>
-            </ExpandableFilters>,
+            </ExpandableFilter>,
         );
         expect(screen.getByText("test")).toBeInTheDocument();
         expect(screen.getByText("currentValue")).toBeInTheDocument();
@@ -14,11 +14,10 @@ describe("Test for the ExpandableFilters", () => {
     });
     test("Renders correctly when loading", () => {
         const screen = render(
-            <ExpandableFilters currentValue={"currentValue"} title="title" loading loadingText="loading">
+            <ExpandableFilter currentValue={"currentValue"} title="title" loading loadingText="loading">
                 <p>test</p>
-            </ExpandableFilters>,
+            </ExpandableFilter>,
         );
         expect(screen.getByText("loading")).toBeInTheDocument();
-        expect(screen.getByText("title")).toBeInTheDocument();
     });
 });
