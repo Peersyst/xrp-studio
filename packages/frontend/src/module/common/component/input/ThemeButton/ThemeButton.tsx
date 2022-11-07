@@ -5,7 +5,7 @@ import { capitalize, cx } from "@peersyst/react-utils";
 import { useSetTheme } from "@peersyst/react-components";
 import { useTheme } from "styled-components";
 
-const ThemeButton = ({ size = "sm", className, ...rest }: ThemeButtonProps) => {
+const ThemeButton = ({ size = "sm", className, ...rest }: ThemeButtonProps): JSX.Element => {
     const sizeClassName = capitalize(size);
     const setTheme = useSetTheme();
     const {
