@@ -9,7 +9,7 @@ export enum CollectionRoutes {
 }
 
 const CollectionCreationPage = lazy(() => import("./page/CollectionCreationPage/CollectionCreationPage"));
-const EditNftCreationPage = lazy(() => import("./page/EditNftCreationPage"));
+const EditCollectionNftDraftPage = lazy(() => import("./page/EditCollectionNftDraftPage/EditCollectionNftDraftPage"));
 const CollectionsPage = lazy(() => import("./page/MyCollectionsPage"));
 
 export const useCollectionRoutes = (): RouteObject[] => {
@@ -17,7 +17,7 @@ export const useCollectionRoutes = (): RouteObject[] => {
         { path: CollectionRoutes.CREATE_COLLECTION, element: <CollectionCreationPage /> },
         {
             path: CollectionRoutes.EDIT_NFT_CREATE_COLLECTION,
-            element: <EditNftCreationPage />,
+            element: <EditCollectionNftDraftPage />,
         },
         {
             path: CollectionRoutes.MY_COLLECTIONS,
