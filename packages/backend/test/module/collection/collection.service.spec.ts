@@ -12,12 +12,15 @@ import { CreateCollectionRequest } from "../../../src/modules/collection/request
 import { User } from "../../../src/database/entities/User";
 import UserMock from "../__mock__/user.mock";
 import { UpdateCollectionRequest } from "../../../src/modules/collection/request/update-collection.request";
+import { NftService } from "../../../src/modules/nft/nft.service";
+import NftServiceMock from "../__mock__/nft.service.mock";
 
 describe("CollectionService", () => {
     const ACCOUNT = "rwxmBgnEtpqAMerLSLkCCLfuSisi7GAvU6";
 
     let collectionService: CollectionService;
     const collectionRepositoryMock = new CollectionRepositoryMock();
+    const nftServiceMock = new NftServiceMock();
 
     beforeEach(async () => {
         const module = await Test.createTestingModule({
@@ -26,11 +29,17 @@ describe("CollectionService", () => {
                     provide: getRepositoryToken(Collection),
                     useValue: collectionRepositoryMock,
                 },
+                {
+                    provide: NftService,
+                    useValue: nftServiceMock,
+                },
                 CollectionService,
             ],
         }).compile();
         collectionService = module.get(CollectionService);
         collectionRepositoryMock.clear();
+        nftServiceMock.clear();
+        nftServiceMock.clear();
     });
 
     describe("createCollection", () => {
@@ -39,6 +48,11 @@ describe("CollectionService", () => {
             description: "COLLECTION_DESCRIPTION",
             image: "COLLECTION_IMAGE_URL",
             header: "COLLECTION_HEADER_URL",
+        };
+
+        const CREATE_COLLECTRION_WITH_NFTS_REQUEST: CreateCollectionRequest = {
+            ...CREATE_COLLECTION_REQUEST,
+            nfts: [{ metadata: { name: "NFT #1" } }, { metadata: { name: "NFT #2" } }, { metadata: { name: "NFT #3" } }],
         };
 
         const baseCreatedCollection: Omit<Collection, "taxon" | "id" | "nfts" | "createdAt" | "updatedAt"> = {
@@ -95,6 +109,34 @@ describe("CollectionService", () => {
             }).rejects.toEqual(new BusinessException(ErrorCode.COLLECTION_TAXON_ALREADY_EXISTS));
             expect(collectionRepositoryMock.save).not.toHaveBeenCalled();
             findCollectionByTaxonAndAccountMock.mockRestore();
+        });
+
+        test("Creates collection with nft drafts", async () => {
+            collectionRepositoryMock.query.mockResolvedValueOnce([{ missing_taxon: "1" }]);
+            await collectionService.createCollection(ACCOUNT, CREATE_COLLECTRION_WITH_NFTS_REQUEST);
+            expect(collectionRepositoryMock.save).toHaveBeenCalledWith({ ...baseCreatedCollection, taxon: "1" });
+            expect(nftServiceMock.createNftDraft).toHaveBeenCalledWith(
+                ACCOUNT,
+                {
+                    ...CREATE_COLLECTRION_WITH_NFTS_REQUEST.nfts[0],
+                    taxon: 1,
+                },
+                undefined,
+            );
+        });
+
+        test("Creates collection with published nfts", async () => {
+            collectionRepositoryMock.query.mockResolvedValueOnce([{ missing_taxon: "1" }]);
+            await collectionService.createCollection(ACCOUNT, CREATE_COLLECTRION_WITH_NFTS_REQUEST, true);
+            expect(collectionRepositoryMock.save).toHaveBeenCalledWith({ ...baseCreatedCollection, taxon: "1" });
+            expect(nftServiceMock.createNftDraft).toHaveBeenCalledWith(
+                ACCOUNT,
+                {
+                    ...CREATE_COLLECTRION_WITH_NFTS_REQUEST.nfts[0],
+                    taxon: 1,
+                },
+                true,
+            );
         });
     });
 

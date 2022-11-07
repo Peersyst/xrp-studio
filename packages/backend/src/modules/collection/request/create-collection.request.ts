@@ -1,5 +1,7 @@
 import { ApiProperty } from "@nestjs/swagger";
-import { IsOptional, IsUrl } from "class-validator";
+import { IsOptional, IsUrl, ValidateNested } from "class-validator";
+import { CreateCollectionNftRequest } from "./create-collection-nft-request";
+import { Type } from "class-transformer";
 
 export class CreateCollectionRequest {
     @ApiProperty({
@@ -53,4 +55,14 @@ export class CreateCollectionRequest {
     @IsOptional()
     @IsUrl()
     header?: string;
+
+    @ApiProperty({
+        name: "nfts",
+        type: CreateCollectionNftRequest,
+        isArray: true,
+        required: false,
+    })
+    @ValidateNested({ each: true })
+    @Type(() => CreateCollectionNftRequest)
+    nfts?: CreateCollectionNftRequest[];
 }
