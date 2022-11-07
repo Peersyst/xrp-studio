@@ -7,31 +7,37 @@ import { NftRoutes } from "module/nft/NftRouter";
 import { CollectionRoutes } from "module/collection/CollectionRouter";
 import { DashboardRoutes } from "module/dashboard/DashboardRouter";
 import { useLocation } from "react-router-dom";
+import useWallet from "module/wallet/component/hooks/useWallet";
+import { Fragment } from "react";
 
 const AppBar = () => {
     const location = useLocation();
-
+    const { isLogged } = useWallet();
     return (
         <AppBarRoot>
             <Toolbar>
                 <Row flex={1} alignItems="center" justifyContent="space-between">
                     <Logo />
                     <Row gap={24} alignItems="center" justifyContent="space-between">
-                        <ConditionalLink condition={true} to={DashboardRoutes.MAIN}>
-                            <Typography variant="body1" light={location.pathname !== DashboardRoutes.MAIN}>
-                                Dashboard
-                            </Typography>
-                        </ConditionalLink>
-                        <ConditionalLink condition={true} to={NftRoutes.MY_NFTS}>
-                            <Typography variant="body1" light={location.pathname !== NftRoutes.MY_NFTS}>
-                                My Nfts
-                            </Typography>
-                        </ConditionalLink>
-                        <ConditionalLink condition={true} to={CollectionRoutes.MY_COLLECTIONS}>
-                            <Typography variant="body1" light={location.pathname !== CollectionRoutes.MY_COLLECTIONS}>
-                                My Drops
-                            </Typography>
-                        </ConditionalLink>
+                        {isLogged ? (
+                            <Fragment>
+                                <ConditionalLink condition={isLogged} to={DashboardRoutes.MAIN}>
+                                    <Typography variant="body1" light={location.pathname !== DashboardRoutes.MAIN}>
+                                        Dashboard
+                                    </Typography>
+                                </ConditionalLink>
+                                <ConditionalLink condition={isLogged} to={NftRoutes.MY_NFTS}>
+                                    <Typography variant="body1" light={location.pathname !== NftRoutes.MY_NFTS}>
+                                        My Nfts
+                                    </Typography>
+                                </ConditionalLink>
+                                <ConditionalLink condition={isLogged} to={CollectionRoutes.MY_COLLECTIONS}>
+                                    <Typography variant="body1" light={location.pathname !== CollectionRoutes.MY_COLLECTIONS}>
+                                        My Drops
+                                    </Typography>
+                                </ConditionalLink>
+                            </Fragment>
+                        ) : undefined}
                         <Wallet />
                     </Row>
                 </Row>
