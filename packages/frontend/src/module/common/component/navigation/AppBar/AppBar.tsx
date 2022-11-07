@@ -10,10 +10,12 @@ import useWallet from "module/wallet/component/hooks/useWallet";
 import { Fragment } from "react";
 import ThemeButton from "module/common/component/input/ThemeButton/ThemeButton";
 import { useLocation } from "react-router-dom";
+import useTranslate from "module/common/hook/useTranslate";
 
 const AppBar = () => {
     const location = useLocation();
     const { isLogged } = useWallet();
+    const translate = useTranslate();
     return (
         <AppBarRoot>
             <Toolbar>
@@ -29,12 +31,12 @@ const AppBar = () => {
                                 </ConditionalLink>
                                 <ConditionalLink condition={isLogged} to={NftRoutes.MY_NFTS}>
                                     <Typography variant="body1" light={location.pathname !== NftRoutes.MY_NFTS}>
-                                        My Nfts
+                                        {translate("myNfts")}
                                     </Typography>
                                 </ConditionalLink>
                                 <ConditionalLink condition={isLogged} to={CollectionRoutes.MY_COLLECTIONS}>
                                     <Typography variant="body1" light={location.pathname !== CollectionRoutes.MY_COLLECTIONS}>
-                                        My Drops
+                                        {translate("myDrops")}
                                     </Typography>
                                 </ConditionalLink>
                             </Fragment>

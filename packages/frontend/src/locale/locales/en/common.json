@@ -76,5 +76,6 @@
     "editCollection": "Edit collection",
     "collectionNamePlaceholder": "Enter a name for your collection",
     "collectionDescriptionPlaceholder": "Enter a description for your collection",
-    "collectionBackgroundColorPlaceholder": "Your NFTs background color"
+    "collectionBackgroundColorPlaceholder": "Your NFTs background color",
+    "myDrops": "My Drops"
 }
