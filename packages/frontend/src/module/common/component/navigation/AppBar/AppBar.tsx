@@ -1,17 +1,43 @@
-import { Row, Toolbar } from "@peersyst/react-components";
+import { Row, Toolbar, Typography } from "@peersyst/react-components";
 import { AppBarRoot } from "./AppBar.styles";
 import Logo from "module/common/component/display/Logo/Logo";
 import Wallet from "module/wallet/component/core/Wallet/Wallet";
+import ConditionalLink from "module/common/component/navigation/ConditionalLink/ConditionalLink";
+import { NftRoutes } from "module/nft/NftRouter";
+import { CollectionRoutes } from "module/collection/CollectionRouter";
+import { DashboardRoutes } from "module/dashboard/DashboardRouter";
+import { useLocation } from "react-router-dom";
 
-const AppBar = (): JSX.Element => (
-    <AppBarRoot>
-        <Toolbar>
-            <Row flex={1} alignItems="center" justifyContent="space-between">
-                <Logo />
-                <Wallet />
-            </Row>
-        </Toolbar>
-    </AppBarRoot>
-);
+const AppBar = () => {
+    const location = useLocation();
+
+    return (
+        <AppBarRoot>
+            <Toolbar>
+                <Row flex={1} alignItems="center" justifyContent="space-between">
+                    <Logo />
+                    <Row gap={24} alignItems="center" justifyContent="space-between">
+                        <ConditionalLink condition={true} to={DashboardRoutes.MAIN}>
+                            <Typography variant="body1" light={location.pathname !== DashboardRoutes.MAIN}>
+                                Dashboard
+                            </Typography>
+                        </ConditionalLink>
+                        <ConditionalLink condition={true} to={NftRoutes.MY_NFTS}>
+                            <Typography variant="body1" light={location.pathname !== NftRoutes.MY_NFTS}>
+                                My Nfts
+                            </Typography>
+                        </ConditionalLink>
+                        <ConditionalLink condition={true} to={CollectionRoutes.MY_COLLECTIONS}>
+                            <Typography variant="body1" light={location.pathname !== CollectionRoutes.MY_COLLECTIONS}>
+                                My Drops
+                            </Typography>
+                        </ConditionalLink>
+                        <Wallet />
+                    </Row>
+                </Row>
+            </Toolbar>
+        </AppBarRoot>
+    );
+};
 
 export default AppBar;
