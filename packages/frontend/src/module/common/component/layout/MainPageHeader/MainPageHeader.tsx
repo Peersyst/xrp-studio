@@ -14,13 +14,14 @@ const MainPageHeader = ({
     style,
     stickyTitle,
     className,
+    backPath,
 }: MainPageHeaderProps): JSX.Element => {
     return (
         <MainPageHeaderRoot stickyTitle={stickyTitle} className={cx("base-page-header", className)} style={style}>
             <MainPageHeaderWrapper gap="2rem">
                 <Row justifyContent="space-between" wrap wrapGap="1.5rem" gap="2.5rem">
                     <Row alignItems="center" gap="2rem">
-                        {back && <BackButton size={backIconSize} />}
+                        {back && <BackButton path={backPath} size={backIconSize} />}
                         <Col justifyContent="center" gap="0.75rem">
                             {title && (
                                 <Typography variant="h3" fontWeight="800">

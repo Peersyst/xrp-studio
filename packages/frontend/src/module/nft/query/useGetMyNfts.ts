@@ -4,6 +4,6 @@ import { useGetProfileNfts } from "module/user/query/useGetProfileNfts";
 import useWallet from "module/wallet/component/hooks/useWallet";
 
 export const useGetMyNfts = (): InfiniteQueryResult<PaginatedNftDto> => {
-    const { address } = useWallet();
-    return useGetProfileNfts(address);
+    const { address: account } = useWallet();
+    return useGetProfileNfts({ account });
 };

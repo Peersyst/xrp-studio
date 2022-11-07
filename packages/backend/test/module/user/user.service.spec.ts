@@ -38,6 +38,7 @@ describe("UserService", () => {
 
     describe("createIfNotExists", () => {
         test("Executes save on repository", async () => {
+            userRepositoryMock.findOne.mockResolvedValueOnce(undefined);
             const user = await userService.createIfNotExists(ADDRESS);
             expect(user).toEqual(new User({ address: ADDRESS, image: "default_profile_img_url", header: "default_header_img_url" }));
             expect(userRepositoryMock.save).toHaveBeenCalledWith({

@@ -57,6 +57,12 @@ declare module "@peersyst/react-components" {
             100: string;
             0: string;
         };
+        label: {
+            default: string;
+            filled: string;
+            outlined: string;
+        };
+        card: string;
     }
 
     export interface ThemeBreakpointValues {
@@ -66,6 +72,10 @@ declare module "@peersyst/react-components" {
             xxs: number;
         };
         nftPage: number;
+        collectionsGrid: {
+            xs: number;
+            xxs: number;
+        };
     }
 }
 

@@ -39,5 +39,9 @@
     "collectionTaxonAlreadyExists": "That collection taxon already exists",
     "noMoreTaxonsAvailable": "There are no more taxons available",
     "collectionNotOwned": "Collection not owned",
-    "nftTransferableNotSet": "Transfer fee cannot be set without the transferable flag"
+    "nftTransferableNotSet": "Transfer fee cannot be set without the transferable flag",
+    "youHaveNoNfts": "You have no NFTs",
+    "youHaveNoCollections": "You have no collections",
+    "withoutNftsToShow": "Without NFTs to show",
+    "withoutCollections": "Without collections"
 }

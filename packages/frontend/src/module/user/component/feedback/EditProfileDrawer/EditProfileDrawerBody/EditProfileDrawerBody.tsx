@@ -11,7 +11,7 @@ const EditProfileDrawerBody = (): JSX.Element => {
 
     return (
         <EditProfileDrawerBodyRoot>
-            <Typography variant="h3" fontWeight={800}>
+            <Typography variant="h3" fontWeight={800} css={{ overflow: "unset" }}>
                 {t("editProfile")}
             </Typography>
             <Col flex={1} gap="1rem">

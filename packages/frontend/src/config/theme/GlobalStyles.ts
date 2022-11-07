@@ -12,6 +12,8 @@ import { BlockchainAddressStyles } from "config/theme/component/BlockchainAddres
 import { ModalStyles } from "./component/Modal.styles";
 import { DrawerStyles } from "./component/Drawer.styles";
 import { ColorInputStyles } from "config/theme/component/ColorInput.styles";
+import { LabelStyles } from "config/theme/component/Label.styles";
+import { RadioButtonStyles } from "./component/RadioButton.styles";
 
 export const GlobalStyles = createGlobalStyle`
         ${RootStyles};
@@ -161,7 +163,9 @@ export const GlobalStyles = createGlobalStyle`
       ${TypographyStyles}
       ${SwitchStyles};
       ${ChipStyles};
-      ${SelectStyles};
+      ${RadioButtonStyles};
+      ${SelectStyles};  
+      ${LabelStyles};
       ${FormControlStyles};
       ${TextInputStyles};
       ${BlockchainAddressStyles};

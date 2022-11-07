@@ -9,12 +9,13 @@ import { Animated, Typography } from "@peersyst/react-components";
 
 export interface PageHeaderProps {
     stickyTitle?: string;
+    showStickyTitle?: boolean;
     children?: ReactNode;
     className?: string;
     style?: CSSProperties;
 }
 
-const PageHeader = ({ children, stickyTitle, ...rest }: PageHeaderProps): JSX.Element => {
+const PageHeader = ({ children, stickyTitle, showStickyTitle = true, ...rest }: PageHeaderProps): JSX.Element => {
     const headerRef = createRef<HTMLDivElement>();
     const [visible, setVisible] = useState(true);
     const headerObserver = useRef(
@@ -46,10 +47,10 @@ const PageHeader = ({ children, stickyTitle, ...rest }: PageHeaderProps): JSX.El
             <MainPageHeader ref={headerRef} className="main-header">
                 <MainPageHeaderContent>{children}</MainPageHeaderContent>
             </MainPageHeader>
-            {stickyTitle && (
+            {showStickyTitle && (
                 <Animated.Fade in={visible} duration={{ enter: 300, exit: 200 }}>
                     <PageStickyHeader onClick={scrollToTop} className="sticky-header">
-                        <Typography variant="subtitle2" fontWeight={700}>
+                        <Typography variant="subtitle2" fontWeight={700} css={{ color: "#fff" }}>
                             {stickyTitle}
                         </Typography>
                     </PageStickyHeader>

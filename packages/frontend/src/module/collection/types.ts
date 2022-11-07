@@ -1,0 +1,15 @@
+export enum CollectionCreationFormFields {
+    HEADER = "header",
+    IMAGE = "image",
+    NAME = "name",
+    DESCRIPTION = "description",
+    ISSUER = "issuer",
+    TRANSFER_FEE = "transferFee",
+    EXTERNAL_URL = "externalUrl",
+    BACKGROUND_COLOR = "backgroundColor",
+    BURNABLE = "burnable",
+    ONLY_XRP = "onlyXRP",
+    TRUST_LINE = "trustLine",
+    TRANSFERABLE = "transferable",
+    ATTRIBUTES = "attributes",
+}

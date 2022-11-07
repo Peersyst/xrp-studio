@@ -95,7 +95,7 @@
         "rimraf": "3.0.2",
         "rxjs": "^7.4.0",
         "swagger-ui-express": "4.1.6",
-        "typeorm": "^0.2.38",
+        "typeorm": "0.2.41",
         "uuid": "^8.3.2",
         "verify-xrpl-signature": "^0.4.0",
         "websocket": "^1.0.34",

@@ -14,7 +14,7 @@ import { CollectionRoutes } from "module/collection/CollectionRouter";
 
 const CollectionCard = forwardRef(
     (
-        { collection: { id, name = "", image = "", items, header }, loading = false }: WithSkeleton<CollectionCardProps>,
+        { collection: { id, name = "", image = "", items, header }, loading = false, size = "md" }: WithSkeleton<CollectionCardProps>,
         ref,
     ): JSX.Element => {
         const translate = useTranslate();
@@ -22,9 +22,9 @@ const CollectionCard = forwardRef(
         const alt = "collection-" + id;
 
         return (
-            <ConditionalLink condition={!loading} to={`${CollectionRoutes.COLLECTIONS}${id}`}>
-                <CollectionCardRoot ref={(r) => setRef(ref, r)}>
-                    <CollectionCardCover src={header} alt={`${alt}-cover`} loading={loading} />
+            <ConditionalLink condition={!loading} to={CollectionRoutes.VIEW_COLLECTION.replace(":id", id.toString())}>
+                <CollectionCardRoot size={size} ref={(r) => setRef(ref, r)}>
+                    <CollectionCardCover size={size} src={header} alt={`${alt}-cover`} loading={loading} />
                     <CollectionCardFooter>
                         <CollectionAvatar img={image} alt={`${alt}-image`} loading={loading} />
                         <Col gap="0.375rem" justifyContent="flex-end" css={{ maxWidth: "63%" }}>

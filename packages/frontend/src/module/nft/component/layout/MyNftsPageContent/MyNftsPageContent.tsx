@@ -9,6 +9,7 @@ import useTranslate from "module/common/hook/useTranslate";
 
 const MyNftsPageContent = (): JSX.Element => {
     const translate = useTranslate();
+    const translateError = useTranslate("error");
     const navigate = useNavigate();
     const { data, hasNextPage, fetchNextPage, isFetching } = useGetMyNfts();
 
@@ -18,9 +19,9 @@ const MyNftsPageContent = (): JSX.Element => {
                 data={data}
                 callback={() => fetchNextPage({ cancelRefetch: false })}
                 end={!hasNextPage}
-                loading={isFetching}
+                loadingNfts={isFetching}
                 nothingToShow={
-                    <NothingToShow css={{ height: "12rem" }} label={translate("youHaveNoNfts")}>
+                    <NothingToShow css={{ height: "12rem" }} label={translateError("youHaveNoNfts")}>
                         <Button onClick={() => navigate(NftRoutes.NFT_CREATION)}>{translate("createNft")}</Button>
                     </NothingToShow>
                 }

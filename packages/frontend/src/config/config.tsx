@@ -50,6 +50,15 @@ const config = createConfig({
                 },
             },
         },
+        SelectGroup: {
+            defaultProps: {
+                selectorLabelProps: {
+                    placement: "left",
+                    alignment: "space-between",
+                    singleLine: true,
+                },
+            },
+        },
         Paper: {
             defaultProps: {
                 elevation: 0,
