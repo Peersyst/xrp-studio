@@ -50,7 +50,9 @@ export class CollectionService {
         const collection = await this.collectionRepository.save(new Collection({ taxon, ...restOfCollection, user }));
 
         //Create nfts
-        for await (const nft of nfts) await this.nftService.createNftDraft(address, nft, publish);
+        if (nfts)
+            for await (const nft of nfts)
+                await this.nftService.createNftDraft(address, { ...nft, taxon: Number(collection.taxon) }, publish);
 
         return CollectionDto.fromEntity(collection);
     }
