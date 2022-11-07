@@ -8,13 +8,9 @@ import useWallet from "module/wallet/component/hooks/useWallet";
 import { AuthTokenStorage } from "module/auth/AuthTokenStorage";
 import { UserRoutes } from "module/user/UserRouter";
 import { useNavigate } from "react-router-dom";
-import { Dispatch, SetStateAction } from "react";
+import { SettingsRoutes } from "module/settings/SettingsRouter";
 
-export interface WalletMenuProps {
-    setVisible: Dispatch<SetStateAction<boolean>>;
-}
-
-const WalletMenu = ({ setVisible }: WalletMenuProps): JSX.Element => {
+const WalletMenu = (): JSX.Element => {
     const translate = useTranslate();
     const { address = "" } = useWallet();
     const resetWalletState = useResetRecoilState(walletState);
@@ -26,7 +22,6 @@ const WalletMenu = ({ setVisible }: WalletMenuProps): JSX.Element => {
     };
 
     const handleNavigate = (path: string) => {
-        setVisible(false);
         navigate(path);
     };
 
@@ -37,7 +32,7 @@ const WalletMenu = ({ setVisible }: WalletMenuProps): JSX.Element => {
                     <BaseLink onClick={() => handleNavigate(UserRoutes.PROFILE.replace(":address", address))}>
                         {translate("profile")}
                     </BaseLink>
-                    <BaseLink onClick={() => handleNavigate(UserRoutes.SETTINGS)}>{translate("settings")}</BaseLink>
+                    <BaseLink onClick={() => handleNavigate(SettingsRoutes.SETTINGS)}>{translate("settings")}</BaseLink>
                     <WalletCard />
                 </CardContent>
                 <Divider color={"black.70"} />

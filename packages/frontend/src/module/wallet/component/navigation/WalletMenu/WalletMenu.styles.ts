@@ -8,7 +8,6 @@ export const WalletMenuRoot = styled(Card).attrs({ elevation: 4 })(
         border-radius: ${theme.borderRadius};
         padding: 1rem 0;
         width: 16.6rem;
-        background: ${theme.palette.mode === "light" ? theme.palette.background : theme.palette.black["85"]};
         margin-top: 0.5rem;
     `,
 );

@@ -18,7 +18,6 @@ declare module "@peersyst/react-components" {
             twitterLink: string;
             discordLink: string;
         };
-        blockchainLinks: BlockchainLinks;
         nftDefaultCoverUrl: string;
         network: NetworkType;
         xrpNodeUrl: string;
@@ -51,15 +50,10 @@ declare module "@peersyst/react-components" {
         address: Validator;
     }
 
-    export interface BlockchainLinks {
-        address: string;
-        tx: string;
-        nft: string;
-    }
-
     export interface BlockchainLinksTypesOverrides {
         address: true;
         tx: true;
         nft: true;
+        token: false;
     }
 }

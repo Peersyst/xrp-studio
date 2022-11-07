@@ -11,17 +11,19 @@ const Balance = ({
     isLoading = false,
     ...typographyProps
 }: BalanceProps): JSX.Element => {
-    const formattedBalance = useFormatBalance();
-    return isLoading ? (
-        <Loader />
-    ) : (
+    const formatBalance = useFormatBalance();
+    return (
         <Typography singleLine {...typographyProps}>
-            {formattedBalance(balance, {
-                numberFormatOptions: { maximumFractionDigits: 2, ...options },
-                units,
-                unitsPosition,
-                action,
-            })}
+            {isLoading ? (
+                <Loader />
+            ) : (
+                formatBalance(balance, {
+                    numberFormatOptions: { maximumFractionDigits: 2, ...options },
+                    units,
+                    unitsPosition,
+                    action,
+                })
+            )}
         </Typography>
     );
 };

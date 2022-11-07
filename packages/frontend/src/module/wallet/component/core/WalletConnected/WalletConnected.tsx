@@ -4,19 +4,32 @@ import useWallet from "../../hooks/useWallet";
 import WalletMenu from "../../navigation/WalletMenu/WalletMenu";
 import NetworkConnect from "../../display/NetworkConnect/NetworkConnect";
 import useGetUser from "module/user/query/useGetUser";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { useLocation } from "react-router-dom";
 
 const WalletConnected = (): JSX.Element => {
     const { address = "" } = useWallet();
     const { data: user } = useGetUser(address);
-    const [visible, setVisible] = useState(false);
+    const [visible, setVisible] = useState<boolean>(false);
+    const { pathname } = useLocation();
+    useEffect(() => {
+        setVisible(false);
+    }, [pathname]);
+
     return (
-        <Popover showOn="click" position="bottom-end" onHide={() => setVisible(false)} visible={visible} disablePortal>
+        <Popover
+            showOn="click"
+            onShow={() => setVisible(true)}
+            onHide={() => setVisible(false)}
+            position="bottom-end"
+            disablePortal
+            visible={visible}
+        >
             <Popover.Popper elevation={0}>
-                <WalletMenu setVisible={setVisible} />
+                <WalletMenu />
             </Popover.Popper>
             <Popover.Content>
-                <Row gap={10} css={{ cursor: "pointer" }} onClick={() => setVisible((v) => !v)}>
+                <Row gap={10} css={{ cursor: "pointer" }}>
                     <Row alignItems={"center"}>
                         <Avatar size={"sm"} img={user?.image ?? ""} alt="avatar" />
                     </Row>
