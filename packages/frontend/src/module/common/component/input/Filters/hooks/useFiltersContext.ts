@@ -1,8 +1,8 @@
 import { useContext } from "react";
-import { FiltersContext, MultipleSelector } from "../FiltersContext";
+import { FiltersContext, FiltersContextType, FilterTypedValue, MultipleSelector } from "../FiltersContext";
 
 export type UseFiltersReturn<T, M extends boolean = false> = [MultipleSelector<T, M>, (newFilters: MultipleSelector<T, M>) => void];
 
-export default function useFiltersContext<T>() {
-    return useContext<T>(FiltersContext);
+export default function useFiltersContext<S extends string, T>(): FiltersContextType<FilterTypedValue<S, T>> {
+    return useContext<FiltersContextType<FilterTypedValue<S, T>>>(FiltersContext);
 }

@@ -30,6 +30,7 @@ function InnerNftGridWithFilters({ loadingNfts, loadingCollections, collections,
 
     return (
         <InnerNftGrid
+            withFilters={true}
             filters={{
                 ...(collections && {
                     content: <NftCollectionsSelectorGroup multiple loading={loadingCollections} options={collectionsOptions} />,

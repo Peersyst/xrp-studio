@@ -94,6 +94,7 @@ describe("Test for the Grid component", () => {
         ];
         const screen = render(
             <Grid
+                withFilters
                 tags={tags}
                 filters={{ content: <>filters</> }}
                 cols={3}
@@ -154,6 +155,7 @@ describe("Test for the Grid component", () => {
                 filters={{ content: <>filters</> }}
                 cols={3}
                 colGap={24}
+                withFilters
                 nothingToShow="Nothing to show"
                 rowGap={24}
                 breakpoints={[{ maxWidth: 1200, cols: 10 }]}
@@ -224,6 +226,7 @@ describe("Test for the Grid component", () => {
                 cols={3}
                 colGap={24}
                 rowGap={24}
+                withFilters
                 breakpoints={[{ maxWidth: 1200, cols: 10 }]}
                 data={{
                     pageParams: [],

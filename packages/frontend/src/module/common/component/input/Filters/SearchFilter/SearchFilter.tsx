@@ -3,8 +3,8 @@ import SearchBar from "../../SearchBar/SearchBar";
 import useFilters from "../hooks/useFilters";
 import { SearchFiltersProps } from "./SearchFilter.types";
 
-function SearchFilter<Name extends string>({ name, variant, className, onChange, ...rest }: SearchFiltersProps<Name>): JSX.Element {
-    const [filters, setFilters] = useFilters<string, false>(name);
+function SearchFilter({ name, variant, className, onChange, ...rest }: SearchFiltersProps): JSX.Element {
+    const [filters, setFilters] = useFilters<string>(name);
     const handleSearch = (value: string) => {
         setFilters(value);
         onChange?.(value);
