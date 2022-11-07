@@ -8,7 +8,7 @@ import useCollectionCreationState from "module/collection/hook/useCollectionCrea
 import createNftRequestFromForm from "module/nft/util/createNftRequestFromForm";
 import { CollectionRoutes } from "module/collection/CollectionRouter";
 
-const EditCollectionNftDraftPage = () => {
+const EditCollectionNftDraftPage = (): JSX.Element => {
     const [searchParams] = useSearchParams();
     const navigate = useNavigate();
     const nftDraftIndex = searchParams.get("index");
