@@ -1,6 +1,5 @@
 import { SvgIcon, SvgIconProps } from "@peersyst/react-components";
 import { cx } from "@peersyst/react-utils";
-
 export default function MoonIcon({ className, ...rest }: Omit<SvgIconProps, "children">): JSX.Element {
     return (
         <SvgIcon {...rest} data-testid="MoonIcon" className={cx(undefined, "Icon", className)} fill="none">
