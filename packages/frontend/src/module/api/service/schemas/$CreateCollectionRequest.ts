@@ -25,7 +25,7 @@ export const $CreateCollectionRequest = {
         nfts: {
             type: 'array',
             contains: {
-                type: 'CreateNftDraftRequest',
+                type: 'CreateCollectionNftRequest',
             },
         },
     },

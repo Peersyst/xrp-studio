@@ -2,7 +2,7 @@
 /* tslint:disable */
 /* eslint-disable */
 
-import type { CreateNftDraftRequest } from './CreateNftDraftRequest';
+import type { CreateCollectionNftRequest } from './CreateCollectionNftRequest';
 
 export type CreateCollectionRequest = {
     /**
@@ -13,6 +13,6 @@ export type CreateCollectionRequest = {
     description?: string;
     image?: string;
     header?: string;
-    nfts?: Array<CreateNftDraftRequest>;
+    nfts?: Array<CreateCollectionNftRequest>;
 };
 
