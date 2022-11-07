@@ -26,7 +26,7 @@ const AppBar = () => {
                             <Fragment>
                                 <ConditionalLink condition={isLogged} to={DashboardRoutes.MAIN}>
                                     <Typography variant="body1" light={location.pathname !== DashboardRoutes.MAIN}>
-                                        Dashboard
+                                        {translate("dashboard")}
                                     </Typography>
                                 </ConditionalLink>
                                 <ConditionalLink condition={isLogged} to={NftRoutes.MY_NFTS}>
