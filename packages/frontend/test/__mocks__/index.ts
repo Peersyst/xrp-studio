@@ -9,3 +9,4 @@ export * from "./xumm-react";
 export * from "./dto";
 export * from "./wallet";
 export * from "./collections";
+export * from "./common";

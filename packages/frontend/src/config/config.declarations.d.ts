@@ -18,7 +18,7 @@ declare module "@peersyst/react-components" {
             twitterLink: string;
             discordLink: string;
         };
-        blockchainLinks: BlockchainLinks;
+        blockchainLinks: Omit<BlockchainLinks, "token">;
         nftDefaultCoverUrl: string;
         network: NetworkType;
         xrpNodeUrl: string;

@@ -4,7 +4,7 @@ import { Row } from "@peersyst/react-components";
 import Button from "module/common/component/input/Button/Button";
 import { CollectionRoutes } from "module/collection/CollectionRouter";
 
-const EditCollectionNftDraftHeader = () => {
+const EditCollectionNftDraftHeader = (): JSX.Element => {
     const translate = useTranslate();
 
     return (

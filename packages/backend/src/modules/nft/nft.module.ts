@@ -1,4 +1,4 @@
-import { Module } from "@nestjs/common";
+import { forwardRef, Module } from "@nestjs/common";
 import { TypeOrmModule } from "@nestjs/typeorm";
 import { Nft } from "../../database/entities/Nft";
 import { NftService } from "./nft.service";
@@ -15,7 +15,7 @@ import { XummModule } from "@peersyst/xumm-module";
     imports: [
         TypeOrmModule.forFeature([Nft, NftMetadata, NftMetadataAttribute]),
         BullModule.registerQueue({ name: "metadata" }),
-        CollectionModule,
+        forwardRef(() => CollectionModule),
         IpfsModule,
         XummModule,
     ],
