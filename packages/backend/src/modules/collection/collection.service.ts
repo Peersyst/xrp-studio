@@ -120,7 +120,7 @@ export class CollectionService {
         qb.take(take);
         qb.skip(skip);
 
-        if (query) qb.andWhere("LOWER(collection.name) like :query", { query: `${query.toLowerCase()}` });
+        if (query) qb.andWhere("LOWER(collection.name) like :query", { query: `%${query.toLowerCase()}%` });
         // Can be refactored as NftService.nftsQuery when collection states are implemented in order to give extra wheres (account would be one of them)
         if (account) qb.andWhere("user.address = :account", { account });
 

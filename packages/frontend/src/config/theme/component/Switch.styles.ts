@@ -11,7 +11,7 @@ export const SwitchStyles = css(({ theme }) => ({
             height: "0.875rem",
         },
         ".SwitchTrack": {
-            backgroundColor: theme.palette.black[50],
+            backgroundColor: theme.palette.black[70],
             padding: "0.3125rem",
             boxShadow: "none",
         },

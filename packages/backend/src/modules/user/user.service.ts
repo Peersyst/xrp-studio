@@ -16,6 +16,8 @@ export class UserService {
      * Creates a user with the given address and default images if it does not exist
      */
     async createIfNotExists(address: string): Promise<User> {
+        const user = await this.userRepository.findOne({ address });
+        if (user) return user;
         return this.userRepository.save({
             address,
             image: this.configService.get<string>("defaultImages.profile"),

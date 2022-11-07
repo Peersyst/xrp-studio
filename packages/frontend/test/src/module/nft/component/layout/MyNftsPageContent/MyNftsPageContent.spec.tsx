@@ -1,10 +1,11 @@
 import { NftService } from "module/api/service";
 import MyNftsPageContent from "module/nft/component/layout/MyNftsPageContent/MyNftsPageContent";
 import * as UseWallet from "module/wallet/component/hooks/useWallet";
-import { NftDtoMock, NftsDtoMock, PaginatedDataMock, WalletMock } from "test-mocks";
+import { NftDtoMock, NftsDtoMock, PaginatedDataMock, UseFilterContextMock, WalletMock } from "test-mocks";
 import { render, translate, waitFor } from "test-utils";
 
 describe("Test for the MyNftsPage", () => {
+    new UseFilterContextMock();
     test("Renders correctly with nfts", async () => {
         const wallet = new WalletMock({ address: "0x" });
         jest.spyOn(UseWallet, "default").mockReturnValue(wallet);
