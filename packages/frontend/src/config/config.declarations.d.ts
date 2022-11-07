@@ -36,7 +36,7 @@ declare module "@peersyst/react-components" {
             twitterLink: string;
             discordLink: string;
         };
-        blockchainLinks: BlockchainLinks;
+        blockchainLinks: Omit<BlockchainLinks, "token">;
         nftDefaultCoverUrl: string;
         maxBioChars: number;
         maxUsernameChars: number;
@@ -57,5 +57,6 @@ declare module "@peersyst/react-components" {
         address: true;
         tx: true;
         nft: true;
+        token: false;
     }
 }

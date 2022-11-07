@@ -9,6 +9,7 @@ import { DashboardRoutes } from "module/dashboard/DashboardRouter";
 import { useLocation } from "react-router-dom";
 import useWallet from "module/wallet/component/hooks/useWallet";
 import { Fragment } from "react";
+import ThemeButton from "module/common/component/input/ThemeButton/ThemeButton";
 
 const AppBar = () => {
     const location = useLocation();
@@ -38,6 +39,7 @@ const AppBar = () => {
                                 </ConditionalLink>
                             </Fragment>
                         ) : undefined}
+                        <ThemeButton size="md" />
                         <Wallet />
                     </Row>
                 </Row>

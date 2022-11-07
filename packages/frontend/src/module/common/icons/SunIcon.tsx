@@ -4,7 +4,7 @@ export default function SunIcon({ className, ...rest }: Omit<SvgIconProps, "chil
     return (
         <SvgIcon {...rest} data-testid="SunIcon" className={cx(undefined, "Icon", className)} fill="none">
             <path
-                d="M13 1V3.4M13 22.6V25M3.4 13H1M6.17694 6.17694L4.47988 4.47988M19.8231 6.17694L21.5201 4.47988M6.17694 19.828L4.47988 21.5251M19.8231 19.828L21.5201 21.5251M25 13H22.6M19 13C19 16.3137 16.3137 19 13 19C9.68629 19 7 16.3137 7 13C7 9.68629 9.68629 7 13 7C16.3137 7 19 9.68629 19 13Z"
+                d="M12 2V4M12 20V22M4 12H2M6.31412 6.31412L4.8999 4.8999M17.6859 6.31412L19.1001 4.8999M6.31412 17.69L4.8999 19.1042M17.6859 17.69L19.1001 19.1042M22 12H20M17 12C17 14.7614 14.7614 17 12 17C9.23858 17 7 14.7614 7 12C7 9.23858 9.23858 7 12 7C14.7614 7 17 9.23858 17 12Z"
                 stroke="#008CFF"
                 strokeWidth="2"
                 strokeLinecap="round"
