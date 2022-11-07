@@ -9,6 +9,7 @@ import { GetCollectionsRequest } from "./request/get-collections.request";
 import { CreateCollectionRequest } from "./request/create-collection.request";
 import { XummAuthenticated } from "@peersyst/xumm-module";
 import { UpdateCollectionRequest } from "./request/update-collection.request";
+import { CreateCollectionQueryRequest } from "./request/create-collection-query-request";
 
 @ApiTags("collection")
 @Controller("collection")
@@ -32,8 +33,12 @@ export class CollectionController {
     @Post()
     @ApiOperation({ description: "Create a collection" })
     @XummAuthenticated()
-    async createCollection(@Request() req, @Body() collection: CreateCollectionRequest): Promise<CollectionDto> {
-        return this.collectionService.createCollection(req.user.address, collection);
+    async createCollection(
+        @Request() req,
+        @EnhancedQuery() { publish }: CreateCollectionQueryRequest = {},
+        @Body() collection: CreateCollectionRequest,
+    ): Promise<CollectionDto> {
+        return this.collectionService.createCollection(req.user.address, collection, publish);
     }
 
     @Put(":id")

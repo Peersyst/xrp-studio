@@ -34,18 +34,23 @@ export class CollectionService {
      * Updates a collection
      * @param id
      * @param requestBody
+     * @param publish
      * @returns void
      * @throws ApiError
      */
     public static collectionControllerUpdateCollection(
         id: number,
         requestBody: UpdateCollectionRequest,
+        publish?: boolean,
     ): CancelablePromise<void> {
         return __request(OpenAPI, {
             method: 'PUT',
             url: '/api/collection/{id}',
             path: {
                 'id': id,
+            },
+            query: {
+                'publish': publish,
             },
             body: requestBody,
             mediaType: 'application/json',
@@ -85,15 +90,20 @@ export class CollectionService {
     /**
      * Create a collection
      * @param requestBody
+     * @param publish
      * @returns CollectionDto
      * @throws ApiError
      */
     public static collectionControllerCreateCollection(
         requestBody: CreateCollectionRequest,
+        publish?: boolean,
     ): CancelablePromise<CollectionDto> {
         return __request(OpenAPI, {
             method: 'POST',
             url: '/api/collection',
+            query: {
+                'publish': publish,
+            },
             body: requestBody,
             mediaType: 'application/json',
         });

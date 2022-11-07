@@ -1,4 +1,4 @@
-import { Inject, Injectable } from "@nestjs/common";
+import { forwardRef, Inject, Injectable } from "@nestjs/common";
 import { InjectRepository } from "@nestjs/typeorm";
 import { Nft, NftStatus } from "../../database/entities/Nft";
 import { ValidatedLedgerTransaction } from "../blockchain/types";
@@ -39,7 +39,7 @@ export class NftService {
         @InjectRepository(NftMetadata) private readonly nftMetadataRepository: Repository<NftMetadata>,
         @InjectRepository(NftMetadataAttribute) private readonly nftMetadataAttributeRepository: Repository<NftMetadataAttribute>,
         @InjectQueue("metadata") private readonly metadataQueue: Queue,
-        @Inject(CollectionService) private readonly collectionService: CollectionService,
+        @Inject(forwardRef(() => CollectionService)) private readonly collectionService: CollectionService,
         @Inject(XummService) private readonly xummService: XummService,
         @Inject(IpfsService) private readonly ipfsService: IpfsService,
     ) {}
@@ -437,7 +437,7 @@ export class NftService {
         qb.skip(skip);
 
         if (query)
-            qb.andWhere("LOWER(collection.name) like :query OR LOWER(metadata.name) like :query", { query: `%${query.toLowerCase()}%` });
+            qb.andWhere("LOWER(collection.name) like :query OR LOWER(metadata.name) like :query", { query: `${query.toLowerCase()}` });
         if (collections) qb.andWhere("collection.id IN (:...collections)", { collections });
         if (wheres.length) wheres.forEach(([where, params]) => qb.andWhere(where, params));
 
