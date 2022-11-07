@@ -230,7 +230,7 @@ describe("CollectionService", () => {
             });
             expect(collectionRepositoryMock.take).toHaveBeenCalledWith(20);
             expect(collectionRepositoryMock.skip).toHaveBeenCalledWith(40);
-            expect(collectionRepositoryMock.andWhere).toHaveBeenCalledWith("LOWER(collection.name) like :query", { query: "xyz" });
+            expect(collectionRepositoryMock.andWhere).toHaveBeenCalledWith("LOWER(collection.name) like :query", { query: "%xyz%" });
             expect(collectionRepositoryMock.andWhere).toHaveBeenCalledWith("user.address = :account", { account: ACCOUNT });
             expect(collectionRepositoryMock.orderBy).toHaveBeenCalledWith("collection.id", Order.ASC);
             expect(collections).toEqual({ items: expect.any(Array), pages: 1, currentPage: 3 });
