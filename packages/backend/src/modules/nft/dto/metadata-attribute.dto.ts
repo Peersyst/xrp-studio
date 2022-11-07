@@ -3,7 +3,7 @@ import { NftMetadataAttribute } from "../../../database/entities/NftMetadataAttr
 export class MetadataAttributeDto {
     traitType: string;
     value: string;
-    displayType?: string;
+    displayType?: string | null;
 
     static fromEntity({ traitType, value, displayType }: NftMetadataAttribute): MetadataAttributeDto {
         return {

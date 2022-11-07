@@ -8,7 +8,7 @@ const NftCard = ({ nft: { id, metadata: { name = "", image } = {} }, loading = f
     return (
         <BaseCard
             title={loading ? "loading-title" : name}
-            to={NftRoutes.NFTS + id}
+            to={NftRoutes.VIEW_NFT.replace(":id", id.toString())}
             defaultUrl={defaultImgUrl}
             coverUrl={image}
             loading={loading}

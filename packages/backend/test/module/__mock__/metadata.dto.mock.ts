@@ -1,6 +1,6 @@
 import { MetadataDto } from "../../../src/modules/nft/dto/metadata.dto";
 import { MetadataAttributeDto } from "../../../src/modules/nft/dto/metadata-attribute.dto";
-import MetadataAttributeDtoMock from "./metadata.attribute.dto.mock";
+import MetadataAttributeDtoMock from "./metadata-attribute.dto.mock";
 
 class MetadataDtoMock implements MetadataDto {
     name?: string;

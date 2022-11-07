@@ -1,4 +1,12 @@
-import { MetadataAttributeDto, NftDraftDto, NftDto } from "module/api/service";
+import {
+    CollectionDto,
+    CreateNftMetadataRequest,
+    MetadataAttributeDto,
+    MetadataDto,
+    NftDraftDto,
+    NftDto,
+    NftFlagsRequest,
+} from "module/api/service";
 import Color from "color";
 import { Common } from "@peersyst/react-types";
 
@@ -20,3 +28,11 @@ export interface NftCreationForm {
 
 // Any object that extends Common<NftDto, NftDraftDto>
 export type Nft = Common<NftDto, NftDraftDto> & Record<string, any>;
+
+export interface CreationNft {
+    issuer?: string;
+    transferFee?: number;
+    flags?: number | NftFlagsRequest;
+    metadata?: MetadataDto | CreateNftMetadataRequest;
+    collection?: CollectionDto;
+}
