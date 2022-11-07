@@ -7,7 +7,7 @@ const typography: Partial<Theme["typography"]> = {
             fontSize: "1.625rem",
         },
     },
-    /*  caption1: {
+    caption1: {
         component: "span",
         style: {
             fontSize: "0.75rem",
@@ -18,7 +18,7 @@ const typography: Partial<Theme["typography"]> = {
         style: {
             fontSize: "0.625rem",
         },
-    }, */
+    },
 };
 
 export default typography;

@@ -17,7 +17,7 @@ const WalletCard = (): JSX.Element => {
                 <BlockchainAddress address={address} type="address" variant="body2" light css={{ width: "100%" }} />
                 <Col gap="0.3rem">
                     <Balance variant="body2" balance={availableBalance ?? 0} />
-                    <Balance variant="body2" css={{ fontSize: "0.625rem" }} balance={fiatCurrencyBalance} units="fiat" action="round" />
+                    <Balance variant="caption2" balance={fiatCurrencyBalance} units="fiat" action="round" />
                 </Col>
                 <NetworkConnect />
             </Col>

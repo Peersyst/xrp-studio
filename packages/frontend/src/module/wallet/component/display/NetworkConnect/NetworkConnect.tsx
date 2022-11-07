@@ -8,9 +8,7 @@ const NetworkConnect = (): JSX.Element => {
     return (
         <Row gap={5} alignItems={"center"}>
             <NetworkDot network={config.network} />
-            <Typography variant="caption" css={{ fontSize: "0.625rem" }}>
-                {translate(config.network)}
-            </Typography>
+            <Typography variant="caption2">{translate(config.network)}</Typography>
         </Row>
     );
 };
