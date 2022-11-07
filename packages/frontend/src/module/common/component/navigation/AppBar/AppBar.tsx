@@ -6,10 +6,10 @@ import ConditionalLink from "module/common/component/navigation/ConditionalLink/
 import { NftRoutes } from "module/nft/NftRouter";
 import { CollectionRoutes } from "module/collection/CollectionRouter";
 import { DashboardRoutes } from "module/dashboard/DashboardRouter";
-import { useLocation } from "react-router-dom";
 import useWallet from "module/wallet/component/hooks/useWallet";
 import { Fragment } from "react";
 import ThemeButton from "module/common/component/input/ThemeButton/ThemeButton";
+import { useLocation } from "react-router-dom";
 
 const AppBar = () => {
     const location = useLocation();
@@ -39,7 +39,7 @@ const AppBar = () => {
                                 </ConditionalLink>
                             </Fragment>
                         ) : undefined}
-                        <ThemeButton size="md" />
+                        <ThemeButton size="sm" />
                         <Wallet />
                     </Row>
                 </Row>

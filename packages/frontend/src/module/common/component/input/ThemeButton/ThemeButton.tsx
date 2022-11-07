@@ -4,12 +4,17 @@ import { MoonIcon, SunIcon } from "icons";
 import { ThemeButtonProps } from "module/common/component/input/ThemeButton/ThemeButton.types";
 import { capitalize, cx } from "@peersyst/react-utils";
 import { useSetTheme } from "@peersyst/react-components";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 const ThemeButton = ({ size = "sm", className, ...rest }: ThemeButtonProps) => {
-    const [currentTheme, setCurrentTheme] = useState(theme.palette.mode);
+    const [currentTheme, setCurrentTheme] = useState<string>();
     const sizeClassName = capitalize(size);
     const setTheme = useSetTheme();
+
+    useEffect(() => {
+        setCurrentTheme(theme.palette.mode);
+        setTheme(theme.palette.mode);
+    }, []);
 
     const changeTheme = () => {
         if (currentTheme === "light") {
