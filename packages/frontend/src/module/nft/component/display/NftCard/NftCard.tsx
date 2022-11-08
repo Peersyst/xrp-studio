@@ -9,6 +9,7 @@ const NftCard = ({
     loading = false,
 }: WithSkeleton<NftCardProps>): JSX.Element => {
     const defaultImgUrl = useConfig("nftDefaultCoverUrl");
+
     return (
         <BaseCard
             title={loading ? "loading-title" : name}
