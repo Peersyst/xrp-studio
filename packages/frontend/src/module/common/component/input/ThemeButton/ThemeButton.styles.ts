@@ -3,15 +3,14 @@ import { IconButton } from "@peersyst/react-components";
 import { emphasize } from "@peersyst/react-utils";
 
 export const ThemeButtonRoot = styled(IconButton)(({ theme }) => {
-    const light = theme.palette.mode === "light";
     return css`
-        background: ${theme.palette.black[light ? 20 : 80]};
-        color: white;
+        background: ${theme.palette.card};
+        color: ${theme.palette.text};
         display: flex;
         justify-content: center;
         align-items: center;
         &:hover {
-            background-color: ${emphasize(theme.palette.black[light ? 20 : 80], 0.04)};
+            background-color: ${emphasize(theme.palette.card, 0.04)};
         }
         &.Md {
             display: flex;
