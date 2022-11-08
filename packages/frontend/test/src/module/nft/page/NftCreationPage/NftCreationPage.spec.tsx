@@ -4,11 +4,12 @@ import NftCreationPage from "module/nft/page/NftCreationPage/NftCreationPage";
 import userEvent from "@testing-library/user-event";
 import { NftService } from "module/api/service";
 import createNftRequestFromForm from "module/nft/util/createNftRequestFromForm";
-import { NftDtoMock, WalletMock, UseSearchParamsMock } from "test-mocks";
+import { NftDtoMock, WalletMock, UseSearchParamsMock, ToastMock } from "test-mocks";
 import { waitFor } from "@testing-library/dom";
 import Color from "color";
 import parseFlags from "module/nft/util/parseFlags";
 import { capitalize } from "@peersyst/react-utils";
+import * as useCheckBalance from "module/wallet/hook/useCheckBalance";
 
 describe("NftCreationPage", () => {
     const nftDraftMock = new NftDtoMock({ status: "draft" });
@@ -106,17 +107,31 @@ describe("NftCreationPage", () => {
             await waitFor(() => expect(createNftDraftMock).toHaveBeenCalledWith(CREATE_NFT_REQUEST));
         });
 
-        test("Create published NFT", async () => {
+        test("Create published NFT with balance", async () => {
             const createNftMock = jest.spyOn(NftService, "nftControllerCreateNft").mockResolvedValueOnce(new NftDtoMock());
-
+            const useCheckBalanceMock = jest.spyOn(useCheckBalance, "default").mockReturnValue({ data: true } as any);
             render(<NftCreationPage />);
-
+            await waitFor(() => expect(useCheckBalanceMock).toBeCalled());
             const publishButton = screen.getByRole("button", { name: translate("publish") });
             await waitFor(() => expect(publishButton).not.toBeDisabled());
             userEvent.type(screen.getByPlaceholderText(translate("nftNamePlaceholder")), NFT_NAME);
             userEvent.click(publishButton);
 
             await waitFor(() => expect(createNftMock).toHaveBeenCalledWith(CREATE_NFT_REQUEST));
+        });
+
+        test("Create published NFT without balance", async () => {
+            const useCheckBalanceMock = jest.spyOn(useCheckBalance, "default").mockReturnValue({ data: false } as any);
+            const mockShowToast = jest.fn();
+            new ToastMock({ showToast: mockShowToast });
+            render(<NftCreationPage />);
+            await waitFor(() => expect(useCheckBalanceMock).toBeCalled());
+            const publishButton = screen.getByRole("button", { name: translate("publish") });
+            await waitFor(() => expect(publishButton).not.toBeDisabled());
+            userEvent.type(screen.getByPlaceholderText(translate("nftNamePlaceholder")), NFT_NAME);
+            userEvent.click(publishButton);
+
+            await waitFor(() => expect(mockShowToast).toBeCalled());
         });
     });
 
@@ -157,11 +172,11 @@ describe("NftCreationPage", () => {
             expect(screen.getByDisplayValue(nftDraftMock.metadata!.attributes![1].value)).toBeInTheDocument();
         });
 
-        test("Updates an NFT draft", async () => {
+        test("Updates an NFT draft with balance", async () => {
             const updateNftDraftMock = jest.spyOn(NftService, "nftControllerUpdateNftDraft").mockResolvedValueOnce(undefined);
-
+            const useCheckBalanceMock = jest.spyOn(useCheckBalance, "default").mockReturnValue({ data: true } as any);
             render(<NftCreationPage />);
-
+            await waitFor(() => expect(useCheckBalanceMock).toBeCalled());
             const saveButton = screen.getByRole("button", { name: translate("save") });
             await waitFor(() => expect(saveButton).not.toBeDisabled());
             const nameInput = screen.getByDisplayValue(nftDraftMockMetadata!.name!);
@@ -172,11 +187,27 @@ describe("NftCreationPage", () => {
             await waitFor(() => expect(updateNftDraftMock).toHaveBeenCalledWith(1, UPDATE_NFT_REQUEST, false));
         });
 
-        test("Publishes an NFT draft", async () => {
-            const updateNftDraftMock = jest.spyOn(NftService, "nftControllerUpdateNftDraft").mockResolvedValueOnce(undefined);
-
+        test("Updates an NFT draft without balance", async () => {
+            const useCheckBalanceMock = jest.spyOn(useCheckBalance, "default").mockReturnValue({ data: false } as any);
+            const mockShowToast = jest.fn();
+            new ToastMock({ showToast: mockShowToast });
             render(<NftCreationPage />);
+            await waitFor(() => expect(useCheckBalanceMock).toBeCalled());
+            const saveButton = screen.getByRole("button", { name: translate("save") });
+            await waitFor(() => expect(saveButton).not.toBeDisabled());
+            const nameInput = screen.getByDisplayValue(nftDraftMockMetadata!.name!);
+            userEvent.clear(nameInput);
+            userEvent.type(nameInput, NFT_NAME);
+            userEvent.click(saveButton);
 
+            await waitFor(() => expect(mockShowToast).toBeCalled());
+        });
+
+        test("Publishes an NFT draft with balance", async () => {
+            const updateNftDraftMock = jest.spyOn(NftService, "nftControllerUpdateNftDraft").mockResolvedValueOnce(undefined);
+            const useCheckBalanceMock = jest.spyOn(useCheckBalance, "default").mockReturnValue({ data: true } as any);
+            render(<NftCreationPage />);
+            await waitFor(() => expect(useCheckBalanceMock).toBeCalled());
             const publishButton = screen.getByRole("button", { name: translate("publish") });
             await waitFor(() => expect(publishButton).not.toBeDisabled());
             const nameInput = screen.getByDisplayValue(nftDraftMockMetadata!.name!);
@@ -185,6 +216,22 @@ describe("NftCreationPage", () => {
             userEvent.click(publishButton);
 
             await waitFor(() => expect(updateNftDraftMock).toHaveBeenCalledWith(1, UPDATE_NFT_REQUEST, true));
+        });
+
+        test("Publishes an NFT draft without balance", async () => {
+            const useCheckBalanceMock = jest.spyOn(useCheckBalance, "default").mockReturnValue({ data: false } as any);
+            const mockShowToast = jest.fn();
+            new ToastMock({ showToast: mockShowToast });
+            render(<NftCreationPage />);
+            await waitFor(() => expect(useCheckBalanceMock).toBeCalled());
+            const publishButton = screen.getByRole("button", { name: translate("publish") });
+            await waitFor(() => expect(publishButton).not.toBeDisabled());
+            const nameInput = screen.getByDisplayValue(nftDraftMockMetadata!.name!);
+            userEvent.clear(nameInput);
+            userEvent.type(nameInput, NFT_NAME);
+            userEvent.click(publishButton);
+
+            await waitFor(() => expect(mockShowToast).toBeCalled());
         });
     });
 });
