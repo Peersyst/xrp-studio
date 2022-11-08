@@ -11,6 +11,7 @@ import createNftRequestFromForm from "module/nft/util/createNftRequestFromForm";
 import { useGetMyCollections } from "module/collection/query/useGetMyCollections";
 import { usePaginatedList } from "@peersyst/react-hooks";
 import useNftCreationPageSlots from "module/nft/page/NftCreationPage/hook/useNftCreationPageSlots";
+import { useCheckBalance } from "module/wallet/hook/useCheckBalance";
 
 const NftCreationPage = (): JSX.Element => {
     const [searchParams] = useSearchParams();
@@ -19,6 +20,7 @@ const NftCreationPage = (): JSX.Element => {
     const { data: { pages = [] } = {}, isLoading: collectionsLoading } = useGetMyCollections();
     const collections = usePaginatedList(pages, (page) => page.items);
     const isLoading = nftDraftLoading || collectionsLoading;
+    const { data: hasBalance } = useCheckBalance();
 
     const { mutate: createNftDraft, isLoading: createNftDraftLoading } = useCreateNftDraft();
     const { mutate: createNft, isLoading: createNftLoading } = useCreateNft();
@@ -29,11 +31,11 @@ const NftCreationPage = (): JSX.Element => {
 
     const handleSubmit = (data: NftCreationForm, action: string | undefined) => {
         const requestNft = createNftRequestFromForm(data);
-        if (nftDraft) {
+        if (nftDraft && hasBalance) {
             updateNftDraft({ id: nftDraft.id, publish: action === "publish", ...requestNft });
         } else {
             if (action === "publish") {
-                createNft(requestNft);
+                if (hasBalance) createNft(requestNft);
             } else {
                 createNftDraft(requestNft);
             }

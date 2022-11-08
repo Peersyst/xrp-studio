@@ -43,5 +43,6 @@
     "youHaveNoNfts": "You have no NFTs",
     "youHaveNoCollections": "You have no collections",
     "withoutNftsToShow": "Without NFTs to show",
-    "withoutCollections": "Without collections"
+    "withoutCollections": "Without collections",
+    "notEnoughtBalance": "You don't have enough Xrp balance"
 }
