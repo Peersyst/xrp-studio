@@ -13,7 +13,6 @@ export default function (): UseMutationResult<CollectionDto, unknown, UseCreateC
     return useMutation(async ({ collection, publish }: UseCreateCollectionParams) => {
         const collectionDto = await CollectionService.collectionControllerCreateCollection(collection, publish);
         await queryClient.invalidateQueries(Queries.COLLECTIONS);
-        await queryClient.invalidateQueries(Queries.NFT_DRAFTS);
         return collectionDto;
     });
 }
