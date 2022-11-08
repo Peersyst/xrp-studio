@@ -37,10 +37,10 @@ const NftCreationPage = (): JSX.Element => {
         if (nftDraft) {
             hasBalance
                 ? updateNftDraft({ id: nftDraft.id, publish: action === "publish", ...requestNft })
-                : showToast(translateError("notEnoughtBalance"), { type: "error" });
+                : showToast(translateError("notEnoughBalance"), { type: "error" });
         } else {
             if (action === "publish") {
-                hasBalance ? createNft(requestNft) : showToast(translateError("notEnoughtBalance"), { type: "error" });
+                hasBalance ? createNft(requestNft) : showToast(translateError("notEnoughBalance"), { type: "error" });
             } else {
                 createNftDraft(requestNft);
             }
