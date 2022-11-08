@@ -2,7 +2,7 @@ import BaseNftPage from "module/nft/component/layout/BaseNftPage/BaseNftPage";
 import { useSearchParams } from "react-router-dom";
 import useGetNftDraft from "module/nft/query/useGetNftDraft";
 import NftCreationPageHeader from "module/nft/component/layout/NftCreationPageHeader/NftCreationPageHeader";
-import { Form } from "@peersyst/react-components";
+import { Form, useToast } from "@peersyst/react-components";
 import { NftCreationForm } from "module/nft/types";
 import useCreateNftDraft from "module/nft/query/useCreateNftDraft";
 import useCreateNft from "module/nft/query/useCreateNft";
@@ -11,9 +11,12 @@ import createNftRequestFromForm from "module/nft/util/createNftRequestFromForm";
 import { useGetMyCollections } from "module/collection/query/useGetMyCollections";
 import { usePaginatedList } from "@peersyst/react-hooks";
 import useNftCreationPageSlots from "module/nft/page/NftCreationPage/hook/useNftCreationPageSlots";
-import { useCheckBalance } from "module/wallet/hook/useCheckBalance";
+import useCheckBalance from "module/wallet/hook/useCheckBalance";
+import useTranslate from "module/common/hook/useTranslate";
 
 const NftCreationPage = (): JSX.Element => {
+    const { showToast } = useToast();
+    const translateError = useTranslate("error");
     const [searchParams] = useSearchParams();
     const nfrDraftId = searchParams.get("id");
     const { data: nftDraft, isLoading: nftDraftLoading } = useGetNftDraft(nfrDraftId ? Number(nfrDraftId) : undefined);
@@ -31,11 +34,13 @@ const NftCreationPage = (): JSX.Element => {
 
     const handleSubmit = (data: NftCreationForm, action: string | undefined) => {
         const requestNft = createNftRequestFromForm(data);
-        if (nftDraft && hasBalance) {
-            updateNftDraft({ id: nftDraft.id, publish: action === "publish", ...requestNft });
+        if (nftDraft) {
+            hasBalance
+                ? updateNftDraft({ id: nftDraft.id, publish: action === "publish", ...requestNft })
+                : showToast(translateError("notEnoughtBalance"), { type: "error" });
         } else {
             if (action === "publish") {
-                if (hasBalance) createNft(requestNft);
+                hasBalance ? createNft(requestNft) : showToast(translateError("notEnoughtBalance"), { type: "error" });
             } else {
                 createNftDraft(requestNft);
             }
