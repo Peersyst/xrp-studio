@@ -1,38 +1,52 @@
 import EditNftCreationPageHeader from "module/collection/component/layout/EditCollectionNftDraftHeader/EditCollectionNftDraftHeader";
 import useNftCreationPageSlots from "module/nft/page/NftCreationPage/hook/useNftCreationPageSlots";
 import BaseNftPage from "module/nft/component/layout/BaseNftPage/BaseNftPage";
-import { Form } from "@peersyst/react-components";
-import { useNavigate, useSearchParams } from "react-router-dom";
+import { Form, useToast } from "@peersyst/react-components";
+import { useNavigate, useParams } from "react-router-dom";
 import { NftCreationForm } from "module/nft/types";
 import useCollectionCreationState from "module/collection/hook/useCollectionCreationState";
 import createNftRequestFromForm from "module/nft/util/createNftRequestFromForm";
 import { CollectionRoutes } from "module/collection/CollectionRouter";
+import useSetCollectionCreationNft from "module/collection/query/useSetCollectionCreationNft";
+import useTranslate from "module/common/hook/useTranslate";
 
 const EditCollectionNftDraftPage = (): JSX.Element => {
-    const [searchParams] = useSearchParams();
+    const translate = useTranslate();
     const navigate = useNavigate();
-    const nftDraftIndex = searchParams.get("index");
-    const [collectionCreationState, setCollectionCreationState] = useCollectionCreationState();
-    const nfts = collectionCreationState.nfts;
-    const nft = nfts[Number(nftDraftIndex)];
-    const slots = useNftCreationPageSlots({ nft, fixedCollection: true });
 
-    if (!nftDraftIndex && !(Number(nftDraftIndex) in nfts)) {
+    const { index: nftDraftIndexParam } = useParams();
+    const nftDraftIndex = nftDraftIndexParam ? Number(nftDraftIndexParam) : undefined;
+
+    const { showToast } = useToast();
+
+    const [collectionCreationState] = useCollectionCreationState();
+    const nfts = collectionCreationState.nfts;
+    const nft = nftDraftIndex !== undefined ? nfts[nftDraftIndex] : undefined;
+
+    const { mutate: setCollectionCreationNft, isLoading: savingNft } = useSetCollectionCreationNft();
+
+    const slots = useNftCreationPageSlots({ nft, fixedCollection: collectionCreationState.name });
+
+    if (nftDraftIndex === undefined || nftDraftIndex >= nfts.length) {
         navigate(CollectionRoutes.CREATE_COLLECTION);
     }
 
     const handleSubmit = (data: NftCreationForm) => {
         const requestNft = createNftRequestFromForm(data);
-        setCollectionCreationState({
-            nfts: { ...collectionCreationState.nfts, [Number(nftDraftIndex)]: requestNft },
-        });
+        setCollectionCreationNft({ index: nftDraftIndex!, nft: requestNft });
+        showToast(translate("changesApplied"), { type: "success" });
     };
 
     return (
         <Form onSubmit={handleSubmit}>
-            <BaseNftPage>
+            <BaseNftPage
+                key={nftDraftIndex}
+                activeCarouselNftId={nftDraftIndex}
+                collectionNfts={nfts}
+                collectionNftLink={(_, i) => CollectionRoutes.EDIT_NFT_CREATE_COLLECTION.replace(":index", i.toString())}
+            >
                 {{
-                    header: <EditNftCreationPageHeader />,
+                    header: <EditNftCreationPageHeader saving={savingNft} />,
                     content: slots,
                 }}
             </BaseNftPage>

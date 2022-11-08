@@ -1,8 +1,8 @@
 import BaseMock from "../base.mock";
 import * as useCollectionCreationState from "module/collection/hook/useCollectionCreationState";
 import Color from "color";
-import { CreateNftDraftRequest, MetadataAttributeDto } from "module/api/service";
-import { CollectionCreationState } from "module/collection/state/CollectionCreationState";
+import { MetadataAttributeDto } from "module/api/service";
+import { CollectionCreationNft, CollectionCreationState } from "module/collection/state/CollectionCreationState";
 
 export class UseCollectionCreationStateMock extends BaseMock {
     header?: string;
@@ -10,14 +10,14 @@ export class UseCollectionCreationStateMock extends BaseMock {
     name?: string;
     description?: string;
     issuer?: string;
-    transferFee?: number;
+    transferFee?: string;
     backgroundColor?: Color;
     burnable: boolean;
     onlyXRP: boolean;
     trustLine: boolean;
     transferable: boolean;
     attributes?: MetadataAttributeDto[];
-    nfts: Record<number, CreateNftDraftRequest>;
+    nfts: CollectionCreationNft[];
 
     setCollectionCreationState = jest.fn();
 
@@ -27,15 +27,15 @@ export class UseCollectionCreationStateMock extends BaseMock {
         name = "name",
         description = "description",
         issuer = "",
-        transferFee = 0,
+        transferFee = "0",
         backgroundColor = Color.rgb(),
         burnable = false,
         onlyXRP = false,
         trustLine = false,
         transferable = false,
         attributes = [],
-        nfts = {},
-    }: CollectionCreationState) {
+        nfts = [],
+    }: Partial<CollectionCreationState> = {}) {
         super();
         this.header = header;
         this.image = image;

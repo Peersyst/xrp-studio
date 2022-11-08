@@ -8,7 +8,8 @@ import useTranslate from "module/common/hook/useTranslate";
 import UploadInputPlaceholder from "module/common/component/input/UploadInput/UploadInputPlaceholder/UploadInputPlaceholder";
 import { isValidElement } from "react";
 
-const UploadInput = ({
+function UploadInput<Multiple extends boolean = false>({
+    onUpload,
     loading = false,
     children,
     Label = FormControlLabel,
@@ -20,8 +21,9 @@ const UploadInput = ({
     disabled,
     changeButton,
     placeholder,
+    multiple,
     ...rest
-}: UploadInputProps): JSX.Element => {
+}: UploadInputProps<Multiple>): JSX.Element {
     const translate = useTranslate();
 
     const editable = !readonly && !disabled;
@@ -41,18 +43,32 @@ const UploadInput = ({
             {...rest}
         >
             {(value, setValue) => {
-                const handleFileChange = async (file: File | undefined) => {
+                const handleFileChange = async (file: File | FileList | undefined) => {
                     if (file) {
-                        const url = await uploadFile(file);
-                        setValue(url);
+                        if (length in file) {
+                            const fileList = file as FileList;
+                            onUpload?.(fileList.length);
+                            const urls = [...(value || [])];
+                            for (let i = 0; i < fileList.length; i++) {
+                                const url = await uploadFile(fileList.item(i)!);
+                                urls.push(url);
+                            }
+                            // @ts-ignore Safe as Multiple = true is ensured by FileList type
+                            setValue(urls);
+                        } else {
+                            onUpload?.(1);
+                            const url = await uploadFile(file as File);
+                            // @ts-ignore Safe as Multiple = false is ensured by File type
+                            setValue(url);
+                        }
                     }
                 };
 
                 return (
                     <UploadInputRoot
-                        multiple={false}
+                        multiple={multiple}
                         fileTypes={fileTypes}
-                        onChange={(f) => handleFileChange(f as File)}
+                        onChange={handleFileChange}
                         className={cx("upload-input", updating && "updating", loading && "loading")}
                         readonly={readonly}
                         disabled={disabled}
@@ -82,7 +98,7 @@ const UploadInput = ({
                                 isValidElement(placeholder) ? (
                                     placeholder
                                 ) : (
-                                    <UploadInputPlaceholder {...placeholder} />
+                                    <UploadInputPlaceholder disabled={disabled} drag={drag} {...placeholder} />
                                 )}
                             </>
                         )}
@@ -91,6 +107,6 @@ const UploadInput = ({
             }}
         </FormControl>
     );
-};
+}
 
 export default UploadInput;

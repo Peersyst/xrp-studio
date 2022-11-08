@@ -20,7 +20,7 @@ const BaseCard = ({ loading, title, coverUrl, defaultUrl, children, note, to, st
     ];
 
     return (
-        <ConditionalLink condition={!loading} to={to} css={{ height: "100%", width: "100%" }}>
+        <ConditionalLink condition={!!to && !loading} to={to!} css={{ height: "100%", width: "100%" }}>
             <BaseCardRoot>
                 <Skeleton loading={loading} className="skeleton-card">
                     <BaseCardCover imageUrl={coverUrl}>

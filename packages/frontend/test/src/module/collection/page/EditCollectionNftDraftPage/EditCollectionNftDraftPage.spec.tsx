@@ -1,6 +1,6 @@
 import EditCollectionNftDraftPage from "module/collection/page/EditCollectionNftDraftPage/EditCollectionNftDraftPage";
 import { render, translate } from "test-utils";
-import { UseCollectionCreationStateMock, WalletMock } from "test-mocks";
+import { ToastMock, UseCollectionCreationStateMock, WalletMock } from "test-mocks";
 import { screen } from "@testing-library/react";
 import { capitalize } from "@peersyst/react-utils";
 import { waitFor } from "@testing-library/dom";
@@ -20,14 +20,14 @@ describe("EditCollectionNftDraftPage", () => {
                 name: "name",
                 description: "description",
                 issuer: "",
-                transferFee: 0,
+                transferFee: "0",
                 backgroundColor: Color.rgb(),
                 burnable: false,
                 onlyXRP: false,
                 trustLine: false,
                 transferable: false,
                 attributes: [],
-                nfts: {},
+                nfts: [],
             });
         });
 
@@ -39,7 +39,7 @@ describe("EditCollectionNftDraftPage", () => {
         test("Edition renders correctly", async () => {
             render(<EditCollectionNftDraftPage />);
 
-            expect(screen.getByText(translate("editNft"))).toBeInTheDocument();
+            expect(screen.getByText(translate("editCollectionNft"))).toBeInTheDocument();
             // imageEt
             expect(screen.getByText(capitalize(translate("fileInputPlaceholder")))).toBeInTheDocument();
             // name
@@ -73,13 +73,16 @@ describe("EditCollectionNftDraftPage", () => {
         });
 
         test("Saves changes", async () => {
+            const useToastMock = new ToastMock();
+
             render(<EditCollectionNftDraftPage />);
 
             const saveButton = screen.getByRole("button", { name: translate("saveChanges") });
             await waitFor(() => expect(saveButton).not.toBeDisabled());
             userEvent.click(saveButton);
 
-            await waitFor(() => expect(useCollectionCreationStateMock.setCollectionCreationState).toBeCalled());
+            await waitFor(() => expect(useCollectionCreationStateMock.setCollectionCreationState).toHaveBeenCalled());
+            expect(useToastMock.showToast).toHaveBeenCalled();
         });
     });
 });

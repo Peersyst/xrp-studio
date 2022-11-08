@@ -22,6 +22,8 @@ const theme = createTheme({
                 xs: 1345,
                 xxs: 800,
             },
+            createCollectionPage: 925,
+            createCollectionNftGrid: 550,
         },
     },
 });
