@@ -15,7 +15,7 @@ const EditCollectionNftDraftPage = (): JSX.Element => {
     const navigate = useNavigate();
 
     const { index: nftDraftIndexParam } = useParams();
-    const nftDraftIndex = nftDraftIndexParam ? Number(nftDraftIndexParam) : undefined;
+    const nftDraftIndex = nftDraftIndexParam !== undefined ? Number(nftDraftIndexParam) : undefined;
 
     const { showToast } = useToast();
 

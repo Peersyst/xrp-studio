@@ -1,6 +1,6 @@
 import EditCollectionNftDraftPage from "module/collection/page/EditCollectionNftDraftPage/EditCollectionNftDraftPage";
 import { render, translate } from "test-utils";
-import { ToastMock, UseCollectionCreationStateMock, WalletMock } from "test-mocks";
+import { ToastMock, UseCollectionCreationStateMock, UseParamsMock, WalletMock } from "test-mocks";
 import { screen } from "@testing-library/react";
 import { capitalize } from "@peersyst/react-utils";
 import { waitFor } from "@testing-library/dom";
@@ -11,6 +11,7 @@ describe("EditCollectionNftDraftPage", () => {
     describe("Edition", () => {
         let walletMock: WalletMock;
         let useCollectionCreationStateMock: UseCollectionCreationStateMock;
+        let useParams: UseParamsMock;
 
         beforeAll(() => {
             walletMock = new WalletMock({ active: true, address: "address" });
@@ -27,13 +28,15 @@ describe("EditCollectionNftDraftPage", () => {
                 trustLine: false,
                 transferable: false,
                 attributes: [],
-                nfts: [],
+                nfts: [{ id: 0 }],
             });
+            useParams = new UseParamsMock({ index: "0" });
         });
 
         afterAll(() => {
             walletMock.restore();
             useCollectionCreationStateMock.restore();
+            useParams.restore();
         });
 
         test("Edition renders correctly", async () => {
