@@ -12,6 +12,7 @@ import useUpdateCollection from "module/collection/query/useUpdateCollection";
 import { CollectionCreationForm } from "module/collection/types";
 import createCollectionRequestFromForm from "module/collection/util/createCollectionRequestFromForm";
 import { CollectionRoutes } from "module/collection/CollectionRouter";
+import useCheckBalance from "module/wallet/hook/useCheckBalance";
 
 const CollectionCreationPage = (): JSX.Element => {
     const translate = useTranslate();
@@ -22,6 +23,7 @@ const CollectionCreationPage = (): JSX.Element => {
     const [searchParams, setSearchParams] = useSearchParams();
     const collectionId = searchParams.get("id");
     const { data: collection, isLoading: collectionLoading } = useGetCollection(collectionId ? Number(collectionId) : undefined);
+    const { data: hasBalance } = useCheckBalance();
 
     const { mutateAsync: createCollection, isLoading: publishing } = useCreateCollection();
     const { mutateAsync: updateCollection, isLoading: saving } = useUpdateCollection();
@@ -40,14 +42,17 @@ const CollectionCreationPage = (): JSX.Element => {
     }, [collectionLoading, collection]);
 
     const handleSubmit = async (data: CollectionCreationForm, action?: string) => {
-        if (collection) {
-            await updateCollection({ id: collection.id, collection: createCollectionRequestFromForm("update", data) });
-            showToast(translate("collectionUpdated"), { type: "success" });
-        } else {
-            await createCollection({ collection: createCollectionRequestFromForm("create", data), publish: action === "publish" });
-            showToast(translate("collectionCreated"), { type: "success" });
+        if (!hasBalance) showToast(translateError("notEnoughBalance"), { type: "error" });
+        else {
+            if (collection) {
+                await updateCollection({ id: collection.id, collection: createCollectionRequestFromForm("update", data) });
+                showToast(translate("collectionUpdated"), { type: "success" });
+            } else {
+                await createCollection({ collection: createCollectionRequestFromForm("create", data), publish: action === "publish" });
+                showToast(translate("collectionCreated"), { type: "success" });
+            }
+            navigate(CollectionRoutes.MY_COLLECTIONS, { replace: true });
         }
-        navigate(CollectionRoutes.MY_COLLECTIONS, { replace: true });
     };
 
     return (
