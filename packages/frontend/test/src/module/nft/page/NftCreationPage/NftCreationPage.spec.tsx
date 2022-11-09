@@ -42,6 +42,12 @@ describe("NftCreationPage", () => {
         attributes: nftDraftMockMetadata?.attributes,
     });
 
+    const useToastMock = new ToastMock();
+
+    beforeEach(() => {
+        useToastMock.clear();
+    });
+
     describe("Creation with balance", () => {
         let useSearchParamsMock: UseSearchParamsMock;
         let walletMock: WalletMock;
@@ -141,8 +147,6 @@ describe("NftCreationPage", () => {
         });
 
         test("Create published NFT without balance", async () => {
-            const mockShowToast = jest.fn();
-            new ToastMock({ showToast: mockShowToast });
             render(<NftCreationPage />);
             expect(useCheckBalanceMock).toHaveBeenCalled();
             const publishButton = screen.getByRole("button", { name: translate("publish") });
@@ -150,7 +154,9 @@ describe("NftCreationPage", () => {
             userEvent.type(screen.getByPlaceholderText(translate("nftNamePlaceholder")), NFT_NAME);
             userEvent.click(publishButton);
 
-            await waitFor(() => expect(mockShowToast).toBeCalled());
+            await waitFor(() =>
+                expect(useToastMock.showToast).toHaveBeenCalledWith(translate("notEnoughBalance", { ns: "error" }), { type: "error" }),
+            );
         });
     });
 
@@ -241,8 +247,6 @@ describe("NftCreationPage", () => {
         });
 
         test("Publishes an NFT draft without balance", async () => {
-            const mockShowToast = jest.fn();
-            new ToastMock({ showToast: mockShowToast });
             render(<NftCreationPage />);
             expect(useCheckBalanceMock).toHaveBeenCalled();
             const publishButton = screen.getByRole("button", { name: translate("publish") });
@@ -252,12 +256,12 @@ describe("NftCreationPage", () => {
             userEvent.type(nameInput, NFT_NAME);
             userEvent.click(publishButton);
 
-            await waitFor(() => expect(mockShowToast).toBeCalled());
+            await waitFor(() =>
+                expect(useToastMock.showToast).toHaveBeenCalledWith(translate("notEnoughBalance", { ns: "error" }), { type: "error" }),
+            );
         });
 
         test("Updates an NFT draft without balance", async () => {
-            const mockShowToast = jest.fn();
-            new ToastMock({ showToast: mockShowToast });
             render(<NftCreationPage />);
             expect(useCheckBalanceMock).toHaveBeenCalled();
             const saveButton = screen.getByRole("button", { name: translate("save") });
@@ -267,7 +271,9 @@ describe("NftCreationPage", () => {
             userEvent.type(nameInput, NFT_NAME);
             userEvent.click(saveButton);
 
-            await waitFor(() => expect(mockShowToast).toBeCalled());
+            await waitFor(() =>
+                expect(useToastMock.showToast).toHaveBeenCalledWith(translate("notEnoughBalance", { ns: "error" }), { type: "error" }),
+            );
         });
     });
 });
