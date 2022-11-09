@@ -22,7 +22,7 @@ export const BaseCover = styled.div<CoverProps>(
 
 export const BaseCardCoverDefault = styled(BaseCover)<CoverProps>(
     () => css`
-        postion: top;
+        position: top;
         top: 0;
         left: 0;
         width: 100%;
@@ -35,7 +35,7 @@ export const BaseCardCover = styled(BaseCover)<CoverProps>(
     () => css`
         width: 100%;
         display: flex;
-        postition: relative;
+        position: relative;
         &:after {
             padding-top: 100%;
             content: "";

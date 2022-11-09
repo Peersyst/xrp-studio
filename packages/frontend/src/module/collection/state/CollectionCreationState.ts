@@ -12,7 +12,7 @@ export interface CollectionCreationState {
     externalUrl?: string;
     backgroundColor?: Color;
     burnable: boolean;
-    onlyXPR: boolean;
+    onlyXRP: boolean;
     trustLine: boolean;
     transferable: boolean;
     attributes?: MetadataAttributeDto[];
@@ -21,7 +21,7 @@ export interface CollectionCreationState {
 
 const collectionCreationState = atom<CollectionCreationState>({
     key: "collection-creation",
-    default: { burnable: false, onlyXPR: false, trustLine: false, transferable: false, nfts: [] },
+    default: { burnable: false, onlyXRP: false, trustLine: false, transferable: false, nfts: [] },
 });
 
 export default collectionCreationState;

@@ -35,7 +35,7 @@ const CollectionCreationPageContent = ({ collection, loading }: CollectionCreati
             externalUrl,
             backgroundColor,
             burnable,
-            onlyXPR,
+            onlyXRP,
             trustLine,
             transferable,
             attributes,
@@ -147,8 +147,8 @@ const CollectionCreationPageContent = ({ collection, loading }: CollectionCreati
                                         <Switch
                                             name={CollectionCreationFormFields.ONLY_XRP}
                                             label={translate("onlyXRP")}
-                                            value={onlyXPR}
-                                            onChange={normalizedHandleChange("onlyXPR")}
+                                            value={onlyXRP}
+                                            onChange={normalizedHandleChange("onlyXRP")}
                                         />
                                         <Switch
                                             name={CollectionCreationFormFields.TRUST_LINE}

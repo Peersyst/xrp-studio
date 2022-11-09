@@ -42,5 +42,6 @@
     "nftTransferableNotSet": "Transfer fee cannot be set without the transferable flag",
     "youHaveNoNfts": "You have no NFTs",
     "youHaveNoCollections": "You have no collections",
-    "withoutNftsToShow": "Without NFTs to show"
+    "withoutNftsToShow": "Without NFTs to show",
+    "withoutCollections": "Without collections"
 }

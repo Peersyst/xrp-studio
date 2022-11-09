@@ -54,7 +54,7 @@ function BaseGrid<T extends PaginatedData>({
                         {data?.pages.map((page, i) => (
                             <Fragment key={i}>{renderItems(page.items)}</Fragment>
                         ))}
-                        {loading && <Skeletons count={18} />}
+                        {loading && <Skeletons count={6} />}
                     </BaseGridRoot>
                 ) : typeof finalNothingToShow === "string" ? (
                     <NothingToShow label={finalNothingToShow} css={{ width: "100%", paddingTop: "4rem" }}>

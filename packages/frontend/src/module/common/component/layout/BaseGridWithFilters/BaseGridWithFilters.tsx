@@ -36,7 +36,7 @@ function BaseGridWithFilters<T extends PaginatedData, TagT = any>({
     }, []);
 
     return (
-        <Row css={{ position: "relative" }}>
+        <Row css={{ position: "relative", minHeight: "76vh" }}>
             <BaseGridFilters>{filters}</BaseGridFilters>
             <Animated
                 in={finalMoveGrid}
