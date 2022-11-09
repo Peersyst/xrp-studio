@@ -23,7 +23,7 @@ const NftCreationPage = (): JSX.Element => {
     const { data: { pages = [] } = {}, isLoading: collectionsLoading } = useGetMyCollections();
     const collections = usePaginatedList(pages, (page) => page.items);
     const isLoading = nftDraftLoading || collectionsLoading;
-    const { data: hasBalance } = useCheckBalance();
+    const checkBalance = useCheckBalance();
 
     const { mutate: createNftDraft, isLoading: createNftDraftLoading } = useCreateNftDraft();
     const { mutate: createNft, isLoading: createNftLoading } = useCreateNft();
@@ -32,16 +32,16 @@ const NftCreationPage = (): JSX.Element => {
     const saving = createNftDraftLoading || (updateNftDraftLoading && !variables?.publish);
     const publishing = createNftLoading || (updateNftDraftLoading && !!variables?.publish);
 
-    const handleSubmit = (data: NftCreationForm, action: string | undefined) => {
+    const handleSubmit = async (data: NftCreationForm, action: string | undefined) => {
         const requestNft = createNftRequestFromForm(data);
+        const hasBalance = await checkBalance();
         if (nftDraft) {
-            hasBalance
-                ? updateNftDraft({ id: nftDraft.id, publish: action === "publish", ...requestNft })
-                : showToast(translateError("notEnoughBalance"), { type: "error" });
+            if (action === "publish" && !hasBalance) showToast(translateError("notEnoughBalance"), { type: "error" });
+            else updateNftDraft({ id: nftDraft.id, publish: action === "publish", ...requestNft });
         } else {
-            if (action === "publish") {
-                hasBalance ? createNft(requestNft) : showToast(translateError("notEnoughBalance"), { type: "error" });
-            } else {
+            if (action === "publish")
+                !hasBalance ? showToast(translateError("notEnoughBalance"), { type: "error" }) : createNft(requestNft);
+            else {
                 createNftDraft(requestNft);
             }
         }
