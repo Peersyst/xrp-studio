@@ -17,7 +17,12 @@ const MainPageHeader = ({
     backPath,
 }: MainPageHeaderProps): JSX.Element => {
     return (
-        <MainPageHeaderRoot stickyTitle={stickyTitle} className={cx("base-page-header", className)} style={style}>
+        <MainPageHeaderRoot
+            stickyTitle={stickyTitle}
+            showStickyTitle={!!stickyTitle}
+            className={cx("base-page-header", className)}
+            style={style}
+        >
             <MainPageHeaderWrapper gap="2rem">
                 <Row justifyContent="space-between" wrap wrapGap="1.5rem" gap="2.5rem">
                     <Row alignItems="center" gap="2rem">
