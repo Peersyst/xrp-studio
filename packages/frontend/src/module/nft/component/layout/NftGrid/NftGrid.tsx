@@ -5,7 +5,7 @@ import { NftGridProps } from "./NftGrid.types";
 import Grid from "module/common/component/layout/Grid/Grid";
 import { useGetNftGridBreakpoints } from "./hook/useGetNftGridBreakpoints";
 
-function NftGrid<TagT>({ loading, ...rest }: NftGridProps<TagT>): JSX.Element {
+function NftGrid<TagT = any>({ loading, ...rest }: NftGridProps<TagT>): JSX.Element {
     const breakpoints = useGetNftGridBreakpoints();
     return (
         <Grid<PaginatedNftDto, TagT>
