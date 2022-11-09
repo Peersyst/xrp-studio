@@ -3,7 +3,7 @@ import { Row } from "@peersyst/react-components";
 
 export const CollectionInfoRoot = styled(Row).attrs({ flex: 1 })(
     ({ theme }) => css`
-        max-width: 40% !important;
+        max-width: 40%;
         position: absolute;
         left: calc(var(--collection-avatar-left) + var(--collection-avatar-width) + 3rem);
         ${theme.breakpoints.down("md")} {

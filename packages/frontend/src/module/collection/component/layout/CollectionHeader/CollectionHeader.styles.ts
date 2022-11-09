@@ -86,7 +86,7 @@ export const CollectionHeaderFooter = styled(Row).attrs({ gap: "1rem", flex: 1 }
     `,
 );
 
-export const ContentAvatar = styled(Avatar).attrs({ size: "xl" })(
+export const ContentAvatar = styled(Avatar)(
     ({ theme }) => css`
         position: absolute;
         top: calc(var(--collection-avatar-top) + 3rem);
@@ -94,11 +94,15 @@ export const ContentAvatar = styled(Avatar).attrs({ size: "xl" })(
         transform: translateY(-50%);
         color: ${theme.palette.background};
 
-        width: var(--collection-avatar-width) !important;
-        height: auto !important;
+        width: var(--collection-avatar-width);
+        height: auto;
 
         ${theme.breakpoints.down("md")} {
             top: calc(var(--collection-avatar-top) + 1hw);
+        }
+
+        ${theme.breakpoints.down("mobile")} {
+            left: calc(var(--collection-avatar-top) - 2.5rem);
         }
     `,
 );

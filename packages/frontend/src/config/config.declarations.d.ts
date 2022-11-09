@@ -51,7 +51,6 @@ declare module "@peersyst/react-components" {
         address: string;
         tx: string;
         nft: string;
-        token: string;
     }
 
     export interface BlockchainLinksTypesOverrides {
