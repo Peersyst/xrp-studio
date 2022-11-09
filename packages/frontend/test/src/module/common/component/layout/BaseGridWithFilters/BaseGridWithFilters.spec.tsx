@@ -3,8 +3,10 @@ import { render, translate } from "test-utils";
 import Skeletons from "module/common/component/feedback/Skeletons/Skeletons";
 import * as Recoil from "recoil";
 import { fireEvent } from "@testing-library/dom";
+import { UseFilterContextMock } from "test-mocks";
 
 describe("Test for the base grid with filters", () => {
+    new UseFilterContextMock();
     test("Renders correctly when loaded: children + filters + tags", () => {
         jest.spyOn(Recoil, "useRecoilState").mockReturnValueOnce([true, jest.fn()]);
         const tags = [
@@ -15,7 +17,7 @@ describe("Test for the base grid with filters", () => {
         const screen = render(
             <BaseGridWithFilters
                 tags={tags}
-                filters={<>filters</>}
+                filters={{ content: <>filters</> }}
                 cols={3}
                 colGap={24}
                 rowGap={24}
@@ -71,7 +73,7 @@ describe("Test for the base grid with filters", () => {
         jest.spyOn(Recoil, "useRecoilState").mockReturnValue([false, jest.fn()]);
         const screen = render(
             <BaseGridWithFilters
-                filters={<>filters</>}
+                filters={{ content: <>filters</> }}
                 cols={3}
                 colGap={24}
                 nothingToShow="Nothing to show"
@@ -123,13 +125,13 @@ describe("Test for the base grid with filters", () => {
                 colGap={24}
                 rowGap={24}
                 breakpoints={[{ maxWidth: 1200, cols: 10 }]}
-                filters={<>filters</>}
+                filters={{ content: <>filters</> }}
             >
                 {(letters) => letters.map((letter, key) => <p key={key}>{letter}</p>)}
             </BaseGridWithFilters>,
         );
         const grid = screen.getByRole("grid");
-        expect(grid.getElementsByClassName("Skeleton").length).toBe(18);
+        expect(grid.getElementsByClassName("Skeleton").length).toBe(6);
     });
 
     test("Hide/Show filters", async () => {
@@ -140,7 +142,7 @@ describe("Test for the base grid with filters", () => {
         jest.spyOn(Recoil, "useRecoilState").mockReturnValueOnce([true, mockedSetVisibility]);
         const screen = render(
             <BaseGridWithFilters
-                filters={<>filters</>}
+                filters={{ content: <>filters</> }}
                 cols={3}
                 colGap={24}
                 rowGap={24}

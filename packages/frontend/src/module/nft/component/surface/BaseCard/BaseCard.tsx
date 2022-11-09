@@ -4,7 +4,7 @@ import { BaseCardRoot, BaseCardCover, BaseCardCoverDefault } from "module/nft/co
 import ConditionalLink from "module/common/component/navigation/ConditionalLink/ConditionalLink";
 import { Children } from "react";
 
-const BaseCard = ({ loading, title, coverUrl, defaultUrl, children, note, to }: WithSkeleton<BaseCardProps>): JSX.Element => {
+const BaseCard = ({ loading, title, coverUrl, defaultUrl, children, note, to, status }: WithSkeleton<BaseCardProps>): JSX.Element => {
     const footerContent = [
         <Typography variant="subtitle1" fontWeight={800} singleLine css={{ minWidth: "10rem" }}>
             {title}
@@ -25,6 +25,7 @@ const BaseCard = ({ loading, title, coverUrl, defaultUrl, children, note, to }: 
                 <Skeleton loading={loading} className="skeleton-card">
                     <BaseCardCover imageUrl={coverUrl}>
                         <BaseCardCoverDefault imageUrl={defaultUrl} />
+                        {status}
                     </BaseCardCover>
                 </Skeleton>
                 <Col gap="0.5rem">

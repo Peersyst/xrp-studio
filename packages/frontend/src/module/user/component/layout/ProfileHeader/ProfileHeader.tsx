@@ -15,7 +15,7 @@ const ProfileHeader = (): JSX.Element => {
     const { header, image = "", name = "", address = "", description } = user || {};
 
     return (
-        <ProfileHeaderRoot image={header} stickyTitle={name}>
+        <ProfileHeaderRoot showStickyTitle={!!header} image={header} stickyTitle={name}>
             <Col gap="1rem">
                 <ProfileCover loading={isLoading} src={header} alt="profile-header" />
                 <ProfileHeaderFooter>
