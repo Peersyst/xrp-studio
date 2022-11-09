@@ -7,7 +7,8 @@
     "blockchainLinks": {
         "address": "https://nft-devnet.xrpl.org/accounts/",
         "tx": "https://nft-devnet.xrpl.org/transactions/",
-        "nft": "https://nft-devnet.xrpl.org/nft/"
+        "nft": "https://nft-devnet.xrpl.org/nft/",
+        "token" :""
     },
     "socialLinks": {
         "twitterLink": "https://twitter.com/",

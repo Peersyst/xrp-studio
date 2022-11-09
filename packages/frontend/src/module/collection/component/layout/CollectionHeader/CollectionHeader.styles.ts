@@ -24,6 +24,7 @@ export const CollectionHeaderRoot = styled(PageHeader)<CollectionHeaderRootProps
 
             ${theme.breakpoints.down("mini")} {
                 --collection-cover-height: 20vw;
+                margin-bottom: 9vw;
             }
 
             div:first-child {
