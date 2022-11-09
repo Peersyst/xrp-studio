@@ -2,7 +2,7 @@ import { useConfig, WithSkeleton } from "@peersyst/react-components";
 import { NftCardProps } from "module/nft/component/display/NftCard/NftCard.types";
 import BaseCard from "module/nft/component/surface/BaseCard/BaseCard";
 import { NftRoutes } from "module/nft/NftRouter";
-import { NftCardChip } from "./NftCard.styles";
+import NftCardStatusChip from "../NftCardStatusChip/NftCardStatusChip";
 
 const NftCard = ({
     nft: { id, metadata: { name = "", image } = {}, status },
@@ -12,11 +12,11 @@ const NftCard = ({
     return (
         <BaseCard
             title={loading ? "loading-title" : name}
-            to={NftRoutes.VIEW_NFT.replace(":id", id.toString())}
+            to={status !== "confirmed" ? NftRoutes.VIEW_NFT.replace(":id", id.toString()) : ""}
             defaultUrl={defaultImgUrl}
             coverUrl={image}
             loading={loading}
-            status={status !== "confirmed" && <NftCardChip label={status} status={status} />}
+            status={status === "confirmed" && <NftCardStatusChip label={status} status={"failed"} id={String(id)} />}
         />
     );
 };

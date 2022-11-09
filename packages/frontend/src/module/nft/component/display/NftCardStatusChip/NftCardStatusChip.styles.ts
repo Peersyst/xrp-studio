@@ -1,7 +1,6 @@
 import { Chip } from "@peersyst/react-components";
 import styled, { css } from "styled-components";
-
-export type NftStatus = "draft" | "pending" | "failed" | "confirmed";
+import { NftStatus } from "./NftCardStatusChip.types";
 
 const draftStyles = css(({ theme }) => ({
     backgroundColor: theme.palette.status.info,
