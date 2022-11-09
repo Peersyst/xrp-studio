@@ -81,5 +81,7 @@
     "collectionNamePlaceholder": "Enter a name for your collection",
     "collectionDescriptionPlaceholder": "Enter a description for your collection",
     "collectionBackgroundColorPlaceholder": "Your NFTs background color",
-    "viewNft": "View Nft"
+    "viewNft": "View Nft",
+    "myDrops": "My Drops",
+    "dashboard": "Dashboard"
 }
