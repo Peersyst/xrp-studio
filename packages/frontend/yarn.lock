@@ -2509,6 +2509,15 @@
     "@peersyst/react-types" "^1.5.0"
     validate-color "^2.2.1"
 
+"@peersyst/react-utils@^1.8.7":
+  version "1.8.7"
+  resolved "https://registry.yarnpkg.com/@peersyst/react-utils/-/react-utils-1.8.7.tgz#2c8652139c7356188f849d96149d51b4ea972137"
+  integrity sha512-YRE7moc2p6o06u08WW98S56ODIMVCq6PXPNN8BJxzNS0kPgCnR0RjYLeAyLAo11AfcR91VIrPIroUmMdH8Th4w==
+  dependencies:
+    "@babel/runtime" "^7.16.7"
+    "@peersyst/react-types" "^1.5.0"
+    validate-color "^2.2.1"
+
 "@pmmmwh/react-refresh-webpack-plugin@0.4.3":
   version "0.4.3"
   resolved "https://registry.yarnpkg.com/@pmmmwh/react-refresh-webpack-plugin/-/react-refresh-webpack-plugin-0.4.3.tgz#1eec460596d200c0236bf195b078a5d1df89b766"
