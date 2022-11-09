@@ -42,16 +42,20 @@ const CollectionCreationPage = (): JSX.Element => {
     }, [collectionLoading, collection]);
 
     const handleSubmit = async (data: CollectionCreationForm, action?: string) => {
-        if (!hasBalance) showToast(translateError("notEnoughBalance"), { type: "error" });
-        else {
-            if (collection) {
-                await updateCollection({ id: collection.id, collection: createCollectionRequestFromForm("update", data) });
-                showToast(translate("collectionUpdated"), { type: "success" });
-            } else {
-                await createCollection({ collection: createCollectionRequestFromForm("create", data), publish: action === "publish" });
-                showToast(translate("collectionCreated"), { type: "success" });
-            }
+        if (collection) {
+            await updateCollection({ id: collection.id, collection: createCollectionRequestFromForm("update", data) });
+            showToast(translate("collectionUpdated"), { type: "success" });
             navigate(CollectionRoutes.MY_COLLECTIONS, { replace: true });
+        } else {
+            if (action === "publish" && !hasBalance) showToast(translateError("notEnoughBalance"), { type: "error" });
+            else {
+                await createCollection({
+                    collection: createCollectionRequestFromForm("create", data),
+                    publish: action === "publish",
+                });
+                showToast(translate("collectionCreated"), { type: "success" });
+                navigate(CollectionRoutes.MY_COLLECTIONS, { replace: true });
+            }
         }
     };
 

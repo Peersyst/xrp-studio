@@ -6,6 +6,7 @@ import { CollectionService } from "module/api/service";
 import userEvent from "@testing-library/user-event";
 import { waitFor } from "@testing-library/dom";
 import { CollectionRoutes } from "module/collection/CollectionRouter";
+import * as useCheckBalance from "module/wallet/hook/useCheckBalance";
 
 describe("CollectionCreationPage", () => {
     const COLLECTION_NAME = "collection_name";
@@ -18,15 +19,18 @@ describe("CollectionCreationPage", () => {
         useNavigateMock.clear();
     });
 
-    describe("Creation", () => {
+    describe("Creation with balance", () => {
         let useSearchParamsMock: UseSearchParamsMock;
+        let useCheckBalanceMock: jest.SpyInstance;
 
         beforeAll(() => {
             useSearchParamsMock = new UseSearchParamsMock();
+            useCheckBalanceMock = jest.spyOn(useCheckBalance, "default").mockReturnValue({ data: true } as any);
         });
 
         afterAll(() => {
             useSearchParamsMock.restore();
+            useCheckBalanceMock.mockRestore();
         });
 
         test("Renders correctly", () => {
@@ -76,16 +80,44 @@ describe("CollectionCreationPage", () => {
         });
     });
 
+    describe("Creation without balance", () => {
+        let useSearchParamsMock: UseSearchParamsMock;
+        let useCheckBalanceMock: jest.SpyInstance;
+
+        beforeAll(() => {
+            useSearchParamsMock = new UseSearchParamsMock();
+            useCheckBalanceMock = jest.spyOn(useCheckBalance, "default").mockReturnValue({ data: false } as any);
+        });
+
+        afterAll(() => {
+            useSearchParamsMock.restore();
+            useCheckBalanceMock.mockRestore();
+        });
+
+        test("Publishes without balance", async () => {
+            render(<CollectionCreationPage />);
+            expect(useCheckBalanceMock).toHaveBeenCalled();
+            userEvent.type(screen.getByPlaceholderText(translate("collectionNamePlaceholder")), COLLECTION_NAME);
+            const button = screen.getByRole("button", { name: translate("publish") });
+            userEvent.click(button);
+            await waitFor(() =>
+                expect(useToastMock.showToast).toHaveBeenCalledWith(translate("notEnoughBalance", { ns: "error" }), { type: "error" }),
+            );
+        });
+    });
+
     describe("Edition", () => {
         let useSearchParamsMock: UseSearchParamsMock;
         let getCollectionMock: jest.SpyInstance;
         let useWalletMock: WalletMock;
         const addressMock = "address";
         const collectionDtoMock = new CollectionDtoMock({ name: "name", user: new UserDtoMock({ address: addressMock }) });
+        let useCheckBalanceMock: jest.SpyInstance;
 
         beforeEach(() => {
             useSearchParamsMock = new UseSearchParamsMock({ id: "1" });
             useWalletMock = new WalletMock({ isLogged: true, active: true, address: addressMock });
+            useCheckBalanceMock = jest.spyOn(useCheckBalance, "default").mockReturnValue({ data: true } as any);
         });
 
         afterEach(() => {
@@ -95,6 +127,7 @@ describe("CollectionCreationPage", () => {
         afterAll(() => {
             useSearchParamsMock.restore();
             useWalletMock.restore();
+            useCheckBalanceMock.mockRestore();
         });
 
         test("Renders correctly", async () => {
