@@ -13,11 +13,7 @@ const ThemeButton = ({ size = "sm", className, ...rest }: ThemeButtonProps): JSX
     } = useTheme();
 
     const changeTheme = () => {
-        if (mode === "light") {
-            setTheme("dark");
-        } else {
-            setTheme("light");
-        }
+        setTheme(mode === "light" ? "dark" : "light");
     };
 
     return (

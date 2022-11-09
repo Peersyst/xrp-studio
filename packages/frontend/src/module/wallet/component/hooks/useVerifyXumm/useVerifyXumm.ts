@@ -14,6 +14,5 @@ export function useVerifyXumm(): useVerifyXummResult {
         });
     };
     const { verifySignIn } = useVerifySignIn({ onSignInVerified });
-
     return verifySignIn;
 }

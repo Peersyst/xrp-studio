@@ -1,19 +1,15 @@
 import AppBar from "module/common/component/navigation/AppBar/AppBar";
 import { WalletMock } from "test-mocks";
-import * as UseWallet from "module/wallet/component/hooks/useWallet";
-import { render, translate } from "test-utils";
-import { waitFor } from "@testing-library/dom";
+import { render, translate, screen } from "test-utils";
 
 describe("AppBar test", () => {
-    test("Renders correctly without login", async () => {
-        const wallet = new WalletMock({ address: "0x", isLogged: false });
-        jest.spyOn(UseWallet, "default").mockReturnValue(wallet);
-        const screen = render(<AppBar />);
-
-        await waitFor(() => expect(screen.getByText(translate("letsGetStarted"))).toBeInTheDocument());
-        await waitFor(() => expect(() => screen.getByText(translate("dashboard"))).toThrow());
-        await waitFor(() => expect(() => screen.getByText(translate("myNfts"))).toThrow());
-        await waitFor(() => expect(() => screen.getByText(translate("myDrops"))).toThrow());
-        await waitFor(() => expect(screen.getByTestId("MoonIcon")).toBeInTheDocument());
+    test("Renders correctly without login", () => {
+        new WalletMock();
+        render(<AppBar />);
+        expect(screen.getByText(translate("letsGetStarted"))).toBeInTheDocument();
+        expect(screen.queryByText(translate("dashboard"))).not.toBeInTheDocument();
+        expect(screen.queryByText(translate("myNfts"))).not.toBeInTheDocument();
+        expect(screen.queryByText(translate("myDrops"))).not.toBeInTheDocument();
+        expect(screen.getByTestId("MoonIcon")).toBeInTheDocument();
     });
 });

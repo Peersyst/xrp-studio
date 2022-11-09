@@ -10,7 +10,7 @@ import { useLocation } from "react-router-dom";
 import useTranslate from "module/common/hook/useTranslate";
 import { APPBAR_TABS } from "module/common/component/navigation/AppBar/AppBarTabs";
 
-const AppBar = () => {
+const AppBar = (): JSX.Element => {
     const location = useLocation();
     const { isLogged } = useWallet();
     const translate = useTranslate();
