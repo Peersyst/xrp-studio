@@ -19,11 +19,6 @@ class XrplService {
         return await this.clientRequest((client) => client.getXrpBalance(address));
     }
 
-    public async hasEnoughBalance(address: string): Promise<Boolean> {
-        const balance = await this.clientRequest((client) => client.getXrpBalance(address));
-        return Number(xrpl.xrpToDrops(balance)) > config.feeInDrops;
-    }
-
     public async getAvailableBalance(address: string): Promise<number> {
         return Number(await this.getAccountBalance(address));
     }
