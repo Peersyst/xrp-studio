@@ -1,4 +1,4 @@
-import { BaseFiltersNames } from "module/common/component/input/Filters/FiltersContext";
+import { BaseFiltersNames } from "module/common/component/input/Filters/Filters.types";
 import { Dispatch, useReducer } from "react";
 import { UseGetNftsOptions } from "../query/useGetNfts";
 

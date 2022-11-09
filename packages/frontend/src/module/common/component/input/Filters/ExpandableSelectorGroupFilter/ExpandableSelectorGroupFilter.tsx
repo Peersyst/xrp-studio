@@ -1,18 +1,19 @@
 import { cx } from "@peersyst/react-utils";
 import { useMemo } from "react";
 import ExpandableFilter from "../ExpandableFilter/ExpandableFilter";
-import useFilters from "../hooks/useFilters";
+import useFilter from "../hooks/useFilter";
 import SelectorGroupFilter from "../SelectorGroupFilter/SelectorGroupFilter";
 import { ExpandableSelectorGroupFilterProps } from "./ExpandableSelectorGroupFilter.types";
 
-function ExpandableSelectorGroupFilter<T, Multiple extends boolean = false>({
+function ExpandableSelectorGroupFilter<T extends string = "", Multiple extends boolean = false>({
     options,
     title,
     name,
     className,
+    multiple = false as Multiple,
     ...rest
 }: ExpandableSelectorGroupFilterProps<T, Multiple>): JSX.Element {
-    const [value] = useFilters<T, Multiple>(name);
+    const [value] = useFilter<T, Multiple>({ name, multiple });
 
     const currentLabel = useMemo(() => {
         if (Array.isArray(value)) {
@@ -28,7 +29,7 @@ function ExpandableSelectorGroupFilter<T, Multiple extends boolean = false>({
 
     return (
         <ExpandableFilter className={cx("ExpandableSelectorGroupFilter", className)} title={title} currentValue={currentLabel ?? ""}>
-            <SelectorGroupFilter<T, Multiple> name={name} options={options} {...rest} />
+            <SelectorGroupFilter<T, Multiple> name={name} options={options} {...rest} multiple={multiple} />
         </ExpandableFilter>
     );
 }

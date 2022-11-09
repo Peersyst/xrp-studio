@@ -1,22 +1,29 @@
 import { SelectorGroup } from "@peersyst/react-components";
-import { MultipleSelector } from "../FiltersContext";
-import useFilters from "../hooks/useFilters";
+import { MultipleSelector } from "../Filters.types";
+import useFilter from "../hooks/useFilter";
 import { SelectorGroupFilterProps } from "./SelectorGroupFilter.types";
 
-function SelectorGroupFilter<T, Multiple extends boolean = false>({
+function SelectorGroupFilter<T extends string, Multiple extends boolean = false>({
     onChange,
     name,
+    multiple,
     ...rest
 }: SelectorGroupFilterProps<T, Multiple>): JSX.Element {
-    const [filters, setFilters] = useFilters<T, Multiple>(name);
+    const [filter, setFilter] = useFilter<T, Multiple>({ name, multiple });
 
     const handleChange = (value: MultipleSelector<T, Multiple>) => {
-        setFilters(value);
+        setFilter(value);
         onChange?.(value);
     };
 
     return (
-        <SelectorGroup<T, Multiple> css={{ maxHeight: "14.5rem", overflowY: "auto" }} value={filters} onChange={handleChange} {...rest} />
+        <SelectorGroup<T, Multiple>
+            multiple={multiple}
+            css={{ maxHeight: "14.5rem", overflowY: "auto" }}
+            value={filter}
+            onChange={handleChange}
+            {...rest}
+        />
     );
 }
 

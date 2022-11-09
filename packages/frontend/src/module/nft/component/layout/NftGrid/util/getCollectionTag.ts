@@ -4,6 +4,6 @@ import { NftCollectionTag } from "../NftGrid.types";
 export default function getCollectionTag(collection: CollectionDto): NftCollectionTag {
     return {
         label: collection.name || "Col. " + collection.taxon,
-        value: collection.id,
+        value: collection.id.toString(),
     };
 }

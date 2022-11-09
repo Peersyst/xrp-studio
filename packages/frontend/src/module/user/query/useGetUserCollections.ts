@@ -7,7 +7,7 @@ export const useGetUserCollections = (addressParams?: string): UseInfiniteQueryR
     const address = useGetUserAddress();
     const usedAddress = address || addressParams;
     return useGetCollections(
-        { account: usedAddress },
+        { account: "rLv3iYEtTUumGqTsgjXsjn5P8AvmPy5GCu" },
         {
             enabled: !!usedAddress,
         },
