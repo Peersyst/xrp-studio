@@ -1,6 +1,8 @@
 import { Chip } from "@peersyst/react-components";
-import styled, { css } from "styled-components";
 import { NftStatus } from "./NftCardStatusChip.types";
+import { Popover } from "@peersyst/react-components";
+import Card from "module/common/component/surface/Card/Card";
+import styled, { css } from "styled-components";
 
 const draftStyles = css(({ theme }) => ({
     backgroundColor: theme.palette.status.info,
@@ -33,5 +35,19 @@ export const NftCardChip = styled(Chip)<{ status: NftStatus }>(
         left: 0.5rem;
         text-transform: capitalize;
         ${variantStyles[status!]};
+    `,
+);
+
+export const NftStatusChipRoot = styled(Popover)(
+    () => css`
+        position: absolute;
+        left: 0.5rem;
+        top: 0.2rem;
+    `,
+);
+
+export const NftStatusChipPopoverCard = styled(Card)(
+    () => css`
+        padding: 0.5rem;
     `,
 );

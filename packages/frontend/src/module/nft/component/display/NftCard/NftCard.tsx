@@ -12,11 +12,11 @@ const NftCard = ({
     return (
         <BaseCard
             title={loading ? "loading-title" : name}
-            to={status !== "confirmed" ? NftRoutes.VIEW_NFT.replace(":id", id.toString()) : ""}
+            to={NftRoutes.VIEW_NFT.replace(":id", id.toString())}
             defaultUrl={defaultImgUrl}
             coverUrl={image}
             loading={loading}
-            status={status === "confirmed" && <NftCardStatusChip label={status} status={"failed"} id={String(id)} />}
+            status={status !== "confirmed" && <NftCardStatusChip label={status} status={status} id={String(id)} />}
         />
     );
 };
