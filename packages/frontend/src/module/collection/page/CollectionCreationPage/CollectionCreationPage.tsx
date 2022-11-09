@@ -23,7 +23,7 @@ const CollectionCreationPage = (): JSX.Element => {
     const [searchParams, setSearchParams] = useSearchParams();
     const collectionId = searchParams.get("id");
     const { data: collection, isLoading: collectionLoading } = useGetCollection(collectionId ? Number(collectionId) : undefined);
-    const { data: hasBalance } = useCheckBalance();
+    const checkBalance = useCheckBalance();
 
     const { mutateAsync: createCollection, isLoading: publishing } = useCreateCollection();
     const { mutateAsync: updateCollection, isLoading: saving } = useUpdateCollection();
@@ -47,7 +47,7 @@ const CollectionCreationPage = (): JSX.Element => {
             showToast(translate("collectionUpdated"), { type: "success" });
             navigate(CollectionRoutes.MY_COLLECTIONS, { replace: true });
         } else {
-            if (action === "publish" && !hasBalance) showToast(translateError("notEnoughBalance"), { type: "error" });
+            if (action === "publish" && !(await checkBalance())) showToast(translateError("notEnoughBalance"), { type: "error" });
             else {
                 await createCollection({
                     collection: createCollectionRequestFromForm("create", data),
