@@ -19,11 +19,11 @@ describe("Text for the Balance component", () => {
     });
     test("Renders correctly dollar", () => {
         const screen = render(<Balance balance={"100"} variant={"h1"} units="usd" action="add" />);
-        expect(screen.getByRole("heading", { name: ACTION_LABEL["add"] + "100 " + CURRENCY_UNIT["usd"] })).toBeDefined();
+        expect(screen.getByRole("heading", { name: ACTION_LABEL["add"] + " 100 " + CURRENCY_UNIT["usd"] })).toBeDefined();
     });
     test("Renders correctly round", () => {
         const screen = render(<Balance action="round" balance={"100"} variant={"h1"} units="usd" />);
-        expect(screen.getByRole("heading", { name: ACTION_LABEL["round"] + "100 " + CURRENCY_UNIT["usd"] })).toBeDefined();
+        expect(screen.getByRole("heading", { name: ACTION_LABEL["round"] + " 100 " + CURRENCY_UNIT["usd"] })).toBeDefined();
     });
     test("Renders correctly when loading", () => {
         const screen = render(<Balance balance={"100"} variant={"h1"} isLoading />);

@@ -17,11 +17,10 @@ describe("WalletMenu", () => {
         jest.spyOn(useGetUser, "default").mockReturnValue({ data: UserDtoMock } as any);
         jest.spyOn(useGetXrpBalance, "useGetXrpBalance").mockReturnValue({ data: 15 } as any);
         jest.spyOn(useGetXrpTokenPrice, "useGetXrpTokenPrice").mockReturnValue({ data: 2 } as any);
-
         jest.spyOn(UseWallet, "default").mockReturnValue(wallet);
     });
     test("Renders Menu", async () => {
-        const screen = render(<WalletMenu setVisible={jest.fn()} />);
+        const screen = render(<WalletMenu />);
         expect(screen.getByRole("button", { name: translate("profile") })).toBeInTheDocument();
         expect(screen.getByRole("button", { name: translate("settings") })).toBeInTheDocument();
         expect(screen.getByRole("button", { name: translate("logout") })).toBeInTheDocument();
@@ -34,7 +33,7 @@ describe("WalletMenu", () => {
         const mockedClear = jest.fn();
         jest.spyOn(Recoil, "useResetRecoilState").mockReturnValue(mockedResetRecoil);
         jest.spyOn(AuthTokenStorage, "clear").mockImplementation(mockedClear);
-        const screen = render(<WalletMenu setVisible={jest.fn()} />);
+        const screen = render(<WalletMenu />);
         const logoutBtn = screen.getByRole("button", { name: translate("logout") });
         fireEvent.click(logoutBtn);
         expect(mockedResetRecoil).toHaveBeenCalled();
@@ -42,22 +41,18 @@ describe("WalletMenu", () => {
     });
 
     test("Navigates to profile", async () => {
-        const mocketSetVisible = jest.fn();
         const mockedNavigate = jest.fn();
         jest.spyOn(ReactRouter, "useNavigate").mockReturnValue(mockedNavigate);
-
-        const screen = render(<WalletMenu setVisible={mocketSetVisible} />);
+        const screen = render(<WalletMenu />);
         const profileBtn = screen.getByRole("button", { name: translate("profile") });
         expect(profileBtn).toBeInTheDocument();
         fireEvent.click(profileBtn);
-        expect(mocketSetVisible).toHaveBeenCalled();
         expect(mockedNavigate).toHaveBeenCalledWith(UserRoutes.PROFILE.replace(":address", wallet.address!));
     });
     test("Navigates to settings", async () => {
-        const mocketSetVisible = jest.fn();
         const mockedNavigate = jest.fn();
         jest.spyOn(ReactRouter, "useNavigate").mockReturnValue(mockedNavigate);
-        const screen = render(<WalletMenu setVisible={mocketSetVisible} />);
+        const screen = render(<WalletMenu />);
         const settingsBtn = screen.getByRole("button", { name: translate("settings") });
         expect(settingsBtn).toBeInTheDocument();
         fireEvent.click(settingsBtn);
