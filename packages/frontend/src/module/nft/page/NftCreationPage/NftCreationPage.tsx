@@ -30,30 +30,18 @@ const NftCreationPage = (): JSX.Element => {
     const saving = createNftDraftLoading || (updateNftDraftLoading && !variables?.publish);
     const publishing = createNftLoading || (updateNftDraftLoading && !!variables?.publish);
 
-    const goToMyNfts = () => async () => {
-        navigate(NftRoutes.MY_NFTS, { replace: true });
-    };
-
     const handleSubmit = (data: NftCreationForm, action: string | undefined) => {
         const requestNft = createNftRequestFromForm(data);
         if (nftDraft) {
-            updateNftDraft(
-                { id: nftDraft.id, publish: action === "publish", ...requestNft },
-                {
-                    onSuccess: goToMyNfts(),
-                },
-            );
+            updateNftDraft({ id: nftDraft.id, publish: action === "publish", ...requestNft });
         } else {
             if (action === "publish") {
-                createNft(requestNft, {
-                    onSuccess: goToMyNfts(),
-                });
+                createNft(requestNft);
             } else {
-                createNftDraft(requestNft, {
-                    onSuccess: goToMyNfts(),
-                });
+                createNftDraft(requestNft);
             }
         }
+        navigate(NftRoutes.MY_NFTS, { replace: true });
     };
 
     const slots = useNftCreationPageSlots({ nft: nftDraft, collections, loading: isLoading });
