@@ -9,6 +9,7 @@ import {
 } from "module/api/service";
 import Color from "color";
 import { Common } from "@peersyst/react-types";
+import { CollectionCreationNft } from "module/collection/state/CollectionCreationState";
 
 export interface NftCreationForm {
     image?: string;
@@ -27,7 +28,7 @@ export interface NftCreationForm {
 }
 
 // Any object that extends Common<NftDto, NftDraftDto>
-export type Nft = Common<NftDto, NftDraftDto> & Record<string, any>;
+export type Nft = Common<Common<NftDto, NftDraftDto>, CollectionCreationNft> & Record<string, any>;
 
 export interface CreationNft {
     issuer?: string;

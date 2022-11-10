@@ -11,25 +11,41 @@ import { useLoad } from "module/common/hook/useLoad";
 import { useUserRoutes } from "module/user/UserRouter";
 import { useCollectionRoutes } from "module/collection/CollectionRouter";
 
+export enum BaseRoutes {
+    HOME = "/",
+}
+
 const Routes = () => {
     const dashboardRoutes = useDashboardRoutes();
     const userRoutes = useUserRoutes();
     const nftRoutes = useNftRoutes();
     const collectionRoutes = useCollectionRoutes();
-    return useRoutes([...dashboardRoutes, ...userRoutes, ...nftRoutes, ...collectionRoutes, { path: "*", element: <Navigate to="/" /> }]);
+    return useRoutes([
+        ...dashboardRoutes,
+        ...userRoutes,
+        ...nftRoutes,
+        ...collectionRoutes,
+        { path: "*", element: <Navigate to={BaseRoutes.HOME} /> },
+    ]);
 };
 
 const Router = (): JSX.Element => {
-    useLoad();
+    const loading = useLoad();
 
     return (
         <BrowserRouter basename={config.publicUrl}>
             <ModalProvider>
                 <ScrollToTop />
                 <Suspense fallback={<div>Loading</div>}>
-                    <AppBar />
-                    <Routes />
-                    <Footer />
+                    {loading ? (
+                        <div>Loading</div>
+                    ) : (
+                        <>
+                            <AppBar />
+                            <Routes />
+                            <Footer />
+                        </>
+                    )}
                 </Suspense>
             </ModalProvider>
         </BrowserRouter>

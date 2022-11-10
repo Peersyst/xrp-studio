@@ -11,9 +11,10 @@ const AvatarInput = ({ size, alt, className, style, loading, placeholderVariant,
                 placeholder={{ type: "compact", variant: placeholderVariant }}
                 changeButton={{ label: false }}
                 loading={loading}
+                multiple={false}
                 {...rest}
             >
-                {(url) => <Image src={url} alt={alt} css={{ position: "static" }} />}
+                {(url) => <Image src={url as string} alt={alt} css={{ position: "static" }} />}
             </AvatarImageInput>
         </Hexagon>
     );

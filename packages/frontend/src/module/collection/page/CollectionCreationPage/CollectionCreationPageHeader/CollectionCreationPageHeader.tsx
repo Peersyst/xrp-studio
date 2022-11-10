@@ -26,9 +26,11 @@ const CollectionCreationPageHeader = ({ loading, saving, publishing }: Collectio
                     <Button size="lg" type="submit" action="save" loading={saving} disabled={loading || publishing}>
                         {translate("save")}
                     </Button>
-                    <Button size="lg" type="submit" action="publish" loading={publishing} disabled={loading || saving}>
-                        {translate("publish")}
-                    </Button>
+                    {!isEdition && (
+                        <Button size="lg" type="submit" action="publish" loading={publishing} disabled={loading || saving}>
+                            {translate("publish")}
+                        </Button>
+                    )}
                 </Row>
             }
         />

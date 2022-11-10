@@ -9,10 +9,11 @@ const NftCard = ({
     loading = false,
 }: WithSkeleton<NftCardProps>): JSX.Element => {
     const defaultImgUrl = useConfig("nftDefaultCoverUrl");
+
     return (
         <BaseCard
             title={loading ? "loading-title" : name}
-            to={NftRoutes.VIEW_NFT.replace(":id", id.toString())}
+            to={status === "confirmed" ? NftRoutes.VIEW_NFT.replace(":id", id.toString()) : `${NftRoutes.NFT_CREATION}?id=${id}`}
             defaultUrl={defaultImgUrl}
             coverUrl={image}
             loading={loading}

@@ -11,7 +11,7 @@ import parseFlags from "module/nft/util/parseFlags";
 import { capitalize } from "@peersyst/react-utils";
 
 describe("NftCreationPage", () => {
-    const nftDraftMock = new NftDtoMock({ status: "draft" });
+    const nftDraftMock = new NftDtoMock({ status: "draft", flags: 2 });
     const nftDraftMockFlags = parseFlags(nftDraftMock.flags);
     const nftDraftMockMetadata = nftDraftMock.metadata;
 
