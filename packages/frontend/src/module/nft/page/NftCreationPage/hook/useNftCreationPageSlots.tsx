@@ -1,5 +1,5 @@
 import { CollectionDto } from "module/api/service";
-import { ReactNode } from "react";
+import { ReactNode, useState } from "react";
 import useTranslate from "module/common/hook/useTranslate";
 import useWallet from "module/wallet/component/hooks/useWallet";
 import parseFlags from "module/nft/util/parseFlags";
@@ -35,8 +35,11 @@ export interface UseNftCreationPageSlotsParams {
  */
 export default function ({ nft, collections, fixedCollection, loading = false }: UseNftCreationPageSlotsParams): ReactNode {
     const translate = useTranslate();
-
+    const translateError = useTranslate("error");
     const { address: connectedWalletAddress } = useWallet();
+
+    const [transferableValue, setTransferableValue] = useState(false);
+    const [transferFeeValue, setTransferFeeValue] = useState("");
 
     const {
         issuer,
@@ -45,6 +48,7 @@ export default function ({ nft, collections, fixedCollection, loading = false }:
         collection: nftCollection,
         flags = 0,
     } = nft || {};
+
     const taxon = nftCollection?.taxon;
     const { burnable, onlyXRP, trustLine, transferable } = typeof flags === "number" ? parseFlags(flags) : flags;
 
@@ -110,8 +114,11 @@ export default function ({ nft, collections, fixedCollection, loading = false }:
                     defaultValue={transferFee?.toString()}
                     type="number"
                     validators={{ lte: 50, gte: 0 }}
+                    error={[!!transferFeeValue && !transferableValue, translateError("transferableFlagRequired")]}
                     suffix="%"
                     hint={translate("roundsToNDecimals", { decimals: 3 })}
+                    value={transferFeeValue}
+                    onChange={setTransferFeeValue}
                 />
                 <TextField
                     key={"externalUrl: " + externalUrl}
@@ -153,6 +160,8 @@ export default function ({ nft, collections, fixedCollection, loading = false }:
                     name={NftFormFields.transferable}
                     label={translate("transferable")}
                     defaultValue={transferable}
+                    value={transferableValue}
+                    onChange={setTransferableValue}
                 />
                 <Divider />
                 <PropertiesInput
