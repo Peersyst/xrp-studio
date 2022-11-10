@@ -21,7 +21,7 @@ const SocialButton = ({ icon: iconProps, link, className, onClick, ...rest }: So
         <Popover showOn="hover" position="top" arrow>
             <Popover.Popper>
                 <Row css={{ padding: "0.25rem 0.35rem" }}>
-                    <Typography variant="caption">{iconProps}</Typography>
+                    <Typography variant="caption1">{iconProps}</Typography>
                 </Row>
             </Popover.Popper>
             <Popover.Content>
