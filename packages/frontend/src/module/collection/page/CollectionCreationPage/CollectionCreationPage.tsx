@@ -13,6 +13,7 @@ import { CollectionCreationForm } from "module/collection/types";
 import createCollectionRequestFromForm from "module/collection/util/createCollectionRequestFromForm";
 import { CollectionRoutes } from "module/collection/CollectionRouter";
 import useCheckBalance from "module/wallet/hook/useCheckBalance";
+import config from "config/config";
 
 const CollectionCreationPage = (): JSX.Element => {
     const translate = useTranslate();
@@ -47,7 +48,8 @@ const CollectionCreationPage = (): JSX.Element => {
             showToast(translate("collectionUpdated"), { type: "success" });
             navigate(CollectionRoutes.MY_COLLECTIONS, { replace: true });
         } else {
-            if (action === "publish" && !(await checkBalance())) showToast(translateError("notEnoughBalance"), { type: "error" });
+            const amount = data.nfts ? data.nfts.length * config.feeInDrops : 0;
+            if (action === "publish" && !(await checkBalance(amount))) showToast(translateError("notEnoughBalance"), { type: "error" });
             else {
                 await createCollection({
                     collection: createCollectionRequestFromForm("create", data),

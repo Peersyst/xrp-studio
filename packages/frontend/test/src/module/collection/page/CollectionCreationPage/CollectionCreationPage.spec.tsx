@@ -1,12 +1,19 @@
 import { screen } from "@testing-library/react";
-import { CollectionDtoMock, ToastMock, UserDtoMock, UseSearchParamsMock, WalletMock, UseNavigateMock } from "test-mocks";
+import {
+    CollectionDtoMock,
+    ToastMock,
+    UserDtoMock,
+    UseSearchParamsMock,
+    WalletMock,
+    UseNavigateMock,
+    UseCheckBalanceMock,
+} from "test-mocks";
 import { render, translate } from "test-utils";
 import CollectionCreationPage from "module/collection/page/CollectionCreationPage/CollectionCreationPage";
 import { CollectionService } from "module/api/service";
 import userEvent from "@testing-library/user-event";
 import { waitFor } from "@testing-library/dom";
 import { CollectionRoutes } from "module/collection/CollectionRouter";
-import { UseCheckBalanceMock } from "../../../../../__mocks__/wallet/hook/UseCheckBalanceMock.mock";
 
 describe("CollectionCreationPage", () => {
     const COLLECTION_NAME = "collection_name";
