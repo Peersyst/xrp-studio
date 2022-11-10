@@ -1,41 +1,7 @@
 import { useEffect, useMemo, useState } from "react";
 import { createSearchParams, useSearchParams } from "react-router-dom";
-import { BaseFiltersNames } from "../Filters.types";
-
-export type FilterType = string | number | boolean | Date;
-
-export type FilterTypeName = "string" | "number" | "boolean" | "Date";
-
-export interface Filter {
-    name: string;
-    type?: FilterTypeName;
-    array?: boolean;
-}
-
-export const TYPE_PARSER = {
-    boolean: Boolean,
-    number: Number,
-    string: String,
-    Date: Date,
-};
-
-export const TYPE_VALIDATOR: Record<FilterTypeName, (value: string) => boolean> = {
-    boolean: (value: string) => value === "true" || value === "false",
-    number: (value: string) => !isNaN(Number(value)),
-    string: (value: string) => typeof value === "string",
-    Date: (value: string) => !isNaN(Date.parse(value)),
-};
-
-export const BASE_FILTERS_DECLARATION: Filter[] = [
-    {
-        name: BaseFiltersNames.QUERY,
-    },
-    {
-        name: BaseFiltersNames.ORDER,
-    },
-];
-
-export type UseFilterReturn = Record<string, FilterType | FilterType[]>;
+import { FilterTypeName, FilterType, Filter, UseFilterReturn } from "./useFilters.types";
+import { BASE_FILTERS_DECLARATION, TYPE_PARSER, TYPE_VALIDATOR } from "./utils/useFilters.utils";
 
 export function convertValue(value: string, type: FilterTypeName = "string"): FilterType {
     const isValid = TYPE_VALIDATOR[type];
@@ -45,9 +11,10 @@ export function convertValue(value: string, type: FilterTypeName = "string"): Fi
     return parser(value);
 }
 
-export default function useFilters(filtersDeclaration: Filter[]): UseFilterReturn {
+export default function useFilters(filtersDeclaration: Filter[] = BASE_FILTERS_DECLARATION): UseFilterReturn {
     const setSearchParams = useSearchParams()[1];
     const [corruptedFilters, setCorruptedFilters] = useState<string[]>();
+
     const filters = useMemo(() => {
         const params = createSearchParams(window.location.search);
         const newFilters = {} as UseFilterReturn;
@@ -77,6 +44,9 @@ export default function useFilters(filtersDeclaration: Filter[]): UseFilterRetur
         return newFilters;
     }, [window.location.search, filtersDeclaration]);
 
+    //It is done in a use effect because setSearchParams
+    //does a navigate and if there is a corrupted filter in the first render
+    //it will navigate on first render and it will cause an error
     useEffect(() => {
         if (corruptedFilters) {
             const params = createSearchParams(window.location.search);

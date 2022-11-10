@@ -1,7 +1,7 @@
 import { cx } from "@peersyst/react-utils";
 import { useMemo } from "react";
 import ExpandableFilter from "../ExpandableFilter/ExpandableFilter";
-import useFilter from "../hooks/useFilter";
+import useFilter from "../hooks/useFilter/useFilter";
 import SelectorGroupFilter from "../SelectorGroupFilter/SelectorGroupFilter";
 import { ExpandableSelectorGroupFilterProps } from "./ExpandableSelectorGroupFilter.types";
 

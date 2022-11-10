@@ -1,4 +1,4 @@
-import useFilter from "module/common/component/input/Filters/hooks/useFilter";
+import useFilter from "module/common/component/input/Filters/hooks/useFilter/useFilter";
 import { NftFilterNames } from "module/nft/query/useGetNfts";
 
 export interface UseCleanCollectionsReturn {

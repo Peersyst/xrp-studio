@@ -1,6 +1,6 @@
 import { SelectorGroup } from "@peersyst/react-components";
 import { MultipleSelector } from "../Filters.types";
-import useFilter from "../hooks/useFilter";
+import useFilter from "../hooks/useFilter/useFilter";
 import { SelectorGroupFilterProps } from "./SelectorGroupFilter.types";
 
 function SelectorGroupFilter<T extends string, Multiple extends boolean = false>({
