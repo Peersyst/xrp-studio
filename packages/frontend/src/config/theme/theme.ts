@@ -22,7 +22,7 @@ const theme = createTheme({
                 xs: 1345,
                 xxs: 800,
             },
-            createCollectionPage: 925,
+            createCollectionPage: 950,
             createCollectionNftGrid: 550,
         },
     },
