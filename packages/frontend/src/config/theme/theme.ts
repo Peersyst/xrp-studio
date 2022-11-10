@@ -1,5 +1,6 @@
 import { createTheme } from "@peersyst/react-components";
 import { CopyIcon } from "icons";
+import typography from "./typography";
 
 // Common theme fields
 const theme = createTheme({
@@ -10,6 +11,7 @@ const theme = createTheme({
     zIndex: {
         filters: 2,
     },
+    typography: typography,
     breakpoints: {
         values: {
             nftsGrid: {
