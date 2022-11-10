@@ -11,12 +11,22 @@ import { useLoad } from "module/common/hook/useLoad";
 import { useUserRoutes } from "module/user/UserRouter";
 import { useCollectionRoutes } from "module/collection/CollectionRouter";
 
+export enum BaseRoutes {
+    HOME = "/",
+}
+
 const Routes = () => {
     const dashboardRoutes = useDashboardRoutes();
     const userRoutes = useUserRoutes();
     const nftRoutes = useNftRoutes();
     const collectionRoutes = useCollectionRoutes();
-    return useRoutes([...dashboardRoutes, ...userRoutes, ...nftRoutes, ...collectionRoutes, { path: "*", element: <Navigate to="/" /> }]);
+    return useRoutes([
+        ...dashboardRoutes,
+        ...userRoutes,
+        ...nftRoutes,
+        ...collectionRoutes,
+        { path: "*", element: <Navigate to={BaseRoutes.HOME} /> },
+    ]);
 };
 
 const Router = (): JSX.Element => {

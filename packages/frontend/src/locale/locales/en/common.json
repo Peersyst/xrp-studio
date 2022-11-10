@@ -80,8 +80,11 @@
     "editCollection": "Edit collection",
     "collectionNamePlaceholder": "Enter a name for your collection",
     "collectionDescriptionPlaceholder": "Enter a description for your collection",
-    "collectionBackgroundColorPlaceholder": "Your NFTs background color",
-    "viewNft": "View Nft",
-    "myDrops": "My Drops",
-    "dashboard": "Dashboard"
+    "collectionBackgroundColorPlaceholder": "Your NFTs' background color",
+    "dashboard": "Dashboard",
+    "editCollectionNft": "Edit colleciton NFT",
+    "changesApplied": "Changes applied",
+    "collectionCreated": "Collection created",
+    "collectionUpdated": "Collection updated",
+    "viewNft": "View Nft"
 }

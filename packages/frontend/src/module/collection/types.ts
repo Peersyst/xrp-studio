@@ -1,3 +1,6 @@
+import Color from "color";
+import { CreateCollectionNftRequest, MetadataAttributeDto } from "module/api/service";
+
 export enum CollectionCreationFormFields {
     HEADER = "header",
     IMAGE = "image",
@@ -12,4 +15,22 @@ export enum CollectionCreationFormFields {
     TRUST_LINE = "trustLine",
     TRANSFERABLE = "transferable",
     ATTRIBUTES = "attributes",
+    NFTS = "nfts",
+}
+
+export interface CollectionCreationForm {
+    header?: string;
+    image?: string;
+    name: string;
+    description?: string;
+    issuer?: string;
+    transferFee?: string;
+    externalUrl?: string;
+    backgroundColor?: Color;
+    burnable: boolean;
+    onlyXRP: boolean;
+    trustLine: boolean;
+    transferable: boolean;
+    attributes?: MetadataAttributeDto[];
+    nfts?: CreateCollectionNftRequest[];
 }

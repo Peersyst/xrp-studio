@@ -44,5 +44,6 @@
     "youHaveNoCollections": "You have no collections",
     "withoutNftsToShow": "Without NFTs to show",
     "withoutCollections": "Without collections",
+    "transferableFlagRequired": "Transferable flag is required",
     "nftFailed": "NFT failed"
 }

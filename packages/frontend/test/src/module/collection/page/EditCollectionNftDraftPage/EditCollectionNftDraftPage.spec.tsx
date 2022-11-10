@@ -1,6 +1,6 @@
 import EditCollectionNftDraftPage from "module/collection/page/EditCollectionNftDraftPage/EditCollectionNftDraftPage";
 import { render, translate } from "test-utils";
-import { UseCollectionCreationStateMock, WalletMock } from "test-mocks";
+import { ToastMock, UseCollectionCreationStateMock, UseParamsMock, WalletMock } from "test-mocks";
 import { screen } from "@testing-library/react";
 import { capitalize } from "@peersyst/react-utils";
 import { waitFor } from "@testing-library/dom";
@@ -11,6 +11,7 @@ describe("EditCollectionNftDraftPage", () => {
     describe("Edition", () => {
         let walletMock: WalletMock;
         let useCollectionCreationStateMock: UseCollectionCreationStateMock;
+        let useParams: UseParamsMock;
 
         beforeAll(() => {
             walletMock = new WalletMock({ active: true, address: "address" });
@@ -20,26 +21,28 @@ describe("EditCollectionNftDraftPage", () => {
                 name: "name",
                 description: "description",
                 issuer: "",
-                transferFee: 0,
+                transferFee: "0",
                 backgroundColor: Color.rgb(),
                 burnable: false,
                 onlyXRP: false,
                 trustLine: false,
                 transferable: false,
                 attributes: [],
-                nfts: {},
+                nfts: [{ id: 0 }],
             });
+            useParams = new UseParamsMock({ index: "0" });
         });
 
         afterAll(() => {
             walletMock.restore();
             useCollectionCreationStateMock.restore();
+            useParams.restore();
         });
 
         test("Edition renders correctly", async () => {
             render(<EditCollectionNftDraftPage />);
 
-            expect(screen.getByText(translate("editNft"))).toBeInTheDocument();
+            expect(screen.getByText(translate("editCollectionNft"))).toBeInTheDocument();
             // imageEt
             expect(screen.getByText(capitalize(translate("fileInputPlaceholder")))).toBeInTheDocument();
             // name
@@ -50,7 +53,7 @@ describe("EditCollectionNftDraftPage", () => {
             expect(screen.getByPlaceholderText(translate("nftDescriptionPlaceholder"))).toBeInTheDocument();
             // collection
             expect(screen.getByText(translate("collection"))).toBeInTheDocument();
-            expect(screen.getByText(translate("collectionPlaceholder"))).toBeInTheDocument();
+            expect(screen.getByDisplayValue("name")).toBeInTheDocument();
             // issuer
             expect(screen.getByText(translate("issuer"))).toBeInTheDocument();
             expect(screen.getByPlaceholderText(translate(walletMock.address))).toBeInTheDocument();
@@ -73,13 +76,16 @@ describe("EditCollectionNftDraftPage", () => {
         });
 
         test("Saves changes", async () => {
+            const useToastMock = new ToastMock();
+
             render(<EditCollectionNftDraftPage />);
 
             const saveButton = screen.getByRole("button", { name: translate("saveChanges") });
             await waitFor(() => expect(saveButton).not.toBeDisabled());
             userEvent.click(saveButton);
 
-            await waitFor(() => expect(useCollectionCreationStateMock.setCollectionCreationState).toBeCalled());
+            await waitFor(() => expect(useCollectionCreationStateMock.setCollectionCreationState).toHaveBeenCalled());
+            expect(useToastMock.showToast).toHaveBeenCalled();
         });
     });
 });

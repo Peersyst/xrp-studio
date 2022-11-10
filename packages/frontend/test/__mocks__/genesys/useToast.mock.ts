@@ -16,6 +16,6 @@ export class ToastMock extends BaseMock implements GenesysToastMock {
         this.showToast = showToast;
         this.hideToast = hideToast;
         this.toastActive = toastActive;
-        jest.spyOn(Genesys, "useToast").mockReturnValue(this);
+        this.mock = jest.spyOn(Genesys, "useToast").mockReturnValue(this);
     }
 }
