@@ -52,7 +52,7 @@ export const CollectionCover = styled(Image)(
 export const CollectionHeaderFooter = styled(Row).attrs({ gap: "1rem", flex: 1 })(
     ({ theme }) => css`
         --collection-avatar-width: 172px;
-        --collection-avatar-left: 22vw;
+        --collection-avatar-left: 23vw;
         --collection-avatar-top: var(--collection-cover-height);
         width: calc(var(--page-max-width));
 
@@ -107,6 +107,10 @@ export const ContentAvatar = styled(Avatar).attrs({ size: "xl" })(
 
         ${theme.breakpoints.down("md")} {
             top: calc(var(--collection-avatar-top) + 1hw);
+        }
+
+        ${theme.breakpoints.down("mobile")} {
+            left: calc(var(--collection-avatar-top) + 1hw);
         }
     `,
 );
