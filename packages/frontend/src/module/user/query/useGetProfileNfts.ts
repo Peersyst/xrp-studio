@@ -1,23 +1,13 @@
 import { PaginatedNftDto } from "module/api/service";
 import { InfiniteQueryResult } from "query-utils";
 import { useGetUserAddress } from "../hook/useGetUserAddress";
-import useGetNfts, { NftFilterNames, UseGetNftsOptions } from "module/nft/query/useGetNfts";
-import { BASE_FILTERS_DECLARATION, Filter } from "module/common/component/input/Filters/hooks/useFilters";
-import useFilters from "module/common/component/input/Filters/hooks/useFilters/useFilters";
-
-const NFT_FILTER_DECLARATION: Filter[] = [
-    ...BASE_FILTERS_DECLARATION,
-    {
-        name: NftFilterNames.COLLECTIONS,
-        array: true,
-        type: "number",
-    },
-];
+import useGetNfts, { UseGetNftsOptions } from "module/nft/query/useGetNfts";
+import useGetNftsFilters from "module/nft/hook/useGetNftsFilters";
 
 export const useGetProfileNfts = ({ account, ...rest }: UseGetNftsOptions = {}): InfiniteQueryResult<PaginatedNftDto> => {
     const addressParams = useGetUserAddress();
     const usedAddress = account || addressParams;
-    const filters = useFilters(NFT_FILTER_DECLARATION);
+    const filters = useGetNftsFilters();
 
     return useGetNfts(
         { account: undefined, ...{ ...filters, ...rest } },

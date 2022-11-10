@@ -29,8 +29,8 @@ describe("Test for the base grid with tags", () => {
     test("Triggers tag clicked fn", () => {
         const tags = [{ label: "Tag1", value: 1 }];
         const mockedTagClicked = jest.fn();
-        const screen = render(<BaseGridTags tags={tags} onTagClicked={mockedTagClicked} />);
-        const btn = screen.getByRole("button", { name: tags[0].label });
+        const screen = render(<BaseGridTags tags={tags} onDeleteTagClicked={mockedTagClicked} />);
+        const btn = screen.getByTestId("MinusCircleIcon");
         expect(btn).toBeInTheDocument();
         fireEvent.click(btn);
         expect(mockedTagClicked).toHaveBeenCalledWith(tags[0].value);

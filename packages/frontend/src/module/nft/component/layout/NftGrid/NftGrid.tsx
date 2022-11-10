@@ -36,7 +36,7 @@ function InnerNftGridWithFilters({ loadingNfts, loadingCollections, collections,
                 }),
             }}
             onClearTags={cleanAllCollections}
-            onTagClicked={cleanCollection}
+            onDeleteTagClicked={cleanCollection}
             loading={loadingNfts}
             tags={tags}
             {...rest}
