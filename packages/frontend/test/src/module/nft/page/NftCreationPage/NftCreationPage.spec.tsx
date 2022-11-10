@@ -4,12 +4,11 @@ import NftCreationPage from "module/nft/page/NftCreationPage/NftCreationPage";
 import userEvent from "@testing-library/user-event";
 import { NftService } from "module/api/service";
 import createNftRequestFromForm from "module/nft/util/createNftRequestFromForm";
-import { NftDtoMock, WalletMock, UseSearchParamsMock, ToastMock } from "test-mocks";
+import { NftDtoMock, WalletMock, UseSearchParamsMock, ToastMock, UseCheckBalanceMock } from "test-mocks";
 import { waitFor } from "@testing-library/dom";
 import Color from "color";
 import parseFlags from "module/nft/util/parseFlags";
 import { capitalize } from "@peersyst/react-utils";
-import { UseCheckBalanceMock } from "../../../../../__mocks__/wallet/hook/UseCheckBalanceMock.mock";
 
 describe("NftCreationPage", () => {
     const nftDraftMock = new NftDtoMock({ status: "draft" });
