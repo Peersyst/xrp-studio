@@ -3,17 +3,18 @@ import lightTheme from "./theme/lightTheme";
 import darkTheme from "./theme/darkTheme";
 import prodConfig from "./config.prod.json";
 import previewConfig from "./config.preview.json";
+import baseConfig from "./config.base.json";
 import devConfig from "./config.dev.json";
 import stagingConfig from "./config.staging.json";
 import { XrplAddressValidator } from "config/validators/XrplAddressValidator";
 import components from "./components/components";
 
 const envConfigs: Record<string, CreateConfig> = {
-    test: devConfig,
-    development: devConfig,
-    preview: previewConfig,
-    production: prodConfig,
-    staging: stagingConfig,
+    test: { ...baseConfig, ...devConfig },
+    development: { ...baseConfig, ...devConfig },
+    preview: { ...baseConfig, ...previewConfig },
+    production: { ...baseConfig, ...prodConfig },
+    staging: { ...baseConfig, ...stagingConfig },
 };
 
 const envKey = process.env.REACT_APP_CONFIG_ENV || process.env.NODE_ENV;
