@@ -5,8 +5,7 @@ export enum CollectionRoutes {
     VIEW_COLLECTION = "/collections/:id",
     MY_COLLECTIONS = "/collections/my-collections",
     CREATE_COLLECTION = "/collections/creation",
-    EDIT_NFT_CREATE_COLLECTION = "/collections/creation/:id",
-    MY_DROPS = "/collections/my-drops",
+    EDIT_NFT_CREATE_COLLECTION = "/collections/creation/nft/:index",
 }
 
 const CollectionCreationPage = lazy(() => import("./page/CollectionCreationPage/CollectionCreationPage"));

@@ -1,5 +1,5 @@
 import styled, { css } from "styled-components";
-import { emphasize } from "@peersyst/react-utils";
+import { deemphasize, emphasize } from "@peersyst/react-utils";
 import { Col } from "@peersyst/react-components";
 import {
     UploadInputPlaceholderRootProps,
@@ -8,27 +8,41 @@ import {
 
 const primaryStyles = css(({ theme }) => {
     const light = theme.palette.mode === "light";
-    const color = theme.palette.black[85];
+    const bgColor = theme.palette.black[85];
+    const color = theme.palette.black[light ? 40 : 70];
 
     return css`
-        background-color: ${color};
-        color: ${theme.palette.black[light ? 40 : 70]};
+        background-color: ${bgColor};
+        color: ${color};
 
-        &:hover {
-            background-color: ${emphasize(color, 0.08)};
+        &:hover:not(.disabled),
+        &.drag {
+            background-color: ${emphasize(bgColor, 0.08)};
+        }
+
+        &.disabled {
+            color: ${deemphasize(color, 0.15)};
+            background-color: ${deemphasize(bgColor, 0.15)};
         }
     `;
 });
 
 const secondaryStyles = css(({ theme }) => {
-    const color = theme.palette.black[80];
+    const bgColor = theme.palette.black[80];
+    const color = theme.palette.black[40];
 
     return css`
-        background-color: ${color};
-        color: ${theme.palette.black[40]};
+        background-color: ${bgColor};
+        color: ${color};
 
-        &:hover {
-            background-color: ${emphasize(color, 0.08)};
+        &:hover,
+        &.drag {
+            background-color: ${emphasize(bgColor, 0.08)};
+        }
+
+        &.disabled {
+            color: ${deemphasize(color, 0.15)};
+            background-color: ${deemphasize(bgColor, 0.15)};
         }
     `;
 });
