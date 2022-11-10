@@ -83,5 +83,9 @@
     "collectionBackgroundColorPlaceholder": "Your NFTs background color",
     "viewNft": "View Nft",
     "myDrops": "My Drops",
-    "dashboard": "Dashboard"
+    "dashboard": "Dashboard",
+    "editCollectionNft": "Edit colleciton NFT",
+    "changesApplied": "Changes applied",
+    "collectionCreated": "Collection created",
+    "collectionUpdated": "Collection updated"
 }

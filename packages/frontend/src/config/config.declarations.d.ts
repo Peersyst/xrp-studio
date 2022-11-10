@@ -25,6 +25,8 @@ declare module "@peersyst/react-components" {
         maxBioChars: number;
         maxUsernameChars: number;
         maxNftDescChars: number;
+        maxNumberDecimals: number;
+        tokenName: string;
     }
 
     export interface CreateConfig {
@@ -41,16 +43,12 @@ declare module "@peersyst/react-components" {
         maxBioChars: number;
         maxUsernameChars: number;
         maxNftDescChars: number;
+        maxNumberDecimals: number;
+        tokenName: string;
     }
 
     export interface ExtraValidators {
         address: Validator;
-    }
-
-    export interface BlockchainLinks {
-        address: string;
-        tx: string;
-        nft: string;
     }
 
     export interface BlockchainLinksTypesOverrides {

@@ -11,6 +11,8 @@ import createNftRequestFromForm from "module/nft/util/createNftRequestFromForm";
 import { useGetMyCollections } from "module/collection/query/useGetMyCollections";
 import { usePaginatedList } from "@peersyst/react-hooks";
 import useNftCreationPageSlots from "module/nft/page/NftCreationPage/hook/useNftCreationPageSlots";
+import { useNavigate } from "react-router-dom";
+import { NftRoutes } from "module/nft/NftRouter";
 
 const NftCreationPage = (): JSX.Element => {
     const [searchParams] = useSearchParams();
@@ -19,6 +21,7 @@ const NftCreationPage = (): JSX.Element => {
     const { data: { pages = [] } = {}, isLoading: collectionsLoading } = useGetMyCollections();
     const collections = usePaginatedList(pages, (page) => page.items);
     const isLoading = nftDraftLoading || collectionsLoading;
+    const navigate = useNavigate();
 
     const { mutate: createNftDraft, isLoading: createNftDraftLoading } = useCreateNftDraft();
     const { mutate: createNft, isLoading: createNftLoading } = useCreateNft();
@@ -38,6 +41,7 @@ const NftCreationPage = (): JSX.Element => {
                 createNftDraft(requestNft);
             }
         }
+        navigate(NftRoutes.MY_NFTS, { replace: true });
     };
 
     const slots = useNftCreationPageSlots({ nft: nftDraft, collections, loading: isLoading });

@@ -24,7 +24,7 @@ describe("CollectionCreationPageHeader", () => {
     });
 
     test("Renders edit collection correctly saving", () => {
-        new UseSearchParamsMock({ id: "1" });
+        new UseSearchParamsMock();
         render(<CollectionCreationPageHeader saving />, { router: { path: "/collections/creation?id=1" } });
 
         expect(screen.getByRole("button", { name: translate("cancel") })).toBeDisabled();
@@ -32,7 +32,7 @@ describe("CollectionCreationPageHeader", () => {
     });
 
     test("Renders edit collection correctly publishing", () => {
-        new UseSearchParamsMock({ id: "1" });
+        new UseSearchParamsMock();
         render(<CollectionCreationPageHeader publishing />, { router: { path: "/collections/creation?id=1" } });
 
         expect(screen.getByRole("button", { name: translate("cancel") })).toBeDisabled();
