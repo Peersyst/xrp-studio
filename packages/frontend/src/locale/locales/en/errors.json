@@ -44,6 +44,6 @@
     "youHaveNoCollections": "You have no collections",
     "withoutNftsToShow": "Without NFTs to show",
     "withoutCollections": "Without collections",
-    "nftFailed": "NFT failed",
+    "nftFailed": "An error occurred while publishing this NFT. Click this in order to republish it.",
     "transferableFlagRequired": "Transferable flag is required"
 }
