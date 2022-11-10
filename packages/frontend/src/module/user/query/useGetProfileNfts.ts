@@ -10,7 +10,7 @@ export const useGetProfileNfts = ({ account, ...rest }: UseGetNftsOptions = {}):
     const filters = useNftsFilters();
 
     return useGetNfts(
-        { account: undefined, ...{ ...filters, ...rest } },
+        { account: usedAddress, ...{ ...filters, ...rest } },
         {
             enabled: !!usedAddress,
         },

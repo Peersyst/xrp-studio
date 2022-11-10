@@ -1,4 +1,3 @@
-import { Loosen } from "@peersyst/react-types";
 import { MultipleSelector } from "module/common/component/input/Filters/Filters.types";
 import * as useFilter from "module/common/component/input/Filters/hooks/useFilter/useFilter";
 import BaseMock from "../../base.mock";
