@@ -2,7 +2,7 @@ import BaseNftPage from "module/nft/component/layout/BaseNftPage/BaseNftPage";
 import { useSearchParams } from "react-router-dom";
 import useGetNftDraft from "module/nft/query/useGetNftDraft";
 import NftCreationPageHeader from "module/nft/component/layout/NftCreationPageHeader/NftCreationPageHeader";
-import { Form } from "@peersyst/react-components";
+import { Form, useModal } from "@peersyst/react-components";
 import { NftCreationForm } from "module/nft/types";
 import useCreateNftDraft from "module/nft/query/useCreateNftDraft";
 import useCreateNft from "module/nft/query/useCreateNft";
@@ -11,9 +11,12 @@ import createNftRequestFromForm from "module/nft/util/createNftRequestFromForm";
 import { useGetMyCollections } from "module/collection/query/useGetMyCollections";
 import { usePaginatedList } from "@peersyst/react-hooks";
 import useNftCreationPageSlots from "module/nft/page/NftCreationPage/hook/useNftCreationPageSlots";
+import PublishModal from "module/common/component/feedback/PublishModal/PublishModal";
+import NftPublishModal from "module/nft/component/feedback/NftPublishModal/NftPublishModal";
 
 const NftCreationPage = (): JSX.Element => {
     const [searchParams] = useSearchParams();
+    const { showModal } = useModal();
     const nfrDraftId = searchParams.get("id");
     const { data: nftDraft, isLoading: nftDraftLoading } = useGetNftDraft(nfrDraftId ? Number(nfrDraftId) : undefined);
     const { data: { pages = [] } = {}, isLoading: collectionsLoading } = useGetMyCollections();
@@ -28,7 +31,8 @@ const NftCreationPage = (): JSX.Element => {
     const publishing = createNftLoading || (updateNftDraftLoading && !!variables?.publish);
 
     const handleSubmit = (data: NftCreationForm, action: string | undefined) => {
-        const requestNft = createNftRequestFromForm(data);
+        showModal(NftPublishModal);
+        /*const requestNft = createNftRequestFromForm(data);
         if (nftDraft) {
             updateNftDraft({ id: nftDraft.id, publish: action === "publish", ...requestNft });
         } else {
@@ -37,7 +41,7 @@ const NftCreationPage = (): JSX.Element => {
             } else {
                 createNftDraft(requestNft);
             }
-        }
+       }*/
     };
 
     const slots = useNftCreationPageSlots({ nft: nftDraft, collections, loading: isLoading });
