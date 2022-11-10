@@ -89,6 +89,6 @@ describe("BaseGrid", () => {
         );
 
         const grid = screen.getByRole("grid");
-        expect(grid.getElementsByClassName("Skeleton").length).toBe(18);
+        expect(grid.getElementsByClassName("Skeleton").length).toBe(6);
     });
 });

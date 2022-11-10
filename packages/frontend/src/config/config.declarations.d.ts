@@ -18,13 +18,15 @@ declare module "@peersyst/react-components" {
             twitterLink: string;
             discordLink: string;
         };
-        blockchainLinks: BlockchainLinks;
+        blockchainLinks: Omit<BlockchainLinks, "token">;
         nftDefaultCoverUrl: string;
         network: NetworkType;
         xrpNodeUrl: string;
         maxBioChars: number;
         maxUsernameChars: number;
         maxNftDescChars: number;
+        maxNumberDecimals: number;
+        tokenName: string;
     }
 
     export interface CreateConfig {
@@ -36,26 +38,23 @@ declare module "@peersyst/react-components" {
             twitterLink: string;
             discordLink: string;
         };
-        blockchainLinks: BlockchainLinks;
+        blockchainLinks: Omit<BlockchainLinks, "token">;
         nftDefaultCoverUrl: string;
         maxBioChars: number;
         maxUsernameChars: number;
         maxNftDescChars: number;
+        maxNumberDecimals: number;
+        tokenName: string;
     }
 
     export interface ExtraValidators {
         address: Validator;
     }
 
-    export interface BlockchainLinks {
-        address: string;
-        tx: string;
-        nft: string;
-    }
-
     export interface BlockchainLinksTypesOverrides {
         address: true;
         tx: true;
         nft: true;
+        token: false;
     }
 }

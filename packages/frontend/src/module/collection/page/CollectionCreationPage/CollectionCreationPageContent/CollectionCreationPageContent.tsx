@@ -16,10 +16,12 @@ import PropertiesInput from "module/nft/component/input/PropertiesInput/Properti
 import useCollectionCreationState from "module/collection/hook/useCollectionCreationState";
 import { CollectionCreationState } from "module/collection/state/CollectionCreationState";
 import { CollectionCreationFormFields } from "module/collection/types";
+import CollectionCreationNfts from "module/collection/page/CollectionCreationPage/CollectionCreationNfts/CollectionCreationNfts";
+import { config } from "config";
 
 const CollectionCreationPageContent = ({ collection, loading }: CollectionCreationPageContentProps): JSX.Element => {
     const translate = useTranslate();
-
+    const translateError = useTranslate("error");
     const { address: connectedWalletAddress } = useWallet();
 
     const { header: collectionHeader, image: collectionImage, name: collectionName, description: collectionDescription } = collection || {};
@@ -35,7 +37,7 @@ const CollectionCreationPageContent = ({ collection, loading }: CollectionCreati
             externalUrl,
             backgroundColor,
             burnable,
-            onlyXPR,
+            onlyXRP,
             trustLine,
             transferable,
             attributes,
@@ -49,9 +51,13 @@ const CollectionCreationPageContent = ({ collection, loading }: CollectionCreati
 
     return (
         <PageContent>
-            <Row gap="1.5rem">
-                <Col flex={4} />
-                <Col flex={3}>
+            <Row flex={1} gap="1.5rem" breakpoint={{ width: "createCollectionPage", alignItems: "stretch", gap: "1.5rem", reverse: true }}>
+                {!collection && (
+                    <Col flex={4}>
+                        <CollectionCreationNfts loading={loading} />
+                    </Col>
+                )}
+                <Col flex={3} alignItems="center">
                     <Skeleton loading={loading} width="100%">
                         <CollectionCreationPageContentCard>
                             <Col gap="1.5rem">
@@ -83,6 +89,7 @@ const CollectionCreationPageContent = ({ collection, loading }: CollectionCreati
                                     placeholder={translate("collectionNamePlaceholder")}
                                     variant="filled"
                                     value={name}
+                                    required
                                     onChange={normalizedHandleChange("name")}
                                 />
                                 <TextArea
@@ -92,8 +99,10 @@ const CollectionCreationPageContent = ({ collection, loading }: CollectionCreati
                                     label={translate("description")}
                                     placeholder={translate("collectionDescriptionPlaceholder")}
                                     variant="filled"
-                                    value={description}
+                                    value={description || undefined}
                                     onChange={normalizedHandleChange("description")}
+                                    maxLength={config.maxNftDescChars}
+                                    displayLength
                                 />
                                 {!collection && (
                                     <>
@@ -113,6 +122,7 @@ const CollectionCreationPageContent = ({ collection, loading }: CollectionCreati
                                             variant="filled"
                                             type="number"
                                             validators={{ lte: 50, gte: 0 }}
+                                            error={[!!transferFee && !transferable, translateError("transferableFlagRequired")]}
                                             suffix="%"
                                             hint={translate("roundsToNDecimals", { decimals: 3 })}
                                             value={transferFee?.toString()}
@@ -147,8 +157,8 @@ const CollectionCreationPageContent = ({ collection, loading }: CollectionCreati
                                         <Switch
                                             name={CollectionCreationFormFields.ONLY_XRP}
                                             label={translate("onlyXRP")}
-                                            value={onlyXPR}
-                                            onChange={normalizedHandleChange("onlyXPR")}
+                                            value={onlyXRP}
+                                            onChange={normalizedHandleChange("onlyXRP")}
                                         />
                                         <Switch
                                             name={CollectionCreationFormFields.TRUST_LINE}

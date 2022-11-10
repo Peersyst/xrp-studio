@@ -23,6 +23,10 @@ export const TextInputStyles = css(({ theme }) => ({
         color: theme.palette.black[30],
         border: "1px solid " + theme.palette.black[80],
         transition: "color 300ms, border-color 300ms",
+        input: {
+            fontWeight: 500,
+            fontSize: theme.typography.body1.style.fontSize,
+        },
         ["input, textarea"]: {
             fontWeight: 500,
             fontSize: theme.typography.body1.style.fontSize,
@@ -37,5 +41,9 @@ export const TextInputStyles = css(({ theme }) => ({
             color: theme.palette.black[0],
             caretColor: theme.palette.primary,
         },
+    },
+    ".Disabled.TextInput": {
+        border: 0,
+        color: theme.palette.disabled,
     },
 }));

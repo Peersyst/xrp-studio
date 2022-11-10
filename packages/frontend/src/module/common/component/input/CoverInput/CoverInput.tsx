@@ -14,6 +14,7 @@ const CoverInput = ({ placeholderVariant, ...rest }: CoverInputProps): JSX.Eleme
                 variant: placeholderVariant,
             }}
             changeButton={{ label: translate("change"), alignment: { vertical: "top", horizontal: "right" } }}
+            multiple={false}
             {...rest}
         />
     );

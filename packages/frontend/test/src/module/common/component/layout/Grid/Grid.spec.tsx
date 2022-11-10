@@ -2,8 +2,10 @@ import Grid from "module/common/component/layout/Grid/Grid";
 import { fireEvent, render, translate } from "test-utils";
 import Skeletons from "module/common/component/feedback/Skeletons/Skeletons";
 import * as Recoil from "recoil";
+import { UseFilterContextMock } from "test-mocks";
 
 describe("Test for the Grid component", () => {
+    new UseFilterContextMock();
     /**
      * Tests for the Grid component without filters
      */
@@ -77,7 +79,7 @@ describe("Test for the Grid component", () => {
         );
 
         const grid = screen.getByRole("grid");
-        expect(grid.getElementsByClassName("Skeleton").length).toBe(18);
+        expect(grid.getElementsByClassName("Skeleton").length).toBe(6);
     });
 
     /**
@@ -92,8 +94,9 @@ describe("Test for the Grid component", () => {
         ];
         const screen = render(
             <Grid
+                withFilters
                 tags={tags}
-                filters={<>filters</>}
+                filters={{ content: <>filters</> }}
                 cols={3}
                 colGap={24}
                 rowGap={24}
@@ -149,9 +152,10 @@ describe("Test for the Grid component", () => {
         jest.spyOn(Recoil, "useRecoilState").mockReturnValue([false, jest.fn()]);
         const screen = render(
             <Grid
-                filters={<>filters</>}
+                filters={{ content: <>filters</> }}
                 cols={3}
                 colGap={24}
+                withFilters
                 nothingToShow="Nothing to show"
                 rowGap={24}
                 breakpoints={[{ maxWidth: 1200, cols: 10 }]}
@@ -201,13 +205,13 @@ describe("Test for the Grid component", () => {
                 colGap={24}
                 rowGap={24}
                 breakpoints={[{ maxWidth: 1200, cols: 10 }]}
-                filters={<>filters</>}
+                filters={{ content: <>filters</> }}
             >
                 {(letters) => letters.map((letter, key) => <p key={key}>{letter}</p>)}
             </Grid>,
         );
         const grid = screen.getByRole("grid");
-        expect(grid.getElementsByClassName("Skeleton").length).toBe(18);
+        expect(grid.getElementsByClassName("Skeleton").length).toBe(6);
     });
 
     test("Hide/Show filters (with filters)", async () => {
@@ -218,10 +222,11 @@ describe("Test for the Grid component", () => {
         jest.spyOn(Recoil, "useRecoilState").mockReturnValueOnce([true, mockedSetVisibility]);
         const screen = render(
             <Grid
-                filters={<>filters</>}
+                filters={{ content: <>filters</> }}
                 cols={3}
                 colGap={24}
                 rowGap={24}
+                withFilters
                 breakpoints={[{ maxWidth: 1200, cols: 10 }]}
                 data={{
                     pageParams: [],

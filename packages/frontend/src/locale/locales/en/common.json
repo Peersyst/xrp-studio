@@ -62,6 +62,10 @@
     "none": "None",
     "none_male": "None",
     "none_female": "None",
+    "loadingFilters": "Loading filters...",
+    "OrderBy": "Order by",
+    "Latest": "Latest",
+    "Oldest": "Oldest",
     "devnet": "DEVNET",
     "testnet": "TESTNET",
     "mainnet": "MAINNET",
@@ -76,5 +80,10 @@
     "editCollection": "Edit collection",
     "collectionNamePlaceholder": "Enter a name for your collection",
     "collectionDescriptionPlaceholder": "Enter a description for your collection",
-    "collectionBackgroundColorPlaceholder": "Your NFTs background color"
+    "collectionBackgroundColorPlaceholder": "Your NFTs' background color",
+    "dashboard": "Dashboard",
+    "editCollectionNft": "Edit colleciton NFT",
+    "changesApplied": "Changes applied",
+    "collectionCreated": "Collection created",
+    "collectionUpdated": "Collection updated"
 }

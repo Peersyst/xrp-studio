@@ -1,14 +1,14 @@
 import { PaginatedNftDto } from "module/api/service";
 import { InfiniteQueryResult } from "query-utils";
 import { useGetUserAddress } from "../hook/useGetUserAddress";
-import useGetNfts from "module/nft/query/useGetNfts";
+import useGetNfts, { UseGetNftsOptions } from "module/nft/query/useGetNfts";
 
-export const useGetProfileNfts = (address?: string): InfiniteQueryResult<PaginatedNftDto> => {
+export const useGetProfileNfts = ({ account, ...rest }: UseGetNftsOptions = {}): InfiniteQueryResult<PaginatedNftDto> => {
     const addressParams = useGetUserAddress();
-    const usedAddress = address || addressParams;
+    const usedAddress = account || addressParams;
     //TODO: implement profile filters
     return useGetNfts(
-        { account: usedAddress },
+        { account: usedAddress, ...rest },
         {
             enabled: !!usedAddress,
         },

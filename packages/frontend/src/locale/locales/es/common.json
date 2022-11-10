@@ -62,6 +62,10 @@
     "none": "Ninguno",
     "none_male": "Ninguno",
     "none_female": "Ninguna",
+    "loadingFilters": "Cargando filtros...",
+    "OrderBy": "Ordenar por",
+    "Latest": "Más recientes",
+    "Oldest": "Más antiguos",
     "devnet": "DEVNET",
     "testnet": "TESTNET",
     "mainnet": "MAINNET",
@@ -76,5 +80,10 @@
     "editCollection": "Edit collection",
     "collectionNamePlaceholder": "Escribe un nombre para tu colección",
     "collectionDescriptionPlaceholder": "Escribe una descripción para tu colección",
-    "collectionBackgroundColorPlaceholder": "El color de fondo de tus NFTs"
+    "collectionBackgroundColorPlaceholder": "El color de fondo de tus NFTs",
+    "dashboard": "Panel",
+    "editCollectionNft": "Editar NFT de la colección",
+    "changesApplied": "Los cambios han sido aplicados",
+    "collectionCreated": "Colección creada",
+    "collectionUpdated": "Colección actualizada"
 }

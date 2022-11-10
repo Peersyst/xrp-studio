@@ -1,6 +1,10 @@
 import { atom } from "recoil";
-import { CreateNftDraftRequest, MetadataAttributeDto } from "module/api/service";
+import { CreateCollectionNftRequest, MetadataAttributeDto } from "module/api/service";
 import Color from "color";
+
+export type CollectionCreationNft = CreateCollectionNftRequest & {
+    id: number;
+};
 
 export interface CollectionCreationState {
     header?: string;
@@ -8,20 +12,20 @@ export interface CollectionCreationState {
     name?: string;
     description?: string;
     issuer?: string;
-    transferFee?: number;
+    transferFee?: string;
     externalUrl?: string;
     backgroundColor?: Color;
     burnable: boolean;
-    onlyXPR: boolean;
+    onlyXRP: boolean;
     trustLine: boolean;
     transferable: boolean;
     attributes?: MetadataAttributeDto[];
-    nfts: Record<number, CreateNftDraftRequest>;
+    nfts: CollectionCreationNft[];
 }
 
 const collectionCreationState = atom<CollectionCreationState>({
     key: "collection-creation",
-    default: { burnable: false, onlyXPR: false, trustLine: false, transferable: false, nfts: [] },
+    default: { burnable: false, onlyXRP: false, trustLine: false, transferable: false, nfts: [] },
 });
 
 export default collectionCreationState;

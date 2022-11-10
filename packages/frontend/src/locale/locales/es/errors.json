@@ -42,5 +42,7 @@
     "nftTransferableNotSet": "No se puede especificar una tarifa de transferencia sin el atributo \"transferible\"",
     "youHaveNoNfts": "No tienes NFTs",
     "youHaveNoCollections": "No tienes colecciones",
-    "withoutNftsToShow": "Without NFTs to show"
+    "withoutNftsToShow": "Without NFTs to show",
+    "withoutCollections": "Sin collecciones",
+    "transferableFlagRequired": "La opcion de transferible es necesaria"
 }

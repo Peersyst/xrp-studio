@@ -7,6 +7,8 @@ import { GRID_FILTERS_GAP } from "module/common/component/layout/BaseGridWithFil
 export const BaseGridFiltersRoot = styled(Card)`
     position: sticky;
     top: calc(var(--appbar-height) + ${STICKY_HEADER_HEIGHT} + ${GRID_FILTERS_GAP});
+    max-height: calc(100vh - var(--appbar-height) - ${STICKY_HEADER_HEIGHT} - ${GRID_FILTERS_GAP} - 2rem);
+    overflow-y: auto;
     height: fit-content;
     width: 16.5rem;
     padding: 1.25rem 1.25rem 1.75rem 1.25rem;

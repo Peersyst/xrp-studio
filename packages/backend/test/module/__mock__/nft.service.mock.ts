@@ -5,6 +5,7 @@ import NftMetadataMock from "./nft-metadata.mock";
 class NftServiceMock extends BaseMock {
     createNftFromMintTransaction = jest.fn(() => new NftMock());
     createNftMetadata = jest.fn(() => new NftMock({ metadata: new NftMetadataMock() }));
+    createNftDraft = jest.fn();
 }
 
 export default NftServiceMock;
