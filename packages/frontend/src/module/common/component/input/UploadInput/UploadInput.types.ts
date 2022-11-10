@@ -37,7 +37,7 @@ export type UploadInputProps<
     multiple?: Multiple;
     changeButton?: ChangeButtonProps;
     placeholder?: ReactElement | UploadInputPlaceholderProps<PT>;
-    children: (url: Multiple extends true ? string[] : string, drag: boolean) => ReactNode;
+    children: (url: string | string[], drag: boolean) => ReactNode;
 };
 
 export interface UploadBtnProps {
