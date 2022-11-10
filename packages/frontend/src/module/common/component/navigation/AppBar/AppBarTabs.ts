@@ -19,6 +19,6 @@ export const APPBAR_TABS: AppBarTab[] = [
     },
     {
         label: "myDrops",
-        path: CollectionRoutes.MY_COLLECTIONS,
+        path: CollectionRoutes.MY_DROPS,
     },
 ];
