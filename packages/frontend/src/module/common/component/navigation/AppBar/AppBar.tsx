@@ -31,8 +31,8 @@ const AppBar = (): JSX.Element => {
                                 ))}
                             </Fragment>
                         ) : undefined}
-                        <ThemeButton size="sm" />
                         <Wallet />
+                        <ThemeButton size="sm" />
                     </Row>
                 </Row>
             </Toolbar>

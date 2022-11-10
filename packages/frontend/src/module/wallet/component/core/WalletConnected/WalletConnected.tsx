@@ -21,6 +21,7 @@ const WalletConnected = (): JSX.Element => {
             showOn="click"
             onShow={() => setVisible(true)}
             onHide={() => setVisible(false)}
+            offsetY={10}
             position="bottom-end"
             disablePortal
             visible={visible}
