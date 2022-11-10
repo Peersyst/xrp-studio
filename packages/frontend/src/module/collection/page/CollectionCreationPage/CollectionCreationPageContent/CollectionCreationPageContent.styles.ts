@@ -16,6 +16,10 @@ export const CollectionCreationPageContentCard = styled(Card)(
         && .Upload {
             border-radius: ${theme.borderRadius};
         }
+
+        ${theme.breakpoints.down("createCollectionPage")} {
+            max-width: unset;
+        }
     `,
 );
 

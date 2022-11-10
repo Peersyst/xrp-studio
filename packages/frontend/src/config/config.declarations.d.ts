@@ -25,6 +25,8 @@ declare module "@peersyst/react-components" {
         maxBioChars: number;
         maxUsernameChars: number;
         maxNftDescChars: number;
+        maxNumberDecimals: number;
+        tokenName: string;
         feeInDrops: number;
     }
 
@@ -42,6 +44,8 @@ declare module "@peersyst/react-components" {
         maxBioChars: number;
         maxUsernameChars: number;
         maxNftDescChars: number;
+        maxNumberDecimals: number;
+        tokenName: string;
         feeInDrops: number;
     }
 

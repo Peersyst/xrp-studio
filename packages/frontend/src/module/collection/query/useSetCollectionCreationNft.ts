@@ -17,7 +17,7 @@ export default function (): UseMutationResult<void, unknown, UseSetCollectionCre
             setCollectionCreationState({
                 nfts,
             });
-            resolve(undefined);
+            resolve(void 0);
         });
     });
 }

@@ -6,10 +6,7 @@ export class UseCheckBalanceMock extends BaseMock {
 
     constructor(value = true) {
         super();
-        this.checkBalance = jest.fn(async () => {
-            await new Promise((resolve) => resolve(undefined));
-            return value;
-        });
+        this.checkBalance = jest.fn().mockReturnValue(value);
         this.mock = jest.spyOn(useCheckBalance, "default").mockReturnValue(this.checkBalance);
     }
 }

@@ -13,6 +13,8 @@ import { usePaginatedList } from "@peersyst/react-hooks";
 import useNftCreationPageSlots from "module/nft/page/NftCreationPage/hook/useNftCreationPageSlots";
 import useCheckBalance from "module/wallet/hook/useCheckBalance";
 import useTranslate from "module/common/hook/useTranslate";
+import { useNavigate } from "react-router-dom";
+import { NftRoutes } from "module/nft/NftRouter";
 
 const NftCreationPage = (): JSX.Element => {
     const { showToast } = useToast();
@@ -23,6 +25,7 @@ const NftCreationPage = (): JSX.Element => {
     const { data: { pages = [] } = {}, isLoading: collectionsLoading } = useGetMyCollections();
     const collections = usePaginatedList(pages, (page) => page.items);
     const isLoading = nftDraftLoading || collectionsLoading;
+    const navigate = useNavigate();
     const checkBalance = useCheckBalance();
 
     const { mutate: createNftDraft, isLoading: createNftDraftLoading } = useCreateNftDraft();
@@ -45,6 +48,7 @@ const NftCreationPage = (): JSX.Element => {
                 createNftDraft(requestNft);
             }
         }
+        navigate(NftRoutes.MY_NFTS, { replace: true });
     };
 
     const slots = useNftCreationPageSlots({ nft: nftDraft, collections, loading: isLoading });

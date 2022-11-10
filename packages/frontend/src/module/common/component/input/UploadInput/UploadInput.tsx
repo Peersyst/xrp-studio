@@ -94,11 +94,10 @@ function UploadInput<Multiple extends boolean = false>({
                                             </UploadBtn>
                                         )}
                                     </>
-                                ) : // as any is safe here, as placeholder type is ensured by placeholderChild presence
-                                isValidElement(placeholder) ? (
+                                ) : isValidElement(placeholder) ? (
                                     placeholder
                                 ) : (
-                                    <UploadInputPlaceholder disabled={disabled} drag={drag} {...placeholder} />
+                                    <UploadInputPlaceholder disabled={disabled || updating} drag={drag} {...placeholder} />
                                 )}
                             </>
                         )}
