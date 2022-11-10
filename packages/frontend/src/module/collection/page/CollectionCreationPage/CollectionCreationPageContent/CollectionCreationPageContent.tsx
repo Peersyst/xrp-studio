@@ -19,7 +19,7 @@ import { CollectionCreationFormFields } from "module/collection/types";
 
 const CollectionCreationPageContent = ({ collection, loading }: CollectionCreationPageContentProps): JSX.Element => {
     const translate = useTranslate();
-
+    const translateError = useTranslate("error");
     const { address: connectedWalletAddress } = useWallet();
 
     const { header: collectionHeader, image: collectionImage, name: collectionName, description: collectionDescription } = collection || {};
@@ -113,6 +113,7 @@ const CollectionCreationPageContent = ({ collection, loading }: CollectionCreati
                                             variant="filled"
                                             type="number"
                                             validators={{ lte: 50, gte: 0 }}
+                                            error={[!!transferFee && !transferable, translateError("transferableFlagRequired")]}
                                             suffix="%"
                                             hint={translate("roundsToNDecimals", { decimals: 3 })}
                                             value={transferFee?.toString()}
