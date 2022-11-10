@@ -13,7 +13,7 @@ function ImageInput<Multiple extends boolean = false>({
         Array.isArray(val) ? (
             <>
                 {val.map((url, i) => (
-                    <Image src={url} alt={alt + i} loading={loading} className="image-input-img" />
+                    <Image key={i} src={url} alt={alt + i} loading={loading} className="image-input-img" />
                 ))}
             </>
         ) : (
