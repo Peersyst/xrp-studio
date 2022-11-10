@@ -85,12 +85,7 @@ const CollectionCreationNfts = ({
     return (
         <Col flex={1} gap="3.5rem">
             {(!!nftsUploading || !!nftCards.length) && (
-                <Grid
-                    cols={2}
-                    colGap="1.5rem"
-                    rowGap="1.5rem"
-                    breakpoints={[{ maxWidth: createCollectionNftGrid, cols: 1, rowGap: "1.5rem" }]}
-                >
+                <Grid cols={2} colGap="1.5rem" rowGap="1.5rem" breakpoints={[{ maxWidth: createCollectionNftGrid, cols: 1 }]}>
                     {nftCards}
                     {!!nftsUploading && <BaseCardSkeletons count={nftsUploading} />}
                 </Grid>
