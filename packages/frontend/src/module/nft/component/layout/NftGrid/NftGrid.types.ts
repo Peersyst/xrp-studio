@@ -1,4 +1,4 @@
-import { CollectionDto, PaginatedNftDto } from "module/api/service";
+import { CollectionDto, PaginatedNftDraftDto, PaginatedNftDto } from "module/api/service";
 import { GridProps } from "module/common/component/layout/Grid/Grid.types";
 import { SelectorOption } from "@peersyst/react-components-core";
 import { FiltersContextType } from "module/common/component/input/Filters/FiltersContext";
@@ -9,7 +9,7 @@ export type CollectionId = number;
 export type NftCollectionTag = SelectorOption<CollectionId>;
 
 export type NftGridProps = Omit<
-    GridProps<PaginatedNftDto, CollectionId>,
+    GridProps<PaginatedNftDto | PaginatedNftDraftDto, CollectionId>,
     "children" | "Skeletons" | "breakpoints" | "filterBreakpoints" | "filters" | "tags" | "filtersContext" | "loading" | "showFilters"
 > & {
     collections?: CollectionDto[];

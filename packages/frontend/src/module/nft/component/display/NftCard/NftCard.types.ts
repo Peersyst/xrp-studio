@@ -1,5 +1,5 @@
-import { NftDto } from "module/api/service";
+import { NftDraftDto, NftDto } from "module/api/service";
 
 export interface NftCardProps {
-    nft: NftDto;
+    nft: NftDto | NftDraftDto;
 }
