@@ -52,7 +52,7 @@ export const CollectionCover = styled(Image)(
 export const CollectionHeaderFooter = styled(Row).attrs({ gap: "1rem", flex: 1 })(
     ({ theme }) => css`
         --collection-avatar-width: 172px;
-        --collection-avatar-left: 20vw;
+        --collection-avatar-left: 22vw;
         --collection-avatar-top: var(--collection-cover-height);
         width: calc(var(--page-max-width));
 

@@ -2,13 +2,13 @@ import NothingToShow from "module/common/component/feedback/NothingToShow/Nothin
 import PageContent from "module/common/component/layout/PageContent/PageContent";
 import useTranslate from "module/common/hook/useTranslate";
 import NftGrid from "module/nft/component/layout/NftGrid/NftGrid";
-import { useGetNftsByCollections } from "module/nft/query/useGetNftsByCollections";
+import { useGetNftsByCollection } from "module/nft/query/useGetNftsByCollection";
 import { useParams } from "react-router-dom";
 
 const CollectionContent = (): JSX.Element => {
     const translateError = useTranslate("error");
     const { id } = useParams<string>();
-    const { data, hasNextPage, fetchNextPage, isFetching } = useGetNftsByCollections(Number(id));
+    const { data, hasNextPage, fetchNextPage, isFetching } = useGetNftsByCollection(Number(id));
     return (
         <PageContent>
             <NftGrid
