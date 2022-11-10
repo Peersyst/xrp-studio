@@ -53,7 +53,6 @@ const CollectionCreationNfts = ({
                 ...nfts,
                 ...nftUrls?.map((url, i) => {
                     const index = i + initialIndex;
-
                     return {
                         id: index,
                         issuer,
