@@ -11,6 +11,6 @@ export const NFT_FILTER_DECLARATION: Filter[] = [
     },
 ];
 
-export default function useGetNftsFilters() {
+export default function useNftsFilters() {
     return useFilters(NFT_FILTER_DECLARATION);
 }
