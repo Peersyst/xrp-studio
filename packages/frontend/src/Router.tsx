@@ -30,16 +30,22 @@ const Routes = () => {
 };
 
 const Router = (): JSX.Element => {
-    useLoad();
+    const loading = useLoad();
 
     return (
         <BrowserRouter basename={config.publicUrl}>
             <ModalProvider>
                 <ScrollToTop />
                 <Suspense fallback={<div>Loading</div>}>
-                    <AppBar />
-                    <Routes />
-                    <Footer />
+                    {loading ? (
+                        <div>Loading</div>
+                    ) : (
+                        <>
+                            <AppBar />
+                            <Routes />
+                            <Footer />
+                        </>
+                    )}
                 </Suspense>
             </ModalProvider>
         </BrowserRouter>

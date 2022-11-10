@@ -22,5 +22,11 @@ export const $CreateCollectionRequest = {
         header: {
             type: 'string',
         },
+        nfts: {
+            type: 'array',
+            contains: {
+                type: 'CreateCollectionNftRequest',
+            },
+        },
     },
 } as const;

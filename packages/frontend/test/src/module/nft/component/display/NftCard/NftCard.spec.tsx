@@ -10,4 +10,18 @@ describe("NftCard", () => {
         render(<NftCard nft={nftMock} />);
         expect(screen.getByText(nftMock.metadata!.name!)).toBeInTheDocument();
     });
+
+    test("Renders correctly status different to confirmed", () => {
+        nftMock.status = "draft";
+        const screen = render(<NftCard nft={nftMock} />);
+        expect(screen.getByText(nftMock.metadata!.name!)).toBeInTheDocument();
+        expect(screen.getByText("draft")).toBeInTheDocument();
+    });
+
+    test("Renders correctly status confirmed", () => {
+        nftMock.status = "confirmed";
+        const screen = render(<NftCard nft={nftMock} />);
+        expect(screen.getByText(nftMock.metadata!.name!)).toBeInTheDocument();
+        expect(screen.queryByText("confirmed")).not.toBeInTheDocument();
+    });
 });

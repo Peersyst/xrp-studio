@@ -8,6 +8,7 @@ export type { OpenAPIConfig } from './core/OpenAPI';
 
 export type { ApiException } from './models/ApiException';
 export type { CollectionDto } from './models/CollectionDto';
+export type { CreateCollectionNftRequest } from './models/CreateCollectionNftRequest';
 export type { CreateCollectionRequest } from './models/CreateCollectionRequest';
 export type { CreateNftDraftRequest } from './models/CreateNftDraftRequest';
 export type { CreateNftMetadataAttributeRequest } from './models/CreateNftMetadataAttributeRequest';
@@ -28,6 +29,7 @@ export type { UserDto } from './models/UserDto';
 
 export { $ApiException } from './schemas/$ApiException';
 export { $CollectionDto } from './schemas/$CollectionDto';
+export { $CreateCollectionNftRequest } from './schemas/$CreateCollectionNftRequest';
 export { $CreateCollectionRequest } from './schemas/$CreateCollectionRequest';
 export { $CreateNftDraftRequest } from './schemas/$CreateNftDraftRequest';
 export { $CreateNftMetadataAttributeRequest } from './schemas/$CreateNftMetadataAttributeRequest';

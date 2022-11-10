@@ -1,4 +1,4 @@
-import { Injectable } from "@nestjs/common";
+import { forwardRef, Inject, Injectable } from "@nestjs/common";
 import { InjectRepository } from "@nestjs/typeorm";
 import { Collection } from "../../database/entities/Collection";
 import { Repository, SelectQueryBuilder } from "typeorm";
@@ -14,15 +14,23 @@ import { Order } from "../common/types";
 import { CreateCollectionRequest } from "./request/create-collection.request";
 import { User } from "../../database/entities/User";
 import { UpdateCollectionRequest } from "./request/update-collection.request";
+import { NftService } from "../nft/nft.service";
 
 @Injectable()
 export class CollectionService {
-    constructor(@InjectRepository(Collection) private readonly collectionRepository: Repository<Collection>) {}
+    constructor(
+        @InjectRepository(Collection) private readonly collectionRepository: Repository<Collection>,
+        @Inject(forwardRef(() => NftService)) private readonly nftService: NftService,
+    ) {}
 
     /**
      * Creates a collection
      */
-    async createCollection(address: string, { taxon: reqTaxon, ...restOfCollection }: CreateCollectionRequest): Promise<CollectionDto> {
+    async createCollection(
+        address: string,
+        { taxon: reqTaxon, nfts, ...restOfCollection }: CreateCollectionRequest,
+        publish?: boolean,
+    ): Promise<CollectionDto> {
         // Get the taxon
         let taxon: string;
         if (reqTaxon) {
@@ -40,6 +48,11 @@ export class CollectionService {
 
         // Build and save Collection
         const collection = await this.collectionRepository.save(new Collection({ taxon, ...restOfCollection, user }));
+
+        //Create nfts
+        if (nfts)
+            for await (const nft of nfts)
+                await this.nftService.createNftDraft(address, { ...nft, taxon: Number(collection.taxon) }, publish);
 
         return CollectionDto.fromEntity(collection);
     }
