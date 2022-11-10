@@ -23,7 +23,7 @@ export const CollectionHeaderRoot = styled(PageHeader)<CollectionHeaderRootProps
             }
 
             ${theme.breakpoints.down("mini")} {
-                --collection-cover-height: 20vw;
+                --collection-cover-height: 25vw;
             }
 
             div:first-child {
@@ -51,37 +51,46 @@ export const CollectionCover = styled(Image)(
 
 export const CollectionHeaderFooter = styled(Row).attrs({ gap: "1rem", flex: 1 })(
     ({ theme }) => css`
-        --collection-avatar-width: 216px;
-        --collection-avatar-left: 26vw;
-        --collection-back-left: 20vw;
+        --collection-avatar-width: 172px;
+        --collection-avatar-left: 20vw;
         --collection-avatar-top: var(--collection-cover-height);
         width: calc(var(--page-max-width));
 
         ${theme.breakpoints.down("md")} {
             --collection-avatar-width: max(9.5rem, 13vw);
             --collection-avatar-left: 18vw;
-            --collection-back-left: 10vw;
             width: 100%;
+            .collection-back {
+                position: relative;
+            }
+        }
+
+        ${theme.breakpoints.down("sm")} {
+            --collection-avatar-width: max(9.5rem, 13vw);
+            --collection-avatar-left: 14vw;
+            .collection-back {
+                left: var(--collection-back-left);
+            }
         }
 
         ${theme.breakpoints.down("mobile")} {
             --collection-avatar-width: max(2rem, 15vw);
             --collection-avatar-left: 15vw;
-            --collection-back-left: 1vw;
+            --collection-back-left: 0vw;
             width: 100%;
+
             .collection-back {
                 width: 2rem;
                 height: 2rem;
+            }
+            .collection-back {
+                left: var(--collection-back-left);
+                top: calc(calc((var(--collection-cover-height)) / 1.3) * -1);
             }
         }
 
         min-height: calc(calc(calc(var(--collection-avatar-width) / 1.8)) - 2rem);
         margin: auto;
-
-        .collection-back {
-            position: absolute;
-            left: var(--collection-back-left);
-        }
     `,
 );
 
