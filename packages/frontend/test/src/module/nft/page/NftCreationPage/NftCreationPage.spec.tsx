@@ -4,7 +4,7 @@ import NftCreationPage from "module/nft/page/NftCreationPage/NftCreationPage";
 import userEvent from "@testing-library/user-event";
 import { NftService } from "module/api/service";
 import createNftRequestFromForm from "module/nft/util/createNftRequestFromForm";
-import { NftDtoMock, WalletMock, UseSearchParamsMock, ToastMock, UseCheckBalanceMock } from "test-mocks";
+import { NftDtoMock, WalletMock, UseSearchParamsMock, ToastMock, UseCheckBalanceMock, UserDtoMock } from "test-mocks";
 import { waitFor } from "@testing-library/dom";
 import Color from "color";
 import parseFlags from "module/nft/util/parseFlags";
@@ -196,6 +196,19 @@ describe("NftCreationPage", () => {
             expect(screen.getByDisplayValue(nftDraftMock.metadata!.attributes![0].value)).toBeInTheDocument();
             expect(screen.getByDisplayValue(nftDraftMock.metadata!.attributes![1].traitType)).toBeInTheDocument();
             expect(screen.getByDisplayValue(nftDraftMock.metadata!.attributes![1].value)).toBeInTheDocument();
+        });
+
+        test("Removes id when nft is not owned", async () => {
+            const nftDraftMockNotOwner = new NftDtoMock({ status: "draft", flags: 2, user: new UserDtoMock({ address: "other_address" }) });
+            jest.spyOn(NftService, "nftControllerGetNftDraft").mockResolvedValue(nftDraftMockNotOwner);
+            render(<NftCreationPage />);
+
+            await waitFor(() =>
+                expect(useToastMock.showToast).toHaveBeenCalledWith(translate("nftNotOwned", { ns: "error" }), { type: "warning" }),
+            );
+
+            expect(useSearchParamsMock.params.delete).toHaveBeenCalledWith("id");
+            expect(useSearchParamsMock.setParams).toHaveBeenCalledWith(useSearchParamsMock.params);
         });
 
         test("Updates an NFT draft with balance", async () => {
