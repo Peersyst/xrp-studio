@@ -3,7 +3,7 @@ import { Form, useToast } from "@peersyst/react-components";
 import CollectionCreationPageHeader from "module/collection/page/CollectionCreationPage/CollectionCreationPageHeader/CollectionCreationPageHeader";
 import { useNavigate, useSearchParams } from "react-router-dom";
 import useGetCollection from "module/collection/query/useGetCollection";
-import useWallet from "module/wallet/component/hooks/useWallet";
+import useWallet from "module/wallet/hook//useWallet";
 import { useEffect } from "react";
 import useTranslate from "module/common/hook/useTranslate";
 import CollectionCreationPageContent from "module/collection/page/CollectionCreationPage/CollectionCreationPageContent/CollectionCreationPageContent";
@@ -33,7 +33,7 @@ const CollectionCreationPage = (): JSX.Element => {
             showToast(translateError("collectionNotOwned"), { type: "warning" });
             searchParams.delete("id");
             setSearchParams(searchParams);
-        } else if (collectionId !== undefined && !collectionLoading && !collection) {
+        } else if (collectionId !== null && !collectionLoading && !collection) {
             searchParams.delete("id");
             setSearchParams(searchParams);
         }

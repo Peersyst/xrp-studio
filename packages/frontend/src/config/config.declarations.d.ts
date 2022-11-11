@@ -27,6 +27,7 @@ declare module "@peersyst/react-components" {
         maxNftDescChars: number;
         maxNumberDecimals: number;
         tokenName: string;
+        feeInDrops: number;
     }
 
     export interface CreateConfig {
@@ -45,10 +46,17 @@ declare module "@peersyst/react-components" {
         maxNftDescChars: number;
         maxNumberDecimals: number;
         tokenName: string;
+        feeInDrops: number;
     }
 
     export interface ExtraValidators {
         address: Validator;
+    }
+
+    export interface BlockchainLinks {
+        address: string;
+        tx: string;
+        nft: string;
     }
 
     export interface BlockchainLinksTypesOverrides {

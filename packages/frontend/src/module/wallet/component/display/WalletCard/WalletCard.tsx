@@ -1,10 +1,10 @@
 import { BlockchainAddress, Col } from "@peersyst/react-components";
-import { useGetXrpBalance } from "../../hooks/useGetXrpBalance/useGetXrpBalance";
-import useWallet from "../../hooks/useWallet";
 import NetworkConnect from "../NetworkConnect/NetworkConnect";
 import { WalletCardRoot } from "./WalletCard.styles";
-import { useGetXrpTokenPrice } from "../../hooks/useGetXrpTokenPrice/useGetXrpTokenPrice";
 import Balance from "module/common/component/display/Balance/Balance";
+import { useGetXrpBalance } from "module/wallet/hook/useGetXrpBalance/useGetXrpBalance";
+import { useGetXrpTokenPrice } from "module/wallet/hook/useGetXrpTokenPrice/useGetXrpTokenPrice";
+import useWallet from "module/wallet/hook/useWallet";
 
 const WalletCard = (): JSX.Element => {
     const { address = "" } = useWallet();
