@@ -18,7 +18,7 @@ const NftPreviewCarousel = ({ nfts, loading, to, activeId, ...rest }: NftPreview
                         isLink={!!to}
                         key={index}
                         nft={nft}
-                        to={normalizedToCb(nft)}
+                        to={normalizedToCb(nft, index)}
                     />
                 ))
             ) : (

@@ -7,15 +7,15 @@ import { CollectionRoutes } from "module/collection/CollectionRouter";
 describe("Test for EditCollectionNftDraftHeader", () => {
     test("Renders correctly", () => {
         const screen = render(<EditCollectionNftDraftHeader />);
-        expect(screen.getByRole("heading", { name: translate("editNft") })).toBeInTheDocument();
+        expect(screen.getByRole("heading", { name: translate("editCollectionNft") })).toBeInTheDocument();
         expect(screen.getByRole("button", { name: translate("saveChanges") })).toBeInTheDocument();
-        expect(screen.getByTestId("arrowIcon")).toBeInTheDocument();
+        expect(screen.getByTestId("ChevronLeftIcon")).toBeInTheDocument();
     });
     test("Navigates to create collections page", () => {
         const mockedNavigate = jest.fn();
         jest.spyOn(ReactRouterDOM, "useNavigate").mockReturnValue(mockedNavigate);
         const screen = render(<EditCollectionNftDraftHeader />);
-        const button = screen.getByTestId("arrowIcon");
+        const button = screen.getByTestId("ChevronLeftIcon");
         userEvent.click(button);
         expect(mockedNavigate).toHaveBeenCalledWith(CollectionRoutes.CREATE_COLLECTION);
     });
