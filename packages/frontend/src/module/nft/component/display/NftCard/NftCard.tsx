@@ -17,7 +17,7 @@ const NftCard = ({
             defaultUrl={defaultImgUrl}
             coverUrl={image}
             loading={loading}
-            status={status !== "confirmed" && <NftCardStatusChip label={status} status={status} id={String(id)} />}
+            status={status !== "confirmed" && <NftCardStatusChip label={status} status={status} idNFT={id!} />}
         />
     );
 };

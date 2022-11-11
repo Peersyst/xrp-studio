@@ -44,6 +44,6 @@
     "youHaveNoCollections": "No tienes colecciones",
     "withoutNftsToShow": "Without NFTs to show",
     "withoutCollections": "Sin collecciones",
-    "transferableFlagRequired": "La opcion de transferible es necesaria",
-    "nftFailed": "NFT con fallo. Click para volver a publicar"
+    "nftFailed": "Ha ocurrido un error al publicar este NFT. Haz click para volver a publicarlo",
+    "transferableFlagRequired": "La opción de transferible es necesaria"
 }
