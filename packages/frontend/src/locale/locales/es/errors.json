@@ -47,5 +47,5 @@
     "transferableFlagRequired": "La opción de transferible es necesaria",
     "notEnoughBalance": "No tienes suficiente XRP",
     "collectionDoesNotContainNfts": "Esta coleccion no contiene NFTs",
-    "nftFailed": "Ha ocurrido un error al publicar este NFT. Haz click para volver a publicarlo",
+    "nftFailed": "Ha ocurrido un error al publicar este NFT. Haz click para volver a publicarlo"
 }
