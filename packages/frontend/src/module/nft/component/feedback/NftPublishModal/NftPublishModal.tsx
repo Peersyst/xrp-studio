@@ -9,6 +9,7 @@ const NftPublishModal = createModal((modalProps) => {
             {{
                 cover: <NftCoverImage src={""} alt={""} loading={true} />,
                 information: <NftInformation />,
+                action: undefined,
             }}
         </PublishModal>
     );

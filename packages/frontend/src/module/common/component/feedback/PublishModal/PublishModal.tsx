@@ -7,7 +7,7 @@ import CloseIcon from "../../../icons/CloseIcon";
 
 export interface PublishModalProps extends Omit<BaseModalProps, "children"> {
     title?: string;
-    children: { cover: ReactElement; information: ReactElement };
+    children: { cover: ReactElement; information: ReactElement; action?: ReactElement };
 }
 
 const PublishModal = ({
@@ -16,7 +16,7 @@ const PublishModal = ({
     elevation = 3,
     onClose,
     closable = true,
-    children: { cover, information },
+    children: { cover, information, action },
     ...rest
 }: PublishModalProps): JSX.Element => {
     const [open, setOpen] = useControlled(true, openProp, openProp ? onClose : undefined);
@@ -39,6 +39,7 @@ const PublishModal = ({
                     <Col>{cover}</Col>
                     <Col>{information}</Col>
                 </Row>
+                {action && <Row gap={4}>{action}</Row>}
             </Col>
         </ModalRoot>
     );
