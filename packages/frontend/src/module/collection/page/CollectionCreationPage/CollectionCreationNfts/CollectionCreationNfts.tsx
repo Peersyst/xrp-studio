@@ -77,8 +77,19 @@ const CollectionCreationNfts = ({
         });
     };
 
+    const handleDeleteNft = (id: number) => {
+        setCollectionCreationState({
+            nfts: nfts.filter((nft) => nft.id !== id),
+        });
+    };
+
     const nftCards = nfts.map((nft, index) => (
-        <NftCreationCard key={index} nft={nft} to={CollectionRoutes.EDIT_NFT_CREATE_COLLECTION.replace(":index", index.toString())} />
+        <NftCreationCard
+            key={index}
+            nft={nft}
+            onDeleteClicked={() => handleDeleteNft(nft.id)}
+            to={CollectionRoutes.EDIT_NFT_CREATE_COLLECTION.replace(":index", index.toString())}
+        />
     ));
 
     return (
