@@ -26,7 +26,7 @@ describe("NftCardStatusChip", () => {
         expect(screen.queryByText(nftMock.status)).not.toBeInTheDocument();
     });
 
-    test("Status draf", async () => {
+    test("Status draft", async () => {
         const nftMock = new NftDtoMock({ status: "draft" });
         const screen = render(
             <BaseCard
@@ -49,7 +49,7 @@ describe("NftCardStatusChip", () => {
         expect(screen.queryByText(translate("publish"))).not.toBeInTheDocument();
     });
 
-    test("Status draf", async () => {
+    test("Status failed", async () => {
         const nftMock = new NftDtoMock({ status: "failed" });
         const screen = render(
             <BaseCard

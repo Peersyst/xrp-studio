@@ -1,4 +1,4 @@
-import { Popover, Typography, WithSkeleton, Skeleton } from "@peersyst/react-components";
+import { Popover, Typography, WithSkeleton, Skeleton, Loader } from "@peersyst/react-components";
 import { NftCardChip, NftStatusChipPopoverCard, NftStatusChipRoot } from "../NftCardStatusChip/NftCardStatusChip.styles";
 import { NftCardStatusChipProps } from "../NftCardStatusChip/NftCardStatusChip.types";
 import useTranslate from "module/common/hook/useTranslate";
@@ -33,15 +33,13 @@ const NftStatusChip = ({ label, status, nftId }: WithSkeleton<NftCardStatusChipP
                 </NftStatusChipPopoverCard>
             </Popover.Popper>
             <Popover.Content>
-                <Skeleton loading={isLoading} className="skeleton-chip">
-                    <NftCardChip
-                        className={cx("nft-card-chip", status)}
-                        label={labelChip}
-                        onMouseEnter={handleMouseEnter}
-                        onMouseLeave={handleMouseLeave}
-                        onClick={(e) => handleClick(e)}
-                    />
-                </Skeleton>
+                <NftCardChip
+                    className={cx("nft-card-chip", status)}
+                    label={isLoading ? <Loader /> : labelChip}
+                    onMouseEnter={handleMouseEnter}
+                    onMouseLeave={handleMouseLeave}
+                    onClick={(e) => handleClick(e)}
+                />
             </Popover.Content>
         </NftStatusChipRoot>
     );
