@@ -21,14 +21,24 @@ export class LedgerConsumer {
         this.logger.log(`CONSUMING LEDGER ${index}`);
 
         try {
-            await this.blockchainService.getLedger(index);
-            this.logger.log(`FIRST LEDGER INDEX = ${index}`);
+            const ledger = await this.blockchainService.getLedger(index);
+            if (ledger.validated) {
+                this.logger.log(`INDEXED LEDGER ${index}`);
+                const job = await this.transactionsQueue.add("process-transactions", {
+                    transactions: ledger.transactions,
+                    ledgerIndex: index,
+                });
+                await job.finished();
+                await this.blockchainService.setCurrentLedgerIndex(index + 1);
+                await this.blockchainService.indexLedger(index + 1);
+            } else {
+                this.logger.log(`LEDGER INDEX ${index} NOT VALIDATED YET`);
+                await this.blockchainService.indexLedger(index, 3000);
+            }
         } catch (e) {
             // Error code 21 means the ledger was not found
-            if (e.data.error_code === 21) {
-                this.logger.log(`LEDGER INDEX ${index} NOT FOUND`);
-                await this.blockchainService.indexLedger(index + 1);
-            } else
+            if (e.data.error_code === 21) this.logger.log(`LEDGER INDEX ${index} NOT FOUND`);
+            else
                 this.logger.error(`FAILED INDEXING LEDGER ${index}
 the error was: ${e}`);
             await this.blockchainService.indexLedger(index, 3000);
