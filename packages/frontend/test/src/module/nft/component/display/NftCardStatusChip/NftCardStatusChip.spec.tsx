@@ -12,7 +12,7 @@ describe("NftCardStatusChip", () => {
                 title={nftMock.id.toString()}
                 status={
                     nftMock.status !== "confirmed" && (
-                        <NftCardStatusChip label={nftMock.status} status={nftMock.status} idNFT={nftMock.id} />
+                        <NftCardStatusChip label={nftMock.status} status={nftMock.status} nftId={nftMock.id} />
                     )
                 }
                 to={
@@ -33,7 +33,7 @@ describe("NftCardStatusChip", () => {
                 title={nftMock.id.toString()}
                 status={
                     nftMock.status !== "confirmed" && (
-                        <NftCardStatusChip label={nftMock.status} status={nftMock.status} idNFT={nftMock.id} />
+                        <NftCardStatusChip label={nftMock.status} status={nftMock.status} nftId={nftMock.id} />
                     )
                 }
                 to={
@@ -56,7 +56,7 @@ describe("NftCardStatusChip", () => {
                 title={nftMock.id.toString()}
                 status={
                     nftMock.status !== "confirmed" && (
-                        <NftCardStatusChip label={nftMock.status} status={nftMock.status} idNFT={nftMock.id} />
+                        <NftCardStatusChip label={nftMock.status} status={nftMock.status} nftId={nftMock.id} />
                     )
                 }
                 to={
