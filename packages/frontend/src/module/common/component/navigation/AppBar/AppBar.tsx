@@ -3,7 +3,7 @@ import { AppBarRoot } from "./AppBar.styles";
 import Logo from "module/common/component/display/Logo/Logo";
 import Wallet from "module/wallet/component/core/Wallet/Wallet";
 import ConditionalLink from "module/common/component/navigation/ConditionalLink/ConditionalLink";
-import useWallet from "module/wallet/component/hooks/useWallet";
+import useWallet from "module/wallet/hook//useWallet";
 import { Fragment } from "react";
 import ThemeButton from "module/common/component/input/ThemeButton/ThemeButton";
 import { useLocation } from "react-router-dom";

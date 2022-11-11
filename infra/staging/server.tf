@@ -16,7 +16,7 @@ data "aws_ami" "ubuntu" {
 
 resource "aws_instance" "server" {
     ami                         = data.aws_ami.ubuntu.id
-    instance_type               = "t2.medium"
+    instance_type               = "t2.large"
     associate_public_ip_address = true
     security_groups = [aws_security_group.sg.name]
     tags = {
@@ -24,7 +24,7 @@ resource "aws_instance" "server" {
     }
     root_block_device {
         delete_on_termination = true
-        volume_size = 16
+        volume_size = 64
         volume_type = "gp2"
     }
     user_data = <<EOF

@@ -4,7 +4,7 @@ import NftCreationPage from "module/nft/page/NftCreationPage/NftCreationPage";
 import userEvent from "@testing-library/user-event";
 import { NftService } from "module/api/service";
 import createNftRequestFromForm from "module/nft/util/createNftRequestFromForm";
-import { NftDtoMock, WalletMock, UseSearchParamsMock } from "test-mocks";
+import { NftDtoMock, WalletMock, UseSearchParamsMock, ToastMock, UseCheckBalanceMock } from "test-mocks";
 import { waitFor } from "@testing-library/dom";
 import Color from "color";
 import parseFlags from "module/nft/util/parseFlags";
@@ -41,18 +41,27 @@ describe("NftCreationPage", () => {
         attributes: nftDraftMockMetadata?.attributes,
     });
 
-    describe("Creation", () => {
+    const useToastMock = new ToastMock();
+
+    beforeEach(() => {
+        useToastMock.clear();
+    });
+
+    describe("Creation with balance", () => {
         let useSearchParamsMock: UseSearchParamsMock;
         let walletMock: WalletMock;
+        let useCheckBalanceMock: UseCheckBalanceMock;
 
         beforeAll(() => {
             useSearchParamsMock = new UseSearchParamsMock();
             walletMock = new WalletMock({ active: true, address: "address" });
+            useCheckBalanceMock = new UseCheckBalanceMock();
         });
 
         afterAll(() => {
             useSearchParamsMock.restore();
             walletMock.restore();
+            useCheckBalanceMock.restore();
         });
 
         test("Renders creation correctly", () => {
@@ -106,11 +115,10 @@ describe("NftCreationPage", () => {
             await waitFor(() => expect(createNftDraftMock).toHaveBeenCalledWith(CREATE_NFT_REQUEST));
         });
 
-        test("Create published NFT", async () => {
+        test("Create published NFT with balance", async () => {
             const createNftMock = jest.spyOn(NftService, "nftControllerCreateNft").mockResolvedValueOnce(new NftDtoMock());
-
             render(<NftCreationPage />);
-
+            expect(useCheckBalanceMock.checkBalance).toHaveBeenCalled();
             const publishButton = screen.getByRole("button", { name: translate("publish") });
             await waitFor(() => expect(publishButton).not.toBeDisabled());
             userEvent.type(screen.getByPlaceholderText(translate("nftNamePlaceholder")), NFT_NAME);
@@ -120,18 +128,51 @@ describe("NftCreationPage", () => {
         });
     });
 
-    describe("Edition", () => {
+    describe("Creation without balance", () => {
+        let useSearchParamsMock: UseSearchParamsMock;
+        let walletMock: WalletMock;
+        let useCheckBalanceMock: UseCheckBalanceMock;
+
+        beforeAll(() => {
+            useSearchParamsMock = new UseSearchParamsMock();
+            walletMock = new WalletMock({ active: true, address: "address" });
+            useCheckBalanceMock = new UseCheckBalanceMock(false);
+        });
+
+        afterAll(() => {
+            useSearchParamsMock.restore();
+            walletMock.restore();
+            useCheckBalanceMock.restore();
+        });
+
+        test("Create published NFT without balance", async () => {
+            render(<NftCreationPage />);
+            const publishButton = screen.getByRole("button", { name: translate("publish") });
+            await waitFor(() => expect(publishButton).not.toBeDisabled());
+            userEvent.type(screen.getByPlaceholderText(translate("nftNamePlaceholder")), NFT_NAME);
+            userEvent.click(publishButton);
+
+            await waitFor(() =>
+                expect(useToastMock.showToast).toHaveBeenCalledWith(translate("notEnoughBalance", { ns: "error" }), { type: "error" }),
+            );
+        });
+    });
+
+    describe("Edition with balance", () => {
         let useSearchParamsMock: UseSearchParamsMock;
         let getNftMock: jest.SpyInstance;
+        let useCheckBalanceMock: UseCheckBalanceMock;
 
         beforeAll(() => {
             useSearchParamsMock = new UseSearchParamsMock({ id: "1" });
             getNftMock = jest.spyOn(NftService, "nftControllerGetNftDraft").mockResolvedValue(nftDraftMock);
+            useCheckBalanceMock = new UseCheckBalanceMock();
         });
 
         afterAll(() => {
             useSearchParamsMock.restore();
             getNftMock.mockRestore();
+            useCheckBalanceMock.restore();
         });
 
         test("Renders edition correctly", async () => {
@@ -157,11 +198,9 @@ describe("NftCreationPage", () => {
             expect(screen.getByDisplayValue(nftDraftMock.metadata!.attributes![1].value)).toBeInTheDocument();
         });
 
-        test("Updates an NFT draft", async () => {
+        test("Updates an NFT draft with balance", async () => {
             const updateNftDraftMock = jest.spyOn(NftService, "nftControllerUpdateNftDraft").mockResolvedValueOnce(undefined);
-
             render(<NftCreationPage />);
-
             const saveButton = screen.getByRole("button", { name: translate("save") });
             await waitFor(() => expect(saveButton).not.toBeDisabled());
             const nameInput = screen.getByDisplayValue(nftDraftMockMetadata!.name!);
@@ -172,11 +211,10 @@ describe("NftCreationPage", () => {
             await waitFor(() => expect(updateNftDraftMock).toHaveBeenCalledWith(1, UPDATE_NFT_REQUEST, false));
         });
 
-        test("Publishes an NFT draft", async () => {
+        test("Publishes an NFT draft with balance", async () => {
             const updateNftDraftMock = jest.spyOn(NftService, "nftControllerUpdateNftDraft").mockResolvedValueOnce(undefined);
-
             render(<NftCreationPage />);
-
+            expect(useCheckBalanceMock.checkBalance).toHaveBeenCalled();
             const publishButton = screen.getByRole("button", { name: translate("publish") });
             await waitFor(() => expect(publishButton).not.toBeDisabled());
             const nameInput = screen.getByDisplayValue(nftDraftMockMetadata!.name!);
@@ -185,6 +223,38 @@ describe("NftCreationPage", () => {
             userEvent.click(publishButton);
 
             await waitFor(() => expect(updateNftDraftMock).toHaveBeenCalledWith(1, UPDATE_NFT_REQUEST, true));
+        });
+    });
+
+    describe("Edition without balance", () => {
+        let useSearchParamsMock: UseSearchParamsMock;
+        let getNftMock: jest.SpyInstance;
+        let useCheckBalanceMock: UseCheckBalanceMock;
+
+        beforeAll(() => {
+            useSearchParamsMock = new UseSearchParamsMock({ id: "1" });
+            getNftMock = jest.spyOn(NftService, "nftControllerGetNftDraft").mockResolvedValue(nftDraftMock);
+            useCheckBalanceMock = new UseCheckBalanceMock(false);
+        });
+
+        afterAll(() => {
+            useSearchParamsMock.restore();
+            getNftMock.mockRestore();
+            useCheckBalanceMock.restore();
+        });
+
+        test("Publishes an NFT draft without balance", async () => {
+            render(<NftCreationPage />);
+            const publishButton = screen.getByRole("button", { name: translate("publish") });
+            await waitFor(() => expect(publishButton).not.toBeDisabled());
+            const nameInput = screen.getByDisplayValue(nftDraftMockMetadata!.name!);
+            userEvent.clear(nameInput);
+            userEvent.type(nameInput, NFT_NAME);
+            userEvent.click(publishButton);
+
+            await waitFor(() =>
+                expect(useToastMock.showToast).toHaveBeenCalledWith(translate("notEnoughBalance", { ns: "error" }), { type: "error" }),
+            );
         });
     });
 });

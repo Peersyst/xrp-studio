@@ -1,5 +1,5 @@
 import { Wallet } from "module/wallet/types";
-import * as useWallet from "module/wallet/component/hooks/useWallet";
+import * as useWallet from "module/wallet/hook//useWallet";
 import BaseMock from "../base.mock";
 
 export const XRP_ADDRESS_MOCK = "rPmPErQe4g9725pcNxJpuvKkdqTESTQ6Tu";

@@ -44,6 +44,8 @@
     "youHaveNoCollections": "You have no collections",
     "withoutNftsToShow": "Without NFTs to show",
     "withoutCollections": "Without collections",
-    "nftFailed": "An error occurred while publishing this NFT. Click to publish again.",
-    "transferableFlagRequired": "Transferable flag is required"
+    "transferableFlagRequired": "Transferable flag is required",
+    "notEnoughBalance": "You don't have enough XRP balance",
+    "collectionDoesNotContainNfts": "This collection does not contain any NFTs",
+    "nftFailed": "An error occurred while publishing this NFT. Click to publish again."
 }

@@ -525,7 +525,7 @@ describe("NftService", () => {
                 Memos: [
                     {
                         Memo: {
-                            MemoData: Buffer.from(JSON.stringify({ id: nftMock.id }), "utf8").toString("hex"),
+                            MemoData: Buffer.from(JSON.stringify({ id: nftMock.id, name: nftMock.metadata.name }), "utf8").toString("hex"),
                         },
                     },
                 ],
