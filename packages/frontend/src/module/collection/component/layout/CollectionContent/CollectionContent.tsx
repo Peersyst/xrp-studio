@@ -9,6 +9,7 @@ const CollectionContent = (): JSX.Element => {
     const translateError = useTranslate("error");
     const { id } = useParams<string>();
     const { data, hasNextPage, fetchNextPage, isFetching } = useGetCollectionNfts(Number(id));
+
     return (
         <PageContent>
             <NftGrid

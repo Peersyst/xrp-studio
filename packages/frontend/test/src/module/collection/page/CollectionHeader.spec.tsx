@@ -17,6 +17,7 @@ describe("CollectionHeader", () => {
         const images = screen.getAllByRole("img");
         expect(images.some((image) => image.getAttribute("alt") === "collection-image")).toBe(true);
         expect(images.some((image) => image.getAttribute("alt") === "collection-header")).toBe(true);
+        expect(screen.getByText(collectionMock.description!)).toBeInTheDocument();
         expect(screen.getByText(translate("itemWithCount", { count: collectionMock.items })));
     });
 });

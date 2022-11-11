@@ -1,7 +1,7 @@
 import styled, { css } from "styled-components";
-import { Col, Row } from "@peersyst/react-components";
+import { Row } from "@peersyst/react-components";
 
-export const CollectionInfoRoot = styled(Col).attrs({ flex: 1 })(
+export const CollectionInfoRoot = styled(Row).attrs({ flex: 1 })(
     ({ theme }) => css`
         ${theme.breakpoints.down("md")} {
             .collection-name {
@@ -27,6 +27,16 @@ export const CollectionMainInfo = styled(Row).attrs({ gap: "1rem", alignItems: "
 
         ${theme.breakpoints.down("sm")} {
             max-width: 100%;
+        }
+    `,
+);
+
+export const CollectionsButtons = styled(Row)(
+    ({ theme }) => css`
+        ${theme.breakpoints.down("mini")} {
+            position: absolute;
+            right: calc(var(--horizontal-page-padding) + 1rem);
+            top: 1rem;
         }
     `,
 );

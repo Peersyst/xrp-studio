@@ -24,7 +24,7 @@ export const CollectionHeaderRoot = styled(PageHeader)<CollectionHeaderRootProps
             }
 
             ${theme.breakpoints.down("mini")} {
-                --collection-cover-height: 25vw;
+                --collection-cover-height: max(25vw, 8rem);
             }
         }
 
@@ -46,9 +46,7 @@ export const CollectionHeaderFooter = styled(Row).attrs({ gap: "2.5rem", flex: 1
     ({ theme }) => css`
         --collection-avatar-width: 172px;
         width: calc(var(--page-max-width));
-
         min-height: calc(calc(calc(var(--collection-avatar-width) / 1.8)) - 2rem);
-        margin: auto;
 
         ${theme.breakpoints.down("md")} {
             --collection-avatar-width: max(9.5rem, 13vw);
@@ -67,7 +65,7 @@ export const CollectionHeaderFooter = styled(Row).attrs({ gap: "2.5rem", flex: 1
     `,
 );
 
-export const CollectionAvatar = styled(Avatar).attrs({ size: "xl" })(
+export const CollectionAvatar = styled(Avatar)(
     ({ theme }) => css`
         margin-top: -3.5rem;
         color: ${theme.palette.background};
@@ -85,8 +83,7 @@ export const CollectionHeaderBack = styled(BackButton).attrs({ size: "md" })(
     ({ theme }) => css`
         ${theme.breakpoints.down("mobile")} {
             position: absolute;
-            top: calc(var(--collection-cover-height) / 2);
-            transform: translateY(-50%);
+            top: 1rem;
             left: var(--horizontal-page-padding);
         }
     `,
