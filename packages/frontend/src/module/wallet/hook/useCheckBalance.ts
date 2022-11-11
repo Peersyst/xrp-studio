@@ -2,7 +2,7 @@ import { useGetXrpBalance } from "module/wallet/hook//useGetXrpBalance/useGetXrp
 import config from "config/config";
 import XrplService from "module/blockchain/service/XrplService/XrplService";
 
-export default function () {
+export default function (): (amountInDrops?: number) => Promise<boolean> {
     const { refetch } = useGetXrpBalance();
 
     return async (amountInDrops: number = config.feeInDrops) => {
