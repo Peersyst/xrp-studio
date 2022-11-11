@@ -301,6 +301,8 @@ export class NftService {
         let cid: string | undefined;
         if (Object.entries(ipfsMetadata).length) cid = await this.ipfsService.uploadFile(Buffer.from(JSON.stringify(ipfsMetadata)));
 
+        const memo = { id: draftId, ...(name && { name }) };
+
         // Build NFTokenMintTransaction
         const nftokenMintTransaction: NFTokenMint = {
             TransactionType: "NFTokenMint",
@@ -310,7 +312,7 @@ export class NftService {
             Memos: [
                 {
                     Memo: {
-                        MemoData: Buffer.from(JSON.stringify({ id: draftId }), "utf8").toString("hex"),
+                        MemoData: Buffer.from(JSON.stringify(memo), "utf8").toString("hex"),
                     },
                 },
             ],

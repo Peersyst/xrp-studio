@@ -1,26 +1,23 @@
-import { BlockchainAddress, Col, Typography } from "@peersyst/react-components";
-import { useGetXrpBalance } from "../../hooks/useGetXrpBalance/useGetXrpBalance";
-import useWallet from "../../hooks/useWallet";
+import { BlockchainAddress, Col } from "@peersyst/react-components";
 import NetworkConnect from "../NetworkConnect/NetworkConnect";
 import { WalletCardRoot } from "./WalletCard.styles";
-import { useGetXrpTokenPrice } from "../../hooks/useGetXrpTokenPrice/useGetXrpTokenPrice";
-import { formatCurrency, formatNumber } from "module/common/util/format";
-import { useRecoilState } from "recoil";
-import { settingsState } from "module/settings/SettingsState";
+import Balance from "module/common/component/display/Balance/Balance";
+import { useGetXrpBalance } from "module/wallet/hook/useGetXrpBalance/useGetXrpBalance";
+import { useGetXrpTokenPrice } from "module/wallet/hook/useGetXrpTokenPrice/useGetXrpTokenPrice";
+import useWallet from "module/wallet/hook/useWallet";
 
 const WalletCard = (): JSX.Element => {
-    const { address } = useWallet();
+    const { address = "" } = useWallet();
     const { data: availableBalance } = useGetXrpBalance();
-    const [settings] = useRecoilState(settingsState);
-    const { data: tokenValue } = useGetXrpTokenPrice(settings.currency);
+    const { data: tokenValue } = useGetXrpTokenPrice();
     const fiatCurrencyBalance = (tokenValue ?? 0) * (availableBalance ?? 0);
     return (
         <WalletCardRoot>
-            <Col gap={15}>
-                <BlockchainAddress address={address!} type="address" length={12} variant="caption" light />
-                <Col gap={10}>
-                    <Typography variant="h5">{formatNumber(availableBalance ?? 0)}</Typography>
-                    <Typography variant="caption">{`( =  ${formatCurrency(fiatCurrencyBalance, settings.currency)} )`}</Typography>
+            <Col gap="0.7rem" flex={1}>
+                <BlockchainAddress address={address} type="address" variant="body2" light css={{ width: "100%" }} />
+                <Col gap="0.3rem">
+                    <Balance variant="body2" balance={availableBalance ?? 0} />
+                    <Balance variant="caption2" balance={fiatCurrencyBalance} units="fiat" action="round" />
                 </Col>
                 <NetworkConnect />
             </Col>

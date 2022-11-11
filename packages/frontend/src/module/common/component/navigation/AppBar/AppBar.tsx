@@ -3,7 +3,7 @@ import { AppBarRoot } from "./AppBar.styles";
 import Logo from "module/common/component/display/Logo/Logo";
 import Wallet from "module/wallet/component/core/Wallet/Wallet";
 import ConditionalLink from "module/common/component/navigation/ConditionalLink/ConditionalLink";
-import useWallet from "module/wallet/component/hooks/useWallet";
+import useWallet from "module/wallet/hook//useWallet";
 import { Fragment } from "react";
 import ThemeButton from "module/common/component/input/ThemeButton/ThemeButton";
 import { useLocation } from "react-router-dom";
@@ -24,15 +24,19 @@ const AppBar = (): JSX.Element => {
                             <Fragment>
                                 {APPBAR_TABS.map((item) => (
                                     <ConditionalLink key={item.path} condition={isLogged} to={item.path}>
-                                        <Typography variant="body1" light={location.pathname !== item.path}>
+                                        <Typography
+                                            variant="body1"
+                                            color={location.pathname === item.path ? "black.0" : "black.40"}
+                                            fontWeight={500}
+                                        >
                                             {translate(item.label)}
                                         </Typography>
                                     </ConditionalLink>
                                 ))}
                             </Fragment>
                         ) : undefined}
-                        <ThemeButton size="sm" />
                         <Wallet />
+                        <ThemeButton size="sm" />
                     </Row>
                 </Row>
             </Toolbar>

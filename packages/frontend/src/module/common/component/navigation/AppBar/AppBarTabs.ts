@@ -18,7 +18,7 @@ export const APPBAR_TABS: AppBarTab[] = [
         path: NftRoutes.MY_NFTS,
     },
     {
-        label: "myDrops",
+        label: "myCollections",
         path: CollectionRoutes.MY_COLLECTIONS,
     },
 ];

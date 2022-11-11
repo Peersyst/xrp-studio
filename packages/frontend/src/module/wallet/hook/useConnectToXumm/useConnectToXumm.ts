@@ -1,9 +1,9 @@
 import { useModal } from "@peersyst/react-components";
+import ConnectXummModal from "module/wallet/component/feedback/ConnectXummModal/ConnectXummModal";
 import { walletState } from "module/wallet/state/WalletState";
 import { useState } from "react";
 import { useSetRecoilState } from "recoil";
 import { SignInResponse, useSignIn, VerifySignInResponse } from "xumm-react";
-import ConnectXummModal from "../../feedback/ConnectXummModal/ConnectXummModal";
 import { UseConnectToXummReturnValue } from "./useConnectToXumm.types";
 
 const useConnectToXumm = (): UseConnectToXummReturnValue => {

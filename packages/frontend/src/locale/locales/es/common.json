@@ -82,5 +82,9 @@
     "collectionDescriptionPlaceholder": "Escribe una descripción para tu colección",
     "collectionBackgroundColorPlaceholder": "El color de fondo de tus NFTs",
     "myDrops": "Mis Drops",
-    "dashboard": "Panel"
+    "dashboard": "Panel",
+    "editCollectionNft": "Editar NFT de la colección",
+    "changesApplied": "Los cambios han sido aplicados",
+    "collectionCreated": "Colección creada",
+    "collectionUpdated": "Colección actualizada"
 }

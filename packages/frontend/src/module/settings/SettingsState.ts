@@ -3,11 +3,11 @@ import { FiatCurrencyType } from "module/wallet/types";
 import { SettingsStorage } from "module/settings/SettingsStorage";
 
 export interface Settings {
-    currency: FiatCurrencyType;
+    fiat: FiatCurrencyType;
 }
 
 export const initialSettingsState: Settings = SettingsStorage.get() ?? {
-    currency: "usd",
+    fiat: "usd",
 };
 
 export const settingsState = atom<Settings>({

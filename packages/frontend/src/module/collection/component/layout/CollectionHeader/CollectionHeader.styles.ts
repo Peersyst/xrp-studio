@@ -2,6 +2,7 @@ import styled, { css } from "styled-components";
 import { Image, Row } from "@peersyst/react-components";
 import PageHeader from "module/common/component/layout/PageHeader/PageHeader";
 import Avatar from "module/common/component/display/Avatar/Avatar";
+import BackButton from "module/common/component/navigation/BackButton/BackButton";
 
 export interface CollectionHeaderRootProps {
     image: string | undefined;
@@ -11,11 +12,11 @@ export const CollectionHeaderRoot = styled(PageHeader)<CollectionHeaderRootProps
     ({ theme, image }) => css`
         .main-header {
             position: relative;
-            display: flex;
-            flex-direction: column;
-            row-gap: 1rem;
-            margin: var(--appbar-height) 0 0 0;
-            max-width: 100%;
+
+            margin-top: var(--appbar-height);
+            padding-bottom: 1rem;
+            border-bottom: 1px solid ${theme.palette.black[80]};
+
             --collection-cover-height: 13.5vw;
 
             ${theme.breakpoints.down("md")} {
@@ -23,12 +24,7 @@ export const CollectionHeaderRoot = styled(PageHeader)<CollectionHeaderRootProps
             }
 
             ${theme.breakpoints.down("mini")} {
-                --collection-cover-height: 20vw;
-                margin-bottom: 9vw;
-            }
-
-            div:first-child {
-                max-width: initial;
+                --collection-cover-height: 25vw;
             }
         }
 
@@ -40,69 +36,58 @@ export const CollectionHeaderRoot = styled(PageHeader)<CollectionHeaderRootProps
     `,
 );
 
-export const CollectionCover = styled(Image)(
-    ({ theme }) => css`
-        align-self: center;
-        width: 100vw;
-        height: var(--collection-cover-height);
-        flex-shrink: 0;
-        border-radius: ${theme.borderRadius};
-    `,
-);
+export const CollectionCover = styled(Image)`
+    align-self: center;
+    width: 100vw;
+    height: var(--collection-cover-height);
+`;
 
-export const CollectionHeaderFooter = styled(Row).attrs({ gap: "1rem", flex: 1 })(
+export const CollectionHeaderFooter = styled(Row).attrs({ gap: "2.5rem", flex: 1 })(
     ({ theme }) => css`
-        --collection-avatar-width: 216px;
-        --collection-avatar-left: 26vw;
-        --collection-back-left: 20vw;
-        --collection-avatar-top: var(--collection-cover-height);
+        --collection-avatar-width: 172px;
         width: calc(var(--page-max-width));
-
-        ${theme.breakpoints.down("md")} {
-            --collection-avatar-width: max(9.5rem, 13vw);
-            --collection-avatar-left: 18vw;
-            --collection-back-left: 10vw;
-            width: 100%;
-        }
-
-        ${theme.breakpoints.down("mobile")} {
-            --collection-avatar-width: max(2rem, 15vw);
-            --collection-avatar-left: 15vw;
-            --collection-back-left: 1vw;
-            width: 100%;
-            .collection-back {
-                width: 2rem;
-                height: 2rem;
-            }
-        }
 
         min-height: calc(calc(calc(var(--collection-avatar-width) / 1.8)) - 2rem);
         margin: auto;
 
-        .collection-back {
-            position: absolute;
-            left: var(--collection-back-left);
+        ${theme.breakpoints.down("md")} {
+            --collection-avatar-width: max(9.5rem, 13vw);
+            width: 100%;
+            column-gap: 1.5rem;
+        }
+
+        ${theme.breakpoints.down("sm")} {
+            --collection-avatar-width: max(9.5rem, 13vw);
+        }
+
+        ${theme.breakpoints.down("mobile")} {
+            --collection-avatar-width: max(7rem, 20vw);
+            column-gap: 1rem;
         }
     `,
 );
 
-export const ContentAvatar = styled(Avatar)(
+export const CollectionAvatar = styled(Avatar)(
     ({ theme }) => css`
-        position: absolute;
-        top: calc(var(--collection-avatar-top) + 3rem);
-        left: var(--collection-avatar-left);
-        transform: translateY(-50%);
+        margin-top: -3.5rem;
         color: ${theme.palette.background};
 
-        width: var(--collection-avatar-width);
-        height: auto;
-
-        ${theme.breakpoints.down("md")} {
-            top: calc(var(--collection-avatar-top) + 1hw);
-        }
+        width: var(--collection-avatar-width) !important;
+        height: auto !important;
 
         ${theme.breakpoints.down("mobile")} {
-            left: calc(var(--collection-avatar-top) - 2.5rem);
+            margin-top: -10%;
+        }
+    `,
+);
+
+export const CollectionHeaderBack = styled(BackButton).attrs({ size: "md" })(
+    ({ theme }) => css`
+        ${theme.breakpoints.down("mobile")} {
+            position: absolute;
+            top: calc(var(--collection-cover-height) / 2);
+            transform: translateY(-50%);
+            left: var(--horizontal-page-padding);
         }
     `,
 );

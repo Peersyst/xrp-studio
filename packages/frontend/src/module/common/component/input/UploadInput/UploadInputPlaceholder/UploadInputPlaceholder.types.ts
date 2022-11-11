@@ -16,3 +16,8 @@ export type UploadInputPlaceholderProps<PT extends UploadInputPlaceholderType = 
 export interface UploadInputPlaceholderRootProps {
     variant: UploadInputPlaceholderVariant;
 }
+
+export type CoreUploadInputPlaceholderProps = UploadInputPlaceholderProps & {
+    disabled?: boolean;
+    drag: boolean;
+};

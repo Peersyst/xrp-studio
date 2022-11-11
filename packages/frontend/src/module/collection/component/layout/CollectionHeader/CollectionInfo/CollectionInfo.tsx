@@ -1,3 +1,5 @@
+import { Col, Row, Skeleton, Typography } from "@peersyst/react-components";
+import { CollectionInfoRoot, CollectionMainInfo } from "./CollectionInfo.styles";
 import { Col, Row, Skeleton, Typography, useTheme } from "@peersyst/react-components";
 import { CollectionInfoRoot, CollectionsButtons, CollectionsMainInfo } from "./CollectionInfo.styles";
 import { useParams } from "react-router-dom";
@@ -14,17 +16,12 @@ const CollectionInfo = (): JSX.Element => {
     const { data: collection, isLoading: collectionLoading } = useGetCollection(id ? Number(id) : undefined);
     const { name = "", items = 0 } = collection || {};
     const navigate = useNavigate();
-    const {
-        breakpoints: {
-            values: { sm },
-        },
-    } = useTheme();
-    const isSm = useMediaQuery(`(max-width: ${sm}px)`);
+
     return (
         <CollectionInfoRoot>
-            <Col flex={1} gap={isSm ? "0.5rem" : "1rem"}>
+            <Col flex={1} gap="0.5rem">
                 <Row justifyContent="space-between" css={{ maxWidth: "100%" }}>
-                    <CollectionsMainInfo gap="1rem" alignItems="center" breakpoint={{ width: "mobile", gap: "0.5rem" }}>
+                    <CollectionMainInfo gap="1rem" alignItems="center" breakpoint={{ width: "mobile", gap: "1rem" }}>
                         <Skeleton width="200px" loading={collectionLoading}>
                             <Typography className="collection-name" variant="h5" fontWeight={800} singleLine style={{ flex: 2 }}>
                                 {name}
@@ -33,7 +30,7 @@ const CollectionInfo = (): JSX.Element => {
                                 {translate("itemWithCount_other", { count: items })}
                             </Typography>
                         </Skeleton>
-                    </CollectionsMainInfo>
+                    </CollectionMainInfo>
                 </Row>
                 <Skeleton width="70%" loading={collectionLoading}>
                     <Typography className="collection-description" variant="body1" light singleLine={isSm ? true : false}>
