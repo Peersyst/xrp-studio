@@ -1,4 +1,4 @@
-import { Col } from "@peersyst/react-components";
+import { Col, Skeleton, Typography } from "@peersyst/react-components";
 import useGetCollection from "module/nft/query/useGetCollection";
 import {
     CollectionCover,
@@ -24,6 +24,11 @@ const CollectionHeader = (): JSX.Element => {
                     <CollectionAvatar loading={collectionLoading} img={image} alt="collection-image" />
                     <CollectionInfo />
                 </CollectionHeaderFooter>
+                <Skeleton loading={collectionLoading}>
+                    <Typography className="collection-description" variant="body1" light>
+                        {collection?.description}
+                    </Typography>
+                </Skeleton>
             </Col>
         </CollectionHeaderRoot>
     );

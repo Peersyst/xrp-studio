@@ -12,7 +12,7 @@
         "test:unit": "jest --watch",
         "test:e2e": "jest --config ./test/jest-e2e.json --coverage",
         "lint": "eslint . --ext .ts,.json --max-warnings=0",
-        "typeorm": "ts-node -r tsconfig-paths/register ./node_modules/typeorm/cli.js --config ./src/config/typeormConfig.ts",
+        "typeorm": "ts-node -r tsconfig-paths/register ./node_modules/typeorm/cli.js --config ./src/config/typeorm.config.ts",
         "db:migration:create": "npm run typeorm migration:create -- -n",
         "db:migration:generate": "npm run typeorm migration:generate -- -n",
         "db:migration:run": "npm run typeorm migration:run",

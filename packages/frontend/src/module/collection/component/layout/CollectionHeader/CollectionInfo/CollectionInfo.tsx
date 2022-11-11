@@ -1,14 +1,11 @@
 import { Col, Row, Skeleton, Typography } from "@peersyst/react-components";
-import { CollectionInfoRoot, CollectionMainInfo } from "./CollectionInfo.styles";
-import { Col, Row, Skeleton, Typography, useTheme } from "@peersyst/react-components";
-import { CollectionInfoRoot, CollectionsButtons, CollectionsMainInfo } from "./CollectionInfo.styles";
+import { CollectionInfoRoot, CollectionMainInfo, CollectionsButtons } from "./CollectionInfo.styles";
 import { useParams } from "react-router-dom";
 import useGetCollection from "module/nft/query/useGetCollection";
 import useTranslate from "module/common/hook/useTranslate";
 import Button from "module/common/component/input/Button/Button";
 import { useNavigate } from "react-router-dom";
 import { CollectionRoutes } from "module/collection/CollectionRouter";
-import { useMediaQuery } from "@peersyst/react-hooks";
 
 const CollectionInfo = (): JSX.Element => {
     const { id } = useParams<string>();
@@ -26,15 +23,12 @@ const CollectionInfo = (): JSX.Element => {
                             <Typography className="collection-name" variant="h5" fontWeight={800} singleLine style={{ flex: 2 }}>
                                 {name}
                             </Typography>
-                            <Typography className="collection-item" variant="body1" light singleLine style={{ flex: 1 }}>
-                                {translate("itemWithCount_other", { count: items })}
-                            </Typography>
                         </Skeleton>
                     </CollectionMainInfo>
                 </Row>
-                <Skeleton width="70%" loading={collectionLoading}>
-                    <Typography className="collection-description" variant="body1" light singleLine={isSm ? true : false}>
-                        {collection?.description}
+                <Skeleton width="60px" loading={collectionLoading}>
+                    <Typography className="collection-item" variant="body1" light singleLine style={{ flex: 1 }}>
+                        {translate("itemWithCount_other", { count: items })}
                     </Typography>
                 </Skeleton>
             </Col>
