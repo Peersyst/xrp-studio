@@ -5,17 +5,20 @@ import TextField from "module/common/component/input/TextField/TextField";
 import useTranslate from "module/common/hook/useTranslate";
 import Select from "module/common/component/input/Select/Select";
 import { Col, Switch } from "@peersyst/react-components";
+import { NftInformationProps } from "module/nft/component/display/NftInformation/NftInformation.types";
 
-const NftInformation = (): JSX.Element => {
-    const name = "nft1";
+const NftInformation = ({
+    name,
+    collection,
+    issuer,
+    transferFee,
+    burnable,
+    onlyXRP,
+    trustLine,
+    transferable,
+}: NftInformationProps): JSX.Element => {
     const translate = useTranslate();
-    const taxon = "nft1";
-    const transferFee = "0";
-    const issuer = "issuer";
-    const burnable = true;
-    const onlyXRP = true;
-    const trustLine = true;
-    const transferable = true;
+    const collectionOptions = collection ? [collection] : ["None"];
 
     return (
         <BaseNftPageContentCard>
@@ -29,14 +32,14 @@ const NftInformation = (): JSX.Element => {
                     disabled={true}
                 />
                 <Select
-                    key={"taxon: " + taxon}
+                    key={"taxon: " + collection}
                     clear={translate("none", { context: "female" })}
                     name={NftFormFields.collection}
                     label={translate("collection")}
                     placeholder={translate("collectionPlaceholder")}
                     size="lg"
-                    options={[]}
-                    defaultValue={taxon}
+                    options={collectionOptions}
+                    defaultValue={collection}
                     disabled={true}
                 />
                 <TextField
