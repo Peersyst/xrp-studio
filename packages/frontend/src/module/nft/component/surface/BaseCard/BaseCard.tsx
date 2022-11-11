@@ -12,6 +12,7 @@ const BaseCard = ({
     children,
     note,
     to,
+    onDeleteClicked,
     status,
 }: WithSkeleton<BaseCardProps>): JSX.Element => {
     const footerContent = [
@@ -44,14 +45,17 @@ const BaseCard = ({
                         </Skeleton>
                     ))}
                 </Col>
-                <RemoveIcon
-                    onClick={(e) => {
-                        e?.stopPropagation();
-                        e?.preventDefault();
-                    }}
-                >
-                    <CrossIcon />
-                </RemoveIcon>
+                {onDeleteClicked && (
+                    <RemoveIcon
+                        onClick={(e) => {
+                            e?.stopPropagation();
+                            e?.preventDefault();
+                            onDeleteClicked();
+                        }}
+                    >
+                        <CrossIcon />
+                    </RemoveIcon>
+                )}
             </BaseCardRoot>
         </ConditionalLink>
     );
