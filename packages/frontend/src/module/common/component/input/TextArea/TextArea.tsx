@@ -19,7 +19,7 @@ const TextArea = ({
 
     const handleChange = (newVal: string) => {
         const newLength = newVal.length;
-        if (maxLength !== undefined && maxLength >= newLength) setValue(newVal);
+        if (maxLength === undefined || maxLength >= newLength) setValue(newVal);
     };
 
     return (

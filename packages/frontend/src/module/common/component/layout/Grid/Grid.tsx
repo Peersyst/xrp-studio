@@ -3,7 +3,7 @@ import BaseGrid from "../BaseGrid/BaseGrid";
 import BaseGridWithFilters from "../BaseGridWithFilters/BaseGridWithFilters";
 import { GridProps } from "./Grid.types";
 
-function Grid<T extends PaginatedData, TagT>({
+function Grid<T extends PaginatedData, TagT = any>({
     filterBreakpoints,
     filters,
     withFilters = false,

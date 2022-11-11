@@ -43,5 +43,8 @@
     "youHaveNoNfts": "No tienes NFTs",
     "youHaveNoCollections": "No tienes colecciones",
     "withoutNftsToShow": "Without NFTs to show",
-    "withoutCollections": "Sin collecciones"
+    "withoutCollections": "Sin collecciones",
+    "transferableFlagRequired": "La opcion de transferible es necesaria",
+    "notEnoughBalance": "No tienes suficiente XRP",
+    "collectionDoesNotContainNfts": "Esta coleccion no contiene NFTs"
 }

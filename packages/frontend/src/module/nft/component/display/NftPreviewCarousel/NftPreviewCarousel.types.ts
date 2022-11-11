@@ -5,7 +5,7 @@ export interface NftPreviewCarouselProps {
     nfts: Nft[];
     loading?: boolean;
     activeId?: number;
-    to?: (nft: Nft) => string;
+    to?: (nft: Nft, index: number) => string;
     className?: string;
     style?: CSSProperties;
 }

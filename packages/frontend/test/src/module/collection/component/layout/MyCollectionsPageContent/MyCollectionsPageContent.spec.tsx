@@ -1,5 +1,5 @@
 import { CollectionDtoMock, CollectionsDtoMock, PaginatedDataMock, WalletMock } from "test-mocks";
-import * as UseWallet from "module/wallet/component/hooks/useWallet";
+import * as UseWallet from "module/wallet/hook//useWallet";
 import { CollectionService } from "module/api/service";
 import { render, translate } from "test-utils";
 import MyCollectionsPage from "module/collection/page/MyCollectionsPage";

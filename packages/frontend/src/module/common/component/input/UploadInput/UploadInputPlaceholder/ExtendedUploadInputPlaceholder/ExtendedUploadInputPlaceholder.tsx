@@ -10,9 +10,14 @@ import {
 export interface ExtendedUploadInputPlaceholderProps {
     supportedFilesLabel?: string;
     text?: string;
+    disabled?: boolean;
 }
 
-const ExtendedUploadInputPlaceholder = ({ supportedFilesLabel, text }: ExtendedUploadInputPlaceholderProps): JSX.Element => {
+const ExtendedUploadInputPlaceholder = ({
+    supportedFilesLabel,
+    text,
+    disabled = false,
+}: ExtendedUploadInputPlaceholderProps): JSX.Element => {
     const t = useTranslate();
     return (
         <Col gap="7.5%" alignItems="center" justifyContent="center" css={{ width: "100%", height: "100%" }}>
@@ -23,7 +28,9 @@ const ExtendedUploadInputPlaceholder = ({ supportedFilesLabel, text }: ExtendedU
                     <ExtendedUploadInputPlaceholderLabel variant="body1">{supportedFilesLabel}</ExtendedUploadInputPlaceholderLabel>
                 )}
             </Col>
-            <Button size="lg">{t("chooseFile")}</Button>
+            <Button size="lg" disabled={disabled}>
+                {t("chooseFile")}
+            </Button>
         </Col>
     );
 };

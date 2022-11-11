@@ -18,5 +18,8 @@
     "xrpNodeUrl": "wss://xls20-sandbox.rippletest.net:51233",
     "maxBioChars": 255,
     "maxUsernameChars": 255,
-    "maxNftDescChars": 256
+    "maxNftDescChars": 256,
+    "maxNumberDecimals": 6,
+    "tokenName": "XRP",
+    "feeInDrops": 10
 }

@@ -10,7 +10,7 @@ import BaseGridTags from "./BaseGridTags/BaseGridTags";
 import { gridAnimation, GridWrapper } from "./BaseGridWithFilters.styles";
 import { BaseGridWithFilterProps } from "./BaseGridWithFilters.types";
 
-function BaseGridWithFilters<T extends PaginatedData, TagT>({
+function BaseGridWithFilters<T extends PaginatedData, TagT = any>({
     filterBreakpoints,
     breakpoints,
     filters,
