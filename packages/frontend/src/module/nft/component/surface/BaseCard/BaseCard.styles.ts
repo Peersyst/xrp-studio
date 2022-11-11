@@ -50,13 +50,15 @@ export const RemoveIcon = styled(Button).attrs({ variant: "glass" })(
     () => css`
         cursor: pointer;
         position: absolute;
-        top: 0;
-        right: 0;
+        top: 0.5rem;
+        right: 0.5rem;
         border-radius: 50%;
         width: 2rem;
         height: 2rem;
         min-width: unset;
         padding: 0.5rem;
         z-index: 1;
+        &:hover {
+        }
     `,
 );

@@ -3,7 +3,6 @@ import { BaseCardProps } from "module/nft/component/surface/BaseCard/BaseCard.ty
 import { BaseCardRoot, BaseCardCover, BaseCardCoverDefault, RemoveIcon } from "module/nft/component/surface/BaseCard/BaseCard.styles";
 import ConditionalLink from "module/common/component/navigation/ConditionalLink/ConditionalLink";
 import { Children } from "react";
-import Button from "module/common/component/input/Button/Button";
 
 const BaseCard = ({
     loading = false,
