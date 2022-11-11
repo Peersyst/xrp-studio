@@ -5,7 +5,7 @@ export const ModalRoot = styled(Modal)(
     ({ theme }) => css`
         position: relative;
         padding: 3rem;
-        width: fit-content;
+        width: 60rem;
         max-width: 90vw;
         max-height: 82vh;
         border-radius: ${theme.borderRadiusLg};

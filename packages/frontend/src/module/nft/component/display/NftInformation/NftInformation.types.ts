@@ -1,6 +1,5 @@
-import { NftCreationForm } from "module/nft/types";
+import { CreateNftDraftRequest } from "module/api/service";
 
-export type NftInformationProps = Pick<
-    NftCreationForm,
-    "name" | "issuer" | "collection" | "transferFee" | "burnable" | "onlyXRP" | "trustLine" | "transferable"
->;
+export interface NftInformationPorps {
+    data: Pick<CreateNftDraftRequest, "issuer" | "transferFee" | "flags" | "metadata" | "taxon">;
+}

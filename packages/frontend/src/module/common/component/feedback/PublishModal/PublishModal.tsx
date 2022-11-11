@@ -7,7 +7,7 @@ import CloseIcon from "../../../icons/CloseIcon";
 
 export interface PublishModalProps extends Omit<BaseModalProps, "children"> {
     title?: string;
-    children: { cover: ReactElement; information: ReactElement; action?: ReactElement };
+    children: { cover: ReactElement; information: ReactElement; action: ReactElement };
 }
 
 const PublishModal = ({
@@ -22,7 +22,7 @@ const PublishModal = ({
     const [open, setOpen] = useControlled(true, openProp, openProp ? onClose : undefined);
     return (
         <ModalRoot open={open} onClose={() => setOpen(false)} elevation={elevation} closable={closable} {...rest}>
-            <Col gap="3rem" className="modal-main-col">
+            <Col gap="3rem">
                 {title && (
                     <Col>
                         <Typography variant="h3" fontWeight={700} className="modal-title">
@@ -35,11 +35,19 @@ const PublishModal = ({
                         <CloseIcon />
                     </CloseModalButton>
                 )}
-                <Row gap={4} flex={1} justifyContent="center">
-                    <Col>{cover}</Col>
-                    <Col>{information}</Col>
+                <Row gap={4} flex={1}>
+                    <Col style={{ width: "50%" }} alignItems="center">
+                        {cover}
+                    </Col>
+                    <Col style={{ width: "50%" }} alignItems="center">
+                        {information}
+                    </Col>
                 </Row>
-                {action && <Row gap={4}>{action}</Row>}
+                {action && (
+                    <Row gap={4} justifyContent="center">
+                        {action}
+                    </Row>
+                )}
             </Col>
         </ModalRoot>
     );
