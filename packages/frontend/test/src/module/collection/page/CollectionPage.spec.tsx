@@ -14,10 +14,10 @@ describe("Test for the CollectionPage", () => {
             jest.spyOn(NftService, "nftControllerGetNfts").mockResolvedValue(data);
             const screen = render(<CollectionPage />);
 
-            // Collection Name
+            // Header
             await waitFor(() => expect(screen.getAllByText(collectionMock.name!)).toHaveLength(2));
 
-            //Grid
+            // Content
             await waitFor(() => expect(screen.getAllByRole("heading", { name: data.items[0].metadata?.name })).toHaveLength(10));
         });
     });

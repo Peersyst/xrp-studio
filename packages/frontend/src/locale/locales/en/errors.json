@@ -46,5 +46,5 @@
     "withoutCollections": "Without collections",
     "transferableFlagRequired": "Transferable flag is required",
     "notEnoughBalance": "You don't have enough XRP balance",
-    "collectionDoesNotNfts": "This collection does not contain NFTs"
+    "collectionDoesNotContainNfts": "This collection does not contain any NFTs"
 }

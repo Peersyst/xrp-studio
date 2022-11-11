@@ -1,7 +1,12 @@
 import { Col } from "@peersyst/react-components";
-import BackButton from "module/common/component/navigation/BackButton/BackButton";
 import useGetCollection from "module/nft/query/useGetCollection";
-import { CollectionCover, CollectionHeaderFooter, CollectionHeaderRoot, ContentAvatar } from "./CollectionHeader.styles";
+import {
+    CollectionCover,
+    CollectionHeaderBack,
+    CollectionHeaderFooter,
+    CollectionHeaderRoot,
+    CollectionAvatar,
+} from "./CollectionHeader.styles";
 import CollectionInfo from "./CollectionInfo/CollectionInfo";
 import { useParams } from "react-router-dom";
 
@@ -15,8 +20,8 @@ const CollectionHeader = (): JSX.Element => {
             <Col gap="1.5rem">
                 <CollectionCover loading={collectionLoading} src={header} alt="collection-header" />
                 <CollectionHeaderFooter>
-                    <BackButton size="md" className="collection-back" />
-                    <ContentAvatar loading={collectionLoading} img={image} alt="collection-image" />
+                    <CollectionHeaderBack />
+                    <CollectionAvatar loading={collectionLoading} img={image} alt="collection-image" />
                     <CollectionInfo />
                 </CollectionHeaderFooter>
             </Col>

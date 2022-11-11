@@ -2,7 +2,7 @@ import { NftService } from "module/api/service";
 import { NftDtoMock, NftsDtoMock, PaginatedDataMock } from "test-mocks";
 import { render, waitFor } from "test-utils";
 import * as Router from "react-router-dom";
-import CollectionContent from "module/collection/component/layout/CollectionContent/CollectionsContent";
+import CollectionContent from "module/collection/component/layout/CollectionContent/CollectionContent";
 
 describe("Test for the Collection Content", () => {
     describe("Collection Content render", () => {
