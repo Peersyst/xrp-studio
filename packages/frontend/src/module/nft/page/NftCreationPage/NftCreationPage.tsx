@@ -2,7 +2,7 @@ import BaseNftPage from "module/nft/component/layout/BaseNftPage/BaseNftPage";
 import { useSearchParams } from "react-router-dom";
 import useGetNftDraft from "module/nft/query/useGetNftDraft";
 import NftCreationPageHeader from "module/nft/component/layout/NftCreationPageHeader/NftCreationPageHeader";
-import { Form } from "@peersyst/react-components";
+import { Form, useToast } from "@peersyst/react-components";
 import { NftCreationForm } from "module/nft/types";
 import useCreateNftDraft from "module/nft/query/useCreateNftDraft";
 import useCreateNft from "module/nft/query/useCreateNft";
@@ -11,10 +11,14 @@ import createNftRequestFromForm from "module/nft/util/createNftRequestFromForm";
 import { useGetMyCollections } from "module/collection/query/useGetMyCollections";
 import { usePaginatedList } from "@peersyst/react-hooks";
 import useNftCreationPageSlots from "module/nft/page/NftCreationPage/hook/useNftCreationPageSlots";
+import useCheckBalance from "module/wallet/hook/useCheckBalance";
+import useTranslate from "module/common/hook/useTranslate";
 import { useNavigate } from "react-router-dom";
 import { NftRoutes } from "module/nft/NftRouter";
 
 const NftCreationPage = (): JSX.Element => {
+    const { showToast } = useToast();
+    const translateError = useTranslate("error");
     const [searchParams] = useSearchParams();
     const nfrDraftId = searchParams.get("id");
     const { data: nftDraft, isLoading: nftDraftLoading } = useGetNftDraft(nfrDraftId ? Number(nfrDraftId) : undefined);
@@ -22,6 +26,7 @@ const NftCreationPage = (): JSX.Element => {
     const collections = usePaginatedList(pages, (page) => page.items);
     const isLoading = nftDraftLoading || collectionsLoading;
     const navigate = useNavigate();
+    const checkBalance = useCheckBalance();
 
     const { mutate: createNftDraft, isLoading: createNftDraftLoading } = useCreateNftDraft();
     const { mutate: createNft, isLoading: createNftLoading } = useCreateNft();
@@ -30,14 +35,16 @@ const NftCreationPage = (): JSX.Element => {
     const saving = createNftDraftLoading || (updateNftDraftLoading && !variables?.publish);
     const publishing = createNftLoading || (updateNftDraftLoading && !!variables?.publish);
 
-    const handleSubmit = (data: NftCreationForm, action: string | undefined) => {
+    const handleSubmit = async (data: NftCreationForm, action: string | undefined) => {
         const requestNft = createNftRequestFromForm(data);
+        const hasBalance = await checkBalance();
         if (nftDraft) {
-            updateNftDraft({ id: nftDraft.id, publish: action === "publish", ...requestNft });
+            if (action === "publish" && !hasBalance) showToast(translateError("notEnoughBalance"), { type: "error" });
+            else updateNftDraft({ id: nftDraft.id, publish: action === "publish", ...requestNft });
         } else {
-            if (action === "publish") {
-                createNft(requestNft);
-            } else {
+            if (action === "publish")
+                !hasBalance ? showToast(translateError("notEnoughBalance"), { type: "error" }) : createNft(requestNft);
+            else {
                 createNftDraft(requestNft);
             }
         }

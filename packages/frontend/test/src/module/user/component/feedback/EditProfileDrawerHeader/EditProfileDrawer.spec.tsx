@@ -1,6 +1,6 @@
 import { DrawerMock, ToastMock, UserDtoMock, WalletMock } from "test-mocks";
 import { act, fireEvent, render, translate, waitFor } from "test-utils";
-import * as UseWallet from "module/wallet/component/hooks/useWallet";
+import * as UseWallet from "module/wallet/hook//useWallet";
 import { UserService } from "module/api/service";
 import EditProfileDrawer from "module/user/component/feedback/EditProfileDrawer/EditProfileDrawer";
 import * as useUpdateUser from "module/user/query/useUpdateUser";

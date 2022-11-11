@@ -4,7 +4,7 @@ import { walletState } from "module/wallet/state/WalletState";
 import { useResetRecoilState } from "recoil";
 import WalletCard from "../../display/WalletCard/WalletCard";
 import { WalletMenuRoot, BaseLink, CardContent } from "./WalletMenu.styles";
-import useWallet from "module/wallet/component/hooks/useWallet";
+import useWallet from "module/wallet/hook//useWallet";
 import { AuthTokenStorage } from "module/auth/AuthTokenStorage";
 import { UserRoutes } from "module/user/UserRouter";
 import { useNavigate } from "react-router-dom";
