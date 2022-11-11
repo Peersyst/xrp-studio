@@ -14,7 +14,7 @@ describe("useGoBack", () => {
         jest.spyOn(ReactRouterDom, "useNavigate").mockReturnValue(mockedNavigate);
         const result = renderUseGoBack();
         result.current();
-        expect(mockedNavigate).toHaveBeenCalledWith(DashboardRoutes.MAIN);
+        expect(mockedNavigate).toHaveBeenCalledWith(DashboardRoutes.MAIN, { replace: true });
     });
 
     test("Goes back to home previous page", () => {
