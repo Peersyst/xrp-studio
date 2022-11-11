@@ -102,13 +102,18 @@ describe("CollectionCreationPage", () => {
         });
 
         test("Publishes without balance", async () => {
+            const publishCollectionMock = jest
+                .spyOn(CollectionService, "collectionControllerCreateCollection")
+                .mockResolvedValueOnce(new CollectionDtoMock());
+
             render(<CollectionCreationPage />);
+
             userEvent.type(screen.getByPlaceholderText(translate("collectionNamePlaceholder")), COLLECTION_NAME);
-            const button = screen.getByRole("button", { name: translate("publish") });
-            userEvent.click(button);
-            await waitFor(() =>
-                expect(useToastMock.showToast).toHaveBeenCalledWith(translate("notEnoughBalance", { ns: "error" }), { type: "error" }),
-            );
+            const publishButton = screen.getByRole("button", { name: translate("publish") });
+            userEvent.click(publishButton);
+            await waitFor(() => expect(publishCollectionMock).toHaveBeenCalledWith({ name: COLLECTION_NAME }, true));
+            await waitFor(() => expect(useToastMock.showToast).toHaveBeenCalledWith(translate("collectionCreated"), { type: "success" }));
+            expect(useNavigateMock.navigate).toHaveBeenCalledWith(CollectionRoutes.MY_COLLECTIONS, { replace: true });
         });
     });
 

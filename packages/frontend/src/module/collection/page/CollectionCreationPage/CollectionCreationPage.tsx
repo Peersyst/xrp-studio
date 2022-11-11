@@ -48,8 +48,10 @@ const CollectionCreationPage = (): JSX.Element => {
             showToast(translate("collectionUpdated"), { type: "success" });
             navigate(CollectionRoutes.MY_COLLECTIONS, { replace: true });
         } else {
-            const amount = data.nfts ? data.nfts.length * config.feeInDrops : 0;
-            if (action === "publish" && !(await checkBalance(amount))) showToast(translateError("notEnoughBalance"), { type: "error" });
+            let valid = true;
+            const amount = data.nfts && data.nfts.length * config.feeInDrops;
+            if (amount) valid = await checkBalance(amount);
+            if (action === "publish" && !valid) showToast(translateError("notEnoughBalance"), { type: "error" });
             else {
                 await createCollection({
                     collection: createCollectionRequestFromForm("create", data),
