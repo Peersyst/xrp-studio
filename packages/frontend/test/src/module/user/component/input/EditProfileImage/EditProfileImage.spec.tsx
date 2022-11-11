@@ -2,7 +2,7 @@ import { UserService } from "module/api/service";
 import { UserDtoMock, WalletMock } from "test-mocks";
 import { render, waitFor } from "test-utils";
 import * as Router from "react-router-dom";
-import * as UseWallet from "module/wallet/component/hooks/useWallet";
+import * as UseWallet from "module/wallet/hook//useWallet";
 import EditProfileImage from "module/user/component/input/EditProfileImage/EditProfileImage";
 
 describe("Test for the EditProfileImage component", () => {
