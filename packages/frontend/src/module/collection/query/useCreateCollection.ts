@@ -10,10 +10,15 @@ export interface UseCreateCollectionParams {
 export default function (): UseMutationResult<CollectionDto, unknown, UseCreateCollectionParams> {
     const queryClient = useQueryClient();
 
-    return useMutation(async ({ collection, publish }: UseCreateCollectionParams) => {
-        const collectionDto = await CollectionService.collectionControllerCreateCollection(collection, publish);
-        await queryClient.invalidateQueries(Queries.COLLECTIONS);
-        await queryClient.invalidateQueries(Queries.NFT_DRAFTS);
-        return collectionDto;
-    });
+    return useMutation(
+        async ({ collection, publish }: UseCreateCollectionParams) =>
+            CollectionService.collectionControllerCreateCollection(collection, publish),
+        {
+            onSuccess: async () => {
+                await queryClient.invalidateQueries(Queries.COLLECTIONS);
+                await queryClient.invalidateQueries(Queries.NFT_DRAFTS);
+                await queryClient.invalidateQueries(Queries.NFTS);
+            },
+        },
+    );
 }

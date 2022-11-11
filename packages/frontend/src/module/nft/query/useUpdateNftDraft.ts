@@ -1,5 +1,6 @@
-import { useMutation, UseMutationResult } from "react-query";
+import { useMutation, UseMutationResult, useQueryClient } from "react-query";
 import { NftService, UpdateNftDraftRequest } from "module/api/service";
+import Queries from "../../../query/queries";
 
 export interface UseUpdateNftDraftParams extends UpdateNftDraftRequest {
     id: number;
@@ -7,5 +8,13 @@ export interface UseUpdateNftDraftParams extends UpdateNftDraftRequest {
 }
 
 export default function (): UseMutationResult<void, unknown, UseUpdateNftDraftParams> {
-    return useMutation(({ id, publish, ...nftDraft }) => NftService.nftControllerUpdateNftDraft(id, nftDraft, publish));
+    const queryClient = useQueryClient();
+
+    return useMutation(({ id, publish, ...nftDraft }) => NftService.nftControllerUpdateNftDraft(id, nftDraft, publish), {
+        onSuccess: async (_, { id }) => {
+            await queryClient.invalidateQueries(Queries.NFTS);
+            await queryClient.invalidateQueries(Queries.NFT_DRAFTS);
+            await queryClient.invalidateQueries([Queries.NFT_DRAFT, id]);
+        },
+    });
 }
