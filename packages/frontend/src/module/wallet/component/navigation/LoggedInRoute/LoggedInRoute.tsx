@@ -1,4 +1,4 @@
-import useWallet from "module/wallet/component/hooks/useWallet";
+import useWallet from "module/wallet/hook/useWallet";
 import { PropsWithChildren } from "react";
 import ProtectedRoute from "module/common/component/navigation/ProtectedRoute/ProtectedRoute";
 import { DashboardRoutes } from "module/dashboard/DashboardRouter";
