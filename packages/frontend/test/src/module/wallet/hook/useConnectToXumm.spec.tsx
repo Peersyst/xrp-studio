@@ -1,4 +1,4 @@
-import useConnectToXumm from "module/wallet/component/hooks/useConnectToXumm/useConnectToXumm";
+import useConnectToXumm from "module/wallet/hook/useConnectToXumm/useConnectToXumm";
 import { act, renderHook } from "test-utils";
 import { SignInMock } from "../../../../__mocks__/xumm-react/XummReactFunctions.mock";
 import * as XummReact from "xumm-react";

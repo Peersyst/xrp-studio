@@ -4,3 +4,7 @@ export interface Wallet {
     active: boolean;
 }
 export type FiatCurrencyType = "cny" | "usd" | "eur" | "jpy" | "gbp";
+
+export interface CheckBalanceProps {
+    xrpBalance: number;
+}

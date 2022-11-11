@@ -1,5 +1,6 @@
 import { RouteObject } from "react-router-dom";
 import { lazy } from "react";
+import LoggedInRoute from "module/wallet/component/navigation/LoggedInRoute/LoggedInRoute";
 
 export enum CollectionRoutes {
     VIEW_COLLECTION = "/collections/:id",
@@ -10,21 +11,36 @@ export enum CollectionRoutes {
 
 const CollectionCreationPage = lazy(() => import("./page/CollectionCreationPage/CollectionCreationPage"));
 const EditCollectionNftDraftPage = lazy(() => import("./page/EditCollectionNftDraftPage/EditCollectionNftDraftPage"));
-const CollectionsPage = lazy(() => import("./page/MyCollectionsPage"));
+const MyCollectionsPage = lazy(() => import("./page/MyCollectionsPage"));
 
 export const useCollectionRoutes = (): RouteObject[] => {
     return [
-        { path: CollectionRoutes.CREATE_COLLECTION, element: <CollectionCreationPage /> },
+        {
+            path: CollectionRoutes.CREATE_COLLECTION,
+            element: (
+                <LoggedInRoute>
+                    <CollectionCreationPage />
+                </LoggedInRoute>
+            ),
+        },
         {
             path: CollectionRoutes.EDIT_NFT_CREATE_COLLECTION,
-            element: <EditCollectionNftDraftPage />,
+            element: (
+                <LoggedInRoute>
+                    <EditCollectionNftDraftPage />
+                </LoggedInRoute>
+            ),
         },
         {
             path: CollectionRoutes.MY_COLLECTIONS,
             children: [
                 {
                     path: CollectionRoutes.MY_COLLECTIONS,
-                    element: <CollectionsPage />,
+                    element: (
+                        <LoggedInRoute>
+                            <MyCollectionsPage />
+                        </LoggedInRoute>
+                    ),
                 },
             ],
         },

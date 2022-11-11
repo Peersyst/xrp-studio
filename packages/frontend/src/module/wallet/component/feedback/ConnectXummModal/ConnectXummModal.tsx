@@ -4,8 +4,8 @@ import Button from "module/common/component/input/Button/Button";
 import useTranslate from "module/common/hook/useTranslate";
 import XummAppLink from "../../navigation/XummAppLink/XummAppLink";
 import { QrCard, QrImage } from "./ConnectXummModal.styles";
-import useConnectToXumm from "../../hooks/useConnectToXumm/useConnectToXumm";
 import { useEffect } from "react";
+import useConnectToXumm from "module/wallet/hook/useConnectToXumm/useConnectToXumm";
 
 const ConnectXummModal = createModal((modalProps): JSX.Element => {
     const translate = useTranslate();
