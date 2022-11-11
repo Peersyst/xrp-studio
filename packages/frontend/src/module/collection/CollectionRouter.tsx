@@ -9,6 +9,7 @@ export enum CollectionRoutes {
     EDIT_NFT_CREATE_COLLECTION = "/collections/creation/nft/:index",
 }
 
+const CollectionPage = lazy(() => import("./page/CollectionPage"));
 const CollectionCreationPage = lazy(() => import("./page/CollectionCreationPage/CollectionCreationPage"));
 const EditCollectionNftDraftPage = lazy(() => import("./page/EditCollectionNftDraftPage/EditCollectionNftDraftPage"));
 const MyCollectionsPage = lazy(() => import("./page/MyCollectionsPage"));
@@ -43,6 +44,10 @@ export const useCollectionRoutes = (): RouteObject[] => {
                     ),
                 },
             ],
+        },
+        {
+            path: CollectionRoutes.VIEW_COLLECTION,
+            element: <CollectionPage />,
         },
     ];
 };
