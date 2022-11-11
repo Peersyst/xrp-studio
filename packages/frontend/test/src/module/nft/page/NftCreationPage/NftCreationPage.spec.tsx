@@ -163,7 +163,7 @@ describe("NftCreationPage", () => {
         let getNftMock: jest.SpyInstance;
         let useCheckBalanceMock: UseCheckBalanceMock;
 
-        beforeAll(() => {
+        beforeEach(() => {
             useSearchParamsMock = new UseSearchParamsMock({ id: "1" });
             getNftMock = jest.spyOn(NftService, "nftControllerGetNftDraft").mockResolvedValue(nftDraftMock);
             useCheckBalanceMock = new UseCheckBalanceMock();
@@ -227,7 +227,7 @@ describe("NftCreationPage", () => {
         test("Publishes an NFT draft with balance", async () => {
             const updateNftDraftMock = jest.spyOn(NftService, "nftControllerUpdateNftDraft").mockResolvedValueOnce(undefined);
             render(<NftCreationPage />);
-            expect(useCheckBalanceMock.checkBalance).toHaveBeenCalled();
+
             const publishButton = screen.getByRole("button", { name: translate("publish") });
             await waitFor(() => expect(publishButton).not.toBeDisabled());
             const nameInput = screen.getByDisplayValue(nftDraftMockMetadata!.name!);
@@ -236,6 +236,7 @@ describe("NftCreationPage", () => {
             userEvent.click(publishButton);
 
             await waitFor(() => expect(updateNftDraftMock).toHaveBeenCalledWith(1, UPDATE_NFT_REQUEST, true));
+            expect(useCheckBalanceMock.checkBalance).toHaveBeenCalled();
         });
     });
 
