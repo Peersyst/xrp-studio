@@ -10,8 +10,15 @@ export interface UseUpdateCollectionParams {
 export default function (): UseMutationResult<void, unknown, UseUpdateCollectionParams> {
     const queryClient = useQueryClient();
 
-    return useMutation(async ({ id, collection }: UseUpdateCollectionParams) => {
-        await CollectionService.collectionControllerUpdateCollection(id, collection);
-        await queryClient.invalidateQueries(Queries.COLLECTIONS);
-    });
+    return useMutation(
+        async ({ id, collection }: UseUpdateCollectionParams) => {
+            await CollectionService.collectionControllerUpdateCollection(id, collection);
+        },
+        {
+            onSuccess: async (_, { id }) => {
+                await queryClient.invalidateQueries(Queries.COLLECTIONS);
+                await queryClient.invalidateQueries([Queries.COLLECTION, id]);
+            },
+        },
+    );
 }
