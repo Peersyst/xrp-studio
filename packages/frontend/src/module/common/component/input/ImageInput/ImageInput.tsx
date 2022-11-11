@@ -30,7 +30,6 @@ function ImageInput<Multiple extends boolean = false>({
             placeholder={placeholder}
             {...rest}
         >
-            {/* @ts-ignore */}
             {children || renderChildren}
         </ImageInputRoot>
     );

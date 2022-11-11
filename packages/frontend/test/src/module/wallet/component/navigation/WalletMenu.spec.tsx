@@ -1,10 +1,10 @@
 import { fireEvent, render, translate } from "test-utils";
-import * as UseWallet from "module/wallet/component/hooks/useWallet";
+import * as UseWallet from "module/wallet/hook//useWallet";
 import WalletMenu from "module/wallet/component/navigation/WalletMenu/WalletMenu";
 import { UserDtoMock, WalletMock } from "test-mocks";
 import * as useGetUser from "module/user/query/useGetUser";
-import * as useGetXrpBalance from "module/wallet/component/hooks/useGetXrpBalance/useGetXrpBalance";
-import * as useGetXrpTokenPrice from "module/wallet/component/hooks/useGetXrpTokenPrice/useGetXrpTokenPrice";
+import * as useGetXrpBalance from "module/wallet/hook//useGetXrpBalance/useGetXrpBalance";
+import * as useGetXrpTokenPrice from "module/wallet/hook//useGetXrpTokenPrice/useGetXrpTokenPrice";
 import * as Recoil from "recoil";
 import { AuthTokenStorage } from "module/auth/AuthTokenStorage";
 import * as ReactRouter from "react-router-dom";

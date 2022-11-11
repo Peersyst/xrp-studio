@@ -16,8 +16,7 @@ class XrplService {
     }
 
     public async getAccountBalance(address: string): Promise<string> {
-        const balance = await this.clientRequest((client) => client.getXrpBalance(address));
-        return balance;
+        return await this.clientRequest((client) => client.getXrpBalance(address));
     }
 
     public async getAvailableBalance(address: string): Promise<number> {

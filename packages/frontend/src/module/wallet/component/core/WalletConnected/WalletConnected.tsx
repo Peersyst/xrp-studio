@@ -1,11 +1,11 @@
 import { Col, Hash, Popover, Row, Typography } from "@peersyst/react-components";
 import Avatar from "module/common/component/display/Avatar/Avatar";
-import useWallet from "../../hooks/useWallet";
 import WalletMenu from "../../navigation/WalletMenu/WalletMenu";
 import NetworkConnect from "../../display/NetworkConnect/NetworkConnect";
 import useGetUser from "module/user/query/useGetUser";
 import { useEffect, useState } from "react";
 import { useLocation } from "react-router-dom";
+import useWallet from "module/wallet/hook/useWallet";
 
 const WalletConnected = (): JSX.Element => {
     const { address = "" } = useWallet();

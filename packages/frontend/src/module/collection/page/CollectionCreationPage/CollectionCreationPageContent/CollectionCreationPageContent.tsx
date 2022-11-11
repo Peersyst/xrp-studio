@@ -10,7 +10,7 @@ import TextField from "module/common/component/input/TextField/TextField";
 import useTranslate from "module/common/hook/useTranslate";
 import TextArea from "module/common/component/input/TextArea/TextArea";
 import { capitalize } from "@peersyst/react-utils";
-import useWallet from "module/wallet/component/hooks/useWallet";
+import useWallet from "module/wallet/hook//useWallet";
 import ColorInput from "module/common/component/input/ColorInput/ColorInput";
 import PropertiesInput from "module/nft/component/input/PropertiesInput/PropertiesInput";
 import useCollectionCreationState from "module/collection/hook/useCollectionCreationState";

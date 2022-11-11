@@ -1,6 +1,6 @@
 import { act, renderHook } from "test-utils";
 import * as XummReact from "xumm-react";
-import { useVerifyXumm } from "module/wallet/component/hooks/useVerifyXumm/useVerifyXumm";
+import { useVerifyXumm } from "module/wallet/hook//useVerifyXumm/useVerifyXumm";
 import { VerifySignInMock } from "../../../../__mocks__/xumm-react/XummReactFunctions.mock";
 
 const renderUseVerifyXumm = () =>
@@ -8,7 +8,7 @@ const renderUseVerifyXumm = () =>
         return useVerifyXumm();
     });
 
-describe("useConnectToXumm test", () => {
+describe("useVerifyXumm test", () => {
     afterAll(() => {
         jest.restoreAllMocks();
     });
