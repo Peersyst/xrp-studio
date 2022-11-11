@@ -1,13 +1,16 @@
 import { PaginatedCollectionDto } from "module/api/service";
 import { UseInfiniteQueryResult } from "query-utils";
 import { useGetUserAddress } from "../hook/useGetUserAddress";
-import useGetCollections from "module/collection/query/useGetCollections";
+import useGetCollections, { UseGetCollectionsOptions } from "module/collection/query/useGetCollections";
 
-export const useGetUserCollections = (addressParams?: string): UseInfiniteQueryResult<PaginatedCollectionDto, unknown> => {
+export const useGetUserCollections = ({ account: addressParams, ...rest }: UseGetCollectionsOptions = {}): UseInfiniteQueryResult<
+    PaginatedCollectionDto,
+    unknown
+> => {
     const address = useGetUserAddress();
     const usedAddress = address || addressParams;
     return useGetCollections(
-        { account: usedAddress },
+        { account: usedAddress, ...rest },
         {
             enabled: !!usedAddress,
         },

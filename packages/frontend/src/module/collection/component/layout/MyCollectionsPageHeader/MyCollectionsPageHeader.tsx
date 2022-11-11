@@ -3,6 +3,7 @@ import useTranslate from "module/common/hook/useTranslate";
 import { useNavigate } from "react-router-dom";
 import { CollectionRoutes } from "module/collection/CollectionRouter";
 import Button from "module/common/component/input/Button/Button";
+import { MainPageHeaderSearchBar } from "module/common/component/layout/MainPageHeader/MainPageHeader.styles";
 
 const MyCollectionsPageHeader = (): JSX.Element => {
     const translate = useTranslate();
@@ -17,6 +18,7 @@ const MyCollectionsPageHeader = (): JSX.Element => {
                 </Button>
             }
             stickyTitle={translate("myCollections").toUpperCase()}
+            footer={<MainPageHeaderSearchBar />}
         />
     );
 };
