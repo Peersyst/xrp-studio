@@ -85,5 +85,6 @@
     "editCollectionNft": "Editar NFT de la colección",
     "changesApplied": "Los cambios han sido aplicados",
     "collectionCreated": "Colección creada",
-    "collectionUpdated": "Colección actualizada"
+    "collectionUpdated": "Colección actualizada",
+    "uploadAFileToCreateAnNfts": "Subi un fichero para añadir un NFT a la colección"
 }

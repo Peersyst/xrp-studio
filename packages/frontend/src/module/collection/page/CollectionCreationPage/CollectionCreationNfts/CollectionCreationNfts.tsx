@@ -7,6 +7,7 @@ import { useState } from "react";
 import { BaseCardSkeletons } from "module/common/component/feedback/Skeletons/Skeletons";
 import { CollectionCreationNftsProps } from "module/collection/page/CollectionCreationPage/CollectionCreationNfts/CollectionCreationNfts.types";
 import { CollectionCreationFormFields } from "module/collection/types";
+import useTranslate from "module/common/hook/useTranslate";
 
 const CollectionCreationNfts = ({
     loading,
@@ -17,6 +18,7 @@ const CollectionCreationNfts = ({
             values: { createCollectionNftGrid },
         },
     } = useTheme();
+    const translate = useTranslate();
 
     const [nftsUploading, setNftsUploading] = useState(0);
     const [
@@ -106,6 +108,9 @@ const CollectionCreationNfts = ({
                     css={{ aspectRatio: "1.3" }}
                     value={undefined}
                     multiple
+                    placeholder={{
+                        text: translate("uploadAFileToCreateAnNfts"),
+                    }}
                     onUpload={handleNftsUpload}
                     onChange={handleNftsUploaded}
                     disabled={!collectionFormIsValid}
