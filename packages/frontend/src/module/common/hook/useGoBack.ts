@@ -7,10 +7,7 @@ export default function (path?: string): () => void {
     return () => {
         if (path) navigate(path);
         //Verify not leaving the site
-        else if (!window.history?.state || window.history?.state?.idx === 0) {
-            navigate(DashboardRoutes.MAIN);
-        } else {
-            navigate(-1);
-        }
+        else if (!window.history?.state || window.history?.state?.idx === 0) navigate(DashboardRoutes.MAIN, { replace: true });
+        else navigate(-1);
     };
 }

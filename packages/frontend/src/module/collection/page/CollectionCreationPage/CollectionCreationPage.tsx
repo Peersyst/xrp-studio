@@ -33,7 +33,7 @@ const CollectionCreationPage = (): JSX.Element => {
             showToast(translateError("collectionNotOwned"), { type: "warning" });
             searchParams.delete("id");
             setSearchParams(searchParams);
-        } else if (collectionId !== undefined && !collectionLoading && !collection) {
+        } else if (collectionId !== null && !collectionLoading && !collection) {
             searchParams.delete("id");
             setSearchParams(searchParams);
         }

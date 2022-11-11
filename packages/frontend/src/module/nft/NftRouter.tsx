@@ -1,5 +1,6 @@
 import { RouteObject } from "react-router-dom";
 import { lazy } from "react";
+import LoggedInRoute from "module/wallet/component/navigation/LoggedInRoute/LoggedInRoute";
 
 export enum NftRoutes {
     MY_NFTS = "/nfts/my-nfts",
@@ -15,11 +16,19 @@ export const useNftRoutes = (): RouteObject[] => {
     return [
         {
             path: NftRoutes.MY_NFTS,
-            element: <MyNftsPage />,
+            element: (
+                <LoggedInRoute>
+                    <MyNftsPage />
+                </LoggedInRoute>
+            ),
         },
         {
             path: NftRoutes.NFT_CREATION,
-            element: <NftCreationPage />,
+            element: (
+                <LoggedInRoute>
+                    <NftCreationPage />
+                </LoggedInRoute>
+            ),
         },
         {
             path: NftRoutes.VIEW_NFT,
