@@ -1,4 +1,4 @@
-import { Popover, Typography, WithSkeleton, Skeleton, Loader } from "@peersyst/react-components";
+import { Popover, Typography, WithSkeleton, Loader } from "@peersyst/react-components";
 import { NftCardChip, NftStatusChipPopoverCard, NftStatusChipRoot } from "../NftCardStatusChip/NftCardStatusChip.styles";
 import { NftCardStatusChipProps } from "../NftCardStatusChip/NftCardStatusChip.types";
 import useTranslate from "module/common/hook/useTranslate";
