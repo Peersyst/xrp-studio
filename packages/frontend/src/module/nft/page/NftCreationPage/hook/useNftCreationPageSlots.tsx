@@ -1,7 +1,7 @@
 import { CollectionDto } from "module/api/service";
 import { ReactNode, useState } from "react";
 import useTranslate from "module/common/hook/useTranslate";
-import useWallet from "module/wallet/component/hooks/useWallet";
+import useWallet from "module/wallet/hook//useWallet";
 import parseFlags from "module/nft/util/parseFlags";
 import { Divider, SelectOption, Switch } from "@peersyst/react-components";
 import BaseNftPageContent from "module/nft/component/layout/BaseNftPage/BaseNftPageContent/BaseNftPageContent";

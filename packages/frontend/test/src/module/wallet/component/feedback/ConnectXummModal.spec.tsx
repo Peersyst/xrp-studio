@@ -1,7 +1,7 @@
 import ConnectXummModal from "module/wallet/component/feedback/ConnectXummModal/ConnectXummModal";
 import { fireEvent, render, translate } from "test-utils";
 import { ModalMock } from "test-mocks";
-import * as useConnectToXumm from "module/wallet/component/hooks/useConnectToXumm/useConnectToXumm";
+import * as useConnectToXumm from "module/wallet/hook/useConnectToXumm/useConnectToXumm";
 
 describe("ConnectXummModal", () => {
     test("Renders correctly", () => {

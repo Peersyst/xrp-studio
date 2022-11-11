@@ -1,4 +1,4 @@
-import useWallet from "module/wallet/component/hooks/useWallet";
+import useWallet from "module/wallet/hook/useWallet";
 import WalletConnected from "../WalletConnected/WalletConnected";
 import WalletNotConnected from "../WalletNotConnected/WalletNotConnected";
 

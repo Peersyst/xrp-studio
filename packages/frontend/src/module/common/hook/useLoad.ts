@@ -1,5 +1,5 @@
 import { AuthTokenStorage } from "module/auth/AuthTokenStorage";
-import { useVerifyXumm } from "module/wallet/component/hooks/useVerifyXumm/useVerifyXumm";
+import { useVerifyXumm } from "module/wallet/hook//useVerifyXumm/useVerifyXumm";
 import { useEffect, useState } from "react";
 
 export function useLoad(): boolean {

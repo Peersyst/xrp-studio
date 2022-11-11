@@ -1,7 +1,7 @@
 import EditProfileDrawerBody from "module/user/component/feedback/EditProfileDrawer/EditProfileDrawerBody/EditProfileDrawerBody";
 import { DrawerMock, UserDtoMock, WalletMock } from "test-mocks";
 import { render, translate } from "test-utils";
-import * as UseWallet from "module/wallet/component/hooks/useWallet";
+import * as UseWallet from "module/wallet/hook//useWallet";
 import { UserService } from "module/api/service";
 import { fireEvent } from "@testing-library/dom";
 import EditProfileDrawer from "module/user/component/feedback/EditProfileDrawer/EditProfileDrawer";

@@ -3,8 +3,8 @@ import { UserDtoMock, WalletMock, XRP_ADDRESS_MOCK } from "test-mocks";
 import { render, translate } from "test-utils";
 import Wallet from "module/wallet/component/core/Wallet/Wallet";
 import * as useGetUser from "module/user/query/useGetUser";
-import * as useGetXrpBalance from "module/wallet/component/hooks/useGetXrpBalance/useGetXrpBalance";
-import * as useGetXrpTokenPrice from "module/wallet/component/hooks/useGetXrpTokenPrice/useGetXrpTokenPrice";
+import * as useGetXrpBalance from "module/wallet/hook//useGetXrpBalance/useGetXrpBalance";
+import * as useGetXrpTokenPrice from "module/wallet/hook//useGetXrpTokenPrice/useGetXrpTokenPrice";
 
 describe("Wallet", () => {
     beforeEach(() => {

@@ -1,8 +1,8 @@
 import { render, translate } from "test-utils";
 import { screen } from "@testing-library/react";
-import * as UseWallet from "module/wallet/component/hooks/useWallet";
-import * as useGetXrpBalance from "module/wallet/component/hooks/useGetXrpBalance/useGetXrpBalance";
-import * as useGetXrpTokenPrice from "module/wallet/component/hooks/useGetXrpTokenPrice/useGetXrpTokenPrice";
+import * as UseWallet from "module/wallet/hook//useWallet";
+import * as useGetXrpBalance from "module/wallet/hook//useGetXrpBalance/useGetXrpBalance";
+import * as useGetXrpTokenPrice from "module/wallet/hook//useGetXrpTokenPrice/useGetXrpTokenPrice";
 import WalletCard from "module/wallet/component/display/WalletCard/WalletCard";
 import { WalletMock } from "test-mocks";
 

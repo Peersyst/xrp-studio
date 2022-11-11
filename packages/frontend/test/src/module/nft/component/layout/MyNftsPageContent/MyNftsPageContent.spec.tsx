@@ -1,6 +1,6 @@
 import { NftService } from "module/api/service";
 import MyNftsPageContent from "module/nft/component/layout/MyNftsPageContent/MyNftsPageContent";
-import * as UseWallet from "module/wallet/component/hooks/useWallet";
+import * as UseWallet from "module/wallet/hook//useWallet";
 import { NftDtoMock, NftsDtoMock, PaginatedDataMock, UseFilterContextMock, WalletMock } from "test-mocks";
 import { render, translate, waitFor } from "test-utils";
 
