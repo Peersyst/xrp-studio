@@ -13,7 +13,9 @@ function ExpandableSelectorGroupFilter<T extends string = "", Multiple extends b
     multiple = false as Multiple,
     ...rest
 }: ExpandableSelectorGroupFilterProps<T, Multiple>): JSX.Element {
-    const [value] = useFilter<T, Multiple>({ name, multiple });
+    const [value] = useFilter<T, Multiple extends true ? "multiple" : "single", Multiple>(name, {
+        multiple,
+    });
 
     const currentLabel = useMemo(() => {
         if (Array.isArray(value)) {

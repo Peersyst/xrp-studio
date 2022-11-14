@@ -1,11 +1,10 @@
-import { useCallback } from "react";
-import { createSearchParams, useSearchParams } from "react-router-dom";
-import { MultipleSelector, UseFilterParams, UseFiltersReturn } from "./useFilter.types";
+import { useSearchParams } from "react-router-dom";
+import { MultipleSelector, UseFilterOptions, UseFilterReturn } from "./useFilter.types";
 
-export default function useFilter<T extends string, M extends boolean = false>({
-    name,
-    multiple = false as M,
-}: UseFilterParams<M>): UseFiltersReturn<T, M> {
+export default function useFilter<T, M extends "single" | "multiple" = "single", MB extends boolean = M extends "single" ? false : true>(
+    name: string,
+    { multiple = false as MB }: UseFilterOptions<MB> = {},
+): UseFilterReturn<T, MB> {
     const [params, setSearchParams] = useSearchParams();
 
     const getCurrentValue = () => {
@@ -16,31 +15,27 @@ export default function useFilter<T extends string, M extends boolean = false>({
         }
     };
 
-    const handleSetFilter = useCallback(
-        (value: MultipleSelector<string, M> | undefined) => {
-            const newParams = createSearchParams(window.location.search);
-            if (!value || value === "" || (Array.isArray(value) && value.length === 0)) {
-                newParams.delete(name);
-                setSearchParams(newParams);
-            } else {
-                if (Array.isArray(value)) {
-                    const oldValue = newParams.getAll(name);
-                    if (value.length > oldValue.length) {
-                        newParams.append(name, value[value.length - 1]);
-                    } else {
-                        newParams.delete(name);
-                        value.forEach((v) => newParams.append(name, v));
-                    }
-                    setSearchParams(newParams);
+    const handleSetFilter = (value: MultipleSelector<string, MB> | undefined) => {
+        if (!value || value === "" || (Array.isArray(value) && value.length === 0)) {
+            params.delete(name);
+            setSearchParams(params);
+        } else {
+            if (Array.isArray(value)) {
+                const oldValue = params.getAll(name);
+                if (value.length > oldValue.length) {
+                    params.append(name, value[value.length - 1]);
                 } else {
-                    newParams.delete(name);
-                    newParams.append(name, value);
-                    setSearchParams(newParams);
+                    params.delete(name);
+                    value.forEach((v) => params.append(name, v));
                 }
+                setSearchParams(params);
+            } else {
+                params.delete(name);
+                params.append(name, value);
+                setSearchParams(params);
             }
-        },
-        [setSearchParams, name],
-    );
+        }
+    };
 
-    return [getCurrentValue() as MultipleSelector<T, M>, handleSetFilter];
+    return [getCurrentValue() as MultipleSelector<T, MB>, handleSetFilter];
 }

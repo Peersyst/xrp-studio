@@ -8,7 +8,7 @@ interface XrpConfig {
 export default (): XrpConfig => {
     return buildConfig<XrpConfig>({
         node: {
-            default: "wss://xls20-sandbox.rippletest.net:51233",
+            default: "wss://s.altnet.rippletest.net/",
             production: "wss://xrplcluster.com",
         },
         startingLedgerIndex: {

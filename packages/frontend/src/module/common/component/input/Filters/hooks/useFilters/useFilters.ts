@@ -1,59 +1,55 @@
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useState } from "react";
 import { createSearchParams, useSearchParams } from "react-router-dom";
-import { FilterTypeName, FilterType, Filter, UseFilterReturn } from "./useFilters.types";
-import { BASE_FILTERS_DECLARATION, TYPE_PARSER, TYPE_VALIDATOR } from "./utils/useFilters.utils";
+import { Filters, UseFilterReturn } from "./useFilters.types";
+import { BASE_FILTERS_DECLARATION } from "module/common/component/input/Filters/hooks/useFilters/utils/declarations";
+import parseValue from "module/common/component/input/Filters/hooks/useFilters/utils/parseValue";
 
-export function convertValue(value: string, type: FilterTypeName = "string"): FilterType {
-    const isValid = TYPE_VALIDATOR[type];
-    const parser = TYPE_PARSER[type];
+export default function useFilters<FS extends Filters>(
+    filtersDeclaration: FS = BASE_FILTERS_DECLARATION as unknown as FS,
+): UseFilterReturn<FS> {
+    const [params, setSearchParams] = useSearchParams();
+    const [corruptedFilters, setCorruptedFilters] = useState<string[]>([]);
+    const [filters, setFilters] = useState<UseFilterReturn<FS>>({} as UseFilterReturn<FS>);
 
-    if (!isValid(value)) throw new Error();
-    return parser(value);
-}
-
-export default function useFilters(filtersDeclaration: Filter[] = BASE_FILTERS_DECLARATION): UseFilterReturn {
-    const setSearchParams = useSearchParams()[1];
-    const [corruptedFilters, setCorruptedFilters] = useState<string[]>();
-
-    const filters = useMemo(() => {
-        const params = createSearchParams(window.location.search);
-        const newFilters = {} as UseFilterReturn;
-        filtersDeclaration.forEach((filter) => {
+    useEffect(() => {
+        const newFilters = {} as UseFilterReturn<FS>;
+        Object.entries(filtersDeclaration).forEach(([name, filter]) => {
             try {
                 if (filter.array) {
-                    const values = params.getAll(filter.name);
+                    const values = params.getAll(name);
                     if (values.length > 0) {
                         const newValues = values.map((value) => {
-                            return convertValue(value, filter.type);
+                            return parseValue(value, filter);
                         });
-                        newFilters[filter.name] = newValues;
+                        newFilters[name as keyof UseFilterReturn<FS>] = newValues as any;
                     }
                 } else {
-                    const value = params.get(filter.name);
+                    const value = params.get(name);
                     if (value) {
-                        const newValue = convertValue(value, filter.type);
-                        newFilters[filter.name] = newValue;
+                        const newValue = parseValue(value, filter);
+                        newFilters[name as keyof UseFilterReturn<FS>] = newValue as any;
                     }
                 }
             } catch (e) {
                 setCorruptedFilters((corruptedNames) => {
-                    return [...(corruptedNames || []), filter.name];
+                    return [...corruptedNames, name];
                 });
             }
         });
-        return newFilters;
-    }, [window.location.search, filtersDeclaration]);
+        setFilters(newFilters);
+    }, [params, filtersDeclaration]);
 
-    //It is done in a use effect because setSearchParams
+    //This is done in a use effect because setSearchParams
     //does a navigate and if there is a corrupted filter in the first render
     //it will navigate on first render and it will cause an error
     useEffect(() => {
-        if (corruptedFilters) {
+        if (corruptedFilters.length) {
             const params = createSearchParams(window.location.search);
             corruptedFilters.forEach((filterName) => {
                 params.delete(filterName);
             });
             setSearchParams(params);
+            setCorruptedFilters([]);
         }
     }, [corruptedFilters]);
 
