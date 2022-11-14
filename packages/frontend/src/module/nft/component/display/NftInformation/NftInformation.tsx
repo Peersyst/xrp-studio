@@ -1,13 +1,13 @@
-import { BaseNftPageContentCard } from "module/nft/component/layout/BaseNftPage/BaseNftPageContent/BaseNftPageContent.styles";
 import useTranslate from "module/common/hook/useTranslate";
 import { Col, Typography } from "@peersyst/react-components";
 import { NftInformationPorps } from "module/nft/component/display/NftInformation/NftInformation.types";
+import { NftInformationCard } from "module/nft/component/display/NftInformation/NftInformation.styles";
 
 const NftInformation = ({ data: { issuer, transferFee, flags, metadata, taxon } }: NftInformationPorps): JSX.Element => {
     const translate = useTranslate();
 
     return (
-        <BaseNftPageContentCard>
+        <NftInformationCard>
             <Col gap="1rem">
                 <Typography variant="body1" fontWeight={700}>
                     Name:{" "}
@@ -52,7 +52,7 @@ const NftInformation = ({ data: { issuer, transferFee, flags, metadata, taxon } 
                     </>
                 )}
             </Col>
-        </BaseNftPageContentCard>
+        </NftInformationCard>
     );
 };
 

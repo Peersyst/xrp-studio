@@ -35,11 +35,11 @@ const PublishModal = ({
                         <CloseIcon />
                     </CloseModalButton>
                 )}
-                <Row gap={4} flex={1}>
-                    <Col style={{ width: "50%" }} alignItems="center">
+                <Row gap={4} flex={1} breakpoint={{ width: "nftPage", alignItems: "stretch", justifyContent: "center", gap: "1.5rem" }}>
+                    <Col flex={1} justifyContent="center">
                         {cover}
                     </Col>
-                    <Col style={{ width: "50%" }} alignItems="center">
+                    <Col flex={1} justifyContent="center">
                         {information}
                     </Col>
                 </Row>

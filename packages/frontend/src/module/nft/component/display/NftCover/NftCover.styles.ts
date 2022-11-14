@@ -3,8 +3,13 @@ import styled, { css } from "styled-components";
 
 export const NftCoverImage = styled(Image)(
     ({ theme }) => css`
-        width: 25rem;
-        height: 25rem;
+        width: 23rem;
+        height: 23rem;
         border-radius: ${theme.borderRadiusMd};
+        align-self: center;
+        ${theme.breakpoints.down("md")} {
+            width: 20rem;
+            height: 20rem;
+        }
     `,
 );
