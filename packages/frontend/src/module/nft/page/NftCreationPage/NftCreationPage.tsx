@@ -2,7 +2,7 @@ import BaseNftPage from "module/nft/component/layout/BaseNftPage/BaseNftPage";
 import { useSearchParams } from "react-router-dom";
 import useGetNftDraft from "module/nft/query/useGetNftDraft";
 import NftCreationPageHeader from "module/nft/component/layout/NftCreationPageHeader/NftCreationPageHeader";
-import { Form, useToast, useModal } from "@peersyst/react-components";
+import { Form, useModal } from "@peersyst/react-components";
 import { NftCreationForm } from "module/nft/types";
 import useCreateNftDraft from "module/nft/query/useCreateNftDraft";
 import useCreateNft from "module/nft/query/useCreateNft";
@@ -12,8 +12,6 @@ import { useGetMyCollections } from "module/collection/query/useGetMyCollections
 import { usePaginatedList } from "@peersyst/react-hooks";
 import useNftCreationPageSlots from "module/nft/page/NftCreationPage/hook/useNftCreationPageSlots";
 import NftPublishModal from "module/nft/component/feedback/NftPublishModal/NftPublishModal";
-import useCheckBalance from "module/wallet/hook/useCheckBalance";
-import useTranslate from "module/common/hook/useTranslate";
 import { useNavigate } from "react-router-dom";
 import { NftRoutes } from "module/nft/NftRouter";
 
