@@ -42,4 +42,8 @@ export const TextInputStyles = css(({ theme }) => ({
             caretColor: theme.palette.primary,
         },
     },
+    ".Disabled.TextInput": {
+        border: 0,
+        color: theme.palette.disabled,
+    },
 }));

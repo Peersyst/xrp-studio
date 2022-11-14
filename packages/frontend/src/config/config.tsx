@@ -6,6 +6,7 @@ import previewConfig from "./config.preview.json";
 import devConfig from "./config.dev.json";
 import stagingConfig from "./config.staging.json";
 import { XrplAddressValidator } from "config/validators/XrplAddressValidator";
+import components from "./components/components";
 
 const envConfigs: Record<string, CreateConfig> = {
     test: devConfig,
@@ -24,41 +25,11 @@ const envConfig = envConfigs[envKey];
 const config = createConfig({
     ...envConfig,
     components: {
+        //Goes here (not it components) because it have to access to envConfig.blockainLinks
         BlockchainAddress: {
             blockchainLinks: envConfig.blockchainLinks,
         },
-        Divider: {
-            defaultProps: {
-                color: "black.80",
-            },
-        },
-        Drawer: {
-            defaultProps: {
-                position: "right",
-                elevation: 3,
-            },
-        },
-        Modal: {
-            defaultProps: {
-                elevation: 3,
-            },
-        },
-        Switch: {
-            defaultProps: {
-                LabelProps: {
-                    placement: "right",
-                },
-            },
-        },
-        SelectGroup: {
-            defaultProps: {
-                selectorLabelProps: {
-                    placement: "left",
-                    alignment: "space-between",
-                    singleLine: true,
-                },
-            },
-        },
+        ...components,
     },
     themes: {
         light: lightTheme,

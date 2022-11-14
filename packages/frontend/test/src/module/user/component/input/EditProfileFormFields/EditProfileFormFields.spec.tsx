@@ -2,7 +2,7 @@ import EditProfileFormFields from "module/user/component/input/EditProfileFormFi
 import { UserDtoMock, WalletMock } from "test-mocks";
 import { render, translate } from "test-utils";
 import { UserService } from "module/api/service";
-import * as UseWallet from "module/wallet/component/hooks/useWallet";
+import * as UseWallet from "module/wallet/hook//useWallet";
 
 describe("EditProfileFormFields", () => {
     const wallet = new WalletMock({ address: "0x123" });

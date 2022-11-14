@@ -22,7 +22,7 @@ export const BaseCover = styled.div<CoverProps>(
 
 export const BaseCardCoverDefault = styled(BaseCover)<CoverProps>(
     () => css`
-        position: top;
+        position: absolute;
         top: 0;
         left: 0;
         width: 100%;

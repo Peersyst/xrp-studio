@@ -13,8 +13,8 @@ describe("CollectionCreationPageContent", () => {
     test("Renders creation", () => {
         render(<CollectionCreationPageContent collection={undefined} />);
 
-        // Header and image
-        expect(screen.getAllByTestId("ImageUpIcon")).toHaveLength(2);
+        // Header, image and NFTs upload
+        expect(screen.getAllByTestId("ImageUpIcon")).toHaveLength(3);
         // Name
         expect(screen.getByPlaceholderText(translate("collectionNamePlaceholder"))).toBeInTheDocument();
         // Description

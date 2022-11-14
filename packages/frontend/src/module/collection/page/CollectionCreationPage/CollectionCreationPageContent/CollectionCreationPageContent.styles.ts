@@ -6,6 +6,7 @@ import AvatarInput from "module/common/component/input/AvatarInput/AvatarInput";
 export const CollectionCreationPageContentCard = styled(Card)(
     ({ theme }) => css`
         width: 100%;
+        max-width: 29.6rem;
         padding: 1.5rem;
 
         .Divider {
@@ -14,6 +15,10 @@ export const CollectionCreationPageContentCard = styled(Card)(
 
         && .Upload {
             border-radius: ${theme.borderRadius};
+        }
+
+        ${theme.breakpoints.down("createCollectionPage")} {
+            max-width: unset;
         }
     `,
 );

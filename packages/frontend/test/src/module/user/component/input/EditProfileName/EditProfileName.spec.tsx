@@ -2,7 +2,7 @@ import { capitalize } from "@peersyst/react-utils";
 import EditProfileName from "module/user/component/input/EditProfileName/EditProfileName";
 import { UserDtoMock, WalletMock } from "test-mocks";
 import { fireEvent, render, translate, waitFor } from "test-utils";
-import * as UseWallet from "module/wallet/component/hooks/useWallet";
+import * as UseWallet from "module/wallet/hook//useWallet";
 import { UserService } from "module/api/service";
 
 describe("EditProfileName", () => {
