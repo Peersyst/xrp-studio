@@ -86,5 +86,8 @@
     "editCollectionNft": "Edit colleciton NFT",
     "changesApplied": "Changes applied",
     "collectionCreated": "Collection created",
-    "collectionUpdated": "Collection updated"
+    "collectionUpdated": "Collection updated",
+    "flags": "flags",
+    "publishConfirmation": "Publish NFT confirmation",
+    "confirm": "confirm"
 }
