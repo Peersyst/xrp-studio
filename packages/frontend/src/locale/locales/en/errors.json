@@ -46,6 +46,7 @@
     "withoutCollections": "Without collections",
     "transferableFlagRequired": "Transferable flag is required",
     "notEnoughBalance": "You don't have enough XRP balance",
+    "nftNotOwned": "NFT not owned",
     "collectionDoesNotContainNfts": "This collection does not contain any NFTs",
     "nftFailed": "An error occurred while publishing this NFT. Click to publish again."
 }

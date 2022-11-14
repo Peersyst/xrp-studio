@@ -15,11 +15,13 @@ import useCheckBalance from "module/wallet/hook/useCheckBalance";
 import useTranslate from "module/common/hook/useTranslate";
 import { useNavigate } from "react-router-dom";
 import { NftRoutes } from "module/nft/NftRouter";
+import { useEffect } from "react";
+import useWallet from "module/wallet/hook/useWallet";
 
 const NftCreationPage = (): JSX.Element => {
     const { showToast } = useToast();
     const translateError = useTranslate("error");
-    const [searchParams] = useSearchParams();
+    const [searchParams, setSearchParams] = useSearchParams();
     const nfrDraftId = searchParams.get("id");
     const { data: nftDraft, isLoading: nftDraftLoading } = useGetNftDraft(nfrDraftId ? Number(nfrDraftId) : undefined);
     const { data: { pages = [] } = {}, isLoading: collectionsLoading } = useGetMyCollections();
@@ -34,6 +36,18 @@ const NftCreationPage = (): JSX.Element => {
 
     const saving = createNftDraftLoading || (updateNftDraftLoading && !variables?.publish);
     const publishing = createNftLoading || (updateNftDraftLoading && !!variables?.publish);
+    const { address: userAddress } = useWallet();
+
+    useEffect(() => {
+        if (nftDraft && nftDraft.user.address !== userAddress) {
+            showToast(translateError("nftNotOwned"), { type: "warning" });
+            searchParams.delete("id");
+            setSearchParams(searchParams);
+        } else if (nfrDraftId !== null && !nftDraftLoading && !nftDraft) {
+            searchParams.delete("id");
+            setSearchParams(searchParams);
+        }
+    }, [nftDraftLoading, nftDraft]);
 
     const handleSubmit = async (data: NftCreationForm, action: string | undefined) => {
         const requestNft = createNftRequestFromForm(data);
