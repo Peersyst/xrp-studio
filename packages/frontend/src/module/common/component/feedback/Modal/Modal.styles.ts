@@ -1,11 +1,12 @@
 import styled, { css } from "styled-components";
 import { IconButton, Modal } from "@peersyst/react-components";
+import { ModalRootProps } from "module/common/component/feedback/Modal/Modal.types";
 
-export const ModalRoot = styled(Modal)(
-    ({ theme }) => css`
+export const ModalRoot = styled(Modal)<ModalRootProps>(
+    ({ theme, size }) => css`
         position: relative;
         padding: 3rem;
-        width: 60rem;
+        width: ${size === "md" ? "37.5rem" : "60rem"};
         max-width: 90vw;
         max-height: 82vh;
         border-radius: ${theme.borderRadiusLg};
