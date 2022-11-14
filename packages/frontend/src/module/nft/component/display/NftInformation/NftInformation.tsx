@@ -5,8 +5,8 @@ import { NftInformationCard } from "module/nft/component/display/NftInformation/
 
 const NftInformation = ({ data: { issuer, transferFee, flags, metadata, taxon } }: NftInformationPorps): JSX.Element => {
     const translate = useTranslate();
-    const hasFlags = flags && flags!.burnable && flags!.onlyXRP && flags!.trustLine && flags!.transferable;
-    const isDataProvided = hasFlags && issuer && transferFee && metadata && taxon;
+    const hasFlags = flags!.burnable || flags!.onlyXRP || flags!.trustLine || flags!.transferable;
+    const isDataProvided = hasFlags || issuer || transferFee || metadata!.name || taxon;
     return (
         <NftInformationCard>
             <Col gap="1rem">
@@ -50,10 +50,10 @@ const NftInformation = ({ data: { issuer, transferFee, flags, metadata, taxon } 
                                     Flags:
                                 </Typography>
                                 <Col gap={8}>
-                                    {flags.burnable && <Typography variant="body2">{translate("burnable")}</Typography>}
-                                    {flags.onlyXRP && <Typography variant="body2">{translate("onlyXRP")}</Typography>}
-                                    {flags.trustLine && <Typography variant="body2">{translate("trustLine")}</Typography>}
-                                    {flags.transferable && <Typography variant="body2">{translate("transferable")}</Typography>}
+                                    {flags!.burnable && <Typography variant="body2">{translate("burnable")}</Typography>}
+                                    {flags!.onlyXRP && <Typography variant="body2">{translate("onlyXRP")}</Typography>}
+                                    {flags!.trustLine && <Typography variant="body2">{translate("trustLine")}</Typography>}
+                                    {flags!.transferable && <Typography variant="body2">{translate("transferable")}</Typography>}
                                 </Col>
                             </>
                         )}

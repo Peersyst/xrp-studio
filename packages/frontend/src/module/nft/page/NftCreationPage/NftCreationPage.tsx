@@ -23,7 +23,7 @@ const NftCreationPage = (): JSX.Element => {
     const isLoading = nftDraftLoading || collectionsLoading;
 
     const { mutate: createNftDraft, isLoading: createNftDraftLoading } = useCreateNftDraft();
-    const { mutate: createNft, isLoading: createNftLoading } = useCreateNft();
+    const { isLoading: createNftLoading } = useCreateNft();
     const { mutate: updateNftDraft, isLoading: updateNftDraftLoading, variables } = useUpdateNftDraft();
 
     const saving = createNftDraftLoading || (updateNftDraftLoading && !variables?.publish);
@@ -32,8 +32,9 @@ const NftCreationPage = (): JSX.Element => {
     const handleSubmit = (data: NftCreationForm, action: string | undefined) => {
         const requestNft = createNftRequestFromForm(data);
         if (action === "publish" && requestNft) showModal(NftPublishModal, { requestNft: requestNft, action, nftDraft });
+        /* After this line, you are saving */
         if (nftDraft) {
-            updateNftDraft({ id: nftDraft.id, publish: action === "publish", ...requestNft });
+            updateNftDraft({ id: nftDraft.id, publish: false, ...requestNft });
         } else {
             createNftDraft(requestNft);
         }
