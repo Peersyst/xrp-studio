@@ -45,5 +45,6 @@
     "withoutNftsToShow": "Without NFTs to show",
     "withoutCollections": "Without collections",
     "transferableFlagRequired": "Transferable flag is required",
-    "notEnoughBalance": "You don't have enough XRP balance"
+    "notEnoughBalance": "You don't have enough XRP balance",
+    "nftNotOwned": "NFT not owned"
 }
