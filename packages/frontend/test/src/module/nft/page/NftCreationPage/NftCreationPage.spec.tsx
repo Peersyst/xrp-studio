@@ -198,7 +198,7 @@ describe("NftCreationPage", () => {
             expect(screen.getByDisplayValue(nftDraftMock.metadata!.attributes![1].value)).toBeInTheDocument();
         });
 
-        test("Removes id when NFT is not owned", async () => {
+        test("Removes id when NFT draft is not owned", async () => {
             const nftDraftMockNotOwner = new NftDtoMock({ status: "draft", flags: 2, user: new UserDtoMock({ address: "other_address" }) });
             jest.spyOn(NftService, "nftControllerGetNftDraft").mockResolvedValue(nftDraftMockNotOwner);
             render(<NftCreationPage />);
