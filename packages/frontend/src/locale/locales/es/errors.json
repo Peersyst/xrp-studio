@@ -44,7 +44,9 @@
     "youHaveNoCollections": "No tienes colecciones",
     "withoutNftsToShow": "Without NFTs to show",
     "withoutCollections": "Sin collecciones",
-    "transferableFlagRequired": "La opcion de transferible es necesaria",
+    "nftNotOwned": "No eres propietario del NFT",
+    "transferableFlagRequired": "La opción de transferible es necesaria",
     "notEnoughBalance": "No tienes suficiente XRP",
-    "nftNotOwned": "No eres propietario del NFT"
+    "collectionDoesNotContainNfts": "Esta coleccion no contiene NFTs",
+    "nftFailed": "Ha ocurrido un error al publicar este NFT. Haz click para volver a publicarlo"
 }

@@ -21,7 +21,7 @@ export const ProfileHeaderRoot = styled(PageHeader)<ProfileHeaderRootProps>(
 
             align-self: center;
 
-            padding: 0 var(--horizontal-page-padding);
+            padding: 0;
 
             --profile-cover-height: 15.25rem;
 
