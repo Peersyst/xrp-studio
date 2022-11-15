@@ -2,7 +2,7 @@ import { renderHook } from "test-utils";
 import useFilter from "module/common/component/input/Filters/hooks/useFilter/useFilter";
 import { UseSearchParamsMock } from "test-mocks";
 
-const renderUseFilter = (name: string, multiple: boolean = false) => renderHook(() => useFilter(name, { multiple })).result;
+const renderUseFilter = (name: string, multiple = false) => renderHook(() => useFilter(name, { multiple })).result;
 
 describe("useFilter", () => {
     test("Returns value", () => {
