@@ -14,7 +14,6 @@ import { capitalize } from "@peersyst/react-utils";
 import { NftService } from "module/api/service";
 import { waitFor } from "@testing-library/dom";
 import userEvent from "@testing-library/user-event";
-
 describe("NftPublishModal tests", () => {
     const createNftDraftRequestMock = new CreateNftDraftRequestMock({
         issuer: "issuer",
@@ -29,22 +28,6 @@ describe("NftPublishModal tests", () => {
 
     beforeAll(() => {
         useToastMock.clear();
-    });
-
-    test("Renders correctly", () => {
-        render(<NftPublishModal requestNft={createNftDraftRequestMock} collections={COLLECTIONS_NFT} />);
-
-        expect(screen.getByRole("heading", { name: translate("publishConfirmation") })).toBeInTheDocument();
-        expect(screen.getByRole("button", { name: capitalize(translate("confirm")) })).toBeInTheDocument();
-        /* NftInformation */
-        expect(screen.queryByText("nft_name")).toBeInTheDocument();
-        expect(screen.queryByText("issuer")).toBeInTheDocument();
-        expect(screen.queryByText("collection_name")).toBeInTheDocument();
-        expect(screen.queryByText("3%")).toBeInTheDocument();
-        expect(screen.queryByText(translate("burnable"))).toBeInTheDocument();
-        expect(screen.queryByText(translate("onlyXRP"))).toBeInTheDocument();
-        expect(screen.queryByText(translate("trustLine"))).toBeInTheDocument();
-        expect(screen.queryByText(translate("transferable"))).toBeInTheDocument();
     });
 
     describe("NftPublishModal with balance", () => {
@@ -64,10 +47,11 @@ describe("NftPublishModal tests", () => {
         test("Create published NFT with balance", async () => {
             const createNftMock = jest.spyOn(NftService, "nftControllerCreateNft").mockResolvedValueOnce(new NftDtoMock());
             render(<NftPublishModal requestNft={createNftDraftRequestMock} collections={COLLECTIONS_NFT} />);
+
             const confirmPublishButton = screen.getByRole("button", { name: capitalize(translate("confirm")) });
             await waitFor(() => expect(confirmPublishButton).not.toBeDisabled());
             userEvent.click(confirmPublishButton);
-
+            await waitFor(() => expect(useCheckBalanceMock.checkBalance).toHaveBeenCalled());
             await waitFor(() => expect(createNftMock).toHaveBeenCalledWith(createNftDraftRequestMock));
         });
     });
@@ -92,7 +76,7 @@ describe("NftPublishModal tests", () => {
             const confirmPublishButton = screen.getByRole("button", { name: capitalize(translate("confirm")) });
             await waitFor(() => expect(confirmPublishButton).not.toBeDisabled());
             userEvent.click(confirmPublishButton);
-
+            await waitFor(() => expect(useCheckBalanceMock.checkBalance).toHaveBeenCalled());
             await waitFor(() =>
                 expect(useToastMock.showToast).toHaveBeenCalledWith(translate("notEnoughBalance", { ns: "error" }), { type: "error" }),
             );
