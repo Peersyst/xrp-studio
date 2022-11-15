@@ -90,5 +90,6 @@
     "uploadAFileToCreateAnNfts": "Subi un fichero para añadir un NFT a la colección",
     "flags": "propiedades",
     "publishConfirmation": "Confirmación de publicación del NFT",
-    "confirm": "confirmar"
+    "confirm": "confirmar",
+    "noDataProvided": "No se han encontrado datos"
 }

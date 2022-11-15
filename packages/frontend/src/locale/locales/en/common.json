@@ -90,5 +90,6 @@
     "uploadAFileToCreateAnNfts": "Upload a file to add an NFT to the coleccion",
     "flags": "flags",
     "publishConfirmation": "Publish NFT confirmation",
-    "confirm": "confirm"
+    "confirm": "confirm",
+    "noDataProvided": "No data provided"
 }
