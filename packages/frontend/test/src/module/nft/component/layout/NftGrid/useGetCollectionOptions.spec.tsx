@@ -17,7 +17,7 @@ describe("useGetCollectionOptions test", () => {
         act(() => {
             const tags = renderUseGetCollectionOptions().result.current;
             expect(tags).toHaveLength(6);
-            expect(tags[0].value).toBe(0);
+            expect(tags[0].value).toBe("0");
         });
     });
 });

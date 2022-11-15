@@ -1,25 +1,24 @@
 import { fireEvent } from "@testing-library/react";
 import ExpandableSelectorGroupFilter from "module/common/component/input/Filters/ExpandableSelectorGroupFilter/ExpandableSelectorGroupFilter";
 import { SelectorOption } from "@peersyst/react-components-core";
-import { UseFilterContextMock } from "test-mocks";
 import { render } from "test-utils";
+import { UseFilterMock } from "test-mocks";
 
 describe("ExpandableSelectorGroupFilter component", () => {
     test("Renders correctly", () => {
         const name = "selector";
-        const options: SelectorOption<number>[] = [
+        const options: SelectorOption<string>[] = [
             {
                 label: "label1",
-                value: 1,
+                value: "1",
             },
             {
                 label: "label2",
-                value: 2,
+                value: "2",
             },
         ];
-        const queryFilter = { [name]: 1 };
-        const mockedSetFilters = jest.fn();
-        new UseFilterContextMock({ filters: queryFilter, setFilters: mockedSetFilters });
+
+        const { setFilter } = new UseFilterMock({ filter: "1" });
         const screen = render(<ExpandableSelectorGroupFilter title="title" name={name} options={options} />);
         expect(screen.getByText("title")).toBeInTheDocument();
         //Have length 2 because it is the default value of the queryFilter
@@ -28,23 +27,22 @@ describe("ExpandableSelectorGroupFilter component", () => {
         const radioBtn = screen.getByTestId("RadioUncheckedIcon");
         expect(radioBtn).toBeInTheDocument();
         fireEvent.click(radioBtn);
-        expect(mockedSetFilters).toHaveBeenCalledWith({ [name]: 2 });
+        expect(setFilter).toHaveBeenCalledWith("2");
     });
     test("With multiple elements selected", () => {
         const name = "selector";
-        const options: SelectorOption<number>[] = [
+        const options: SelectorOption<string>[] = [
             {
                 label: "Label1",
-                value: 1,
+                value: "1",
             },
             {
                 label: "Label2",
-                value: 2,
+                value: "2",
             },
         ];
-        const queryFilter = { [name]: [1, 2] };
-        const mockedSetFilters = jest.fn();
-        new UseFilterContextMock({ filters: queryFilter, setFilters: mockedSetFilters });
+
+        const { setFilter } = new UseFilterMock<string, true>({ filter: ["1", "2"] });
         const screen = render(<ExpandableSelectorGroupFilter multiple title="title" name={name} options={options} />);
         expect(screen.getByText("title")).toBeInTheDocument();
         expect(screen.getByText("Label1")).toBeInTheDocument();
@@ -55,6 +53,6 @@ describe("ExpandableSelectorGroupFilter component", () => {
         const radioBtn = radioBtns[0];
         expect(radioBtn).toBeInTheDocument();
         fireEvent.click(radioBtn);
-        expect(mockedSetFilters).toHaveBeenCalledWith({ [name]: [2] });
+        expect(setFilter).toHaveBeenCalledWith(["2"]);
     });
 });

@@ -11,7 +11,7 @@ export interface BaseGridTagsProps<T> {
     /**
      * The function to call when a tag is clicked
      */
-    onTagClicked?: (value: Tag<T>["value"]) => void;
+    onDeleteTagClicked?: (value: Tag<T>["value"]) => void;
     /**
      * Clear tags fn
      */

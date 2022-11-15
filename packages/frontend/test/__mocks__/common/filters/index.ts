@@ -1,1 +1,1 @@
-export * from "./UseFilters.mock";
+export * from "./UseFilter.mock";

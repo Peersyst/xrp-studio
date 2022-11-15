@@ -12,6 +12,8 @@ import useUpdateCollection from "module/collection/query/useUpdateCollection";
 import { CollectionCreationForm } from "module/collection/types";
 import createCollectionRequestFromForm from "module/collection/util/createCollectionRequestFromForm";
 import { CollectionRoutes } from "module/collection/CollectionRouter";
+import useCheckBalance from "module/wallet/hook/useCheckBalance";
+import config from "config/config";
 
 const CollectionCreationPage = (): JSX.Element => {
     const translate = useTranslate();
@@ -22,6 +24,7 @@ const CollectionCreationPage = (): JSX.Element => {
     const [searchParams, setSearchParams] = useSearchParams();
     const collectionId = searchParams.get("id");
     const { data: collection, isLoading: collectionLoading } = useGetCollection(collectionId ? Number(collectionId) : undefined);
+    const checkBalance = useCheckBalance();
 
     const { mutateAsync: createCollection, isLoading: publishing } = useCreateCollection();
     const { mutateAsync: updateCollection, isLoading: saving } = useUpdateCollection();
@@ -43,11 +46,21 @@ const CollectionCreationPage = (): JSX.Element => {
         if (collection) {
             await updateCollection({ id: collection.id, collection: createCollectionRequestFromForm("update", data) });
             showToast(translate("collectionUpdated"), { type: "success" });
+            navigate(CollectionRoutes.MY_COLLECTIONS, { replace: true });
         } else {
-            await createCollection({ collection: createCollectionRequestFromForm("create", data), publish: action === "publish" });
-            showToast(translate("collectionCreated"), { type: "success" });
+            let valid = true;
+            const amount = data.nfts && data.nfts.length * config.feeInDrops;
+            if (amount) valid = await checkBalance(amount);
+            if (action === "publish" && !valid) showToast(translateError("notEnoughBalance"), { type: "error" });
+            else {
+                await createCollection({
+                    collection: createCollectionRequestFromForm("create", data),
+                    publish: action === "publish",
+                });
+                showToast(translate("collectionCreated"), { type: "success" });
+                navigate(CollectionRoutes.MY_COLLECTIONS, { replace: true });
+            }
         }
-        navigate(CollectionRoutes.MY_COLLECTIONS, { replace: true });
     };
 
     return (

@@ -3,7 +3,6 @@ import { SelectorSkeletons } from "module/common/component/feedback/Skeletons/Sk
 import SelectorGroupFilter from "module/common/component/input/Filters/SelectorGroupFilter/SelectorGroupFilter";
 import useTranslate from "module/common/hook/useTranslate";
 import { NftFilterNames } from "module/nft/query/useGetNfts";
-import { CollectionId } from "../../layout/NftGrid/NftGrid.types";
 import { NftCollectionsSelectorGroupFilterProps } from "./NftCollectionsSelectorGroupFilter.types";
 
 function NftCollectionsSelectorGroupFilter<Multiple extends boolean = false>({
@@ -15,14 +14,15 @@ function NftCollectionsSelectorGroupFilter<Multiple extends boolean = false>({
     ...rest
 }: NftCollectionsSelectorGroupFilterProps<Multiple>): JSX.Element {
     const translate = useTranslate("error");
-    return loading || options === undefined ? (
+    const showSkeletongs = loading || options === undefined;
+    return showSkeletongs ? (
         <SelectorSkeletons count={numberOfSkeletons} />
     ) : options.length === 0 ? (
         <Typography variant="body1" light textAlign="center">
             {translate("withoutCollections")}
         </Typography>
     ) : (
-        <SelectorGroupFilter<CollectionId, Multiple> {...rest} name={name} type={type} options={options} />
+        <SelectorGroupFilter<string, Multiple> {...rest} name={name} type={type} options={options} />
     );
 }
 
