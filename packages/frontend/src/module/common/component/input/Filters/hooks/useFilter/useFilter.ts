@@ -1,10 +1,10 @@
 import { useSearchParams } from "react-router-dom";
-import { MultipleSelector, UseFilterOptions, UseFilterReturn } from "./useFilter.types";
+import { MultipleSelector, UseFilterParams, UseFilterReturn } from "./useFilter.types";
 
-export default function useFilter<T, M extends "single" | "multiple" = "single", MB extends boolean = M extends "single" ? false : true>(
+export default function useFilter<T extends string, M extends boolean = false>(
     name: string,
-    { multiple = false as MB }: UseFilterOptions<MB> = {},
-): UseFilterReturn<T, MB> {
+    { multiple = false as M }: UseFilterParams<M> = {},
+): UseFilterReturn<T, M> {
     const [params, setSearchParams] = useSearchParams();
 
     const getCurrentValue = () => {
@@ -15,7 +15,7 @@ export default function useFilter<T, M extends "single" | "multiple" = "single",
         }
     };
 
-    const handleSetFilter = (value: MultipleSelector<string, MB> | undefined) => {
+    const handleSetFilter = (value: MultipleSelector<string, M> | undefined) => {
         if (!value || value === "" || (Array.isArray(value) && value.length === 0)) {
             params.delete(name);
             setSearchParams(params);
@@ -37,5 +37,5 @@ export default function useFilter<T, M extends "single" | "multiple" = "single",
         }
     };
 
-    return [getCurrentValue() as MultipleSelector<T, MB>, handleSetFilter];
+    return [getCurrentValue() as MultipleSelector<T, M>, handleSetFilter];
 }

@@ -6,7 +6,7 @@ import { NftCollectionTag } from "../NftGrid.types";
 import getCollectionTag from "../util/getCollectionTag";
 
 export default function useGetNftActiveTags(collections: CollectionDto[]): NftCollectionTag[] {
-    const [filters] = useFilter<string, "multiple">(NftFilterNames.COLLECTIONS, { multiple: true });
+    const [filters] = useFilter(NftFilterNames.COLLECTIONS, { multiple: true });
 
     return useMemo(() => {
         const newTags: NftCollectionTag[] = [];

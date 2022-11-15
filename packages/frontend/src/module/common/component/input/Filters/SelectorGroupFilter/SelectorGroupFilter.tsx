@@ -3,13 +3,13 @@ import { MultipleSelector } from "../Filters.types";
 import useFilter from "../hooks/useFilter/useFilter";
 import { SelectorGroupFilterProps } from "./SelectorGroupFilter.types";
 
-function SelectorGroupFilter<T extends string, Multiple extends boolean = false>({
+function SelectorGroupFilter<T extends string = string, Multiple extends boolean = false>({
     onChange,
     name,
     multiple,
     ...rest
 }: SelectorGroupFilterProps<T, Multiple>): JSX.Element {
-    const [filter, setFilter] = useFilter<T, Multiple extends true ? "multiple" : "single", Multiple>(name, { multiple });
+    const [filter, setFilter] = useFilter<T, Multiple>(name, { multiple });
 
     const handleChange = (value: MultipleSelector<T, Multiple>) => {
         setFilter(value);
