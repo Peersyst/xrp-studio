@@ -1,9 +1,9 @@
 import { useSearchParams } from "react-router-dom";
-import { MultipleSelector, UseFilterParams, UseFilterReturn } from "./useFilter.types";
+import { MultipleSelector, UseFilterOptions, UseFilterReturn } from "./useFilter.types";
 
 export default function useFilter<T extends string, M extends boolean = false>(
     name: string,
-    { multiple = false as M }: UseFilterParams<M> = {},
+    { multiple = false as M }: UseFilterOptions<M> = {},
 ): UseFilterReturn<T, M> {
     const [params, setSearchParams] = useSearchParams();
 

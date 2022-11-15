@@ -1,6 +1,6 @@
 export type MultipleSelector<T, M extends boolean> = M extends true ? T[] : T;
 
-export interface UseFilterParams<M extends boolean> {
+export interface UseFilterOptions<M extends boolean> {
     multiple?: M;
 }
 
