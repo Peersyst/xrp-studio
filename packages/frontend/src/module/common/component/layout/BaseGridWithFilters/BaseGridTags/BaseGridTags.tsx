@@ -8,7 +8,7 @@ import { useRecoilState } from "recoil";
 import { BaseGridTagsRoot, Tag, TagCarousel } from "./BaseGridTags.styles";
 import { BaseGridTagsProps } from "./BaseGridTags.types";
 
-function BaseGridTags<T>({ tags, onClear, onTagClicked }: BaseGridTagsProps<T>): JSX.Element {
+function BaseGridTags<T>({ tags, onClear, onDeleteTagClicked }: BaseGridTagsProps<T>): JSX.Element {
     const [showFilters, setShowFilters] = useRecoilState(filtersVisibilityState);
     const t = useTranslate();
 
@@ -27,7 +27,12 @@ function BaseGridTags<T>({ tags, onClear, onTagClicked }: BaseGridTagsProps<T>):
             {tags !== undefined && tags.length !== 0 && (
                 <TagCarousel arrowSize="sm">
                     {tags.map(({ label, value }, index) => (
-                        <Tag suffix={<DeleteIcon />} key={index} onClick={() => onTagClicked?.(value)} label={label} size="lg" />
+                        <Tag
+                            suffix={<DeleteIcon css={{ cursor: "pointer" }} onClick={() => onDeleteTagClicked?.(value)} />}
+                            key={index}
+                            label={label}
+                            size="lg"
+                        />
                     ))}
                 </TagCarousel>
             )}

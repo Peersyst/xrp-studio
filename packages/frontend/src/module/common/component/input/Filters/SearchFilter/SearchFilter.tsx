@@ -1,16 +1,18 @@
 import { cx } from "@peersyst/react-utils";
 import SearchBar from "../../SearchBar/SearchBar";
-import useFilters from "../hooks/useFilters";
+import useFilter from "../hooks/useFilter/useFilter";
 import { SearchFiltersProps } from "./SearchFilter.types";
 
 function SearchFilter({ name, variant, className, onChange, ...rest }: SearchFiltersProps): JSX.Element {
-    const [filters, setFilters] = useFilters<string>(name);
+    const [filter, setFilter] = useFilter(name);
+
     const handleSearch = (value: string) => {
-        setFilters(value);
+        setFilter(value);
         onChange?.(value);
     };
+
     return (
-        <SearchBar defaultValue={filters} onChange={handleSearch} className={cx("SearchFilter", className)} variant={variant} {...rest} />
+        <SearchBar defaultValue={filter} onChange={handleSearch} className={cx("SearchFilter", className)} variant={variant} {...rest} />
     );
 }
 

@@ -51,11 +51,11 @@ const outlinedVariant = css(({ theme }) => {
         border-color: ${theme.palette.black[light ? 50 : 75]};
         color: ${theme.palette.black[30]};
         &:hover {
-            color: ${theme.palette.black[30]};
+            color: ${theme.palette.black[light ? 30 : 70]};
             background-color: ${emphasize(theme.palette.black[light ? 60 : 75], 0.8)};
         }
         &:active {
-            color: ${theme.palette.black[30]};
+            color: ${theme.palette.black[light ? 30 : 50]};
             background-color: ${emphasize(theme.palette.black[light ? 60 : 75], 0.6)};
         }
     `;
