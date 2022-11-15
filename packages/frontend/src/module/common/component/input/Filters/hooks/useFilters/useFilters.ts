@@ -21,13 +21,13 @@ export default function useFilters<FS extends Filters>(
                         const newValues = values.map((value) => {
                             return parseValue(value, filter);
                         });
-                        newFilters[name as keyof UseFilterReturn<FS>] = newValues as any;
+                        newFilters[name as keyof UseFilterReturn<FS>] = newValues as UseFilterReturn<FS>[keyof UseFilterReturn<FS>];
                     }
                 } else {
                     const value = params.get(name);
                     if (value) {
                         const newValue = parseValue(value, filter);
-                        newFilters[name as keyof UseFilterReturn<FS>] = newValue as any;
+                        newFilters[name as keyof UseFilterReturn<FS>] = newValue as UseFilterReturn<FS>[keyof UseFilterReturn<FS>];
                     }
                 }
             } catch (e) {

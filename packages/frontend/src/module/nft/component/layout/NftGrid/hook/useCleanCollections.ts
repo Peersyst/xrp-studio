@@ -7,13 +7,13 @@ export interface UseCleanCollectionsReturn {
 }
 
 export default function useCleanCollections(): UseCleanCollectionsReturn {
-    const [collections, setFilter] = useFilter<number, "multiple">(NftFilterNames.COLLECTIONS, { multiple: true });
-    const updateCollections = (value: number[] | undefined) => {
-        setFilter(value ? value.map((col) => col.toString()) : undefined);
+    const [collections, setFilter] = useFilter(NftFilterNames.COLLECTIONS, { multiple: true });
+    const updateCollections = (value: string[] | undefined) => {
+        setFilter(value);
     };
 
     const cleanAllCollections = () => updateCollections(undefined);
-    const cleanCollection = (tag: string) => updateCollections(collections?.filter((t) => t.toString() !== tag));
+    const cleanCollection = (tag: string) => updateCollections(collections?.filter((t) => t !== tag));
 
     return { cleanAllCollections, cleanCollection };
 }

@@ -4,13 +4,13 @@ import { useGetUserAddress } from "../hook/useGetUserAddress";
 import useGetNfts, { UseGetNftsOptions } from "module/nft/query/useGetNfts";
 import useNftsFilters from "module/nft/hook/useNftsFilters";
 
-export const useGetProfileNfts = ({ account, ...rest }: UseGetNftsOptions = {}): InfiniteQueryResult<PaginatedNftDto> => {
+export const useGetProfileNfts = (account?: UseGetNftsOptions["account"]): InfiniteQueryResult<PaginatedNftDto> => {
     const addressParams = useGetUserAddress();
     const usedAddress = account || addressParams;
-    const filters = useNftsFilters();
+    const filters: Omit<UseGetNftsOptions, "account"> = useNftsFilters();
 
     return useGetNfts(
-        { account: usedAddress, ...{ ...filters, ...rest } },
+        { account: usedAddress, ...filters },
         {
             enabled: !!usedAddress,
         },
