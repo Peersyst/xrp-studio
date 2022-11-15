@@ -34,9 +34,6 @@ describe("BaseCard", () => {
                 children
             </BaseCard>,
         );
-        expect(screen.getByText("title")).toBeInTheDocument();
-        expect(screen.getByText("note")).toBeInTheDocument();
-        expect(screen.getByText("children")).toBeInTheDocument();
         const btn = screen.getByRole("button");
         expect(btn).toBeInTheDocument();
         userEvent.click(btn);

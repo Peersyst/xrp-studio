@@ -48,7 +48,6 @@ export const BaseCardCover = styled(BaseCover)<CoverProps>(
 
 export const RemoveIcon = styled(Button).attrs({ variant: "glass" })(
     () => css`
-        cursor: pointer;
         position: absolute;
         top: 0.5rem;
         right: 0.5rem;
@@ -58,7 +57,5 @@ export const RemoveIcon = styled(Button).attrs({ variant: "glass" })(
         min-width: unset;
         padding: 0.5rem;
         z-index: 1;
-        &:hover {
-        }
     `,
 );

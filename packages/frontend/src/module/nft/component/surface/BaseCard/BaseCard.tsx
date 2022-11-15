@@ -48,7 +48,6 @@ const BaseCard = ({
                 {onDeleteClicked && (
                     <RemoveIcon
                         onClick={(e) => {
-                            e?.stopPropagation();
                             e?.preventDefault();
                             onDeleteClicked();
                         }}

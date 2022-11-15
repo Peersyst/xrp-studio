@@ -2,8 +2,8 @@ import { NftCreationCardProps } from "module/nft/component/display/NftCreationCa
 import BaseCard from "module/nft/component/surface/BaseCard/BaseCard";
 import { config } from "config";
 
-const NftCreationCard = ({ nft: { metadata: { name = "", image } = {} }, to, ...rest }: NftCreationCardProps): JSX.Element => (
-    <BaseCard title={name} to={to} coverUrl={image} defaultUrl={config.nftDefaultCoverUrl} {...rest} />
+const NftCreationCard = ({ nft: { metadata: { name = "", image } = {} }, ...rest }: NftCreationCardProps): JSX.Element => (
+    <BaseCard title={name} coverUrl={image} defaultUrl={config.nftDefaultCoverUrl} {...rest} />
 );
 
 export default NftCreationCard;
