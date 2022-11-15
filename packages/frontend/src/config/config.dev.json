@@ -1,25 +1,11 @@
 {
-    "projectName": "xrp-studio",
     "publicUrl": "/",
     "backendUrl": "http://localhost:3001",
-    "appStoreXummLink": "https://apps.apple.com/us/app/xumm/id1492302343",
-    "playStoreXummLink": "https://play.google.com/store/apps/details?id=com.xrpllabs.xumm",
     "blockchainLinks": {
         "address": "https://nft-devnet.xrpl.org/accounts/",
         "tx": "https://nft-devnet.xrpl.org/transactions/",
         "nft": "https://nft-devnet.xrpl.org/nft/"
     },
-    "socialLinks": {
-        "twitterLink": "https://twitter.com/",
-        "discordLink": "https://discordapp.com/users/"
-    },
-    "nftDefaultCoverUrl": "https://img.seadn.io/files/74359db46e0caf1e692464f4e777b373.png?fit=max&w=600",
     "network": "devnet",
-    "xrpNodeUrl": "wss://xls20-sandbox.rippletest.net:51233",
-    "maxBioChars": 255,
-    "maxUsernameChars": 255,
-    "maxNftDescChars": 255,
-    "maxNumberDecimals": 6,
-    "tokenName": "XRP",
-    "feeInDrops": 10
+    "xrpNodeUrl": "wss://xls20-sandbox.rippletest.net:51233"
 }
