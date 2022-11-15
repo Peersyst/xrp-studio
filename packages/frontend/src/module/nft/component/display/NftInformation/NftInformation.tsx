@@ -20,34 +20,34 @@ const NftInformation = ({
         {
             isValid: metadata!.name !== undefined,
             title: capitalize(translate("name")),
-            children: <Typography variant="body2">{metadata!.name}</Typography>,
+            children: metadata!.name ? <Typography variant="body2">{metadata!.name}</Typography> : undefined,
         },
         {
             isValid: collection !== undefined,
             title: translate("collection"),
-            children: <Typography variant="body2">{collection!.name}</Typography>,
+            children: collection ? <Typography variant="body2">{collection.name}</Typography> : undefined,
         },
         {
             isValid: issuer !== undefined,
             title: translate("issuer"),
-            children: <Typography variant="body2">{issuer}</Typography>,
+            children: issuer ? <Typography variant="body2">{issuer}</Typography> : undefined,
         },
         {
             isValid: transferFee! >= 0,
             title: translate("transferFee"),
-            children: <Typography variant="body2">{transferFee}%</Typography>,
+            children: transferFee ? <Typography variant="body2">{transferFee}%</Typography> : undefined,
         },
         {
             isValid: hasFlags,
             title: capitalize(translate("flags")),
-            children: (
+            children: hasFlags ? (
                 <Col gap={8}>
                     {flags!.burnable && <Typography variant="body2">{translate("burnable")}</Typography>}
                     {flags!.onlyXRP && <Typography variant="body2">{translate("onlyXRP")}</Typography>}
                     {flags!.trustLine && <Typography variant="body2">{translate("trustLine")}</Typography>}
                     {flags!.transferable && <Typography variant="body2">{translate("transferable")}</Typography>}
                 </Col>
-            ),
+            ) : undefined,
         },
     ];
 
@@ -56,7 +56,12 @@ const NftInformation = ({
             <Col gap="1rem">
                 {isDataProvided ? (
                     informationFields.map(
-                        (field) => field.isValid && <NftInformationField title={field.title}>{field.children}</NftInformationField>,
+                        (field) =>
+                            field.isValid && (
+                                <NftInformationField key={field.title} title={field.title}>
+                                    {field.children}
+                                </NftInformationField>
+                            ),
                     )
                 ) : (
                     <Typography variant="h6">{translate("noDataProvided")}</Typography>
