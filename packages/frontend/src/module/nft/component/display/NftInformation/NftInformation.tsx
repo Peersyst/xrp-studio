@@ -1,13 +1,13 @@
 import useTranslate from "module/common/hook/useTranslate";
 import { Col, Typography } from "@peersyst/react-components";
-import { NftInformationPorps } from "module/nft/component/display/NftInformation/NftInformation.types";
 import { NftInformationCard } from "module/nft/component/display/NftInformation/NftInformation.styles";
 import { capitalize } from "@peersyst/react-utils";
+import { NftInformationProps } from "module/nft/component/display/NftInformation/NftInformation.types";
 
 const NftInformation = ({
     data: { issuer, transferFee, flags, metadata, taxon },
     collections: collections,
-}: NftInformationPorps): JSX.Element => {
+}: NftInformationProps): JSX.Element => {
     const translate = useTranslate();
     const hasFlags = flags && (flags!.burnable || flags!.onlyXRP || flags!.trustLine || flags!.transferable);
     const isDataProvided = hasFlags || issuer || transferFee || metadata!.name || taxon;
