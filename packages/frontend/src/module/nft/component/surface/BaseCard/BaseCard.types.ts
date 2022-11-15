@@ -2,10 +2,10 @@ import { ReactNode } from "react";
 
 export interface BaseCardProps {
     coverUrl?: string;
-    defaultUrl: string;
+    defaultUrl?: string;
     title: string;
     note?: string;
-    to: string;
+    to?: string;
     children?: ReactNode;
     status?: ReactNode;
 }

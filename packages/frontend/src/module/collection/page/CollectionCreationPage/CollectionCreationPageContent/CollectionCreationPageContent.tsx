@@ -10,12 +10,14 @@ import TextField from "module/common/component/input/TextField/TextField";
 import useTranslate from "module/common/hook/useTranslate";
 import TextArea from "module/common/component/input/TextArea/TextArea";
 import { capitalize } from "@peersyst/react-utils";
-import useWallet from "module/wallet/component/hooks/useWallet";
+import useWallet from "module/wallet/hook//useWallet";
 import ColorInput from "module/common/component/input/ColorInput/ColorInput";
 import PropertiesInput from "module/nft/component/input/PropertiesInput/PropertiesInput";
 import useCollectionCreationState from "module/collection/hook/useCollectionCreationState";
 import { CollectionCreationState } from "module/collection/state/CollectionCreationState";
 import { CollectionCreationFormFields } from "module/collection/types";
+import CollectionCreationNfts from "module/collection/page/CollectionCreationPage/CollectionCreationNfts/CollectionCreationNfts";
+import { config } from "config";
 
 const CollectionCreationPageContent = ({ collection, loading }: CollectionCreationPageContentProps): JSX.Element => {
     const translate = useTranslate();
@@ -49,9 +51,13 @@ const CollectionCreationPageContent = ({ collection, loading }: CollectionCreati
 
     return (
         <PageContent>
-            <Row gap="1.5rem">
-                <Col flex={4} />
-                <Col flex={3}>
+            <Row flex={1} gap="1.5rem" breakpoint={{ width: "createCollectionPage", alignItems: "stretch", gap: "1.5rem", reverse: true }}>
+                {!collection && (
+                    <Col flex={4}>
+                        <CollectionCreationNfts loading={loading} />
+                    </Col>
+                )}
+                <Col flex={3} alignItems="center">
                     <Skeleton loading={loading} width="100%">
                         <CollectionCreationPageContentCard>
                             <Col gap="1.5rem">
@@ -83,6 +89,7 @@ const CollectionCreationPageContent = ({ collection, loading }: CollectionCreati
                                     placeholder={translate("collectionNamePlaceholder")}
                                     variant="filled"
                                     value={name}
+                                    required
                                     onChange={normalizedHandleChange("name")}
                                 />
                                 <TextArea
@@ -92,8 +99,10 @@ const CollectionCreationPageContent = ({ collection, loading }: CollectionCreati
                                     label={translate("description")}
                                     placeholder={translate("collectionDescriptionPlaceholder")}
                                     variant="filled"
-                                    value={description}
+                                    value={description || undefined}
                                     onChange={normalizedHandleChange("description")}
+                                    maxLength={config.maxNftDescChars}
+                                    displayLength
                                 />
                                 {!collection && (
                                     <>

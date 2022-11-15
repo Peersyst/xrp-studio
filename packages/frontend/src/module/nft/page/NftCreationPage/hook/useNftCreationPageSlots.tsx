@@ -1,7 +1,7 @@
 import { CollectionDto } from "module/api/service";
 import { ReactNode, useState } from "react";
 import useTranslate from "module/common/hook/useTranslate";
-import useWallet from "module/wallet/component/hooks/useWallet";
+import useWallet from "module/wallet/hook//useWallet";
 import parseFlags from "module/nft/util/parseFlags";
 import { Divider, SelectOption, Switch } from "@peersyst/react-components";
 import BaseNftPageContent from "module/nft/component/layout/BaseNftPage/BaseNftPageContent/BaseNftPageContent";
@@ -21,7 +21,7 @@ import { CreationNft } from "module/nft/types";
 export interface UseNftCreationPageSlotsParams {
     nft: CreationNft | undefined;
     collections?: CollectionDto[];
-    fixedCollection?: boolean;
+    fixedCollection?: string;
     loading?: boolean;
 }
 
@@ -82,17 +82,20 @@ export default function ({ nft, collections, fixedCollection, loading = false }:
                 </BaseNftPageContentLeftSlot.Info>
             </BaseNftPageContent.Left>
             <BaseNftPageContent.Right loading={loading}>
-                <Select
-                    key={"taxon: " + taxon}
-                    clear={translate("none", { context: "female" })}
-                    name={NftFormFields.collection}
-                    label={translate("collection")}
-                    placeholder={translate("collectionPlaceholder")}
-                    size="lg"
-                    options={collectionOptions}
-                    defaultValue={taxon}
-                    disabled={fixedCollection}
-                />
+                {fixedCollection !== undefined ? (
+                    <TextField label={translate("collection")} variant="filled" value={fixedCollection} disabled />
+                ) : (
+                    <Select
+                        key={"taxon: " + taxon}
+                        clear={translate("none", { context: "female" })}
+                        name={NftFormFields.collection}
+                        label={translate("collection")}
+                        placeholder={translate("collectionPlaceholder")}
+                        size="lg"
+                        options={collectionOptions}
+                        defaultValue={taxon}
+                    />
+                )}
                 <TextField
                     key={"issuer: " + issuer}
                     name={NftFormFields.issuer}

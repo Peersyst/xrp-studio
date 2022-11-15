@@ -1,6 +1,6 @@
 import MyNftsSearch from "module/nft/component/input/MyNftsSearch/MyNftsSearch";
 import { render, translate, waitFor } from "test-utils";
-import * as UseWallet from "module/wallet/component/hooks/useWallet";
+import * as UseWallet from "module/wallet/hook//useWallet";
 import userEvent from "@testing-library/user-event";
 import { WalletMock } from "test-mocks";
 describe("MyNftsSearch ", () => {

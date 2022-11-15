@@ -5,7 +5,7 @@ import useGoBack from "module/common/hook/useGoBack";
 
 const BackButton = ({ className, path, ...rest }: BackButtonProps): JSX.Element => {
     const goBack = useGoBack(path);
-    return <ArrowButton {...rest} data-testid="arrowIcon" className={cx("back-button", className)} direction="left" onClick={goBack} />;
+    return <ArrowButton {...rest} className={cx("back-button", className)} direction="left" onClick={goBack} />;
 };
 
 export default BackButton;

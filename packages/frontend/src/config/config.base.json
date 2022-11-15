@@ -11,5 +11,6 @@
     "maxUsernameChars": 255,
     "maxNftDescChars": 255,
     "maxNumberDecimals": 6,
-    "tokenName": "XRP"
+    "tokenName": "XRP",
+    "feeInDrops": 10
 }
