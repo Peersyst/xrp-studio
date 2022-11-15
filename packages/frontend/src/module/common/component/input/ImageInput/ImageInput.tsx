@@ -22,7 +22,14 @@ function ImageInput<Multiple extends boolean = false>({
 
     return (
         // @ts-ignore Can't pass down Multiple type to UploadInput as styled Higher Order Component breaks generic types. However, type is secured by ImageInput's Multiple type
-        <ImageInputRoot fileTypes="image/*" uploadPath="image" loading={loading} placeholder={placeholder} {...rest}>
+        <ImageInputRoot
+            changeButton={{ alignment: { vertical: "top", horizontal: "right" } }}
+            fileTypes="image/*"
+            uploadPath="image"
+            loading={loading}
+            placeholder={placeholder}
+            {...rest}
+        >
             {children || renderChildren}
         </ImageInputRoot>
     );

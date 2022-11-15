@@ -1,9 +1,10 @@
 import MyNftsPageHeader from "module/nft/component/layout/MyNftsPageHeader/MyNftsPageHeader";
-import { render, translate } from "test-utils";
+import { act, render, translate, waitFor } from "test-utils";
 import * as ReactRouterDom from "react-router-dom";
 import userEvent from "@testing-library/user-event";
 import { CollectionRoutes } from "module/collection/CollectionRouter";
 import { NftRoutes } from "module/nft/NftRouter";
+import { UseFilterMock } from "test-mocks";
 
 describe("Test for the MyNftsPageHeader test", () => {
     test("Renders correctly", () => {
@@ -31,5 +32,18 @@ describe("Test for the MyNftsPageHeader test", () => {
         const button = screen.getByRole("button", { name: translate("createNft") });
         userEvent.click(button);
         expect(mockedNavigate).toHaveBeenCalledWith(NftRoutes.NFT_CREATION);
+    });
+
+    test("Update the query filter correctly", async () => {
+        const { setFilter } = new UseFilterMock();
+        const screen = render(<MyNftsPageHeader />);
+        const input = screen.getByRole("textbox");
+        expect(input).toBeInTheDocument();
+        expect(input).toHaveAttribute("placeholder", translate("search"));
+        expect(screen.getByTestId("SearchIcon")).toBeInTheDocument();
+        userEvent.type(input, "test");
+        await act(async () => {
+            await waitFor(() => expect(setFilter).toHaveBeenCalledWith("test"));
+        });
     });
 });

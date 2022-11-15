@@ -87,6 +87,7 @@
     "changesApplied": "Changes applied",
     "collectionCreated": "Collection created",
     "collectionUpdated": "Collection updated",
+    "uploadAFileToCreateAnNfts": "Upload a file to add an NFT to the coleccion",
     "flags": "flags",
     "publishConfirmation": "Publish NFT confirmation",
     "confirm": "confirm"

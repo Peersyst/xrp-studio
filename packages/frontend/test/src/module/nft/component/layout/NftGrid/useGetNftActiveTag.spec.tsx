@@ -4,7 +4,7 @@ import useGetNftActiveTags from "module/nft/component/layout/NftGrid/hook/useGet
 
 const renderUseGetNftActiveTag = () =>
     renderHook(() => {
-        new UseFilterMock({ filter: [0, 1, 2, 3], setFilter: jest.fn() });
+        new UseFilterMock<string, true>({ filter: ["0", "1", "2", "3"] });
         const { collections } = new CollectionsDtoMock({ length: 6 });
         return useGetNftActiveTags(collections);
     });
@@ -18,7 +18,7 @@ describe("useGetNftActiveTags test", () => {
         act(() => {
             const tags = renderUseGetNftActiveTag().result.current;
             expect(tags).toHaveLength(4);
-            expect(tags[0].value).toBe(0);
+            expect(tags[0].value).toBe("0");
         });
     });
 });

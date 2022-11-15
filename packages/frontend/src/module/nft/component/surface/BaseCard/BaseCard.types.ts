@@ -8,6 +8,7 @@ export interface BaseCardProps {
     to?: string;
     children?: ReactNode;
     status?: ReactNode;
+    onDeleteClicked?: () => void;
 }
 
 export interface CoverProps {
