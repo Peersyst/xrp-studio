@@ -34,14 +34,17 @@ const NftCreationPage = (): JSX.Element => {
 
     const handleSubmit = (data: NftCreationForm, action: string | undefined) => {
         const requestNft = createNftRequestFromForm(data);
-        if (action === "publish" && requestNft) showModal(NftPublishModal, { requestNft: requestNft, action, nftDraft });
-        /* After this line, you are saving */
-        if (nftDraft) {
-            updateNftDraft({ id: nftDraft.id, publish: false, ...requestNft });
-        } else {
-            createNftDraft(requestNft);
+        if (action === "publish" && requestNft)
+            showModal(NftPublishModal, { requestNft: requestNft, nftDraft: nftDraft, collections: collections });
+        else {
+            /* After this line, you are saving */
+            if (nftDraft) {
+                updateNftDraft({ id: nftDraft.id, publish: false, ...requestNft });
+            } else {
+                createNftDraft(requestNft);
+            }
+            navigate(NftRoutes.MY_NFTS, { replace: true });
         }
-        navigate(NftRoutes.MY_NFTS, { replace: true });
     };
 
     const slots = useNftCreationPageSlots({ nft: nftDraft, collections, loading: isLoading });

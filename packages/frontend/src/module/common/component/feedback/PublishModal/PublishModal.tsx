@@ -21,7 +21,7 @@ const PublishModal = ({
 }: PublishModalProps): JSX.Element => {
     const [open, setOpen] = useControlled(true, openProp, openProp ? onClose : undefined);
     return (
-        <ModalRoot open={open} onClose={() => setOpen(false)} elevation={elevation} closable={closable} {...rest}>
+        <ModalRoot size="lg" open={open} onClose={() => setOpen(false)} elevation={elevation} closable={closable} {...rest}>
             <Col gap="3rem">
                 {title && (
                     <Col>

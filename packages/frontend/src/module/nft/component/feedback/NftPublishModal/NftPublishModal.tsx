@@ -8,8 +8,9 @@ import { NftCoverImage } from "module/nft/component/display/NftCover/NftCover.st
 import useCreateNft from "module/nft/query/useCreateNft";
 import useUpdateNftDraft from "module/nft/query/useUpdateNftDraft";
 import useCheckBalance from "module/wallet/hook/useCheckBalance";
+import { capitalize } from "@peersyst/react-utils";
 
-const NftPublishModal = createModal<NftPublishModalProps>(({ requestNft, action, nftDraft, ...modalProps }) => {
+const NftPublishModal = createModal<NftPublishModalProps>(({ requestNft, nftDraft, collections, ...modalProps }) => {
     const translate = useTranslate();
     const translateError = useTranslate("error");
     const { showToast } = useToast();
@@ -27,23 +28,21 @@ const NftPublishModal = createModal<NftPublishModalProps>(({ requestNft, action,
             if (nftDraft) {
                 updateNftDraft({ id: nftDraft.id, publish: true, ...requestNft });
             } else {
-                if (action === "confirm-publish") {
-                    createNft(requestNft);
-                }
+                createNft(requestNft);
             }
         }
     };
 
     return (
-        <PublishModal title={"Publish summary"} {...modalProps}>
+        <PublishModal title={translate("publishConfirmation")} {...modalProps}>
             {{
                 cover: (
                     <NftCoverImage src={requestNft.metadata!.image} alt="nft-image" loading={requestNft.metadata!.image === undefined} />
                 ),
-                information: <NftInformation data={requestNft} />,
+                information: <NftInformation data={requestNft} collections={collections} />,
                 action: (
-                    <Button onClick={handleSubmit} size="lg" variant="primary" loading={publishing}>
-                        {translate("publish")}
+                    <Button onClick={handleSubmit} action="confirm-publish" size="lg" variant="primary" loading={publishing}>
+                        {capitalize(translate("confirm"))}
                     </Button>
                 ),
             }}

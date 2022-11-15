@@ -2,11 +2,18 @@ import useTranslate from "module/common/hook/useTranslate";
 import { Col, Typography } from "@peersyst/react-components";
 import { NftInformationPorps } from "module/nft/component/display/NftInformation/NftInformation.types";
 import { NftInformationCard } from "module/nft/component/display/NftInformation/NftInformation.styles";
+import { capitalize } from "@peersyst/react-utils";
 
-const NftInformation = ({ data: { issuer, transferFee, flags, metadata, taxon } }: NftInformationPorps): JSX.Element => {
+const NftInformation = ({
+    data: { issuer, transferFee, flags, metadata, taxon },
+    collections: collections,
+}: NftInformationPorps): JSX.Element => {
     const translate = useTranslate();
-    const hasFlags = flags!.burnable || flags!.onlyXRP || flags!.trustLine || flags!.transferable;
+    const hasFlags = flags && (flags!.burnable || flags!.onlyXRP || flags!.trustLine || flags!.transferable);
     const isDataProvided = hasFlags || issuer || transferFee || metadata!.name || taxon;
+
+    const collection = collections.find((el) => el.taxon === taxon);
+
     return (
         <NftInformationCard>
             <Col gap="1rem">
@@ -15,31 +22,31 @@ const NftInformation = ({ data: { issuer, transferFee, flags, metadata, taxon } 
                         {metadata!.name && (
                             <>
                                 <Typography variant="body1" fontWeight={700}>
-                                    Name:
+                                    {capitalize(translate("name"))}:
                                 </Typography>
                                 <Typography variant="body2">{metadata!.name}</Typography>
                             </>
                         )}
-                        {taxon && (
+                        {collection && (
                             <>
                                 <Typography variant="body1" fontWeight={700}>
-                                    Collection:
+                                    {capitalize(translate("collection"))}:
                                 </Typography>
-                                <Typography variant="body2">{taxon}</Typography>
+                                <Typography variant="body2">{collection.name}</Typography>
                             </>
                         )}
                         {issuer && (
                             <>
                                 <Typography variant="body1" fontWeight={700}>
-                                    Issuer:
+                                    {capitalize(translate("issuer"))}:
                                 </Typography>
                                 <Typography variant="body2">{issuer}</Typography>
                             </>
                         )}
-                        {transferFee && (
+                        {transferFee! >= 0 && (
                             <>
                                 <Typography variant="body1" fontWeight={700}>
-                                    Transfer Fee:
+                                    {translate("transferFee")}:
                                 </Typography>
                                 <Typography variant="body2">{transferFee}%</Typography>
                             </>
@@ -47,7 +54,7 @@ const NftInformation = ({ data: { issuer, transferFee, flags, metadata, taxon } 
                         {hasFlags && (
                             <>
                                 <Typography variant="body1" fontWeight={700}>
-                                    Flags:
+                                    {capitalize(translate("flags"))}:
                                 </Typography>
                                 <Col gap={8}>
                                     {flags!.burnable && <Typography variant="body2">{translate("burnable")}</Typography>}
@@ -59,7 +66,7 @@ const NftInformation = ({ data: { issuer, transferFee, flags, metadata, taxon } 
                         )}
                     </>
                 ) : (
-                    <Typography variant="body1">No data provided</Typography>
+                    <Typography variant="h6">No data provided</Typography>
                 )}
             </Col>
         </NftInformationCard>
