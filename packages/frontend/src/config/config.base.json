@@ -1,0 +1,16 @@
+{
+    "projectName": "xrp-studio",
+    "appStoreXummLink": "https://apps.apple.com/us/app/xumm/id1492302343",
+    "playStoreXummLink": "https://play.google.com/store/apps/details?id=com.xrpllabs.xumm",
+    "socialLinks": {
+        "twitterLink": "https://twitter.com/",
+        "discordLink": "https://discordapp.com/users/"
+    },
+    "nftDefaultCoverUrl": "https://img.seadn.io/files/74359db46e0caf1e692464f4e777b373.png?fit=max&w=600",
+    "maxBioChars": 255,
+    "maxUsernameChars": 255,
+    "maxNftDescChars": 255,
+    "maxNumberDecimals": 6,
+    "tokenName": "XRP",
+    "feeInDrops": 10
+}

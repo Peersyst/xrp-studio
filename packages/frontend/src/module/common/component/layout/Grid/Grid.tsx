@@ -9,7 +9,7 @@ function Grid<T extends PaginatedData, TagT = any>({
     withFilters = false,
     tags,
     onClearTags,
-    onTagClicked,
+    onDeleteTagClicked,
     ...baseGridProps
 }: GridProps<T, TagT>): JSX.Element {
     return withFilters ? (
@@ -18,7 +18,7 @@ function Grid<T extends PaginatedData, TagT = any>({
             filters={filters}
             tags={tags}
             onClearTags={onClearTags}
-            onTagClicked={onTagClicked}
+            onDeleteTagClicked={onDeleteTagClicked}
             {...baseGridProps}
         />
     ) : (

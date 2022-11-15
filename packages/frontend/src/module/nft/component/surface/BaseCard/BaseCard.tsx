@@ -1,6 +1,6 @@
-import { Col, Skeleton, Typography, WithSkeleton } from "@peersyst/react-components";
+import { Col, CrossIcon, Skeleton, Typography, WithSkeleton } from "@peersyst/react-components";
 import { BaseCardProps } from "module/nft/component/surface/BaseCard/BaseCard.types";
-import { BaseCardRoot, BaseCardCover, BaseCardCoverDefault } from "module/nft/component/surface/BaseCard/BaseCard.styles";
+import { BaseCardRoot, BaseCardCover, BaseCardCoverDefault, RemoveIcon } from "module/nft/component/surface/BaseCard/BaseCard.styles";
 import ConditionalLink from "module/common/component/navigation/ConditionalLink/ConditionalLink";
 import { Children } from "react";
 
@@ -12,6 +12,7 @@ const BaseCard = ({
     children,
     note,
     to,
+    onDeleteClicked,
     status,
 }: WithSkeleton<BaseCardProps>): JSX.Element => {
     const footerContent = [
@@ -44,6 +45,16 @@ const BaseCard = ({
                         </Skeleton>
                     ))}
                 </Col>
+                {onDeleteClicked && (
+                    <RemoveIcon
+                        onClick={(e) => {
+                            e?.preventDefault();
+                            onDeleteClicked();
+                        }}
+                    >
+                        <CrossIcon />
+                    </RemoveIcon>
+                )}
             </BaseCardRoot>
         </ConditionalLink>
     );

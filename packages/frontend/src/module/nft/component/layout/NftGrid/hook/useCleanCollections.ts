@@ -1,17 +1,19 @@
-import useFilters from "module/common/component/input/Filters/hooks/useFilters";
-import { NftFilterNames, UseGetNftsOptions } from "module/nft/query/useGetNfts";
+import useFilter from "module/common/component/input/Filters/hooks/useFilter/useFilter";
+import { NftFilterNames } from "module/nft/query/useGetNfts";
 
 export interface UseCleanCollectionsReturn {
     cleanAllCollections: () => void;
-    cleanCollection: (tag: number) => void;
+    cleanCollection: (tag: string) => void;
 }
 
 export default function useCleanCollections(): UseCleanCollectionsReturn {
-    const [filters, setFilters] = useFilters<UseGetNftsOptions["collections"]>(NftFilterNames.COLLECTIONS);
-    const updateCollections = (value: number[] | undefined) => {
-        setFilters(value);
+    const [collections, setFilter] = useFilter(NftFilterNames.COLLECTIONS, { multiple: true });
+    const updateCollections = (value: string[] | undefined) => {
+        setFilter(value);
     };
+
     const cleanAllCollections = () => updateCollections(undefined);
-    const cleanCollection = (tag: number) => updateCollections(filters?.filter((t) => t !== tag));
+    const cleanCollection = (tag: string) => updateCollections(collections?.filter((t) => t !== tag));
+
     return { cleanAllCollections, cleanCollection };
 }

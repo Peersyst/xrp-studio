@@ -1,10 +1,10 @@
 import { Row } from "@peersyst/react-components";
 import { CollectionRoutes } from "module/collection/CollectionRouter";
 import Button from "module/common/component/input/Button/Button";
+import { MainPageHeaderSearchBar } from "module/common/component/layout/MainPageHeader/MainPageHeader.styles";
 import useTranslate from "module/common/hook/useTranslate";
 import { NftRoutes } from "module/nft/NftRouter";
 import { useNavigate } from "react-router-dom";
-import MyNftsSearch from "../../input/MyNftsSearch/MyNftsSearch";
 import { MyNftsPageHeaderRoot } from "./MyNftsPageHeader.styles";
 
 const MyNftsPageHeader = (): JSX.Element => {
@@ -24,7 +24,7 @@ const MyNftsPageHeader = (): JSX.Element => {
                 </Row>
             }
             stickyTitle={translate("myNfts").toUpperCase()}
-            footer={<MyNftsSearch />}
+            footer={<MainPageHeaderSearchBar />}
         />
     );
 };

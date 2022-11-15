@@ -24,8 +24,9 @@ export class SearchParamsMock extends BaseMock {
         return this.entries[key];
     }
 
-    _getAll() {
-        return this.entries;
+    _getAll(key: string) {
+        const value = this.entries[key];
+        return Array.isArray(value) ? value : [value];
     }
 
     _has(key: string) {

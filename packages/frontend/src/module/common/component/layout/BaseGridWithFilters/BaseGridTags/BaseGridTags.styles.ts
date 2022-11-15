@@ -28,11 +28,12 @@ export const BaseGridTagsRoot = styled(Row).attrs({
 
 export const Tag = styled(Chip)(
     ({ theme }) => css`
-        &.Filled:hover {
-            background-color: ${theme.palette.black[80]};
-        }
         .Icon {
             font-size: 1.5rem;
+            border-radius: 50%;
+            &:hover {
+                background-color: ${theme.palette.black[80]};
+            }
         }
     `,
 );

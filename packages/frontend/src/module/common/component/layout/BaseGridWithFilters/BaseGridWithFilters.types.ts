@@ -8,7 +8,7 @@ export interface BaseGridWithFilterProps<T extends PaginatedData, TagT = any> ex
     filterBreakpoints?: GridProps["breakpoints"];
     filters: BaseGridFiltersProps["children"];
     tags?: BaseGridTagsProps<TagT>["tags"];
-    onTagClicked?: BaseGridTagsProps<TagT>["onTagClicked"];
+    onDeleteTagClicked?: BaseGridTagsProps<TagT>["onDeleteTagClicked"];
     onClearTags?: BaseGridTagsProps<TagT>["onClear"];
 }
 

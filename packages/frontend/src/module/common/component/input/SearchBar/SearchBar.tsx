@@ -1,10 +1,10 @@
 import { LoaderIcon } from "@peersyst/react-components";
 import { cx } from "@peersyst/react-utils";
-import { useDebounce } from "@peersyst/react-hooks";
 import useTranslate from "module/common/hook/useTranslate";
 import SearchIcon from "module/common/icons/SearchIcon";
 import TextField from "../TextField/TextField";
 import { SearchBarProps } from "./SearchBar.types";
+import { useDebounce } from "@peersyst/react-hooks";
 
 const SearchBar = ({
     loading: loadingProp = false,
