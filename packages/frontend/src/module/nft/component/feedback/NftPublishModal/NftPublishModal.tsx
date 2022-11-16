@@ -8,10 +8,9 @@ import useUpdateNftDraft from "module/nft/query/useUpdateNftDraft";
 import useCheckBalance from "module/wallet/hook/useCheckBalance";
 import { capitalize } from "@peersyst/react-utils";
 import NftPublishContent from "module/nft/component/feedback/NftPublishModal/NftPublishContent/NftPublishContent";
-import { NftCoverImage } from "module/nft/component/display/NftCover/NftCover.styles";
 import NftInformation from "module/nft/component/display/NftInformation/NftInformation";
 
-const NftPublishModal = createModal<NftPublishModalProps>(({ requestNft, nftDraft, collections, ...modalProps }) => {
+const NftPublishModal = createModal<NftPublishModalProps>(({ requestNft, nftDraft, collection, ...modalProps }) => {
     const translate = useTranslate();
     const translateError = useTranslate("error");
     const { showToast } = useToast();
@@ -39,14 +38,8 @@ const NftPublishModal = createModal<NftPublishModalProps>(({ requestNft, nftDraf
             {{
                 content: (
                     <NftPublishContent
-                        cover={
-                            <NftCoverImage
-                                src={requestNft.metadata!.image}
-                                alt="nft-image"
-                                loading={requestNft.metadata!.image === undefined}
-                            />
-                        }
-                        info={<NftInformation data={requestNft} collections={collections} />}
+                        cover={requestNft.metadata!.image}
+                        info={<NftInformation data={requestNft} collection={collection} />}
                     />
                 ),
                 action: (

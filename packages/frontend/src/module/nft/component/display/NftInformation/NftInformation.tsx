@@ -8,11 +8,11 @@ import { NftInformationFieldProps } from "module/nft/component/display/NftInform
 
 const NftInformation = ({
     data: { issuer, transferFee, flags, metadata, taxon },
-    collections: collections,
+    collection: collection,
 }: NftInformationProps): JSX.Element => {
     const translate = useTranslate();
+
     const hasFlags = flags && (flags!.burnable || flags!.onlyXRP || flags!.trustLine || flags!.transferable);
-    const collection = collections.find((el) => el.taxon === taxon);
     const isDataProvided = hasFlags || issuer || transferFee || metadata!.name || taxon || collection;
 
     const informationFields: NftInformationFieldProps[] = [
@@ -52,7 +52,7 @@ const NftInformation = ({
 
     return (
         <NftInformationCard>
-            <Col gap="1rem">
+            <Col flex={1} gap="1rem" justifyContent={isDataProvided ? "flex-start" : "center"}>
                 {isDataProvided ? (
                     informationFields.map(
                         (field) =>
@@ -63,7 +63,9 @@ const NftInformation = ({
                             ),
                     )
                 ) : (
-                    <Typography variant="h6">{translate("noDataProvided")}</Typography>
+                    <Typography variant="h6" textAlign="center">
+                        {translate("noDataProvided")}
+                    </Typography>
                 )}
             </Col>
         </NftInformationCard>

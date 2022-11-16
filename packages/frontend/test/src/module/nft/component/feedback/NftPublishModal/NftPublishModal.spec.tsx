@@ -22,7 +22,7 @@ describe("NftPublishModal tests", () => {
         taxon: 1,
         metadata: new CreateNftMetadataRequestMock({ name: "nft_name", image: "image" }),
     });
-    const COLLECTIONS_NFT = [new CollectionDtoMock()];
+    const COLLECTIONS_NFT = new CollectionDtoMock();
 
     const useToastMock = new ToastMock();
 
@@ -46,7 +46,7 @@ describe("NftPublishModal tests", () => {
 
         test("Create published NFT with balance", async () => {
             const createNftMock = jest.spyOn(NftService, "nftControllerCreateNft").mockResolvedValueOnce(new NftDtoMock());
-            render(<NftPublishModal requestNft={createNftDraftRequestMock} collections={COLLECTIONS_NFT} />);
+            render(<NftPublishModal requestNft={createNftDraftRequestMock} collection={COLLECTIONS_NFT} />);
 
             const confirmPublishButton = screen.getByRole("button", { name: capitalize(translate("confirm")) });
             await waitFor(() => expect(confirmPublishButton).not.toBeDisabled());
@@ -71,7 +71,7 @@ describe("NftPublishModal tests", () => {
         });
 
         test("Create published NFT without balance", async () => {
-            render(<NftPublishModal requestNft={createNftDraftRequestMock} collections={COLLECTIONS_NFT} />);
+            render(<NftPublishModal requestNft={createNftDraftRequestMock} collection={COLLECTIONS_NFT} />);
 
             const confirmPublishButton = screen.getByRole("button", { name: capitalize(translate("confirm")) });
             await waitFor(() => expect(confirmPublishButton).not.toBeDisabled());

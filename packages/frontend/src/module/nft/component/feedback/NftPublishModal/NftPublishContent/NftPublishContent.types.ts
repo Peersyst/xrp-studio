@@ -1,6 +1,6 @@
 import { ReactElement } from "react";
 
 export interface NftPublishContentProps {
-    cover?: ReactElement;
+    cover?: string;
     info?: ReactElement;
 }
