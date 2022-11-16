@@ -9,9 +9,10 @@ export default function DashboardPage(): JSX.Element {
                     id: 1,
                     price: "100",
                     sold: 50,
-                    backgroundColor: "#000000",
+                    backgroundColor: "#141A1F",
                     fontColor: "#FFFFFF",
                     faqs: [],
+                    videoUrl: "https://www.youtube.com/watch?v=iPUmE-tne5U",
                     collection: {
                         id: 1,
                         taxon: 1,

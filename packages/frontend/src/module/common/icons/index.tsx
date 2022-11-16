@@ -11,6 +11,7 @@ export { default as ImageUpIcon } from "./ImageUpIcon";
 export { default as MenuIcon } from "./MenuIcon";
 export { default as MinusCircleIcon } from "./MinusCircleIcon";
 export { default as MoonIcon } from "./MoonIcon";
+export { default as PlayIcon } from "./PlayIcon";
 export { default as PlusCircleIcon } from "./PlusCircleIcon";
 export { default as SearchIcon } from "./SearchIcon";
 export { default as ShareIcon } from "./ShareIcon";
