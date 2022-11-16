@@ -32,7 +32,7 @@ const NftPublishModal = createModal(({ ...modalProps }) => {
                     cover: requestNft.metadata!.image,
                     feedback: <NftPublishTabs tab={tab} />,
                     footer: (
-                        <Button onClick={handlePublish} action="confirm-publish" size="lg" variant="primary" loading={loading}>
+                        <Button onClick={handlePublish} size="lg" variant="primary" loading={loading}>
                             {capitalize(translate("confirm"))}
                         </Button>
                     ),
