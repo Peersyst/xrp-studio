@@ -1,6 +1,5 @@
 import useTranslate from "module/common/hook/useTranslate";
 import { Col, Typography } from "@peersyst/react-components";
-import { NftInformationCard } from "module/nft/component/display/NftInformation/NftInformation.styles";
 import { capitalize } from "@peersyst/react-utils";
 import NftInformationField from "module/nft/component/display/NftInformationField/NftInformationField";
 import { NftInformationFieldProps } from "module/nft/component/display/NftInformationField/NftInformationField.types";
@@ -53,7 +52,7 @@ const NftInformation = (): JSX.Element => {
     ];
 
     return (
-        <NftInformationCard>
+        <>
             <Col flex={1} gap="1rem" justifyContent={isDataProvided ? "flex-start" : "center"}>
                 {isDataProvided ? (
                     informationFields.map(
@@ -70,7 +69,7 @@ const NftInformation = (): JSX.Element => {
                     </Typography>
                 )}
             </Col>
-        </NftInformationCard>
+        </>
     );
 };
 

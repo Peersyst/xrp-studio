@@ -1,7 +1,7 @@
 import Card from "module/common/component/surface/Card/Card";
 import styled, { css } from "styled-components";
 
-export const NftInformationCard = styled(Card)(
+export const NftPublishTabsCard = styled(Card)(
     () => css`
         display: flex;
         width: 100%;
