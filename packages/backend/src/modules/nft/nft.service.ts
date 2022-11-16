@@ -31,6 +31,7 @@ import { CreateNftQueryBuilderOptions, NftWithCollection } from "./types";
 import { IpfsService } from "@peersyst/ipfs-module/src/ipfs.service";
 import { IMessageEvent } from "websocket";
 import { NftDraftStatusDto } from "./dto/nft-draft-status.dto";
+import { BlockchainTransactionService } from "../blockchain/blockchain-transaction.service";
 
 @Injectable()
 export class NftService {
@@ -42,6 +43,7 @@ export class NftService {
         @Inject(forwardRef(() => CollectionService)) private readonly collectionService: CollectionService,
         @Inject(XummService) private readonly xummService: XummService,
         @Inject(IpfsService) private readonly ipfsService: IpfsService,
+        private readonly blockchainTransactionService: BlockchainTransactionService,
     ) {}
 
     /**
@@ -88,6 +90,9 @@ export class NftService {
                 collection = new Collection();
                 collection.taxon = NFTokenTaxon.toString();
                 collection.user = user;
+                collection.items = 1;
+            } else {
+                collection.items++;
             }
         }
 
@@ -324,7 +329,7 @@ export class NftService {
         // Create transaction and subscribe
         const subscription = await this.xummService.transactionRequestAndSubscribe(account, { ...nftokenMintTransaction });
         // Update draft status to "pending"
-        await this.nftRepository.update({ id: draftId }, { status: NftStatus.PENDING });
+        await this.updateNftStatus(draftId, NftStatus.PENDING);
 
         // Listen to XUMM transaction events
         // * If rejected or expired set draft status to "failed"
@@ -333,12 +338,59 @@ export class NftService {
                 try {
                     const jsonData = JSON.parse(message.data);
                     if (jsonData.signed === false || jsonData.expired === true) {
-                        await this.nftRepository.update({ id: draftId }, { status: NftStatus.FAILED });
+                        await this.updateNftStatus(draftId, NftStatus.FAILED);
                         subscription.websocket.close();
                     } else if (jsonData.signed === true) subscription.websocket.close();
                 } catch (e) {}
             }
         };
+    }
+
+    public async updateNftStatus(nftId: number, newStatus: NftStatus): Promise<void> {
+        const nft = await this.nftRepository.findOne(nftId);
+        if (!nft) throw new BusinessException(ErrorCode.NFT_NOT_FOUND);
+        if (
+            (nft.status === NftStatus.DRAFT && newStatus !== NftStatus.PENDING) ||
+            (nft.status === NftStatus.PENDING && newStatus !== NftStatus.FAILED && newStatus !== NftStatus.CONFIRMED) ||
+            (nft.status === NftStatus.FAILED && newStatus !== NftStatus.PENDING) ||
+            nft.status === NftStatus.CONFIRMED
+        )
+            throw new Error(`Invalid update status from ${nft.status} to ${newStatus}`);
+        await this.nftRepository.update({ id: nftId }, { status: newStatus });
+    }
+
+    public async setDrop(nftId: number, dropId: number): Promise<void> {
+        const nft = await this.nftRepository.findOne(nftId);
+        if (!nft) throw new BusinessException(ErrorCode.NFT_NOT_FOUND);
+        if (nft.dropId !== undefined) throw new BusinessException(ErrorCode.NFT_ALREADY_LAUNCHED);
+        await this.nftRepository.update({ id: nftId }, { dropId: dropId });
+    }
+
+    public async publishDraftAsAuthorizedMinter(nftDraft: Nft, account: string, issuer: string, publishMetadata = false): Promise<void> {
+        if (nftDraft.status === NftStatus.PENDING || nftDraft.status === NftStatus.CONFIRMED)
+            throw new BusinessException(ErrorCode.NFT_DRAFT_ALREADY_PUBLISHED);
+
+        const { name } = nftDraft.metadata || {};
+
+        this.ipfsService.calculateCid()
+        this.blockchainTransactionService.prepareNftMintTransaction({
+            account,
+            flags: nftDraft.flags,
+            memo: JSON.stringify({ id: nftDraft.id, ...(name && { name }) }),
+            taxon: Number(nftDraft.collection?.taxon || "0"),
+            uri: "ipfs://" + cid,
+            issuer: nftDraft.issuer,
+            transferFee: nftDraft.transferFee,
+        });
+
+        if (publishMetadata && nftDraft.metadata) {
+            await this.publishNftMetadata(nftDraft.metadata);
+        }
+    }
+
+    private async publishNftMetadata(metadata: NftMetadata): Promise<string> {
+        const metadataDto = MetadataDto.fromEntity(metadata);
+        return this.ipfsService.uploadFile(Buffer.from(metadataDto.toString()));
     }
 
     /**

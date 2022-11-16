@@ -89,9 +89,11 @@ export class CollectionService {
     /**
      * Finds one collection by its id
      */
-    async findOne(id: number): Promise<CollectionDto> {
-        const collection = await this.createQueryBuilder().where("id = :id", { id }).getOne();
+    async findOne(id: number, options?: CreateCollectionQueryBuilderOptions & { ownerAddress: string }): Promise<CollectionDto> {
+        const collection = await this.createQueryBuilder(options).where("collection.id = :id", { id }).getOne();
         if (!collection) throw new BusinessException(ErrorCode.COLLECTION_NOT_FOUND);
+        if (options.ownerAddress && collection.user.address !== options.ownerAddress)
+            throw new BusinessException(ErrorCode.COLLECTION_NOT_OWNED);
         return CollectionDto.fromEntity(collection);
     }
 
@@ -111,7 +113,7 @@ export class CollectionService {
      * Finds an owned collection or throws an error
      */
     async findOwnedCollection(id: number, address: string): Promise<Collection> {
-        const collection = await this.createQueryBuilder({ relations: { user: true } })
+        const collection = await this.createQueryBuilder({ relations: { user: true, nft: true } })
             .where("collection.id = :id", { id })
             .getOne();
         if (!collection) throw new BusinessException(ErrorCode.COLLECTION_NOT_FOUND);
@@ -153,14 +155,19 @@ export class CollectionService {
      */
     private createQueryBuilder<WithItems extends boolean = true>({
         // @ts-ignore
-        relations = { user: true, nft: true },
+        withItems = true,
+        relations = { user: true, nft: false },
     }: CreateCollectionQueryBuilderOptions<WithItems> = {}): SelectQueryBuilder<WithItems extends true ? CollectionWithItems : Collection> {
         const qb = this.collectionRepository.createQueryBuilder("collection");
-        if (relations.user) qb.innerJoinAndSelect("collection.user", "user");
-        if (relations.nft)
+        if (withItems) {
             qb.loadRelationCountAndMap("collection.items", "collection.nfts", "nft", (qb) =>
                 qb.where("nft.status = :confirmed", { confirmed: NftStatus.CONFIRMED }),
             );
+        }
+        if (relations.user) qb.innerJoinAndSelect("collection.user", "user");
+        if (relations.nft) {
+            qb.innerJoinAndSelect("collection.nfts", "nfts");
+        }
         return qb as SelectQueryBuilder<WithItems extends true ? CollectionWithItems : Collection>;
     }
 

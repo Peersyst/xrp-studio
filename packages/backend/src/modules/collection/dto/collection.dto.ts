@@ -2,6 +2,8 @@ import { UserDto } from "../../user/dto/user.dto";
 import { CollectionWithItems } from "../types";
 import { Paginated } from "../../common/paginated.dto";
 import { Collection } from "../../../database/entities/Collection";
+import { NftDto } from "../../nft/dto/nft.dto";
+import { NftWithCollection } from "../../nft/types";
 
 export class CollectionDto {
     id: number;
@@ -12,8 +14,19 @@ export class CollectionDto {
     header?: string;
     items: number;
     user: UserDto;
+    nfts: NftDto[];
 
-    static fromEntity({ id, taxon, name, description, image, header, user, ...rest }: Collection | CollectionWithItems): CollectionDto {
+    static fromEntity({
+        id,
+        taxon,
+        name,
+        description,
+        image,
+        header,
+        user,
+        nfts,
+        ...rest
+    }: Collection | CollectionWithItems): CollectionDto {
         const { items = 0 } = rest as CollectionWithItems;
         return {
             id,
@@ -24,6 +37,7 @@ export class CollectionDto {
             header,
             items,
             user: UserDto.fromEntity(user),
+            nfts: nfts.map((nft) => NftDto.fromEntity(nft as NftWithCollection)),
         };
     }
 }

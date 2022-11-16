@@ -1,6 +1,7 @@
 import { Paginated } from "../../common/paginated.dto";
 import { CollectionDto } from "../../collection/dto/collection.dto";
-import { FaqsDto } from "./faqs.dto";
+import { FaqDto } from "./faq.dto";
+import { Drop } from "../../../database/entities/Drop";
 
 export class DropDto {
     id: number;
@@ -11,8 +12,23 @@ export class DropDto {
     instagram?: string;
     twitter?: string;
     discord?: string;
-    faqs: FaqsDto[];
-    collection: CollectionDto;
+    faqs: FaqDto[];
+    collection?: CollectionDto;
+
+    static fromEntity(drop: Drop): DropDto {
+        return {
+            id: drop.id,
+            price: drop.price,
+            backgroundColor: drop.backgroundColor,
+            fontColor: drop.fontColor,
+            videoUrl: drop.videoUrl,
+            instagram: drop.instagram,
+            twitter: drop.twitter,
+            discord: drop.discord,
+            faqs: drop.faqs.map((faq) => FaqDto.fromEntity(faq)),
+            collection: drop.collection && CollectionDto.fromEntity(drop.collection),
+        };
+    }
 }
 
 export class PaginatedDropDto extends Paginated<DropDto> {
@@ -30,17 +46,14 @@ export const DropDtoMock: DropDto = {
     discord: "3P5K3dzgdB",
     faqs: [
         {
-            id: 1,
             question: "Lorem ipsum dolor sit amet, consectetur adipiscing elit?",
             answer: "Curabitur vestibulum dignissim ante, et volutpat lacus malesuada ac. Vestibulum nec suscipit enim. Aliquam rhoncus ligula massa, et dignissim dolor euismod sit amet. Fusce ut maximus dolor. Sed tincidunt facilisis enim. Donec sed augue porta, sollicitudin nibh vehicula, blandit ligula. Pellentesque iaculis lorem eget ligula consectetur, sed porta mi aliquam. In non sodales massa.",
         },
         {
-            id: 2,
             question: "Fusce non pharetra quam, vel convallis magna?",
             answer: "Quisque ullamcorper, purus sed tincidunt facilisis, tortor nisl tincidunt ligula, vel volutpat velit ipsum at erat. Cras non nibh justo. Integer porta fringilla ipsum, sit amet cursus risus. Phasellus mauris sapien, tincidunt ut neque sed, sollicitudin imperdiet ipsum. Sed metus orci, vestibulum in quam eget, lobortis vestibulum ante. Duis sagittis nibh vel sapien pharetra, in dignissim nibh dignissim. Integer vulputate non magna sed lobortis. Vestibulum eu pellentesque mauris.",
         },
         {
-            id: 3,
             question: "Cras at elit sagittis, varius sem vitae, consectetur dolor?",
             answer: "Curabitur viverra diam nec volutpat gravida. Phasellus tincidunt risus nec nulla venenatis, in sollicitudin felis convallis. Vestibulum ultrices lorem sit amet fermentum dignissim. Sed varius neque ut lacus efficitur maximus. Fusce eget blandit dui. Nullam vehicula tortor et lobortis pellentesque. Cras consequat ultrices odio viverra iaculis. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus in augue ante.",
         },
