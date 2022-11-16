@@ -1,9 +1,9 @@
 import useCreateNft from "module/nft/query/useCreateNft";
 import useUpdateNftDraft from "module/nft/query/useUpdateNftDraft";
-import useCheckBalance from "module/wallet/hook/useCheckBalance";
 import { useToast } from "@peersyst/react-components";
 import useTranslate from "module/common/hook/useTranslate";
 import usePublishNftState from "./usePublishNftState";
+import useCheckBalance from "module/wallet/hook/useCheckBalance";
 
 export interface UsePublishNftReturn {
     handlePublish: () => Promise<void>;
@@ -36,6 +36,6 @@ export function usePublishNft(onPublish?: () => void): UsePublishNftReturn {
 
     return {
         handlePublish,
-        isLoading: publishing,
+        isPublishing: publishing,
     };
 }

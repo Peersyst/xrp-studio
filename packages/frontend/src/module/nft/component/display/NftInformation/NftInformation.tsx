@@ -33,14 +33,14 @@ const NftInformation = (): JSX.Element => {
         },
         {
             title: translate("transferFee"),
-            content: transferFee?.toString() + "%",
+            content: transferFee ? transferFee + "%" : undefined,
         },
     ];
 
     return (
-        <Col flex={1} gap="1rem" justifyContent={isDataProvided ? "flex-start" : "center"}>
+        <>
             {isDataProvided ? (
-                <>
+                <Col flex={1} gap="1rem" justifyContent={isDataProvided ? "flex-start" : "center"}>
                     {informationFields.map(
                         ({ content, title }) =>
                             content && (
@@ -50,7 +50,7 @@ const NftInformation = (): JSX.Element => {
                             ),
                     )}
                     {hasFlags && (
-                        <InformationField title={translate("flags")}>
+                        <InformationField title={capitalize(translate("flags"))}>
                             <Col gap={8}>
                                 {flagsKeys.map((key) => (
                                     <Typography variant="body2">{translate(key)}</Typography>
@@ -58,13 +58,13 @@ const NftInformation = (): JSX.Element => {
                             </Col>
                         </InformationField>
                     )}
-                </>
+                </Col>
             ) : (
                 <Typography variant="h6" textAlign="center">
                     {translate("noDataProvided")}
                 </Typography>
             )}
-        </Col>
+        </>
     );
 };
 

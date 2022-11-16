@@ -6,7 +6,7 @@ const PublishContent = ({ children: { cover, feedback, footer } }: PublishConten
     const defaultCover = ""; //TODO: implement generic default cover
 
     return (
-        <Col>
+        <Col gap="1.5rem">
             <Row gap={4} flex={1} breakpoint={{ width: "nftPage", alignItems: "stretch", justifyContent: "center", gap: "1.5rem" }}>
                 <Col flex={1} justifyContent="center">
                     <PublishCoverImage src={cover ? cover : defaultCover} alt="nft-image" loading={cover === undefined} />
@@ -15,7 +15,9 @@ const PublishContent = ({ children: { cover, feedback, footer } }: PublishConten
                     {feedback}
                 </Col>
             </Row>
-            {footer}
+            <Row flex={1} justifyContent="flex-end">
+                {footer}
+            </Row>
         </Col>
     );
 };
