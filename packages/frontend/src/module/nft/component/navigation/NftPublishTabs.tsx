@@ -6,7 +6,7 @@ interface NftPublishTabsProps {
     tab: number;
 }
 
-const NftPublishTabs = ({ tab }: NftPublishTabsProps) => {
+const NftPublishTabs = ({ tab }: NftPublishTabsProps): JSX.Element => {
     return (
         <NftPublishTabsCard>
             <Tabs index={tab}>

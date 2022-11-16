@@ -1,19 +1,21 @@
-import PublishContent from "module/nft/component/feedback/NftPublishModal/PublishContent/PublishContent";
 import { render } from "test-utils";
 import { screen } from "@testing-library/react";
+import PublishContent from "module/common/component/layout/PublishContent/PublishContent";
 
 describe("NftPublishContent tests", () => {
     const COVER = "image";
 
     test("Renders correctly with cover", () => {
-        render(<PublishContent cover={COVER} />);
+        render(
+            <PublishContent>
+                {{
+                    cover: COVER,
+                    feedback: <div>feedback</div>,
+                    footer: <div>footer</div>,
+                }}
+            </PublishContent>,
+        );
 
         expect(screen.getByRole("img")).toHaveAttribute("src", COVER);
-    });
-
-    test("Renders correctly without cover", () => {
-        render(<PublishContent />);
-
-        expect(screen.getByRole("img")).toHaveAttribute("src", "");
     });
 });
