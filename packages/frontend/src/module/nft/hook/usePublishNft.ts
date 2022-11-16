@@ -5,7 +5,12 @@ import { useToast } from "@peersyst/react-components";
 import useTranslate from "module/common/hook/useTranslate";
 import usePublishNftState from "./usePublishNftState";
 
-export function usePublishNft(onPublish?: () => void) {
+export interface UsePublishNftReturn {
+    handlePublish: () => Promise<void>;
+    isPublishing: boolean;
+}
+
+export function usePublishNft(onPublish?: () => void): UsePublishNftReturn {
     const translateError = useTranslate("error");
     const { showToast } = useToast();
     const checkBalance = useCheckBalance();
