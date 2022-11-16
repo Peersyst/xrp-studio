@@ -1,4 +1,4 @@
-import { Column, CreateDateColumn, Entity, JoinColumn, OneToMany, OneToOne, UpdateDateColumn } from "typeorm";
+import { Column, CreateDateColumn, Entity, JoinColumn, OneToMany, OneToOne, PrimaryColumn, UpdateDateColumn } from "typeorm";
 import { Nft } from "./Nft";
 import { NftMetadataAttribute } from "./NftMetadataAttribute";
 
@@ -7,6 +7,10 @@ export class NftMetadata {
     @OneToOne(() => Nft, { primary: true })
     @JoinColumn({ name: "nft_id" })
     nft: Nft;
+
+    @PrimaryColumn()
+    @Column({ type: "int", name: "nft_id", nullable: false })
+    nftId: number;
 
     @Column({ type: "varchar", length: 255, nullable: true })
     name?: string;
