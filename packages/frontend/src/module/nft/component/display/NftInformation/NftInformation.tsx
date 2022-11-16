@@ -2,15 +2,17 @@ import useTranslate from "module/common/hook/useTranslate";
 import { Col, Typography } from "@peersyst/react-components";
 import { NftInformationCard } from "module/nft/component/display/NftInformation/NftInformation.styles";
 import { capitalize } from "@peersyst/react-utils";
-import { NftInformationProps } from "module/nft/component/display/NftInformation/NftInformation.types";
 import NftInformationField from "module/nft/component/display/NftInformationField/NftInformationField";
 import { NftInformationFieldProps } from "module/nft/component/display/NftInformationField/NftInformationField.types";
+import { useRecoilValue } from "recoil";
+import publishNftState from "module/nft/state/PublishNftState";
 
-const NftInformation = ({
-    data: { issuer, transferFee, flags, metadata, taxon },
-    collection: collection,
-}: NftInformationProps): JSX.Element => {
+const NftInformation = (): JSX.Element => {
     const translate = useTranslate();
+    const {
+        data: { issuer: issuer, transferFee: transferFee, flags: flags, metadata: metadata, taxon: taxon },
+        collection: collection,
+    } = useRecoilValue(publishNftState);
 
     const hasFlags = flags && (flags!.burnable || flags!.onlyXRP || flags!.trustLine || flags!.transferable);
     const isDataProvided = hasFlags || issuer || transferFee || metadata!.name || taxon || collection;
@@ -24,7 +26,7 @@ const NftInformation = ({
         {
             isValid: collection !== undefined,
             title: translate("collection"),
-            children: collection ? <Typography variant="body2">{collection.name}</Typography> : undefined,
+            children: collection ? <Typography variant="body2">{collection}</Typography> : undefined,
         },
         {
             isValid: issuer !== undefined,

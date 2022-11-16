@@ -1,15 +1,15 @@
-import { CollectionDto, CreateNftDraftRequest, NftDraftDto } from "module/api/service";
+import { CreateNftDraftRequest } from "module/api/service";
 import { atom } from "recoil";
 
 export interface PublishNftState {
-    data?: CreateNftDraftRequest;
-    nftDraft?: NftDraftDto;
-    collection?: CollectionDto;
+    data: CreateNftDraftRequest;
+    nftDraftId?: number;
+    collection?: string;
 }
 
 const publishNftState = atom<PublishNftState>({
     key: "publish-nft",
-    default: {},
+    default: { data: {}, nftDraftId: 0, collection: "" },
 });
 
 export default publishNftState;

@@ -18,6 +18,7 @@ import { useEffect } from "react";
 import useWallet from "module/wallet/hook/useWallet";
 import useTranslate from "module/common/hook/useTranslate";
 import usePublishNftState from "module/nft/hook/usePublishNftState";
+import { PublishNftState } from "module/nft/state/PublishNftState";
 
 const NftCreationPage = (): JSX.Element => {
     const translateError = useTranslate("error");
@@ -54,10 +55,13 @@ const NftCreationPage = (): JSX.Element => {
     const handleSubmit = (data: NftCreationForm, action: string | undefined) => {
         const requestNft = createNftRequestFromForm(data);
         const collection = collections.find((el) => el.taxon === requestNft.taxon);
-        setPublishNftData({ data: requestNft, nftDraft: nftDraft, collection: collection });
-        if (action === "publish" && requestNft)
-            showModal(NftPublishModal, { requestNft: requestNft, nftDraft: nftDraft, collection: collection });
-        else {
+        if (action === "publish" && requestNft) {
+            let newPublishNftState: PublishNftState = { data: requestNft };
+            if (collection) newPublishNftState = { ...newPublishNftState, collection: collection.name };
+            if (nftDraft) newPublishNftState = { ...newPublishNftState, nftDraftId: nftDraft.id };
+            setPublishNftData(newPublishNftState);
+            showModal(NftPublishModal);
+        } else {
             /* After this line, you are saving */
             if (nftDraft) {
                 updateNftDraft({ id: nftDraft.id, publish: false, ...requestNft });
