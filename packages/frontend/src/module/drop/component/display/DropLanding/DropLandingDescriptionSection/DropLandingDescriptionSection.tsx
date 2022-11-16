@@ -7,9 +7,9 @@ import {
     DropLandingImage,
 } from "module/drop/component/display/DropLanding/DropLandingDescriptionSection/DropLandingDescriptionSection.styles";
 import { useFormatNumber } from "module/common/hook/useFormatNumber";
-import { XrpIcon } from "icons";
 import { DropLandingDescriptionSectionProps } from "module/drop/component/display/DropLanding/DropLandingDescriptionSection/DropLandingDescriptionSection.types";
 import DropLandingDescription from "module/drop/component/display/DropLanding/DropLandingDescriptionSection/DropLandingDescription";
+import { XrpIcon } from "icons";
 
 const DropLandingDescriptionSection = ({
     cover = "",
