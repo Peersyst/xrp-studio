@@ -1,16 +1,21 @@
 import { DropLandingProps } from "module/drop/component/display/DropLanding/DropLanding.types";
 import { DropLandingContent, DropLandingRoot } from "module/drop/component/display/DropLanding/DropLanding.styles";
-import { Drop } from "module/drop/util/Drop";
 import DropLandingDescriptionSection from "module/drop/component/display/DropLanding/DropLandingDescriptionSection/DropLandingDescriptionSection";
 import { getLuminance } from "@peersyst/react-utils";
 import { useEffect, useRef, useState } from "react";
 
-function DropLanding<P extends boolean = false>({
-    drop: dropDtoOrPreview,
+function DropLanding({
+    drop: {
+        collection: { header, image, name, description, items },
+        price = "0",
+        sold = 0,
+        fontColor,
+        backgroundColor,
+    },
     loading = false,
-    preview = false as P,
+    preview = false,
     ...rest
-}: DropLandingProps<P>): JSX.Element {
+}: DropLandingProps): JSX.Element {
     const ref = useRef<HTMLDivElement>();
     const [width, setWidth] = useState<number>();
     const [height, setHeight] = useState<number>();
@@ -36,19 +41,17 @@ function DropLanding<P extends boolean = false>({
         if (newHeight !== height) setHeight(newHeight);
     };
 
-    const { cover, image, name, description, items, sold, price, fontColor, backgroundColor } = new Drop(dropDtoOrPreview);
-
     return (
         <DropLandingRoot style={{ height, width, color: fontColor, backgroundColor }} {...rest}>
             <DropLandingContent ref={ref} preview={preview}>
                 <DropLandingDescriptionSection
-                    cover={cover}
+                    cover={header}
                     image={image}
                     name={name}
                     description={description}
                     items={items}
+                    price={price}
                     sold={sold}
-                    sales={(BigInt(price) * BigInt(items)).toString()}
                     fontLuminance={getLuminance(fontColor)}
                     loading={loading}
                 />

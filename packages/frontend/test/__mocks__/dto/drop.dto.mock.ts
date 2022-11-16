@@ -5,6 +5,7 @@ import { CollectionDtoMock } from "test-mocks";
 export class DropDtoMock implements DropDto {
     id: number;
     price: string;
+    sold: number;
     backgroundColor: string;
     fontColor: string;
     videoUrl?: string;
@@ -17,6 +18,7 @@ export class DropDtoMock implements DropDto {
     constructor({
         id = 1,
         price = "100",
+        sold = 50,
         backgroundColor = "#000000",
         fontColor = "#FFFFFF",
         videoUrl = "video-url",
@@ -28,9 +30,11 @@ export class DropDtoMock implements DropDto {
             new FaqsDtoMock({ id: 1, question: "Question B", answer: "Answer B" }),
         ],
         collection = new CollectionDtoMock(),
-    }: Partial<DropDto> = {}) {
+    }: // TODO: ADD sold to DropDto
+    Partial<DropDto & { sold: number }> = {}) {
         this.id = id;
         this.price = price;
+        this.sold = sold;
         this.backgroundColor = backgroundColor;
         this.fontColor = fontColor;
         this.videoUrl = videoUrl;

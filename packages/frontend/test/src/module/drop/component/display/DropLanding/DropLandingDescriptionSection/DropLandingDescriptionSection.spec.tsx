@@ -1,39 +1,41 @@
 import { screen } from "@testing-library/react";
 import { render, translate } from "test-utils";
 import DropLandingDescriptionSection from "module/drop/component/display/DropLanding/DropLandingDescriptionSection/DropLandingDescriptionSection";
-import { DropMock } from "../../../../../../../__mocks__/drop/Drop.mock";
+import { DropDtoMock } from "../../../../../../../__mocks__/dto/drop.dto.mock";
 
 describe("DropLandingDescriptionSection", () => {
     test("Renders correctly", () => {
-        const dropMock = new DropMock();
-        const salesMock = "120";
+        const dropMock = new DropDtoMock();
 
         render(
             <DropLandingDescriptionSection
-                image={dropMock.image}
-                name={dropMock.name}
-                description={dropMock.description}
-                items={dropMock.items}
+                image={dropMock.collection.image}
+                name={dropMock.collection.name}
+                description={dropMock.collection.description}
+                items={dropMock.collection.items}
+                price={dropMock.price}
                 sold={dropMock.sold}
-                sales={salesMock}
                 fontLuminance={1}
+                loading={false}
             />,
         );
 
         // Name
-        expect(screen.getByText(dropMock.name)).toBeInTheDocument();
+        expect(screen.getByText(dropMock.collection.name!)).toBeInTheDocument();
         // Description
-        expect(screen.getByText(dropMock.description!)).toBeInTheDocument();
+        expect(screen.getByText(dropMock.collection.description!)).toBeInTheDocument();
         // Items
         expect(screen.getByText(translate("items"))).toBeInTheDocument();
-        expect(screen.getByText(dropMock.items)).toBeInTheDocument();
+        expect(screen.getByText(dropMock.collection.items)).toBeInTheDocument();
         // Sold
         expect(screen.getByText(translate("sold"))).toBeInTheDocument();
         expect(screen.getByText(dropMock.sold)).toBeInTheDocument();
         // Sales
         expect(screen.getByText(translate("sales"))).toBeInTheDocument();
-        expect(screen.getByText(salesMock)).toBeInTheDocument();
+        expect(
+            screen.getByText(translate("formatNumber", { val: (BigInt(dropMock.price) * BigInt(dropMock.sold)).toString() })),
+        ).toBeInTheDocument();
         // Image
-        expect(screen.getByAltText(`${dropMock.name}-image`)).toHaveAttribute("src", dropMock.image);
+        expect(screen.getByAltText(`${dropMock.collection.name}-image`)).toHaveAttribute("src", dropMock.collection.image);
     });
 });

@@ -1,11 +1,12 @@
 import { DropDto } from "module/api/service";
 import { CSSProperties } from "react";
-import { PreviewDrop } from "module/drop/types";
+import { Loosen } from "@peersyst/react-types";
 
-export interface DropLandingProps<P extends boolean = false> {
-    drop: P extends false ? DropDto : PreviewDrop;
+export interface DropLandingProps {
+    // TODO: Add sold to DropDto
+    drop: Loosen<DropDto, "id"> & { sold?: number };
     loading?: boolean;
-    preview?: P;
+    preview?: boolean;
     className?: string;
     style?: CSSProperties;
 }

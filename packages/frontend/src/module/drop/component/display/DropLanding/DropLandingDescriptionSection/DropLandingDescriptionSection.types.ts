@@ -4,8 +4,8 @@ export interface DropLandingDescriptionSectionProps {
     name: string;
     description?: string;
     items: number;
+    price: string;
     sold: number;
-    sales: string;
     fontLuminance: number;
     loading?: boolean;
 }

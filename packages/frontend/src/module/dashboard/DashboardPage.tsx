@@ -8,6 +8,7 @@ export default function DashboardPage(): JSX.Element {
                 drop={{
                     id: 1,
                     price: "100",
+                    sold: 50,
                     backgroundColor: "#000000",
                     fontColor: "#FFFFFF",
                     faqs: [],

@@ -17,8 +17,8 @@ const DropLandingDescriptionSection = ({
     name = "Loading Name",
     description = "Loading Description",
     items,
-    sold,
-    sales = "0",
+    price = "0",
+    sold = 0,
     fontLuminance,
     loading = false,
 }: WithLoading<DropLandingDescriptionSectionProps>): JSX.Element => {
@@ -47,7 +47,7 @@ const DropLandingDescriptionSection = ({
                         <DropLandingLabel variant="body2" label={translate("sales")} loading={loading}>
                             <Row gap="0.5rem" alignItems="center">
                                 <XrpIcon />
-                                {formatNumber(sales)}
+                                {formatNumber((BigInt(price) * BigInt(sold)).toString())}
                             </Row>
                         </DropLandingLabel>
                     </Row>
