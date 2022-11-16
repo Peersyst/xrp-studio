@@ -12,9 +12,8 @@ const NftInformation = ({
 }: NftInformationProps): JSX.Element => {
     const translate = useTranslate();
     const hasFlags = flags && (flags!.burnable || flags!.onlyXRP || flags!.trustLine || flags!.transferable);
-    const isDataProvided = hasFlags || issuer || transferFee || metadata!.name || taxon;
-
     const collection = collections.find((el) => el.taxon === taxon);
+    const isDataProvided = hasFlags || issuer || transferFee || metadata!.name || taxon || collection;
 
     const informationFields: NftInformationFieldProps[] = [
         {
