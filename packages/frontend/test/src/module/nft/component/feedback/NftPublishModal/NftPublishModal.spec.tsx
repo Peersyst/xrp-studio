@@ -1,16 +1,8 @@
-import {
-    CreateNftDraftRequestMock,
-    CreateNftMetadataRequestMock,
-    NftDtoMock,
-    ToastMock,
-    UseCheckBalanceMock,
-    WalletMock,
-} from "test-mocks";
+import { CreateNftDraftRequestMock, CreateNftMetadataRequestMock, ToastMock, UseCheckBalanceMock, WalletMock } from "test-mocks";
 import { render, translate } from "test-utils";
 import NftPublishModal from "module/nft/component/feedback/NftPublishModal/NftPublishModal";
 import { screen } from "@testing-library/react";
 import { capitalize } from "@peersyst/react-utils";
-import { NftService } from "module/api/service";
 import { waitFor } from "@testing-library/dom";
 import userEvent from "@testing-library/user-event";
 import * as Recoil from "recoil";
@@ -46,11 +38,9 @@ describe("NftPublishModal tests", () => {
         });
 
         test("Create published NFT with balance", async () => {
-            const createNftMock = jest.spyOn(NftService, "nftControllerCreateNft").mockResolvedValueOnce(new NftDtoMock());
             const usePublishNftState = jest
                 .spyOn(Recoil, "useRecoilValue")
                 .mockReturnValue({ data: createNftDraftRequestMock, collection: COLLECTIONS_NFT });
-
             render(<NftPublishModal />);
 
             expect(usePublishNftState).toHaveBeenCalled();
@@ -58,7 +48,6 @@ describe("NftPublishModal tests", () => {
             await waitFor(() => expect(confirmPublishButton).not.toBeDisabled());
             userEvent.click(confirmPublishButton);
             await waitFor(() => expect(useCheckBalanceMock.checkBalance).toHaveBeenCalled());
-            await waitFor(() => expect(createNftMock).toHaveBeenCalledWith(createNftDraftRequestMock));
         });
     });
 
