@@ -33,7 +33,7 @@ const NftInformation = (): JSX.Element => {
         },
         {
             title: translate("transferFee"),
-            content: transferFee,
+            content: transferFee?.toString() + "%",
         },
     ];
 
