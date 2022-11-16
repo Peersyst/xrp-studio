@@ -1,9 +1,9 @@
 import { NftStatus } from "../../../database/entities/Nft";
-import { MetadataDto } from "./metadata.dto";
 import { CollectionDto } from "../../collection/dto/collection.dto";
 import { UserDto } from "../../user/dto/user.dto";
 import { ApiProperty } from "@nestjs/swagger";
 import { NftWithCollection } from "../types";
+import { MetadataDto } from "../../metadata/dto/metadata.dto";
 
 export class BaseNftDto {
     id: number;

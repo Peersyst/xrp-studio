@@ -16,6 +16,7 @@ enum AppErrorCode {
     NO_MORE_TAXONS_AVAILABLE = "NO_MORE_TAXONS_AVAILABLE",
     COLLECTION_NOT_OWNED = "COLLECTION_NOT_OWNED",
     NFT_TRANSFERABLE_NOT_SET = "NFT_TRANSFERABLE_NOT_SET",
+    METADATA_URI_NOT_SUPPORTED = "METADATA_URI_NOT_SUPPORTED",
 }
 
 export const ErrorCode = { ...AppErrorCode, ...XummErrorCode, ...StorageErrorCode };
@@ -71,5 +72,9 @@ export const ErrorBody: { [code in ErrorCodeType]: { statusCode: HttpStatus; mes
     [ErrorCode.NFT_TRANSFERABLE_NOT_SET]: {
         statusCode: HttpStatus.BAD_REQUEST,
         message: ErrorCode.NFT_TRANSFERABLE_NOT_SET,
+    },
+    [ErrorCode.METADATA_URI_NOT_SUPPORTED]: {
+        statusCode: HttpStatus.NOT_IMPLEMENTED,
+        message: ErrorCode.METADATA_URI_NOT_SUPPORTED,
     },
 };

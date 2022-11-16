@@ -58,7 +58,7 @@ export class NftController {
     @HttpCode(204)
     @XummAuthenticated()
     async publishNftDraft(@Param("id", ParseIntPipe) id: number, @Request() req): Promise<void> {
-        return this.nftService.publishDraftById(id, req.user.address);
+        return this.nftService.publishDraft(id, req.user.address);
     }
 
     @Get()
