@@ -3,6 +3,7 @@ import { DropLandingContent, DropLandingRoot } from "module/drop/component/displ
 import DropLandingDescriptionSection from "module/drop/component/display/DropLanding/DropLandingDescriptionSection/DropLandingDescriptionSection";
 import { getLuminance } from "@peersyst/react-utils";
 import { useEffect, useRef, useState } from "react";
+import DropLandingVideoSection from "module/drop/component/display/DropLanding/DropLandingVideoSection/DropLandingVideoSection";
 
 function DropLanding({
     drop: {
@@ -11,6 +12,7 @@ function DropLanding({
         sold = 0,
         fontColor,
         backgroundColor,
+        videoUrl,
     },
     loading = false,
     preview = false,
@@ -55,6 +57,7 @@ function DropLanding({
                     fontLuminance={getLuminance(fontColor)}
                     loading={loading}
                 />
+                {(loading || videoUrl) && <DropLandingVideoSection videoUrl={videoUrl} loading={loading} />}
             </DropLandingContent>
         </DropLandingRoot>
     );

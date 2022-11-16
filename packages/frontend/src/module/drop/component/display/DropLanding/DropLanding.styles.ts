@@ -15,13 +15,24 @@ export const DropLandingContent = styled(Col)<DropLandingContentProps>(
         */
         width: 100vw;
         height: auto;
+        background-color: inherit;
         ${preview &&
         css`
             position: absolute;
             top: 0;
             left: 0;
+
             transform-origin: 0 0;
             transform: scale(0.5);
+
+            pointer-events: none;
         `}
     `,
 );
+
+export const DropLandingSection = styled.div`
+    width: 100%;
+    max-width: var(--page-max-width);
+    padding: 0 var(--horizontal-page-padding);
+    margin: 0 auto;
+`;
