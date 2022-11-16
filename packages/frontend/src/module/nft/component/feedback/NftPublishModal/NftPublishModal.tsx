@@ -1,51 +1,44 @@
-import { createModal, useToast } from "@peersyst/react-components";
-import PublishModal from "module/common/component/feedback/PublishModal/PublishModal";
+import { createModal } from "@peersyst/react-components";
 import Button from "module/common/component/input/Button/Button";
 import useTranslate from "module/common/hook/useTranslate";
-import useCreateNft from "module/nft/query/useCreateNft";
-import useUpdateNftDraft from "module/nft/query/useUpdateNftDraft";
-import useCheckBalance from "module/wallet/hook/useCheckBalance";
 import { capitalize } from "@peersyst/react-utils";
-import NftPublishContent from "module/nft/component/feedback/NftPublishModal/PublishContent/PublishContent";
-import { useRecoilValue } from "recoil";
-import publishNftState from "module/nft/state/PublishNftState";
 import NftPublishTabs from "module/nft/component/navigation/NftPublishTabs";
+import Modal from "module/common/component/feedback/Modal/Modal";
+import usePublishNftState from "module/nft/hook/usePublishNftState";
+import { usePublishNft } from "module/nft/hook/usePublishNft";
+import PublishContent from "module/common/component/layout/PublishContent/PublishContent";
+import { useState } from "react";
 
 const NftPublishModal = createModal(({ ...modalProps }) => {
     const translate = useTranslate();
-    const translateError = useTranslate("error");
-    const { showToast } = useToast();
-    const checkBalance = useCheckBalance();
-    const { data: requestNft, nftDraftId: nftDraftId } = useRecoilValue(publishNftState);
+    const [{ data: requestNft }] = usePublishNftState();
 
-    const { mutate: createNft, isLoading: createNftLoading } = useCreateNft();
-    const { mutate: updateNftDraft, isLoading: updateNftDraftLoading, variables } = useUpdateNftDraft();
-
-    const publishing = createNftLoading || (updateNftDraftLoading && !!variables?.publish);
-
-    const handleSubmit = async () => {
-        const hasBalance = await checkBalance();
-        if (!hasBalance) showToast(translateError("notEnoughBalance"), { type: "error" });
-        else {
-            if (nftDraftId) {
-                updateNftDraft({ id: nftDraftId, publish: true, ...requestNft });
-            } else {
-                createNft(requestNft);
-            }
-        }
+    //usePublishNft
+    //Retorna handleClick, loading i la tab
+    const [tab, setTab] = useState<0 | 1 | 2>(0);
+    //Hook wait
+    // const { startListing, isLoading: listening } = useListenNftPublishStatus();
+    const onPublish = () => {
+        setTab(1);
+        //startListening();
     };
+    const { handlePublish, isLoading: publishing } = usePublishNft(onPublish);
 
+    const loading = publishing;
     return (
-        <PublishModal title={translate("publishConfirmation")} {...modalProps}>
-            {{
-                content: <NftPublishContent cover={requestNft.metadata!.image} feedback={<NftPublishTabs />} />,
-                action: (
-                    <Button onClick={handleSubmit} action="confirm-publish" size="lg" variant="primary" loading={publishing}>
-                        {capitalize(translate("confirm"))}
-                    </Button>
-                ),
-            }}
-        </PublishModal>
+        <Modal title={translate("publishConfirmation")} {...modalProps}>
+            <PublishContent>
+                {{
+                    cover: requestNft.metadata!.image,
+                    feedback: <NftPublishTabs tab={tab} />,
+                    footer: (
+                        <Button onClick={handlePublish} action="confirm-publish" size="lg" variant="primary" loading={loading}>
+                            {capitalize(translate("confirm"))}
+                        </Button>
+                    ),
+                }}
+            </PublishContent>
+        </Modal>
     );
 });
 

@@ -1,7 +1,7 @@
 import { Image } from "@peersyst/react-components";
 import styled, { css } from "styled-components";
 
-export const NftCoverImage = styled(Image)(
+export const PublishCoverImage = styled(Image)(
     ({ theme }) => css`
         width: 23rem;
         height: 23rem;

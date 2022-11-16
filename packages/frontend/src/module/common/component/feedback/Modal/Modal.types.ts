@@ -1,7 +1,7 @@
 import { ModalProps as BaseModalProps } from "@peersyst/react-components";
 
 export interface ModalRootProps extends BaseModalProps {
-    size: "lg" | "md";
+    size?: "lg" | "md";
 }
 
 export interface ModalProps extends ModalRootProps {
