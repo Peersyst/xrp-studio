@@ -22,16 +22,16 @@ export function usePublishNft(onPublish?: () => void, onClose?: () => void): Use
     const publishing = createNftLoading || (updateNftDraftLoading && !!variables?.publish);
     const handlePublish = async () => {
         const hasBalance = await checkBalance();
-        if (!hasBalance) showToast(translateError("notEnoughBalance"), { type: "error" });
-        else {
-            if (nftDraftId) {
-                updateNftDraft({ id: nftDraftId, publish: true, ...requestNft });
-                onClose?.();
-            } else {
-                createNft(requestNft);
-                onPublish?.();
-            }
+        //if (!hasBalance) showToast(translateError("notEnoughBalance"), { type: "error" });
+        //else {
+        if (nftDraftId) {
+            //updateNftDraft({ id: nftDraftId, publish: true, ...requestNft });
+            onClose?.();
+        } else {
+            //createNft(requestNft);
+            onPublish?.();
         }
+        //}
     };
 
     return {

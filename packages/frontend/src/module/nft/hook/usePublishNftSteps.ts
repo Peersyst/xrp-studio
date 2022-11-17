@@ -17,6 +17,7 @@ export default function (id: string): ReturnUsePublishNftSteps {
     // const { startListing, isLoading: listening } = useListenNftPublishStatus();
     const onPublish = () => {
         setTab(1);
+
         //startListening();
     };
 
