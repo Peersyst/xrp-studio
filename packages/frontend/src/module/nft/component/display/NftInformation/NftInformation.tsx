@@ -15,7 +15,9 @@ const NftInformation = (): JSX.Element => {
     } = useRecoilValue(publishNftState);
 
     const flagsKeys = Object.keys(flags || {}) as (keyof NftFlagsRequest)[];
-    const hasFlags = flagsKeys.length > 0;
+    const flagsValues = Object.values(flags || {});
+    flagsValues.length;
+    const hasFlags = flagsValues.length > 0;
     const isDataProvided = hasFlags || issuer || transferFee !== undefined || metadata?.name || collection;
 
     const informationFields: NftInformationFieldProps[] = [
@@ -49,12 +51,12 @@ const NftInformation = (): JSX.Element => {
                                 </InformationField>
                             ),
                     )}
-                    {hasFlags && (
+                    {hasFlags && flags && (
                         <InformationField title={capitalize(translate("flags"))}>
                             <Col gap={8}>
-                                {flagsKeys.map((key) => (
-                                    <Typography variant="body2">{translate(key)}</Typography>
-                                ))}
+                                {flagsKeys.map((key) => {
+                                    return flags[key] && <Typography variant="body2">{translate(key)}</Typography>;
+                                })}
                             </Col>
                         </InformationField>
                     )}
