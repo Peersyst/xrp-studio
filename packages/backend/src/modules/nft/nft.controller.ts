@@ -11,7 +11,6 @@ import { ApiGetNftsDecorator } from "./decorator/api-get-nfts.decorator";
 import { GetNftsRequest } from "./request/get-nfts.request";
 import { ApiGetNftDraftsDecorator } from "./decorator/api-get-nft-drafts.decorator";
 import { EnhancedQuery } from "../common/decorator/enhanced-query";
-import { GetNftDraftsRequest, NftDraftStatus } from "./request/get-nft-drafts.request";
 import { NftDraftStatusRequest } from "./request/nft-draft-status.request";
 import { NftDraftStatusDto } from "./dto/nft-draft-status.dto";
 import { BusinessException } from "../common/exception/business.exception";
@@ -19,6 +18,7 @@ import { ErrorCode } from "../common/exception/error-codes";
 import { UpdateNftDraftQueryRequest } from "./request/update-nft-draft-query.request";
 import { ApiGetNftDraftStatusDecorator } from "./decorator/api-get-nft-draft-status.decorator";
 import { TransferFeePipe } from "./pipe/transfer-fee.pipe";
+import { NftStatus } from "../../database/entities/Nft";
 
 @ApiTags("nft")
 @Controller("nft")
@@ -64,28 +64,27 @@ export class NftController {
     @Get()
     @ApiOperation({ description: "Get all NFTs (status = confirmed) paginated" })
     @ApiGetNftsDecorator()
-    async getNfts(@EnhancedQuery() queryParams: GetNftsRequest = {}): Promise<PaginatedNftDto> {
-        return this.nftService.findAll(queryParams);
+    async getNfts(@EnhancedQuery() queryParams: GetNftsRequest = new GetNftsRequest()): Promise<PaginatedNftDto> {
+        return (await this.nftService.findAll(queryParams, { status: NftStatus.CONFIRMED })) as PaginatedNftDto;
     }
 
     @Get("draft")
     @ApiOperation({ description: "Get all user NFT drafts (status != confirmed) paginated" })
     @ApiGetNftDraftsDecorator()
     @XummAuthenticated()
-    async getNftDrafts(@Request() req, @EnhancedQuery() queryParams: GetNftDraftsRequest = {}): Promise<PaginatedNftDraftDto> {
-        return this.nftService.findAllDrafts(req.user.address, queryParams);
+    async getNftDrafts(@Request() req, @EnhancedQuery() queryParams: GetNftsRequest = new GetNftsRequest()): Promise<PaginatedNftDraftDto> {
+        return this.nftService.findAll(queryParams, {
+            status: [NftStatus.DRAFT, NftStatus.FAILED, NftStatus.PENDING],
+            ownerAddress: req.user.address,
+        });
     }
 
     @Get("draft/status")
     @ApiOperation({ description: "Get the status of a single or many NFT drafts" })
     @ApiGetNftDraftStatusDecorator()
     @XummAuthenticated()
-    async getNftDraftStatus(
-        @Request() req,
-        @EnhancedQuery() { id, ids }: NftDraftStatusRequest = {},
-    ): Promise<NftDraftStatusDto[] | NftDraftStatus> {
-        if (id) return this.nftService.getNftDraftStatus(id, req.user.address);
-        else if (ids) return this.nftService.getNftDraftsStatus(ids, req.user.address);
+    async getNftDraftStatus(@Request() req, @EnhancedQuery() { ids }: NftDraftStatusRequest = {}): Promise<NftDraftStatusDto[]> {
+        if (ids) return this.nftService.getNftDraftsStatus(ids, req.user.address);
         else throw new BusinessException(ErrorCode.BAD_DRAFT_STATUS_REQUEST);
     }
 
@@ -93,12 +92,12 @@ export class NftController {
     @ApiOperation({ description: "Get a single NFT draft (status != confirmed)" })
     @XummAuthenticated()
     async getNftDraft(@Request() req, @Param("id", ParseIntPipe) id: number): Promise<NftDraftDto> {
-        return this.nftService.findOneDraft(id, req.user.address);
+        return this.nftService.findOne(id, { ownerAddress: req.user.address, status: NftStatus.DRAFT });
     }
 
     @Get(":id")
     @ApiOperation({ description: "Get a single NFT (status = confirmed)" })
     async getNft(@Param("id", ParseIntPipe) id: number): Promise<NftDto> {
-        return this.nftService.findOne(id);
+        return this.nftService.findOne(id, { status: NftStatus.CONFIRMED });
     }
 }

@@ -17,15 +17,15 @@ import { User } from "../../../src/database/entities/User";
 import { BusinessException } from "../../../src/modules/common/exception/business.exception";
 import { ErrorCode } from "../../../src/modules/common/exception/error-codes";
 import { Order } from "../../../src/modules/common/types";
-import { NftDraftStatus } from "../../../src/modules/nft/request/get-nft-drafts.request";
 import XummServiceMock from "../__mock__/xumm.service.mock";
 import { XummService } from "@peersyst/xumm-module";
 import NftMetadataMock from "../__mock__/nft-metadata.mock";
-import NftDtoMock from "../__mock__/nft.dto.mock";
 import { MetadataService } from "../../../src/modules/metadata/metadata.service";
 import { MetadataDto } from "../../../src/modules/metadata/dto/metadata.dto";
 import { CreateMetadataRequest } from "../../../src/modules/metadata/request/create-metadata.request";
 import MetadataServiceMock from "../__mock__/metadata.service.mock";
+import { GetNftsRequest } from "../../../src/modules/nft/request/get-nfts.request";
+import { FilterType, QueryBuilderHelper } from "../../../src/modules/common/util/query-builder.helper";
 
 describe("NftService", () => {
     const ADDRESS = "rNCFjv8Ek5oDrNiMJ3pw6eLLFtMjZLJnf2";
@@ -254,7 +254,7 @@ describe("NftService", () => {
             expect(nftDraft).toEqual({
                 id: 1,
                 issuer: ISSUER,
-                transferFee: 10,
+                transferFee: 10000,
                 flags: 0,
                 status: NftStatus.DRAFT,
                 user: new User({ address: ADDRESS }),
@@ -266,7 +266,7 @@ describe("NftService", () => {
             expect(nftDraft).toEqual({
                 id: 1,
                 issuer: ISSUER,
-                transferFee: 10,
+                transferFee: 10000,
                 flags: 0,
                 status: NftStatus.DRAFT,
                 user: { address: ADDRESS },
@@ -281,7 +281,7 @@ describe("NftService", () => {
             expect(nftDraft).toEqual({
                 id: 1,
                 issuer: ISSUER,
-                transferFee: 10,
+                transferFee: 10000,
                 flags: 0,
                 status: NftStatus.DRAFT,
                 user: { address: ADDRESS },
@@ -301,7 +301,7 @@ describe("NftService", () => {
             expect(nftDraft).toEqual({
                 id: 1,
                 issuer: ISSUER,
-                transferFee: 10,
+                transferFee: 10000,
                 flags: 0,
                 status: NftStatus.DRAFT,
                 user: { address: ADDRESS },
@@ -315,10 +315,10 @@ describe("NftService", () => {
 
     describe("updateNftDraft", () => {
         beforeAll(() => {
-            nftRepositoryMock.getOne.mockResolvedValue(new NftMock({ status: NftStatus.DRAFT }));
+            nftRepositoryMock.findOne.mockResolvedValue(new NftMock({ status: NftStatus.DRAFT }));
         });
         afterAll(() => {
-            nftRepositoryMock.getOne = new NftRepositoryMock().getOne;
+            nftRepositoryMock.findOne = new NftRepositoryMock().findOne;
         });
 
         test("Update nft draft with an empty object and publish = true", async () => {
@@ -428,7 +428,7 @@ describe("NftService", () => {
                 issuer: ISSUER,
                 transferFee: 100,
             });
-            nftRepositoryMock.getOne.mockResolvedValueOnce(nftMock);
+            jest.spyOn(nftRepositoryMock, "findOne").mockReturnValue(Promise.resolve(nftMock));
 
             await nftService.publishDraft(1, ADDRESS);
 
@@ -462,7 +462,7 @@ describe("NftService", () => {
                 status: NftStatus.DRAFT,
                 user: userMock,
             });
-            nftRepositoryMock.getOne.mockResolvedValueOnce(nftMock);
+            nftRepositoryMock.findOne.mockResolvedValueOnce(nftMock);
 
             await nftService.publishDraft(1, ADDRESS);
 
@@ -503,11 +503,11 @@ describe("NftService", () => {
         });
 
         test("The draft to publish is not found and throws NFT_DRAFT_NOT_FOUND", async () => {
-            nftRepositoryMock.getOne.mockResolvedValueOnce(undefined);
+            nftRepositoryMock.findOne.mockResolvedValueOnce(undefined);
 
             await expect(async () => {
                 await nftService.publishDraft(1, ADDRESS);
-            }).rejects.toEqual(new BusinessException(ErrorCode.NFT_DRAFT_NOT_FOUND));
+            }).rejects.toEqual(new BusinessException(ErrorCode.NFT_NOT_FOUND));
         });
 
         test("The draft to publish is not owned by the user with the address provided and throws NFT_DRAFT_NOT_OWNED", async () => {
@@ -517,11 +517,11 @@ describe("NftService", () => {
                 status: NftStatus.DRAFT,
                 user: userMock,
             });
-            nftRepositoryMock.getOne.mockResolvedValueOnce(nftMock);
+            nftRepositoryMock.findOne.mockResolvedValueOnce(nftMock);
 
             await expect(async () => {
                 await nftService.publishDraft(1, ADDRESS);
-            }).rejects.toEqual(new BusinessException(ErrorCode.NFT_DRAFT_NOT_OWNED));
+            }).rejects.toEqual(new BusinessException(ErrorCode.NFT_NOT_FOUND));
         });
 
         test("The draft to publish has status pending", async () => {
@@ -531,7 +531,7 @@ describe("NftService", () => {
                 status: NftStatus.PENDING,
                 user: userMock,
             });
-            nftRepositoryMock.getOne.mockResolvedValueOnce(nftMock);
+            nftRepositoryMock.findOne.mockResolvedValueOnce(nftMock);
 
             await expect(async () => {
                 await nftService.publishDraft(1, ADDRESS);
@@ -546,7 +546,7 @@ describe("NftService", () => {
         });
 
         test("Throws NFT_NOT_FOUND error", async () => {
-            nftRepositoryMock.getOne.mockResolvedValueOnce(undefined);
+            nftRepositoryMock.findOne.mockResolvedValueOnce(undefined);
             await expect(async () => {
                 await nftService.findOne(1);
             }).rejects.toEqual(new BusinessException(ErrorCode.NFT_NOT_FOUND));
@@ -555,113 +555,59 @@ describe("NftService", () => {
 
     describe("findOneDraft", () => {
         test("Returns existing Nft draft from its owner account", async () => {
-            nftRepositoryMock.getOne.mockResolvedValueOnce(new NftMock({ status: NftStatus.DRAFT, user: new User({ address: ADDRESS }) }));
-            const nft = await nftService.findOneDraft(1, ADDRESS);
+            nftRepositoryMock.findOne.mockResolvedValueOnce(new NftMock({ status: NftStatus.DRAFT, user: new User({ address: ADDRESS }) }));
+            const nft = await nftService.findOne(1, { ownerAddress: ADDRESS, status: NftStatus.DRAFT });
             expect(nft).toBeDefined();
         });
         test("Throws NFT_DRAFT_NOT_OWNED error", async () => {
-            nftRepositoryMock.getOne.mockResolvedValueOnce(new NftMock({ user: new User({ address: ISSUER }) }));
+            nftRepositoryMock.findOne.mockResolvedValueOnce(new NftMock({ user: new User({ address: ISSUER }) }));
             await expect(async () => {
-                await nftService.findOneDraft(1, ADDRESS);
-            }).rejects.toEqual(new BusinessException(ErrorCode.NFT_DRAFT_NOT_OWNED));
+                await nftService.findOne(1, { ownerAddress: ADDRESS, status: NftStatus.DRAFT });
+            }).rejects.toEqual(new BusinessException(ErrorCode.NFT_NOT_FOUND));
         });
         test("Throws NFT_DRAFT_NOT_FOUND error", async () => {
-            nftRepositoryMock.getOne.mockResolvedValueOnce(undefined);
+            nftRepositoryMock.findOne.mockResolvedValueOnce(undefined);
             await expect(async () => {
-                await nftService.findOneDraft(1, ADDRESS);
-            }).rejects.toEqual(new BusinessException(ErrorCode.NFT_DRAFT_NOT_FOUND));
+                await nftService.findOne(1, { ownerAddress: ADDRESS });
+            }).rejects.toEqual(new BusinessException(ErrorCode.NFT_NOT_FOUND));
         });
     });
 
     describe("findAll", () => {
         test("Returns all NFTs with a simple query", async () => {
+            const queryBuilderHelper = jest
+                .spyOn(QueryBuilderHelper, "buildFindManyAndCount")
+                .mockReturnValue(Promise.resolve([[new NftMock()], 1]));
             const nfts = await nftService.findAll();
-            expect(nftRepositoryMock.take).toHaveBeenCalledWith(15);
-            expect(nftRepositoryMock.skip).toHaveBeenCalledWith(0);
-            expect(nftRepositoryMock.andWhere).toHaveBeenCalledWith("nft.status = :confirmed", { confirmed: NftStatus.CONFIRMED });
-            expect(nftRepositoryMock.orderBy).toHaveBeenCalledWith("nft.id", Order.DESC);
+            expect(queryBuilderHelper).toHaveBeenCalledWith(nftRepositoryMock, "nft", 0, 15, [], []);
             expect(nfts).toEqual({ items: expect.any(Array), pages: 1, currentPage: 1 });
         });
         test("Returns all NFTs with all optional params", async () => {
-            const nfts = await nftService.findAll({
-                page: 2,
-                pageSize: 10,
-                order: Order.ASC,
-                query: "asd",
-                collections: [1],
-                account: ADDRESS,
-            });
-            expect(nftRepositoryMock.take).toHaveBeenCalledWith(10);
-            expect(nftRepositoryMock.skip).toHaveBeenCalledWith(10);
-            expect(nftRepositoryMock.andWhere).toHaveBeenCalledWith(
-                "LOWER(collection.name) like :query OR LOWER(metadata.name) like :query",
-                { query: "%asd%" },
-            );
-            expect(nftRepositoryMock.andWhere).toHaveBeenCalledWith("collection.id IN (:...collections)", { collections: [1] });
-            expect(nftRepositoryMock.andWhere).toHaveBeenCalledWith("nft.status = :confirmed", { confirmed: NftStatus.CONFIRMED });
-            expect(nftRepositoryMock.andWhere).toHaveBeenCalledWith("user.address = :account", { account: ADDRESS });
-            expect(nftRepositoryMock.orderBy).toHaveBeenCalledWith("nft.id", Order.ASC);
-            expect(nfts).toEqual({ items: expect.any(Array), pages: 1, currentPage: 2 });
-        });
-    });
-    describe("findAllDrafts", () => {
-        beforeEach(() => {
-            nftRepositoryMock.getManyAndCount.mockResolvedValueOnce([
+            const req = new GetNftsRequest();
+            req.page = 2;
+            req.pageSize = 10;
+            req.order = Order.ASC;
+            req.query = "asd";
+            req.collections = [1];
+            req.account = ADDRESS;
+            const queryBuilderHelper = jest
+                .spyOn(QueryBuilderHelper, "buildFindManyAndCount")
+                .mockReturnValue(Promise.resolve([[new NftMock()], 1]));
+            const nfts = await nftService.findAll(req, { status: NftStatus.CONFIRMED, ownerAddress: ISSUER });
+            expect(queryBuilderHelper).toHaveBeenCalledWith(
+                nftRepositoryMock,
+                "nft",
+                10,
+                10,
+                ["nft.collection", "nft.user"],
                 [
-                    new NftMock({ id: 1, status: NftStatus.DRAFT }),
-                    new NftMock({ id: 2, status: NftStatus.DRAFT }),
-                    new NftMock({ id: 3, status: NftStatus.DRAFT }),
+                    { field: "nft.collection.id", operator: FilterType.IN, value: [1] },
+                    { field: "nft.user.address", operator: FilterType.EQUAL, value: ADDRESS },
+                    { field: "nft.status", operator: FilterType.EQUAL, value: NftStatus.CONFIRMED },
+                    { field: "nft.user.address", operator: FilterType.EQUAL, value: ISSUER },
                 ],
-                3,
-            ]);
-        });
-        test("Returns all NFT drafts with a simple query", async () => {
-            const nfts = await nftService.findAllDrafts(ADDRESS);
-            expect(nftRepositoryMock.take).toHaveBeenCalledWith(15);
-            expect(nftRepositoryMock.skip).toHaveBeenCalledWith(0);
-            expect(nftRepositoryMock.andWhere).toHaveBeenCalledWith("user.address = :address", { address: ADDRESS });
-            expect(nftRepositoryMock.andWhere).toHaveBeenCalledWith("nft.status != :confirmed", { confirmed: NftStatus.CONFIRMED });
-            expect(nftRepositoryMock.orderBy).toHaveBeenCalledWith("nft.id", Order.DESC);
-            expect(nfts).toEqual({ items: expect.any(Array), pages: 1, currentPage: 1 });
-        });
-        test("Returns all NFTs with all optional params", async () => {
-            const nfts = await nftService.findAllDrafts(ADDRESS, {
-                page: 2,
-                pageSize: 10,
-                order: Order.ASC,
-                query: "asd",
-                collections: [1],
-                status: NftDraftStatus.DRAFT,
-            });
-            expect(nftRepositoryMock.take).toHaveBeenCalledWith(10);
-            expect(nftRepositoryMock.skip).toHaveBeenCalledWith(10);
-            expect(nftRepositoryMock.andWhere).toHaveBeenCalledWith(
-                "LOWER(collection.name) like :query OR LOWER(metadata.name) like :query",
-                { query: "%asd%" },
             );
-            expect(nftRepositoryMock.andWhere).toHaveBeenCalledWith("collection.id IN (:...collections)", { collections: [1] });
-            expect(nftRepositoryMock.andWhere).toHaveBeenCalledWith("user.address = :address", { address: ADDRESS });
-            expect(nftRepositoryMock.andWhere).toHaveBeenCalledWith("nft.status != :confirmed", { confirmed: NftStatus.CONFIRMED });
-            expect(nftRepositoryMock.andWhere).toHaveBeenCalledWith("nft.status = :status", { status: NftStatus.DRAFT });
-            expect(nftRepositoryMock.orderBy).toHaveBeenCalledWith("nft.id", Order.ASC);
             expect(nfts).toEqual({ items: expect.any(Array), pages: 1, currentPage: 2 });
-        });
-    });
-
-    describe("getNftDraftStatus", () => {
-        let findOneDraftMock: jest.SpyInstance;
-        beforeAll(() => {
-            findOneDraftMock = jest
-                .spyOn(NftService.prototype, "findOneDraft")
-                .mockResolvedValue(new NftDtoMock({ status: NftStatus.DRAFT }));
-        });
-        afterAll(() => {
-            findOneDraftMock.mockRestore();
-        });
-
-        test("Returns a draft status correctly", async () => {
-            const status = await nftService.getNftDraftStatus(1, ADDRESS);
-            expect(status).toEqual(NftStatus.DRAFT);
         });
     });
 

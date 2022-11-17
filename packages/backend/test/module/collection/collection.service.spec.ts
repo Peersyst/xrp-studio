@@ -14,6 +14,7 @@ import UserMock from "../__mock__/user.mock";
 import { UpdateCollectionRequest } from "../../../src/modules/collection/request/update-collection.request";
 import { NftService } from "../../../src/modules/nft/nft.service";
 import NftServiceMock from "../__mock__/nft.service.mock";
+import { GetNftsRequest } from "../../../src/modules/nft/request/get-nfts.request";
 
 describe("CollectionService", () => {
     const ACCOUNT = "rwxmBgnEtpqAMerLSLkCCLfuSisi7GAvU6";
@@ -221,13 +222,13 @@ describe("CollectionService", () => {
         });
 
         test("Returns all collections with all optional params", async () => {
-            const collections = await collectionService.findAll({
-                page: 3,
-                pageSize: 20,
-                order: Order.ASC,
-                query: "xyz",
-                account: ACCOUNT,
-            });
+            const req = new GetNftsRequest();
+            req.page = 3;
+            req.pageSize = 20;
+            req.order = Order.ASC;
+            req.query = "xyz";
+            req.account = ACCOUNT;
+            const collections = await collectionService.findAll(req);
             expect(collectionRepositoryMock.take).toHaveBeenCalledWith(20);
             expect(collectionRepositoryMock.skip).toHaveBeenCalledWith(40);
             expect(collectionRepositoryMock.andWhere).toHaveBeenCalledWith("LOWER(collection.name) like :query", { query: "%xyz%" });

@@ -1,8 +1,7 @@
-import { NftStatus } from "../../../database/entities/Nft";
+import { Nft, NftStatus } from "../../../database/entities/Nft";
 import { CollectionDto } from "../../collection/dto/collection.dto";
 import { UserDto } from "../../user/dto/user.dto";
 import { ApiProperty } from "@nestjs/swagger";
-import { NftWithCollection } from "../types";
 import { MetadataDto } from "../../metadata/dto/metadata.dto";
 
 export class BaseNftDto {
@@ -19,11 +18,11 @@ export class BaseNftDto {
     user: UserDto;
     collection?: CollectionDto;
 
-    static fromEntity({ id, issuer, transferFee, flags, status, user, collection, metadata }: NftWithCollection): BaseNftDto {
+    static fromEntity({ id, issuer, transferFee, flags, status, user, collection, metadata }: Nft): BaseNftDto {
         return {
             id,
             issuer,
-            transferFee: transferFee ? transferFee / 1000 : undefined,
+            transferFee: transferFee ? transferFee : undefined,
             flags,
             status,
             metadata: metadata ? MetadataDto.fromEntity(metadata) : undefined,
