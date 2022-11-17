@@ -3,14 +3,17 @@ import { DropLandingContent, DropLandingRoot } from "module/drop/component/displ
 import DropLandingDescriptionSection from "module/drop/component/display/DropLanding/DropLandingDescriptionSection/DropLandingDescriptionSection";
 import { getLuminance } from "@peersyst/react-utils";
 import { useEffect, useRef, useState } from "react";
+import DropLandingVideoSection from "module/drop/component/display/DropLanding/DropLandingVideoSection/DropLandingVideoSection";
+import DropLandingArtistSection from "module/drop/component/display/DropLanding/DropLandingArtistSection/DropLandingArtistSection";
 
 function DropLanding({
     drop: {
-        collection: { header, image, name, description, items },
+        collection: { header, image, name, description, items, user },
         price = "0",
         sold = 0,
         fontColor,
         backgroundColor,
+        videoUrl,
     },
     loading = false,
     preview = false,
@@ -55,6 +58,8 @@ function DropLanding({
                     fontLuminance={getLuminance(fontColor)}
                     loading={loading}
                 />
+                {(loading || videoUrl) && <DropLandingVideoSection videoUrl={videoUrl} loading={loading} />}
+                <DropLandingArtistSection artist={user} loading={loading} />
             </DropLandingContent>
         </DropLandingRoot>
     );

@@ -42,12 +42,18 @@ export const DropLandingDescriptionSectionContent = styled(Row).attrs({
     justifyContent: "space-between",
     gap: "2.5rem",
     breakpoint: { width: "dropLandingPage", reverse: true, alignItems: "stretch" },
-})`
-    position: relative;
+})(
+    ({ theme }) => css`
+        position: relative;
 
-    padding: 5.5rem 6rem 16rem;
-    max-width: var(--page-max-width);
-`;
+        padding: 5.5rem 6rem 10rem;
+        max-width: var(--page-max-width);
+
+        ${theme.breakpoints.down("dropLandingPage")} {
+            padding: 5rem var(--horizontal-page-padding);
+        }
+    `,
+);
 
 export const DropLandingImage = styled(Image)(
     ({ theme }) => css`

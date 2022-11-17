@@ -8,8 +8,8 @@ import {
 } from "module/drop/component/display/DropLanding/DropLandingDescriptionSection/DropLandingDescriptionSection.styles";
 import { useFormatNumber } from "module/common/hook/useFormatNumber";
 import { DropLandingDescriptionSectionProps } from "module/drop/component/display/DropLanding/DropLandingDescriptionSection/DropLandingDescriptionSection.types";
-import DropLandingDescription from "module/drop/component/display/DropLanding/DropLandingDescriptionSection/DropLandingDescription";
 import { XrpIcon } from "icons";
+import Description from "module/common/component/display/Desciption/Description";
 
 const DropLandingDescriptionSection = ({
     cover = "",
@@ -35,7 +35,9 @@ const DropLandingDescriptionSection = ({
                                 {name}
                             </Typography>
                         </Skeleton>
-                        <DropLandingDescription description={description} loading={loading} />
+                        <Description variant="body2" css={{ opacity: 0.72, lineHeight: "1.5rem" }}>
+                            {description}
+                        </Description>
                     </Col>
                     <Row gap="3rem">
                         <DropLandingLabel variant="body2" label={translate("items")} loading={loading}>
