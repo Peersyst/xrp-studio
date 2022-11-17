@@ -22,7 +22,13 @@ export default function DashboardPage(): JSX.Element {
                             "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc accumsan tristique porta. Mauris pharetra pharetra enim. Morbi semper tristique ligula, in fringilla nisl egestas sed. Proin molestie ullamcorper tortor, vitae tincidunt sapien scelerisque vel. Pellentesque a diam eu lectus commodo interdum vehicula eu justo. Duis rutrum dolor non lacus suscipit, eget luctus odio lobortis. Ut vitae cursus augue. Morbi viverra ut odio eu facilisis.",
                         image: "https://s3-alpha-sig.figma.com/img/f01d/3395/8ad0be6041e9d52fbb127bc452e13884?Expires=1669593600&Signature=TNn-jCcA8comU-WGuyACWsidiA2RKeARzf5hdo7s13lpIcohGwKK2AW9QoYqClOksnpVtjz~EYB62b7Yxywx4nK7L4zt4yGNmHA7hzJN5aRr6B5-fv6EoTy3JQV390-cNJb4FCvJXt7NuBpeEb1bNnD8r4gJmGvBsUm7WbkfZ8M5Dk-t1zAFMwbQQBSOb6~prQmcmvB8ZEbUa1wFHdZEjp3pisESz~nvhUxNPrWw4lzPzrb9WCmsYI5ZlE5UWajGlgMucHa-gLRWf51p5FJIsSLpH459qf1IMvUPrqH2LRYWcCga2iqsIDNEjKrFWsrblW0cjBUYARJ-sob-U0-x2A__&Key-Pair-Id=APKAINTVSUGEWH5XD5UA",
                         header: "https://s3-alpha-sig.figma.com/img/f01d/3395/8ad0be6041e9d52fbb127bc452e13884?Expires=1669593600&Signature=TNn-jCcA8comU-WGuyACWsidiA2RKeARzf5hdo7s13lpIcohGwKK2AW9QoYqClOksnpVtjz~EYB62b7Yxywx4nK7L4zt4yGNmHA7hzJN5aRr6B5-fv6EoTy3JQV390-cNJb4FCvJXt7NuBpeEb1bNnD8r4gJmGvBsUm7WbkfZ8M5Dk-t1zAFMwbQQBSOb6~prQmcmvB8ZEbUa1wFHdZEjp3pisESz~nvhUxNPrWw4lzPzrb9WCmsYI5ZlE5UWajGlgMucHa-gLRWf51p5FJIsSLpH459qf1IMvUPrqH2LRYWcCga2iqsIDNEjKrFWsrblW0cjBUYARJ-sob-U0-x2A__&Key-Pair-Id=APKAINTVSUGEWH5XD5UA",
-                        user: { address: "address" },
+                        user: {
+                            address: "address",
+                            name: "George Carabby",
+                            description:
+                                "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc accumsan tristique porta. Mauris pharetra pharetra enim. Morbi semper tristique ligula, in fringilla nisl egestas sed. Proin molestie ullamcorper tortor.",
+                            image: "https://s3-alpha-sig.figma.com/img/8fa9/dff7/67aa4e06bbdc7f0e3089e4751b304df6?Expires=1669593600&Signature=TPGe7nx74qqg-KC-lK8-R6Od40Bl0Du6xSyQMv5pIdel~P-Qt8YaYJ~sbrRIeFa0w5EPgaqwylzD8UtQ-5J~IAkwosEsd2N84UHNzsQ-BoCjr03veMjzDrsEWxcGS7xHWlViLzeS5UpIUeKCBMKJ3MCIZMfjTe8PgiWPxaD6LxQjOtGsS6VunwiDOGw5RWn2uCJn~sNQMBGKDlEreNcEuSXJQy~IQDO4gzDRyN7flxz3t6ODjF6csgyhvT-8BkvKSDmxcbpZdQ1bo8R7b5bTzIR2NqMa6SEy5biPl4Qk1uwoM8vctz2Jsvi-AMB358qbizHnom~RFoTU5YpuI9FsNA__&Key-Pair-Id=APKAINTVSUGEWH5XD5UA",
+                        },
                     },
                 }}
             />

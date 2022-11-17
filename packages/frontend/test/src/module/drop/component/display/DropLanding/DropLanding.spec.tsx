@@ -24,5 +24,7 @@ describe("DropLanding", () => {
         expect(screen.getByRole("heading", { name: dropDtoMock.collection.name })).toBeInTheDocument();
         // Video section
         expect(screen.queryByTestId("Player")).toBeNull();
+        // Artist section
+        expect(screen.getByRole("heading", { name: dropDtoMock.collection.user.name })).toBeInTheDocument();
     });
 });
