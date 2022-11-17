@@ -101,5 +101,9 @@
     "answer" : "Respuesta",
     "delete" : "Borrar",
     "price" : "Precio",
-    "fontColor" : "Color de Fuente"
+    "fontColor" : "Color de Fuente",
+    "items": "Artículos",
+    "sold": "Vendidos",
+    "sales": "Ventas",
+    "meetTheArtist": "Conoce al artista"
 }

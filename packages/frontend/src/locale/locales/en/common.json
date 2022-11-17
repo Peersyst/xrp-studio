@@ -101,5 +101,9 @@
     "answer" : "Answer",
     "delete" : "Delete",
     "price" : "Price",
-    "fontColor" : "Font Color"
+    "fontColor" : "Font Color",
+    "items": "Items",
+    "sold": "Sold",
+    "sales": "Sales",
+    "meetTheArtist": "Meet the artist"
 }
