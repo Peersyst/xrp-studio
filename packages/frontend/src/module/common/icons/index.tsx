@@ -19,3 +19,4 @@ export { default as TrashIcon } from "./TrashIcon";
 export { default as TwitterIcon } from "./TwitterIcon";
 export { default as UploadIcon } from "./UploadIcon";
 export { default as WalletIcon } from "./WalletIcon";
+export { default as XrpIcon } from "./XrpIcon";
