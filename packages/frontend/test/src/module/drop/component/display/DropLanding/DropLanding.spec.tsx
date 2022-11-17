@@ -13,6 +13,8 @@ describe("DropLanding", () => {
         expect(screen.getByRole("heading", { name: dropDtoMock.collection.name })).toBeInTheDocument();
         // Video section
         expect(screen.getByTestId("Player")).toHaveAttribute("data-url", dropDtoMock.videoUrl);
+        // Artist section
+        expect(screen.getByRole("heading", { name: dropDtoMock.collection.user.name })).toBeInTheDocument();
     });
 
     test("Renders correctly without optional properties", () => {
