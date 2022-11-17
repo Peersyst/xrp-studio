@@ -87,5 +87,19 @@
     "changesApplied": "Los cambios han sido aplicados",
     "collectionCreated": "Colección creada",
     "collectionUpdated": "Colección actualizada",
-    "uploadAFileToCreateAnNfts": "Subi un fichero para añadir un NFT a la colección"
+    "uploadAFileToCreateAnNfts": "Subi un fichero para añadir un NFT a la colección",
+    "customizeDropPage": "Customizar Drop",
+    "launchDrop": "Lanzar drop!",
+    "videoTrailerURL": "Video trailer URL",
+    "instagram": "Instagram",
+    "discord": "Discord",
+    "twitter": "Twitter",
+    "social": "Social",
+    "faqs": "FAQs",
+    "addFaq" : "Add FAQ",
+    "title" : "Título",
+    "answer" : "Respuesta",
+    "delete" : "Borrar",
+    "price" : "Precio",
+    "fontColor" : "Color de Fuente"
 }
