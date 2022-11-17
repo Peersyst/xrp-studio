@@ -15,7 +15,6 @@ describe("DropLandingDescriptionSection", () => {
                 items={dropMock.collection.items}
                 price={dropMock.price}
                 sold={dropMock.sold}
-                fontLuminance={1}
                 loading={false}
             />,
         );
