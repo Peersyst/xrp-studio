@@ -55,7 +55,13 @@ const NftInformation = (): JSX.Element => {
                         <InformationField title={capitalize(translate("flags"))}>
                             <Col gap={8}>
                                 {flagsKeys.map((key) => {
-                                    return flags[key] && <Typography variant="body2">{translate(key)}</Typography>;
+                                    return (
+                                        flags[key] && (
+                                            <Typography key={key} variant="body2">
+                                                {translate(key)}
+                                            </Typography>
+                                        )
+                                    );
                                 })}
                             </Col>
                         </InformationField>
