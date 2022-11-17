@@ -10,7 +10,7 @@ export interface UsePublishNftReturn {
     isPublishing: boolean;
 }
 
-export function usePublishNft(onPublish?: () => void): UsePublishNftReturn {
+export function usePublishNft(onPublish?: () => void, onClose?: () => void): UsePublishNftReturn {
     const translateError = useTranslate("error");
     const { showToast } = useToast();
     const checkBalance = useCheckBalance();
@@ -20,17 +20,17 @@ export function usePublishNft(onPublish?: () => void): UsePublishNftReturn {
     const { mutate: updateNftDraft, isLoading: updateNftDraftLoading, variables } = useUpdateNftDraft();
 
     const publishing = createNftLoading || (updateNftDraftLoading && !!variables?.publish);
-
     const handlePublish = async () => {
         const hasBalance = await checkBalance();
         if (!hasBalance) showToast(translateError("notEnoughBalance"), { type: "error" });
         else {
             if (nftDraftId) {
                 updateNftDraft({ id: nftDraftId, publish: true, ...requestNft });
+                onClose?.();
             } else {
                 createNft(requestNft);
+                onPublish?.();
             }
-            onPublish?.();
         }
     };
 

@@ -12,7 +12,7 @@ const NftPublishModal = createModal(({ ...modalProps }) => {
     const translate = useTranslate();
     const [{ data: requestNft }] = usePublishNftState();
 
-    const { handleClick, isLoading, tab } = usePublishNftSteps();
+    const { handleClick, isLoading, tab } = usePublishNftSteps(NftPublishModal.id);
 
     return (
         <Modal size="lg" title={translate("publishConfirmation")} {...modalProps}>
