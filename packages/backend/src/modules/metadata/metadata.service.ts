@@ -12,9 +12,13 @@ import { ErrorCode } from "../common/exception/error-codes";
 import { IpfsService } from "@peersyst/ipfs-module/src/ipfs.service";
 import isHttpUrl from "../common/util/isHttpUrl";
 import axios from "axios";
-import { MetadataProcessingError } from "./queue/metadata.consumer";
 import { ConfigService } from "@nestjs/config";
 import { CreateMetadataRequest } from "./request/create-metadata.request";
+
+export enum MetadataProcessingError {
+    FETCH_ERROR,
+    INVALID,
+}
 
 @Injectable()
 export class MetadataService {
@@ -48,7 +52,9 @@ export class MetadataService {
         await this.nftMetadataRepository.delete({ nftId });
     }
 
-    async publishMetadata(metadata: NftMetadata): Promise<string> {
+    async publishMetadata(nftId: number): Promise<string> {
+        const metadata = await this.nftMetadataRepository.findOne({ nftId });
+        if (!metadata) throw new BusinessException(ErrorCode.METADATA_NOT_FOUND);
         const metadataDto = MetadataDto.fromEntity(metadata);
         return this.ipfsService.uploadFile(Buffer.from(metadataDto.encode()));
     }

@@ -17,6 +17,7 @@ enum AppErrorCode {
     COLLECTION_NOT_OWNED = "COLLECTION_NOT_OWNED",
     NFT_TRANSFERABLE_NOT_SET = "NFT_TRANSFERABLE_NOT_SET",
     METADATA_URI_NOT_SUPPORTED = "METADATA_URI_NOT_SUPPORTED",
+    METADATA_NOT_FOUND = "METADATA_NOT_FOUND",
 }
 
 export const ErrorCode = { ...AppErrorCode, ...XummErrorCode, ...StorageErrorCode };
@@ -76,5 +77,9 @@ export const ErrorBody: { [code in ErrorCodeType]: { statusCode: HttpStatus; mes
     [ErrorCode.METADATA_URI_NOT_SUPPORTED]: {
         statusCode: HttpStatus.NOT_IMPLEMENTED,
         message: ErrorCode.METADATA_URI_NOT_SUPPORTED,
+    },
+    [ErrorCode.METADATA_NOT_FOUND]: {
+        statusCode: HttpStatus.NOT_FOUND,
+        message: ErrorCode.METADATA_NOT_FOUND,
     },
 };

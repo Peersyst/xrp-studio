@@ -37,7 +37,8 @@ export class NftMetadata {
     @UpdateDateColumn({ name: "updated_at", type: "timestamp" })
     updatedAt: Date;
 
-    constructor({ nft, name, description, image, backgroundColor, externalUrl, attributes }: Partial<NftMetadata> = {}) {
+    constructor({ nftId, nft, name, description, image, backgroundColor, externalUrl, attributes }: Partial<NftMetadata> = {}) {
+        this.nftId = nftId;
         this.nft = nft;
         this.name = name;
         this.description = description;

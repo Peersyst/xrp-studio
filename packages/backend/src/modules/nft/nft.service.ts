@@ -27,6 +27,7 @@ import { CreateNftQueryBuilderOptions, NftWithCollection } from "./types";
 import { IMessageEvent } from "websocket";
 import { NftDraftStatusDto } from "./dto/nft-draft-status.dto";
 import { MetadataService } from "../metadata/metadata.service";
+import { NftMetadata } from "../../database/entities/NftMetadata";
 
 @Injectable()
 export class NftService {
@@ -170,14 +171,14 @@ export class NftService {
         const nftEntity = await this.nftRepository.save(nft);
 
         // If there's metadata, create entities and attach it to the nft
+        let metadataEntity: NftMetadata | undefined = undefined;
         if (metadata) {
-            await this.metadataService.create(nftEntity.id, metadata);
+            metadataEntity = await this.metadataService.create(nftEntity.id, metadata);
         }
-
         if (publish) await this.publishDraft(nftEntity.id, address);
 
         // We have to include collection with items again, as save will return a regular Nft with a collection without items
-        return NftDraftDto.fromEntity({ ...nftEntity, collection });
+        return NftDraftDto.fromEntity({ ...nftEntity, collection, metadata: metadataEntity });
     }
 
     /**
@@ -200,7 +201,7 @@ export class NftService {
             : undefined;
 
         // Delete metadata if new NftDraft does not include it
-        if (!metadata) await this.metadataService.delete(id);
+        if (Object.entries(metadata || {}).length === 0) await this.metadataService.delete(id);
         await this.metadataService.create(id, metadata, true);
 
         // Update entity
@@ -239,10 +240,10 @@ export class NftService {
         // Build metadata
         let cid: string;
         if (metadata && publishMetadata) {
-            cid = await this.metadataService.publishMetadata(metadata);
+            cid = await this.metadataService.publishMetadata(metadata.nftId);
         }
 
-        const memo = { id: draftId, ...(metadata.name && { name: metadata.name }) };
+        const memo = { id: draftId, ...(metadata?.name && { name: metadata.name }) };
 
         // Build NFTokenMintTransaction
         const nftokenMintTransaction: NFTokenMint = {

@@ -1,26 +1,15 @@
 import { OnQueueFailed, Process, Processor } from "@nestjs/bull";
 import { Inject, Logger } from "@nestjs/common";
 import { Job } from "bull";
-import { IpfsService } from "@peersyst/ipfs-module/src/ipfs.service";
-import { ConfigService } from "@nestjs/config";
 import { Nft } from "../../../database/entities/Nft";
 import { convertHexToString } from "xrpl";
-import { MetadataService } from "../metadata.service";
-
-export enum MetadataProcessingError {
-    FETCH_ERROR,
-    INVALID,
-}
+import { MetadataProcessingError, MetadataService } from "../metadata.service";
 
 @Processor("metadata")
 export class MetadataConsumer {
     private readonly logger = new Logger(MetadataConsumer.name);
 
-    constructor(
-        @Inject(IpfsService) private readonly ipfsService: IpfsService,
-        @Inject(ConfigService) private readonly configService: ConfigService,
-        @Inject(MetadataService) private readonly metadataService: MetadataService,
-    ) {}
+    constructor(@Inject(MetadataService) private readonly metadataService: MetadataService) {}
 
     /**
      * Handle timeouts and unknown errors
