@@ -1,7 +1,10 @@
 import { forwardRef } from "react";
 import CollectionCard from "../../display/CollectionCard/CollectionCard";
+import { CollectionCardProps } from "module/collection/component/display/CollectionCard/CollectionCard.types";
 
-const CollectionCardSkeleton = forwardRef((_, ref): JSX.Element => {
+export type CollectionCardSkeleton = Pick<CollectionCardProps, "size">;
+
+const CollectionCardSkeleton = forwardRef((props: CollectionCardSkeleton, ref): JSX.Element => {
     return (
         <CollectionCard
             ref={ref}
@@ -15,6 +18,7 @@ const CollectionCardSkeleton = forwardRef((_, ref): JSX.Element => {
                     address: "",
                 },
             }}
+            {...props}
         />
     );
 });

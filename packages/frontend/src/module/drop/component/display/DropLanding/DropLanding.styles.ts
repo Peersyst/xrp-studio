@@ -7,7 +7,7 @@ export const DropLandingRoot = styled(Col)`
     overflow: hidden;
 `;
 
-export const DropLandingContent = styled(Col)<DropLandingContentProps>(
+export const DropLandingContent = styled(Col).attrs({ gap: "5.5rem" })<DropLandingContentProps>(
     ({ preview }) => css`
         /*
         Cannot use zoom as it is not an standard css properties
@@ -27,10 +27,20 @@ export const DropLandingContent = styled(Col)<DropLandingContentProps>(
 
             pointer-events: none;
         `}
+
+        a:hover {
+            color: currentColor;
+
+            > .Typography {
+                opacity: 0.75;
+            }
+        }
     `,
 );
 
 export const DropLandingSection = styled.div`
+    color: inherit;
+    background-color: inherit;
     width: 100%;
     max-width: var(--page-max-width);
     padding: 0 var(--horizontal-page-padding);
