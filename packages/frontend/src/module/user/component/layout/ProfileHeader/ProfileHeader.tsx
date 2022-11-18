@@ -12,7 +12,7 @@ import ChipBlockchainAddress from "module/wallet/component/display/ChipBlockchai
 const ProfileHeader = (): JSX.Element => {
     const { data: user, isLoading } = useGetUser();
 
-    const { header, image = "", name = "", address = "", description } = user || {};
+    const { header = "", image = "", name = "", address = "", description } = user || {};
 
     return (
         <ProfileHeaderRoot showStickyTitle={!!header} image={header} stickyTitle={name}>
