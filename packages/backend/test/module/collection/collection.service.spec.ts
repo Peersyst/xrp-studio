@@ -15,6 +15,7 @@ import { UpdateCollectionRequest } from "../../../src/modules/collection/request
 import { NftService } from "../../../src/modules/nft/nft.service";
 import NftServiceMock from "../__mock__/nft.service.mock";
 import { GetNftsRequest } from "../../../src/modules/nft/request/get-nfts.request";
+import { QueryBuilderHelper } from "../../../src/modules/common/util/query-builder.helper";
 
 describe("CollectionService", () => {
     const ACCOUNT = "rwxmBgnEtpqAMerLSLkCCLfuSisi7GAvU6";
@@ -56,7 +57,7 @@ describe("CollectionService", () => {
             nfts: [{ metadata: { name: "NFT #1" } }, { metadata: { name: "NFT #2" } }, { metadata: { name: "NFT #3" } }],
         };
 
-        const baseCreatedCollection: Omit<Collection, "taxon" | "id" | "nfts" | "createdAt" | "updatedAt"> = {
+        const baseCreatedCollection: Omit<Collection, "account" | "items" | "taxon" | "id" | "nfts" | "createdAt" | "updatedAt"> = {
             ...CREATE_COLLECTION_REQUEST,
             user: new User({ address: ACCOUNT }),
         };
@@ -92,9 +93,7 @@ describe("CollectionService", () => {
         });
 
         test("Creates a collection with a given taxon not used by the account", async () => {
-            const findCollectionByTaxonAndAccountMock = jest
-                .spyOn(CollectionService.prototype, "findCollectionByTaxonAndAccount")
-                .mockResolvedValue(undefined);
+            const findCollectionByTaxonAndAccountMock = jest.spyOn(CollectionService.prototype, "findOne").mockResolvedValue(undefined);
             const collection = await collectionService.createCollection(ACCOUNT, { taxon: 25, ...CREATE_COLLECTION_REQUEST });
             expect(collectionRepositoryMock.save).toHaveBeenCalledWith({ ...baseCreatedCollection, taxon: "25" });
             expect(collection).toEqual(expect.objectContaining({ taxon: 25 }));
@@ -103,8 +102,8 @@ describe("CollectionService", () => {
 
         test("Throws COLLECTION_TAXON_ALREADY_EXISTS error when creating a collection with a given taxon already used by the account", async () => {
             const findCollectionByTaxonAndAccountMock = jest
-                .spyOn(CollectionService.prototype, "findCollectionByTaxonAndAccount")
-                .mockResolvedValue(new CollectionMock({ taxon: "25" }));
+                .spyOn(CollectionService.prototype, "findOne")
+                .mockResolvedValue(CollectionDto.fromEntity(new CollectionMock({ taxon: "25" })));
             await expect(async () => {
                 await collectionService.createCollection(ACCOUNT, { taxon: 25, ...CREATE_COLLECTION_REQUEST });
             }).rejects.toEqual(new BusinessException(ErrorCode.COLLECTION_TAXON_ALREADY_EXISTS));
@@ -142,13 +141,15 @@ describe("CollectionService", () => {
     });
 
     describe("updateCollection", () => {
-        const collectionMock = new CollectionMock();
+        const collectionMock = new CollectionMock({
+            user: new UserMock({ address: ACCOUNT }),
+        });
 
         let findCollectionByTaxonAndAccountMock: jest.SpyInstance;
         beforeAll(() => {
             findCollectionByTaxonAndAccountMock = jest
-                .spyOn(CollectionService.prototype, "findOwnedCollection")
-                .mockResolvedValue(collectionMock);
+                .spyOn(CollectionService.prototype, "findOne")
+                .mockResolvedValue(CollectionDto.fromEntity(collectionMock));
         });
 
         afterAll(() => {
@@ -163,13 +164,12 @@ describe("CollectionService", () => {
                 header: "NEW_HEADER_URL",
             };
             await collectionService.updateCollection(1, ACCOUNT, updateCollectionRequest);
-            expect(collectionRepositoryMock.save).toHaveBeenCalledWith({ ...collectionMock, ...updateCollectionRequest });
+            expect(collectionRepositoryMock.update).toHaveBeenCalledWith(1, updateCollectionRequest);
         });
 
         test("Updates collection with null values", async () => {
             await collectionService.updateCollection(1, ACCOUNT, { name: "NEW_NAME" });
-            expect(collectionRepositoryMock.save).toHaveBeenCalledWith({
-                ...collectionMock,
+            expect(collectionRepositoryMock.update).toHaveBeenCalledWith(1, {
                 name: "NEW_NAME",
                 description: null,
                 image: null,
@@ -178,20 +178,15 @@ describe("CollectionService", () => {
         });
     });
 
-    describe("findCollectionByTaxonAndAccount", () => {
+    describe("find collection By Taxon And Account", () => {
         test("Returns existing collection", async () => {
-            const collection = await collectionService.findCollectionByTaxonAndAccount("1", "rNCFjv8Ek5oDrNiMJ3pw6eLLFtMjZLJnf2");
-            expect(collection).toEqual(new CollectionMock());
-        });
-        test("Collection does not exist and notFoundError option is not set (does not throw error)", async () => {
-            collectionRepositoryMock.getOne.mockReturnValueOnce(new Promise((resolve) => resolve(undefined)));
-            const collection = await collectionService.findCollectionByTaxonAndAccount("1", "rNCFjv8Ek5oDrNiMJ3pw6eLLFtMjZLJnf2");
-            expect(collection).toBeUndefined();
+            const collection = await collectionService.findOne({ taxon: "1", account: "rNCFjv8Ek5oDrNiMJ3pw6eLLFtMjZLJnf2" });
+            expect(collection).toEqual(CollectionDto.fromEntity(new CollectionMock()));
         });
         test("Collection does not exist and notFoundError option is set (throws error)", async () => {
-            collectionRepositoryMock.getOne.mockReturnValueOnce(new Promise((resolve) => resolve(undefined)));
+            collectionRepositoryMock.findOne.mockReturnValueOnce(new Promise((resolve) => resolve(undefined)));
             await expect(async () => {
-                await collectionService.findCollectionByTaxonAndAccount("1", "rNCFjv8Ek5oDrNiMJ3pw6eLLFtMjZLJnf2", { notFoundError: true });
+                await collectionService.findOne({ taxon: "1", account: "rNCFjv8Ek5oDrNiMJ3pw6eLLFtMjZLJnf2" });
             }).rejects.toEqual(new BusinessException(ErrorCode.COLLECTION_NOT_FOUND));
         });
     });
@@ -199,29 +194,33 @@ describe("CollectionService", () => {
     describe("findOne", () => {
         test("Finds existing collection", async () => {
             const collectionMock = new CollectionMock();
-            collectionRepositoryMock.getOne.mockResolvedValueOnce(collectionMock);
-            const collection = await collectionService.findOne(1);
+            collectionRepositoryMock.findOne.mockResolvedValueOnce(collectionMock);
+            const collection = await collectionService.findOne({ id: 1 });
             expect(collection).toEqual(CollectionDto.fromEntity(collectionMock));
         });
 
         test("Does not find collection and throws COLLECTION_NOT_FOUND_ERROR", async () => {
-            collectionRepositoryMock.getOne.mockResolvedValueOnce(undefined);
+            collectionRepositoryMock.findOne.mockResolvedValueOnce(undefined);
             await expect(async () => {
-                await collectionService.findOne(1);
+                await collectionService.findOne({ id: 1 });
             }).rejects.toEqual(new BusinessException(ErrorCode.COLLECTION_NOT_FOUND));
         });
     });
 
     describe("findAll", () => {
         test("Returns all collections with a simple query", async () => {
+            const queryBuilderSpy = jest
+                .spyOn(QueryBuilderHelper, "buildFindManyAndCount")
+                .mockReturnValue(Promise.resolve([[new CollectionMock()], 1]));
             const collections = await collectionService.findAll();
-            expect(collectionRepositoryMock.take).toHaveBeenCalledWith(15);
-            expect(collectionRepositoryMock.skip).toHaveBeenCalledWith(0);
-            expect(collectionRepositoryMock.orderBy).toHaveBeenCalledWith("collection.id", Order.DESC);
+            expect(queryBuilderSpy).toHaveBeenCalledWith(collectionRepositoryMock, "nft", 0, 15, ["user"]);
             expect(collections).toEqual({ items: expect.any(Array), pages: 1, currentPage: 1 });
         });
 
         test("Returns all collections with all optional params", async () => {
+            const queryBuilderSpy = jest
+                .spyOn(QueryBuilderHelper, "buildFindManyAndCount")
+                .mockReturnValue(Promise.resolve([[new CollectionMock()], 1]));
             const req = new GetNftsRequest();
             req.page = 3;
             req.pageSize = 20;
@@ -229,40 +228,8 @@ describe("CollectionService", () => {
             req.query = "xyz";
             req.account = ACCOUNT;
             const collections = await collectionService.findAll(req);
-            expect(collectionRepositoryMock.take).toHaveBeenCalledWith(20);
-            expect(collectionRepositoryMock.skip).toHaveBeenCalledWith(40);
-            expect(collectionRepositoryMock.andWhere).toHaveBeenCalledWith("LOWER(collection.name) like :query", { query: "%xyz%" });
-            expect(collectionRepositoryMock.andWhere).toHaveBeenCalledWith("user.address = :account", { account: ACCOUNT });
-            expect(collectionRepositoryMock.orderBy).toHaveBeenCalledWith("collection.id", Order.ASC);
+            expect(queryBuilderSpy).toHaveBeenCalledWith(collectionRepositoryMock, "nft", 40, 20, ["user"]);
             expect(collections).toEqual({ items: expect.any(Array), pages: 1, currentPage: 3 });
-        });
-    });
-
-    describe("findOwnedCollection", () => {
-        test("Collection exists and is owned by account", async () => {
-            const collectionMock = new CollectionMock({ id: 21, taxon: "50", user: new UserMock({ address: ACCOUNT }) });
-            collectionRepositoryMock.getOne.mockResolvedValueOnce(collectionMock);
-            const collection = await collectionService.findOwnedCollection(21, ACCOUNT);
-            expect(collection).toEqual(collectionMock);
-        });
-
-        test("Collection does not exist and throws COLLECTION_NOT_FOUND error", async () => {
-            collectionRepositoryMock.getOne.mockResolvedValueOnce(undefined);
-            await expect(async () => {
-                await collectionService.findOwnedCollection(21, ACCOUNT);
-            }).rejects.toEqual(new BusinessException(ErrorCode.COLLECTION_NOT_FOUND));
-        });
-
-        test("Collection exists but is not owned by the account", async () => {
-            const collectionMock = new CollectionMock({
-                id: 21,
-                taxon: "50",
-                user: new UserMock({ address: "rTgjigngbTMDRf7dgjdWUPXrP7WgvkCsv" }),
-            });
-            collectionRepositoryMock.getOne.mockResolvedValueOnce(collectionMock);
-            await expect(async () => {
-                await collectionService.findOwnedCollection(21, ACCOUNT);
-            }).rejects.toEqual(new BusinessException(ErrorCode.COLLECTION_NOT_OWNED));
         });
     });
 });

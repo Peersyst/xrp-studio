@@ -22,6 +22,7 @@ class CollectionMock extends CollectionWithItems {
         this.header = header;
         this.nfts = nfts;
         this.user = user;
+        this.account = user?.address || "rNCFjv8Ek5oDrNiMJ3pw6eLLFtMjZLJnf2";
         this.items = items;
     }
 }

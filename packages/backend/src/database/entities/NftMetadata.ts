@@ -8,8 +8,7 @@ export class NftMetadata {
     @JoinColumn({ name: "nft_id" })
     nft: Nft;
 
-    @PrimaryColumn()
-    @Column({ type: "int", name: "nft_id", nullable: false })
+    @PrimaryColumn({ type: "int", name: "nft_id", nullable: false })
     nftId: number;
 
     @Column({ type: "varchar", length: 255, nullable: true })

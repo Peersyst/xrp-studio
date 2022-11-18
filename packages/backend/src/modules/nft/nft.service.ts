@@ -5,8 +5,6 @@ import { ValidatedLedgerTransaction } from "../blockchain/types";
 import { NFTokenMint } from "xrpl/dist/npm/models/transactions/NFTokenMint";
 import { Repository, SelectQueryBuilder } from "typeorm";
 import { convertStringToHex, decodeAccountID } from "xrpl";
-import { User } from "../../database/entities/User";
-import { Collection } from "../../database/entities/Collection";
 import { CollectionService } from "../collection/collection.service";
 import { NftMetadataAttribute } from "../../database/entities/NftMetadataAttribute";
 import unscrambleTaxon from "./util/unscrambleTaxon";
@@ -23,8 +21,8 @@ import { CreateNftQueryBuilderOptions, NftWithCollection } from "./types";
 import { IMessageEvent } from "websocket";
 import { NftDraftStatusDto } from "./dto/nft-draft-status.dto";
 import { MetadataService } from "../metadata/metadata.service";
-import { NftMetadata } from "../../database/entities/NftMetadata";
 import { QueryBuilderHelper } from "../common/util/query-builder.helper";
+import { CollectionDto } from "../collection/dto/collection.dto";
 
 @Injectable()
 export class NftService {
@@ -67,18 +65,13 @@ export class NftService {
         const scrambledTaxonHex = scrambledTaxon.toString(16).toUpperCase().padStart(8, "0");
         const tokenId = flags + transferFee + issuer + scrambledTaxonHex + tokenSequenceHex;
 
-        // Create Account user, this will create the entity if it does not exist, otherwise it will reference to the existing user
-        const user = new User();
-        user.address = Account;
-
         // Create collection if NFTokenTaxon > 0. Cannot use cascade as we are inserting a collection without primary key
-        let collection: Collection;
+        let collection: CollectionDto;
         if (NFTokenTaxon) {
-            collection = await this.collectionService.findCollectionByTaxonAndAccount(NFTokenTaxon.toString(), Account);
-            if (!collection) {
-                collection = new Collection();
-                collection.taxon = NFTokenTaxon.toString();
-                collection.user = user;
+            try {
+                collection = await this.collectionService.findOne({ taxon: NFTokenTaxon.toString(), account: Account });
+            } catch (e) {
+                collection = await this.collectionService.createCollection(Account, {}, false);
             }
         }
 
@@ -108,27 +101,26 @@ export class NftService {
                 .getOne();
         }
 
-        // Create the new Nft entity
-        const nft = new Nft();
-        // If a draft exists assign its id in order to update it
-        if (draftNft) nft.id = draftNft.id;
-        nft.tokenId = tokenId;
-        nft.mintTransactionHash = hash;
-        nft.issuer = issuerOrCreator;
-        nft.transferFee = TransferFee;
-        nft.flags = Number("0x" + flags);
-        // May not be necessary in mainnet release but has to be checked in devnet in order to store the nft even if the uri is invalid
-        nft.uri = URI && URI.length <= 256 ? URI : undefined;
-        nft.status = NftStatus.CONFIRMED;
-        nft.user = user;
-        nft.collection = collection;
-
         try {
-            const savedNft = await this.nftRepository.save(nft);
+            if (collection) await this.collectionService.addItems(collection.id, 1);
+            const savedNft = await this.nftRepository.save({
+                id: draftNft ? draftNft.id : undefined,
+                tokenId: tokenId,
+                mintTransactionHash: hash,
+                issuer: issuerOrCreator,
+                transferFee: TransferFee,
+                flags: Number("0x" + flags),
+                // May not be necessary in mainnet release but has to be checked in devnet in order to store the nft even if the uri is invali,
+                uri: URI && URI.length <= 256 ? URI : undefined,
+                status: NftStatus.CONFIRMED,
+                account: Account,
+                collectionId: collection?.id,
+            });
             if (savedNft.uri) await this.metadataService.sendToProcessMetadata(savedNft);
             return savedNft;
         } catch (e) {
-            throw { error: e, nft };
+            if (collection) await this.collectionService.addItems(collection.id, -1);
+            throw { error: e, tokenId };
         }
     }
 
@@ -147,35 +139,34 @@ export class NftService {
         publish = false,
     ): Promise<NftDraftDto> {
         // Build User, Collection and Nft entities
-        const user = new User({ address });
-
-        const collection = taxon
-            ? await this.collectionService.findCollectionByTaxonAndAccount(taxon.toString(), user.address, {
-                  notFoundError: true,
-              })
-            : undefined;
-
-        const nft = new Nft({
-            issuer: issuer || address,
-            transferFee: transferFee ? transferFee * 1000 : undefined,
-            flags: flagsToNumber({ tfBurnable: burnable, tfOnlyXRP: onlyXRP, tfTrustLine: trustLine, tfTransferable: transferable }),
-            status: NftStatus.DRAFT,
-            user,
-            collection,
-        });
+        let collection: CollectionDto | undefined;
+        try {
+            collection = taxon
+                ? await this.collectionService.findOne({
+                      taxon: taxon.toString(),
+                      account: address,
+                  })
+                : undefined;
+        } catch {}
 
         // Create nft without metadata as we need an id to reference first
-        const nftEntity = await this.nftRepository.save(nft);
+        const nftEntity = await this.nftRepository.save({
+            issuer: issuer || address,
+            transferFee: transferFee ? transferFee : undefined,
+            flags: flagsToNumber({ tfBurnable: burnable, tfOnlyXRP: onlyXRP, tfTrustLine: trustLine, tfTransferable: transferable }),
+            status: NftStatus.DRAFT,
+            account: address,
+            collectionId: collection?.id,
+        });
 
         // If there's metadata, create entities and attach it to the nft
-        let metadataEntity: NftMetadata | undefined = undefined;
         if (metadata) {
-            metadataEntity = await this.metadataService.create(nftEntity.id, metadata);
+            await this.metadataService.create(nftEntity.id, metadata);
         }
+
         if (publish) await this.publishDraft(nftEntity.id, address);
 
-        // We have to include collection with items again, as save will return a regular Nft with a collection without items
-        return NftDraftDto.fromEntity({ ...nftEntity, collection, metadata: metadataEntity });
+        return this.findOne(nftEntity.id, { relations: ["user", "collection", "metadata", "metadata.attributes"] });
     }
 
     /**
@@ -191,11 +182,15 @@ export class NftService {
         await this.findOne(id, { ownerAddress: address, status: NftStatus.DRAFT });
 
         // Find taxon & address collection or use undefined and remove relation if any
-        const collection = taxon
-            ? await this.collectionService.findCollectionByTaxonAndAccount(taxon.toString(), address, {
-                  notFoundError: true,
-              })
-            : undefined;
+        let collection: CollectionDto | undefined;
+        try {
+            collection = taxon
+                ? await this.collectionService.findOne({
+                      taxon: taxon.toString(),
+                      account: address,
+                  })
+                : undefined;
+        } catch {}
 
         // Delete metadata if new NftDraft does not include it
         if (Object.entries(metadata || {}).length === 0) await this.metadataService.delete(id);
@@ -211,7 +206,7 @@ export class NftService {
                 flags: flags
                     ? flagsToNumber({ tfBurnable: burnable, tfOnlyXRP: onlyXRP, tfTrustLine: trustLine, tfTransferable: transferable })
                     : undefined,
-                collection: collection || null,
+                collectionId: collection?.id || null,
             },
         );
 
@@ -256,7 +251,7 @@ export class NftService {
                 },
             ],
         };
-        console.log(transferFee);
+
         if (issuer && issuer !== account) nftokenMintTransaction.Issuer = issuer;
         if (transferFee) nftokenMintTransaction.TransferFee = transferFee;
         if (cid) nftokenMintTransaction.URI = convertStringToHex("ipfs://" + cid);
