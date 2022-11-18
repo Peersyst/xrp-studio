@@ -1,8 +1,7 @@
 import { screen } from "@testing-library/react";
 import DropLanding from "module/drop/component/display/DropLanding/DropLanding";
 import { render } from "test-utils";
-import { DropDtoMock } from "../../../../../../__mocks__/dto/drop.dto.mock";
-import { MetadataDtoMock, NftDtoMock } from "test-mocks";
+import { DropDtoMock, MetadataDtoMock, NftDtoMock } from "test-mocks";
 
 describe("DropLanding", () => {
     const nftMocks = [...Array(3)].map((_, i) => new NftDtoMock({ metadata: new MetadataDtoMock({ name: "NFT #" + i }) }));

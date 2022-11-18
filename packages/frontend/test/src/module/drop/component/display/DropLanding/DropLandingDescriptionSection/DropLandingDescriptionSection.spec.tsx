@@ -1,7 +1,7 @@
 import { screen } from "@testing-library/react";
 import { render, translate } from "test-utils";
 import DropLandingDescriptionSection from "module/drop/component/display/DropLanding/DropLandingDescriptionSection/DropLandingDescriptionSection";
-import { DropDtoMock } from "../../../../../../../__mocks__/dto/drop.dto.mock";
+import { DropDtoMock } from "test-mocks";
 
 describe("DropLandingDescriptionSection", () => {
     test("Renders correctly", () => {
