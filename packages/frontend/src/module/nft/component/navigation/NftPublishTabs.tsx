@@ -2,7 +2,6 @@ import { TabPanel, Tabs } from "@peersyst/react-components";
 import NftInformation from "module/nft/component/display/NftInformation/NftInformation";
 import { NftPublishTabsCard } from "module/nft/component/navigation/NftPublishTabs.styles";
 import NftPublishActions from "module/nft/component/feedback/NftPublishActions/NftPublishActions";
-import useTranslate from "module/common/hook/useTranslate";
 
 interface NftPublishTabsProps {
     tab: number;
@@ -11,7 +10,7 @@ interface NftPublishTabsProps {
 const NftPublishTabs = ({ tab }: NftPublishTabsProps): JSX.Element => {
     const steps = [
         {
-            title: "Approve XRP to paying",
+            title: "Approve XRP-Studio",
             description:
                 "To get set up for interacting on XRP Studio for the first time, you must approve for interacting NFT, which requires a one-time transaction.",
             execution: async () => {

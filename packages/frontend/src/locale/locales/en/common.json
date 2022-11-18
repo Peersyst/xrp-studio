@@ -95,5 +95,6 @@
     "flags": "flags",
     "publishConfirmation": "Publish NFT confirmation",
     "confirm": "confirm",
-    "noDataProvided": "No data provided"
+    "noDataProvided": "No data provided",
+    "finish": "finish"
 }

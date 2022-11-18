@@ -4,6 +4,7 @@ import { useToast } from "@peersyst/react-components";
 import useTranslate from "module/common/hook/useTranslate";
 import usePublishNftState from "./usePublishNftState";
 import useCheckBalance from "module/wallet/hook/useCheckBalance";
+import { capitalize } from "@peersyst/react-utils";
 
 export interface UsePublishNftReturn {
     handlePublish: () => Promise<void>;
@@ -11,6 +12,7 @@ export interface UsePublishNftReturn {
 }
 
 export function usePublishNft(onPublish?: () => void, onClose?: () => void): UsePublishNftReturn {
+    const translate = useTranslate();
     const translateError = useTranslate("error");
     const { showToast } = useToast();
     const checkBalance = useCheckBalance();
