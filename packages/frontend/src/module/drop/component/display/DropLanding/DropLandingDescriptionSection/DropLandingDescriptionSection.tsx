@@ -19,14 +19,13 @@ const DropLandingDescriptionSection = ({
     items,
     price = "0",
     sold = 0,
-    fontLuminance,
     loading = false,
 }: WithLoading<DropLandingDescriptionSectionProps>): JSX.Element => {
     const translate = useTranslate();
     const formatNumber = useFormatNumber();
 
     return (
-        <DropLandingDescriptionSectionRoot cover={cover} fontLuminance={fontLuminance}>
+        <DropLandingDescriptionSectionRoot cover={cover}>
             <DropLandingDescriptionSectionContent>
                 <Col flex={1} justifyContent="space-between" gap="3.5rem" css={{ padding: "3.375rem 0" }}>
                     <Col gap="0.625rem">

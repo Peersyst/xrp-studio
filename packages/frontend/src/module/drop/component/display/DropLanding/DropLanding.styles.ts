@@ -27,10 +27,17 @@ export const DropLandingContent = styled(Col)<DropLandingContentProps>(
 
             pointer-events: none;
         `}
+
+        a:hover {
+            color: currentColor;
+            opacity: 0.75;
+        }
     `,
 );
 
 export const DropLandingSection = styled.div`
+    color: inherit;
+    background-color: inherit;
     width: 100%;
     max-width: var(--page-max-width);
     padding: 0 var(--horizontal-page-padding);
