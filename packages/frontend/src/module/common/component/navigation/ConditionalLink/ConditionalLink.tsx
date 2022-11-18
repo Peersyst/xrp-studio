@@ -3,11 +3,11 @@ import { Link } from "react-router-dom";
 
 const ConditionalLink = ({ condition, children, style, className, ...linkProps }: ConditionalLinkProps): JSX.Element =>
     condition ? (
-        <Link css={{ display: "flex", width: "fit-content" }} style={style} className={className} {...linkProps}>
+        <Link css={{ display: "flex" }} style={style} className={className} {...linkProps}>
             {children}
         </Link>
     ) : (
-        <span css={{ display: "flex", width: "fit-content" }} style={style} className={className}>
+        <span css={{ display: "flex" }} style={style} className={className}>
             {children}
         </span>
     );
