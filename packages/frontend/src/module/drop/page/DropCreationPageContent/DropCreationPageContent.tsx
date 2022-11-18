@@ -10,9 +10,14 @@ import useDropCreationState from "module/drop/hook/useDropCreationState";
 import { DropCreationFormFields } from "module/drop/types";
 import FaqsInput from "module/drop/component/input/FaqsInput/FaqsInput";
 import DropLanding from "module/drop/component/display/DropLanding/DropLanding";
+import { useGetCollectionNfts } from "module/nft/query/useGetCollectionNfts";
+import { usePaginatedList } from "@peersyst/react-hooks";
 
 const DropCreationPageContent = ({ loading = false, collection }: WithLoading<CollectionCreationPageContentProps>): JSX.Element => {
     const translate = useTranslate();
+
+    const { data: paginatedNfts, isLoading: loadingNfts } = useGetCollectionNfts(collection?.id);
+    const nfts = usePaginatedList(paginatedNfts?.pages, (page) => page.items);
 
     const [{ backgroundColor, videoUrl, instagram, discord, twitter, faqs, price, fontColor }, setDropCreationState] =
         useDropCreationState();
@@ -39,7 +44,8 @@ const DropCreationPageContent = ({ loading = false, collection }: WithLoading<Co
                             faqs,
                             collection: collection!,
                         }}
-                        nfts={[]}
+                        loadingNfts={loadingNfts}
+                        nfts={nfts}
                     />
                 </Col>
                 <Col flex={3} alignItems="center">

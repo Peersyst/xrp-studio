@@ -1,10 +1,16 @@
 import { screen } from "@testing-library/react";
 import DropCreationPageContent from "module/drop/page/DropCreationPageContent/DropCreationPageContent";
 import { render, translate } from "test-utils";
+import { CollectionDtoMock, PaginatedNftsMock } from "test-mocks";
+import { NftService } from "module/api/service";
 
 describe("DropCreationPageContent", () => {
-    test("Renders creation", () => {
-        render(<DropCreationPageContent collection={undefined} />);
+    test("Renders creation", async () => {
+        const collectionDtoMock = new CollectionDtoMock();
+        const paginatedNftsMock = new PaginatedNftsMock().pages[0];
+
+        render(<DropCreationPageContent collection={collectionDtoMock} />);
+        jest.spyOn(NftService, "nftControllerGetNfts").mockResolvedValue(paginatedNftsMock);
 
         // Price
         expect(screen.getByPlaceholderText(translate("price"))).toBeInTheDocument();
@@ -22,5 +28,8 @@ describe("DropCreationPageContent", () => {
         expect(screen.getByPlaceholderText(translate("discord"))).toBeInTheDocument();
         // Faqs
         expect(screen.getByText(translate("faqs"))).toBeInTheDocument();
+
+        // Preview
+        expect(await screen.findByRole("heading", { name: collectionDtoMock.name })).toBeInTheDocument();
     });
 });

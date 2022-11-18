@@ -1,9 +1,9 @@
 import { screen } from "@testing-library/react";
-import { UseSearchParamsMock, UseNavigateMock, CollectionDtoMock } from "test-mocks";
+import { UseSearchParamsMock, UseNavigateMock, CollectionDtoMock, PaginatedNftsMock } from "test-mocks";
 import { render, translate } from "test-utils";
 import DropCreationPage from "module/drop/page/DropCreationPage/DropCreationPage";
-import { CollectionService } from "module/api/service";
-import * as Router from "react-router-dom";
+import { CollectionService, NftService } from "module/api/service";
+import { waitFor } from "@testing-library/dom";
 
 describe("DropCreationPage", () => {
     const useNavigateMock = new UseNavigateMock();
@@ -16,17 +16,19 @@ describe("DropCreationPage", () => {
         let useSearchParamsMock: UseSearchParamsMock;
 
         beforeAll(() => {
-            useSearchParamsMock = new UseSearchParamsMock();
+            useSearchParamsMock = new UseSearchParamsMock({ id: "1" });
         });
 
         afterAll(() => {
             useSearchParamsMock.restore();
         });
 
-        test("Renders correctly", () => {
-            jest.spyOn(Router, "useParams").mockReturnValue({ id: "1" });
-            const collectionMock = new CollectionDtoMock();
-            jest.spyOn(CollectionService, "collectionControllerGetCollection").mockResolvedValue(collectionMock);
+        test("Renders correctly", async () => {
+            const collectionDtoMock = new CollectionDtoMock();
+            const paginatedNftsMock = new PaginatedNftsMock().pages[0];
+
+            jest.spyOn(CollectionService, "collectionControllerGetCollection").mockResolvedValue(collectionDtoMock);
+            jest.spyOn(NftService, "nftControllerGetNfts").mockResolvedValue(paginatedNftsMock);
 
             render(<DropCreationPage />);
 
@@ -35,6 +37,9 @@ describe("DropCreationPage", () => {
 
             // Price
             expect(screen.getByPlaceholderText(translate("price"))).toBeInTheDocument();
+
+            // Preview
+            await waitFor(() => expect(screen.getByRole("heading", { name: collectionDtoMock.name })).toBeInTheDocument());
         });
     });
 });
