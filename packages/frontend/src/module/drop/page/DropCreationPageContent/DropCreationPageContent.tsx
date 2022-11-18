@@ -1,6 +1,6 @@
 import { CollectionCreationPageContentProps } from "module/collection/page/CollectionCreationPage/CollectionCreationPageContent/CollectionCreationPageContent.types";
 import PageContent from "module/common/component/layout/PageContent/PageContent";
-import { Col, Row, Skeleton, Typography } from "@peersyst/react-components";
+import { Col, Row, Skeleton, Typography, WithLoading } from "@peersyst/react-components";
 import { CollectionCreationPageContentCard } from "module/collection/page/CollectionCreationPage/CollectionCreationPageContent/CollectionCreationPageContent.styles";
 import TextField from "module/common/component/input/TextField/TextField";
 import useTranslate from "module/common/hook/useTranslate";
@@ -9,8 +9,9 @@ import { DropCreationState } from "module/drop/state/DropCreationState";
 import useDropCreationState from "module/drop/hook/useDropCreationState";
 import { DropCreationFormFields } from "module/drop/types";
 import FaqsInput from "module/drop/component/input/FaqsInput/FaqsInput";
+import DropLanding from "module/drop/component/display/DropLanding/DropLanding";
 
-const DropCreationPageContent = ({ loading }: CollectionCreationPageContentProps): JSX.Element => {
+const DropCreationPageContent = ({ loading = false, collection }: WithLoading<CollectionCreationPageContentProps>): JSX.Element => {
     const translate = useTranslate();
 
     const [{ backgroundColor, videoUrl, instagram, discord, twitter, faqs, price, fontColor }, setDropCreationState] =
@@ -24,7 +25,22 @@ const DropCreationPageContent = ({ loading }: CollectionCreationPageContentProps
         <PageContent>
             <Row flex={1} gap="1.5rem" breakpoint={{ width: "createCollectionPage", alignItems: "stretch", gap: "1.5rem", reverse: true }}>
                 <Col flex={4}>
-                    <>Preview</>
+                    <DropLanding
+                        preview
+                        loading={loading}
+                        drop={{
+                            price,
+                            backgroundColor: backgroundColor.hex(),
+                            fontColor: fontColor.hex(),
+                            videoUrl,
+                            instagram,
+                            discord,
+                            twitter,
+                            faqs,
+                            collection: collection!,
+                        }}
+                        nfts={[]}
+                    />
                 </Col>
                 <Col flex={3} alignItems="center">
                     <Skeleton loading={loading} width="100%">
