@@ -72,7 +72,7 @@ export class NftController {
     @ApiOperation({ description: "Get all user NFT drafts (status != confirmed) paginated" })
     @ApiGetNftDraftsDecorator()
     @XummAuthenticated()
-    async getNftDrafts(@Request() req, @EnhancedQuery() queryParams: GetNftsRequest = new GetNftsRequest()): Promise<PaginatedNftDraftDto> {
+    async getNftDrafts(@Request() req, @EnhancedQuery() queryParams: Omit<GetNftsRequest, "account"> = new GetNftsRequest()): Promise<PaginatedNftDraftDto> {
         return this.nftService.findAll(queryParams, {
             status: [NftStatus.DRAFT, NftStatus.FAILED, NftStatus.PENDING],
             ownerAddress: req.user.address,
