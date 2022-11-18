@@ -1,5 +1,4 @@
 import { FormControl, FormControlLabel, Row } from "@peersyst/react-components";
-import { FaqsDto } from "module/api/service";
 import { PlusCircleIcon } from "icons";
 import useTranslate from "module/common/hook/useTranslate";
 import { useState } from "react";
@@ -7,6 +6,7 @@ import { capitalize, cx } from "@peersyst/react-utils";
 import { FaqsInputProps } from "./FaqsInput.types";
 import FaqInput from "../FaqInput/FaqInput";
 import { AddFaqButton, FaqInputRoot } from "./FaqsInput.styles";
+import { Faq } from "module/drop/types";
 
 const FaqsInput = ({
     defaultValue = [],
@@ -30,7 +30,7 @@ const FaqsInput = ({
     };
 
     return (
-        <FormControl<FaqsDto[]>
+        <FormControl<Faq[]>
             Label={[Label, LabelProps]}
             defaultValue={defaultValue}
             readonly={readonly}
@@ -39,7 +39,7 @@ const FaqsInput = ({
             {...rest}
         >
             {(values, setValues) => {
-                const handleChange = (vals: FaqsDto, index: number) => {
+                const handleChange = (vals: Faq, index: number) => {
                     const newValues = [...values];
                     newValues[index] = vals;
                     setValues(newValues);
@@ -52,7 +52,7 @@ const FaqsInput = ({
                 };
 
                 const handleAddition = () => {
-                    setValues([...values, { question: "", answer: "", id: 0 }]);
+                    setValues([...values, { question: "", answer: "" }]);
                     setAddition(true);
                 };
 

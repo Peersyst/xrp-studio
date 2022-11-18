@@ -3,7 +3,7 @@
 /* eslint-disable */
 
 export type FaqsDto = {
-    id?: number;
+    id: number;
     question: string;
     answer: string;
 };

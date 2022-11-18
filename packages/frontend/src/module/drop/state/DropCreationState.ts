@@ -1,10 +1,7 @@
 import { atom } from "recoil";
-import { CollectionDto, CreateCollectionNftRequest, FaqsDto } from "module/api/service";
+import { CollectionDto } from "module/api/service";
 import Color from "color";
-
-export type DropCreationNft = CreateCollectionNftRequest & {
-    id: number;
-};
+import { Faq } from "module/drop/types";
 
 export interface DropCreationState {
     price: string;
@@ -14,7 +11,7 @@ export interface DropCreationState {
     instagram?: string;
     twitter?: string;
     discord?: string;
-    faqs: Array<FaqsDto>;
+    faqs: Array<Faq>;
     collection: CollectionDto | undefined;
 }
 

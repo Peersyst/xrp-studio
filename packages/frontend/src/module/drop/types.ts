@@ -1,6 +1,8 @@
 import Color from "color";
 import { CollectionDto, FaqsDto } from "module/api/service";
 
+export type Faq = Omit<FaqsDto, "id">;
+
 export interface DropCreationForm {
     price: string;
     backgroundColor: Color;

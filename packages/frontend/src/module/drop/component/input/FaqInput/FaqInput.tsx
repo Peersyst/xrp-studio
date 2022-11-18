@@ -1,8 +1,8 @@
 import useTranslate from "module/common/hook/useTranslate";
 import { FormControl, FormControlLabel, Typography, useFormControl, Row } from "@peersyst/react-components";
-import { FaqsDto } from "module/api/service";
 import { FaqInputProps } from "./FaqInput.types";
 import { DeleteFaqButton, FaqInputTextField, FaqsInputRoot, FaqInputTextAreaField } from "./FaqInput.styles";
+import { Faq } from "module/drop/types";
 
 const FaqInput = ({
     defaultValue = { question: "", answer: "" },
@@ -27,7 +27,7 @@ const FaqInput = ({
     };
 
     return (
-        <FormControl<FaqsDto>
+        <FormControl<Faq>
             Label={[Label, LabelProps]}
             label={label}
             defaultValue={defaultValue}

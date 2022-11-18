@@ -1,8 +1,8 @@
 import { CoreFormControlledComponentProps, FormControlledComponentProps, LabelProps } from "@peersyst/react-components";
-import { FaqsDto } from "module/api/service";
 import { FaqInputTextFieldsProps } from "../FaqInput/FaqInput.types";
+import { Faq } from "module/drop/types";
 
-export type CoreFaqsInputProps = CoreFormControlledComponentProps<FaqsDto[], LabelProps>;
+export type CoreFaqsInputProps = CoreFormControlledComponentProps<Faq[], LabelProps>;
 
 export type FaqsInputProps = FormControlledComponentProps<CoreFaqsInputProps> & FaqInputTextFieldsProps;
 

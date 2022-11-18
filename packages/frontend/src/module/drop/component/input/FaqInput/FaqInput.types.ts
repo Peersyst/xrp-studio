@@ -1,8 +1,8 @@
 import { TextFieldProps } from "module/common/component/input/TextField/TextField.types";
 import { CoreFormControlledComponentProps, FormControlledComponentProps, LabelProps } from "@peersyst/react-components";
-import { FaqsDto } from "module/api/service";
+import { Faq } from "module/drop/types";
 
-export type CoreFaqInputProps = CoreFormControlledComponentProps<FaqsDto, LabelProps>;
+export type CoreFaqInputProps = CoreFormControlledComponentProps<Faq, LabelProps>;
 
 export type FaqInputTextFieldsProps = Pick<TextFieldProps, "variant" | "size" | "autoFocus">;
 
