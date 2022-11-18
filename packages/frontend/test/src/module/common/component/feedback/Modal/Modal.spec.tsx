@@ -7,7 +7,7 @@ describe("Modal tests", () => {
     const subtitle = "Modal subtitle";
     test("Shows titles", () => {
         render(
-            <Modal title={title} subtitle={subtitle}>
+            <Modal size="md" title={title} subtitle={subtitle}>
                 children
             </Modal>,
         );

@@ -92,5 +92,9 @@
     "sold": "Vendidos",
     "sales": "Ventas",
     "meetTheArtist": "Conoce al artista",
+    "flags": "propiedades",
+    "publishConfirmation": "Confirmación de publicación del NFT",
+    "confirm": "confirmar",
+    "noDataProvided": "No se han encontrado datos",
     "theNfts": "The NFTs"
 }

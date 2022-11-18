@@ -92,5 +92,9 @@
     "sold": "Sold",
     "sales": "Sales",
     "meetTheArtist": "Meet the artist",
+    "flags": "flags",
+    "publishConfirmation": "Publish NFT confirmation",
+    "confirm": "confirm",
+    "noDataProvided": "No data provided",
     "theNfts": "The NFTs"
 }
