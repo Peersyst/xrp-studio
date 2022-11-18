@@ -1,34 +1,38 @@
 import { createModal } from "@peersyst/react-components";
 import Button from "module/common/component/input/Button/Button";
 import useTranslate from "module/common/hook/useTranslate";
-import NftPublishTabs from "module/nft/component/navigation/NftPublishTabs";
+import NftPublishTabs from "module/nft/component/navigation/NftPublishTabs/NftPublishTabs";
 import Modal from "module/common/component/feedback/Modal/Modal";
 import usePublishNftState from "module/nft/hook/usePublishNftState";
 import PublishContent from "module/common/component/layout/PublishContent/PublishContent";
 import usePublishNftSteps from "module/nft/hook/usePublishNftSteps";
-import usePublishButtonState from "module/nft/hook/usePublishButtonState";
-import { capitalize } from "@peersyst/react-utils";
 import { useEffect } from "react";
+import useNftPublishModalState from "module/nft/hook/useNftPublishModalState";
+import { capitalize } from "@peersyst/react-utils";
 
 const NftPublishModal = createModal(({ ...modalProps }) => {
     const translate = useTranslate();
     const [{ data: requestNft }] = usePublishNftState();
-    const [{ label: buttonLabel, disabled: disabled }, setPublishButton] = usePublishButtonState();
+    const [{ handleClick, buttonDisabled, buttonLabel, closable, tab }, setNftPublishModal] = useNftPublishModalState();
 
-    const { handleClick, isLoading, tab } = usePublishNftSteps(NftPublishModal.id);
+    const { handleClick: handlePublish, isLoading } = usePublishNftSteps(NftPublishModal.id);
 
     useEffect(() => {
-        setPublishButton({ label: capitalize(translate("confirm")), disabled: false });
+        setNftPublishModal({
+            handleClick: handlePublish,
+            buttonLabel: capitalize(translate("confirm")),
+            buttonDisabled: buttonDisabled,
+        });
     }, []);
 
     return (
-        <Modal size="lg" title={translate("publishConfirmation")} {...modalProps}>
+        <Modal size="lg" title={translate("publishConfirmation")} closable={closable} {...modalProps}>
             <PublishContent>
                 {{
                     cover: requestNft.metadata?.image,
                     feedback: <NftPublishTabs tab={tab} />,
                     footer: (
-                        <Button onClick={handleClick} size="lg" variant="primary" loading={isLoading} disabled={disabled}>
+                        <Button onClick={handleClick} size="lg" variant="primary" loading={isLoading} disabled={buttonDisabled}>
                             {buttonLabel}
                         </Button>
                     ),

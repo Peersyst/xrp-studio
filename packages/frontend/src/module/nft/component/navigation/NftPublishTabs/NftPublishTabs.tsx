@@ -1,7 +1,8 @@
 import { TabPanel, Tabs } from "@peersyst/react-components";
 import NftInformation from "module/nft/component/display/NftInformation/NftInformation";
-import { NftPublishTabsCard } from "module/nft/component/navigation/NftPublishTabs.styles";
+import { NftPublishTabsCard } from "module/nft/component/navigation/NftPublishTabs/NftPublishTabs.styles";
 import NftPublishActions from "module/nft/component/feedback/NftPublishActions/NftPublishActions";
+import NftPublishSuccess from "module/nft/component/feedback/NftPublishSucess/NftPublishSuccess";
 
 interface NftPublishTabsProps {
     tab: number;
@@ -41,6 +42,9 @@ const NftPublishTabs = ({ tab }: NftPublishTabsProps): JSX.Element => {
                 </TabPanel>
                 <TabPanel index={1}>
                     <NftPublishActions steps={steps} />
+                </TabPanel>
+                <TabPanel index={2}>
+                    <NftPublishSuccess />
                 </TabPanel>
             </Tabs>
         </NftPublishTabsCard>

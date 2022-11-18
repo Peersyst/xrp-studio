@@ -2,15 +2,14 @@ import { Fragment, useEffect, useState } from "react";
 import NftPublishActionStep from "module/nft/component/feedback/NftPublishActions/NftPublishActionStep/NftPublishActionStep";
 import { NftPublishActionsProps } from "module/nft/component/feedback/NftPublishActions/NftPublishActions.types";
 import { Col, Typography } from "@peersyst/react-components";
-import usePublishButtonState from "module/nft/hook/usePublishButtonState";
 import { capitalize } from "@peersyst/react-utils";
 import useTranslate from "module/common/hook/useTranslate";
+import useNftPublishModalState from "module/nft/hook/useNftPublishModalState";
 
 const NftPublishActions = ({ steps }: NftPublishActionsProps): JSX.Element => {
     const translate = useTranslate();
     const [currentStep, setCurrentStep] = useState(0);
-    const [, setSuccess] = useState(false);
-    const [, setPublishButton] = usePublishButtonState();
+    const [, setNftPublishModalState] = useNftPublishModalState();
     //const [error, setError] = useState(false);
 
     useEffect(() => {
@@ -19,8 +18,7 @@ const NftPublishActions = ({ steps }: NftPublishActionsProps): JSX.Element => {
 
     const onStepSuccess = () => {
         if (currentStep === steps.length - 1) {
-            setSuccess(true);
-            setPublishButton({ label: capitalize(translate("finish")), disabled: false });
+            setNftPublishModalState({ buttonLabel: capitalize(translate("finish")), buttonDisabled: false, closable: true, tab: 2 });
         }
         setCurrentStep(currentStep + 1);
     };

@@ -1,4 +1,4 @@
-import NftPublishTabs from "module/nft/component/navigation/NftPublishTabs";
+import NftPublishTabs from "../../../../../../../src/module/nft/component/navigation/NftPublishTabs/NftPublishTabs";
 import { render, translate } from "test-utils";
 import { screen } from "@testing-library/react";
 import { CreateNftDraftRequestMock, CreateNftMetadataRequestMock } from "test-mocks";
