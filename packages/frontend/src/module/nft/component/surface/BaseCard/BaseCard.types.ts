@@ -1,4 +1,4 @@
-import { ReactNode } from "react";
+import { CSSProperties, ReactNode } from "react";
 
 export interface BaseCardProps {
     coverUrl?: string;
@@ -9,6 +9,8 @@ export interface BaseCardProps {
     children?: ReactNode;
     status?: ReactNode;
     onDeleteClicked?: () => void;
+    className?: string;
+    style?: CSSProperties;
 }
 
 export interface CoverProps {

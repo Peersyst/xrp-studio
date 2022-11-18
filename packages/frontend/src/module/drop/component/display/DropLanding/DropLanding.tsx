@@ -4,7 +4,8 @@ import DropLandingDescriptionSection from "module/drop/component/display/DropLan
 import { useEffect, useRef, useState } from "react";
 import DropLandingVideoSection from "module/drop/component/display/DropLanding/DropLandingVideoSection/DropLandingVideoSection";
 import DropLandingArtistSection from "module/drop/component/display/DropLanding/DropLandingArtistSection/DropLandingArtistSection";
-import { ThemeOverrideProvider } from "@peersyst/react-components";
+import { Col, Divider, ThemeOverrideProvider } from "@peersyst/react-components";
+import DropLandingNftsSection from "module/drop/component/display/DropLanding/DropLandingNftsSection/DropLandingNftsSection";
 
 function DropLanding({
     drop: {
@@ -16,6 +17,8 @@ function DropLanding({
         videoUrl,
     },
     loading = false,
+    nfts,
+    loadingNfts = false,
     preview = false,
     ...rest
 }: DropLandingProps): JSX.Element {
@@ -50,18 +53,22 @@ function DropLanding({
                 overrides={(theme) => ({ ...theme, palette: { ...theme.palette, background: backgroundColor, text: fontColor } })}
             >
                 <DropLandingContent ref={ref} preview={preview}>
-                    <DropLandingDescriptionSection
-                        cover={header}
-                        image={image}
-                        name={name}
-                        description={description}
-                        items={items}
-                        price={price}
-                        sold={sold}
-                        loading={loading}
-                    />
-                    {(loading || videoUrl) && <DropLandingVideoSection videoUrl={videoUrl} loading={loading} />}
-                    <DropLandingArtistSection artist={user} loading={loading} />
+                    <Col>
+                        <DropLandingDescriptionSection
+                            cover={header}
+                            image={image}
+                            name={name}
+                            description={description}
+                            items={items}
+                            price={price}
+                            sold={sold}
+                            loading={loading}
+                        />
+                        {(loading || videoUrl) && <DropLandingVideoSection videoUrl={videoUrl} loading={loading} />}
+                        <DropLandingArtistSection artist={user} loading={loading} />
+                    </Col>
+                    <Divider css={{ color: fontColor, opacity: 0.4 }} />
+                    <DropLandingNftsSection nfts={nfts} loading={loadingNfts} />
                 </DropLandingContent>
             </ThemeOverrideProvider>
         </DropLandingRoot>
