@@ -2,15 +2,14 @@ import { CollectionDto } from "module/api/service";
 import Carousel from "module/common/component/display/Carousel/Carousel";
 import CollectionCardSkeleton from "../../feedback/CollectionCardSkeleton/CollectionCardSkeleton";
 import CollectionCard from "../CollectionCard/CollectionCard";
+import { InheritedCarouselProps } from "module/common/component/display/Carousel/Carousel.types";
 
-interface CollectionCardCarouselProps {
+interface CollectionCardCarouselProps extends InheritedCarouselProps {
     collections: CollectionDto[];
-    isLoading: boolean;
-    skeletonCount?: number;
 }
 
-const CollectionCardCarousel = ({ isLoading, collections, skeletonCount = 3 }: CollectionCardCarouselProps): JSX.Element => (
-    <Carousel loading={isLoading} skeletonCount={skeletonCount} Skeleton={CollectionCardSkeleton}>
+const CollectionCardCarousel = ({ collections, skeletonCount = 3, ...rest }: CollectionCardCarouselProps): JSX.Element => (
+    <Carousel skeletonCount={skeletonCount} Skeleton={CollectionCardSkeleton} {...rest}>
         {collections.map((collection) => (
             <CollectionCard key={collection.id} collection={collection} />
         ))}

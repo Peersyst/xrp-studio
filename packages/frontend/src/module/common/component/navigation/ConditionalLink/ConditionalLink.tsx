@@ -1,14 +1,15 @@
 import { ConditionalLinkProps } from "module/common/component/navigation/ConditionalLink/ConditionalLink.types";
 import { Link } from "react-router-dom";
-import { Fragment } from "react";
 
-const ConditionalLink = ({ condition, children, ...linkProps }: ConditionalLinkProps): JSX.Element =>
+const ConditionalLink = ({ condition, children, style, className, ...linkProps }: ConditionalLinkProps): JSX.Element =>
     condition ? (
-        <Link css={{ display: "flex", width: "fit-content" }} {...linkProps}>
+        <Link css={{ display: "flex", width: "fit-content" }} style={style} className={className} {...linkProps}>
             {children}
         </Link>
     ) : (
-        <Fragment>{children}</Fragment>
+        <span css={{ display: "flex", width: "fit-content" }} style={style} className={className}>
+            {children}
+        </span>
     );
 
 export default ConditionalLink;

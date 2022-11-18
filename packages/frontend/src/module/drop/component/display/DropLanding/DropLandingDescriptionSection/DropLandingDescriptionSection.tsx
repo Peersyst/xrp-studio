@@ -34,7 +34,7 @@ const DropLandingDescriptionSection = ({
                                 {name}
                             </Typography>
                         </Skeleton>
-                        <Description variant="body2" css={{ opacity: 0.72, lineHeight: "1.5rem" }}>
+                        <Description loading={loading} variant="body2" css={{ opacity: 0.72, lineHeight: "1.5rem" }}>
                             {description}
                         </Description>
                     </Col>
