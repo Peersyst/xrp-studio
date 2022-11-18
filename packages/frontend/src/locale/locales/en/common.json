@@ -106,5 +106,8 @@
     "sold": "Sold",
     "sales": "Sales",
     "meetTheArtist": "Meet the artist",
+    "flags": "flags",
+    "publishConfirmation": "Publish NFT confirmation",
+    "confirm": "confirm",
     "theNfts": "The NFTs"
 }

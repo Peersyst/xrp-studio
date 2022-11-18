@@ -8,14 +8,7 @@ export class CreateNftMetadataRequestMock implements CreateNftMetadataRequest {
     externalUrl?: string;
     attributes?: Array<CreateNftMetadataAttributeRequest>;
 
-    constructor({
-        name = "name",
-        description = "description",
-        image = "image",
-        backgroundColor,
-        externalUrl,
-        attributes,
-    }: Partial<CreateNftMetadataRequest> = {}) {
+    constructor({ name, description, image, backgroundColor, externalUrl, attributes }: Partial<CreateNftMetadataRequest> = {}) {
         this.name = name;
         this.description = description;
         this.image = image;
