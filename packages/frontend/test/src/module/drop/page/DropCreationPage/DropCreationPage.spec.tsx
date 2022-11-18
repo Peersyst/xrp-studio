@@ -1,9 +1,9 @@
 import { screen } from "@testing-library/react";
 import { UseSearchParamsMock, UseNavigateMock, CollectionDtoMock, PaginatedNftsMock } from "test-mocks";
 import { render, translate } from "test-utils";
+import { waitFor } from "@testing-library/dom";
 import DropCreationPage from "module/drop/page/DropCreationPage/DropCreationPage";
 import { CollectionService, NftService } from "module/api/service";
-import { waitFor } from "@testing-library/dom";
 
 describe("DropCreationPage", () => {
     const useNavigateMock = new UseNavigateMock();
