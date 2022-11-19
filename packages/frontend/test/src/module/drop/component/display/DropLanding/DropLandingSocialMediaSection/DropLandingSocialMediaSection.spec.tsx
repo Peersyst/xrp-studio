@@ -3,7 +3,7 @@ import { render, translate } from "test-utils";
 import DropLandingSocialMediaSection from "module/drop/component/display/DropLanding/DropLandingSocialMediaSection/DropLandingSocialMediaSection";
 
 describe("DropLandingSocialMediaSection", () => {
-    test("Renders correctly", () => {
+    test("Renders correctly :", () => {
         render(
             <DropLandingSocialMediaSection
                 networks={{ instagram: undefined, discord: "http://example.com", twitter: "http://example.com" }}
