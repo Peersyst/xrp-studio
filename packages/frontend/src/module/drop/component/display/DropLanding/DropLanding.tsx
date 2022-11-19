@@ -6,6 +6,7 @@ import DropLandingVideoSection from "module/drop/component/display/DropLanding/D
 import DropLandingArtistSection from "module/drop/component/display/DropLanding/DropLandingArtistSection/DropLandingArtistSection";
 import { Col, Divider, ThemeOverrideProvider } from "@peersyst/react-components";
 import DropLandingNftsSection from "module/drop/component/display/DropLanding/DropLandingNftsSection/DropLandingNftsSection";
+import DropLandingSocialMediaSection from "./DropLandingSocialMediaSection/DropLandingSocialMediaSection";
 
 function DropLanding({
     drop: {
@@ -15,6 +16,9 @@ function DropLanding({
         fontColor,
         backgroundColor,
         videoUrl,
+        instagram,
+        twitter,
+        discord,
     },
     loading = false,
     nfts,
@@ -69,6 +73,10 @@ function DropLanding({
                     </Col>
                     <Divider css={{ color: fontColor, opacity: 0.4 }} />
                     <DropLandingNftsSection nfts={nfts} loading={loadingNfts} />
+                    <DropLandingSocialMediaSection
+                        networks={{ instagram: instagram, discord: discord, twitter: twitter }}
+                        loading={loading}
+                    />
                 </DropLandingContent>
             </ThemeOverrideProvider>
         </DropLandingRoot>
