@@ -2,8 +2,8 @@ import { screen } from "@testing-library/react";
 import { render, translate } from "test-utils";
 import DropLandingSocialMediaSection from "module/drop/component/display/DropLanding/DropLandingSocialMediaSection/DropLandingSocialMediaSection";
 
-describe("DropLandingSocialMediaSection", () => {
-    test("Renders correctly :", () => {
+describe("Drop Landing Social Media Section", () => {
+    test("Renders correctly", () => {
         render(
             <DropLandingSocialMediaSection
                 networks={{ instagram: undefined, discord: "http://example.com", twitter: "http://example.com" }}
