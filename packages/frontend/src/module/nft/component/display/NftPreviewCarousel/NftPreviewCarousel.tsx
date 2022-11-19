@@ -1,9 +1,9 @@
 import { NftPreviewCarouselProps } from "module/nft/component/display/NftPreviewCarousel/NftPreviewCarousel.types";
 import Carousel from "module/common/component/display/Carousel/Carousel";
-import NftPreviewSkeleton from "../../feedback/NftPreviewSkeleton";
 import { NftPreviewCarouselItem } from "module/nft/component/display/NftPreviewCarousel/NftPreviewCarousel.styles";
 import useTranslate from "module/common/hook/useTranslate";
 import NothingToShow from "module/common/component/feedback/NothingToShow/NothingToShow";
+import NftPreviewSkeleton from "../../feedback/NftPreviewSkeleton/NftPreviewSkeleton";
 
 const NftPreviewCarousel = ({ nfts, loading, to, activeId, ...rest }: NftPreviewCarouselProps): JSX.Element => {
     // Prevents to?.(nft) to be evaluated for each NftPreview rendered

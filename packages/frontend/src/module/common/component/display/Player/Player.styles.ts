@@ -15,9 +15,14 @@ export const PlayButton = styled(Button).attrs({ variant: "glass" })(
     ({ theme }) => css`
         width: 6.5rem;
         height: 6.5rem;
+        min-width: unset;
         font-size: 3.5rem;
-        padding: 1.5rem;
         border-radius: ${theme.borderRadiusLg};
+        ${theme.breakpoints.down("mobile")} {
+            width: 4rem;
+            height: 4rem;
+            font-size: 2.15rem;
+        }
     `,
 );
 

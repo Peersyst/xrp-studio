@@ -17,7 +17,7 @@ const ConnectXummModal = createModal((modalProps): JSX.Element => {
     }, []);
 
     return (
-        <Modal title={translate("scanXummQR")} subtitle={translate("scanXummQRExplanation")} {...modalProps}>
+        <Modal size="md" title={translate("scanXummQR")} subtitle={translate("scanXummQRExplanation")} {...modalProps}>
             <QrCard>
                 <Col alignItems="center" gap="3rem" className="qr-card-cont">
                     <QrImage alt="xumm-login" src={xummQrUrl} />
