@@ -35,7 +35,7 @@ const NftPublishActions = ({ steps }: NftPublishActionsProps): JSX.Element => {
     return (
         <Col gap="2rem" flex={1} justifyContent="center">
             <Typography variant="h6" fontWeight={700}>
-                Creation steps:
+                {translate("creationSteps")}:
             </Typography>
             <Col gap="2rem" flex={1} justifyContent="center" alignItems="center" style={{ width: "100%" }}>
                 {steps.map((step, i) => (

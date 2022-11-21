@@ -42,7 +42,7 @@ const NftInformation = (): JSX.Element => {
     return (
         <>
             {isDataProvided ? (
-                <Col flex={1} gap="1rem" justifyContent={isDataProvided ? "flex-start" : "flex-start"}>
+                <Col flex={1} gap="1rem" justifyContent="flex-start">
                     {informationFields.map(
                         ({ content, title }) =>
                             content && (
@@ -69,9 +69,11 @@ const NftInformation = (): JSX.Element => {
                     )}
                 </Col>
             ) : (
-                <Typography variant="h6" textAlign="center">
-                    {translate("noDataProvided")}
-                </Typography>
+                <Col flex={1} justifyContent="center" alignItems="center" style={{ height: "100%" }}>
+                    <Typography variant="h6" fontWeight={700}>
+                        {translate("noDataProvided")}
+                    </Typography>
+                </Col>
             )}
         </>
     );

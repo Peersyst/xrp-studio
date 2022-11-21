@@ -7,17 +7,17 @@ const NftPublishSuccess = (): JSX.Element => {
     return (
         <Col gap="2rem">
             <Typography variant="h6" fontWeight={700}>
-                Process completed!
+                {translate("successTitle")}
             </Typography>
-            <Col gap="1rem" flex={1} style={{ width: "100%" }}>
-                <InformationField title={"Transaction hash"}>
-                    <Typography variant="body2">rKPK5miro1LNnN4dejRzXpNjWqZ2R2Yb5h</Typography>
+            <Col gap="1rem">
+                <InformationField title={translate("hashTransactionCreation")}>
+                    <Typography variant="body2">mock_transactionHash</Typography>
                 </InformationField>
-                <InformationField title={"Token id"}>
-                    <Typography variant="body2">1</Typography>
+                <InformationField title={translate("tokenId")}>
+                    <Typography variant="body2">mock_id</Typography>
                 </InformationField>
-                <InformationField title={translate("transferFee")}>
-                    <Typography variant="body2">0.5 XRP</Typography>
+                <InformationField title={translate("transferFeeCost")}>
+                    <Typography variant="body2">mock_transactionFee</Typography>
                 </InformationField>
             </Col>
         </Col>

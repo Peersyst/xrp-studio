@@ -95,13 +95,16 @@
     "flags": "flags",
     "publishConfirmation": "Publish NFT confirmation",
     "confirm": "confirm",
-    "noDataProvided": "No data provided",
+    "noDataProvided": "No NFT information has been provided",
     "finish": "finish",
     "approveXRPStudio": "Approve XRP-Studio",
     "approveXRPStudioDescription": "In order to be able to interact in XRP Studio for the first time, you must approve the transaction.",
     "confirmCreation": "Confirm NFT creation",
     "confirmCreationDescription": "Accept the transaction request in your wallet in order to continue with the creation process.",
-    "successTitle": "Succes!",
-    "successDescription": "Your NFT has been published successfully. We are updating our orders."
-
+    "successTitle": "Process completed!",
+    "successDescription": "Your NFT has been published successfully. We are updating our orders.",
+    "creationSteps": "Creation steps",
+    "hashTransactionCreation": "Hash of creation transaction",
+    "tokenId": "Token ID",
+    "transferFeeCost": "Transfer fee cost"
 }

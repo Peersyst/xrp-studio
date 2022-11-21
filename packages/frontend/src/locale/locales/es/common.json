@@ -95,12 +95,16 @@
     "flags": "propiedades",
     "publishConfirmation": "Confirmación de publicación del NFT",
     "confirm": "confirmar",
-    "noDataProvided": "No se han encontrado datos",
+    "noDataProvided": "No se han proporcionado datos del NFT",
     "finish": "Acabar",
     "approveXRPStudio": "Aprueba XRP-Studio",
     "approveXRPStudioDescription": "Para poder interactuar en XRP Studio por primera vez, debe aprobar la transacción.",
     "confirmCreation": "Confirma la creación del NFT",
     "confirmCreationDescription": "Acepte la solicitud de transacción en su cartera para continuar con el proceso de creación.",
     "successTitle": "Completado!",
-    "successDescription": "Tu NFT ha sido publicado correctamente. Estamos actualizando nuestras órdenes."
+    "successDescription": "Tu NFT ha sido publicado correctamente. Estamos actualizando nuestras órdenes.",
+    "creationSteps": "Pasos de creación",
+    "hashTransactionCreation": "Hash de la transacción de creación",
+    "tokenId": "Token ID",
+    "transferFeeCost": "Coste de transferencia"
 }
