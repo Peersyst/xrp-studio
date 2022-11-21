@@ -2455,10 +2455,10 @@
     mkdirp "^1.0.4"
     rimraf "^3.0.2"
 
-"@peersyst/react-components-core@^1.0.1":
-  version "1.0.1"
-  resolved "https://registry.yarnpkg.com/@peersyst/react-components-core/-/react-components-core-1.0.1.tgz#b0ae76654b9e506085db54341ab3afafa9f2f51f"
-  integrity sha512-qUAohA+mrOwYE8pgYQqkDJ1WxnGC8DiTqVEyJlR2/q7KxV5R0P1sJhC/wtPDuEBWV2WeZwKaey3a54t1kS+NmA==
+"@peersyst/react-components-core@^1.0.5":
+  version "1.0.5"
+  resolved "https://registry.yarnpkg.com/@peersyst/react-components-core/-/react-components-core-1.0.5.tgz#173220154919f44dfd1a174028ea20473c391b16"
+  integrity sha512-PTD9vU/r62TiCYSYTO0Zh1K+W2XJCPgYwlWIqb/vy3w0YSI7aPQOA/k5+jQxTZchYj24tCwTE5Kh4ioGEBuQIQ==
   dependencies:
     "@babel/runtime" "^7.16.7"
     "@peersyst/react-hooks" "^2.0.1"
@@ -2466,13 +2466,13 @@
     "@peersyst/react-utils" "^2.0.0"
     validator "^13.7.0"
 
-"@peersyst/react-components@^3.0.3":
-  version "3.0.3"
-  resolved "https://registry.yarnpkg.com/@peersyst/react-components/-/react-components-3.0.3.tgz#2c88b5d311cdd68237d0e32a3519f16e1b633780"
-  integrity sha512-/gopt6QcI/8i+IBXrgPp8kPH9WWVGLxU47ZN0CA9I1m6nDHbZz9Mw/ad1IB+2cTh8pJ372h0engAwh6D18PboQ==
+"@peersyst/react-components@^3.0.13":
+  version "3.0.13"
+  resolved "https://registry.yarnpkg.com/@peersyst/react-components/-/react-components-3.0.13.tgz#1503fcf22ec955970209862d45863ce1fdd24fc9"
+  integrity sha512-DqOxNnh4eCufrnz4hDKVSqUSHkjFQcXTfWZxC1UawdgqF52fNi4rbPu2bv6Q5WsUhdFM8aCFXWbbDa5mnPmuRA==
   dependencies:
     "@babel/runtime" "^7.16.7"
-    "@peersyst/react-components-core" "^1.0.1"
+    "@peersyst/react-components-core" "^1.0.5"
     "@peersyst/react-hooks" "^2.0.1"
     "@peersyst/react-types" "^1.5.0"
     "@peersyst/react-utils" "^2.0.0"

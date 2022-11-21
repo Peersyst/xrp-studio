@@ -10,14 +10,14 @@ import useConnectToXumm from "module/wallet/hook/useConnectToXumm/useConnectToXu
 const ConnectXummModal = createModal((modalProps): JSX.Element => {
     const translate = useTranslate();
     const { hideModal } = useModal();
-    const { signIn, xummQrUrl, showLoading } = useConnectToXumm();
+    const { signIn, xummQrUrl = "", showLoading } = useConnectToXumm();
 
     useEffect(() => {
         signIn();
     }, []);
 
     return (
-        <Modal title={translate("scanXummQR")} subtitle={translate("scanXummQRExplanation")} {...modalProps}>
+        <Modal size="md" title={translate("scanXummQR")} subtitle={translate("scanXummQRExplanation")} {...modalProps}>
             <QrCard>
                 <Col alignItems="center" gap="3rem" className="qr-card-cont">
                     <QrImage alt="xumm-login" src={xummQrUrl} />

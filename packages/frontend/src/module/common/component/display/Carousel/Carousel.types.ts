@@ -8,6 +8,11 @@ export interface CarouselProps extends BaseCarouselProps {
     skeletonCount?: number;
 }
 
+export type InheritedCarouselProps = Pick<
+    CarouselProps,
+    "loading" | "arrowSize" | "gap" | "autoplay" | "autoplayInterval" | "renderArrows" | "className" | "style" | "skeletonCount"
+>;
+
 export interface CarouselRootProps {
     gap: number;
 }

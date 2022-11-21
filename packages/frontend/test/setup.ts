@@ -8,10 +8,12 @@ import "@testing-library/jest-dom";
 import { LightMatchMediaMock } from "./__mocks__/MatchMediaMock";
 import { IntersectionObserverMock } from "./__mocks__/IntersectionObserverMock";
 import { ResizeObserverMock } from "./__mocks__/ResizeObserverMock";
+import PlayerMock from "./__mocks__/genesys/Player.mock";
 
 jest.mock("@peersyst/react-components", () => ({
     __esModule: true,
     ...jest.requireActual("@peersyst/react-components"),
+    Player: PlayerMock,
 }));
 
 jest.mock("@peersyst/react-hooks", () => ({

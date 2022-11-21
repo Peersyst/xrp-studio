@@ -12,11 +12,12 @@ const Modal = ({
     onClose,
     closable = true,
     subtitle,
+    size = "md",
     ...rest
 }: ModalProps): JSX.Element => {
     const [open, setOpen] = useControlled(true, openProp, openProp ? onClose : undefined);
     return (
-        <ModalRoot open={open} onClose={() => setOpen(false)} elevation={elevation} closable={closable} {...rest}>
+        <ModalRoot size={size} open={open} onClose={() => setOpen(false)} elevation={elevation} closable={closable} {...rest}>
             <Col gap="3rem" className="modal-main-col">
                 {title && (
                     <Col gap="1rem">

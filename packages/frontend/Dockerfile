@@ -6,7 +6,7 @@ FROM base as test
 RUN yarn install
 COPY . .
 RUN yarn lint
-RUN yarn test
+RUN yarn test:unit:ci
 RUN touch test.lock
 
 FROM test as build
