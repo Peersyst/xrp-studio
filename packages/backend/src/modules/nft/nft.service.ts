@@ -23,11 +23,13 @@ import { NftDraftStatusDto } from "./dto/nft-draft-status.dto";
 import { MetadataService } from "../metadata/metadata.service";
 import { QueryBuilderHelper } from "../common/util/query-builder.helper";
 import { CollectionDto } from "../collection/dto/collection.dto";
+import { UserService } from "../user/user.service";
 
 @Injectable()
 export class NftService {
     constructor(
         private readonly metadataService: MetadataService,
+        private readonly userService: UserService,
         @InjectRepository(Nft) private readonly nftRepository: Repository<Nft>,
         @Inject(forwardRef(() => CollectionService)) private readonly collectionService: CollectionService,
         @Inject(XummService) private readonly xummService: XummService,
@@ -100,6 +102,8 @@ export class NftService {
                 })
                 .getOne();
         }
+
+        await this.userService.createIfNotExists(Account);
 
         try {
             if (collection) await this.collectionService.addItems(collection.id, 1);

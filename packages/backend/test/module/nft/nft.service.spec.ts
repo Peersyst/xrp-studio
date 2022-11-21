@@ -25,6 +25,8 @@ import MetadataServiceMock from "../__mock__/metadata.service.mock";
 import { GetNftsRequest } from "../../../src/modules/nft/request/get-nfts.request";
 import { FilterType, QueryBuilderHelper } from "../../../src/modules/common/util/query-builder.helper";
 import { CollectionDto } from "../../../src/modules/collection/dto/collection.dto";
+import { UserService } from "../../../src/modules/user/user.service";
+import UserServiceMock from "../__mock__/user.service.mock";
 
 describe("NftService", () => {
     const ADDRESS = "rNCFjv8Ek5oDrNiMJ3pw6eLLFtMjZLJnf2";
@@ -35,6 +37,7 @@ describe("NftService", () => {
     const nftRepositoryMock = new NftRepositoryMock();
     const collectionServiceMock = new CollectionServiceMock();
     const xummServiceMock = new XummServiceMock();
+    const userServiceMock = new UserServiceMock();
 
     beforeEach(async () => {
         const module = await Test.createTestingModule({
@@ -54,6 +57,10 @@ describe("NftService", () => {
                 {
                     provide: XummService,
                     useValue: xummServiceMock,
+                },
+                {
+                    provide: UserService,
+                    useValue: userServiceMock,
                 },
                 NftService,
             ],
