@@ -39,7 +39,7 @@ const NftCreationPage = (): JSX.Element => {
     const { address: userAddress } = useWallet();
 
     useEffect(() => {
-        if (nftDraft && nftDraft.user.address !== userAddress) {
+        if (nftDraft && nftDraft?.user?.address !== userAddress) {
             showToast(translateError("nftNotOwned"), { type: "warning" });
             searchParams.delete("id");
             setSearchParams(searchParams);

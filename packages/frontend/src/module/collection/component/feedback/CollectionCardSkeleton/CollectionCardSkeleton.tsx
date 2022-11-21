@@ -14,6 +14,7 @@ const CollectionCardSkeleton = forwardRef((_, ref): JSX.Element => {
                 user: {
                     address: "",
                 },
+                account: "",
             }}
         />
     );

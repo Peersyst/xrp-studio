@@ -14,6 +14,7 @@ export type { CreateMetadataAttributeRequest } from './models/CreateMetadataAttr
 export type { CreateMetadataRequest } from './models/CreateMetadataRequest';
 export type { CreateNftDraftRequest } from './models/CreateNftDraftRequest';
 export type { ExistDto } from './models/ExistDto';
+export type { MetadataAttributeDto } from './models/MetadataAttributeDto';
 export type { MetadataDto } from './models/MetadataDto';
 export type { NftDraftDto } from './models/NftDraftDto';
 export type { NftDraftStatusDto } from './models/NftDraftStatusDto';
@@ -35,6 +36,7 @@ export { $CreateMetadataAttributeRequest } from './schemas/$CreateMetadataAttrib
 export { $CreateMetadataRequest } from './schemas/$CreateMetadataRequest';
 export { $CreateNftDraftRequest } from './schemas/$CreateNftDraftRequest';
 export { $ExistDto } from './schemas/$ExistDto';
+export { $MetadataAttributeDto } from './schemas/$MetadataAttributeDto';
 export { $MetadataDto } from './schemas/$MetadataDto';
 export { $NftDraftDto } from './schemas/$NftDraftDto';
 export { $NftDraftStatusDto } from './schemas/$NftDraftStatusDto';
