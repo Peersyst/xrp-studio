@@ -121,9 +121,9 @@
     "hashTransactionCreation": "Hash de la transacción de creación",
     "tokenId": "Token ID",
     "transferFeeCost": "Coste de transferencia",
-    "noDataProvided": "No se han encontrado datos",
     "theNfts": "The NFTs",
     "back": "Volver",
     "next": "Siguiente",
-    "close": "Cerrar"
+    "close": "Cerrar",
+    "viewDetails": "Ver detalles"
 }

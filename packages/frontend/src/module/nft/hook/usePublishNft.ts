@@ -24,7 +24,9 @@ export function usePublishNft(request: CreateNftDraftRequest, draftId?: number):
         if (!hasBalance) showToast(translateError("notEnoughBalance"), { type: "error" });
         else {
             if (draftId) updateNftDraft({ id: draftId, publish: true, ...request });
-            else createNft(request);
+            else {
+                createNft(request);
+            }
         }
     };
 

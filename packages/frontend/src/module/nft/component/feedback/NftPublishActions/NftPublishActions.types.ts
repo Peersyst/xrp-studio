@@ -13,4 +13,5 @@ export interface NftPublishActionsStepsProps {
 
 export interface NftPublishActionsProps {
     steps: NftPublishActionStep[];
+    onSuccess: () => void;
 }
