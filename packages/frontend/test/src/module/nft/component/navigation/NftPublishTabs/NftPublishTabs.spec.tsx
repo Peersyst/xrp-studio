@@ -1,25 +1,28 @@
-import NftPublishTabs from "../../../../../../../src/module/nft/component/navigation/NftPublishTabs/NftPublishTabs";
 import { render, translate } from "test-utils";
+import NftPublishTabs from "module/nft/component/navigation/NftPublishTabs/NftPublishTabs";
 import { screen } from "@testing-library/react";
-import { CreateNftDraftRequestMock, CreateNftMetadataRequestMock } from "test-mocks";
-import * as Recoil from "recoil";
 
 describe("NftPublishTabs tests", () => {
-    const TAB = 0;
-    const createNftDraftRequestMock = new CreateNftDraftRequestMock({
-        issuer: undefined,
-        transferFee: undefined,
-        flags: undefined,
-        taxon: undefined,
-        metadata: new CreateNftMetadataRequestMock({}),
+    test("Renders correctly summary tab (0)", () => {
+        render(<NftPublishTabs tab={0} />);
+
+        expect(screen.getByRole("heading", { name: translate("noDataProvided") })).toBeInTheDocument();
+        expect(screen.queryByRole("heading", { name: translate("creationSteps") })).not.toBeInTheDocument();
+        expect(screen.queryByRole("heading", { name: translate("successTitle") })).not.toBeInTheDocument();
     });
 
-    test("Renders correctly first tab", () => {
-        const usePublishNftStateMock = jest.spyOn(Recoil, "useRecoilValue").mockReturnValue({ data: createNftDraftRequestMock });
+    test("Renders correctly transaction tab (1)", () => {
+        render(<NftPublishTabs tab={1} />);
 
-        render(<NftPublishTabs tab={TAB} />);
+        expect(screen.queryByRole("heading", { name: translate("noDataProvided") })).not.toBeInTheDocument();
+        expect(screen.getByRole("heading", { name: translate("creationSteps") + ":" })).toBeInTheDocument();
+        expect(screen.queryByRole("heading", { name: translate("successTitle") + ":" })).not.toBeInTheDocument();
+    });
+    test("Renders correctly success tab (2)", () => {
+        render(<NftPublishTabs tab={2} />);
 
-        expect(usePublishNftStateMock).toHaveBeenCalled();
-        expect(screen.getByRole("heading", { name: translate("noDataProvided") })).toBeInTheDocument();
+        expect(screen.queryByRole("heading", { name: translate("noDataProvided") })).not.toBeInTheDocument();
+        expect(screen.queryByRole("heading", { name: translate("creationSteps") + ":" })).not.toBeInTheDocument();
+        expect(screen.getByRole("heading", { name: translate("successTitle") })).toBeInTheDocument();
     });
 });
