@@ -60,14 +60,14 @@ describe("MetadataService", () => {
         test("Creates metadata with attributes", async () => {
             const metadataDto = new MetadataDtoMock();
             await metadataService.create(0, metadataDto);
-            expect(nftMetadataRepositoryMock.create).toHaveBeenCalledWith({ ...metadataDto, nftId: 0 });
+            expect(nftMetadataRepositoryMock.save).toHaveBeenCalledWith({ ...metadataDto, nftId: 0 });
             expect(nftMetadataRepositoryMock.delete).toHaveBeenCalledTimes(0);
         });
 
         test("Overrides draft metadata", async () => {
             const metadataDto = new MetadataDtoMock();
             await metadataService.create(1, metadataDto);
-            expect(nftMetadataRepositoryMock.create).toHaveBeenCalledWith({ ...metadataDto, nftId: 1 });
+            expect(nftMetadataRepositoryMock.save).toHaveBeenCalledWith({ ...metadataDto, nftId: 1 });
             expect(nftMetadataRepositoryMock.delete).toHaveBeenCalledTimes(1);
         });
     });

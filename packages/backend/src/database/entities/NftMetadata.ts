@@ -27,7 +27,11 @@ export class NftMetadata {
     @Column({ name: "external_url", type: "text", nullable: true })
     externalUrl?: string;
 
-    @OneToMany(() => NftMetadataAttribute, (metadataAttribute) => metadataAttribute.metadata, { cascade: true })
+    @OneToMany(() => NftMetadataAttribute, (metadataAttribute) => metadataAttribute.metadata, {
+        cascade: true,
+        onDelete: "CASCADE",
+        onUpdate: "CASCADE",
+    })
     attributes?: NftMetadataAttribute[];
 
     @CreateDateColumn({ name: "created_at", type: "timestamp" })

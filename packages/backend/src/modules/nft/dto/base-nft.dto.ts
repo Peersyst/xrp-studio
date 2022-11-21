@@ -15,7 +15,7 @@ export class BaseNftDto {
     })
     status: NftStatus;
     metadata?: MetadataDto;
-    user: UserDto;
+    user?: UserDto;
     collection?: CollectionDto;
 
     static fromEntity({ id, issuer, transferFee, flags, status, user, collection, metadata }: Nft): BaseNftDto {
@@ -26,7 +26,7 @@ export class BaseNftDto {
             flags,
             status,
             metadata: metadata ? MetadataDto.fromEntity(metadata) : undefined,
-            user: UserDto.fromEntity(user),
+            user: user && UserDto.fromEntity(user),
             // Safe to add user to collection as it should be a pre condition. This way query is much faster and we are not checking for information we already have. If nft.user and collection.user were different, there'd be a problem
             collection: collection ? CollectionDto.fromEntity({ ...collection, user }) : undefined,
         };

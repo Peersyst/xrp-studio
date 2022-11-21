@@ -566,7 +566,7 @@ describe("NftService", () => {
                 .spyOn(QueryBuilderHelper, "buildFindManyAndCount")
                 .mockReturnValue(Promise.resolve([[new NftMock()], 1]));
             const nfts = await nftService.findAll();
-            expect(queryBuilderHelper).toHaveBeenCalledWith(nftRepositoryMock, "nft", 0, 15, [], []);
+            expect(queryBuilderHelper).toHaveBeenCalledWith(nftRepositoryMock, "nft", 0, 15, ["metadata", "metadata.attributes"], []);
             expect(nfts).toEqual({ items: expect.any(Array), pages: 1, currentPage: 1 });
         });
         test("Returns all NFTs with all optional params", async () => {
@@ -586,7 +586,7 @@ describe("NftService", () => {
                 "nft",
                 10,
                 10,
-                ["nft.collection", "nft.user"],
+                ["metadata", "metadata.attributes", "collection", "user"],
                 [
                     { field: "nft.collection.id", operator: FilterType.IN, value: [1] },
                     { field: "nft.user.address", operator: FilterType.EQUAL, value: ADDRESS },

@@ -55,19 +55,22 @@ export class GetNftsRequest {
     })
     order?: Order;
 
-    toFilterClause({ status, ownerAddress }: { status?: NftStatus | NftStatus[]; ownerAddress?: string } = {}): QBFilter {
+    static toFilterClause(
+        req: GetNftsRequest,
+        { status, ownerAddress }: { status?: NftStatus | NftStatus[]; ownerAddress?: string } = {},
+    ): QBFilter {
         const filter: QBFilter = {
             qbWheres: [],
-            relations: [],
+            relations: ["metadata", "metadata.attributes"],
         };
 
-        if (this.collections) {
-            filter.relations.push("nft.collection");
-            filter.qbWheres.push({ field: "nft.collection.id", operator: FilterType.IN, value: this.collections });
+        if (req.collections) {
+            filter.relations.push("collection");
+            filter.qbWheres.push({ field: "nft.collection.id", operator: FilterType.IN, value: req.collections });
         }
-        if (this.account) {
-            filter.relations.push("nft.user");
-            filter.qbWheres.push({ field: "nft.user.address", operator: FilterType.EQUAL, value: this.account });
+        if (req.account) {
+            filter.relations.push("user");
+            filter.qbWheres.push({ field: "nft.user.address", operator: FilterType.EQUAL, value: req.account });
         }
         if (status) {
             filter.qbWheres.push({
@@ -77,7 +80,7 @@ export class GetNftsRequest {
             });
         }
         if (ownerAddress) {
-            if (filter.relations.indexOf("nft.user") < 0) filter.relations.push("nft.user");
+            if (filter.relations.indexOf("user") < 0) filter.relations.push("user");
             filter.qbWheres.push({ field: "nft.user.address", operator: FilterType.EQUAL, value: ownerAddress });
         }
 

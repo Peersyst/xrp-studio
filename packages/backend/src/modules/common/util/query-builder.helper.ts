@@ -17,7 +17,7 @@ export interface QBOrder<T = string> {
 }
 
 export interface QBFilter<Order = unknown> {
-    relations: string[];
+    relations: (string | Relation)[];
     qbWheres: QBWhere[];
     qbOrders?: QBOrder<Order>[];
 }
@@ -60,18 +60,22 @@ export interface QBFrom<T> {
 }
 
 export class QueryBuilderHelper {
-    private static addRelations<T>(qb: SelectQueryBuilder<T>, alias: string, relations: string[] | Relation[] = []): SelectQueryBuilder<T> {
+    private static addRelations<T>(qb: SelectQueryBuilder<T>, alias: string, relations: (string | Relation)[] = []): SelectQueryBuilder<T> {
         for (const relation of relations) {
+            const aliases = (typeof relation === "string" ? relation : relation.value).split(".");
+            const finalAlias = aliases.length > 1 ? aliases[aliases.length - 2] : alias;
+            const finalRelation = aliases[aliases.length - 1];
+
             if (typeof relation === "string") {
-                qb = qb.innerJoinAndSelect(`${alias}.${relation}`, relation);
+                qb = qb.leftJoinAndSelect(`${finalAlias}.${finalRelation}`, relation);
             } else if (relation.select && relation.type === RelationType.INNER) {
-                qb = qb.innerJoinAndSelect(`${alias}.${relation.value}`, relation.value);
+                qb = qb.innerJoinAndSelect(`${finalAlias}.${finalRelation}`, relation.value);
             } else if (!relation.select && relation.type === RelationType.INNER) {
-                qb = qb.innerJoin(`${alias}.${relation.value}`, relation.value);
+                qb = qb.innerJoin(`${finalAlias}.${finalRelation}`, relation.value);
             } else if (relation.select && relation.type === RelationType.LEFT) {
-                qb = qb.leftJoinAndSelect(`${alias}.${relation.value}`, relation.value);
+                qb = qb.leftJoinAndSelect(`${finalAlias}.${finalRelation}`, relation.value);
             } else if (!relation.select && relation.type === RelationType.LEFT) {
-                qb = qb.leftJoin(`${alias}.${relation.value}`, relation.value);
+                qb = qb.leftJoin(`${finalAlias}.${finalRelation}`, relation.value);
             }
         }
         return qb;
@@ -180,7 +184,7 @@ export class QueryBuilderHelper {
         alias = "table",
         select: string[] | string = [],
         from: QBFrom<T>[] = [],
-        relations: string[] | Relation[] = [],
+        relations: (string | Relation)[] = [],
         wheres: QBWhere[] = [],
         orders: QBOrder[] = [],
         groupBys: string[] = [],
@@ -212,7 +216,7 @@ export class QueryBuilderHelper {
         alias = "table",
         select: string[] | string = [],
         from: QBFrom<T>[] = [],
-        relations: string[] | Relation[] = [],
+        relations: (string | Relation)[] = [],
         wheres: QBWhere[] = [],
         orders: QBOrder[] = [],
         groupBys: string[] = [],
@@ -227,7 +231,7 @@ export class QueryBuilderHelper {
         alias = "table",
         offset?: number,
         limit?: number,
-        relations: string[] | Relation[] = [],
+        relations: (string | Relation)[] = [],
         wheres: QBWhere[] = [],
         orders: QBOrder[] = [],
     ): Promise<[T[], number]> {

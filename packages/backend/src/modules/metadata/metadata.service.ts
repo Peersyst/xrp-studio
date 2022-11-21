@@ -40,15 +40,16 @@ export class MetadataService {
     async create(nftId: number, metadataDto: MetadataDto | CreateMetadataRequest, forceRegenerate = true): Promise<NftMetadata> {
         const metadata = await this.nftMetadataRepository.findOne({ nftId });
         // If nft has metadata it means it was a draft with metadata. We have to delete it as it has to be overridden by its final metadata
-        if (metadata && forceRegenerate) await this.nftMetadataRepository.delete({ nftId });
+        if (metadata && forceRegenerate) await this.delete(nftId);
         // Create attributes with nftMetadataId = nft.id, as it will be the value for nftMetadata.id
-        return this.nftMetadataRepository.create({
+        return this.nftMetadataRepository.save({
             ...metadataDto,
             nftId,
         });
     }
 
     async delete(nftId: number): Promise<void> {
+        await this.nftMetadataAttributeRepository.delete({ nftMetadataId: nftId });
         await this.nftMetadataRepository.delete({ nftId });
     }
 
