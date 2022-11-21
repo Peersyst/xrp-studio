@@ -1,8 +1,8 @@
-import { CollectionDto, CreateNftDraftRequest } from "module/api/service";
+import { CreateNftDraftRequest } from "module/api/service";
 
 export interface NftInformationProps {
-    data: CreateNftDraftRequest;
-    collection?: CollectionDto;
+    request: CreateNftDraftRequest;
+    collection?: string;
 }
 
 export interface NftInformationFieldProps {
