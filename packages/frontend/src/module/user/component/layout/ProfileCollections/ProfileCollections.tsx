@@ -21,7 +21,7 @@ const ProfileCollections = (): JSX.Element => {
                     <Button onClick={() => navigate(CollectionRoutes.CREATE_COLLECTION)}>{translate("createCollection")}</Button>
                 </NothingToShow>
             ) : (
-                <CollectionCardCarousel collections={collections} isLoading={isLoading} />
+                <CollectionCardCarousel collections={collections} loading={isLoading} />
             )}
         </Row>
     );

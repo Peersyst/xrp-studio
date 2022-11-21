@@ -3,23 +3,30 @@ import { NftCardProps } from "module/nft/component/display/NftCard/NftCard.types
 import BaseCard from "module/nft/component/surface/BaseCard/BaseCard";
 import { NftRoutes } from "module/nft/NftRouter";
 import NftCardStatusChip from "../NftCardStatusChip/NftCardStatusChip";
+import { forwardRef } from "react";
+import { cx } from "@peersyst/react-utils";
 
-const NftCard = ({
-    nft: { id, metadata: { name = "", image } = {}, status },
-    loading = false,
-}: WithSkeleton<NftCardProps>): JSX.Element => {
-    const defaultImgUrl = useConfig("nftDefaultCoverUrl");
+const NftCard = forwardRef(
+    (
+        { nft: { id, metadata: { name = "", image } = {}, status }, loading = false, className, ...rest }: WithSkeleton<NftCardProps>,
+        ref,
+    ): JSX.Element => {
+        const defaultImgUrl = useConfig("nftDefaultCoverUrl");
 
-    return (
-        <BaseCard
-            title={loading ? "loading-title" : name}
-            to={status === "confirmed" ? NftRoutes.VIEW_NFT.replace(":id", id.toString()) : `${NftRoutes.NFT_CREATION}?id=${id}`}
-            defaultUrl={defaultImgUrl}
-            coverUrl={image}
-            loading={loading}
-            status={status !== "confirmed" && <NftCardStatusChip label={status} status={status} nftId={id!} />}
-        />
-    );
-};
+        return (
+            <BaseCard
+                ref={ref}
+                title={loading ? "NFT name loading" : name}
+                to={status === "confirmed" ? NftRoutes.VIEW_NFT.replace(":id", id.toString()) : `${NftRoutes.NFT_CREATION}?id=${id}`}
+                defaultCoverUrl={defaultImgUrl}
+                coverUrl={image}
+                loading={loading}
+                status={status !== "confirmed" && <NftCardStatusChip label={status} status={status} nftId={id!} />}
+                className={cx("nft-card", className)}
+                {...rest}
+            />
+        );
+    },
+);
 
 export default NftCard;

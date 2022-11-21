@@ -5,20 +5,20 @@ import userEvent from "@testing-library/user-event";
 
 describe("BaseCard", () => {
     test("Renders correctly without note", () => {
-        render(<BaseCard defaultUrl="cover" title="title" to="to" />);
+        render(<BaseCard coverUrl={undefined} defaultCoverUrl="cover" title="title" to="to" />);
         expect(screen.getByText("title")).toBeInTheDocument();
         expect(screen.getByRole("link")).toHaveAttribute("href", "/to");
     });
 
     test("Renders correctly with note", () => {
-        render(<BaseCard defaultUrl="cover" title="title" to="to" note="note" />);
+        render(<BaseCard coverUrl={undefined} defaultCoverUrl="cover" title="title" to="to" note="note" />);
         expect(screen.getByText("title")).toBeInTheDocument();
         expect(screen.getByText("note")).toBeInTheDocument();
     });
 
     test("Renders correctly with children", () => {
         render(
-            <BaseCard defaultUrl="cover" title="title" to="to" note="note">
+            <BaseCard coverUrl={undefined} defaultCoverUrl="cover" title="title" to="to" note="note">
                 children
             </BaseCard>,
         );
@@ -30,7 +30,7 @@ describe("BaseCard", () => {
     test("Trigger onDelete correctly", () => {
         const mockedOnDelete = jest.fn();
         render(
-            <BaseCard defaultUrl="cover" title="title" to="to" note="note" onDeleteClicked={mockedOnDelete}>
+            <BaseCard coverUrl={undefined} defaultCoverUrl="cover" title="title" to="to" note="note" onDeleteClicked={mockedOnDelete}>
                 children
             </BaseCard>,
         );

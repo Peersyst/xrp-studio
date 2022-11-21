@@ -3,7 +3,6 @@ import { CSSProperties } from "react";
 
 export interface DropLandingArtistSectionProps {
     artist: UserDto;
-    loading?: boolean;
     className?: string;
     style?: CSSProperties;
 }

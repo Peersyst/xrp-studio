@@ -14,7 +14,7 @@ import { CollectionRoutes } from "module/collection/CollectionRouter";
 
 const CollectionCard = forwardRef(
     (
-        { collection: { id, name = "", image = "", items, header }, loading = false, size = "md" }: WithSkeleton<CollectionCardProps>,
+        { collection: { id, name = "", image = "", items, header = "" }, loading = false, size = "md" }: WithSkeleton<CollectionCardProps>,
         ref,
     ): JSX.Element => {
         const translate = useTranslate();

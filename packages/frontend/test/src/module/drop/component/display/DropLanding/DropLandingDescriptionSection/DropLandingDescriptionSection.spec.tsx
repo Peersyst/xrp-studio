@@ -10,12 +10,11 @@ describe("DropLandingDescriptionSection", () => {
         render(
             <DropLandingDescriptionSection
                 image={dropMock.collection.image}
-                name={dropMock.collection.name}
+                name={dropMock.collection.name!}
                 description={dropMock.collection.description}
                 items={dropMock.collection.items}
                 price={dropMock.price}
                 sold={dropMock.sold}
-                fontLuminance={1}
                 loading={false}
             />,
         );

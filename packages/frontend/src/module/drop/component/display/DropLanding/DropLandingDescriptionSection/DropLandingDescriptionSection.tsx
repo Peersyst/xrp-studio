@@ -13,20 +13,19 @@ import Description from "module/common/component/display/Desciption/Description"
 
 const DropLandingDescriptionSection = ({
     cover = "",
-    image,
+    image = "",
     name = "Loading Name",
     description = "Loading Description",
     items,
     price = "0",
     sold = 0,
-    fontLuminance,
     loading = false,
 }: WithLoading<DropLandingDescriptionSectionProps>): JSX.Element => {
     const translate = useTranslate();
     const formatNumber = useFormatNumber();
 
     return (
-        <DropLandingDescriptionSectionRoot cover={cover} fontLuminance={fontLuminance}>
+        <DropLandingDescriptionSectionRoot cover={cover}>
             <DropLandingDescriptionSectionContent>
                 <Col flex={1} justifyContent="space-between" gap="3.5rem" css={{ padding: "3.375rem 0" }}>
                     <Col gap="0.625rem">
@@ -35,7 +34,7 @@ const DropLandingDescriptionSection = ({
                                 {name}
                             </Typography>
                         </Skeleton>
-                        <Description variant="body2" css={{ opacity: 0.72, lineHeight: "1.5rem" }}>
+                        <Description loading={loading} variant="body2" css={{ opacity: 0.72, lineHeight: "1.5rem" }}>
                             {description}
                         </Description>
                     </Col>

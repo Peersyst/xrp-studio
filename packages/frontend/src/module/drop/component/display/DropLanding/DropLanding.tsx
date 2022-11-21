@@ -1,66 +1,102 @@
 import { DropLandingProps } from "module/drop/component/display/DropLanding/DropLanding.types";
 import { DropLandingContent, DropLandingRoot } from "module/drop/component/display/DropLanding/DropLanding.styles";
 import DropLandingDescriptionSection from "module/drop/component/display/DropLanding/DropLandingDescriptionSection/DropLandingDescriptionSection";
-import { getLuminance } from "@peersyst/react-utils";
 import { useEffect, useRef, useState } from "react";
 import DropLandingVideoSection from "module/drop/component/display/DropLanding/DropLandingVideoSection/DropLandingVideoSection";
 import DropLandingArtistSection from "module/drop/component/display/DropLanding/DropLandingArtistSection/DropLandingArtistSection";
+import { Col, Divider, ThemeOverrideProvider, WithLoading } from "@peersyst/react-components";
+import DropLandingNftsSection from "module/drop/component/display/DropLanding/DropLandingNftsSection/DropLandingNftsSection";
+import { UserDto } from "module/api/service";
 
 function DropLanding({
     drop: {
-        collection: { header, image, name, description, items, user },
+        collection: { header = "", image = "", name = "", description = "", items = 0, user = {} } = {},
         price = "0",
         sold = 0,
-        fontColor,
-        backgroundColor,
+        fontColor = "#FFFFFF",
+        backgroundColor = "#000000",
         videoUrl,
-    },
+    } = {},
     loading = false,
+    nfts,
+    loadingNfts = false,
     preview = false,
     ...rest
-}: DropLandingProps): JSX.Element {
-    const ref = useRef<HTMLDivElement>();
-    const [width, setWidth] = useState<number>();
-    const [height, setHeight] = useState<number>();
+}: WithLoading<DropLandingProps>): JSX.Element {
+    const rootRef = useRef<HTMLDivElement>();
+    const contentRef = useRef<HTMLDivElement>();
+    const [rootWidth, setRooWidth] = useState<number>();
+    const [contentHeight, setContentHeight] = useState<number>();
 
-    // Get content sizes so root can adapt to content scaling when preview is true.
+    // Get root width so content can calculate the scale factor
     useEffect(() => {
         if (preview) {
-            const observer = new ResizeObserver(handleObserver);
-            ref.current && observer.observe(ref.current);
+            const rootObserver = new ResizeObserver(handleRootObserver);
+            rootRef.current && rootObserver.observe(rootRef.current);
             return () => {
-                observer.disconnect();
+                rootObserver.disconnect();
             };
         } else {
-            if (width !== undefined) setWidth(undefined);
-            if (height !== undefined) setHeight(undefined);
+            if (rootWidth !== undefined) setRooWidth(undefined);
         }
-    }, [ref, preview]);
+    }, [rootRef, preview]);
 
-    const handleObserver = (entries: ResizeObserverEntry[]) => {
+    // Get content height so root can adjust its own
+    useEffect(() => {
+        if (preview) {
+            const contentObserver = new ResizeObserver(handleContentObserver);
+            contentRef.current && contentObserver.observe(contentRef.current);
+            return () => {
+                contentObserver.disconnect();
+            };
+        } else {
+            if (contentHeight !== undefined) setContentHeight(undefined);
+        }
+    }, [rootRef, preview]);
+
+    const handleRootObserver = (entries: ResizeObserverEntry[]) => {
         const child = entries[0];
-        const { width: newWidth, height: newHeight } = child.target.getBoundingClientRect();
-        if (newWidth !== width) setWidth(newWidth);
-        if (newHeight !== height) setHeight(newHeight);
+        const { width: newWidth } = child.target.getBoundingClientRect();
+        if (newWidth !== rootWidth) setRooWidth(newWidth);
+    };
+
+    const handleContentObserver = (entries: ResizeObserverEntry[]) => {
+        const child = entries[0];
+        const { height: newHeight } = child.target.getBoundingClientRect();
+        if (newHeight !== contentHeight) setContentHeight(newHeight);
     };
 
     return (
-        <DropLandingRoot style={{ height, width, color: fontColor, backgroundColor }} {...rest}>
-            <DropLandingContent ref={ref} preview={preview}>
-                <DropLandingDescriptionSection
-                    cover={header}
-                    image={image}
-                    name={name}
-                    description={description}
-                    items={items}
-                    price={price}
-                    sold={sold}
-                    fontLuminance={getLuminance(fontColor)}
-                    loading={loading}
-                />
-                {(loading || videoUrl) && <DropLandingVideoSection videoUrl={videoUrl} loading={loading} />}
-                <DropLandingArtistSection artist={user} loading={loading} />
-            </DropLandingContent>
+        <DropLandingRoot ref={rootRef} preview={preview} style={{ height: contentHeight, color: fontColor, backgroundColor }} {...rest}>
+            <ThemeOverrideProvider
+                overrides={(theme) => ({ ...theme, palette: { ...theme.palette, background: backgroundColor, text: fontColor } })}
+            >
+                <DropLandingContent
+                    ref={contentRef}
+                    preview={preview}
+                    style={{
+                        transform:
+                            preview && rootWidth !== undefined ? `scale(${rootWidth / document.documentElement.clientWidth})` : undefined,
+                    }}
+                >
+                    <Col>
+                        <DropLandingDescriptionSection
+                            cover={header}
+                            image={image}
+                            name={name}
+                            description={description}
+                            items={items}
+                            price={price}
+                            sold={sold}
+                            loading={loading}
+                        />
+                        {(loading || videoUrl) && <DropLandingVideoSection videoUrl={videoUrl} loading={loading} />}
+                        <DropLandingArtistSection artist={user as UserDto} loading={loading} />
+                    </Col>
+                    <Divider css={{ color: fontColor, opacity: 0.4 }} />
+                    <DropLandingNftsSection nfts={nfts} loading={loadingNfts} />
+                </DropLandingContent>
+            </ThemeOverrideProvider>
         </DropLandingRoot>
     );
 }

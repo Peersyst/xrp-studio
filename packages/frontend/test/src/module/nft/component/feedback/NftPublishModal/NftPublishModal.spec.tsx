@@ -4,7 +4,6 @@ import NftPublishModal from "module/nft/component/feedback/NftPublishModal/NftPu
 import { screen } from "@testing-library/react";
 import { capitalize } from "@peersyst/react-utils";
 import { waitFor } from "@testing-library/dom";
-import * as Recoil from "recoil";
 import userEvent from "@testing-library/user-event";
 
 describe("NftPublishModal tests", () => {
@@ -38,12 +37,8 @@ describe("NftPublishModal tests", () => {
         });
 
         test("Create published NFT with balance", async () => {
-            const usePublishNftState = jest
-                .spyOn(Recoil, "useRecoilValue")
-                .mockReturnValue({ data: createNftDraftRequestMock, collection: COLLECTIONS_NFT });
-            render(<NftPublishModal />);
+            render(<NftPublishModal request={createNftDraftRequestMock} collection={COLLECTIONS_NFT} />);
 
-            expect(usePublishNftState).toHaveBeenCalled();
             const confirmPublishButton = screen.getByRole("button", { name: capitalize(translate("confirm")) });
             await waitFor(() => expect(confirmPublishButton).not.toBeDisabled());
             userEvent.click(confirmPublishButton);
@@ -66,13 +61,8 @@ describe("NftPublishModal tests", () => {
         });
 
         test("Create published NFT without balance", async () => {
-            const usePublishNftState = jest
-                .spyOn(Recoil, "useRecoilValue")
-                .mockReturnValue({ data: createNftDraftRequestMock, collection: COLLECTIONS_NFT });
+            render(<NftPublishModal request={createNftDraftRequestMock} collection={COLLECTIONS_NFT} />);
 
-            render(<NftPublishModal />);
-
-            expect(usePublishNftState).toHaveBeenCalled();
             const confirmPublishButton = screen.getByRole("button", { name: capitalize(translate("confirm")) });
             await waitFor(() => expect(confirmPublishButton).not.toBeDisabled());
             userEvent.click(confirmPublishButton);

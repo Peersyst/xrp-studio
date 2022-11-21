@@ -20,6 +20,7 @@ function InnerNftGrid({
             breakpoints={breakpoints}
             loading={loading}
             Skeletons={BaseCardSkeletons}
+            justifyItems="stretch"
             {...rest}
         >
             {(nfts) => nfts.map((nft, key) => <NftCard nft={nft} key={key} loading={loading} />)}

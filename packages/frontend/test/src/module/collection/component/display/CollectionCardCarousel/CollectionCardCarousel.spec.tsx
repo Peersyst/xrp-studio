@@ -6,7 +6,7 @@ describe("Test for the collection card component", () => {
     test("Renders correctly when loaded", () => {
         const length = 5;
         const { collections } = new CollectionsDtoMock({ length });
-        const screen = render(<CollectionCardCarousel collections={collections} isLoading={false} />);
+        const screen = render(<CollectionCardCarousel collections={collections} loading={false} />);
         const imgs = screen.getAllByRole("img");
         expect(screen.getAllByText(collections[0].name ?? "")).toHaveLength(length);
         expect(imgs).toHaveLength(length * 2);
@@ -19,7 +19,7 @@ describe("Test for the collection card component", () => {
     test("Renders correctly when loading", () => {
         const length = 5;
         const { collections } = new CollectionsDtoMock({ length });
-        const screen = render(<CollectionCardCarousel collections={collections} isLoading skeletonCount={length} />);
+        const screen = render(<CollectionCardCarousel collections={collections} loading skeletonCount={length} />);
         const imgs = screen.getAllByRole("img");
         expect(screen.getAllByText("collection name loading")).toHaveLength(length);
         expect(imgs).toHaveLength(length * 2);
