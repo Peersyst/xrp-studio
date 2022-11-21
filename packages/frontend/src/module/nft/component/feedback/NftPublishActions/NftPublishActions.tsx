@@ -1,15 +1,15 @@
-import { Fragment, useEffect, useState } from "react";
+import { Fragment, useContext, useEffect, useState } from "react";
 import NftPublishActionStep from "module/nft/component/feedback/NftPublishActions/NftPublishActionStep/NftPublishActionStep";
 import { NftPublishActionsProps } from "module/nft/component/feedback/NftPublishActions/NftPublishActions.types";
 import { Col, Typography } from "@peersyst/react-components";
-import { capitalize } from "@peersyst/react-utils";
 import useTranslate from "module/common/hook/useTranslate";
-import useNftPublishModalState from "module/nft/hook/useNftPublishModalState";
+import { NftPublishModalContext } from "module/nft/component/feedback/NftPublishModal/NftPublishModalContext";
 
 const NftPublishActions = ({ steps }: NftPublishActionsProps): JSX.Element => {
     const translate = useTranslate();
+
     const [currentStep, setCurrentStep] = useState(0);
-    const [, setNftPublishModalState] = useNftPublishModalState();
+    const modalContext = useContext(NftPublishModalContext);
     //const [error, setError] = useState(false);
 
     useEffect(() => {
@@ -20,11 +20,15 @@ const NftPublishActions = ({ steps }: NftPublishActionsProps): JSX.Element => {
         if (currentStep === steps.length - 1) {
             setTimeout(
                 () =>
-                    setNftPublishModalState({
-                        buttonLabel: capitalize(translate("finish")),
+                    modalContext?.setState({
+                        buttonLabel: "View details",
                         buttonDisabled: false,
                         closable: true,
-                        tab: 2,
+                        tab: 1,
+                        handleClick: async () => {
+                            modalContext?.setState({ tab: 2, buttonLabel: translate("finish") });
+                        },
+                        modalId: modalContext?.state.modalId,
                     }),
                 500,
             );

@@ -5,41 +5,47 @@ import NftPublishTabs from "module/nft/component/navigation/NftPublishTabs/NftPu
 import Modal from "module/common/component/feedback/Modal/Modal";
 import usePublishNftState from "module/nft/hook/usePublishNftState";
 import PublishContent from "module/common/component/layout/PublishContent/PublishContent";
-import usePublishNftSteps from "module/nft/hook/usePublishNftSteps";
-import { useEffect } from "react";
-import useNftPublishModalState from "module/nft/hook/useNftPublishModalState";
-import { capitalize } from "@peersyst/react-utils";
+
+import { useState } from "react";
+import { NftPublishModalContext, NftPublishModalState } from "module/nft/component/feedback/NftPublishModal/NftPublishModalContext";
 
 const NftPublishModal = createModal(({ ...modalProps }) => {
     const translate = useTranslate();
     const [{ data: requestNft }] = usePublishNftState();
-    const [{ handleClick, buttonDisabled, buttonLabel, closable, tab }, setNftPublishModal] = useNftPublishModalState();
 
-    const { handleClick: handlePublish, isLoading } = usePublishNftSteps(NftPublishModal.id);
-
-    useEffect(() => {
-        setNftPublishModal({
-            handleClick: handlePublish,
-            buttonLabel: capitalize(translate("confirm")),
-            buttonDisabled: buttonDisabled,
-            tab: 0,
-        });
-    }, []);
+    const [nftPublishModal, setNftPublishModal] = useState<Partial<NftPublishModalState>>({
+        closable: true,
+        tab: 0,
+        buttonDisabled: false,
+        buttonLabel: translate("confirm"),
+        handleClick: async () => {
+            return;
+        },
+        modalId: NftPublishModal.id,
+    });
+    const { closable, handleClick, buttonDisabled, buttonLabel, tab } = nftPublishModal;
 
     return (
-        <Modal size="lg" title={translate("publishConfirmation")} closable={closable} {...modalProps}>
-            <PublishContent>
-                {{
-                    cover: requestNft.metadata?.image,
-                    feedback: <NftPublishTabs tab={tab} />,
-                    footer: (
-                        <Button onClick={handleClick} size="lg" variant="primary" loading={isLoading} disabled={buttonDisabled}>
-                            {buttonLabel}
-                        </Button>
-                    ),
-                }}
-            </PublishContent>
-        </Modal>
+        <NftPublishModalContext.Provider
+            value={{
+                state: nftPublishModal,
+                setState: setNftPublishModal,
+            }}
+        >
+            <Modal size="lg" title={translate("publishConfirmation")} closable={closable} {...modalProps}>
+                <PublishContent>
+                    {{
+                        cover: requestNft.metadata?.image,
+                        feedback: <NftPublishTabs tab={tab!} />,
+                        footer: (
+                            <Button onClick={handleClick} size="lg" variant="primary" disabled={buttonDisabled}>
+                                {buttonLabel}
+                            </Button>
+                        ),
+                    }}
+                </PublishContent>
+            </Modal>
+        </NftPublishModalContext.Provider>
     );
 });
 
