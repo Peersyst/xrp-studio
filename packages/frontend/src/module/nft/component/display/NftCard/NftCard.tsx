@@ -18,7 +18,7 @@ const NftCard = forwardRef(
                 ref={ref}
                 title={loading ? "NFT name loading" : name}
                 to={status === "confirmed" ? NftRoutes.VIEW_NFT.replace(":id", id.toString()) : `${NftRoutes.NFT_CREATION}?id=${id}`}
-                defaultUrl={defaultImgUrl}
+                defaultCoverUrl={defaultImgUrl}
                 coverUrl={image}
                 loading={loading}
                 status={status !== "confirmed" && <NftCardStatusChip label={status} status={status} nftId={id!} />}

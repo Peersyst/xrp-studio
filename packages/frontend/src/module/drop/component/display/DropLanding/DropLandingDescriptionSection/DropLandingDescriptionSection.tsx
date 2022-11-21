@@ -13,7 +13,7 @@ import Description from "module/common/component/display/Desciption/Description"
 
 const DropLandingDescriptionSection = ({
     cover = "",
-    image,
+    image = "",
     name = "Loading Name",
     description = "Loading Description",
     items,
