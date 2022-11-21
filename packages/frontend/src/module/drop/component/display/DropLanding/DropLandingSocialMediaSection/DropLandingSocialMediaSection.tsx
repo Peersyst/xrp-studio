@@ -17,23 +17,13 @@ const DropLandingSocialMediaSection = ({
                     {translate("jounOurCommunity")}
                 </Typography>
             </Skeleton>
-            <Row gap="1rem" alignItems="center">
-                {twitter && (
-                    <Skeleton loading={loading}>
-                        <SocialButton className="footer" icon="twitter" link={twitter} />
-                    </Skeleton>
-                )}
-                {instagram && (
-                    <Skeleton loading={loading}>
-                        <SocialButton className="footer" icon="instagram" link={instagram} />{" "}
-                    </Skeleton>
-                )}
-                {discord && (
-                    <Skeleton loading={loading}>
-                        <SocialButton className="footer" icon="discord" link={discord} />
-                    </Skeleton>
-                )}
-            </Row>
+            <Skeleton width="19rem" height="3.25rem" loading={loading}>
+                <Row gap="1rem" alignItems="center">
+                    {twitter && <SocialButton className="footer" icon="twitter" link={twitter} />}
+                    {instagram && <SocialButton className="footer" icon="instagram" link={instagram} />}
+                    {discord && <SocialButton className="footer" icon="discord" link={discord} />}
+                </Row>
+            </Skeleton>
         </DropLandingFooterSectionRoot>
     );
 };

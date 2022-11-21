@@ -99,10 +99,12 @@ function DropLanding({
                     </Col>
                     <Divider css={{ color: fontColor, opacity: 0.4 }} />
                     <DropLandingNftsSection nfts={nfts} loading={loadingNfts} />
-                    <DropLandingSocialMediaSection
-                        networks={{ instagram: instagram, discord: discord, twitter: twitter }}
-                        loading={loading}
-                    />
+                    {(instagram || discord || twitter) && (
+                        <DropLandingSocialMediaSection
+                            networks={{ instagram: instagram, discord: discord, twitter: twitter }}
+                            loading={loading}
+                        />
+                    )}
                 </DropLandingContent>
             </ThemeOverrideProvider>
         </DropLandingRoot>
