@@ -19,6 +19,7 @@ import { IpfsModule } from "@peersyst/ipfs-module/src/ipfs.module";
 import { FileModule } from "./modules/file/file.module";
 import { StorageModule, StorageType } from "@peersyst/storage-module/src/storage.module";
 import { waitForAwsSecrets } from "./config/util/loadAwsSecrets";
+import { DropModule } from "./modules/drop/drop.module";
 
 @Module({
     imports: [
@@ -63,6 +64,7 @@ import { waitForAwsSecrets } from "./config/util/loadAwsSecrets";
         BlockchainModule,
         NftModule,
         CollectionModule,
+        DropModule,
         FileModule,
         BullModule.forRootAsync({
             inject: [ConfigService],

@@ -10,7 +10,7 @@ import { UserDto } from "module/api/service";
 
 function DropLanding({
     drop: {
-        collection: { header = "", image = "", name = "", description = "", items = 0, user = {} } = {},
+        collection: { header = "", image = "", name = "", description = "", items = 0, user = { address: "" } } = {},
         price = "0",
         sold = 0,
         fontColor = "#FFFFFF",

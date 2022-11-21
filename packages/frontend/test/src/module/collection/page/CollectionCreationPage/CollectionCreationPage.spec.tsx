@@ -163,7 +163,9 @@ describe("CollectionCreationPage", () => {
         test("Removes id when collection is not owned", async () => {
             getCollectionMock = jest
                 .spyOn(CollectionService, "collectionControllerGetCollection")
-                .mockResolvedValueOnce({ ...collectionDtoMock, user: new UserDtoMock({ address: "other_address" }) });
+                .mockResolvedValueOnce(
+                    new CollectionDtoMock({ ...collectionDtoMock, user: new UserDtoMock({ address: "other_address" }) }),
+                );
 
             render(<CollectionCreationPage />);
 
