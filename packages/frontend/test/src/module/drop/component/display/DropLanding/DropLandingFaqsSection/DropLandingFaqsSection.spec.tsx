@@ -14,7 +14,7 @@ describe("Drop Landing Faqs Section ", () => {
     });
 
     test("Renders correctly without faqs", () => {
-        render(<DropLandingFaqsSection loading={false} />);
+        render(<DropLandingFaqsSection faqs={[]} loading={false} />);
 
         // Text
         expect(screen.getByText(translate("FAQs"))).toBeInTheDocument();

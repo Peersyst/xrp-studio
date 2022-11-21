@@ -27,8 +27,7 @@ describe("DropCreationPageContent", () => {
         // Discord
         expect(screen.getByPlaceholderText(translate("discord"))).toBeInTheDocument();
         // Faqs
-        expect(screen.getByText(translate("faqs"))).toBeInTheDocument();
-
+        expect(screen.getAllByText(translate("faqs"))).toHaveLength(2);
         // Preview
         expect(await screen.findByRole("heading", { name: collectionDtoMock.name })).toBeInTheDocument();
     });
