@@ -3,8 +3,9 @@ import { DropLandingSection } from "module/drop/component/display/DropLanding/Dr
 
 export const DropLandingFooterSectionRoot = styled(DropLandingSection)`
     .social-button {
-        width: 5rem;
-        max-width: initial;
+        width: 5.5rem;
+        height: 3.25rem;
+        max-width: none;
         border-radius: 6.25rem;
     }
 `;

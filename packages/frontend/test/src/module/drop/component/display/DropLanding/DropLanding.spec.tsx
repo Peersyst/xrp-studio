@@ -1,6 +1,6 @@
 import { screen } from "@testing-library/react";
 import DropLanding from "module/drop/component/display/DropLanding/DropLanding";
-import { render } from "test-utils";
+import { render, translate } from "test-utils";
 import { DropDtoMock, MetadataDtoMock, NftDtoMock } from "test-mocks";
 
 describe("DropLanding", () => {
@@ -8,6 +8,7 @@ describe("DropLanding", () => {
 
     test("Renders correctly with all properties", () => {
         const dropDtoMock = new DropDtoMock();
+        dropDtoMock.twitter = "http://twitter.com";
 
         render(<DropLanding drop={dropDtoMock} nfts={nftMocks} />);
 
@@ -19,6 +20,12 @@ describe("DropLanding", () => {
         expect(screen.getByRole("heading", { name: dropDtoMock.collection.user.name })).toBeInTheDocument();
         // NFTs section
         expect(screen.getByText(nftMocks[0].metadata!.name!));
+        // Social Media Section
+        expect(screen.getByText(translate("jounOurCommunity")));
+        // Social Network Twitter Show
+        expect(screen.getByTestId("TwitterIcon")).toBeInTheDocument();
+        // Social Network not show Intagram
+        expect(screen.queryByTestId("IntagramIcon")).not.toBeInTheDocument();
     });
 
     test("Renders correctly without optional properties", () => {
@@ -34,5 +41,7 @@ describe("DropLanding", () => {
         expect(screen.getByRole("heading", { name: dropDtoMock.collection.user.name })).toBeInTheDocument();
         // NFTs section
         expect(screen.getByText(nftMocks[0].metadata!.name!));
+        // Social Media Section
+        expect(screen.getByText(translate("jounOurCommunity")));
     });
 });
