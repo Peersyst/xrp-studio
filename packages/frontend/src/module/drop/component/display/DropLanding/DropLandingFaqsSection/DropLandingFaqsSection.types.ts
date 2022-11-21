@@ -1,9 +1,8 @@
-import { Loosen } from "@peersyst/react-types";
-import { FaqsDto } from "module/api/service";
 import { CSSProperties } from "react";
+import { Faq } from "module/drop/types";
 
 export interface DropLandingFaqsSectionProps {
-    faqs: Loosen<FaqsDto, "id">[];
+    faqs: Faq[];
     className?: string;
     style?: CSSProperties;
 }

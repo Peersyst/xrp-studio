@@ -7,25 +7,18 @@ import DropLandingArtistSection from "module/drop/component/display/DropLanding/
 import { Col, Divider, ThemeOverrideProvider, WithLoading } from "@peersyst/react-components";
 import DropLandingNftsSection from "module/drop/component/display/DropLanding/DropLandingNftsSection/DropLandingNftsSection";
 import DropLandingFaqsSection from "./DropLandingFaqsSection/DropLandingFaqsSection";
-import { FaqsDto, UserDto } from "module/api/service";
-import { Loosen } from "@peersyst/react-types";
 
 function DropLanding({
-    drop: {
-        collection: { header = "", image = "", name = "", description = "", items = 0, user = {} } = {},
-        price = "0",
-        sold = 0,
-        fontColor = "#FFFFFF",
-        backgroundColor = "#000000",
-        videoUrl,
-        faqs = [],
-    } = {},
+    drop,
     nfts,
     loadingNfts = false,
     loading = false,
     preview = false,
     ...rest
 }: WithLoading<DropLandingProps>): JSX.Element {
+    const { collection, price = "0", sold = 0, fontColor = "#FFFFFF", backgroundColor = "#000000", videoUrl, faqs = [] } = drop || {};
+    const { header = "", image = "", name = "", description = "", items = 0, user } = collection || {};
+
     const rootRef = useRef<HTMLDivElement>();
     const contentRef = useRef<HTMLDivElement>();
     const [rootWidth, setRooWidth] = useState<number>();
@@ -94,11 +87,11 @@ function DropLanding({
                             loading={loading}
                         />
                         {(loading || videoUrl) && <DropLandingVideoSection videoUrl={videoUrl} loading={loading} />}
-                        <DropLandingArtistSection artist={user as UserDto} loading={loading} />
+                        <DropLandingArtistSection artist={user} loading={loading} />
                     </Col>
                     <Divider css={{ color: fontColor, opacity: 0.4 }} />
                     <DropLandingNftsSection nfts={nfts} loading={loadingNfts} />
-                    <DropLandingFaqsSection faqs={faqs as Array<Loosen<FaqsDto, "id">>} loading={loading} />
+                    {!!faqs.length && <DropLandingFaqsSection faqs={faqs} loading={loading} />}
                 </DropLandingContent>
             </ThemeOverrideProvider>
         </DropLandingRoot>
