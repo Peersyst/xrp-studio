@@ -16,7 +16,7 @@ export const BaseCardSkeletons = ({ count }: SkeletonComponentProps): JSX.Elemen
     return (
         <>
             {[...Array(count)].map((_, key) => (
-                <BaseCard key={key} loading to="" title="loading_title" coverUrl={defaultImgUrl} defaultUrl={defaultImgUrl} />
+                <BaseCard key={key} loading to="" title="loading_title" coverUrl={defaultImgUrl} defaultCoverUrl={defaultImgUrl} />
             ))}
         </>
     );
