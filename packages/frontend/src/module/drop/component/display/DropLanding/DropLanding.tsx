@@ -6,6 +6,7 @@ import DropLandingVideoSection from "module/drop/component/display/DropLanding/D
 import DropLandingArtistSection from "module/drop/component/display/DropLanding/DropLandingArtistSection/DropLandingArtistSection";
 import { Col, Divider, ThemeOverrideProvider } from "@peersyst/react-components";
 import DropLandingNftsSection from "module/drop/component/display/DropLanding/DropLandingNftsSection/DropLandingNftsSection";
+import DropLandingFaqsSection from "./DropLandingFaqsSection/DropLandingFaqsSection";
 
 function DropLanding({
     drop: {
@@ -15,6 +16,7 @@ function DropLanding({
         fontColor,
         backgroundColor,
         videoUrl,
+        faqs,
     },
     loading = false,
     nfts,
@@ -69,6 +71,7 @@ function DropLanding({
                     </Col>
                     <Divider css={{ color: fontColor, opacity: 0.4 }} />
                     <DropLandingNftsSection nfts={nfts} loading={loadingNfts} />
+                    <DropLandingFaqsSection faqs={faqs} loading={loading} />
                 </DropLandingContent>
             </ThemeOverrideProvider>
         </DropLandingRoot>
