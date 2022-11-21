@@ -1,5 +1,5 @@
 import { DropLandingArtistSectionProps } from "module/drop/component/display/DropLanding/DropLandingArtistSection/DropLandingArtistSection.types";
-import { Col, Skeleton, Typography } from "@peersyst/react-components";
+import { Col, Skeleton, Typography, WithLoading } from "@peersyst/react-components";
 import Avatar from "module/common/component/display/Avatar/Avatar";
 import Link from "module/common/component/navigation/Link/Link";
 import { UserRoutes } from "module/user/UserRouter";
@@ -8,9 +8,9 @@ import { DropLandingArtistSectionRoot } from "module/drop/component/display/Drop
 import Description from "module/common/component/display/Desciption/Description";
 
 const DropLandingArtistSection = ({
-    artist: { address, image, name = "Loading Name", description },
-    loading,
-}: DropLandingArtistSectionProps): JSX.Element => {
+    artist: { address = "", image, name = "Loading Name", description } = {},
+    loading = false,
+}: WithLoading<DropLandingArtistSectionProps>): JSX.Element => {
     const translate = useTranslate();
 
     return (
