@@ -18,7 +18,16 @@ const NftPublishActions = ({ steps }: NftPublishActionsProps): JSX.Element => {
 
     const onStepSuccess = () => {
         if (currentStep === steps.length - 1) {
-            setNftPublishModalState({ buttonLabel: capitalize(translate("finish")), buttonDisabled: false, closable: true, tab: 2 });
+            setTimeout(
+                () =>
+                    setNftPublishModalState({
+                        buttonLabel: capitalize(translate("finish")),
+                        buttonDisabled: false,
+                        closable: true,
+                        tab: 2,
+                    }),
+                500,
+            );
         }
         setCurrentStep(currentStep + 1);
     };

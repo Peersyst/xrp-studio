@@ -17,7 +17,7 @@ const NftInformation = (): JSX.Element => {
     const flagsKeys = Object.keys(flags || {}) as (keyof NftFlagsRequest)[];
     const flagsValues = Object.values(flags || {});
     flagsValues.length;
-    const hasFlags = flagsValues.length > 0;
+    const hasFlags = flagsValues.find((flag) => flag);
     const isDataProvided = hasFlags || issuer || transferFee !== undefined || metadata?.name || collection;
 
     const informationFields: NftInformationFieldProps[] = [
@@ -42,7 +42,7 @@ const NftInformation = (): JSX.Element => {
     return (
         <>
             {isDataProvided ? (
-                <Col flex={1} gap="1rem" justifyContent={isDataProvided ? "flex-start" : "center"}>
+                <Col flex={1} gap="1rem" justifyContent={isDataProvided ? "flex-start" : "flex-start"}>
                     {informationFields.map(
                         ({ content, title }) =>
                             content && (
@@ -51,16 +51,17 @@ const NftInformation = (): JSX.Element => {
                                 </InformationField>
                             ),
                     )}
-                    {hasFlags && flags && (
+                    {hasFlags && (
                         <InformationField title={capitalize(translate("flags"))}>
                             <Col gap={8}>
                                 {flagsKeys.map((key) => {
                                     return (
-                                        flags[key] && (
+                                        !flags ||
+                                        (flags[key] && (
                                             <Typography key={key} variant="body2">
                                                 {translate(key)}
                                             </Typography>
-                                        )
+                                        ))
                                     );
                                 })}
                             </Col>

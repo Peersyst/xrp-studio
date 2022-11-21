@@ -3,31 +3,33 @@ import NftInformation from "module/nft/component/display/NftInformation/NftInfor
 import { NftPublishTabsCard } from "module/nft/component/navigation/NftPublishTabs/NftPublishTabs.styles";
 import NftPublishActions from "module/nft/component/feedback/NftPublishActions/NftPublishActions";
 import NftPublishSuccess from "module/nft/component/feedback/NftPublishSucess/NftPublishSuccess";
+import useTranslate from "module/common/hook/useTranslate";
 
 interface NftPublishTabsProps {
     tab: number;
 }
 
 const NftPublishTabs = ({ tab }: NftPublishTabsProps): JSX.Element => {
+    const translate = useTranslate();
+
     const steps = [
         {
-            title: "Approve XRP-Studio",
-            description:
-                "To get set up for interacting on XRP Studio for the first time, you must approve for interacting NFT, which requires a one-time transaction.",
+            title: translate("approveXRPStudio"),
+            description: translate("approveXRPStudioDescription"),
             execution: async () => {
                 return undefined;
             },
         },
         {
-            title: "Confirm the creation",
-            description: "Accept the transaction request in your wallet in order to continue with the creation process.",
+            title: translate("confirmCreation"),
+            description: translate("confirmCreationDescription"),
             execution: async () => {
                 return undefined;
             },
         },
         {
-            title: "Success!",
-            description: "Your NFT has been published successfully. We are updating our orders.",
+            title: translate("successTitle"),
+            description: translate("successDescription"),
             execution: async () => {
                 return undefined;
             },

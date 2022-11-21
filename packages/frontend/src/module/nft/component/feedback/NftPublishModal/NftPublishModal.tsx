@@ -22,6 +22,7 @@ const NftPublishModal = createModal(({ ...modalProps }) => {
             handleClick: handlePublish,
             buttonLabel: capitalize(translate("confirm")),
             buttonDisabled: buttonDisabled,
+            tab: 0,
         });
     }, []);
 
