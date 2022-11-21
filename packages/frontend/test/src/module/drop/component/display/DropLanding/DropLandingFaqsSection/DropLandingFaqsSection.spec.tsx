@@ -2,8 +2,8 @@ import { screen } from "@testing-library/react";
 import DropLandingFaqsSection from "module/drop/component/display/DropLanding/DropLandingFaqsSection/DropLandingFaqsSection";
 import { render, translate } from "test-utils";
 
-describe("Drop Landing Faqs Section", () => {
-    test("Renders correctly", () => {
+describe("Drop Landing Faqs Section ", () => {
+    test("Renders correctly :", () => {
         render(<DropLandingFaqsSection faqs={[{ id: 1, answer: "answer", question: "question" }]} loading={false} />);
 
         // Text
