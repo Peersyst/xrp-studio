@@ -1,6 +1,6 @@
 import { screen } from "@testing-library/react";
 import DropLanding from "module/drop/component/display/DropLanding/DropLanding";
-import { render } from "test-utils";
+import { render, translate } from "test-utils";
 import { DropDtoMock, MetadataDtoMock, NftDtoMock } from "test-mocks";
 
 describe("DropLanding", () => {
@@ -19,6 +19,8 @@ describe("DropLanding", () => {
         expect(screen.getByRole("heading", { name: dropDtoMock.collection.user.name })).toBeInTheDocument();
         // NFTs section
         expect(screen.getByText(nftMocks[0].metadata!.name!));
+        // Faqs section
+        expect(screen.getByText(translate("FAQs")));
     });
 
     test("Renders correctly without optional properties", () => {

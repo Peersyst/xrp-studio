@@ -13,9 +13,9 @@ const DropLandingFaqsSection = ({ faqs = [], loading, ...rest }: WithLoading<Dro
                 </Typography>
             </Skeleton>
             <Col gap="1rem" alignItems="center">
-                {faqs.map((faq) => {
+                {faqs.map((faq, index) => {
                     return (
-                        <Expandable>
+                        <Expandable key={index}>
                             <Expandable.Display>
                                 <Typography variant="h5" fontWeight={500}>
                                     {faq.answer}
