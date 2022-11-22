@@ -1,7 +1,8 @@
-import { Col, Expandable, Skeleton, Typography, WithLoading } from "@peersyst/react-components";
+import { Col, Skeleton, Typography, WithLoading } from "@peersyst/react-components";
 import useTranslate from "module/common/hook/useTranslate";
 import { DropLandingFaqsSectionProps } from "./DropLandingFaqsSection.types";
 import { DropLandingFaqsSectionRoot } from "./DropLandingFaqsSection.styles";
+import DropFaq from "../../DropFaq/DropFaq";
 
 const DropLandingFaqsSection = ({ faqs = [], loading, ...rest }: WithLoading<DropLandingFaqsSectionProps>): JSX.Element => {
     const translate = useTranslate();
@@ -15,20 +16,9 @@ const DropLandingFaqsSection = ({ faqs = [], loading, ...rest }: WithLoading<Dro
             <Col gap="1rem" alignItems="center">
                 {faqs.map((faq, index) => {
                     return (
-                        <Expandable key={index}>
-                            <Expandable.Display>
-                                <Typography variant="h5" fontWeight={500}>
-                                    {faq.answer}
-                                </Typography>
-                            </Expandable.Display>
-                            <Expandable.Body>
-                                <Expandable.Content>
-                                    <Typography variant="body2" light fontWeight={500}>
-                                        {faq.question}
-                                    </Typography>
-                                </Expandable.Content>
-                            </Expandable.Body>
-                        </Expandable>
+                        <Skeleton loading={!loading} width="100%">
+                            <DropFaq key={index} faq={faq} loading={loading} />
+                        </Skeleton>
                     );
                 })}
             </Col>

@@ -6,9 +6,12 @@ export const DropLandingFaqsSectionRoot = styled(DropLandingSection)(
         .Expandable {
             border: 1px solid ${theme.palette.black[80]};
             padding: 1.5rem 2rem;
-            border-radius: 0.75rem;
+            border-radius: ${theme.borderRadiusLg};
             .ExpandableDisplay {
                 border-bottom: none;
+                .Icon {
+                    fontsize: 0.75rem;
+                }
             }
         }
     `,
