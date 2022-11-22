@@ -4,10 +4,13 @@ import { useToast } from "@peersyst/react-components";
 import useTranslate from "module/common/hook/useTranslate";
 import useCheckBalance from "module/wallet/hook/useCheckBalance";
 import { CreateNftDraftRequest } from "module/api/service";
+import useNftStatePooling from "module/nft/hook/useNftStatePooling";
 
 export interface UsePublishNftReturn {
     publish: () => Promise<void>;
     isPublishing: boolean;
+    isPooling: boolean;
+    endPooling: () => void;
 }
 
 export function usePublishNft(request: CreateNftDraftRequest, draftId?: number): UsePublishNftReturn {
@@ -17,6 +20,7 @@ export function usePublishNft(request: CreateNftDraftRequest, draftId?: number):
 
     const { mutate: createNft, isLoading: createNftLoading } = useCreateNft();
     const { mutate: updateNftDraft, isLoading: updateNftDraftLoading, variables } = useUpdateNftDraft();
+    const { isPooling, endPooling } = useNftStatePooling();
 
     const publishing = createNftLoading || (updateNftDraftLoading && !!variables?.publish);
     const publish = async () => {
@@ -33,5 +37,7 @@ export function usePublishNft(request: CreateNftDraftRequest, draftId?: number):
     return {
         publish,
         isPublishing: publishing,
+        isPooling: isPooling,
+        endPooling: endPooling,
     };
 }

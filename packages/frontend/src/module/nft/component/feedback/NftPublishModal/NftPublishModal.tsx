@@ -9,15 +9,13 @@ import { NftPublishModalCoverImage } from "module/nft/component/feedback/NftPubl
 import { NftPublishModalProps } from "module/nft/component/feedback/NftPublishModal/NftPublishModal.types";
 import NftPublishActions from "module/nft/component/feedback/NftPublishActions/NftPublishActions";
 import NftPublishSuccess from "module/nft/component/feedback/NftPublishSucess/NftPublishSuccess";
-import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { NftRoutes } from "module/nft/NftRouter";
 
 const NftPublishModal = createModal<NftPublishModalProps>(({ request, draftId, collection, ...modalProps }) => {
     const translate = useTranslate();
     const navigate = useNavigate();
-    const { publish, isPublishing } = usePublishNft(request, draftId);
-    const [isPooling, setIsPooling] = useState(true);
+    const { publish, isPublishing, isPooling, endPooling } = usePublishNft(request, draftId);
 
     const { metadata: { image: nftImage = "" } = {} } = request;
 
@@ -65,7 +63,7 @@ const NftPublishModal = createModal<NftPublishModalProps>(({ request, draftId, c
                         actions: [{ action: handlePublish }, { action: "close", label: translate("cancel") }],
                     },
                     {
-                        content: <NftPublishActions steps={steps} onSuccess={() => setIsPooling(false)} />,
+                        content: <NftPublishActions steps={steps} onSuccess={endPooling} />,
                         actions: [
                             { action: "next", disabled: isPooling, label: translate("viewDetails") },
                             { action: "close", label: translate("cancel") },
