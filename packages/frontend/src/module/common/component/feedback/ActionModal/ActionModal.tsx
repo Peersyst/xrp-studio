@@ -43,7 +43,7 @@ const ActionModal = createModal<ActionModalProps>(
                           breakpoint: { width: "nftPage", alignItems: "stretch", justifyContent: "center", gap: "1.5rem" },
                       } as RowProps,
                   ]
-                : [Col, { gap: "0.25rem", flex: 1 } as ColProps];
+                : [Col, { gap: "1rem", flex: 1 } as ColProps];
 
         return (
             <Modal size={size} closable={closable} {...rest}>
