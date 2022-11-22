@@ -3,6 +3,7 @@ import DropCreationPageContent from "module/drop/page/DropCreationPageContent/Dr
 import { render, translate } from "test-utils";
 import { CollectionDtoMock, PaginatedNftsMock } from "test-mocks";
 import { NftService } from "module/api/service";
+import { waitFor } from "@testing-library/dom";
 
 describe("DropCreationPageContent", () => {
     test("Renders creation", async () => {
@@ -30,6 +31,6 @@ describe("DropCreationPageContent", () => {
         expect(screen.getByText(translate("faqs"))).toBeInTheDocument();
 
         // Preview
-        expect(await screen.findByRole("heading", { name: collectionDtoMock.name })).toBeInTheDocument();
+        await waitFor(() => expect(screen.findByRole("heading", { name: collectionDtoMock.name })).toBeInTheDocument());
     });
 });
