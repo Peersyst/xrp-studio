@@ -2,7 +2,7 @@
 /* tslint:disable */
 /* eslint-disable */
 
-import type { CreateNftMetadataRequest } from './CreateNftMetadataRequest';
+import type { CreateMetadataRequest } from './CreateMetadataRequest';
 import type { NftFlagsRequest } from './NftFlagsRequest';
 
 export type UpdateNftDraftRequest = {
@@ -25,6 +25,6 @@ export type UpdateNftDraftRequest = {
     /**
      * NFT metadata
      */
-    metadata?: CreateNftMetadataRequest;
+    metadata?: CreateMetadataRequest;
 };
 

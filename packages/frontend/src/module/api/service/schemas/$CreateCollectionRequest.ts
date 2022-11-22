@@ -10,7 +10,6 @@ export const $CreateCollectionRequest = {
         },
         name: {
             type: 'string',
-            isRequired: true,
             maxLength: 255,
         },
         description: {
