@@ -33,7 +33,7 @@ export class BlockchainService {
         // We can leave the xrp ws connected indefinitely as we are making requests every ~3 seconds, it will not timeout
         await this.xrpClient.connect();
         const currentLedgerIndex = await this.getCurrentLedgerIndex();
-        const index = currentLedgerIndex || this.configService.get<number>("xrp.startingLedgerIndex");
+        const index = currentLedgerIndex || (await this.getFirstLedgerIndex());
         await this.indexLedger(index);
     }
 
@@ -66,6 +66,16 @@ export class BlockchainService {
         return startingLedgerConfig > startingLedgerServer ? startingLedgerConfig : startingLedgerServer;
     }
 
+    async getMintedTokens(account: string, ledgerIndex: number): Promise<number | undefined> {
+        const res = await this.xrpClient.request({
+            command: "account_info",
+            account: account,
+            strict: true,
+            ledger_index: ledgerIndex,
+        });
+        return res.result.account_data["MintedNFTokens"];
+    }
+
     /**
      * Sets db current ledger index
      * @param index
@@ -93,12 +103,13 @@ export class BlockchainService {
     /**
      * Processes a transaction by its type
      * @param transaction
+     * @param ledgerIndex
      */
-    async processTransactionByType(transaction: ValidatedLedgerTransaction): Promise<void> {
+    async processTransactionByType(transaction: ValidatedLedgerTransaction, ledgerIndex: number): Promise<void> {
         if (transaction.TransactionType === "NFTokenMint") {
             const job = await this.transactionsQueue.add(
                 "process-mint-transaction",
-                { transaction },
+                { transaction, ledgerIndex },
                 {
                     attempts: 3,
                     backoff: 60000,

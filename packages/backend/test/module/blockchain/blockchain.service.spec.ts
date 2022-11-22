@@ -73,11 +73,23 @@ describe("BlockchainService", () => {
             expect(getCurrentLedgerIndexMock).toHaveBeenCalledTimes(1);
             expect(indexLedgerMock).toHaveBeenCalledWith(5);
         });
-        test("Should get current index from db", async () => {
+        test("Should get current index from config", async () => {
             getCurrentLedgerIndexMock.mockReturnValue(new Promise((resolve) => resolve(undefined)));
+            xrpClientMock.request.mockReturnValueOnce(
+                new Promise((resolve) => resolve({ result: { info: { complete_ledgers: "1-2,4-5" } } } as any)),
+            );
             await blockchainService.onApplicationBootstrap();
             expect(getCurrentLedgerIndexMock).toHaveBeenCalledTimes(1);
             expect(indexLedgerMock).toHaveBeenCalledWith(configServiceMock.get("xrp.startingLedgerIndex"));
+        });
+        test("Should get current index from chain", async () => {
+            getCurrentLedgerIndexMock.mockReturnValue(new Promise((resolve) => resolve(undefined)));
+            xrpClientMock.request.mockReturnValueOnce(
+                new Promise((resolve) => resolve({ result: { info: { complete_ledgers: "1-2,11-15" } } } as any)),
+            );
+            await blockchainService.onApplicationBootstrap();
+            expect(getCurrentLedgerIndexMock).toHaveBeenCalledTimes(1);
+            expect(indexLedgerMock).toHaveBeenCalledWith(11);
         });
     });
 
@@ -122,16 +134,16 @@ describe("BlockchainService", () => {
     describe("processTransactionByType", () => {
         test("Sends NFTokenMint transaction to process-mint-transaction queue", async () => {
             const nftMintTransaction = new NFTokenMintTransactionMock();
-            await blockchainService.processTransactionByType(nftMintTransaction);
+            await blockchainService.processTransactionByType(nftMintTransaction, 1);
             expect(transactionsConsumerMock.add).toHaveBeenCalledWith(
                 "process-mint-transaction",
-                { transaction: nftMintTransaction },
+                { transaction: nftMintTransaction, ledgerIndex: 1 },
                 expect.any(Object),
             );
         });
         test("Does nothing if transaction is not of type NFTokenMint", async () => {
             const transaction = new PaymentTransactionMock();
-            await blockchainService.processTransactionByType(transaction);
+            await blockchainService.processTransactionByType(transaction, 1);
             expect(transactionsConsumerMock.add).not.toHaveBeenCalled();
         });
     });

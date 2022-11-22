@@ -14146,10 +14146,10 @@ xmlchars@^2.2.0:
   resolved "https://registry.yarnpkg.com/xmlchars/-/xmlchars-2.2.0.tgz#060fe1bcb7f9c76fe2a17db86a9bc3ab894210cb"
   integrity sha512-JZnDKK8B0RCDw84FNdDAIpZK+JuJw+s7Lz8nksI7SIuU3UXJJslUthsi+uWBUYOwPFwW7W7PRLRfUKpxjtjFCw==
 
-xrpl@^2.5.0:
-  version "2.5.0"
-  resolved "https://registry.yarnpkg.com/xrpl/-/xrpl-2.5.0.tgz#04d025a164201a97cf3454708958635176529381"
-  integrity sha512-NaGdOdNFQCVVfZ40etLvCzAdwzfArvKS8vhgZEPnueMuoPxupNZa8dX7ITVcTTD3T4qp+bj9q6jMrRbd/iXe3w==
+xrpl@^2.6.0:
+  version "2.6.0"
+  resolved "https://registry.yarnpkg.com/xrpl/-/xrpl-2.6.0.tgz#cfe9bc012e85721213f7f0e373ce5ff1d27e38c4"
+  integrity sha512-++rKtgO1j65TMm//mird3aGFGFYUn7VP9TjxwJkTUQZOdWkMUfiG2cd2o3tZ/zE07Ev8YVD09KgMZ9HzynJN9Q==
   dependencies:
     bignumber.js "^9.0.0"
     bip32 "^2.0.6"
