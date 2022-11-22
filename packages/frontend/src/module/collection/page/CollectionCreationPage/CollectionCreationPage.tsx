@@ -31,7 +31,7 @@ const CollectionCreationPage = (): JSX.Element => {
     const { address: userAddress } = useWallet();
 
     useEffect(() => {
-        if (collection && collection.user.address !== userAddress) {
+        if (collection && collection.account !== userAddress) {
             showToast(translateError("collectionNotOwned"), { type: "warning" });
             searchParams.delete("id");
             setSearchParams(searchParams);

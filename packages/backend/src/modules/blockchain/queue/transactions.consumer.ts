@@ -50,7 +50,7 @@ Error: ${nftError.error}
 Resulting NFT: ${JSON.stringify(nftError.nft)}`);
             } else {
                 this.logger.error(`FAILED TO INDEX NFT FROM MINT TRANSACTION ${transaction.hash}.
-Error: ${e}`);
+Error: ${JSON.stringify(e)}`);
             }
         }
     }

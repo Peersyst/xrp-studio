@@ -2,9 +2,9 @@
     "publicUrl": "/",
     "backendUrl": "http://localhost:3001",
     "blockchainLinks": {
-        "address": "https://nft-devnet.xrpl.org/accounts/",
-        "tx": "https://nft-devnet.xrpl.org/transactions/",
-        "nft": "https://nft-devnet.xrpl.org/nft/"
+        "address": "https://testnet.xrpl.org/accounts/",
+        "tx": "https:/testnet.xrpl.org/transactions/",
+        "nft": "https://testnet.xrpl.org/nft/"
     },
     "network": "testnet",
     "xrpNodeUrl": "wss://s.altnet.rippletest.net:51233"

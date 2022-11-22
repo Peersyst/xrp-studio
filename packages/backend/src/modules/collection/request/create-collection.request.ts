@@ -19,11 +19,11 @@ export class CreateCollectionRequest {
     @ApiProperty({
         name: "name",
         type: "string",
-        required: true,
+        required: false,
         maxLength: 255,
         example: "Bored Ape Yacht Club",
     })
-    name: string;
+    name?: string;
 
     @ApiProperty({
         name: "description",

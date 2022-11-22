@@ -1,11 +1,11 @@
-import { CreateNftDraftRequest, CreateNftMetadataRequest, NftFlagsRequest } from "module/api/service";
+import { CreateNftDraftRequest, CreateMetadataRequest, NftFlagsRequest } from "module/api/service";
 
 export class CreateNftDraftRequestMock implements CreateNftDraftRequest {
     issuer?: string;
     transferFee?: number;
     flags?: NftFlagsRequest;
     taxon?: number;
-    metadata?: CreateNftMetadataRequest;
+    metadata?: CreateMetadataRequest;
 
     constructor({ issuer, transferFee, flags, taxon, metadata }: Partial<CreateNftDraftRequest> = {}) {
         this.issuer = issuer;

@@ -3,9 +3,10 @@ import CollectionMock from "./collection.mock";
 
 class CollectionRepositoryMock extends BaseMock {
     query = jest.fn();
+    update = jest.fn((collection) => new CollectionMock(collection));
     save = jest.fn((collection) => new CollectionMock(collection));
-    getOne = jest.fn(() => new Promise((resolve) => resolve(new CollectionMock())));
-    where = jest.fn(() => ({ getOne: this.getOne }));
+    findOne = jest.fn(() => new Promise((resolve) => resolve(new CollectionMock())));
+    where = jest.fn(() => ({ findOne: this.findOne }));
     andWhere = jest.fn(() => ({ andWhere: this.andWhere, orderBy: this.orderBy }));
     skip = jest.fn();
     take = jest.fn();
@@ -13,7 +14,7 @@ class CollectionRepositoryMock extends BaseMock {
         where: this.where,
         innerJoinAndSelect: this.innerJoinAndSelect,
         loadRelationCountAndMap: this.loadRelationCountAndMap,
-        getOne: this.getOne,
+        getOne: this.findOne,
         andWhere: this.andWhere,
         orderBy: this.orderBy,
         take: this.take,

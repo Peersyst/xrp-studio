@@ -1,6 +1,6 @@
 import {
     CollectionDto,
-    CreateNftMetadataRequest,
+    CreateMetadataRequest,
     MetadataAttributeDto,
     MetadataDto,
     NftDraftDto,
@@ -35,6 +35,6 @@ export interface CreationNft {
     issuer?: string;
     transferFee?: number;
     flags?: number | NftFlagsRequest;
-    metadata?: MetadataDto | CreateNftMetadataRequest;
+    metadata?: MetadataDto | CreateMetadataRequest;
     collection?: CollectionDto;
 }
