@@ -27,9 +27,12 @@ export const $CollectionDto = {
             type: 'number',
             isRequired: true,
         },
+        account: {
+            type: 'string',
+            isRequired: true,
+        },
         user: {
             type: 'UserDto',
-            isRequired: true,
         },
     },
 } as const;

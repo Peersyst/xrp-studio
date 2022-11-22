@@ -20,7 +20,7 @@ export class CollectionController {
     @Get(":id")
     @ApiOperation({ description: "Gets a collection" })
     async getCollection(@Param("id", ParseIntPipe) id: number): Promise<CollectionDto> {
-        return this.collectionService.findOne(id);
+        return this.collectionService.findOne({ id });
     }
 
     @Get()

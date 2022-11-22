@@ -2,7 +2,7 @@
 /* tslint:disable */
 /* eslint-disable */
 
-export type CreateNftMetadataAttributeRequest = {
+export type CreateMetadataAttributeRequest = {
     traitType: string;
     value: string;
     displayType?: string | null;

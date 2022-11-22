@@ -3,6 +3,7 @@
 /* eslint-disable */
 import type { CreateNftDraftRequest } from '../models/CreateNftDraftRequest';
 import type { NftDraftDto } from '../models/NftDraftDto';
+import type { NftDraftStatusDto } from '../models/NftDraftStatusDto';
 import type { NftDto } from '../models/NftDto';
 import type { PaginatedNftDraftDto } from '../models/PaginatedNftDraftDto';
 import type { PaginatedNftDto } from '../models/PaginatedNftDto';
@@ -37,8 +38,8 @@ export class NftService {
      * @param pageSize
      * @param query
      * @param collections
-     * @param order
      * @param account
+     * @param order
      * @returns PaginatedNftDto
      * @throws ApiError
      */
@@ -47,8 +48,8 @@ export class NftService {
         pageSize?: number,
         query?: string,
         collections?: Array<number>,
-        order?: 'ASC' | 'DESC',
         account?: string,
+        order?: 'ASC' | 'DESC',
     ): CancelablePromise<PaginatedNftDto> {
         return __request(OpenAPI, {
             method: 'GET',
@@ -58,8 +59,8 @@ export class NftService {
                 'pageSize': pageSize,
                 'query': query,
                 'collections': collections,
-                'order': order,
                 'account': account,
+                'order': order,
             },
         });
     }
@@ -95,10 +96,10 @@ export class NftService {
     public static nftControllerGetNftDrafts(
         page?: number,
         pageSize?: number,
-        query?: string,
+        query?: any,
         collections?: Array<number>,
         order?: 'ASC' | 'DESC',
-        status?: 'draft' | 'pending' | 'failed',
+        status?: 'draft' | 'pending' | 'confirmed' | 'failed',
     ): CancelablePromise<PaginatedNftDraftDto> {
         return __request(OpenAPI, {
             method: 'GET',
@@ -181,13 +182,13 @@ export class NftService {
      * Get the status of a single or many NFT drafts
      * @param id
      * @param ids
-     * @returns any
+     * @returns NftDraftStatusDto
      * @throws ApiError
      */
     public static nftControllerGetNftDraftStatus(
         id?: number,
         ids?: Array<number>,
-    ): CancelablePromise<any> {
+    ): CancelablePromise<Array<NftDraftStatusDto>> {
         return __request(OpenAPI, {
             method: 'GET',
             url: '/api/nft/draft/status',

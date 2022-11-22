@@ -12,6 +12,7 @@ export type CollectionDto = {
     image?: string;
     header?: string;
     items: number;
-    user: UserDto;
+    account: string;
+    user?: UserDto;
 };
 

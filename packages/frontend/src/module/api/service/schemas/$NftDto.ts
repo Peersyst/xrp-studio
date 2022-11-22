@@ -37,7 +37,6 @@ export const $NftDto = {
         },
         user: {
             type: 'UserDto',
-            isRequired: true,
         },
         collection: {
             type: 'CollectionDto',

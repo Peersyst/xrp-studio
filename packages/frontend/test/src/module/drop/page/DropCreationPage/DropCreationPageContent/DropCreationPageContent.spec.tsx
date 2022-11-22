@@ -31,6 +31,6 @@ describe("DropCreationPageContent", () => {
         expect(screen.getByText(translate("faqs"))).toBeInTheDocument();
 
         // Preview
-        await waitFor(() => expect(screen.findByRole("heading", { name: collectionDtoMock.name })).toBeInTheDocument());
+        await waitFor(() => expect(screen.getByRole("heading", { name: collectionDtoMock.name })).toBeInTheDocument());
     });
 });

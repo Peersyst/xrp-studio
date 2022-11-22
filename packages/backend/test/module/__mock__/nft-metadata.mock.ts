@@ -4,6 +4,7 @@ import NftMetadataAttributeMock from "./nft-metadata-attribute.mock";
 
 class NftMetadataMock extends NftMetadata {
     constructor({
+        nftId,
         nft = new NftMock(),
         name = "NFT #1",
         description = "First NFT ever created",
@@ -15,7 +16,7 @@ class NftMetadataMock extends NftMetadata {
             new NftMetadataAttributeMock({ traitType: "trait2", value: "2" }),
         ],
     }: Partial<NftMetadata> = {}) {
-        super({ nft, name, description, image, backgroundColor, externalUrl, attributes });
+        super({ nftId, nft, name, description, image, backgroundColor, externalUrl, attributes });
     }
 }
 

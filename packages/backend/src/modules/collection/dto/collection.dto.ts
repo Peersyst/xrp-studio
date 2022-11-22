@@ -1,5 +1,4 @@
 import { UserDto } from "../../user/dto/user.dto";
-import { CollectionWithItems } from "../types";
 import { Paginated } from "../../common/paginated.dto";
 import { Collection } from "../../../database/entities/Collection";
 
@@ -11,10 +10,10 @@ export class CollectionDto {
     image?: string;
     header?: string;
     items: number;
-    user: UserDto;
+    account: string;
+    user?: UserDto;
 
-    static fromEntity({ id, taxon, name, description, image, header, user, ...rest }: Collection | CollectionWithItems): CollectionDto {
-        const { items = 0 } = rest as CollectionWithItems;
+    static fromEntity({ id, taxon, name, description, image, header, user, items, account }: Collection): CollectionDto {
         return {
             id,
             taxon: Number(taxon),
@@ -23,7 +22,8 @@ export class CollectionDto {
             image,
             header,
             items,
-            user: UserDto.fromEntity(user),
+            account,
+            user: user && UserDto.fromEntity(user),
         };
     }
 }
