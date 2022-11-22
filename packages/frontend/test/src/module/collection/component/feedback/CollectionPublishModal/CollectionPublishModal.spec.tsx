@@ -32,7 +32,7 @@ describe("CollectionPublishModal", () => {
         expect(screen.getByAltText("collection-image")).toBeInTheDocument();
 
         // Collection info
-        expect(screen.getByText(createCollectionRequest.name)).toBeInTheDocument();
+        expect(screen.getByText(createCollectionRequest.name!)).toBeInTheDocument();
 
         // Nfts
         expect(screen.getByText(createCollectionRequest.nfts![0].metadata!.name!)).toBeInTheDocument();

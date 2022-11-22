@@ -11,7 +11,7 @@ import { config } from "config";
 import useCheckBalance from "module/wallet/hook/useCheckBalance";
 
 const CollectionPublishModal = createModal<CollectionPublishModalProps>(({ request, ...modalProps }): JSX.Element => {
-    const { header, image, name, nfts = [] } = request;
+    const { header, image, name = "", nfts = [] } = request;
 
     const translate = useTranslate();
     const translateError = useTranslate("error");
