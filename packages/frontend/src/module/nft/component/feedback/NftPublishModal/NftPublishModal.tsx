@@ -10,9 +10,12 @@ import { NftPublishModalProps } from "module/nft/component/feedback/NftPublishMo
 import NftPublishActions from "module/nft/component/feedback/NftPublishActions/NftPublishActions";
 import NftPublishSuccess from "module/nft/component/feedback/NftPublishSucess/NftPublishSuccess";
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { NftRoutes } from "module/nft/NftRouter";
 
 const NftPublishModal = createModal<NftPublishModalProps>(({ request, draftId, collection, ...modalProps }) => {
     const translate = useTranslate();
+    const navigate = useNavigate();
     const { publish, isPublishing } = usePublishNft(request, draftId);
     const [isPooling, setIsPooling] = useState(true);
 
@@ -21,6 +24,11 @@ const NftPublishModal = createModal<NftPublishModalProps>(({ request, draftId, c
     const handlePublish: ActionFn = ({ next }) => {
         publish();
         next();
+    };
+
+    const handleClose: ActionFn = ({ close }) => {
+        close();
+        navigate(NftRoutes.MY_NFTS);
     };
 
     const steps = [
@@ -48,7 +56,7 @@ const NftPublishModal = createModal<NftPublishModalProps>(({ request, draftId, c
     ];
 
     return (
-        <ActionModal title={translate("publishConfirmation")} closable={!isPublishing} {...modalProps}>
+        <ActionModal title={translate("publishConfirmation")} closable={!isPublishing && !isPooling} {...modalProps}>
             {{
                 cover: <NftPublishModalCoverImage src={nftImage} fallback={config.nftDefaultCoverUrl} alt="nft-image" />,
                 tabs: [
@@ -65,7 +73,7 @@ const NftPublishModal = createModal<NftPublishModalProps>(({ request, draftId, c
                     },
                     {
                         content: <NftPublishSuccess />,
-                        actions: [{ action: "close", label: translate("close") }],
+                        actions: [{ action: handleClose, label: translate("close") }],
                     },
                 ],
             }}

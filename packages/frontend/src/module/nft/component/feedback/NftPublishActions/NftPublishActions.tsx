@@ -1,4 +1,4 @@
-import { Fragment, useEffect, useState } from "react";
+import { Fragment, useState } from "react";
 import NftPublishActionStep from "module/nft/component/feedback/NftPublishActions/NftPublishActionStep/NftPublishActionStep";
 import { NftPublishActionsProps } from "module/nft/component/feedback/NftPublishActions/NftPublishActions.types";
 import { Col, Typography } from "@peersyst/react-components";
@@ -7,10 +7,6 @@ import useTranslate from "module/common/hook/useTranslate";
 const NftPublishActions = ({ steps, onSuccess }: NftPublishActionsProps): JSX.Element => {
     const translate = useTranslate();
     const [currentStep, setCurrentStep] = useState(0);
-
-    useEffect(() => {
-        setTimeout(onStepSuccess, 2000);
-    }, [currentStep]);
 
     const onStepSuccess = () => {
         if (currentStep === steps.length - 1) {

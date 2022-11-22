@@ -1,11 +1,13 @@
-import { ErrorIcon, Expandable, Loader, Row, SuccessIcon, Typography } from "@peersyst/react-components";
+import { Expandable, Loader, Row, Typography } from "@peersyst/react-components";
 import { NftPublishActionsStepsProps } from "module/nft/component/feedback/NftPublishActions/NftPublishActions.types";
 import { useEffect, useState } from "react";
+import { AlertCircleIcon, CheckCircleIcon } from "icons";
 
 const NftPublishActionStep = ({
     step: { title, description, execution },
     active: active,
     stepNumber: stepNumber,
+    onSuccess: onSuccess,
 }: NftPublishActionsStepsProps): JSX.Element => {
     const [state, setState] = useState({ error: false, finished: false });
 
@@ -14,8 +16,9 @@ const NftPublishActionStep = ({
         execution()
             .then(() => {
                 setState({ error: false, finished: true });
+                onSuccess();
             })
-            .catch((e) => {
+            .catch(() => {
                 setState({ error: true, finished: false });
             });
     }, [active]);
@@ -23,7 +26,7 @@ const NftPublishActionStep = ({
     return (
         <Expandable open={active}>
             <Expandable.Display ExpandComponent={false}>
-                <Row gap={10}>
+                <Row gap={10} alignItems="center">
                     <Row>
                         {!active && !state.error && !state.finished && (
                             <Typography variant="body1" fontWeight={600}>
@@ -31,8 +34,8 @@ const NftPublishActionStep = ({
                             </Typography>
                         )}
                         {active && !state.error && <Loader />}
-                        {active && state.error && <ErrorIcon />}
-                        {!active && state.finished && <SuccessIcon />}
+                        {active && state.error && <AlertCircleIcon />}
+                        {!active && state.finished && <CheckCircleIcon />}
                     </Row>
                     <Typography variant="body1" fontWeight={600}>
                         {title}
