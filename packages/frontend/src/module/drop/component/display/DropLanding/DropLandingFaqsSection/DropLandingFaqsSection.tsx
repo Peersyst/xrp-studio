@@ -3,6 +3,7 @@ import useTranslate from "module/common/hook/useTranslate";
 import { DropLandingFaqsSectionProps } from "./DropLandingFaqsSection.types";
 import { DropLandingFaqsSectionRoot } from "./DropLandingFaqsSection.styles";
 import DropFaq from "../../DropFaq/DropFaq";
+import { DropFaqSkeleton } from "module/common/component/feedback/Skeletons/Skeletons";
 
 const DropLandingFaqsSection = ({ faqs = [], loading, ...rest }: WithLoading<DropLandingFaqsSectionProps>): JSX.Element => {
     const translate = useTranslate();
@@ -14,13 +15,17 @@ const DropLandingFaqsSection = ({ faqs = [], loading, ...rest }: WithLoading<Dro
                 </Typography>
             </Skeleton>
             <Col gap="1rem" alignItems="center">
-                {faqs.map((faq, index) => {
-                    return (
-                        <Skeleton loading={!loading} width="100%">
-                            <DropFaq key={index} faq={faq} loading={loading} />
-                        </Skeleton>
-                    );
-                })}
+                {loading ? (
+                    <DropFaqSkeleton count={2} />
+                ) : (
+                    faqs.map((faq, index) => {
+                        return (
+                            <Skeleton loading={loading} width="100%">
+                                <DropFaq key={index} faq={faq} loading={loading} />
+                            </Skeleton>
+                        );
+                    })
+                )}
             </Col>
         </DropLandingFaqsSectionRoot>
     );
