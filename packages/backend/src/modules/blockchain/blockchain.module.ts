@@ -1,4 +1,4 @@
-import { Module } from "@nestjs/common";
+import { forwardRef, Module } from "@nestjs/common";
 import { BullModule } from "@nestjs/bull";
 import { TypeOrmModule } from "@nestjs/typeorm";
 import { LastIndexedLedger } from "../../database/entities/LastIndexedLedger";
@@ -12,7 +12,7 @@ import { NftModule } from "../nft/nft.module";
         TypeOrmModule.forFeature([LastIndexedLedger]),
         BullModule.registerQueue({ name: "ledger" }),
         BullModule.registerQueue({ name: "transactions" }),
-        NftModule,
+        forwardRef(() => NftModule),
     ],
     controllers: [],
     providers: [BlockchainService, LedgerConsumer, TransactionsConsumer],

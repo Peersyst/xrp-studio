@@ -8,9 +8,18 @@ import { NftController } from "./nft.controller";
 import { XummModule } from "@peersyst/xumm-module";
 import { MetadataModule } from "../metadata/metadata.module";
 import { UserModule } from "../user/user.module";
+import { BlockchainModule } from "../blockchain/blockchain.module";
 
 @Module({
-    imports: [TypeOrmModule.forFeature([Nft]), forwardRef(() => CollectionModule), MetadataModule, IpfsModule, XummModule, UserModule],
+    imports: [
+        forwardRef(() => BlockchainModule),
+        TypeOrmModule.forFeature([Nft]),
+        forwardRef(() => CollectionModule),
+        MetadataModule,
+        IpfsModule,
+        XummModule,
+        UserModule,
+    ],
     controllers: [NftController],
     providers: [NftService],
     exports: [NftService],
