@@ -3,7 +3,8 @@ import { lazy } from "react";
 import LoggedInRoute from "module/wallet/component/navigation/LoggedInRoute/LoggedInRoute";
 
 export enum DropRoutes {
-    DROP_CREATION = "/drop/creation",
+    DROP_CREATION = "/drops/creation",
+    MY_DROPS = "/drops/my-drops",
 }
 
 const DropCreationPage = lazy(() => import("../drop/page/DropCreationPage/DropCreationPage"));

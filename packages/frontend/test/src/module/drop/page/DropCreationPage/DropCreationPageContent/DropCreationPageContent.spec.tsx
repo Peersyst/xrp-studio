@@ -1,8 +1,8 @@
 import { screen } from "@testing-library/react";
-import DropCreationPageContent from "module/drop/page/DropCreationPageContent/DropCreationPageContent";
 import { render, translate } from "test-utils";
 import { CollectionDtoMock, PaginatedNftsMock } from "test-mocks";
 import { NftService } from "module/api/service";
+import DropCreationPageContent from "module/drop/page/DropCreationPage/DropCreationPageContent/DropCreationPageContent";
 
 describe("DropCreationPageContent", () => {
     test("Renders creation", async () => {

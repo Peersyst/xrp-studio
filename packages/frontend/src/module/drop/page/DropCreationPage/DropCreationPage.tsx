@@ -1,15 +1,15 @@
 import { useSearchParams } from "react-router-dom";
 import { Form } from "@peersyst/react-components";
 import { useNavigate } from "react-router-dom";
-import { NftRoutes } from "module/nft/NftRouter";
 import { DropCreationForm } from "module/drop/types";
-import DropCreationPageHeader from "module/drop/page/DropCreationPageHeader/DropCreationPageHeader";
+import DropCreationPageHeader from "module/drop/page/DropCreationPage/DropCreationPageHeader/DropCreationPageHeader";
 import useGetCollection from "module/nft/query/useGetCollection";
-import DropCreationPageContent from "../DropCreationPageContent/DropCreationPageContent";
 import BasePage from "module/common/component/layout/BasePage/BasePage";
+import { useEffect } from "react";
+import { DropRoutes } from "module/drop/DropRouter";
+import DropCreationPageContent from "./DropCreationPageContent/DropCreationPageContent";
 
 const DropCreationPage = (): JSX.Element => {
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     const [searchParams, setSearchParams] = useSearchParams();
     const collectionId = searchParams.get("id");
 
@@ -19,13 +19,16 @@ const DropCreationPage = (): JSX.Element => {
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
     const handleSubmit = async (data: DropCreationForm, action?: string) => {
         // TODO : crear request de Drop as
-        if (action === "save") {
-            //TODO : Launch
-        } else {
-            //TODO : Launch
-        }
-        navigate(NftRoutes.MY_NFTS, { replace: true });
+        //TODO : Launch
+        navigate(DropRoutes.MY_DROPS, { replace: true });
     };
+
+    useEffect(() => {
+        if (collectionId !== null && !isLoading && !collection) {
+            searchParams.delete("id");
+            setSearchParams(searchParams);
+        }
+    }, [collection]);
 
     return (
         <Form onSubmit={handleSubmit}>

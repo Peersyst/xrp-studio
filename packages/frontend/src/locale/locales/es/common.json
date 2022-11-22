@@ -88,7 +88,7 @@
     "collectionCreated": "Colección creada",
     "collectionUpdated": "Colección actualizada",
     "uploadAFileToCreateAnNfts": "Subi un fichero para añadir un NFT a la colección",
-    "customizeDropPage": "Customizar Drop",
+    "customizeDropPage": "Customizar drop",
     "launchDrop": "Lanzar drop!",
     "videoTrailerURL": "Video trailer URL",
     "instagram": "Instagram",
@@ -101,7 +101,7 @@
     "answer": "Respuesta",
     "delete": "Borrar",
     "price": "Precio",
-    "fontColor": "Color de Fuente",
+    "fontColor": "Color de fuente",
     "items": "Artículos",
     "sold": "Vendidos",
     "sales": "Ventas",
@@ -111,5 +111,6 @@
     "publishConfirmation": "Confirmación de publicación del NFT",
     "confirm": "confirmar",
     "noDataProvided": "No se han encontrado datos",
-    "theNfts": "The NFTs"
+    "theNfts": "The NFTs",
+    "question": "Pregunta"
 }

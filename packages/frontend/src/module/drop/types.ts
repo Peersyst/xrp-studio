@@ -23,5 +23,5 @@ export enum DropCreationFormFields {
     INSTAGRAM = "instagram",
     TWITTER = "twitter",
     DISCORD = "discord",
-    FAQS = "FAQs",
+    FAQS = "faqs",
 }

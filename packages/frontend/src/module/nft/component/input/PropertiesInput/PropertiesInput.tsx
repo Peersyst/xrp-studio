@@ -73,7 +73,7 @@ const PropertiesInput = ({
                             />
                         ))}
                         {!readonly && (
-                            <AddPropertyButton onClick={handleAddition}>
+                            <AddPropertyButton onClick={handleAddition} disabled={disabled}>
                                 <Row gap="0.625rem" alignItems="center">
                                     <PlusCircleIcon css={{ fontSize: "1.5rem" }} />
                                     {translate("addProperty")}
