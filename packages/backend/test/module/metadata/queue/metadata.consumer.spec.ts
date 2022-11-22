@@ -12,7 +12,6 @@ describe("MetadataConsumer", () => {
     let metadataConsumer: MetadataConsumer;
     const loggerMock = new LoggerMock();
     const metadataServiceMock = new MetadataServiceMock();
-    jest.useFakeTimers();
 
     jest.spyOn(XRPL, "convertHexToString").mockImplementation((uri) => uri);
 
