@@ -1,6 +1,6 @@
 import { Popover, Row, Typography } from "@peersyst/react-components";
 import { cx } from "@peersyst/react-utils";
-import { DiscordIcon, ShareIcon, TwitterIcon } from "icons";
+import { DiscordIcon, ShareIcon, TwitterIcon, InstagramIcon } from "icons";
 import { SocialButtonRoot } from "./SocialButton.styles";
 import { SocialButtonIconsType, SocialButtonProps } from "./SocialButton.types";
 
@@ -8,6 +8,7 @@ const SocialButtonInfo: SocialButtonIconsType = {
     discord: <DiscordIcon />,
     twitter: <TwitterIcon />,
     share: <ShareIcon />,
+    instagram: <InstagramIcon />,
 };
 
 const SocialButton = ({ icon: iconProps, link, className, onClick, ...rest }: SocialButtonProps): JSX.Element => {
