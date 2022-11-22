@@ -1,7 +1,7 @@
 /* istanbul ignore file */
 /* tslint:disable */
 /* eslint-disable */
-export const $CreateNftMetadataAttributeRequest = {
+export const $CreateMetadataAttributeRequest = {
     properties: {
         traitType: {
             type: 'string',

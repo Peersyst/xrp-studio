@@ -5,7 +5,6 @@ export const $UpdateCollectionRequest = {
     properties: {
         name: {
             type: 'string',
-            isRequired: true,
             maxLength: 255,
         },
         description: {

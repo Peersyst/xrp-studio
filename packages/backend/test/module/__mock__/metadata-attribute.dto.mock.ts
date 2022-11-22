@@ -1,4 +1,4 @@
-import { MetadataAttributeDto } from "../../../src/modules/nft/dto/metadata-attribute.dto";
+import { MetadataAttributeDto } from "../../../src/modules/metadata/dto/metadata-attribute.dto";
 
 class MetadataAttributeDtoMock {
     traitType: string;

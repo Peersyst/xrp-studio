@@ -26,7 +26,6 @@ export const $NftDraftDto = {
         },
         user: {
             type: 'UserDto',
-            isRequired: true,
         },
         collection: {
             type: 'CollectionDto',

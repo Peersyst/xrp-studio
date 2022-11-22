@@ -66,9 +66,9 @@ describe("TransactionsConsumer", () => {
         const nftMintTransaction = new NFTokenMintTransactionMock();
 
         test("Processes mint transaction correctly and creates an NFT", async () => {
-            await transactionsConsumer.processMintTransaction({ data: { transaction: nftMintTransaction } } as Job);
+            await transactionsConsumer.processMintTransaction({ data: { transaction: nftMintTransaction, ledgerIndex: 1 } } as Job);
             expect(loggerMock.log).toHaveBeenCalledWith(`PROCESSING MINT TRANSACTION ${nftMintTransaction.hash}`);
-            expect(nftServiceMock.createNftFromMintTransaction).toHaveBeenLastCalledWith(nftMintTransaction);
+            expect(nftServiceMock.createNftFromMintTransaction).toHaveBeenLastCalledWith(nftMintTransaction, 1);
             expect(loggerMock.log).toHaveBeenCalledWith(`INDEXED NFT ${new NftMock().tokenId}`);
         });
         test("There is an error storing the NFT", async () => {
@@ -87,7 +87,7 @@ Resulting NFT: ${JSON.stringify(nft)}`);
             });
             await transactionsConsumer.processMintTransaction({ data: { transaction: nftMintTransaction } } as Job);
             expect(loggerMock.error).toHaveBeenCalledWith(`FAILED TO INDEX NFT FROM MINT TRANSACTION ${nftMintTransaction.hash}.
-Error: Weird error`);
+Error: ${JSON.stringify("Weird error")}`);
         });
     });
 });

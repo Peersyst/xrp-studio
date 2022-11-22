@@ -27,8 +27,10 @@ class NftMock extends NftWithCollection {
         this.status = status || NftStatus.CONFIRMED;
         const defaultUser = new User();
         defaultUser.address = "rNCFjv8Ek5oDrNiMJ3pw6eLLFtMjZLJnf2";
+        this.account = "rNCFjv8Ek5oDrNiMJ3pw6eLLFtMjZLJnf2";
         this.user = user || defaultUser;
         this.collection = collection;
+        this.collectionId = collection?.id || 1;
         this.metadata = metadata;
     }
 }

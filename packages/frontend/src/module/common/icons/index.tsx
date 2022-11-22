@@ -8,6 +8,7 @@ export { default as DownloadIcon } from "./DownloadIcon";
 export { default as FilterLinesIcon } from "./FilterLinesIcon";
 export { default as ImageIcon } from "./ImageIcon";
 export { default as ImageUpIcon } from "./ImageUpIcon";
+export { default as InstagramIcon } from "./InstagramIcon";
 export { default as MenuIcon } from "./MenuIcon";
 export { default as MinusCircleIcon } from "./MinusCircleIcon";
 export { default as MoonIcon } from "./MoonIcon";

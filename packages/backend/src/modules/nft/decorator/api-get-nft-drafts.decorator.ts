@@ -1,7 +1,7 @@
 import { applyDecorators } from "@nestjs/common";
 import { ApiQuery } from "@nestjs/swagger";
 import { ApiBaseGetNftsDecorator } from "./api-base-get-nfts.decorator";
-import { NftDraftStatus } from "../request/get-nft-drafts.request";
+import { NftStatus } from "../../../database/entities/Nft";
 
 export function ApiGetNftDraftsDecorator(): MethodDecorator {
     return applyDecorators(
@@ -9,7 +9,7 @@ export function ApiGetNftDraftsDecorator(): MethodDecorator {
         ApiQuery({
             name: "status",
             type: "enum",
-            enum: NftDraftStatus,
+            enum: NftStatus,
             required: false,
         }),
     );

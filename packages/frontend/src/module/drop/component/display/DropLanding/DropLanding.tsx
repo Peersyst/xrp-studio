@@ -7,6 +7,7 @@ import DropLandingArtistSection from "module/drop/component/display/DropLanding/
 import { Col, Divider, ThemeOverrideProvider, WithLoading } from "@peersyst/react-components";
 import DropLandingNftsSection from "module/drop/component/display/DropLanding/DropLandingNftsSection/DropLandingNftsSection";
 import DropLandingFaqsSection from "./DropLandingFaqsSection/DropLandingFaqsSection";
+import DropLandingSocialMediaSection from "./DropLandingSocialMediaSection/DropLandingSocialMediaSection";
 
 function DropLanding({
     drop,
@@ -16,7 +17,18 @@ function DropLanding({
     preview = false,
     ...rest
 }: WithLoading<DropLandingProps>): JSX.Element {
-    const { collection, price = "0", sold = 0, fontColor = "#FFFFFF", backgroundColor = "#000000", videoUrl, faqs = [] } = drop || {};
+    const {
+        collection,
+        price = "0",
+        sold = 0,
+        fontColor = "#FFFFFF",
+        backgroundColor = "#000000",
+        videoUrl,
+        faqs = [],
+        instagram,
+        discord,
+        twitter,
+    } = drop || {};
     const { header = "", image = "", name = "", description = "", items = 0, user } = collection || {};
 
     const rootRef = useRef<HTMLDivElement>();
@@ -92,6 +104,12 @@ function DropLanding({
                     <Divider css={{ color: fontColor, opacity: 0.4 }} />
                     <DropLandingNftsSection nfts={nfts} loading={loadingNfts} />
                     {!!faqs.length && <DropLandingFaqsSection faqs={faqs} loading={loading} />}
+                    {(instagram || discord || twitter) && (
+                        <DropLandingSocialMediaSection
+                            networks={{ instagram: instagram, discord: discord, twitter: twitter }}
+                            loading={loading}
+                        />
+                    )}
                 </DropLandingContent>
             </ThemeOverrideProvider>
         </DropLandingRoot>
