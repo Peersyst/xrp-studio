@@ -55,6 +55,17 @@ export class BlockchainService {
         return lastLedger?.index;
     }
 
+    async getFirstLedgerIndex(): Promise<number> {
+        const res = await this.xrpClient.request({
+            command: "server_info",
+        });
+        const completeLedgerRanges = res.result.info.complete_ledgers.split(",");
+        const lastCompleteLedgerRange = completeLedgerRanges[completeLedgerRanges.length - 1];
+        const startingLedgerServer = Number(lastCompleteLedgerRange.split("-")[0]);
+        const startingLedgerConfig = this.configService.get<number>("xrp.startingLedgerIndex");
+        return startingLedgerConfig > startingLedgerServer ? startingLedgerConfig : startingLedgerServer;
+    }
+
     /**
      * Sets db current ledger index
      * @param index
