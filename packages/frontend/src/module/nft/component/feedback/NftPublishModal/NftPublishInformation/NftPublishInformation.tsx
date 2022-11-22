@@ -37,7 +37,7 @@ const NftPublishInformation = ({
             label: capitalize(translate("flags")),
             content: hasFlags && (
                 <ul css={{ display: "flex", flexDirection: "column", rowGap: "0.5rem" }}>
-                    {flagsEntries.map(([flag, value]) => value && <li>{translate(flag as TFuncKey)}</li>)}
+                    {flagsEntries.map(([flag, value]) => value && <li key={flag}>{translate(flag as TFuncKey)}</li>)}
                 </ul>
             ),
         },

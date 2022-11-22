@@ -107,11 +107,12 @@
     "sales": "Ventas",
     "meetTheArtist": "Conoce al artista",
     "flags": "propiedades",
-    "publishConfirmation": "Confirmación de publicación del NFT",
+    "publishNftConfirmation": "Confirmación de publicación del NFT",
     "confirm": "confirmar",
     "noDataProvided": "No se han encontrado datos",
     "theNfts": "The NFTs",
     "back": "Volver",
     "next": "Siguiente",
-    "close": "Cerrar"
+    "close": "Cerrar",
+    "cantPublishCollectionWithoutNfts": "No puedes publicar una colección sin NFTs"
 }

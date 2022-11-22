@@ -15,16 +15,16 @@ export function usePublishNft(request: CreateNftDraftRequest, draftId?: number):
     const { showToast } = useToast();
     const checkBalance = useCheckBalance();
 
-    const { mutate: createNft, isLoading: createNftLoading } = useCreateNft();
-    const { mutate: updateNftDraft, isLoading: updateNftDraftLoading, variables } = useUpdateNftDraft();
+    const { mutateAsync: createNft, isLoading: createNftLoading } = useCreateNft();
+    const { mutateAsync: updateNftDraft, isLoading: updateNftDraftLoading, variables } = useUpdateNftDraft();
 
     const publishing = createNftLoading || (updateNftDraftLoading && !!variables?.publish);
     const publish = async () => {
         const hasBalance = await checkBalance();
         if (!hasBalance) showToast(translateError("notEnoughBalance"), { type: "error" });
         else {
-            if (draftId) updateNftDraft({ id: draftId, publish: true, ...request });
-            else createNft(request);
+            if (draftId) await updateNftDraft({ id: draftId, publish: true, ...request });
+            else await createNft(request);
         }
     };
 

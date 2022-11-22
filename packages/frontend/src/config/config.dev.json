@@ -6,6 +6,6 @@
         "tx": "https://nft-devnet.xrpl.org/transactions/",
         "nft": "https://nft-devnet.xrpl.org/nft/"
     },
-    "network": "devnet",
-    "xrpNodeUrl": "wss://xls20-sandbox.rippletest.net:51233"
+    "network": "testnet",
+    "xrpNodeUrl": "wss://s.altnet.rippletest.net:51233"
 }

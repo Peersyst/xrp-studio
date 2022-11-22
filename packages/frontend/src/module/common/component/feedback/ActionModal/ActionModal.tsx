@@ -6,7 +6,7 @@ import Button from "module/common/component/input/Button/Button";
 import { TFuncKey } from "react-i18next";
 import useTranslate from "module/common/hook/useTranslate";
 import { capitalize } from "@peersyst/react-utils";
-import Card from "module/common/component/surface/Card/Card";
+import { TabsCard } from "module/common/component/feedback/ActionModal/ActionModal.styles";
 
 const actionVariants: Record<Exclude<Action, ActionFn>, ButtonVariant> = {
     back: "secondary",
@@ -38,8 +38,9 @@ const ActionModal = createModal<ActionModalProps>(
                 ? [
                       Row,
                       {
-                          gap: "0.25rem",
+                          gap: "1rem",
                           flex: 1,
+                          justifyContent: "stretch",
                           breakpoint: { width: "nftPage", alignItems: "stretch", justifyContent: "center", gap: "1.5rem" },
                       } as RowProps,
                   ]
@@ -47,14 +48,12 @@ const ActionModal = createModal<ActionModalProps>(
 
         return (
             <Modal size={size} closable={closable} {...rest}>
-                <Col gap="1.5rem">
+                <Col flex={1} gap="1.5rem">
                     <Body {...bodyProps}>
-                        <Col flex={1} justifyContent="center">
-                            {cover}
-                        </Col>
-                        <Card flex={1} as={Col} css={{ padding: "1.5rem" }}>
+                        <Col flex={1}>{cover}</Col>
+                        <TabsCard flex={1} as={Col}>
                             {content}
-                        </Card>
+                        </TabsCard>
                     </Body>
                     <Row flex={1} gap="1rem" justifyContent="flex-start" reverse>
                         {actions.map(({ action: actionProp, label: labelProp, variant: variantProp, disabled, loading }, key) => {

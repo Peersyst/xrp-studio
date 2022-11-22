@@ -107,11 +107,13 @@
     "sales": "Sales",
     "meetTheArtist": "Meet the artist",
     "flags": "flags",
-    "publishConfirmation": "Publish NFT confirmation",
+    "publishNftConfirmation": "Publish NFT confirmation",
     "confirm": "confirm",
     "noDataProvided": "No data provided",
     "theNfts": "The NFTs",
     "back": "Back",
     "next": "Next",
-    "close": "Close"
+    "close": "Close",
+    "publishCollectionConfirmation": "Publish collection confirmation",
+    "cantPublishCollectionWithoutNfts": "You can't publish a collection without NFTs"
 }
