@@ -10,8 +10,9 @@ describe("DropCreationPageContent", () => {
         const collectionDtoMock = new CollectionDtoMock();
         const paginatedNftsMock = new PaginatedNftsMock().pages[0];
 
-        render(<DropCreationPageContent collection={collectionDtoMock} />);
         jest.spyOn(NftService, "nftControllerGetNfts").mockResolvedValue(paginatedNftsMock);
+
+        render(<DropCreationPageContent collection={collectionDtoMock} />);
 
         // Price
         expect(screen.getByPlaceholderText(translate("price"))).toBeInTheDocument();
@@ -31,6 +32,6 @@ describe("DropCreationPageContent", () => {
         expect(screen.getByText(translate("faqs"))).toBeInTheDocument();
 
         // Preview
-        await waitFor(() => expect(screen.findByRole("heading", { name: collectionDtoMock.name })).toBeInTheDocument());
+        await waitFor(() => expect(screen.getByRole("heading", { name: collectionDtoMock.name })).toBeInTheDocument());
     });
 });
