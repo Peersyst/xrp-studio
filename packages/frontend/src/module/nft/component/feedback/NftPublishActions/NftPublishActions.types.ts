@@ -9,9 +9,11 @@ export interface NftPublishActionsStepsProps {
     step: NftPublishActionStep;
     active: boolean;
     onSuccess: () => void;
+    onError: (error: string) => void;
 }
 
 export interface NftPublishActionsProps {
     steps: NftPublishActionStep[];
     onSuccess: () => void;
+    onError: (error: string) => void;
 }

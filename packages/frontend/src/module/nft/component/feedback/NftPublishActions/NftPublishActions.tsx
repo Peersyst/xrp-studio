@@ -4,7 +4,7 @@ import { NftPublishActionsProps } from "module/nft/component/feedback/NftPublish
 import { Col, Typography } from "@peersyst/react-components";
 import useTranslate from "module/common/hook/useTranslate";
 
-const NftPublishActions = ({ steps, onSuccess }: NftPublishActionsProps): JSX.Element => {
+const NftPublishActions = ({ steps, onSuccess, onError }: NftPublishActionsProps): JSX.Element => {
     const translate = useTranslate();
     const [currentStep, setCurrentStep] = useState(0);
 
@@ -23,7 +23,13 @@ const NftPublishActions = ({ steps, onSuccess }: NftPublishActionsProps): JSX.El
             <Col gap="2rem" flex={1} justifyContent="center" alignItems="center" style={{ width: "100%" }}>
                 {steps.map((step, i) => (
                     <Fragment key={i}>
-                        <NftPublishActionStep stepNumber={i + 1} step={step} active={currentStep === i} onSuccess={onStepSuccess} />
+                        <NftPublishActionStep
+                            stepNumber={i + 1}
+                            step={step}
+                            active={currentStep === i}
+                            onSuccess={onStepSuccess}
+                            onError={onError}
+                        />
                     </Fragment>
                 ))}
             </Col>

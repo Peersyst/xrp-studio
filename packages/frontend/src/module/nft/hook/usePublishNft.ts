@@ -11,8 +11,10 @@ export interface UsePublishNftReturn {
     publish: () => Promise<void>;
     endPolling: () => void;
     startPolling: () => Promise<string>;
+    onPollingError: (error: string) => void;
     isPolling: boolean;
     isPublishing: boolean;
+    pollingError: string | null;
 }
 
 export function usePublishNft(request: CreateNftDraftRequest, draftId?: number): UsePublishNftReturn {
@@ -22,6 +24,7 @@ export function usePublishNft(request: CreateNftDraftRequest, draftId?: number):
 
     const [xummTransactionUuid, setXummTransactionUuid] = useState("");
     const [isPolling, setIsPolling] = useState(true);
+    const [error, setError] = useState<string | null>(null);
 
     const { mutate: createNft, isLoading: createNftLoading } = useCreateNft();
     const { mutate: updateNftDraft, isLoading: updateNftDraftLoading, variables } = useUpdateNftDraft();
@@ -46,9 +49,10 @@ export function usePublishNft(request: CreateNftDraftRequest, draftId?: number):
 
     const pollNftState = async (delay = 1000, i = 0): Promise<NftDto["status"]> => {
         /* Mocked condition */
-        return "confirmed";
+        //return "confirmed";
+        throw new Error("hey");
         /* Original function */
-        if (i === config.maxPollingIterations) throw new Error("");
+        if (i === config.maxPollingIterations) throw new Error("Maximum calls made");
         const res = await NftService.nftControllerGetNftDraftStatus(undefined, [1]);
         const status = res[0].status;
         if (res[0].status === "pending")
@@ -70,11 +74,18 @@ export function usePublishNft(request: CreateNftDraftRequest, draftId?: number):
         setIsPolling(false);
     };
 
+    const onPollingError = (error: string) => {
+        setError(error);
+        setIsPolling(false);
+    };
+
     return {
         publish,
         startPolling,
         endPolling,
+        onPollingError,
         isPublishing: publishing,
         isPolling,
+        pollingError: error,
     };
 }

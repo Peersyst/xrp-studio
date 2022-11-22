@@ -11,12 +11,13 @@ import NftPublishActions from "module/nft/component/feedback/NftPublishActions/N
 import NftPublishSuccess from "module/nft/component/feedback/NftPublishSucess/NftPublishSuccess";
 import { useNavigate } from "react-router-dom";
 import { NftRoutes } from "module/nft/NftRouter";
+import NftPublishError from "module/nft/component/feedback/NftPublishError/NftPublishError";
 
 const NftPublishModal = createModal<NftPublishModalProps>(({ request, draftId, collection, ...modalProps }) => {
     const translate = useTranslate();
     const navigate = useNavigate();
 
-    const { publish, startPolling, endPolling, isPublishing, isPolling } = usePublishNft(request, draftId);
+    const { publish, startPolling, endPolling, onPollingError, isPublishing, isPolling, pollingError } = usePublishNft(request, draftId);
 
     const { metadata: { image: nftImage = "" } = {} } = request;
 
@@ -52,17 +53,20 @@ const NftPublishModal = createModal<NftPublishModalProps>(({ request, draftId, c
                 tabs: [
                     {
                         content: <NftInformation request={request} collection={collection} />,
-                        actions: [{ action: "next" }, { action: "close", label: translate("cancel") }],
+                        actions: [
+                            { action: "next", label: translate("confirm") },
+                            { action: "close", label: translate("cancel") },
+                        ],
                     },
                     {
-                        content: <NftPublishActions steps={steps} onSuccess={endPolling} />,
+                        content: <NftPublishActions steps={steps} onSuccess={endPolling} onError={onPollingError} />,
                         actions: [
                             { action: "next", disabled: isPolling, label: translate("viewDetails") },
                             { action: "close", label: translate("cancel") },
                         ],
                     },
                     {
-                        content: <NftPublishSuccess />,
+                        content: pollingError ? <NftPublishError errorMessage={pollingError} /> : <NftPublishSuccess />,
                         actions: [{ action: handleClose, label: translate("close") }],
                     },
                 ],

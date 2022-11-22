@@ -8,6 +8,7 @@ const NftPublishActionStep = ({
     active: active,
     stepNumber: stepNumber,
     onSuccess: onSuccess,
+    onError: onError,
 }: NftPublishActionsStepsProps): JSX.Element => {
     const [state, setState] = useState({ error: false, finished: false });
 
@@ -19,8 +20,8 @@ const NftPublishActionStep = ({
                 onSuccess();
             })
             .catch((e) => {
-                console.error(e);
                 setState({ error: true, finished: false });
+                onError(e.message);
             });
     }, [active]);
 
