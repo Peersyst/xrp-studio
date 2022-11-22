@@ -20,7 +20,7 @@ const NftPublishModal = createModal<NftPublishModalProps>(({ request, draftId, c
     };
 
     return (
-        <ActionModal title={translate("publishNftConfirmation")} {...modalProps}>
+        <ActionModal title={translate("publishConfirmation")} {...modalProps}>
             {{
                 cover: <NftPublishModalCoverImage src={nftImage} fallback={config.nftDefaultCoverUrl} alt="nft-image" />,
                 tabs: [
