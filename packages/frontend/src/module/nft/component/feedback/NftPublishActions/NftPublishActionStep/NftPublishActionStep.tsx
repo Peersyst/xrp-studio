@@ -18,7 +18,8 @@ const NftPublishActionStep = ({
                 setState({ error: false, finished: true });
                 onSuccess();
             })
-            .catch(() => {
+            .catch((e) => {
+                console.error(e);
                 setState({ error: true, finished: false });
             });
     }, [active]);
