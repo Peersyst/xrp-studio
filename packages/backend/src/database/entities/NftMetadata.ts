@@ -8,8 +8,7 @@ export class NftMetadata {
     @JoinColumn({ name: "nft_id" })
     nft: Nft;
 
-    @PrimaryColumn()
-    @Column({ type: "int", name: "nft_id", nullable: false })
+    @PrimaryColumn({ type: "int", name: "nft_id", nullable: false })
     nftId: number;
 
     @Column({ type: "varchar", length: 255, nullable: true })
@@ -28,7 +27,11 @@ export class NftMetadata {
     @Column({ name: "external_url", type: "text", nullable: true })
     externalUrl?: string;
 
-    @OneToMany(() => NftMetadataAttribute, (metadataAttribute) => metadataAttribute.metadata, { cascade: true })
+    @OneToMany(() => NftMetadataAttribute, (metadataAttribute) => metadataAttribute.metadata, {
+        cascade: true,
+        onDelete: "CASCADE",
+        onUpdate: "CASCADE",
+    })
     attributes?: NftMetadataAttribute[];
 
     @CreateDateColumn({ name: "created_at", type: "timestamp" })

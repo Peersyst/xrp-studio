@@ -17,7 +17,7 @@ describe("DropLanding", () => {
         // Video section
         expect(screen.getByTestId("Player")).toHaveAttribute("data-url", dropDtoMock.videoUrl);
         // Artist section
-        expect(screen.getByRole("heading", { name: dropDtoMock.collection.user.name })).toBeInTheDocument();
+        expect(screen.getByRole("heading", { name: dropDtoMock.collection?.user?.name })).toBeInTheDocument();
         // NFTs section
         expect(screen.getByText(nftMocks[0].metadata!.name!));
         // Social Media Section
@@ -44,7 +44,7 @@ describe("DropLanding", () => {
         // Video section
         expect(screen.queryByTestId("Player")).toBeNull();
         // Artist section
-        expect(screen.getByRole("heading", { name: dropDtoMock.collection.user.name })).toBeInTheDocument();
+        expect(screen.getByRole("heading", { name: dropDtoMock.collection?.user?.name })).toBeInTheDocument();
         // NFTs section
         expect(screen.getByText(nftMocks[0].metadata!.name!));
     });

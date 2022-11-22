@@ -13,7 +13,7 @@ export type NftDraftDto = {
     transferFee?: number;
     flags: number;
     metadata?: MetadataDto;
-    user: UserDto;
+    user?: UserDto;
     collection?: CollectionDto;
 };
 

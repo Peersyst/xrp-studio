@@ -17,6 +17,7 @@ const CollectionCardSkeleton = forwardRef((props: CollectionCardSkeleton, ref): 
                 user: {
                     address: "",
                 },
+                account: "",
             }}
             {...props}
         />
