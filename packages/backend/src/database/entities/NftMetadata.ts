@@ -1,4 +1,4 @@
-import { Column, CreateDateColumn, Entity, JoinColumn, OneToMany, OneToOne, UpdateDateColumn } from "typeorm";
+import { Column, CreateDateColumn, Entity, JoinColumn, OneToMany, OneToOne, PrimaryColumn, UpdateDateColumn } from "typeorm";
 import { Nft } from "./Nft";
 import { NftMetadataAttribute } from "./NftMetadataAttribute";
 
@@ -7,6 +7,10 @@ export class NftMetadata {
     @OneToOne(() => Nft, { primary: true })
     @JoinColumn({ name: "nft_id" })
     nft: Nft;
+
+    @PrimaryColumn()
+    @Column({ type: "int", name: "nft_id", nullable: false })
+    nftId: number;
 
     @Column({ type: "varchar", length: 255, nullable: true })
     name?: string;
@@ -33,7 +37,8 @@ export class NftMetadata {
     @UpdateDateColumn({ name: "updated_at", type: "timestamp" })
     updatedAt: Date;
 
-    constructor({ nft, name, description, image, backgroundColor, externalUrl, attributes }: Partial<NftMetadata> = {}) {
+    constructor({ nftId, nft, name, description, image, backgroundColor, externalUrl, attributes }: Partial<NftMetadata> = {}) {
+        this.nftId = nftId;
         this.nft = nft;
         this.name = name;
         this.description = description;

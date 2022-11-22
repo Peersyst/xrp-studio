@@ -8,10 +8,6 @@ import { convertStringToHex, decodeAccountID } from "xrpl";
 import { User } from "../../database/entities/User";
 import { Collection } from "../../database/entities/Collection";
 import { CollectionService } from "../collection/collection.service";
-import { InjectQueue } from "@nestjs/bull";
-import { Queue } from "bull";
-import { MetadataDto } from "./dto/metadata.dto";
-import { NftMetadata } from "../../database/entities/NftMetadata";
 import { NftMetadataAttribute } from "../../database/entities/NftMetadataAttribute";
 import unscrambleTaxon from "./util/unscrambleTaxon";
 import { CreateNftDraftRequest } from "./request/create-nft-draft.request";
@@ -28,20 +24,18 @@ import { BusinessException } from "../common/exception/business.exception";
 import { ErrorCode } from "../common/exception/error-codes";
 import { XummService } from "@peersyst/xumm-module";
 import { CreateNftQueryBuilderOptions, NftWithCollection } from "./types";
-import { IpfsService } from "@peersyst/ipfs-module/src/ipfs.service";
 import { IMessageEvent } from "websocket";
 import { NftDraftStatusDto } from "./dto/nft-draft-status.dto";
+import { MetadataService } from "../metadata/metadata.service";
+import { NftMetadata } from "../../database/entities/NftMetadata";
 
 @Injectable()
 export class NftService {
     constructor(
+        private readonly metadataService: MetadataService,
         @InjectRepository(Nft) private readonly nftRepository: Repository<Nft>,
-        @InjectRepository(NftMetadata) private readonly nftMetadataRepository: Repository<NftMetadata>,
-        @InjectRepository(NftMetadataAttribute) private readonly nftMetadataAttributeRepository: Repository<NftMetadataAttribute>,
-        @InjectQueue("metadata") private readonly metadataQueue: Queue,
         @Inject(forwardRef(() => CollectionService)) private readonly collectionService: CollectionService,
         @Inject(XummService) private readonly xummService: XummService,
-        @Inject(IpfsService) private readonly ipfsService: IpfsService,
     ) {}
 
     /**
@@ -134,25 +128,11 @@ export class NftService {
 
         try {
             const savedNft = await this.nftRepository.save(nft);
-            if (savedNft.uri) await this.metadataQueue.add("process-metadata", { nft: savedNft }, { timeout: 25000, removeOnFail: true });
+            if (savedNft.uri) await this.metadataService.sendToProcessMetadata(savedNft);
             return savedNft;
         } catch (e) {
             throw { error: e, nft };
         }
-    }
-
-    /**
-     * Creates NftMetadata and assigns it to an Nft
-     */
-    async createNftMetadata(nft: Nft, { name, description, image, backgroundColor, externalUrl, attributes }: MetadataDto): Promise<Nft> {
-        // If nft has metadata it means it was a draft with metadata. We have to delete it as it has to be overridden by its final metadata
-        if (nft.metadata) await this.nftMetadataRepository.delete({ nft: new Nft({ id: nft.id }) });
-        // Create attributes with nftMetadataId = nft.id, as it will be the value for nftMetadata.id
-        const metadataAttributes = attributes?.map((attribute) => new NftMetadataAttribute({ nftMetadataId: nft.id, ...attribute }));
-        // Create metadata related to the nft
-        nft.metadata = new NftMetadata({ name, description, image, backgroundColor, externalUrl, attributes: metadataAttributes, nft });
-        // Let typeorm cascades do the work
-        return this.nftRepository.save(nft);
     }
 
     /**
@@ -188,22 +168,17 @@ export class NftService {
         });
 
         // Create nft without metadata as we need an id to reference first
-        let nftEntity = await this.nftRepository.save(nft);
+        const nftEntity = await this.nftRepository.save(nft);
 
         // If there's metadata, create entities and attach it to the nft
+        let metadataEntity: NftMetadata | undefined = undefined;
         if (metadata) {
-            const { attributes, ...restMetadata } = metadata;
-            const nftMetadata = new NftMetadata({ nft: nftEntity, ...restMetadata });
-            nftMetadata.attributes = attributes?.map(
-                (attribute) => new NftMetadataAttribute({ nftMetadataId: nftEntity.id, ...attribute }),
-            );
-            nftEntity = await this.nftRepository.save({ ...nftEntity, metadata: nftMetadata });
+            metadataEntity = await this.metadataService.create(nftEntity.id, metadata);
         }
-
-        if (publish) await this.publishDraft(nftEntity, address);
+        if (publish) await this.publishDraft(nftEntity.id, address);
 
         // We have to include collection with items again, as save will return a regular Nft with a collection without items
-        return NftDraftDto.fromEntity({ ...nftEntity, collection });
+        return NftDraftDto.fromEntity({ ...nftEntity, collection, metadata: metadataEntity });
     }
 
     /**
@@ -225,49 +200,25 @@ export class NftService {
               })
             : undefined;
 
-        let nftMetadata;
         // Delete metadata if new NftDraft does not include it
-        if (!metadata) await this.nftMetadataRepository.delete({ nft: new Nft({ id }) });
-        else {
-            const { name, description, image, backgroundColor, externalUrl, attributes } = metadata;
-            // Delete old attributes as we need to override them
-            await this.nftMetadataAttributeRepository.delete({ nftMetadataId: id });
-            // Create new attributes and metadata
-            const nftMetadataAttributes = attributes?.map((attribute) => new NftMetadataAttribute({ nftMetadataId: id, ...attribute }));
-            nftMetadata = new NftMetadata({
-                name: name || null,
-                description: description || null,
-                image: image || null,
-                backgroundColor: backgroundColor || null,
-                externalUrl: externalUrl || null,
-                attributes: nftMetadataAttributes,
-                nft: new Nft({ id }),
-            });
-        }
+        if (Object.entries(metadata || {}).length === 0) await this.metadataService.delete(id);
+        await this.metadataService.create(id, metadata, true);
 
         // Update entity
         const { burnable = false, onlyXRP = false, trustLine = false, transferable = false } = flags || {};
-        const nftDraftEntity = await this.nftRepository.save({
-            id,
-            issuer: issuer || address,
-            transferFee: transferFee ? transferFee * 1000 : null,
-            flags: flags
-                ? flagsToNumber({ tfBurnable: burnable, tfOnlyXRP: onlyXRP, tfTrustLine: trustLine, tfTransferable: transferable })
-                : undefined,
-            collection: collection || null,
-            metadata: nftMetadata,
-        });
+        await this.nftRepository.update(
+            { id },
+            {
+                issuer: issuer || address,
+                transferFee: transferFee ? transferFee * 1000 : null,
+                flags: flags
+                    ? flagsToNumber({ tfBurnable: burnable, tfOnlyXRP: onlyXRP, tfTrustLine: trustLine, tfTransferable: transferable })
+                    : undefined,
+                collection: collection || null,
+            },
+        );
 
-        if (publish) await this.publishDraft(nftDraftEntity, address);
-    }
-
-    /**
-     * Publishes an nft draft by its id
-     */
-    async publishDraftById(id: number, account: string): Promise<void> {
-        // Find existing NFT draft
-        const nftDraft = await this.findOneDraftEntity(id, account);
-        return this.publishDraft(nftDraft, account);
+        if (publish) await this.publishDraft(id, address);
     }
 
     /**
@@ -280,28 +231,19 @@ export class NftService {
      *   * Metadata
      *   * Metadata attributes
      */
-    private async publishDraft(nftDraft: Nft, account: string): Promise<void> {
+    public async publishDraft(nftId: number, account: string, publishMetadata = true): Promise<void> {
+        const nftDraft = await this.findOneDraftEntity(nftId, account);
         if (nftDraft.status === NftStatus.PENDING) throw new BusinessException(ErrorCode.NFT_DRAFT_ALREADY_PUBLISHED);
 
         const { id: draftId, collection, issuer, transferFee, flags, metadata } = nftDraft;
 
         // Build metadata
-        const { name, description, image, backgroundColor, externalUrl, attributes } = metadata || {};
-        const ipfsMetadata: MetadataDto = {};
-        if (metadata) {
-            if (name) ipfsMetadata.name = name;
-            if (description) ipfsMetadata.description = description;
-            if (image) ipfsMetadata.image = image;
-            if (backgroundColor) ipfsMetadata.backgroundColor = backgroundColor;
-            if (externalUrl) ipfsMetadata.externalUrl = externalUrl;
-            if (attributes) ipfsMetadata.attributes = attributes;
+        let cid: string;
+        if (metadata && publishMetadata) {
+            cid = await this.metadataService.publishMetadata(metadata.nftId);
         }
 
-        // If there is any metadata upload it to ipfs
-        let cid: string | undefined;
-        if (Object.entries(ipfsMetadata).length) cid = await this.ipfsService.uploadFile(Buffer.from(JSON.stringify(ipfsMetadata)));
-
-        const memo = { id: draftId, ...(name && { name }) };
+        const memo = { id: draftId, ...(metadata?.name && { name: metadata.name }) };
 
         // Build NFTokenMintTransaction
         const nftokenMintTransaction: NFTokenMint = {

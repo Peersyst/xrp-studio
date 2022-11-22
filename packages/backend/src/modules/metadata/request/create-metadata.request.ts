@@ -1,9 +1,9 @@
 import { ApiProperty } from "@nestjs/swagger";
-import { CreateNftMetadataAttributeRequest } from "./create-nft-metadata-attributes.request";
+import { CreateMetadataAttributeRequest } from "./create-metadata-attributes.request";
 import { IsHexColor, IsUrl, ValidateNested, IsOptional } from "class-validator";
 import { Type } from "class-transformer";
 
-export class CreateNftMetadataRequest {
+export class CreateMetadataRequest {
     @ApiProperty({
         name: "name",
         type: "string",
@@ -54,7 +54,7 @@ export class CreateNftMetadataRequest {
 
     @ApiProperty({
         name: "attributes",
-        type: CreateNftMetadataAttributeRequest,
+        type: CreateMetadataAttributeRequest,
         required: false,
         isArray: true,
         example: [
@@ -73,6 +73,6 @@ export class CreateNftMetadataRequest {
         ],
     })
     @ValidateNested({ each: true })
-    @Type(() => CreateNftMetadataAttributeRequest)
-    attributes?: CreateNftMetadataAttributeRequest[];
+    @Type(() => CreateMetadataAttributeRequest)
+    attributes?: CreateMetadataAttributeRequest[];
 }
