@@ -111,5 +111,8 @@
     "publishConfirmation": "Confirmación de publicación del NFT",
     "confirm": "confirmar",
     "noDataProvided": "No se han encontrado datos",
-    "theNfts": "The NFTs"
+    "theNfts": "The NFTs",
+    "createAndManageNft": "Crea y administra tus NFT's",
+    "landingHeaderDescription": "Unleash the digital artist inside you. Create NFTs from your digital artwork. Manage and launch them without needing to know the tricky side of the crypto world",
+    "startCreatingNow": "Comienza ahora"
 }
