@@ -37,7 +37,7 @@ export function usePublishNft(request: CreateNftDraftRequest, draftId?: number):
     return {
         publish,
         isPublishing: publishing,
-        isPooling: isPooling,
-        endPooling: endPooling,
+        isPooling,
+        endPooling,
     };
 }

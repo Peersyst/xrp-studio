@@ -13,7 +13,7 @@ export default function (): ReturnUseStartPooling {
     };
 
     return {
-        endPooling: endPooling,
-        isPooling: isPooling,
+        endPooling,
+        isPooling,
     };
 }
