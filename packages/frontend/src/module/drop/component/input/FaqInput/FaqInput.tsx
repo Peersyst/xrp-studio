@@ -1,8 +1,9 @@
 import useTranslate from "module/common/hook/useTranslate";
-import { FormControl, FormControlLabel, Typography, useFormControl, Row } from "@peersyst/react-components";
+import { FormControl, FormControlLabel, Typography, useFormControl, Row, TextArea } from "@peersyst/react-components";
 import { FaqInputProps } from "./FaqInput.types";
-import { DeleteFaqButton, FaqInputTextField, FaqsInputRoot, FaqInputTextAreaField } from "./FaqInput.styles";
+import { DeleteFaqButton, FaqsInputRoot } from "./FaqInput.styles";
 import { Faq } from "module/drop/types";
+import TextField from "module/common/component/input/TextField/TextField";
 
 const FaqInput = ({
     defaultValue = { question: "", answer: "" },
@@ -36,11 +37,11 @@ const FaqInput = ({
             {...rest}
         >
             {(values, setValues) => {
-                const handleTitleChange = (question: string) => {
+                const handleQuestionChange = (question: string) => {
                     setValues({ ...values, question });
                 };
 
-                const handleAswerChange = (answer: string) => {
+                const handleAnswerChange = (answer: string) => {
                     setValues({ ...values, answer });
                 };
 
@@ -50,26 +51,26 @@ const FaqInput = ({
                             <Typography variant="body1" color={"black.70"} fontWeight={500} style={{ lineHeight: "2rem" }}>
                                 {`${translate("faqs")} ${idFaq}`}
                             </Typography>
-                            {!readonly && onDelete && (
+                            {onDelete && (!readonly || !disabled) && (
                                 <DeleteFaqButton variant={"text"} onClick={handleDelete}>
-                                    {`${translate("delete")}`}
+                                    {translate("delete")}
                                 </DeleteFaqButton>
                             )}
                         </Row>
-                        <FaqInputTextField
+                        <TextField
                             variant={variant}
                             size={size}
-                            placeholder={translate("title")}
+                            placeholder={translate("question")}
                             value={values.question}
-                            onChange={handleTitleChange}
+                            onChange={handleQuestionChange}
                             autoFocus={autoFocus}
                             readonly={readonly}
                             disabled={disabled}
                         />
-                        <FaqInputTextAreaField
+                        <TextArea
                             placeholder={translate("answer")}
                             value={values.answer}
-                            onChange={handleAswerChange}
+                            onChange={handleAnswerChange}
                             readonly={readonly}
                             disabled={disabled}
                         />

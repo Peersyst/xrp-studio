@@ -58,11 +58,13 @@ const DropCreationPageContent = ({ loading = false, collection }: WithLoading<Co
                                     placeholder={translate("price")}
                                     variant="filled"
                                     value={price}
+                                    required
                                     onChange={normalizedHandleChange("price")}
                                 />
                                 <ColorInput
                                     name={DropCreationFormFields.BACKGROUND_COLOR}
                                     label={translate("backgroundColor")}
+                                    required
                                     TextFieldProps={{
                                         variant: "filled",
                                     }}
@@ -72,6 +74,7 @@ const DropCreationPageContent = ({ loading = false, collection }: WithLoading<Co
                                 <ColorInput
                                     name={DropCreationFormFields.FONT_COLOR}
                                     label={translate("fontColor")}
+                                    required
                                     TextFieldProps={{
                                         variant: "filled",
                                     }}
@@ -95,6 +98,7 @@ const DropCreationPageContent = ({ loading = false, collection }: WithLoading<Co
                                     name={DropCreationFormFields.INSTAGRAM}
                                     placeholder={translate("instagram")}
                                     variant="filled"
+                                    validators={{ url: true }}
                                     value={instagram}
                                     onChange={normalizedHandleChange("instagram")}
                                 />
@@ -102,6 +106,7 @@ const DropCreationPageContent = ({ loading = false, collection }: WithLoading<Co
                                     name={DropCreationFormFields.TWITTER}
                                     placeholder={translate("twitter")}
                                     variant="filled"
+                                    validators={{ url: true }}
                                     value={twitter}
                                     onChange={normalizedHandleChange("twitter")}
                                 />
@@ -109,6 +114,7 @@ const DropCreationPageContent = ({ loading = false, collection }: WithLoading<Co
                                     name={DropCreationFormFields.DISCORD}
                                     placeholder={translate("discord")}
                                     variant="filled"
+                                    validators={{ url: true }}
                                     value={discord}
                                     onChange={normalizedHandleChange("discord")}
                                 />
