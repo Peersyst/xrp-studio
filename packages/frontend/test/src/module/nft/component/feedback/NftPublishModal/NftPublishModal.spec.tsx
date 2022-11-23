@@ -1,4 +1,11 @@
-import { CreateNftDraftRequestMock, CreateNftMetadataRequestMock, ToastMock, UseCheckBalanceMock, WalletMock } from "test-mocks";
+import {
+    CreateNftDraftRequestMock,
+    CreateNftMetadataRequestMock,
+    ToastMock,
+    UseCheckBalanceMock,
+    UsePublishNftMock,
+    WalletMock,
+} from "test-mocks";
 import { render, translate } from "test-utils";
 import NftPublishModal from "module/nft/component/feedback/NftPublishModal/NftPublishModal";
 import { screen } from "@testing-library/react";
@@ -25,15 +32,18 @@ describe("NftPublishModal tests", () => {
     describe("NftPublishModal with balance", () => {
         let useCheckBalanceMock: UseCheckBalanceMock;
         let walletMock: WalletMock;
+        let usePublishNftMock: UsePublishNftMock;
 
         beforeEach(() => {
             useCheckBalanceMock = new UseCheckBalanceMock();
             walletMock = new WalletMock({ isLogged: true, active: true, address: "0x" });
+            usePublishNftMock = new UsePublishNftMock();
         });
 
         afterEach(() => {
             useCheckBalanceMock.restore();
             walletMock.restore();
+            usePublishNftMock.restore();
         });
 
         test("Create published NFT with balance", async () => {
@@ -43,6 +53,11 @@ describe("NftPublishModal tests", () => {
             await waitFor(() => expect(confirmPublishButton).not.toBeDisabled());
             userEvent.click(confirmPublishButton);
             await waitFor(() => expect(useCheckBalanceMock.checkBalance).toHaveBeenCalled());
+
+            expect(screen.getByRole("heading", { name: translate("creationSteps") })).toBeInTheDocument();
+            const viewDetailsButton = screen.getByRole("button", { name: translate("viewDetails") });
+            await waitFor(() => expect(viewDetailsButton).not.toBeDisabled());
+            userEvent.click(viewDetailsButton);
         });
     });
 

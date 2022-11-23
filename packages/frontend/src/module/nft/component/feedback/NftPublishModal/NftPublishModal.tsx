@@ -2,7 +2,7 @@ import { createModal } from "@peersyst/react-components";
 import useTranslate from "module/common/hook/useTranslate";
 import ActionModal from "module/common/component/feedback/ActionModal/ActionModal";
 import NftInformation from "module/nft/component/display/NftInformation/NftInformation";
-import { usePublishNft } from "module/nft/hook/usePublishNft";
+import usePublishNft from "module/nft/hook/usePublishNft";
 import { ActionFn } from "module/common/component/feedback/ActionModal/ActionModal.types";
 import { config } from "config";
 import { NftPublishModalCoverImage } from "module/nft/component/feedback/NftPublishModal/NftPublishModal.styles";

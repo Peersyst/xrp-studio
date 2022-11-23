@@ -17,7 +17,7 @@ export interface UsePublishNftReturn {
     pollingError: string | null;
 }
 
-export function usePublishNft(request: CreateNftDraftRequest, draftId?: number): UsePublishNftReturn {
+export default function (request: CreateNftDraftRequest, draftId?: number): UsePublishNftReturn {
     const translateError = useTranslate("error");
     const { showToast } = useToast();
     const checkBalance = useCheckBalance();
@@ -36,8 +36,10 @@ export function usePublishNft(request: CreateNftDraftRequest, draftId?: number):
     const publishing = createNftLoading || (updateNftDraftLoading && !!variables?.publish);
     const publish = async () => {
         const hasBalance = await checkBalance();
-        if (!hasBalance) showToast(translateError("notEnoughBalance"), { type: "error" });
-        else {
+        if (!hasBalance) {
+            showToast(translateError("notEnoughBalance"), { type: "error" });
+            throw new Error(translateError("notEnoughBalance"));
+        } else {
             if (draftId) updateNftDraft({ id: draftId, publish: true, ...request });
             else {
                 //createNft(request);
@@ -49,8 +51,8 @@ export function usePublishNft(request: CreateNftDraftRequest, draftId?: number):
 
     const pollNftState = async (delay = 1000, i = 0): Promise<NftDto["status"]> => {
         /* Mocked condition */
-        //return "confirmed";
-        throw new Error("hey");
+        return "confirmed";
+        //throw new Error("hey");
         /* Original function */
         if (i === config.maxPollingIterations) throw new Error("Maximum calls made");
         const res = await NftService.nftControllerGetNftDraftStatus(undefined, [1]);
