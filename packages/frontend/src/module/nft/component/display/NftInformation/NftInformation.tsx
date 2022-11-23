@@ -1,18 +1,15 @@
 import useTranslate from "module/common/hook/useTranslate";
 import { Col, Typography } from "@peersyst/react-components";
 import { capitalize } from "@peersyst/react-utils";
-import { useRecoilValue } from "recoil";
-import publishNftState from "module/nft/state/PublishNftState";
 import InformationField from "module/common/component/display/InformationField/InformationField";
-import { NftInformationFieldProps } from "./NftInformation.types";
+import { NftInformationFieldProps, NftInformationProps } from "./NftInformation.types";
 import { NftFlagsRequest } from "module/api/service";
 
-const NftInformation = (): JSX.Element => {
+const NftInformation = ({
+    request: { issuer: issuer, transferFee: transferFee, flags: flags, metadata: metadata },
+    collection,
+}: NftInformationProps): JSX.Element => {
     const translate = useTranslate();
-    const {
-        data: { issuer: issuer, transferFee: transferFee, flags: flags, metadata: metadata },
-        collection: collection,
-    } = useRecoilValue(publishNftState);
 
     const flagsKeys = Object.keys(flags || {}) as (keyof NftFlagsRequest)[];
     const flagsValues = Object.values(flags || {});

@@ -111,5 +111,8 @@
     "publishConfirmation": "Confirmación de publicación del NFT",
     "confirm": "confirmar",
     "noDataProvided": "No se han encontrado datos",
-    "theNfts": "The NFTs"
+    "theNfts": "The NFTs",
+    "back": "Volver",
+    "next": "Siguiente",
+    "close": "Cerrar"
 }

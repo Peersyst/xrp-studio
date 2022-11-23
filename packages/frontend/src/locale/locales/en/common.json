@@ -111,5 +111,8 @@
     "publishConfirmation": "Publish NFT confirmation",
     "confirm": "confirm",
     "noDataProvided": "No data provided",
-    "theNfts": "The NFTs"
+    "theNfts": "The NFTs",
+    "back": "Back",
+    "next": "Next",
+    "close": "Close"
 }

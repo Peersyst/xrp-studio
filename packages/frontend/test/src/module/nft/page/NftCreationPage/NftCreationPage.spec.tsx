@@ -9,6 +9,7 @@ import { waitFor } from "@testing-library/dom";
 import Color from "color";
 import parseFlags from "module/nft/util/parseFlags";
 import { capitalize } from "@peersyst/react-utils";
+import NftPublishModal from "module/nft/component/feedback/NftPublishModal/NftPublishModal";
 
 describe("NftCreationPage", () => {
     const nftDraftMock = new NftDtoMock({ status: "draft", flags: 2 });
@@ -122,7 +123,14 @@ describe("NftCreationPage", () => {
             userEvent.type(screen.getByPlaceholderText(translate("nftNamePlaceholder")), NFT_NAME);
             userEvent.click(publishButton);
 
-            await waitFor(() => expect(useModalMock.showModal).toBeCalled());
+            await waitFor(() =>
+                expect(useModalMock.showModal).toHaveBeenCalledWith(
+                    NftPublishModal,
+                    expect.objectContaining({
+                        request: expect.objectContaining({ metadata: expect.objectContaining({ name: NFT_NAME }) }),
+                    }),
+                ),
+            );
         });
     });
 
@@ -211,7 +219,15 @@ describe("NftCreationPage", () => {
             userEvent.type(nameInput, NFT_NAME);
             userEvent.click(publishButton);
 
-            await waitFor(() => expect(useModalMock.showModal).toBeCalled());
+            await waitFor(() =>
+                expect(useModalMock.showModal).toHaveBeenCalledWith(
+                    NftPublishModal,
+                    expect.objectContaining({
+                        request: expect.objectContaining({ metadata: expect.objectContaining({ name: NFT_NAME }) }),
+                        draftId: 1,
+                    }),
+                ),
+            );
         });
     });
 });
