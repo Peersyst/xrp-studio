@@ -117,5 +117,6 @@
     "close": "Cerrar",
     "FAQs": "FAQs",
     "question": "Pregunta",
-    "cantPublishCollectionWithoutNfts": "No puedes publicar una colección sin NFTs",
+    "publishCollectionConfirmation": "Confirmación de publcación de la colección",
+    "cantPublishCollectionWithoutNfts": "No puedes publicar una colección sin NFTs"
 }
