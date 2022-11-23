@@ -108,7 +108,7 @@
     "meetTheArtist": "Conoce al artista",
     "flags": "propiedades",
     "publishConfirmation": "Confirmación de publicación del NFT",
-    "confirm": "confirmar",
+    "confirm": "Confirmar",
     "noDataProvided": "No se han proporcionado datos del NFT",
     "finish": "Acabar",
     "approveXRPStudio": "Aprueba XRP-Studio",
@@ -125,5 +125,6 @@
     "back": "Volver",
     "next": "Siguiente",
     "close": "Cerrar",
-    "viewDetails": "Ver detalles"
+    "viewDetails": "Ver detalles",
+    "errorTitle": "Algo ha pasado..."
 }

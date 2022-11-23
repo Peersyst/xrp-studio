@@ -1,9 +1,9 @@
 import { Expandable, Loader, Row, Typography } from "@peersyst/react-components";
-import { NftPublishActionsStepsProps } from "module/nft/component/feedback/NftPublishActions/NftPublishActions.types";
+import { NftPublishActionsStepsProps } from "module/common/component/feedback/PublishActions/PublishActions.types";
 import { useEffect, useState } from "react";
 import { AlertCircleIcon, CheckCircleIcon } from "icons";
 
-const NftPublishActionStep = ({
+const PublishActionStep = ({
     step: { title, description, execution },
     active: active,
     stepNumber: stepNumber,
@@ -27,16 +27,14 @@ const NftPublishActionStep = ({
         <Expandable open={active}>
             <Expandable.Display ExpandComponent={false}>
                 <Row gap={10} alignItems="center">
-                    <Row>
-                        {!active && !state.error && !state.finished && (
-                            <Typography variant="body1" fontWeight={600}>
-                                {stepNumber}
-                            </Typography>
-                        )}
-                        {active && !state.error && <Loader />}
-                        {active && state.error && <AlertCircleIcon />}
-                        {!active && state.finished && <CheckCircleIcon />}
-                    </Row>
+                    {!active && !state.error && !state.finished && (
+                        <Typography variant="body1" fontWeight={600}>
+                            {stepNumber}
+                        </Typography>
+                    )}
+                    {active && !state.error && <Loader />}
+                    {active && state.error && <AlertCircleIcon />}
+                    {!active && state.finished && <CheckCircleIcon />}
                     <Typography variant="body1" fontWeight={600}>
                         {title}
                     </Typography>
@@ -53,4 +51,4 @@ const NftPublishActionStep = ({
     );
 };
 
-export default NftPublishActionStep;
+export default PublishActionStep;

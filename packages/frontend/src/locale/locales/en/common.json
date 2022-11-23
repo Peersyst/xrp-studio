@@ -108,7 +108,7 @@
     "meetTheArtist": "Meet the artist",
     "flags": "flags",
     "publishConfirmation": "Publish NFT confirmation",
-    "confirm": "confirm",
+    "confirm": "Confirm",
     "noDataProvided": "No NFT information has been provided",
     "finish": "finish",
     "approveXRPStudio": "Approve XRP-Studio",
@@ -125,5 +125,6 @@
     "back": "Back",
     "next": "Next",
     "close": "Close",
-    "viewDetails": "View details"
+    "viewDetails": "View details",
+    "errorTitle": "Something bad happened..."
 }

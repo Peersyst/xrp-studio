@@ -1,34 +1,39 @@
-import { Fragment, useState } from "react";
-import NftPublishActionStep from "module/nft/component/feedback/NftPublishActions/NftPublishActionStep/NftPublishActionStep";
-import { NftPublishActionsProps } from "module/nft/component/feedback/NftPublishActions/NftPublishActions.types";
-import { Col, Typography } from "@peersyst/react-components";
+import PublishActions from "module/common/component/feedback/PublishActions/PublishActions";
 import useTranslate from "module/common/hook/useTranslate";
+import { NftPublishActionStep } from "module/common/component/feedback/PublishActions/PublishActions.types";
 
-const NftPublishActions = ({ steps, onSuccess }: NftPublishActionsProps): JSX.Element => {
+const NftPublishActions = (): JSX.Element => {
     const translate = useTranslate();
-    const [currentStep, setCurrentStep] = useState(0);
 
-    const onStepSuccess = () => {
-        if (currentStep === steps.length - 1) {
-            onSuccess();
-        }
-        setCurrentStep(currentStep + 1);
+    const onSuccess = () => {
+        return undefined;
     };
 
-    return (
-        <Col gap="2rem" flex={1} justifyContent="center">
-            <Typography variant="h6" fontWeight={700}>
-                {translate("creationSteps")}:
-            </Typography>
-            <Col gap="2rem" flex={1} justifyContent="center" alignItems="center" style={{ width: "100%" }}>
-                {steps.map((step, i) => (
-                    <Fragment key={i}>
-                        <NftPublishActionStep stepNumber={i + 1} step={step} active={currentStep === i} onSuccess={onStepSuccess} />
-                    </Fragment>
-                ))}
-            </Col>
-        </Col>
-    );
+    const steps: NftPublishActionStep[] = [
+        {
+            title: translate("approveXRPStudio"),
+            description: translate("approveXRPStudioDescription"),
+            execution: async () => {
+                return undefined;
+            },
+        },
+        {
+            title: translate("confirmCreation"),
+            description: translate("confirmCreationDescription"),
+            execution: async () => {
+                return undefined;
+            },
+        },
+        {
+            title: translate("successTitle"),
+            description: translate("successDescription"),
+            execution: async () => {
+                return undefined;
+            },
+        },
+    ];
+
+    return <PublishActions title={translate("creationSteps")} steps={steps} onSuccess={onSuccess} />;
 };
 
 export default NftPublishActions;

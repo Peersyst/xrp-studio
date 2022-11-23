@@ -7,15 +7,18 @@ import { ActionFn } from "module/common/component/feedback/ActionModal/ActionMod
 import { config } from "config";
 import { NftPublishModalCoverImage } from "module/nft/component/feedback/NftPublishModal/NftPublishModal.styles";
 import { NftPublishModalProps } from "module/nft/component/feedback/NftPublishModal/NftPublishModal.types";
-import NftPublishActions from "module/nft/component/feedback/NftPublishActions/NftPublishActions";
 import NftPublishSuccess from "module/nft/component/feedback/NftPublishSucess/NftPublishSuccess";
 import { useNavigate } from "react-router-dom";
 import { NftRoutes } from "module/nft/NftRouter";
+import NftPublishActions from "module/nft/component/feedback/NftPublishActions/NftPublishActions";
+import NftPublishError from "module/nft/component/feedback/NftPublishError/NftPublishError";
 
 const NftPublishModal = createModal<NftPublishModalProps>(({ request, draftId, collection, ...modalProps }) => {
     const translate = useTranslate();
     const navigate = useNavigate();
-    const { publish, isPublishing, isPooling, endPooling } = usePublishNft(request, draftId);
+    const { publish, isPublishing } = usePublishNft(request, draftId);
+
+    const mockError = true;
 
     const { metadata: { image: nftImage = "" } = {} } = request;
 
@@ -24,54 +27,33 @@ const NftPublishModal = createModal<NftPublishModalProps>(({ request, draftId, c
         next();
     };
 
-    const handleClose: ActionFn = ({ close }) => {
+    const handleCloseSuccessfully: ActionFn = ({ close }) => {
         close();
         navigate(NftRoutes.MY_NFTS);
     };
 
-    const steps = [
-        {
-            title: translate("approveXRPStudio"),
-            description: translate("approveXRPStudioDescription"),
-            execution: async () => {
-                return undefined;
-            },
-        },
-        {
-            title: translate("confirmCreation"),
-            description: translate("confirmCreationDescription"),
-            execution: async () => {
-                return undefined;
-            },
-        },
-        {
-            title: translate("successTitle"),
-            description: translate("successDescription"),
-            execution: async () => {
-                return undefined;
-            },
-        },
-    ];
-
     return (
-        <ActionModal title={translate("publishConfirmation")} closable={!isPublishing && !isPooling} {...modalProps}>
+        <ActionModal title={translate("publishConfirmation")} closable={!isPublishing} {...modalProps}>
             {{
                 cover: <NftPublishModalCoverImage src={nftImage} fallback={config.nftDefaultCoverUrl} alt="nft-image" />,
                 tabs: [
                     {
                         content: <NftInformation request={request} collection={collection} />,
-                        actions: [{ action: handlePublish }, { action: "close", label: translate("cancel") }],
-                    },
-                    {
-                        content: <NftPublishActions steps={steps} onSuccess={endPooling} />,
                         actions: [
-                            { action: "next", disabled: isPooling, label: translate("viewDetails") },
+                            { action: handlePublish, label: translate("confirm") },
                             { action: "close", label: translate("cancel") },
                         ],
                     },
                     {
-                        content: <NftPublishSuccess />,
-                        actions: [{ action: handleClose, label: translate("close") }],
+                        content: <NftPublishActions />,
+                        actions: [
+                            { action: "next", label: translate("viewDetails") },
+                            { action: "close", label: translate("cancel") },
+                        ],
+                    },
+                    {
+                        content: mockError ? <NftPublishError /> : <NftPublishSuccess />,
+                        actions: [{ action: handleCloseSuccessfully, label: translate("close") }],
                     },
                 ],
             }}
