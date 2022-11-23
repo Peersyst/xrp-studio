@@ -1,5 +1,7 @@
 import { InformationFieldsProps } from "module/common/component/display/InformationFields/InformationFields.types";
-import { Col, Label, Typography } from "@peersyst/react-components";
+import { Col } from "@peersyst/react-components";
+import { capitalize } from "@peersyst/react-utils";
+import { InformationFieldLabel } from "module/common/component/display/InformationFields/InformationFields.styles";
 
 const InformationFields = ({
     fields,
@@ -12,11 +14,11 @@ const InformationFields = ({
 }: InformationFieldsProps): JSX.Element => (
     <Col gap={gap} className={className} style={style}>
         {fields.map(
-            ({ label, content }) =>
+            ({ label, content }, i) =>
                 content && (
-                    <Label label={label} gap={labelGap} variant={variant} {...labelProps}>
-                        <Typography variant={variant}>{content}</Typography>
-                    </Label>
+                    <InformationFieldLabel key={label + i} label={capitalize(label)} gap={labelGap} variant={variant} {...labelProps}>
+                        {content}
+                    </InformationFieldLabel>
                 ),
         )}
     </Col>

@@ -10,23 +10,26 @@ import { NftPublishModalProps } from "module/nft/component/feedback/NftPublishMo
 
 const NftPublishModal = createModal<NftPublishModalProps>(({ request, draftId, collection, ...modalProps }) => {
     const translate = useTranslate();
-    const { publish } = usePublishNft(request, draftId);
+    const { publish, isPublishing } = usePublishNft(request, draftId);
 
     const { metadata: { image: nftImage = "" } = {} } = request;
 
-    const handlePublish: ActionFn = ({ next }) => {
-        publish();
+    const handlePublish: ActionFn = async ({ next }) => {
+        await publish();
         next();
     };
 
     return (
-        <ActionModal title={translate("publishConfirmation")} {...modalProps}>
+        <ActionModal title={translate("publishNftConfirmation")} {...modalProps}>
             {{
                 cover: <NftPublishModalCoverImage src={nftImage} fallback={config.nftDefaultCoverUrl} alt="nft-image" />,
                 tabs: [
                     {
                         content: <NftPublishInformation request={request} collection={collection} />,
-                        actions: [{ action: handlePublish }, { action: "close", label: translate("cancel") }],
+                        actions: [
+                            { action: handlePublish, loading: isPublishing },
+                            { action: "close", label: translate("cancel"), disabled: isPublishing },
+                        ],
                     },
                 ],
             }}

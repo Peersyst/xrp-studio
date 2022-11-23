@@ -1,5 +1,5 @@
 import { ReactNode } from "react";
-import { LabelProps } from "@peersyst/react-components";
+import { LabelProps, TypographyProps } from "@peersyst/react-components";
 
 export interface InformationField {
     label: string;
@@ -10,4 +10,8 @@ export interface InformationFieldsProps extends Omit<LabelProps, "label" | "chil
     fields: InformationField[];
     gap?: number | string;
     labelGap?: number | string;
+}
+
+export interface InformationFieldLabelProps {
+    variant: TypographyProps["variant"];
 }

@@ -7,6 +7,8 @@ import {
     WalletMock,
     UseNavigateMock,
     UseCheckBalanceMock,
+    UseCollectionCreationStateMock,
+    ModalMock,
 } from "test-mocks";
 import { render, translate } from "test-utils";
 import CollectionCreationPage from "module/collection/page/CollectionCreationPage/CollectionCreationPage";
@@ -14,6 +16,7 @@ import { CollectionService } from "module/api/service";
 import userEvent from "@testing-library/user-event";
 import { waitFor } from "@testing-library/dom";
 import { CollectionRoutes } from "module/collection/CollectionRouter";
+import CollectionPublishModal from "module/collection/component/feedback/CollectionPublishModal/CollectionPublishModal";
 
 describe("CollectionCreationPage", () => {
     const COLLECTION_NAME = "collection_name";
@@ -26,18 +29,21 @@ describe("CollectionCreationPage", () => {
         useNavigateMock.clear();
     });
 
-    describe("Creation with balance", () => {
+    describe("Creation", () => {
         let useSearchParamsMock: UseSearchParamsMock;
-        let useCheckBalanceMock: UseCheckBalanceMock;
+        let useCollectionCreationStateMock: UseCollectionCreationStateMock;
+        let useModalMock: ModalMock;
 
-        beforeAll(() => {
+        beforeEach(() => {
             useSearchParamsMock = new UseSearchParamsMock();
-            useCheckBalanceMock = new UseCheckBalanceMock();
+            useCollectionCreationStateMock = new UseCollectionCreationStateMock({ name: COLLECTION_NAME, nfts: [{ id: 1 }] });
+            useModalMock = new ModalMock();
         });
 
         afterAll(() => {
             useSearchParamsMock.restore();
-            useCheckBalanceMock.restore();
+            useCollectionCreationStateMock.restore();
+            useModalMock.restore();
         });
 
         test("Renders correctly", () => {
@@ -57,18 +63,15 @@ describe("CollectionCreationPage", () => {
         });
 
         test("Publishes collection", async () => {
-            const publishCollectionMock = jest
-                .spyOn(CollectionService, "collectionControllerCreateCollection")
-                .mockResolvedValueOnce(new CollectionDtoMock());
-
             render(<CollectionCreationPage />);
 
-            userEvent.type(screen.getByPlaceholderText(translate("collectionNamePlaceholder")), COLLECTION_NAME);
             const publishButton = screen.getByRole("button", { name: translate("publish") });
             userEvent.click(publishButton);
-            await waitFor(() => expect(publishCollectionMock).toHaveBeenCalledWith({ name: COLLECTION_NAME }, true));
-            await waitFor(() => expect(useToastMock.showToast).toHaveBeenCalledWith(translate("collectionCreated"), { type: "success" }));
-            expect(useNavigateMock.navigate).toHaveBeenCalledWith(CollectionRoutes.MY_COLLECTIONS, { replace: true });
+            await waitFor(() =>
+                expect(useModalMock.showModal).toHaveBeenCalledWith(CollectionPublishModal, {
+                    request: expect.objectContaining({ name: COLLECTION_NAME }),
+                }),
+            );
         });
 
         test("Saves collection", async () => {
@@ -78,40 +81,11 @@ describe("CollectionCreationPage", () => {
 
             render(<CollectionCreationPage />);
 
-            userEvent.type(screen.getByPlaceholderText(translate("collectionNamePlaceholder")), COLLECTION_NAME);
-            const publishButton = screen.getByRole("button", { name: translate("save") });
-            userEvent.click(publishButton);
-            await waitFor(() => expect(publishCollectionMock).toHaveBeenCalledWith({ name: COLLECTION_NAME }, false));
-            await waitFor(() => expect(useToastMock.showToast).toHaveBeenCalledWith(translate("collectionCreated"), { type: "success" }));
-            expect(useNavigateMock.navigate).toHaveBeenCalledWith(CollectionRoutes.MY_COLLECTIONS, { replace: true });
-        });
-    });
-
-    describe("Creation without balance", () => {
-        let useSearchParamsMock: UseSearchParamsMock;
-        let useCheckBalanceMock: UseCheckBalanceMock;
-
-        beforeAll(() => {
-            useSearchParamsMock = new UseSearchParamsMock();
-            useCheckBalanceMock = new UseCheckBalanceMock(false);
-        });
-
-        afterAll(() => {
-            useSearchParamsMock.restore();
-            useCheckBalanceMock.restore();
-        });
-
-        test("Publishes without balance", async () => {
-            const publishCollectionMock = jest
-                .spyOn(CollectionService, "collectionControllerCreateCollection")
-                .mockResolvedValueOnce(new CollectionDtoMock());
-
-            render(<CollectionCreationPage />);
-
-            userEvent.type(screen.getByPlaceholderText(translate("collectionNamePlaceholder")), COLLECTION_NAME);
-            const publishButton = screen.getByRole("button", { name: translate("publish") });
-            userEvent.click(publishButton);
-            await waitFor(() => expect(publishCollectionMock).toHaveBeenCalledWith({ name: COLLECTION_NAME }, true));
+            const saveButton = screen.getByRole("button", { name: translate("save") });
+            userEvent.click(saveButton);
+            await waitFor(() =>
+                expect(publishCollectionMock).toHaveBeenCalledWith(expect.objectContaining({ name: COLLECTION_NAME }), false),
+            );
             await waitFor(() => expect(useToastMock.showToast).toHaveBeenCalledWith(translate("collectionCreated"), { type: "success" }));
             expect(useNavigateMock.navigate).toHaveBeenCalledWith(CollectionRoutes.MY_COLLECTIONS, { replace: true });
         });

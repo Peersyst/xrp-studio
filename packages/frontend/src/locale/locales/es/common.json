@@ -108,7 +108,7 @@
     "meetTheArtist": "Conoce al artista",
     "jounOurCommunity": "Siguenos en nuestras redes",
     "flags": "propiedades",
-    "publishConfirmation": "Confirmación de publicación del NFT",
+    "publishNftConfirmation": "Confirmación de publicación del NFT",
     "confirm": "confirmar",
     "noDataProvided": "No se han encontrado datos",
     "theNfts": "The NFTs",
@@ -116,5 +116,7 @@
     "next": "Siguiente",
     "close": "Cerrar",
     "FAQs": "FAQs",
-    "question": "Pregunta"
+    "question": "Pregunta",
+    "publishCollectionConfirmation": "Confirmación de publcación de la colección",
+    "cantPublishCollectionWithoutNfts": "No puedes publicar una colección sin NFTs"
 }
