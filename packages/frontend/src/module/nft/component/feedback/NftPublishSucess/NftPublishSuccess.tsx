@@ -8,7 +8,7 @@ const NftPublishSuccess = (): JSX.Element => {
 
     const publishSuccessContent: InformationField[] = [
         {
-            label: translate("successTitle"),
+            label: translate("hashTransactionCreation"),
             content: "mock_transactionHash",
         },
         {
