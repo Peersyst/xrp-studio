@@ -2,7 +2,7 @@ import { UserDto } from "module/api/service";
 import { CSSProperties } from "react";
 
 export interface DropLandingArtistSectionProps {
-    artist: UserDto;
+    artist: UserDto | undefined;
     className?: string;
     style?: CSSProperties;
 }

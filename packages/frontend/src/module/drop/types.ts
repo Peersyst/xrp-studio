@@ -1,7 +1,8 @@
 import Color from "color";
 import { CollectionDto, FaqsDto } from "module/api/service";
+import { Loosen } from "@peersyst/react-types";
 
-export type Faq = Omit<FaqsDto, "id">;
+export type Faq = Loosen<FaqsDto, "id">;
 
 export interface DropCreationForm {
     price: string;
@@ -23,5 +24,5 @@ export enum DropCreationFormFields {
     INSTAGRAM = "instagram",
     TWITTER = "twitter",
     DISCORD = "discord",
-    FAQS = "FAQs",
+    FAQS = "faqs",
 }

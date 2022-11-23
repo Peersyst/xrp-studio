@@ -2,40 +2,34 @@ import useCreateNft from "module/nft/query/useCreateNft";
 import useUpdateNftDraft from "module/nft/query/useUpdateNftDraft";
 import { useToast } from "@peersyst/react-components";
 import useTranslate from "module/common/hook/useTranslate";
-import usePublishNftState from "./usePublishNftState";
 import useCheckBalance from "module/wallet/hook/useCheckBalance";
+import { CreateNftDraftRequest } from "module/api/service";
 
 export interface UsePublishNftReturn {
-    handlePublish: () => Promise<void>;
+    publish: () => Promise<void>;
     isPublishing: boolean;
 }
 
-export function usePublishNft(onPublish?: () => void, onClose?: () => void): UsePublishNftReturn {
+export function usePublishNft(request: CreateNftDraftRequest, draftId?: number): UsePublishNftReturn {
     const translateError = useTranslate("error");
     const { showToast } = useToast();
     const checkBalance = useCheckBalance();
-    const [{ data: requestNft, nftDraftId: nftDraftId }] = usePublishNftState();
 
-    const { mutate: createNft, isLoading: createNftLoading } = useCreateNft();
-    const { mutate: updateNftDraft, isLoading: updateNftDraftLoading, variables } = useUpdateNftDraft();
+    const { mutateAsync: createNft, isLoading: createNftLoading } = useCreateNft();
+    const { mutateAsync: updateNftDraft, isLoading: updateNftDraftLoading, variables } = useUpdateNftDraft();
 
     const publishing = createNftLoading || (updateNftDraftLoading && !!variables?.publish);
-    const handlePublish = async () => {
+    const publish = async () => {
         const hasBalance = await checkBalance();
         if (!hasBalance) showToast(translateError("notEnoughBalance"), { type: "error" });
         else {
-            if (nftDraftId) {
-                updateNftDraft({ id: nftDraftId, publish: true, ...requestNft });
-                onClose?.();
-            } else {
-                createNft(requestNft);
-                onPublish?.();
-            }
+            if (draftId) await updateNftDraft({ id: draftId, publish: true, ...request });
+            else await createNft(request);
         }
     };
 
     return {
-        handlePublish,
+        publish,
         isPublishing: publishing,
     };
 }

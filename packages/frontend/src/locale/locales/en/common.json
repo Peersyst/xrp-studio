@@ -108,11 +108,18 @@
     "meetTheArtist": "Meet the artist",
     "jounOurCommunity": "Join our community",
     "flags": "flags",
-    "publishConfirmation": "Publish NFT confirmation",
+    "publishNftConfirmation": "Publish NFT confirmation",
     "confirm": "confirm",
     "noDataProvided": "No data provided",
     "theNfts": "The NFTs",
     "createAndManageNft": "Create and manage your own NFTs",
     "landingHeaderDescription": "Unleash the digital artist inside you. Create NFTs from your digital artwork. Manage and launch them without needing to know the tricky side of the crypto world",
-    "startCreatingNow": "Start creating now"
+    "startCreatingNow": "Start creating now",
+    "back": "Back",
+    "next": "Next",
+    "close": "Close",
+    "FAQs": "FAQs",
+    "question": "Question",
+    "publishCollectionConfirmation": "Publish collection confirmation",
+    "cantPublishCollectionWithoutNfts": "You can't publish a collection without NFTs"
 }

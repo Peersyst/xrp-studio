@@ -1,5 +1,5 @@
 import { render, translate } from "test-utils";
-import DropCreationPageHeader from "module/drop/page/DropCreationPageHeader/DropCreationPageHeader";
+import DropCreationPageHeader from "module/drop/page/DropCreationPage/DropCreationPageHeader/DropCreationPageHeader";
 
 describe("Drop Page Header", () => {
     test("Renders correctly", async () => {
@@ -7,7 +7,6 @@ describe("Drop Page Header", () => {
 
         expect(screen.getByText(translate("customizeDropPage")));
         expect(screen.getByRole("button", { name: translate("cancel") })).toBeInTheDocument();
-        expect(screen.getByRole("button", { name: translate("save") })).toBeInTheDocument();
         expect(screen.getByRole("button", { name: translate("launchDrop") })).toBeInTheDocument();
     });
 });
