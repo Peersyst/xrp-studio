@@ -1,7 +1,6 @@
 import { createModal } from "@peersyst/react-components";
 import useTranslate from "module/common/hook/useTranslate";
 import ActionModal from "module/common/component/feedback/ActionModal/ActionModal";
-import NftInformation from "module/nft/component/display/NftInformation/NftInformation";
 import { usePublishNft } from "module/nft/hook/usePublishNft";
 import { ActionFn } from "module/common/component/feedback/ActionModal/ActionModal.types";
 import { config } from "config";
@@ -12,6 +11,7 @@ import { useNavigate } from "react-router-dom";
 import { NftRoutes } from "module/nft/NftRouter";
 import NftPublishActions from "module/nft/component/feedback/NftPublishActions/NftPublishActions";
 import NftPublishError from "module/nft/component/feedback/NftPublishError/NftPublishError";
+import NftPublishInformation from "module/nft/component/feedback/NftPublishModal/NftPublishInformation/NftPublishInformation";
 
 const NftPublishModal = createModal<NftPublishModalProps>(({ request, draftId, collection, ...modalProps }) => {
     const translate = useTranslate();
@@ -33,12 +33,12 @@ const NftPublishModal = createModal<NftPublishModalProps>(({ request, draftId, c
     };
 
     return (
-        <ActionModal title={translate("publishConfirmation")} closable={!isPublishing} {...modalProps}>
+        <ActionModal title={translate("publishNftConfirmation")} closable={!isPublishing} {...modalProps}>
             {{
                 cover: <NftPublishModalCoverImage src={nftImage} fallback={config.nftDefaultCoverUrl} alt="nft-image" />,
                 tabs: [
                     {
-                        content: <NftInformation request={request} collection={collection} />,
+                        content: <NftPublishInformation request={request} collection={collection} />,
                         actions: [
                             { action: handlePublish, label: translate("confirm") },
                             { action: "close", label: translate("cancel") },

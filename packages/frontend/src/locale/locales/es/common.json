@@ -109,7 +109,7 @@
     "jounOurCommunity": "Siguenos en nuestras redes",
     "flags": "propiedades",
     "publishNftConfirmation": "Confirmación de publicación del NFT",
-    "confirm": "confirmar",
+    "confirm": "Confirmar",
     "noDataProvided": "No se han encontrado datos",
     "finish": "Acabar",
     "approveXRPStudio": "Aprueba XRP-Studio",
@@ -129,8 +129,7 @@
     "FAQs": "FAQs",
     "question": "Pregunta",
     "publishCollectionConfirmation": "Confirmación de publcación de la colección",
-    "cantPublishCollectionWithoutNfts": "No puedes publicar una colección sin NFTs"
-    "close": "Cerrar",
+    "cantPublishCollectionWithoutNfts": "No puedes publicar una colección sin NFTs",
     "viewDetails": "Ver detalles",
     "errorTitle": "Algo ha pasado..."
 }
