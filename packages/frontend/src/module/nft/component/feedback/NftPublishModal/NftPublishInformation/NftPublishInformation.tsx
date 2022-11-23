@@ -13,7 +13,8 @@ const NftPublishInformation = ({
     const translate = useTranslate();
 
     const flagsEntries = Object.entries(flags);
-    const hasFlags = flagsEntries.length > 0;
+    const flagsValues = Object.values(flags || {});
+    const hasFlags = !flagsValues.every((flag) => !flag);
     const isDataProvided = hasFlags || issuer || transferFee !== undefined || metadata?.name || collection;
 
     const informationFields: InformationField[] = [
