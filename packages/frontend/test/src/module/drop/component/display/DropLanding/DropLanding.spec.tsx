@@ -20,12 +20,10 @@ describe("DropLanding", () => {
         expect(screen.getByRole("heading", { name: dropDtoMock.collection?.user?.name })).toBeInTheDocument();
         // NFTs section
         expect(screen.getByText(nftMocks[0].metadata!.name!));
+        // Faqs section
+        expect(screen.getByText(translate("FAQs")));
         // Social Media Section
         expect(screen.getByText(translate("jounOurCommunity")));
-        // Social Network Twitter Show
-        expect(screen.getByTestId("TwitterIcon")).toBeInTheDocument();
-        // Social Network not show Intagram
-        expect(screen.queryByTestId("IntagramIcon")).not.toBeInTheDocument();
     });
 
     test("Renders correctly without optional properties", () => {
@@ -47,5 +45,13 @@ describe("DropLanding", () => {
         expect(screen.getByRole("heading", { name: dropDtoMock.collection?.user?.name })).toBeInTheDocument();
         // NFTs section
         expect(screen.getByText(nftMocks[0].metadata!.name!));
+        // Not show Faqs
+        expect(screen.queryByText("FAQs")).not.toBeInTheDocument();
+        // Social Media Section
+        expect(screen.getByText(translate("jounOurCommunity")));
+        // Social Network Twitter Show
+        expect(screen.getByTestId("TwitterIcon")).toBeInTheDocument();
+        // Social Network not show Intagram
+        expect(screen.queryByTestId("IntagramIcon")).not.toBeInTheDocument();
     });
 });

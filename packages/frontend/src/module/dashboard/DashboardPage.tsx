@@ -11,7 +11,10 @@ export default function DashboardPage(): JSX.Element {
                     sold: 50,
                     backgroundColor: "#141A1F",
                     fontColor: "#FFFFFF",
-                    faqs: [],
+                    faqs: [
+                        { id: 1, question: "Question 1", answer: "Answer 1" },
+                        { id: 2, question: "Question 2", answer: "Answer 2" },
+                    ],
                     videoUrl: "https://www.youtube.com/watch?v=iPUmE-tne5U",
                     collection: {
                         id: 1,
