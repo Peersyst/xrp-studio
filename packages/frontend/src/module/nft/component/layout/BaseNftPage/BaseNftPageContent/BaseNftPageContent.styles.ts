@@ -7,16 +7,8 @@ export const BaseNftPageContentCard = styled(Card)(
         width: 100%;
         padding: 1.5rem;
 
-        .Divider {
-            color: ${theme.palette.black[80]};
-        }
-
-        .Label.TopPlacement {
-            color: ${theme.palette.label.filled};
-        }
-
         ${theme.breakpoints.up("nftPage")} {
-            max-width: 29.5rem;
+            max-width: 34.5rem;
         }
     `,
 );

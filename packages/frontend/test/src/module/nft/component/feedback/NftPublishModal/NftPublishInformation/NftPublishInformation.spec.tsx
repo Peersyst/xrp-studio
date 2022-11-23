@@ -1,9 +1,9 @@
 import { screen } from "@testing-library/react";
-import NftInformation from "module/nft/component/display/NftInformation/NftInformation";
+import NftPublishInformation from "module/nft/component/feedback/NftPublishModal/NftPublishInformation/NftPublishInformation";
 import { render, translate } from "test-utils";
 import { CreateNftDraftRequestMock, CreateNftMetadataRequestMock } from "test-mocks";
 
-describe("NftInformation tests", () => {
+describe("NftPublishInformation", () => {
     const COLLECTION_NFT = "collection-name";
 
     test("Renders correctly with data", () => {
@@ -15,7 +15,7 @@ describe("NftInformation tests", () => {
             metadata: new CreateNftMetadataRequestMock({ name: "nft-name", image: "src-image" }),
         });
 
-        render(<NftInformation request={createNftDraftRequestMock} collection={COLLECTION_NFT} />);
+        render(<NftPublishInformation request={createNftDraftRequestMock} collection={COLLECTION_NFT} />);
 
         expect(screen.getByText("nft-name")).toBeInTheDocument();
         expect(screen.getByText(COLLECTION_NFT)).toBeInTheDocument();
@@ -31,7 +31,7 @@ describe("NftInformation tests", () => {
             metadata: new CreateNftMetadataRequestMock({}),
         });
 
-        render(<NftInformation request={createNftDraftRequestMock} />);
+        render(<NftPublishInformation request={createNftDraftRequestMock} />);
 
         expect(screen.getByRole("heading", { name: translate("noDataProvided") })).toBeInTheDocument();
     });

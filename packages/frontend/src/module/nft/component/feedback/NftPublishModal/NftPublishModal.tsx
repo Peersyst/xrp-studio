@@ -1,7 +1,7 @@
 import { createModal } from "@peersyst/react-components";
 import useTranslate from "module/common/hook/useTranslate";
 import ActionModal from "module/common/component/feedback/ActionModal/ActionModal";
-import NftInformation from "module/nft/component/display/NftInformation/NftInformation";
+import NftPublishInformation from "module/nft/component/feedback/NftPublishModal/NftPublishInformation/NftPublishInformation";
 import { usePublishNft } from "module/nft/hook/usePublishNft";
 import { ActionFn } from "module/common/component/feedback/ActionModal/ActionModal.types";
 import { config } from "config";
@@ -25,7 +25,7 @@ const NftPublishModal = createModal<NftPublishModalProps>(({ request, draftId, c
                 cover: <NftPublishModalCoverImage src={nftImage} fallback={config.nftDefaultCoverUrl} alt="nft-image" />,
                 tabs: [
                     {
-                        content: <NftInformation request={request} collection={collection} />,
+                        content: <NftPublishInformation request={request} collection={collection} />,
                         actions: [{ action: handlePublish }, { action: "close", label: translate("cancel") }],
                     },
                 ],

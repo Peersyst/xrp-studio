@@ -1,11 +1,11 @@
 import { CreateNftDraftRequest } from "module/api/service";
 
-export interface NftInformationProps {
+export interface NftPublishInformationProps {
     request: CreateNftDraftRequest;
     collection?: string;
 }
 
-export interface NftInformationFieldProps {
+export interface NftPublishInformationFieldProps {
     title: string;
     content: string | undefined | number;
 }
