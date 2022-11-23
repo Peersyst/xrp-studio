@@ -39,7 +39,7 @@ const NftCreationPage = (): JSX.Element => {
     const { address: userAddress } = useWallet();
 
     useEffect(() => {
-        if (nftDraft && nftDraft.user.address !== userAddress) {
+        if (nftDraft && nftDraft?.user?.address !== userAddress) {
             showToast(translateError("nftNotOwned"), { type: "warning" });
             searchParams.delete("id");
             setSearchParams(searchParams);
@@ -54,7 +54,7 @@ const NftCreationPage = (): JSX.Element => {
         const collection = collections.find((el) => el.taxon === requestNft.taxon);
         if (action === "publish" && requestNft) {
             showModal(NftPublishModal, { request: requestNft, collection: collection?.name, draftId: nftDraft?.id });
-        } else {
+        } else if (action === "save") {
             /* After this line, you are saving */
             if (nftDraft) {
                 updateNftDraft({ id: nftDraft.id, publish: false, ...requestNft });

@@ -1,5 +1,5 @@
 import BasePage from "module/common/component/layout/BasePage/BasePage";
-import { Form, useToast } from "@peersyst/react-components";
+import { Form, useModal, useToast } from "@peersyst/react-components";
 import CollectionCreationPageHeader from "module/collection/page/CollectionCreationPage/CollectionCreationPageHeader/CollectionCreationPageHeader";
 import { useNavigate, useSearchParams } from "react-router-dom";
 import useGetCollection from "module/collection/query/useGetCollection";
@@ -12,19 +12,18 @@ import useUpdateCollection from "module/collection/query/useUpdateCollection";
 import { CollectionCreationForm } from "module/collection/types";
 import createCollectionRequestFromForm from "module/collection/util/createCollectionRequestFromForm";
 import { CollectionRoutes } from "module/collection/CollectionRouter";
-import useCheckBalance from "module/wallet/hook/useCheckBalance";
-import config from "config/config";
+import CollectionPublishModal from "module/collection/component/feedback/CollectionPublishModal/CollectionPublishModal";
 
 const CollectionCreationPage = (): JSX.Element => {
     const translate = useTranslate();
     const translateError = useTranslate("error");
     const { showToast } = useToast();
+    const { showModal } = useModal();
     const navigate = useNavigate();
 
     const [searchParams, setSearchParams] = useSearchParams();
     const collectionId = searchParams.get("id");
     const { data: collection, isLoading: collectionLoading } = useGetCollection(collectionId ? Number(collectionId) : undefined);
-    const checkBalance = useCheckBalance();
 
     const { mutateAsync: createCollection, isLoading: publishing } = useCreateCollection();
     const { mutateAsync: updateCollection, isLoading: saving } = useUpdateCollection();
@@ -32,7 +31,7 @@ const CollectionCreationPage = (): JSX.Element => {
     const { address: userAddress } = useWallet();
 
     useEffect(() => {
-        if (collection && collection.user.address !== userAddress) {
+        if (collection && collection.account !== userAddress) {
             showToast(translateError("collectionNotOwned"), { type: "warning" });
             searchParams.delete("id");
             setSearchParams(searchParams);
@@ -48,14 +47,12 @@ const CollectionCreationPage = (): JSX.Element => {
             showToast(translate("collectionUpdated"), { type: "success" });
             navigate(CollectionRoutes.MY_COLLECTIONS, { replace: true });
         } else {
-            let valid = true;
-            const amount = data.nfts && data.nfts.length * config.feeInDrops;
-            if (amount) valid = await checkBalance(amount);
-            if (action === "publish" && !valid) showToast(translateError("notEnoughBalance"), { type: "error" });
-            else {
+            if (action === "publish") {
+                showModal(CollectionPublishModal, { request: createCollectionRequestFromForm("create", data) });
+            } else {
                 await createCollection({
                     collection: createCollectionRequestFromForm("create", data),
-                    publish: action === "publish",
+                    publish: false,
                 });
                 showToast(translate("collectionCreated"), { type: "success" });
                 navigate(CollectionRoutes.MY_COLLECTIONS, { replace: true });

@@ -106,8 +106,9 @@
     "sold": "Sold",
     "sales": "Sales",
     "meetTheArtist": "Meet the artist",
+    "jounOurCommunity": "Join our community",
     "flags": "flags",
-    "publishConfirmation": "Publish NFT confirmation",
+    "publishNftConfirmation": "Publish NFT confirmation",
     "confirm": "Confirm",
     "noDataProvided": "No NFT information has been provided",
     "finish": "finish",
@@ -125,6 +126,10 @@
     "back": "Back",
     "next": "Next",
     "close": "Close",
+    "FAQs": "FAQs",
+    "question": "Question",
+    "publishCollectionConfirmation": "Publish collection confirmation",
+    "cantPublishCollectionWithoutNfts": "You can't publish a collection without NFTs",
     "viewDetails": "View details",
     "errorTitle": "Something bad happened..."
 }

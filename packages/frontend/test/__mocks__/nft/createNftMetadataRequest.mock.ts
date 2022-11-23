@@ -1,14 +1,14 @@
-import { CreateNftMetadataAttributeRequest, CreateNftMetadataRequest } from "module/api/service";
+import { CreateMetadataAttributeRequest, CreateMetadataRequest } from "module/api/service";
 
-export class CreateNftMetadataRequestMock implements CreateNftMetadataRequest {
+export class CreateNftMetadataRequestMock implements CreateMetadataRequest {
     name?: string;
     description?: string;
     image?: string;
     backgroundColor?: string;
     externalUrl?: string;
-    attributes?: Array<CreateNftMetadataAttributeRequest>;
+    attributes?: Array<CreateMetadataAttributeRequest>;
 
-    constructor({ name, description, image, backgroundColor, externalUrl, attributes }: Partial<CreateNftMetadataRequest> = {}) {
+    constructor({ name, description, image, backgroundColor, externalUrl, attributes }: Partial<CreateMetadataRequest> = {}) {
         this.name = name;
         this.description = description;
         this.image = image;

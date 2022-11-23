@@ -9,6 +9,7 @@ export class CollectionDtoMock {
     image?: string;
     header?: string;
     items: number;
+    account: string;
     user: UserDto;
 
     constructor({
@@ -29,5 +30,6 @@ export class CollectionDtoMock {
         this.header = header;
         this.items = items;
         this.user = user;
+        this.account = user?.address;
     }
 }

@@ -54,6 +54,7 @@ export const DropDtoMock: DropDto = {
         image: "https://i.seadn.io/gae/Ju9CkWtV-1Okvf45wo8UctR-M9He2PjILP0oOvxE89AyiPPGtrR3gysu1Zgy0hjd2xKIgjJJtWIc0ybj4Vd7wv8t3pxDGHoJBzDB?auto=format&w=1920",
         header: "https://i.seadn.io/gae/i5dYZRkVCUK97bfprQ3WXyrT9BnLSZtVKGJlKQ919uaUB0sxbngVCioaiyu9r6snqfi2aaTyIvv6DHm4m2R3y7hMajbsv14pSZK8mhs?auto=format&w=1920",
         items: 0,
+        account: "rnFCYEkc6fUsgUDzCprNEGppuHj5AwSPdi",
         user: {
             address: "rnFCYEkc6fUsgUDzCprNEGppuHj5AwSPdi",
             name: "YungBeef",

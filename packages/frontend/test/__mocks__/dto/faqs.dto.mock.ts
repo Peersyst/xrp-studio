@@ -6,7 +6,7 @@ export class FaqsDtoMock implements FaqsDto {
     answer: string;
 
     constructor({ id, question, answer }: FaqsDto) {
-        this.id = id!;
+        this.id = id;
         this.question = question;
         this.answer = answer;
     }

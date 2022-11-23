@@ -3,7 +3,7 @@
 /* eslint-disable */
 
 export type UpdateCollectionRequest = {
-    name: string;
+    name?: string;
     description?: string;
     image?: string;
     header?: string;

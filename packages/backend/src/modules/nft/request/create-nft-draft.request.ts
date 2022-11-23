@@ -1,9 +1,9 @@
 import { ApiProperty } from "@nestjs/swagger";
 import { NftFlagsRequest } from "./nft-flags.request";
-import { CreateNftMetadataRequest } from "./create-nft-metadata.request";
 import { IsXrplAddress } from "../../common/validator/IsXrplAddress";
 import { ValidateNested, IsOptional } from "class-validator";
 import { Type } from "class-transformer";
+import { CreateMetadataRequest } from "../../metadata/request/create-metadata.request";
 
 export class CreateNftDraftRequest {
     @ApiProperty({
@@ -50,10 +50,10 @@ export class CreateNftDraftRequest {
     @ApiProperty({
         name: "metadata",
         description: "NFT metadata",
-        type: CreateNftMetadataRequest,
+        type: CreateMetadataRequest,
         required: false,
     })
     @ValidateNested()
-    @Type(() => CreateNftMetadataRequest)
-    metadata?: CreateNftMetadataRequest;
+    @Type(() => CreateMetadataRequest)
+    metadata?: CreateMetadataRequest;
 }
