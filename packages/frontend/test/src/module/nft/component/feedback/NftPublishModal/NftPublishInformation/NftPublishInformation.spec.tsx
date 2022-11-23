@@ -1,10 +1,9 @@
 import { screen } from "@testing-library/react";
-import NftInformation from "module/nft/component/display/NftInformation/NftInformation";
+import NftPublishInformation from "module/nft/component/feedback/NftPublishModal/NftPublishInformation/NftPublishInformation";
 import { render, translate } from "test-utils";
 import { CreateNftDraftRequestMock, CreateNftMetadataRequestMock } from "test-mocks";
-import * as Recoil from "recoil";
 
-describe("NftInformation tests", () => {
+describe("NftPublishInformation", () => {
     const COLLECTION_NFT = "collection-name";
 
     test("Renders correctly with data", () => {
@@ -15,11 +14,9 @@ describe("NftInformation tests", () => {
             taxon: 1,
             metadata: new CreateNftMetadataRequestMock({ name: "nft-name", image: "src-image" }),
         });
-        const usePublishNftStateMock = jest
-            .spyOn(Recoil, "useRecoilValue")
-            .mockReturnValue({ data: createNftDraftRequestMock, collection: COLLECTION_NFT });
-        render(<NftInformation />);
-        expect(usePublishNftStateMock).toHaveBeenCalled();
+
+        render(<NftPublishInformation request={createNftDraftRequestMock} collection={COLLECTION_NFT} />);
+
         expect(screen.getByText("nft-name")).toBeInTheDocument();
         expect(screen.getByText(COLLECTION_NFT)).toBeInTheDocument();
         expect(screen.getByText("0x")).toBeInTheDocument();
@@ -33,9 +30,9 @@ describe("NftInformation tests", () => {
             taxon: undefined,
             metadata: new CreateNftMetadataRequestMock({}),
         });
-        const usePublishNftStateMock = jest.spyOn(Recoil, "useRecoilValue").mockReturnValue({ data: createNftDraftRequestMock });
-        render(<NftInformation />);
-        expect(usePublishNftStateMock).toHaveBeenCalled();
+
+        render(<NftPublishInformation request={createNftDraftRequestMock} />);
+
         expect(screen.getByRole("heading", { name: translate("noDataProvided") })).toBeInTheDocument();
     });
 });

@@ -10,8 +10,9 @@ describe("DropCreationPageContent", () => {
         const collectionDtoMock = new CollectionDtoMock();
         const paginatedNftsMock = new PaginatedNftsMock().pages[0];
 
-        render(<DropCreationPageContent collection={collectionDtoMock} />);
         jest.spyOn(NftService, "nftControllerGetNfts").mockResolvedValue(paginatedNftsMock);
+
+        render(<DropCreationPageContent collection={collectionDtoMock} />);
 
         // Price
         expect(screen.getByPlaceholderText(translate("price"))).toBeInTheDocument();

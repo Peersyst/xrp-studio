@@ -17,8 +17,6 @@ import { NftRoutes } from "module/nft/NftRouter";
 import { useEffect } from "react";
 import useWallet from "module/wallet/hook/useWallet";
 import useTranslate from "module/common/hook/useTranslate";
-import usePublishNftState from "module/nft/hook/usePublishNftState";
-import { PublishNftState } from "module/nft/state/PublishNftState";
 
 const NftCreationPage = (): JSX.Element => {
     const translateError = useTranslate("error");
@@ -31,7 +29,6 @@ const NftCreationPage = (): JSX.Element => {
     const collections = usePaginatedList(pages, (page) => page.items);
     const isLoading = nftDraftLoading || collectionsLoading;
     const navigate = useNavigate();
-    const [, setPublishNftData] = usePublishNftState();
 
     const { mutate: createNftDraft, isLoading: createNftDraftLoading } = useCreateNftDraft();
     const { isLoading: createNftLoading } = useCreateNft();
@@ -56,12 +53,8 @@ const NftCreationPage = (): JSX.Element => {
         const requestNft = createNftRequestFromForm(data);
         const collection = collections.find((el) => el.taxon === requestNft.taxon);
         if (action === "publish" && requestNft) {
-            let newPublishNftState: PublishNftState = { data: requestNft };
-            if (collection) newPublishNftState = { ...newPublishNftState, collection: collection.name };
-            if (nftDraft) newPublishNftState = { ...newPublishNftState, nftDraftId: nftDraft.id };
-            setPublishNftData(newPublishNftState);
-            showModal(NftPublishModal);
-        } else {
+            showModal(NftPublishModal, { request: requestNft, collection: collection?.name, draftId: nftDraft?.id });
+        } else if (action === "save") {
             /* After this line, you are saving */
             if (nftDraft) {
                 updateNftDraft({ id: nftDraft.id, publish: false, ...requestNft });
