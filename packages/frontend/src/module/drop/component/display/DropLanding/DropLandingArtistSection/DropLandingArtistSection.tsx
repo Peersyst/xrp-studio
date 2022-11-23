@@ -7,10 +7,9 @@ import useTranslate from "module/common/hook/useTranslate";
 import { DropLandingArtistSectionRoot } from "module/drop/component/display/DropLanding/DropLandingArtistSection/DropLandingArtistSection.styles";
 import Description from "module/common/component/display/Desciption/Description";
 
-const DropLandingArtistSection = ({
-    artist: { address = "", image, name = "Loading Name", description } = {},
-    loading = false,
-}: WithLoading<DropLandingArtistSectionProps>): JSX.Element => {
+const DropLandingArtistSection = ({ artist, loading = false }: WithLoading<DropLandingArtistSectionProps>): JSX.Element => {
+    const { address = "", image, name = "Loading Name", description } = artist || {};
+
     const translate = useTranslate();
 
     return (
@@ -28,7 +27,7 @@ const DropLandingArtistSection = ({
                     </Typography>
                 </Skeleton>
                 {(loading || description) && (
-                    <Description loading={loading} variant="body2" css={{ opacity: 0.72, lineHeight: "1.5rem" }} textAlign="center">
+                    <Description loading={loading} variant="body2" light css={{ lineHeight: "1.5rem" }} textAlign="center">
                         {description}
                     </Description>
                 )}

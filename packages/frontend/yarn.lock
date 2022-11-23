@@ -2466,10 +2466,10 @@
     "@peersyst/react-utils" "^2.0.0"
     validator "^13.7.0"
 
-"@peersyst/react-components@^3.0.13":
-  version "3.0.13"
-  resolved "https://registry.yarnpkg.com/@peersyst/react-components/-/react-components-3.0.13.tgz#1503fcf22ec955970209862d45863ce1fdd24fc9"
-  integrity sha512-DqOxNnh4eCufrnz4hDKVSqUSHkjFQcXTfWZxC1UawdgqF52fNi4rbPu2bv6Q5WsUhdFM8aCFXWbbDa5mnPmuRA==
+"@peersyst/react-components@^3.0.14":
+  version "3.0.14"
+  resolved "https://registry.yarnpkg.com/@peersyst/react-components/-/react-components-3.0.14.tgz#2728bd396ef549ae2cf93362315cea724eed1c9b"
+  integrity sha512-6AT4lLSObRTsxS94/LKvIeXUNfTjkefG2Qj5PirhJuf3xS7BUWkZfkY+jEu4alBB+aeSpfgcgaPPWYaesU9u6w==
   dependencies:
     "@babel/runtime" "^7.16.7"
     "@peersyst/react-components-core" "^1.0.5"
@@ -14146,10 +14146,10 @@ xmlchars@^2.2.0:
   resolved "https://registry.yarnpkg.com/xmlchars/-/xmlchars-2.2.0.tgz#060fe1bcb7f9c76fe2a17db86a9bc3ab894210cb"
   integrity sha512-JZnDKK8B0RCDw84FNdDAIpZK+JuJw+s7Lz8nksI7SIuU3UXJJslUthsi+uWBUYOwPFwW7W7PRLRfUKpxjtjFCw==
 
-xrpl@^2.5.0:
-  version "2.5.0"
-  resolved "https://registry.yarnpkg.com/xrpl/-/xrpl-2.5.0.tgz#04d025a164201a97cf3454708958635176529381"
-  integrity sha512-NaGdOdNFQCVVfZ40etLvCzAdwzfArvKS8vhgZEPnueMuoPxupNZa8dX7ITVcTTD3T4qp+bj9q6jMrRbd/iXe3w==
+xrpl@^2.6.0:
+  version "2.6.0"
+  resolved "https://registry.yarnpkg.com/xrpl/-/xrpl-2.6.0.tgz#cfe9bc012e85721213f7f0e373ce5ff1d27e38c4"
+  integrity sha512-++rKtgO1j65TMm//mird3aGFGFYUn7VP9TjxwJkTUQZOdWkMUfiG2cd2o3tZ/zE07Ev8YVD09KgMZ9HzynJN9Q==
   dependencies:
     bignumber.js "^9.0.0"
     bip32 "^2.0.6"

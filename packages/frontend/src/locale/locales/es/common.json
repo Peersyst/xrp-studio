@@ -115,5 +115,6 @@
     "back": "Volver",
     "next": "Siguiente",
     "close": "Cerrar",
-    "cantPublishCollectionWithoutNfts": "No puedes publicar una colección sin NFTs"
+    "cantPublishCollectionWithoutNfts": "No puedes publicar una colección sin NFTs",
+    "FAQs": "FAQs"
 }

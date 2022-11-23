@@ -41,6 +41,11 @@ export const DropLandingContent = styled(Col).attrs({ gap: "5.5rem" })<DropLandi
                 opacity: 0.75;
             }
         }
+
+        .Typography.Light {
+            color: inherit;
+            opacity: 0.72;
+        }
     `,
 );
 

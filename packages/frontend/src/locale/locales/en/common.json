@@ -115,6 +115,7 @@
     "back": "Back",
     "next": "Next",
     "close": "Close",
+    "FAQs": "FAQs",
     "publishCollectionConfirmation": "Publish collection confirmation",
     "cantPublishCollectionWithoutNfts": "You can't publish a collection without NFTs"
 }

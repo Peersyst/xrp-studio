@@ -20,7 +20,7 @@
     },
     "dependencies": {
         "@craco/craco": "^6.4.4",
-        "@peersyst/react-components": "^3.0.13",
+        "@peersyst/react-components": "^3.0.14",
         "@peersyst/react-hooks": "^2.0.1",
         "@peersyst/react-types": "^1.5.0",
         "@peersyst/react-utils": "^2.0.0",
@@ -39,7 +39,7 @@
         "styled-components": "^5.3.5",
         "typescript": "^4.7.4",
         "web-vitals": "^1.0.1",
-        "xrpl": "^2.5.0",
+        "xrpl": "^2.6.0",
         "xumm-react": "^1.0.3"
     },
     "devDependencies": {
