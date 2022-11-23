@@ -6,27 +6,31 @@ import DropLandingVideoSection from "module/drop/component/display/DropLanding/D
 import DropLandingArtistSection from "module/drop/component/display/DropLanding/DropLandingArtistSection/DropLandingArtistSection";
 import { Col, Divider, ThemeOverrideProvider, WithLoading } from "@peersyst/react-components";
 import DropLandingNftsSection from "module/drop/component/display/DropLanding/DropLandingNftsSection/DropLandingNftsSection";
+import DropLandingFaqsSection from "./DropLandingFaqsSection/DropLandingFaqsSection";
 import DropLandingSocialMediaSection from "./DropLandingSocialMediaSection/DropLandingSocialMediaSection";
-import { UserDto } from "module/api/service";
 
 function DropLanding({
-    drop: {
-        collection: { header = "", image = "", name = "", description = "", items = 0, user = {} } = {},
+    drop,
+    nfts,
+    loadingNfts = false,
+    loading = false,
+    preview = false,
+    ...rest
+}: WithLoading<DropLandingProps>): JSX.Element {
+    const {
+        collection,
         price = "0",
         sold = 0,
         fontColor = "#FFFFFF",
         backgroundColor = "#000000",
         videoUrl,
+        faqs = [],
         instagram,
-        twitter,
         discord,
-    } = {},
-    loading = false,
-    nfts,
-    loadingNfts = false,
-    preview = false,
-    ...rest
-}: WithLoading<DropLandingProps>): JSX.Element {
+        twitter,
+    } = drop || {};
+    const { header = "", image = "", name = "", description = "", items = 0, user } = collection || {};
+
     const rootRef = useRef<HTMLDivElement>();
     const contentRef = useRef<HTMLDivElement>();
     const [rootWidth, setRooWidth] = useState<number>();
@@ -95,10 +99,11 @@ function DropLanding({
                             loading={loading}
                         />
                         {(loading || videoUrl) && <DropLandingVideoSection videoUrl={videoUrl} loading={loading} />}
-                        <DropLandingArtistSection artist={user as UserDto} loading={loading} />
+                        <DropLandingArtistSection artist={user} loading={loading} />
                     </Col>
                     <Divider css={{ color: fontColor, opacity: 0.4 }} />
                     <DropLandingNftsSection nfts={nfts} loading={loadingNfts} />
+                    {!!faqs.length && <DropLandingFaqsSection faqs={faqs} loading={loading} />}
                     {(instagram || discord || twitter) && (
                         <DropLandingSocialMediaSection
                             networks={{ instagram: instagram, discord: discord, twitter: twitter }}

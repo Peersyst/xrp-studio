@@ -1,5 +1,5 @@
 import { Process, Processor } from "@nestjs/bull";
-import { Logger } from "@nestjs/common";
+import { forwardRef, Inject, Logger } from "@nestjs/common";
 import { BlockchainService } from "../blockchain.service";
 import { Job } from "bull";
 import { NFTokenMint } from "xrpl/dist/npm/models/transactions/NFTokenMint";
@@ -11,7 +11,10 @@ import { Nft } from "../../../database/entities/Nft";
 export class TransactionsConsumer {
     private readonly logger = new Logger(TransactionsConsumer.name);
 
-    constructor(private readonly blockchainService: BlockchainService, private readonly nftService: NftService) {}
+    constructor(
+        private readonly blockchainService: BlockchainService,
+        @Inject(forwardRef(() => NftService)) private readonly nftService: NftService,
+    ) {}
 
     /**
      * Processes transactions from a ledger
@@ -24,23 +27,25 @@ export class TransactionsConsumer {
     }: Job<{ transactions: ValidatedLedgerTransaction[]; ledgerIndex: number }>) {
         if (transactions.length) {
             this.logger.log(`PROCESSING ${transactions.length} TRANSACTIONS FROM LEDGER ${ledgerIndex}`);
-            for await (const tx of transactions) await this.blockchainService.processTransactionByType(tx);
+            for await (const tx of transactions) await this.blockchainService.processTransactionByType(tx, ledgerIndex);
         }
     }
 
     /**
      * Processes a mint transaction, creating an Nft entity
      * @param transaction
+     * @param ledgerIndex
      */
     @Process("process-mint-transaction")
     async processMintTransaction({
-        data: { transaction },
+        data: { transaction, ledgerIndex },
     }: Job<{
         transaction: ValidatedLedgerTransaction<NFTokenMint>;
+        ledgerIndex: number;
     }>) {
         this.logger.log(`PROCESSING MINT TRANSACTION ${transaction.hash}`);
         try {
-            const nft = await this.nftService.createNftFromMintTransaction(transaction);
+            const nft = await this.nftService.createNftFromMintTransaction(transaction, ledgerIndex);
             this.logger.log(`INDEXED NFT ${nft.tokenId}`);
         } catch (e) {
             const nftError = e as { error: any; nft: Nft };
@@ -50,7 +55,7 @@ Error: ${nftError.error}
 Resulting NFT: ${JSON.stringify(nftError.nft)}`);
             } else {
                 this.logger.error(`FAILED TO INDEX NFT FROM MINT TRANSACTION ${transaction.hash}.
-Error: ${e}`);
+Error: ${JSON.stringify(e)}`);
             }
         }
     }

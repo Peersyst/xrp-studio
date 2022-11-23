@@ -2,6 +2,7 @@ import { screen } from "@testing-library/react";
 import { render, translate } from "test-utils";
 import { CollectionDtoMock, PaginatedNftsMock } from "test-mocks";
 import { NftService } from "module/api/service";
+import { waitFor } from "@testing-library/dom";
 import DropCreationPageContent from "module/drop/page/DropCreationPage/DropCreationPageContent/DropCreationPageContent";
 
 describe("DropCreationPageContent", () => {
@@ -9,8 +10,9 @@ describe("DropCreationPageContent", () => {
         const collectionDtoMock = new CollectionDtoMock();
         const paginatedNftsMock = new PaginatedNftsMock().pages[0];
 
-        render(<DropCreationPageContent collection={collectionDtoMock} />);
         jest.spyOn(NftService, "nftControllerGetNfts").mockResolvedValue(paginatedNftsMock);
+
+        render(<DropCreationPageContent collection={collectionDtoMock} />);
 
         // Price
         expect(screen.getByPlaceholderText(translate("price"))).toBeInTheDocument();
@@ -27,9 +29,8 @@ describe("DropCreationPageContent", () => {
         // Discord
         expect(screen.getByPlaceholderText(translate("discord"))).toBeInTheDocument();
         // Faqs
-        expect(screen.getByText(translate("faqs"))).toBeInTheDocument();
-
+        expect(screen.getAllByText(translate("faqs"))).toHaveLength(1);
         // Preview
-        expect(await screen.findByRole("heading", { name: collectionDtoMock.name })).toBeInTheDocument();
+        await waitFor(() => expect(screen.getByRole("heading", { name: collectionDtoMock.name })).toBeInTheDocument());
     });
 });

@@ -33,8 +33,14 @@ export class Collection {
     @Column({ type: "text", nullable: true })
     header?: string;
 
+    @Column({ type: "int", nullable: true })
+    items: number;
+
     @OneToMany(() => Nft, (nft) => nft.collection, { cascade: ["insert"] })
     nfts: Nft[];
+
+    @Column({ type: "varchar", length: 255, name: "account" })
+    account: string;
 
     @ManyToOne(() => User, (user) => user.collections)
     @JoinColumn({ name: "account" })

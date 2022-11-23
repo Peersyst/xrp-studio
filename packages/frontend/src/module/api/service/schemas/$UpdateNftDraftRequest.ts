@@ -29,7 +29,7 @@ export const $UpdateNftDraftRequest = {
             type: 'all-of',
             description: `NFT metadata`,
             contains: [{
-                type: 'CreateNftMetadataRequest',
+                type: 'CreateMetadataRequest',
             }],
         },
     },

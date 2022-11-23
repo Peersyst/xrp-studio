@@ -1,20 +1,16 @@
 import { forwardRef, Inject, Injectable } from "@nestjs/common";
 import { InjectRepository } from "@nestjs/typeorm";
 import { Collection } from "../../database/entities/Collection";
-import { Repository, SelectQueryBuilder } from "typeorm";
-import { CollectionWithItems, CreateCollectionQueryBuilderOptions, FindCollectionByTaxonAndAccountOptions } from "./types";
+import { Repository } from "typeorm";
 import { BusinessException } from "../common/exception/business.exception";
 import { ErrorCode } from "../common/exception/error-codes";
 import { CollectionDto, PaginatedCollectionDto } from "./dto/collection.dto";
-import { NftStatus } from "../../database/entities/Nft";
 import { GetCollectionsRequest } from "./request/get-collections.request";
-import { Paginated } from "../common/paginated.dto";
-import { GetNftsRequest } from "../nft/request/get-nfts.request";
-import { Order } from "../common/types";
 import { CreateCollectionRequest } from "./request/create-collection.request";
 import { User } from "../../database/entities/User";
 import { UpdateCollectionRequest } from "./request/update-collection.request";
 import { NftService } from "../nft/nft.service";
+import { QueryBuilderHelper } from "../common/util/query-builder.helper";
 
 @Injectable()
 export class CollectionService {
@@ -35,7 +31,7 @@ export class CollectionService {
         let taxon: string;
         if (reqTaxon) {
             // If a taxon is given, check the account does not already have a collection with that taxon
-            const collection = await this.findCollectionByTaxonAndAccount(reqTaxon.toString(), address);
+            const collection = await this.findOne({ taxon: reqTaxon.toString(), account: address });
             if (collection) throw new BusinessException(ErrorCode.COLLECTION_TAXON_ALREADY_EXISTS);
             taxon = reqTaxon.toString();
         } else {
@@ -47,7 +43,7 @@ export class CollectionService {
         const user = new User({ address });
 
         // Build and save Collection
-        const collection = await this.collectionRepository.save(new Collection({ taxon, ...restOfCollection, user }));
+        const collection = await this.collectionRepository.save(new Collection({ taxon, ...restOfCollection, user, items: 0 }));
 
         //Create nfts
         if (nfts)
@@ -61,9 +57,11 @@ export class CollectionService {
      * Updates a collection
      */
     async updateCollection(id: number, address: string, { name, description, image, header }: UpdateCollectionRequest): Promise<void> {
-        const collection = await this.findOwnedCollection(id, address);
-        await this.collectionRepository.save({
-            ...collection,
+        const collection = await this.findOne({ id }, { relations: ["user"] });
+
+        if (collection?.user?.address !== address) throw new BusinessException(ErrorCode.COLLECTION_NOT_OWNED);
+
+        await this.collectionRepository.update(id, {
             name: name,
             description: description || null,
             image: image || null,
@@ -71,97 +69,46 @@ export class CollectionService {
         });
     }
 
-    /**
-     * Finds a collection by a taxon and account
-     */
-    async findCollectionByTaxonAndAccount(
-        taxon: string,
-        account: string,
-        { notFoundError = false }: FindCollectionByTaxonAndAccountOptions = {},
-    ): Promise<CollectionWithItems | undefined> {
-        const collection = await this.createQueryBuilder()
-            .where("taxon = :taxon AND account = :address", { taxon, address: account })
-            .getOne();
-        if (notFoundError && !collection) throw new BusinessException(ErrorCode.COLLECTION_NOT_FOUND);
-        return collection;
+    async addItems(id: number, inc: number): Promise<void> {
+        await this.collectionRepository
+            .createQueryBuilder("collection")
+            .update()
+            .set({
+                items: () => `items + ${inc}`,
+            })
+            .execute();
     }
 
-    /**
-     * Finds one collection by its id
-     */
-    async findOne(id: number): Promise<CollectionDto> {
-        const collection = await this.createQueryBuilder().where("id = :id", { id }).getOne();
+    async findOne(
+        key: { id: number } | { taxon: string; account: string },
+        { relations, ownerAddress }: { ownerAddress?: string; relations?: string[] } = { relations: ["user"] },
+    ): Promise<CollectionDto> {
+        if ("taxon" in key && relations.indexOf("user") < 0) relations.push("user");
+        else if (ownerAddress && relations.indexOf("user") < 0) relations.push("user");
+
+        const where = "id" in key ? { id: key.id } : { taxon: key.taxon, user: { address: key.account } };
+
+        const collection = await this.collectionRepository.findOne({ where, relations });
         if (!collection) throw new BusinessException(ErrorCode.COLLECTION_NOT_FOUND);
+
         return CollectionDto.fromEntity(collection);
     }
 
     /**
      * Finds all collections
      */
-    async findAll(filters?: GetNftsRequest): Promise<PaginatedCollectionDto> {
-        const { items, pages, currentPage } = await this.collectionsQuery(filters);
-        return {
-            items: items.map((collection) => CollectionDto.fromEntity(collection)),
-            pages,
-            currentPage,
-        };
-    }
-
-    /**
-     * Finds an owned collection or throws an error
-     */
-    async findOwnedCollection(id: number, address: string): Promise<Collection> {
-        const collection = await this.createQueryBuilder({ relations: { user: true } })
-            .where("collection.id = :id", { id })
-            .getOne();
-        if (!collection) throw new BusinessException(ErrorCode.COLLECTION_NOT_FOUND);
-        else if (collection.user.address !== address) throw new BusinessException(ErrorCode.COLLECTION_NOT_OWNED);
-        return collection;
-    }
-
-    /**
-     * Gets all collections
-     */
-    private async collectionsQuery({ page = 1, pageSize = 15, query, account, order = Order.DESC }: GetCollectionsRequest = {}): Promise<
-        Paginated<CollectionWithItems>
-    > {
+    async findAll(filters: GetCollectionsRequest = { page: 1, pageSize: 15 }): Promise<PaginatedCollectionDto> {
+        const { page, pageSize } = filters;
         const take = pageSize;
         const skip = (page - 1) * take;
 
-        const qb = this.createQueryBuilder();
-
-        qb.take(take);
-        qb.skip(skip);
-
-        if (query) qb.andWhere("LOWER(collection.name) like :query", { query: `%${query.toLowerCase()}%` });
-        // Can be refactored as NftService.nftsQuery when collection states are implemented in order to give extra wheres (account would be one of them)
-        if (account) qb.andWhere("user.address = :account", { account });
-
-        qb.orderBy("collection.id", order);
-
-        const [collections, count] = await qb.getManyAndCount();
+        const [entities, count] = await QueryBuilderHelper.buildFindManyAndCount(this.collectionRepository, "nft", skip, take, ["user"]);
 
         return {
-            items: collections,
+            items: entities.map((collection) => CollectionDto.fromEntity(collection)),
             pages: Math.ceil(count / take),
             currentPage: page,
         };
-    }
-
-    /**
-     * Creates query builder with required joins
-     */
-    private createQueryBuilder<WithItems extends boolean = true>({
-        // @ts-ignore
-        relations = { user: true, nft: true },
-    }: CreateCollectionQueryBuilderOptions<WithItems> = {}): SelectQueryBuilder<WithItems extends true ? CollectionWithItems : Collection> {
-        const qb = this.collectionRepository.createQueryBuilder("collection");
-        if (relations.user) qb.innerJoinAndSelect("collection.user", "user");
-        if (relations.nft)
-            qb.loadRelationCountAndMap("collection.items", "collection.nfts", "nft", (qb) =>
-                qb.where("nft.status = :confirmed", { confirmed: NftStatus.CONFIRMED }),
-            );
-        return qb as SelectQueryBuilder<WithItems extends true ? CollectionWithItems : Collection>;
     }
 
     /**

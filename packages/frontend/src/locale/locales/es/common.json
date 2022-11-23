@@ -112,5 +112,9 @@
     "confirm": "confirmar",
     "noDataProvided": "No se han encontrado datos",
     "theNfts": "The NFTs",
+    "back": "Volver",
+    "next": "Siguiente",
+    "close": "Cerrar",
+    "FAQs": "FAQs",
     "question": "Pregunta"
 }

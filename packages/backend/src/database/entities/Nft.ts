@@ -37,9 +37,15 @@ export class Nft {
     @Column({ type: "enum", enum: NftStatus, default: NftStatus.DRAFT })
     status: NftStatus;
 
+    @Column({ type: "varchar", length: 255, name: "account" })
+    account: string;
+
     @ManyToOne(() => User, (user) => user.nfts, { cascade: ["insert"] })
     @JoinColumn({ name: "account" })
     user: User;
+
+    @Column({ type: "int", name: "collection_id", nullable: true })
+    collectionId?: number;
 
     @ManyToOne(() => Collection, (collection) => collection.nfts, { nullable: true, cascade: ["insert"] })
     @JoinColumn({ name: "collection_id" })
