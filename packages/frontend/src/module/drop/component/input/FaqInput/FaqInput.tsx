@@ -51,7 +51,7 @@ const FaqInput = ({
                             <Typography variant="body1" color={"black.70"} fontWeight={500} style={{ lineHeight: "2rem" }}>
                                 {`${translate("faqs")} ${idFaq}`}
                             </Typography>
-                            {((!readonly && onDelete) || !disabled) && (
+                            {onDelete && (!readonly || !disabled) && (
                                 <DeleteFaqButton variant={"text"} onClick={handleDelete}>
                                     {translate("delete")}
                                 </DeleteFaqButton>

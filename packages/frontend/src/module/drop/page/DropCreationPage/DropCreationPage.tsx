@@ -13,12 +13,11 @@ const DropCreationPage = (): JSX.Element => {
     const [searchParams, setSearchParams] = useSearchParams();
     const collectionId = searchParams.get("id");
 
-    const { data: collection, isLoading: isLoading } = useGetCollection(collectionId ? Number(collectionId) : undefined);
+    const { data: collection, isLoading } = useGetCollection(collectionId ? Number(collectionId) : undefined);
     const navigate = useNavigate();
 
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
     const handleSubmit = async (data: DropCreationForm, action?: string) => {
-        // TODO : crear request de Drop as
         //TODO : Launch
         navigate(DropRoutes.MY_DROPS, { replace: true });
     };
