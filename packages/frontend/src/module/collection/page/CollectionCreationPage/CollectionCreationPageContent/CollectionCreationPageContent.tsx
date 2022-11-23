@@ -1,6 +1,6 @@
 import { CollectionCreationPageContentProps } from "module/collection/page/CollectionCreationPage/CollectionCreationPageContent/CollectionCreationPageContent.types";
 import PageContent from "module/common/component/layout/PageContent/PageContent";
-import { Col, Divider, Row, Skeleton, Switch } from "@peersyst/react-components";
+import { Col, Divider, Row, Skeleton, Switch, WithLoading } from "@peersyst/react-components";
 import {
     CollectionCoverInput,
     CollectionCreationPageContentCard,
@@ -19,7 +19,7 @@ import { CollectionCreationFormFields } from "module/collection/types";
 import CollectionCreationNfts from "module/collection/page/CollectionCreationPage/CollectionCreationNfts/CollectionCreationNfts";
 import { config } from "config";
 
-const CollectionCreationPageContent = ({ collection, loading }: CollectionCreationPageContentProps): JSX.Element => {
+const CollectionCreationPageContent = ({ collection, loading = false }: WithLoading<CollectionCreationPageContentProps>): JSX.Element => {
     const translate = useTranslate();
     const translateError = useTranslate("error");
     const { address: connectedWalletAddress } = useWallet();

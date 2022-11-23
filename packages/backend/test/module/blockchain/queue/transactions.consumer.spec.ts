@@ -87,7 +87,7 @@ Resulting NFT: ${JSON.stringify(nft)}`);
             });
             await transactionsConsumer.processMintTransaction({ data: { transaction: nftMintTransaction } } as Job);
             expect(loggerMock.error).toHaveBeenCalledWith(`FAILED TO INDEX NFT FROM MINT TRANSACTION ${nftMintTransaction.hash}.
-Error: Weird error`);
+Error: ${JSON.stringify("Weird error")}`);
         });
     });
 });

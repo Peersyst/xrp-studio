@@ -47,7 +47,7 @@ describe("CollectionCreationPage", () => {
             expect(screen.getByRole("heading", { name: translate("createCollection") })).toBeInTheDocument();
 
             // Nfts input
-            expect(screen.getByText(translate("fileInputPlaceholder"))).toBeInTheDocument();
+            expect(screen.getByText(translate("uploadAFileToCreateAnNfts"))).toBeInTheDocument();
 
             // Collection form
             expect(screen.getByPlaceholderText(translate("collectionNamePlaceholder"))).toBeInTheDocument();
@@ -154,7 +154,7 @@ describe("CollectionCreationPage", () => {
             await waitFor(() => expect(screen.getByDisplayValue(collectionDtoMock.name!)).toBeInTheDocument());
 
             // Nfts input not rendered
-            expect(screen.queryByText(translate("fileInputPlaceholder"))).toBeNull();
+            expect(screen.queryByText(translate("uploadAFileToCreateAnNfts"))).toBeNull();
 
             // Nfts form no rednered
             expect(screen.queryByPlaceholderText(translate("externalLinkPlaceholder"))).toBeNull();
@@ -163,7 +163,9 @@ describe("CollectionCreationPage", () => {
         test("Removes id when collection is not owned", async () => {
             getCollectionMock = jest
                 .spyOn(CollectionService, "collectionControllerGetCollection")
-                .mockResolvedValueOnce({ ...collectionDtoMock, user: new UserDtoMock({ address: "other_address" }) });
+                .mockResolvedValueOnce(
+                    new CollectionDtoMock({ ...collectionDtoMock, user: new UserDtoMock({ address: "other_address" }) }),
+                );
 
             render(<CollectionCreationPage />);
 

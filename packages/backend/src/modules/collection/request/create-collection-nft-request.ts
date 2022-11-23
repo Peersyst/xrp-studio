@@ -3,7 +3,7 @@ import { IsXrplAddress } from "../../common/validator/IsXrplAddress";
 import { ValidateNested, IsOptional } from "class-validator";
 import { Type } from "class-transformer";
 import { NftFlagsRequest } from "../../nft/request/nft-flags.request";
-import { CreateNftMetadataRequest } from "../../nft/request/create-nft-metadata.request";
+import { CreateMetadataRequest } from "../../metadata/request/create-metadata.request";
 
 export class CreateCollectionNftRequest {
     @ApiProperty({
@@ -39,10 +39,10 @@ export class CreateCollectionNftRequest {
     @ApiProperty({
         name: "metadata",
         description: "NFT metadata",
-        type: CreateNftMetadataRequest,
+        type: CreateMetadataRequest,
         required: false,
     })
     @ValidateNested()
-    @Type(() => CreateNftMetadataRequest)
-    metadata?: CreateNftMetadataRequest;
+    @Type(() => CreateMetadataRequest)
+    metadata?: CreateMetadataRequest;
 }

@@ -78,6 +78,7 @@ declare module "@peersyst/react-components" {
         };
         createCollectionPage: number;
         createCollectionNftGrid: number;
+        dropLandingPage: number;
     }
 }
 

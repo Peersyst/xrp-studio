@@ -1,15 +1,7 @@
-import { MetadataDto } from "../../../src/modules/nft/dto/metadata.dto";
-import { MetadataAttributeDto } from "../../../src/modules/nft/dto/metadata-attribute.dto";
+import { MetadataDto } from "../../../src/modules/metadata/dto/metadata.dto";
 import MetadataAttributeDtoMock from "./metadata-attribute.dto.mock";
 
-class MetadataDtoMock implements MetadataDto {
-    name?: string;
-    description?: string;
-    image?: string;
-    backgroundColor?: string;
-    externalUrl?: string;
-    attributes?: MetadataAttributeDto[];
-
+class MetadataDtoMock extends MetadataDto {
     constructor({
         name = "NFT #1",
         description = "First NFT ever created",
@@ -21,12 +13,7 @@ class MetadataDtoMock implements MetadataDto {
             new MetadataAttributeDtoMock({ traitType: "trait2", value: "2" }),
         ],
     }: Partial<MetadataDto> = {}) {
-        this.name = name;
-        this.description = description;
-        this.image = image;
-        this.backgroundColor = backgroundColor;
-        this.externalUrl = externalUrl;
-        this.attributes = attributes;
+        super(name, description, image, backgroundColor, externalUrl, attributes);
     }
 }
 

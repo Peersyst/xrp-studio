@@ -9,7 +9,7 @@ export type CreateCollectionRequest = {
      * NFTokenTaxon of the collection. If not provided one will be assigned
      */
     taxon?: number;
-    name: string;
+    name?: string;
     description?: string;
     image?: string;
     header?: string;
