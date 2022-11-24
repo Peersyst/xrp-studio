@@ -43,16 +43,10 @@ export class NftService {
     /**
      * Creates an Nft entity from a given NFTokenMint transaction
      */
-    async createNftFromMintTransaction({
-        Account,
-        Flags,
-        TransferFee,
-        Issuer,
-        NFTokenTaxon,
-        URI,
-        hash,
-        Memos,
-    }: ValidatedLedgerTransaction<NFTokenMint>): Promise<Nft> {
+    async createNftFromMintTransaction(
+        { Account, Flags, TransferFee, Issuer, NFTokenTaxon, URI, hash, Memos }: ValidatedLedgerTransaction<NFTokenMint>,
+        ledgerIndex: number,
+    ): Promise<Nft> {
         const issuerOrCreator = Issuer || Account;
         // Get last nft tokenId from the Issuer
         const lastNft = await this.nftRepository
@@ -62,7 +56,12 @@ export class NftService {
             .orderBy("SUBSTRING(nft.token_id, 57, 64)::bytea", "DESC")
             .getRawOne<{ token_id: string }>();
         // Build new nft's tokenId
-        const lastTokenSequence = lastNft ? Number("0x" + lastNft.token_id) : -1;
+        let lastTokenSequence;
+        if (lastNft) {
+            lastTokenSequence = Number("0x" + lastNft.token_id);
+        } else {
+            lastTokenSequence = ((await this.blockchainService.getMintedTokens(Account, ledgerIndex - 1)) || 0) - 1;
+        }
         const tokenSequence = lastTokenSequence + 1;
         const tokenSequenceHex = tokenSequence.toString(16).toUpperCase().padStart(8, "0");
         const flags = Flags?.toString(16).padStart(8, "0").substring(4).toUpperCase() || "0000";

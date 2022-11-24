@@ -27,7 +27,7 @@ export class UseCollectionCreationStateMock extends BaseMock {
         name = "name",
         description = "description",
         issuer = "",
-        transferFee = "0",
+        transferFee,
         backgroundColor = Color.rgb(),
         burnable = false,
         onlyXRP = false,

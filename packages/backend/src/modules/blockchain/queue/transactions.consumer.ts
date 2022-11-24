@@ -27,23 +27,25 @@ export class TransactionsConsumer {
     }: Job<{ transactions: ValidatedLedgerTransaction[]; ledgerIndex: number }>) {
         if (transactions.length) {
             this.logger.log(`PROCESSING ${transactions.length} TRANSACTIONS FROM LEDGER ${ledgerIndex}`);
-            for await (const tx of transactions) await this.blockchainService.processTransactionByType(tx);
+            for await (const tx of transactions) await this.blockchainService.processTransactionByType(tx, ledgerIndex);
         }
     }
 
     /**
      * Processes a mint transaction, creating an Nft entity
      * @param transaction
+     * @param ledgerIndex
      */
     @Process("process-mint-transaction")
     async processMintTransaction({
-        data: { transaction },
+        data: { transaction, ledgerIndex },
     }: Job<{
         transaction: ValidatedLedgerTransaction<NFTokenMint>;
+        ledgerIndex: number;
     }>) {
         this.logger.log(`PROCESSING MINT TRANSACTION ${transaction.hash}`);
         try {
-            const nft = await this.nftService.createNftFromMintTransaction(transaction);
+            const nft = await this.nftService.createNftFromMintTransaction(transaction, ledgerIndex);
             this.logger.log(`INDEXED NFT ${nft.tokenId}`);
         } catch (e) {
             const nftError = e as { error: any; nft: Nft };
