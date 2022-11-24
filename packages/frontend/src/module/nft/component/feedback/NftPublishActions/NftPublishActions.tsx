@@ -1,6 +1,6 @@
-import PublishActions from "module/common/component/feedback/PublishActions/PublishActions";
 import useTranslate from "module/common/hook/useTranslate";
-import { NftPublishActionStep } from "module/common/component/feedback/PublishActions/PublishActions.types";
+import { Step } from "module/common/component/feedback/ActionSteps/ActionSteps.types";
+import ActionSteps from "module/common/component/feedback/ActionSteps/ActionSteps";
 
 const NftPublishActions = (): JSX.Element => {
     const translate = useTranslate();
@@ -9,7 +9,7 @@ const NftPublishActions = (): JSX.Element => {
         return undefined;
     };
 
-    const steps: NftPublishActionStep[] = [
+    const steps: Step[] = [
         {
             title: translate("approveXRPStudio"),
             description: translate("approveXRPStudioDescription"),
@@ -33,7 +33,7 @@ const NftPublishActions = (): JSX.Element => {
         },
     ];
 
-    return <PublishActions title={translate("creationSteps")} steps={steps} onSuccess={onSuccess} />;
+    return <ActionSteps title={translate("creationSteps")} steps={steps} onSuccess={onSuccess} />;
 };
 
 export default NftPublishActions;

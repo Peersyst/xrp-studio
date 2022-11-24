@@ -1,26 +1,28 @@
 import { Expandable, Loader, Row, Typography } from "@peersyst/react-components";
-import { NftPublishActionsStepsProps } from "module/common/component/feedback/PublishActions/PublishActions.types";
 import { useEffect, useState } from "react";
 import { AlertCircleIcon, CheckCircleIcon } from "icons";
+import { ActionStepProps } from "module/common/component/feedback/ActionSteps/ActionSteps.types";
 
-const PublishActionStep = ({
+const ActionStep = ({
     step: { title, description, execution },
     active: active,
     stepNumber: stepNumber,
     onSuccess: onSuccess,
-}: NftPublishActionsStepsProps): JSX.Element => {
+}: ActionStepProps): JSX.Element => {
     const [state, setState] = useState({ error: false, finished: false });
 
     useEffect(() => {
         if (!active || state.finished) return;
-        execution()
-            .then(() => {
+        (async function () {
+            try {
+                const executionPromise = Promise.resolve(execution());
+                await executionPromise;
                 setState({ error: false, finished: true });
                 onSuccess();
-            })
-            .catch(() => {
+            } catch (_e) {
                 setState({ error: true, finished: false });
-            });
+            }
+        })();
     }, [active]);
 
     return (
@@ -51,4 +53,4 @@ const PublishActionStep = ({
     );
 };
 
-export default PublishActionStep;
+export default ActionStep;

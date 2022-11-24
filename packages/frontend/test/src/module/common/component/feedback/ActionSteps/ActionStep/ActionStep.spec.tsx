@@ -1,9 +1,9 @@
-import PublishActionStep from "module/common/component/feedback/PublishActions/PublishActionStep/PublishActionStep";
+import ActionStep from "module/common/component/feedback/ActionSteps/ActionStep/ActionStep";
 import { render } from "test-utils";
 import { act, screen } from "@testing-library/react";
 import { waitFor } from "@testing-library/dom";
 
-describe("PublishActionStep", () => {
+describe("ActionStep", () => {
     const MOCK_STEP = {
         title: "STEP_1",
         description: "step_1_description",
@@ -12,7 +12,7 @@ describe("PublishActionStep", () => {
 
     test("Renders correctly being active ", async () => {
         const onSuccessMock = jest.fn();
-        render(<PublishActionStep stepNumber={1} step={MOCK_STEP} active={true} onSuccess={onSuccessMock} />);
+        render(<ActionStep stepNumber={1} step={MOCK_STEP} active={true} onSuccess={onSuccessMock} />);
 
         expect(screen.getByText(MOCK_STEP.title)).toBeInTheDocument();
         expect(screen.getByText(MOCK_STEP.description)).toBeInTheDocument();
