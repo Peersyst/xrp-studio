@@ -16,6 +16,9 @@ export const LandingPageHeaderRoot = styled(Col).attrs({ alignItems: "center" })
             .subtitle {
                 ${theme.typography.h5.style};
             }
+            .nebula {
+                height: 10.6rem;
+            }
         }
     `,
 );
