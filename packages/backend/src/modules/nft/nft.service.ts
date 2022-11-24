@@ -4,10 +4,8 @@ import { Nft, NftStatus } from "../../database/entities/Nft";
 import { ValidatedLedgerTransaction } from "../blockchain/types";
 import { NFTokenMint } from "xrpl/dist/npm/models/transactions/NFTokenMint";
 import { Repository, SelectQueryBuilder } from "typeorm";
-import { decodeAccountID } from "xrpl";
 import { CollectionService } from "../collection/collection.service";
 import { NftMetadataAttribute } from "../../database/entities/NftMetadataAttribute";
-import unscrambleTaxon from "./util/unscrambleTaxon";
 import { CreateNftDraftRequest } from "./request/create-nft-draft.request";
 import flagsToNumber from "./util/flagsToNumber";
 import { NftDraftDto, PaginatedNftDraftDto } from "./dto/nft-draft.dto";
@@ -106,7 +104,8 @@ export class NftService {
                 account: issuerOrCreator,
                 collectionId: collection?.id,
             });
-            if (savedNft.uri) await this.metadataService.sendToProcessMetadata(savedNft);
+            if (savedNft.uri && Account !== this.blockchainService.mintingAddress)
+                await this.metadataService.sendToProcessMetadata(savedNft);
             return savedNft;
         } catch (e) {
             if (collection) await this.collectionService.addItems(collection.id, -1);

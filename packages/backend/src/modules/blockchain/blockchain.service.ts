@@ -1,4 +1,4 @@
-import { Injectable } from "@nestjs/common";
+import { Injectable, Logger } from "@nestjs/common";
 import { InjectRepository } from "@nestjs/typeorm";
 import { LastIndexedLedger } from "../../database/entities/LastIndexedLedger";
 import { Repository } from "typeorm";
@@ -16,11 +16,13 @@ import { ValidatedLedgerTransaction } from "./types";
 export class BlockchainService {
     private readonly xrpClient: Client;
     public readonly mintingAddress: string;
+    private readonly logger = new Logger(BlockchainService.name);
 
     constructor(
         @InjectRepository(LastIndexedLedger) private readonly lastIndexedLedgerRepository: Repository<LastIndexedLedger>,
         @InjectQueue("ledger") private readonly ledgerQueue: Queue,
         @InjectQueue("transactions") private readonly transactionsQueue: Queue,
+        @InjectQueue("drop") private readonly dropQueue: Queue,
         private readonly configService: ConfigService,
     ) {
         const xrpNode = this.configService.get<string>("xrp.node");
@@ -105,13 +107,22 @@ export class BlockchainService {
 
     /**
      * Processes a transaction by its type
-     * @param transaction
-     * @param ledgerIndex
      */
     async processTransactionByType(transaction: ValidatedLedgerTransaction): Promise<void> {
+        // this.logger.debug(`Processing transaction ${JSON.stringify(transaction)}`);
         if (transaction.TransactionType === "NFTokenMint") {
             const job = await this.transactionsQueue.add(
                 "process-mint-transaction",
+                { transaction },
+                {
+                    attempts: 3,
+                    backoff: 60000,
+                },
+            );
+            await job.finished();
+        } else if (transaction.TransactionType === "NFTokenAcceptOffer") {
+            const job = await this.dropQueue.add(
+                "process-accept-offer-transaction",
                 { transaction },
                 {
                     attempts: 3,

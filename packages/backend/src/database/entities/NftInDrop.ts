@@ -1,13 +1,4 @@
-import {
-    Column,
-    CreateDateColumn,
-    Entity,
-    JoinColumn,
-    ManyToOne,
-    OneToOne,
-    PrimaryColumn,
-    UpdateDateColumn,
-} from "typeorm";
+import { Column, CreateDateColumn, Entity, JoinColumn, ManyToOne, OneToOne, PrimaryColumn, UpdateDateColumn } from "typeorm";
 import { Nft } from "./Nft";
 import { Drop } from "./Drop";
 
@@ -19,6 +10,8 @@ export enum NftInDropStatus {
     CREATING_OFFER = "creating-offer",
     OFFER_CREATED = "offer-created",
     SOLD = "sold",
+    FUNDING = "funding",
+    FUNDED = "funded",
 }
 
 @Entity("nft-in-drop")
@@ -43,13 +36,20 @@ export class NftInDrop {
     offerTransactionHash?: string;
 
     @Column("varchar", { length: 255, nullable: true })
+    acceptOfferTransactionHash?: string;
+
+    @Column("varchar", { length: 255, nullable: true })
+    fundingTransactionHash?: string;
+
+    @Column("varchar", { length: 255, nullable: true })
     offerId?: string;
 
     @Column({ type: "enum", enum: NftInDropStatus, default: NftInDropStatus.PENDING_AUTHORIZATION })
     status: NftInDropStatus;
 
     @ManyToOne(() => Drop, (drop) => drop.nftsInDrop)
-    drop: Drop;
+    @JoinColumn({ name: "drop_id" })
+    drop?: Drop;
 
     @CreateDateColumn({ name: "created_at", type: "timestamp" })
     createdAt: Date;

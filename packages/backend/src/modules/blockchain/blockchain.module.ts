@@ -15,6 +15,7 @@ import { TransactionStatusConsumer } from "./queue/transaction-status.consumer";
         BullModule.registerQueue({ name: "ledger" }),
         BullModule.registerQueue({ name: "transactions" }),
         BullModule.registerQueue({ name: "transaction-status" }),
+        BullModule.registerQueue({ name: "drop" }),
         forwardRef(() => NftModule),
     ],
     controllers: [],

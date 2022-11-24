@@ -96,13 +96,48 @@ export class BlockchainTransactionService {
         });
     }
 
-    prepareAuthorizeMinterTransaction(account): Transaction {
+    prepareAuthorizeMinterTransaction(account: string): Transaction {
         return {
             TransactionType: "AccountSet",
             Account: account,
             NFTokenMinter: this.mintingAccount.address,
             SetFlag: AccountSetAsfFlags.asfAuthorizedNFTokenMinter,
         };
+    }
+
+    prepareAcceptOfferTransaction(account: string, offerId: string): Transaction {
+        return {
+            TransactionType: "NFTokenAcceptOffer",
+            Account: account,
+            NFTokenSellOffer: offerId,
+        };
+    }
+
+    preparePaymentTransaction({
+        account,
+        destination,
+        amount,
+        memo,
+    }: {
+        account: string;
+        destination: string;
+        amount: string;
+        memo: string;
+    }): Promise<Transaction> {
+        return this.xrpClient.autofill({
+            TransactionType: "Payment",
+            Account: account,
+            Destination: destination,
+            Sequence: account === this.mintingAccount.address ? this.consumeSequence() : undefined,
+            Amount: amount,
+            Memos: [
+                {
+                    Memo: {
+                        MemoData: Buffer.from(memo, "utf8").toString("hex"),
+                    },
+                },
+            ],
+        });
     }
 
     signTransactionWithMintingAccount(transaction: Transaction): {
@@ -159,7 +194,7 @@ export class BlockchainTransactionService {
                 return offer.nft_offer_index === offerId;
             });
         } catch (e) {
-            return false;
+            return e?.data?.error === "objectNotFound";
         }
     }
 }

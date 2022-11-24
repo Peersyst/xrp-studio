@@ -6,6 +6,7 @@ interface XrpConfig {
     node: string;
     startingLedgerIndex: number;
     minterSecret: string;
+    sellCommissionPct: number;
 }
 
 export default (secrets: AwsSecrets = {}): XrpConfig => {
@@ -16,16 +17,20 @@ export default (secrets: AwsSecrets = {}): XrpConfig => {
                 production: "wss://xrplcluster.com",
             },
             startingLedgerIndex: {
-                default: 33128269,
+                default: 33135515,
                 production: 75184704,
             },
             minterSecret: {
                 production: process.env.XRP_MINTER_SECRET || secrets.XRP_MINTER_SECRET,
-                default: "sEd7BVj2pxZUuLufNVk6j6Gdb56SbUC",
+                default: "sEdV5BZUNSbbpJpHPicgqU9Ef3WzHyP",
+            },
+            sellCommissionPct: {
+                default: 0.05,
             },
         },
         {
             minterSecret: validXrpSecret,
+            sellCommissionPct: (value: number) => value < 1 && value >= 0,
         } as ConfigValidators<XrpConfig>,
     );
 };

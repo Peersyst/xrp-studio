@@ -148,8 +148,25 @@ export const devNfts = [
 ];
 
 export default function getByEnv(env: string) {
-    if (env === "development" || env === "preview") {
+    if (env === "development") {
         return devNfts;
+    }
+    if (env === "preview") {
+        const result = [];
+        for (let i = 0; i < 100; i++) {
+            result.push({
+                id: i + 1,
+                issuer: devUsers[0].address,
+                transferFee: 10,
+                flags: 8,
+                status: NftStatus.DRAFT,
+                account: devUsers[0].address,
+                collectionId: 1,
+                createdAt: new Date(),
+                updatedAt: new Date(),
+            });
+        }
+        return result;
     }
     if (env === "test") {
         return devNfts;

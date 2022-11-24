@@ -1,4 +1,4 @@
-import { Injectable } from "@nestjs/common";
+import { Inject, Injectable } from "@nestjs/common";
 import { InjectRepository } from "@nestjs/typeorm";
 import { Repository } from "typeorm";
 import { Drop } from "../../database/entities/Drop";
@@ -18,9 +18,15 @@ import { NftInDrop, NftInDropStatus } from "../../database/entities/NftInDrop";
 import { BlockchainTransactionService } from "../blockchain/blockchain-transaction.service";
 import { MetadataService } from "../metadata/metadata.service";
 import { XummTransactionService } from "../xumm/xumm-transaction.service";
+import { getRandomNumber } from "../common/util/random";
+import { ValidatedLedgerTransaction } from "../blockchain/types";
+import { dropsToXrp, NFTokenAcceptOffer, xrpToDrops } from "xrpl";
+import { ConfigService } from "@nestjs/config";
 
 @Injectable()
 export class DropService {
+    private readonly sellCommissionPct: number;
+
     constructor(
         private readonly blockchainService: BlockchainService,
         private readonly blockchainTransactionService: BlockchainTransactionService,
@@ -28,11 +34,14 @@ export class DropService {
         private readonly nftService: NftService,
         private readonly metadataService: MetadataService,
         private readonly xummTransactionService: XummTransactionService,
+        @Inject(ConfigService) private readonly configService: ConfigService,
         @InjectRepository(Drop) private readonly dropRepository: Repository<Drop>,
         @InjectRepository(NftInDrop) private readonly nftInDropRepository: Repository<NftInDrop>,
         @InjectQueue("drop") private readonly dropQueue: Queue,
         @InjectQueue("transaction-status") private readonly transactionStatusQueue: Queue,
-    ) {}
+    ) {
+        this.sellCommissionPct = this.configService.get<number>("xrp.sellCommissionPct");
+    }
 
     async findAll(page = 1, pageSize = 25, filter?: DropFilter): Promise<PaginatedDropDto> {
         const take = pageSize;
@@ -58,6 +67,27 @@ export class DropService {
     async findById(id: number): Promise<DropDto> {
         const drop = await this.dropRepository.findOne(id, { relations: ["collection", "collection.user"] });
         return DropDto.fromEntity(drop);
+    }
+
+    async requestAuthorization(address: string): Promise<void> {
+        const transaction = this.blockchainTransactionService.prepareAuthorizeMinterTransaction(address);
+        await this.xummTransactionService.sendTransactionRequest(address, transaction);
+    }
+
+    async requestBuyNft(buyerAddress, dropId: number): Promise<void> {
+        const nftsInDrop = await this.nftInDropRepository
+            .createQueryBuilder("nftInDrop")
+            .where("nftInDrop.dropId = :dropId AND nftInDrop.status != :status AND nftInDrop.offerId IS NOT NULL", {
+                dropId,
+                status: NftInDropStatus.SOLD,
+            })
+            .getMany();
+
+        if (nftsInDrop.length === 0) throw new BusinessException(ErrorCode.DROP_SOLD_OUT);
+        const nftInDrop = nftsInDrop[getRandomNumber(0, nftsInDrop.length)];
+
+        const transaction = this.blockchainTransactionService.prepareAcceptOfferTransaction(buyerAddress, nftInDrop.offerId);
+        await this.xummTransactionService.sendTransactionRequest(buyerAddress, transaction);
     }
 
     async publish(ownerAddress: string, createDropRequest: CreateDropRequest): Promise<DropDto> {
@@ -156,24 +186,66 @@ export class DropService {
         );
 
         await this.transactionStatusQueue.add("track-status", { hash: signedTx.hash });
-        await this.dropQueue.add("nft-sold-queue", { nftId }, { delay: 60000 });
+        await this.dropQueue.add("fetch-offer-id-queue", { nftId }, { delay: 30000 });
     }
 
-    async checkNftSold(nftId: number): Promise<boolean> {
+    async fetchOfferId(nftId: number): Promise<string | undefined> {
         const nftInDrop = await this.nftInDropRepository.findOne(nftId, { relations: ["nft", "drop"] });
-        let offerId = nftInDrop.offerId;
-        if (!offerId) {
-            offerId = await this.blockchainTransactionService.getOfferIndexFromTransaction(nftInDrop.offerTransactionHash);
-            if (!offerId) return false;
-            await this.nftInDropRepository.update({ nftId }, { offerId });
+        if (nftInDrop.offerId) return nftInDrop.offerId;
+        else {
+            const offerId = await this.blockchainTransactionService.getOfferIndexFromTransaction(nftInDrop.offerTransactionHash);
+            if (!offerId) return;
+            await this.nftInDropRepository.update({ nftId }, { offerId, status: NftInDropStatus.OFFER_CREATED });
+            return offerId;
+        }
+    }
+
+    async processAcceptOfferTransaction(transaction: ValidatedLedgerTransaction<NFTokenAcceptOffer>): Promise<number | undefined> {
+        if (!transaction.NFTokenSellOffer)
+            throw new Error("Panic! Unknown transaction processed as nft accept offer " + JSON.stringify(transaction));
+
+        const nftInDrop = await this.nftInDropRepository.findOne({ offerId: transaction.NFTokenSellOffer }, { relations: ["drop"] });
+        if (!nftInDrop) return;
+
+        await this.nftInDropRepository.update(
+            { nftId: nftInDrop.nftId },
+            {
+                status: NftInDropStatus.SOLD,
+                acceptOfferTransactionHash: transaction.hash,
+            },
+        );
+        await this.dropRepository.update({ id: nftInDrop.dropId }, { soldItems: nftInDrop.drop.soldItems + 1 });
+        await this.dropQueue.add("nft-funding-queue", { nftId: nftInDrop.nftId }, { delay: 10000 });
+        return nftInDrop.nftId;
+    }
+
+    async fundForNftSold(nftId: number): Promise<boolean> {
+        const nftInDrop = await this.nftInDropRepository.findOne(nftId, { relations: ["nft", "drop"] });
+
+        // Cross validation
+        const offerId = await this.blockchainTransactionService.getOfferIndexFromTransaction(nftInDrop.offerTransactionHash);
+        if (!offerId || !nftInDrop.offerId || offerId !== nftInDrop.offerId) {
+            throw new Error(`Panic! Offer Id not found or offers are not equal ${JSON.stringify({ offerId, nftInDrop })}`);
         }
 
         const isFilled = await this.blockchainTransactionService.isNftOfferFilled(nftInDrop.nft.tokenId, offerId);
-        if (isFilled) {
-            await this.metadataService.publishMetadata(nftId);
-            await this.nftInDropRepository.update({ nftId }, { status: NftInDropStatus.SOLD });
-            await this.dropRepository.update({ id: nftInDrop.dropId }, { soldItems: nftInDrop.drop.items + 1 });
+        if (!isFilled) {
+            throw new Error(
+                `Panic! Offer id appears not to be filled but we are trying to fund the artist ${JSON.stringify({ nftInDrop, offerId })}`,
+            );
         }
+        const refund = Number(dropsToXrp(nftInDrop.price)) - Number(dropsToXrp(nftInDrop.price)) * this.sellCommissionPct;
+        const transaction = await this.blockchainTransactionService.preparePaymentTransaction({
+            account: this.blockchainService.mintingAddress,
+            destination: nftInDrop.nft.account,
+            amount: xrpToDrops(refund),
+            memo: `NFToken ${nftInDrop.nft.tokenId} sold`,
+        });
+        await this.metadataService.publishMetadata(nftInDrop.nftId);
+        const signedTx = this.blockchainTransactionService.signTransactionWithMintingAccount(transaction);
+        await this.blockchainTransactionService.broadcastTransaction(signedTx.tx_blob);
+        await this.nftInDropRepository.update({ nftId }, { status: NftInDropStatus.FUNDING, fundingTransactionHash: signedTx.hash });
+        await this.transactionStatusQueue.add("track-status", { hash: signedTx.hash });
 
         return isFilled;
     }
