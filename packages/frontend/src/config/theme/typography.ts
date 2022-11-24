@@ -1,6 +1,13 @@
 import { Theme } from "@peersyst/react-components";
 
 const typography: Partial<Theme["typography"]> = {
+    h2: {
+        component: "h2",
+        style: {
+            lineHeight: "4.5rem",
+            fontSize: "3rem",
+        },
+    },
     h4: {
         component: "h4",
         style: {
