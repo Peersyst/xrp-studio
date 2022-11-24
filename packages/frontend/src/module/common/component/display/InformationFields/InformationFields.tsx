@@ -17,11 +17,9 @@ const InformationFields = ({
         {fields.map(
             ({ label, content }, i) =>
                 content && (
-                    <Skeleton key={label + i} loading={loading}>
-                        <InformationFieldLabel label={capitalize(label)} gap={labelGap} variant={variant} {...labelProps}>
-                            {content}
-                        </InformationFieldLabel>
-                    </Skeleton>
+                    <InformationFieldLabel key={label + i} label={capitalize(label)} gap={labelGap} variant={variant} {...labelProps}>
+                        <Skeleton loading={loading}>{content}</Skeleton>
+                    </InformationFieldLabel>
                 ),
         )}
     </Col>
