@@ -8,7 +8,7 @@ const LandingPageHeader = (): JSX.Element => {
     return (
         <LandingPageHeaderRoot>
             <Col css={{ width: "100%", zIndex: -1, position: "absolute", top: 0 }}>
-                <Nebula height="16.125rem" alt="header" css={{ width: "100vw" }} />
+                <Nebula height="16.125rem" alt="header" />
             </Col>
             <Col css={{ maxWidth: "37.5rem" }} gap="3rem" alignItems="center">
                 <Typography variant="h2" fontWeight="800" color="black.0" textAlign="center" className="title">
