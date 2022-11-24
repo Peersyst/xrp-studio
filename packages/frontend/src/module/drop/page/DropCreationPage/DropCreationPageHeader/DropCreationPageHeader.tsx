@@ -18,7 +18,7 @@ const DropCreationPageHeader = (): JSX.Element => {
                     <Button size="lg" variant="secondary" onClick={goBack}>
                         {translate("cancel")}
                     </Button>
-                    <Button size="lg" type="submit" action="launch">
+                    <Button size="lg" type="submit">
                         {translate("launchDrop")}
                     </Button>
                 </Row>

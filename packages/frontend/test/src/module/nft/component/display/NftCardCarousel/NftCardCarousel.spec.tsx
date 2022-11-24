@@ -5,7 +5,7 @@ import { MetadataDtoMock, NftDtoMock } from "test-mocks";
 
 describe("NftCardCarousel", () => {
     test("Renders correctly", () => {
-        const nftMocks = [...Array(3)].map((_, i) => new NftDtoMock({ metadata: new MetadataDtoMock({ name: "NFT #" + i }) }));
+        const nftMocks = [...Array(3)].map((_, i) => new NftDtoMock({ id: i + 1, metadata: new MetadataDtoMock({ name: "NFT #" + i }) }));
 
         render(<NftCardCarousel nfts={nftMocks} />);
 

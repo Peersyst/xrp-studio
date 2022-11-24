@@ -118,5 +118,6 @@
     "FAQs": "FAQs",
     "question": "Pregunta",
     "publishCollectionConfirmation": "Confirmación de publcación de la colección",
-    "cantPublishCollectionWithoutNfts": "No puedes publicar una colección sin NFTs"
+    "cantPublishCollectionWithoutNfts": "No puedes publicar una colección sin NFTs",
+    "launchDropConfirmation": "Confirmación de lanzamiento del drop"
 }

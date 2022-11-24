@@ -5,7 +5,7 @@ import DropLandingNftsSection from "module/drop/component/display/DropLanding/Dr
 
 describe("DropLandingNftsSection", () => {
     test("Renders correctly", () => {
-        const nftMocks = [...Array(3)].map((_, i) => new NftDtoMock({ metadata: new MetadataDtoMock({ name: "NFT #" + i }) }));
+        const nftMocks = [...Array(3)].map((_, i) => new NftDtoMock({ id: i + 1, metadata: new MetadataDtoMock({ name: "NFT #" + i }) }));
 
         render(<DropLandingNftsSection nfts={nftMocks} />);
 
