@@ -108,11 +108,11 @@ export class BlockchainService {
      * @param transaction
      * @param ledgerIndex
      */
-    async processTransactionByType(transaction: ValidatedLedgerTransaction, ledgerIndex: number): Promise<void> {
+    async processTransactionByType(transaction: ValidatedLedgerTransaction): Promise<void> {
         if (transaction.TransactionType === "NFTokenMint") {
             const job = await this.transactionsQueue.add(
                 "process-mint-transaction",
-                { transaction, ledgerIndex },
+                { transaction },
                 {
                     attempts: 3,
                     backoff: 60000,

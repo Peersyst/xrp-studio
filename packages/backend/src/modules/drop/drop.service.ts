@@ -88,7 +88,7 @@ export class DropService {
                 price: createDropRequest.price,
             });
             await this.nftService.updateNftStatus(nft.id, NftStatus.PENDING);
-            await this.dropQueue.add("nft-mint-queue", { nftId: nft.id }, { delay: 2000 });
+            await this.dropQueue.add("nft-mint-queue", { nftId: nft.id }, { delay: 30000 });
         }
 
         const transaction = this.blockchainTransactionService.prepareAuthorizeMinterTransaction(ownerAddress);
@@ -133,7 +133,7 @@ export class DropService {
         );
 
         await this.transactionStatusQueue.add("track-status", { hash: signedTx.hash });
-        await this.dropQueue.add("nft-sell-offer-queue", { nftId });
+        await this.dropQueue.add("nft-sell-offer-queue", { nftId }, { delay: 30000 });
     }
 
     async sellNftInDrop(nftId: number): Promise<void> {
@@ -144,10 +144,8 @@ export class DropService {
             price: nftInDrop.price,
         });
 
-        console.log(transaction);
-
         const signedTx = this.blockchainTransactionService.signTransactionWithMintingAccount(transaction);
-        console.log(await this.blockchainTransactionService.broadcastTransaction(signedTx.tx_blob));
+        await this.blockchainTransactionService.broadcastTransaction(signedTx.tx_blob);
 
         await this.nftInDropRepository.update(
             { nftId },
@@ -158,7 +156,7 @@ export class DropService {
         );
 
         await this.transactionStatusQueue.add("track-status", { hash: signedTx.hash });
-        await this.dropQueue.add("nft-sold-queue", { nftId });
+        await this.dropQueue.add("nft-sold-queue", { nftId }, { delay: 60000 });
     }
 
     async checkNftSold(nftId: number): Promise<boolean> {
@@ -177,6 +175,6 @@ export class DropService {
             await this.dropRepository.update({ id: nftInDrop.dropId }, { soldItems: nftInDrop.drop.items + 1 });
         }
 
-        return !isFilled;
+        return isFilled;
     }
 }

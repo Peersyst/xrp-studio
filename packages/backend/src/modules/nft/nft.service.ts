@@ -26,6 +26,7 @@ import { UserService } from "../user/user.service";
 import { BlockchainTransactionService } from "../blockchain/blockchain-transaction.service";
 import { XummTransactionService } from "../xumm/xumm-transaction.service";
 import { BlockchainService } from "../blockchain/blockchain.service";
+import { getTokenIdFromTransaction } from "./util/parseTokenId";
 
 @Injectable()
 export class NftService {
@@ -43,33 +44,13 @@ export class NftService {
     /**
      * Creates an Nft entity from a given NFTokenMint transaction
      */
-    async createNftFromMintTransaction(
-        { Account, Flags, TransferFee, Issuer, NFTokenTaxon, URI, hash, Memos }: ValidatedLedgerTransaction<NFTokenMint>,
-        ledgerIndex: number,
-    ): Promise<Nft> {
+    async createNftFromMintTransaction(tx: ValidatedLedgerTransaction<NFTokenMint>): Promise<Nft> {
+        const { Account, Flags, TransferFee, Issuer, NFTokenTaxon, URI, hash, Memos } = tx;
         const issuerOrCreator = Issuer || Account;
         // Get last nft tokenId from the Issuer
-        const lastNft = await this.nftRepository
-            .createQueryBuilder("nft")
-            .select("SUBSTRING(nft.token_id, 57, 64) as token_id")
-            .where("nft.issuer = :issuer AND nft.status = :confirmed", { issuer: issuerOrCreator, confirmed: NftStatus.CONFIRMED })
-            .orderBy("SUBSTRING(nft.token_id, 57, 64)::bytea", "DESC")
-            .getRawOne<{ token_id: string }>();
-        // Build new nft's tokenId
-        let lastTokenSequence;
-        if (lastNft) {
-            lastTokenSequence = Number("0x" + lastNft.token_id);
-        } else {
-            lastTokenSequence = ((await this.blockchainService.getMintedTokens(Account, ledgerIndex - 1)) || 0) - 1;
-        }
-        const tokenSequence = lastTokenSequence + 1;
-        const tokenSequenceHex = tokenSequence.toString(16).toUpperCase().padStart(8, "0");
+
+        const tokenId = getTokenIdFromTransaction(tx);
         const flags = Flags?.toString(16).padStart(8, "0").substring(4).toUpperCase() || "0000";
-        const transferFee = TransferFee?.toString(16).toUpperCase().padStart(4, "0") || "0000";
-        const issuer = decodeAccountID(issuerOrCreator).toString("hex").toUpperCase();
-        const scrambledTaxon = unscrambleTaxon(NFTokenTaxon, tokenSequence);
-        const scrambledTaxonHex = scrambledTaxon.toString(16).toUpperCase().padStart(8, "0");
-        const tokenId = flags + transferFee + issuer + scrambledTaxonHex + tokenSequenceHex;
 
         // Create collection if NFTokenTaxon > 0. Cannot use cascade as we are inserting a collection without primary key
         let collection: CollectionDto;
