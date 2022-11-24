@@ -1,5 +1,5 @@
 import { Process, Processor } from "@nestjs/bull";
-import { Logger } from "@nestjs/common";
+import { forwardRef, Inject, Logger } from "@nestjs/common";
 import { BlockchainService } from "../blockchain.service";
 import { Job } from "bull";
 import { NFTokenMint } from "xrpl/dist/npm/models/transactions/NFTokenMint";
@@ -11,7 +11,10 @@ import { Nft } from "../../../database/entities/Nft";
 export class TransactionsConsumer {
     private readonly logger = new Logger(TransactionsConsumer.name);
 
-    constructor(private readonly blockchainService: BlockchainService, private readonly nftService: NftService) {}
+    constructor(
+        private readonly blockchainService: BlockchainService,
+        @Inject(forwardRef(() => NftService)) private readonly nftService: NftService,
+    ) {}
 
     /**
      * Processes transactions from a ledger

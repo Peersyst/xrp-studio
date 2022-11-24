@@ -86,7 +86,7 @@ export const ErrorBody: { [code in ErrorCodeType]: { statusCode: HttpStatus; mes
     },
     [ErrorCode.COLLECTION_ALREADY_LAUNCHED]: {
         statusCode: HttpStatus.PRECONDITION_FAILED,
-        message: ErrorCode.NFT_TRANSFERABLE_NOT_SET,
+        message: ErrorCode.COLLECTION_ALREADY_LAUNCHED,
     },
     [ErrorCode.NFT_ALREADY_LAUNCHED]: {
         statusCode: HttpStatus.PRECONDITION_FAILED,

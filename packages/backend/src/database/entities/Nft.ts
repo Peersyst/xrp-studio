@@ -2,7 +2,7 @@ import { Column, CreateDateColumn, Entity, JoinColumn, ManyToOne, OneToOne, Prim
 import { User } from "./User";
 import { NftMetadata } from "./NftMetadata";
 import { Collection } from "./Collection";
-import { Drop } from "./Drop";
+import { NftInDrop } from "./NftInDrop";
 
 export enum NftStatus {
     DRAFT = "draft",
@@ -41,9 +41,6 @@ export class Nft {
     @Column({ type: "varchar", length: 255, name: "account" })
     account: string;
 
-    @Column({ type: "int", name: "drop_id" })
-    dropId?: number;
-
     @ManyToOne(() => User, (user) => user.nfts, { cascade: ["insert"] })
     @JoinColumn({ name: "account" })
     user: User;
@@ -58,9 +55,8 @@ export class Nft {
     @OneToOne(() => NftMetadata, (metadata) => metadata.nft, { cascade: true })
     metadata?: NftMetadata;
 
-    @ManyToOne(() => Drop, (drop) => drop.nfts)
-    @JoinColumn([{ name: "drop_id", referencedColumnName: "id" }])
-    drop?: Drop;
+    @OneToOne(() => NftInDrop, (nftInDrop) => nftInDrop.nft)
+    nftInDrop?: NftInDrop;
 
     @CreateDateColumn({ name: "created_at", type: "timestamp" })
     createdAt: Date;

@@ -5,6 +5,8 @@ import { Drop } from "../../../database/entities/Drop";
 
 export class DropDto {
     id: number;
+    items: number;
+    soldItems: number;
     price: string;
     backgroundColor: string;
     fontColor: string;
@@ -18,6 +20,8 @@ export class DropDto {
     static fromEntity(drop: Drop): DropDto {
         return {
             id: drop.id,
+            items: drop.items,
+            soldItems: drop.soldItems,
             price: drop.price,
             backgroundColor: drop.backgroundColor,
             fontColor: drop.fontColor,
@@ -25,7 +29,7 @@ export class DropDto {
             instagram: drop.instagram,
             twitter: drop.twitter,
             discord: drop.discord,
-            faqs: drop.faqs.map((faq) => FaqDto.fromEntity(faq)),
+            faqs: (drop.faqs || []).map((faq) => FaqDto.fromEntity(faq)),
             collection: drop.collection && CollectionDto.fromEntity(drop.collection),
         };
     }
@@ -37,6 +41,8 @@ export class PaginatedDropDto extends Paginated<DropDto> {
 
 export const DropDtoMock: DropDto = {
     id: 1,
+    items: 34,
+    soldItems: 150,
     price: "888880000",
     backgroundColor: "#2E3439",
     fontColor: "#FFFFFF",
@@ -68,6 +74,7 @@ export const DropDtoMock: DropDto = {
         header: "https://i.seadn.io/gae/i5dYZRkVCUK97bfprQ3WXyrT9BnLSZtVKGJlKQ919uaUB0sxbngVCioaiyu9r6snqfi2aaTyIvv6DHm4m2R3y7hMajbsv14pSZK8mhs?auto=format&w=1920",
         items: 0,
         account: "rnFCYEkc6fUsgUDzCprNEGppuHj5AwSPdi",
+        nfts: [],
         user: {
             address: "rnFCYEkc6fUsgUDzCprNEGppuHj5AwSPdi",
             name: "YungBeef",

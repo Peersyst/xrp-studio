@@ -1,19 +1,31 @@
-import { buildConfig } from "./util/config.utils";
+import { buildConfig, ConfigValidators } from "./util/config.utils";
+import { AwsSecrets } from "./util/loadAwsSecrets";
+import { validXrpSecret } from "./util/config.validator";
 
 interface XrpConfig {
     node: string;
     startingLedgerIndex: number;
+    minterSecret: string;
 }
 
-export default (): XrpConfig => {
-    return buildConfig<XrpConfig>({
-        node: {
-            default: "wss://s.altnet.rippletest.net/",
-            production: "wss://xrplcluster.com",
+export default (secrets: AwsSecrets = {}): XrpConfig => {
+    return buildConfig<XrpConfig>(
+        {
+            node: {
+                default: "wss://s.altnet.rippletest.net/",
+                production: "wss://xrplcluster.com",
+            },
+            startingLedgerIndex: {
+                default: 33127487,
+                production: 75184704,
+            },
+            minterSecret: {
+                production: process.env.XRP_MINTER_SECRET || secrets.XRP_MINTER_SECRET,
+                default: "sEd7BVj2pxZUuLufNVk6j6Gdb56SbUC",
+            },
         },
-        startingLedgerIndex: {
-            default: 33048673,
-            production: 75184704,
-        },
-    });
+        {
+            minterSecret: validXrpSecret,
+        } as ConfigValidators<XrpConfig>,
+    );
 };

@@ -2,6 +2,8 @@ import { UserDto } from "../../user/dto/user.dto";
 import { Paginated } from "../../common/paginated.dto";
 import { Collection } from "../../../database/entities/Collection";
 import { NftDto } from "../../nft/dto/nft.dto";
+import { NftStatus } from "../../../database/entities/Nft";
+import { NftDraftDto } from "../../nft/dto/nft-draft.dto";
 
 export class CollectionDto {
     id: number;
@@ -13,7 +15,7 @@ export class CollectionDto {
     items: number;
     account: string;
     user?: UserDto;
-    nfts: NftDto[];
+    nfts: (NftDto | NftDraftDto)[];
 
     static fromEntity({ id, taxon, name, description, image, header, user, items, account, nfts }: Collection): CollectionDto {
         return {
@@ -26,7 +28,7 @@ export class CollectionDto {
             items,
             account,
             user: user && UserDto.fromEntity(user),
-            nfts: nfts.map((nft) => NftDto.fromEntity(nft)),
+            nfts: (nfts || []).map((nft) => (nft.status === NftStatus.CONFIRMED ? NftDto.fromEntity(nft) : NftDraftDto.fromEntity(nft))),
         };
     }
 }

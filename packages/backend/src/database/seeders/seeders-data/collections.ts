@@ -29,13 +29,13 @@ export const devCollections = [
     },
     {
         id: 1,
-        taxon: "0",
+        taxon: "10",
         name: "CryptoPunks",
         description:
             "CryptoPunks launched as a fixed set of 10,000 items in mid-2017 and became one of the inspirations for the ERC-721 standard. They have been featured in places like The New York Times, Christie’s of London, Art|Basel Miami, and The PBS NewsHour.",
         image: "https://lh3.googleusercontent.com/BdxvLseXcfl57BiuQcQYdJ64v-aI8din7WPk0Pgo3qQFhAUH-B6i-dCqqc_mCkRIzULmwzwecnohLhrcH8A9mpWIZqA7ygc52Sr81hE=s168",
         header: "https://lh3.googleusercontent.com/48oVuDyfe_xhs24BC2TTVcaYCX7rrU5mpuQLyTgRDbKHj2PtzKZsQ5qC3xTH4ar34wwAXxEKH8uUDPAGffbg7boeGYqX6op5vBDcbA=h600",
-        account: devUsers[2].address,
+        account: devUsers[0].address,
         items: 2,
         createdAt: new Date(),
         updatedAt: new Date(),

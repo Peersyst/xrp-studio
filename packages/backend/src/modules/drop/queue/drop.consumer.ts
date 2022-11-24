@@ -2,65 +2,67 @@ import { Logger } from "@nestjs/common";
 import { InjectQueue, Process, Processor } from "@nestjs/bull";
 import { Job, Queue } from "bull";
 import { NftService } from "../../nft/nft.service";
-import { NftDto } from "../../nft/dto/nft.dto";
 import { NftStatus } from "../../../database/entities/Nft";
 import { DropService } from "../drop.service";
-
-interface IBlockchainService {
-    isMarketApproved(issuer: string): Promise<boolean>;
-    isSellOfferMatched(sellOfferIdentifier: string): Promise<boolean>;
-    prepareAuthorizedMintTransaction(nft: NftDto): Promise<NftMintTransaction>;
-    prepareSellOfferTransaction(nft: NftDto, price: string): Promise<NftSellOfferTransaction>;
-}
+import { BlockchainService } from "../../blockchain/blockchain.service";
+import { BlockchainTransactionService } from "../../blockchain/blockchain-transaction.service";
 
 @Processor("drop")
 export class DropConsumer {
     private readonly logger = new Logger(DropConsumer.name);
-    private readonly blockchainService: IBlockchainService;
 
     constructor(
         private readonly nftService: NftService,
         private readonly dropService: DropService,
+        private readonly blockchainService: BlockchainService,
+        private readonly blockchainTransactionService: BlockchainTransactionService,
         @InjectQueue("drop") private readonly dropQueue: Queue,
-        @InjectQueue("process-transaction") private readonly processTransactionQueue: Queue,
+        @InjectQueue("transaction-status") private readonly transactionStatusQueue: Queue,
     ) {}
 
     @Process("nft-mint-queue")
-    async nftMintQueue({ data: { nftId, price, tries = 1 } }: Job<{ nftId: number; price: string; tries?: number }>) {
-        this.logger.debug(`[nft-mint-queue] entering with ${{ nftId, tries, price }}`);
+    async nftMintQueue({ data: { nftId, tries = 1 } }: Job<{ nftId: number; tries?: number }>) {
+        this.logger.debug(`[nft-mint-queue] entering with ${JSON.stringify({ nftId, tries })}`);
         try {
-            const nft = await this.nftService.findOne(nftId);
-            if (!(await this.blockchainService.isMarketApproved(nft.user.address))) {
-                await this.dropQueue.add("nft-mint-queue", { nftId, price, tries: tries + 1 }, { delay: tries * 2000 });
-                return this.logger.debug(`[nft-mint-queue] re-queuing with ${{ nftId, tries, price }}`);
+            const nft = await this.nftService.findOne(nftId, { relations: ["user"] });
+            if (!(await this.blockchainService.isAccountAuthorized(nft.user?.address))) {
+                this.logger.debug(`[nft-mint-queue] re-queuing with ${JSON.stringify({ nftId, tries })}`);
+                return this.dropQueue.add("nft-mint-queue", { nftId, tries: tries + 1 }, { delay: tries * 2000 });
             }
-            const transaction = await this.nftService.publishDraftAsAuthorizedMinter(nft, this.dropService.);
-            await this.processTransactionQueue.add("sign-transaction", { transaction });
-            await this.dropQueue.add("nft-sell-offer-queue", { nftId, price });
+            this.logger.debug(`[nft-mint-queue] minting nft ${JSON.stringify({ nftId, tries })}`);
+            await this.dropService.mintNftInDrop(nftId);
         } catch (e) {
-            this.logger.error(`[nft-mint-queue] failed for ${{ nftId, price, tries }} with error ${e}`);
+            this.logger.error(`[nft-mint-queue] failed for ${JSON.stringify({ nftId, tries })} with error ${JSON.stringify(e)}`);
         }
     }
 
     @Process("nft-sell-offer-queue")
-    async nftSellOfferQueue({ data: { nftId, price } }: Job<{ nftId: number; price: string }>) {
-        this.logger.debug(`[nft-sell-offer-queue] entering with ${{ nftId, price }}`);
+    async nftSellOfferQueue({ data: { nftId } }: Job<{ nftId: number }>) {
+        this.logger.debug(`[nft-sell-offer-queue] entering with ${JSON.stringify({ nftId })}`);
         try {
             const nft = await this.nftService.findOne(nftId);
             if (nft.status !== NftStatus.CONFIRMED) {
                 await this.dropQueue.add("nft-sell-offer-queue", { nftId }, { delay: 1000 });
-                return this.logger.debug(`[nft-sell-offer-queue] re-queuing with ${{ nftId }}`);
+                return this.logger.debug(`[nft-sell-offer-queue] re-queuing with ${JSON.stringify({ nftId })}`);
             }
-            const transaction = await this.blockchainService.prepareSellOfferTransaction(nft, price);
-            await this.processTransactionQueue.add("sign-transaction", { transaction });
-            await this.dropQueue.add("nft-sell-offer-queue", { nftId });
+            await this.dropService.sellNftInDrop(nftId);
         } catch (e) {
-            this.logger.error(`[nft-mint-queue] failed for ${{ nftId, price }} with error ${e}`);
+            this.logger.error(`[nft-mint-queue] failed for ${JSON.stringify({ nftId })} with error ${JSON.stringify(e)}`);
         }
     }
 
     @Process("nft-sold-queue")
-    async nftSoldQueue({ data: { nftId, price } }: Job<{ nftId: number; price: string }>) {
-        this.logger.debug(`[nft-sold-queue] entering with ${{ nftId, price }}`);
+    async nftSoldQueue({ data: { nftId } }: Job<{ nftId: number }>) {
+        this.logger.debug(`[nft-sold-queue] entering with ${JSON.stringify({ nftId })}`);
+        try {
+            const isSold = await this.dropService.checkNftSold(nftId);
+            if (isSold) this.logger.log(`[nft-sold-queue] nft ${JSON.stringify({ nftId })} sold`);
+            else {
+                this.logger.log(`[nft-sold-queue] re-queuing nft ${JSON.stringify({ nftId })} is not sold yet`);
+                await this.dropQueue.add("nft-sold-queue", { nftId }, { delay: 10000 });
+            }
+        } catch (e) {
+            this.logger.error(`[nft-sold-queue] failed for ${JSON.stringify({ nftId })} with error ${JSON.stringify(e)}`);
+        }
     }
 }

@@ -8,7 +8,7 @@ export class CreateDropRequest {
         type: "number",
         required: true,
     })
-    collectionId?: number;
+    collectionId: number;
 
     @ApiProperty({
         type: "string",

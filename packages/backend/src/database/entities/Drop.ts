@@ -6,15 +6,13 @@ import {
     OneToMany,
     OneToOne,
     PrimaryGeneratedColumn,
-    Unique,
     UpdateDateColumn,
 } from "typeorm";
 import { Collection } from "./Collection";
 import { Faq } from "./Faq";
-import { Nft } from "./Nft";
+import { NftInDrop } from "./NftInDrop";
 
 @Entity("drop")
-@Unique(["taxon", "user"])
 export class Drop {
     @PrimaryGeneratedColumn()
     id: number;
@@ -24,6 +22,12 @@ export class Drop {
 
     @Column({ type: "varchar", length: 255 })
     price: string;
+
+    @Column({ type: "int" })
+    items: number;
+
+    @Column({ type: "int", default: 0 })
+    soldItems: number;
 
     @Column({ type: "varchar", length: 7 })
     backgroundColor: string;
@@ -50,8 +54,8 @@ export class Drop {
     @OneToMany(() => Faq, (faq) => faq.drop, { cascade: ["insert"] })
     faqs: Faq[];
 
-    @OneToMany(() => Nft, (nft) => nft.drop)
-    nfts: Nft[];
+    @OneToMany(() => NftInDrop, (nftInDrop) => nftInDrop.drop)
+    nftsInDrop: NftInDrop[];
 
     @CreateDateColumn({ name: "created_at", type: "timestamp" })
     createdAt: Date;
