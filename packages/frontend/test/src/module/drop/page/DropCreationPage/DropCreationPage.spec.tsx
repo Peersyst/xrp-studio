@@ -121,9 +121,10 @@ describe("DropCreationPage", () => {
 
             render(<DropCreationPage />);
 
-            await waitFor(() => expect(useSearchParamsMock.params.delete).toHaveBeenCalledWith("id"));
-            expect(useSearchParamsMock.setParams).toHaveBeenCalled();
-            expect(useToastMock.showToast).toHaveBeenCalledWith(translate("collectionNotOwned", { ns: "error" }), { type: "warning" });
+            await waitFor(() =>
+                expect(useToastMock.showToast).toHaveBeenCalledWith(translate("collectionNotOwned", { ns: "error" }), { type: "warning" }),
+            );
+            expect(useNavigateMock.navigate).toHaveBeenCalledWith(DashboardRoutes.MAIN);
         });
 
         test("Collection does not exist", async () => {
@@ -131,8 +132,7 @@ describe("DropCreationPage", () => {
 
             render(<DropCreationPage />);
 
-            await waitFor(() => expect(useSearchParamsMock.params.delete).toHaveBeenCalledWith("id"));
-            expect(useSearchParamsMock.setParams).toHaveBeenCalled();
+            await waitFor(() => expect(useNavigateMock.navigate).toHaveBeenCalledWith(DashboardRoutes.MAIN));
         });
     });
 });

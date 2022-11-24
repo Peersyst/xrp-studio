@@ -5,7 +5,7 @@ import { DropCreationForm } from "module/drop/types";
 import DropCreationPageHeader from "module/drop/page/DropCreationPage/DropCreationPageHeader/DropCreationPageHeader";
 import useGetCollection from "module/nft/query/useGetCollection";
 import BasePage from "module/common/component/layout/BasePage/BasePage";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import DropCreationPageContent from "./DropCreationPageContent/DropCreationPageContent";
 import { DashboardRoutes } from "module/dashboard/DashboardRouter";
 import useWallet from "module/wallet/hook/useWallet";
@@ -14,13 +14,13 @@ import DropLaunchModal from "module/drop/component/feedback/DropLaunchModal/Drop
 import createDropRequestFromForm from "module/drop/util/createDropRequestFromForm";
 
 const DropCreationPage = (): JSX.Element => {
-    const [searchParams, setSearchParams] = useSearchParams();
+    const [searchParams] = useSearchParams();
     const collectionIdQueryParam = searchParams.get("id");
-    const collectionId = (function () {
-        if (!collectionIdQueryParam) return undefined;
-        const parsedCollectionId = Number(collectionIdQueryParam);
-        return Number.isNaN(parsedCollectionId) ? undefined : parsedCollectionId;
-    })();
+    const [collectionId, setCollectionId] = useState<number>();
+
+    useEffect(() => {
+        setCollectionId(Number(collectionIdQueryParam));
+    }, [collectionIdQueryParam]);
 
     const { showToast } = useToast();
     const { showModal } = useModal();
@@ -35,18 +35,17 @@ const DropCreationPage = (): JSX.Element => {
     };
 
     useEffect(() => {
-        if (collectionId === undefined) navigate(DashboardRoutes.MAIN);
-        else if (!collectionLoading) {
+        if (collectionIdQueryParam === null || (collectionId !== undefined && (Number.isNaN(collectionId) || collectionId < 1)))
+            navigate(DashboardRoutes.MAIN);
+        else if (collectionId && !collectionLoading) {
             if (!collection) {
-                searchParams.delete("id");
-                setSearchParams(searchParams);
+                navigate(DashboardRoutes.MAIN);
             } else if (collection.account !== address) {
-                searchParams.delete("id");
-                setSearchParams(searchParams);
                 showToast(translateError("collectionNotOwned"), { type: "warning" });
+                navigate(DashboardRoutes.MAIN);
             }
         }
-    }, [collectionId, collection, collectionLoading, address]);
+    }, [collectionIdQueryParam, collectionId, collection, collectionLoading, address]);
 
     return (
         <Form onSubmit={handleSubmit}>
