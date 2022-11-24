@@ -131,5 +131,6 @@
     "publishCollectionConfirmation": "Confirmación de publcación de la colección",
     "cantPublishCollectionWithoutNfts": "No puedes publicar una colección sin NFTs",
     "viewDetails": "Ver detalles",
-    "errorTitle": "Algo ha pasado..."
+    "errorTitle": "Algo ha pasado...",
+    "launchDropConfirmation": "Confirmación de lanzamiento del drop"
 }

@@ -4,7 +4,7 @@ import { render, translate } from "test-utils";
 import { DropDtoMock, MetadataDtoMock, NftDtoMock } from "test-mocks";
 
 describe("DropLanding", () => {
-    const nftMocks = [...Array(3)].map((_, i) => new NftDtoMock({ metadata: new MetadataDtoMock({ name: "NFT #" + i }) }));
+    const nftMocks = [...Array(3)].map((_, i) => new NftDtoMock({ id: i + 1, metadata: new MetadataDtoMock({ name: "NFT #" + i }) }));
 
     test("Renders correctly with all properties", () => {
         const dropDtoMock = new DropDtoMock();

@@ -131,5 +131,6 @@
     "publishCollectionConfirmation": "Publish collection confirmation",
     "cantPublishCollectionWithoutNfts": "You can't publish a collection without NFTs",
     "viewDetails": "View details",
-    "errorTitle": "Something bad happened..."
+    "errorTitle": "Something bad happened...",
+    "launchDropConfirmation": "Launch drop confirmation"
 }

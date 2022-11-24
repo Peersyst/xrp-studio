@@ -33,7 +33,7 @@ const CollectionInfo = (): JSX.Element => {
                 </Skeleton>
             </Col>
             <CollectionsButtons gap="0.5rem">
-                <Button size="sm" onClick={() => navigate(CollectionRoutes.CREATE_COLLECTION)}>
+                <Button size="sm" onClick={() => navigate(`${CollectionRoutes.CREATE_COLLECTION}?id=${id}`)}>
                     {translate("editCollection")}
                 </Button>
             </CollectionsButtons>
