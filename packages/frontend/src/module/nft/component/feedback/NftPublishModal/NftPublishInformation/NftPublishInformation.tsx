@@ -1,5 +1,5 @@
 import useTranslate from "module/common/hook/useTranslate";
-import { Typography } from "@peersyst/react-components";
+import { Row, Typography } from "@peersyst/react-components";
 import { capitalize } from "@peersyst/react-utils";
 import { NftPublishInformationProps } from "./NftPublishInformation.types";
 import { TFuncKey } from "react-i18next";
@@ -47,9 +47,11 @@ const NftPublishInformation = ({
     return isDataProvided ? (
         <InformationFields fields={informationFields} />
     ) : (
-        <Typography variant="h6" textAlign="center">
-            {translate("noDataProvided")}
-        </Typography>
+        <Row flex={1} justifyContent="center" alignItems="center">
+            <Typography variant="h6" textAlign="center">
+                {translate("noDataProvided")}
+            </Typography>
+        </Row>
     );
 };
 

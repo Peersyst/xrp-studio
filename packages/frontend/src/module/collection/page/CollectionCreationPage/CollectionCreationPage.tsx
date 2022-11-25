@@ -39,7 +39,7 @@ const CollectionCreationPage = (): JSX.Element => {
             searchParams.delete("id");
             setSearchParams(searchParams);
         }
-    }, [collectionLoading, collection]);
+    }, [collectionId, collectionLoading, collection, userAddress]);
 
     const handleSubmit = async (data: CollectionCreationForm, action?: string) => {
         if (collection) {

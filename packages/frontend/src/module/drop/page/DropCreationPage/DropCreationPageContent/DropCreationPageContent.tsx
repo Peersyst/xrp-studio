@@ -12,6 +12,7 @@ import FaqsInput from "module/drop/component/input/FaqsInput/FaqsInput";
 import DropLanding from "module/drop/component/display/DropLanding/DropLanding";
 import { useGetCollectionNfts } from "module/nft/query/useGetCollectionNfts";
 import { usePaginatedList } from "@peersyst/react-hooks";
+import { XrpIcon } from "icons";
 
 const DropCreationPageContent = ({ loading = false, collection }: WithLoading<CollectionCreationPageContentProps>): JSX.Element => {
     const translate = useTranslate();
@@ -62,6 +63,7 @@ const DropCreationPageContent = ({ loading = false, collection }: WithLoading<Co
                                     value={price}
                                     required
                                     onChange={normalizedHandleChange("price")}
+                                    suffix={<XrpIcon />}
                                 />
                                 <ColorInput
                                     name={DropCreationFormFields.BACKGROUND_COLOR}
@@ -95,7 +97,6 @@ const DropCreationPageContent = ({ loading = false, collection }: WithLoading<Co
                                 <Typography variant="body1" color={"black.50"} className={"Filled"} fontWeight={500}>
                                     {translate("social")}
                                 </Typography>
-
                                 <TextField
                                     name={DropCreationFormFields.INSTAGRAM}
                                     placeholder={translate("instagram")}

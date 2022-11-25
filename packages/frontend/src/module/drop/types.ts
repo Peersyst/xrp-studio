@@ -7,7 +7,7 @@ export type Faq = Loosen<FaqDto, any>;
 export interface DropCreationForm {
     price: string;
     backgroundColor: Color;
-    fontColor: string;
+    fontColor: Color;
     videoUrl?: string;
     instagram?: string;
     twitter?: string;
@@ -18,9 +18,9 @@ export interface DropCreationForm {
 
 export enum DropCreationFormFields {
     PRICE = "price",
-    BACKGROUND_COLOR = "background_color",
-    FONT_COLOR = "font_color",
-    VIDEO_URL = "external_url",
+    BACKGROUND_COLOR = "backgroundColor",
+    FONT_COLOR = "fontColor",
+    VIDEO_URL = "externalUrl",
     INSTAGRAM = "instagram",
     TWITTER = "twitter",
     DISCORD = "discord",
