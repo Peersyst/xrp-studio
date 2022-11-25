@@ -1,4 +1,4 @@
-import { CollectionDto, DropDto, FaqsDto } from "module/api/service";
+import { CollectionDto, DropDto, FaqDto } from "module/api/service";
 import { FaqsDtoMock } from "./faqs.dto.mock";
 import { CollectionDtoMock } from "test-mocks";
 
@@ -12,7 +12,9 @@ export class DropDtoMock implements DropDto {
     instagram?: string;
     twitter?: string;
     discord?: string;
-    faqs: Array<FaqsDto>;
+    items: number;
+    soldItems: number;
+    faqs: Array<FaqDto>;
     collection: CollectionDto;
 
     constructor({
@@ -26,8 +28,8 @@ export class DropDtoMock implements DropDto {
         twitter = "twitter",
         discord = "discord",
         faqs = [
-            new FaqsDtoMock({ id: 1, question: "Question A", answer: "Answer A" }),
-            new FaqsDtoMock({ id: 1, question: "Question B", answer: "Answer B" }),
+            new FaqsDtoMock({ question: "Question A", answer: "Answer A" }),
+            new FaqsDtoMock({ question: "Question B", answer: "Answer B" }),
         ],
         collection = new CollectionDtoMock(),
     }: // TODO: ADD sold to DropDto
@@ -43,5 +45,7 @@ export class DropDtoMock implements DropDto {
         this.discord = discord;
         this.faqs = faqs;
         this.collection = collection;
+        this.items = collection.items;
+        this.soldItems = 0;
     }
 }

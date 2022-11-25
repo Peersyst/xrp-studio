@@ -1,5 +1,5 @@
 import Color from "color";
-import { CollectionDto, FaqDto } from "module/api/service";
+import { FaqDto } from "module/api/service";
 import { Loosen } from "@peersyst/react-types";
 
 export type Faq = Loosen<FaqDto, any>;
@@ -13,7 +13,6 @@ export interface DropCreationForm {
     twitter?: string;
     discord?: string;
     faqs: Array<FaqDto>;
-    collection: CollectionDto;
 }
 
 export enum DropCreationFormFields {

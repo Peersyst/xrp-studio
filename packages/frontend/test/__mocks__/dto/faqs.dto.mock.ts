@@ -1,12 +1,10 @@
-import { FaqsDto } from "module/api/service";
+import { FaqDto } from "module/api/service";
 
-export class FaqsDtoMock implements FaqsDto {
-    id: number;
+export class FaqsDtoMock implements FaqDto {
     question: string;
     answer: string;
 
-    constructor({ id, question, answer }: FaqsDto) {
-        this.id = id;
+    constructor({ question, answer }: FaqDto) {
         this.question = question;
         this.answer = answer;
     }

@@ -37,4 +37,4 @@ export class DropDto {
 
 export class PaginatedDropDto extends Paginated<DropDto> {
     items: DropDto[];
-};
+}
