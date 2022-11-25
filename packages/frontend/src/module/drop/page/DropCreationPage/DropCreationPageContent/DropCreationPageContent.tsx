@@ -36,6 +36,8 @@ const DropCreationPageContent = ({ loading = false, collection }: WithLoading<Co
                         loading={loading}
                         drop={{
                             price,
+                            items: collection?.items || 500,
+                            soldItems: collection?.items || 500,
                             backgroundColor: backgroundColor.hex(),
                             fontColor: fontColor.hex(),
                             videoUrl,

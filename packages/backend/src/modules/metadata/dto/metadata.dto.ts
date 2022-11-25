@@ -32,7 +32,7 @@ export class MetadataDto {
             image,
             backgroundColor,
             externalUrl,
-            attributes?.map((attribute) => MetadataAttributeDto.fromEntity(attribute)),
+            (attributes || [])?.map((attribute) => MetadataAttributeDto.fromEntity(attribute)),
         );
     }
 

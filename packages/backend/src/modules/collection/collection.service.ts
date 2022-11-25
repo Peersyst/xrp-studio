@@ -89,7 +89,8 @@ export class CollectionService {
         const where = "id" in key ? { id: key.id } : { taxon: key.taxon, user: { address: key.account } };
 
         const collection = await this.collectionRepository.findOne({ where, relations });
-        if (!collection) throw new BusinessException(ErrorCode.COLLECTION_NOT_FOUND);
+        if (!collection || (ownerAddress && collection.account !== ownerAddress))
+            throw new BusinessException(ErrorCode.COLLECTION_NOT_FOUND);
 
         return CollectionDto.fromEntity(collection);
     }

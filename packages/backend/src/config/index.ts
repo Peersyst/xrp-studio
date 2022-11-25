@@ -17,7 +17,7 @@ export default async (): Promise<any> => {
         logger: loggerConfig(),
         redis: redisConfig(secrets),
         bull: bullConfig(),
-        xrp: xrpConfig(),
+        xrp: xrpConfig(secrets),
         xumm: xummConfig(secrets),
         pinata: xummConfig(secrets),
         aws: awsS3Config(secrets),

@@ -18,6 +18,9 @@ enum AppErrorCode {
     NFT_TRANSFERABLE_NOT_SET = "NFT_TRANSFERABLE_NOT_SET",
     METADATA_URI_NOT_SUPPORTED = "METADATA_URI_NOT_SUPPORTED",
     METADATA_NOT_FOUND = "METADATA_NOT_FOUND",
+    COLLECTION_ALREADY_LAUNCHED = "COLLECTION_ALREADY_LAUNCHED",
+    NFT_ALREADY_LAUNCHED = "NFT_ALREADY_LAUNCHED",
+    DROP_SOLD_OUT = "DROP_SOLD_OUT",
 }
 
 export const ErrorCode = { ...AppErrorCode, ...XummErrorCode, ...StorageErrorCode };
@@ -81,5 +84,17 @@ export const ErrorBody: { [code in ErrorCodeType]: { statusCode: HttpStatus; mes
     [ErrorCode.METADATA_NOT_FOUND]: {
         statusCode: HttpStatus.NOT_FOUND,
         message: ErrorCode.METADATA_NOT_FOUND,
+    },
+    [ErrorCode.COLLECTION_ALREADY_LAUNCHED]: {
+        statusCode: HttpStatus.PRECONDITION_FAILED,
+        message: ErrorCode.COLLECTION_ALREADY_LAUNCHED,
+    },
+    [ErrorCode.NFT_ALREADY_LAUNCHED]: {
+        statusCode: HttpStatus.PRECONDITION_FAILED,
+        message: ErrorCode.NFT_ALREADY_LAUNCHED,
+    },
+    [ErrorCode.DROP_SOLD_OUT]: {
+        statusCode: HttpStatus.NOT_FOUND,
+        message: ErrorCode.DROP_SOLD_OUT,
     },
 };

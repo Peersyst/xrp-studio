@@ -2,7 +2,7 @@ import { User } from "../../entities/User";
 
 export const devUsers: User[] = [
     {
-        address: "rsgi7ENscrVaXC44JE2m94XzKQrmAVX2gV",
+        address: "rwEiU5xL5GJUzX1cd7cvaHtf27CS2DYTGf",
         name: "acarrera",
         image: "https://avatars.githubusercontent.com/u/23333654?v=4",
         createdAt: new Date(),
