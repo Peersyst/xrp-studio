@@ -58,7 +58,7 @@ const NftPublishActions = ({ calls, responseId }: NftPublishActionsProps): JSX.E
         },
     ];
 
-    return <ActionSteps title={translate("creationSteps")} steps={steps} onSuccess={onSuccess} />;
+    return <ActionSteps steps={steps} onSuccess={onSuccess} />;
 };
 
 export default NftPublishActions;
