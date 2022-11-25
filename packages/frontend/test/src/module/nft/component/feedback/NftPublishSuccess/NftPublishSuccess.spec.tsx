@@ -8,7 +8,7 @@ describe("NftPublishSuccess test", () => {
         render(<NftPublishSuccess />);
 
         await waitFor(() => expect(screen.getByTestId("CheckCircleIcon")).toBeInTheDocument());
-        expect(screen.getByRole("heading", { name: translate("successTitle") })).toBeInTheDocument();
+        expect(screen.getByRole("heading", { name: translate("nftCreationSuccessStepTitle") })).toBeInTheDocument();
         expect(screen.getByText(translate("hashTransactionCreation"))).toBeInTheDocument();
         expect(screen.getByText(translate("tokenId"))).toBeInTheDocument();
         expect(screen.getByText(translate("transferFeeCost"))).toBeInTheDocument();

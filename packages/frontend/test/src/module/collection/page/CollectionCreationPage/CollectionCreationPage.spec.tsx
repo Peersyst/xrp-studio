@@ -8,6 +8,7 @@ import {
     UseNavigateMock,
     UseCollectionCreationStateMock,
     ModalMock,
+    UseCheckBalanceMock,
 } from "test-mocks";
 import { render, translate } from "test-utils";
 import CollectionCreationPage from "module/collection/page/CollectionCreationPage/CollectionCreationPage";
@@ -30,16 +31,19 @@ describe("CollectionCreationPage", () => {
 
     describe("Creation", () => {
         let useSearchParamsMock: UseSearchParamsMock;
+        let ueCheckBalanceMock: UseCheckBalanceMock;
         let useCollectionCreationStateMock: UseCollectionCreationStateMock;
         let useModalMock: ModalMock;
 
         beforeEach(() => {
+            ueCheckBalanceMock = new UseCheckBalanceMock();
             useSearchParamsMock = new UseSearchParamsMock();
             useCollectionCreationStateMock = new UseCollectionCreationStateMock({ name: COLLECTION_NAME, nfts: [{ id: 1 }] });
             useModalMock = new ModalMock();
         });
 
         afterAll(() => {
+            ueCheckBalanceMock.restore();
             useSearchParamsMock.restore();
             useCollectionCreationStateMock.restore();
             useModalMock.restore();
@@ -74,7 +78,7 @@ describe("CollectionCreationPage", () => {
         });
 
         test("Saves collection", async () => {
-            const publishCollectionMock = jest
+            const saveCollectionMock = jest
                 .spyOn(CollectionService, "collectionControllerCreateCollection")
                 .mockResolvedValueOnce(new CollectionDtoMock());
 
@@ -82,9 +86,7 @@ describe("CollectionCreationPage", () => {
 
             const saveButton = screen.getByRole("button", { name: translate("save") });
             userEvent.click(saveButton);
-            await waitFor(() =>
-                expect(publishCollectionMock).toHaveBeenCalledWith(expect.objectContaining({ name: COLLECTION_NAME }), false),
-            );
+            await waitFor(() => expect(saveCollectionMock).toHaveBeenCalledWith(expect.objectContaining({ name: COLLECTION_NAME }), false));
             await waitFor(() => expect(useToastMock.showToast).toHaveBeenCalledWith(translate("collectionCreated"), { type: "success" }));
             expect(useNavigateMock.navigate).toHaveBeenCalledWith(CollectionRoutes.MY_COLLECTIONS, { replace: true });
         });

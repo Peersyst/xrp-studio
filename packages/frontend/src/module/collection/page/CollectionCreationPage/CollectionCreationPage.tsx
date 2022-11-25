@@ -13,6 +13,8 @@ import { CollectionCreationForm } from "module/collection/types";
 import createCollectionRequestFromForm from "module/collection/util/createCollectionRequestFromForm";
 import { CollectionRoutes } from "module/collection/CollectionRouter";
 import CollectionPublishModal from "module/collection/component/feedback/CollectionPublishModal/CollectionPublishModal";
+import { useResetRecoilState } from "recoil";
+import collectionCreationState from "module/collection/state/CollectionCreationState";
 
 const CollectionCreationPage = (): JSX.Element => {
     const translate = useTranslate();
@@ -20,6 +22,7 @@ const CollectionCreationPage = (): JSX.Element => {
     const { showToast } = useToast();
     const { showModal } = useModal();
     const navigate = useNavigate();
+    const resetCollectionCreationState = useResetRecoilState(collectionCreationState);
 
     const [searchParams, setSearchParams] = useSearchParams();
     const collectionId = searchParams.get("id");
@@ -54,6 +57,7 @@ const CollectionCreationPage = (): JSX.Element => {
                     collection: createCollectionRequestFromForm("create", data),
                     publish: false,
                 });
+                resetCollectionCreationState();
                 showToast(translate("collectionCreated"), { type: "success" });
                 navigate(CollectionRoutes.MY_COLLECTIONS, { replace: true });
             }

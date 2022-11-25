@@ -18,22 +18,22 @@ const NftPublishActions = (): JSX.Element => {
             },
         },
         {
-            title: translate("confirmCreation"),
-            description: translate("confirmCreationDescription"),
+            title: translate("nftCreationConfirmationStepTitle"),
+            description: translate("nftCreationConfirmationStepDescription"),
             execution: async () => {
                 return undefined;
             },
         },
         {
-            title: translate("successTitle"),
-            description: translate("successDescription"),
+            title: translate("nftCreationSuccessStepTitle"),
+            description: translate("nftCreationSuccessStepDescription"),
             execution: async () => {
                 return undefined;
             },
         },
     ];
 
-    return <ActionSteps title={translate("creationSteps")} steps={steps} onSuccess={onSuccess} />;
+    return <ActionSteps title={translate("nftCreationSteps")} steps={steps} onSuccess={onSuccess} />;
 };
 
 export default NftPublishActions;

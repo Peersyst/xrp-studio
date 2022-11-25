@@ -9,15 +9,21 @@ const Modal = ({
     title,
     children,
     elevation = 3,
-    onClose,
     closable = true,
     subtitle,
     size = "md",
+    onClose,
     ...rest
 }: ModalProps): JSX.Element => {
-    const [open, setOpen] = useControlled(true, openProp, openProp ? onClose : undefined);
+    const [open, setOpen] = useControlled(true, openProp);
+
+    const handleClose = () => {
+        setOpen(false);
+        onClose?.();
+    };
+
     return (
-        <ModalRoot size={size} open={open} onClose={() => setOpen(false)} elevation={elevation} closable={closable} {...rest}>
+        <ModalRoot size={size} open={open} onClose={handleClose} elevation={elevation} closable={closable} {...rest}>
             <Col flex={1} gap="3rem" className="modal-main-col">
                 {title && (
                     <Col gap="1rem">
@@ -32,7 +38,7 @@ const Modal = ({
                     </Col>
                 )}
                 {closable && (
-                    <CloseModalButton onClick={() => setOpen(false)}>
+                    <CloseModalButton onClick={handleClose}>
                         <CloseIcon />
                     </CloseModalButton>
                 )}

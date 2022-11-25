@@ -1,7 +1,7 @@
 export interface Step {
     title: string;
     description: string;
-    execution: () => any;
+    execution?: () => any;
 }
 
 export interface ActionStepProps {
@@ -9,10 +9,17 @@ export interface ActionStepProps {
     step: Step;
     active: boolean;
     onSuccess: () => void;
+    onError: (e: unknown) => void;
 }
 
-export interface ActionStepsProps {
+export type ActionStepsProps = ActionStepsHandlers & {
     title?: string;
     steps: Step[];
-    onSuccess: () => void;
+};
+
+export interface ActionStepsHandlers {
+    onStart?: () => void;
+    onEnd?: () => void;
+    onSuccess?: () => void;
+    onError?: (e: unknown) => void;
 }
