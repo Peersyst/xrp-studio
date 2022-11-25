@@ -21,7 +21,7 @@ const ActionSteps = ({ title, steps, onSuccess }: ActionStepsProps): JSX.Element
                     <Divider />
                 </Col>
             )}
-            <Col gap="2rem" flex={1} justifyContent="center" css={{ width: "100%" }}>
+            <Col gap="1.5rem" flex={1} justifyContent="center" css={{ width: "100%" }}>
                 {steps.map((step, i) => (
                     <ActionStep key={i} stepNumber={i + 1} step={step} active={currentStep === i} onSuccess={handleStepSuccess} />
                 ))}
