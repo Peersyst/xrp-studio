@@ -16,7 +16,7 @@ export type DropDto = {
     instagram?: string;
     twitter?: string;
     discord?: string;
-    faqs: Array<FaqDto>;
+    faqs?: Array<FaqDto>;
     collection?: CollectionDto;
 };
 

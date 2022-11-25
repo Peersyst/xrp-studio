@@ -44,7 +44,6 @@ export const $DropDto = {
             contains: {
                 type: 'FaqDto',
             },
-            isRequired: true,
         },
         collection: {
             type: 'CollectionDto',
