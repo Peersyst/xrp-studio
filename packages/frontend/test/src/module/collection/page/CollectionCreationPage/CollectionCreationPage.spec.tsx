@@ -23,27 +23,26 @@ describe("CollectionCreationPage", () => {
 
     const useToastMock = new ToastMock();
     const useNavigateMock = new UseNavigateMock();
+    const useCheckBalanceMock = new UseCheckBalanceMock();
 
     beforeEach(() => {
         useToastMock.clear();
         useNavigateMock.clear();
+        useCheckBalanceMock.clear();
     });
 
     describe("Creation", () => {
         let useSearchParamsMock: UseSearchParamsMock;
-        let ueCheckBalanceMock: UseCheckBalanceMock;
         let useCollectionCreationStateMock: UseCollectionCreationStateMock;
         let useModalMock: ModalMock;
 
         beforeEach(() => {
-            ueCheckBalanceMock = new UseCheckBalanceMock();
             useSearchParamsMock = new UseSearchParamsMock();
             useCollectionCreationStateMock = new UseCollectionCreationStateMock({ name: COLLECTION_NAME, nfts: [{ id: 1 }] });
             useModalMock = new ModalMock();
         });
 
         afterAll(() => {
-            ueCheckBalanceMock.restore();
             useSearchParamsMock.restore();
             useCollectionCreationStateMock.restore();
             useModalMock.restore();
