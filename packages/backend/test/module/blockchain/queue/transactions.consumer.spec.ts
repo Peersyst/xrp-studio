@@ -68,7 +68,7 @@ describe("TransactionsConsumer", () => {
         test("Processes mint transaction correctly and creates an NFT", async () => {
             await transactionsConsumer.processMintTransaction({ data: { transaction: nftMintTransaction, ledgerIndex: 1 } } as Job);
             expect(loggerMock.log).toHaveBeenCalledWith(`PROCESSING MINT TRANSACTION ${nftMintTransaction.hash}`);
-            expect(nftServiceMock.createNftFromMintTransaction).toHaveBeenLastCalledWith(nftMintTransaction, 1);
+            expect(nftServiceMock.createNftFromMintTransaction).toHaveBeenLastCalledWith(nftMintTransaction);
             expect(loggerMock.log).toHaveBeenCalledWith(`INDEXED NFT ${new NftMock().tokenId}`);
         });
         test("There is an error storing the NFT", async () => {

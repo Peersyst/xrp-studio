@@ -12,8 +12,8 @@ export default function DashboardPage(): JSX.Element {
                     backgroundColor: "#141A1F",
                     fontColor: "#FFFFFF",
                     faqs: [
-                        { id: 1, question: "Question 1", answer: "Answer 1" },
-                        { id: 2, question: "Question 2", answer: "Answer 2" },
+                        { question: "Question 1", answer: "Answer 1" },
+                        { question: "Question 2", answer: "Answer 2" },
                     ],
                     videoUrl: "https://www.youtube.com/watch?v=iPUmE-tne5U",
                     collection: {
@@ -34,6 +34,8 @@ export default function DashboardPage(): JSX.Element {
                             image: "https://s3-alpha-sig.figma.com/img/8fa9/dff7/67aa4e06bbdc7f0e3089e4751b304df6?Expires=1669593600&Signature=TPGe7nx74qqg-KC-lK8-R6Od40Bl0Du6xSyQMv5pIdel~P-Qt8YaYJ~sbrRIeFa0w5EPgaqwylzD8UtQ-5J~IAkwosEsd2N84UHNzsQ-BoCjr03veMjzDrsEWxcGS7xHWlViLzeS5UpIUeKCBMKJ3MCIZMfjTe8PgiWPxaD6LxQjOtGsS6VunwiDOGw5RWn2uCJn~sNQMBGKDlEreNcEuSXJQy~IQDO4gzDRyN7flxz3t6ODjF6csgyhvT-8BkvKSDmxcbpZdQ1bo8R7b5bTzIR2NqMa6SEy5biPl4Qk1uwoM8vctz2Jsvi-AMB358qbizHnom~RFoTU5YpuI9FsNA__&Key-Pair-Id=APKAINTVSUGEWH5XD5UA",
                         },
                     },
+                    items: 500,
+                    soldItems: 30,
                 }}
                 nfts={[...Array(10)].map((_, i) => ({
                     id: i,

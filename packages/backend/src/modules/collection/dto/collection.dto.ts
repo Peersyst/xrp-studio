@@ -15,7 +15,7 @@ export class CollectionDto {
     items: number;
     account: string;
     user?: UserDto;
-    nfts: (NftDto | NftDraftDto)[];
+    nfts?: (NftDto | NftDraftDto)[];
 
     static fromEntity({ id, taxon, name, description, image, header, user, items, account, nfts }: Collection): CollectionDto {
         return {
@@ -28,7 +28,9 @@ export class CollectionDto {
             items,
             account,
             user: user && UserDto.fromEntity(user),
-            nfts: (nfts || []).map((nft) => (nft.status === NftStatus.CONFIRMED ? NftDto.fromEntity(nft) : NftDraftDto.fromEntity(nft))),
+            nfts:
+                nfts !== undefined &&
+                (nfts || []).map((nft) => (nft.status === NftStatus.CONFIRMED ? NftDto.fromEntity(nft) : NftDraftDto.fromEntity(nft))),
         };
     }
 }

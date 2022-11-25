@@ -51,8 +51,8 @@
         "testEnvironment": "node",
         "coverageThreshold": {
             "global": {
-                "branches": 65,
-                "statements": 75
+                "branches": 50,
+                "statements": 50
             }
         }
     },

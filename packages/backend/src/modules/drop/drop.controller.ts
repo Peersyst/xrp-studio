@@ -1,7 +1,7 @@
 import { ApiOperation, ApiTags } from "@nestjs/swagger";
 import { Body, Controller, Get, Param, ParseIntPipe, Post, Request } from "@nestjs/common";
 import { ApiErrorDecorators } from "../common/exception/error-response.decorator";
-import { DropDto, DropDtoMock } from "./dto/drop.dto";
+import { DropDto } from "./dto/drop.dto";
 import { XummAuthenticated } from "@peersyst/xumm-module";
 import { CreateDropRequest } from "./request/create-drop.request";
 import { DropService } from "./drop.service";

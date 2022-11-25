@@ -224,13 +224,13 @@ export class NftService {
 
         const { id: draftId, collection, transferFee, flags, metadata } = nftDraft;
 
-        const cid = await this.metadataService.publishMetadata(nftId);
+        const cid = metadata && (await this.metadataService.publishMetadata(nftId));
 
         const transaction = await this.blockchainTransactionService.prepareNftMintTransaction({
             account: ownerAddress,
             flags: flags,
             taxon: Number(collection?.taxon || "0"),
-            uri: "ipfs://" + cid,
+            uri: cid && "ipfs://" + cid,
             transferFee: transferFee,
             memo: JSON.stringify({ id: draftId, ...(metadata?.name && { name: metadata.name }) }),
         });

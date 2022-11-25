@@ -2,13 +2,10 @@
 /* tslint:disable */
 /* eslint-disable */
 
-import type { CollectionDto } from './CollectionDto';
-import type { FaqDto } from './FaqDto';
+import type { CreateDropFaqsRequest } from './CreateDropFaqsRequest';
 
-export type DropDto = {
-    id: number;
-    items: number;
-    soldItems: number;
+export type CreateDropRequest = {
+    collectionId: number;
     price: string;
     backgroundColor: string;
     fontColor: string;
@@ -16,7 +13,6 @@ export type DropDto = {
     instagram?: string;
     twitter?: string;
     discord?: string;
-    faqs: Array<FaqDto>;
-    collection?: CollectionDto;
+    faqs: Array<CreateDropFaqsRequest>;
 };
 

@@ -1,8 +1,8 @@
 import Color from "color";
-import { CollectionDto, FaqsDto } from "module/api/service";
+import { CollectionDto, FaqDto } from "module/api/service";
 import { Loosen } from "@peersyst/react-types";
 
-export type Faq = Loosen<FaqsDto, "id">;
+export type Faq = Loosen<FaqDto, any>;
 
 export interface DropCreationForm {
     price: string;
@@ -12,7 +12,7 @@ export interface DropCreationForm {
     instagram?: string;
     twitter?: string;
     discord?: string;
-    faqs: Array<FaqsDto>;
+    faqs: Array<FaqDto>;
     collection: CollectionDto;
 }
 
