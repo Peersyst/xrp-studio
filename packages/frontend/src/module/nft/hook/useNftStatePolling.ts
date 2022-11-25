@@ -1,10 +1,13 @@
 import { useMutation, UseMutationResult } from "react-query";
 import { NftDto, NftService } from "module/api/service";
 import config from "config/config";
+import useTranslate from "module/common/hook/useTranslate";
 
 export default function (): UseMutationResult<NftDto["status"], string, number> {
+    const translateError = useTranslate("error");
+
     async function nftPollingRequest(delay = 1000, i = 0, id: number) {
-        if (i === config.maxPollingIterations) throw new Error("Max polling calls reached");
+        if (i === config.maxPollingIterations) throw new Error(translateError("maxPollingCalls"));
         const res = await NftService.nftControllerGetNftDraftStatus(undefined, [id]);
         const status = res[0].status;
         if (res[0].status === "pending")
