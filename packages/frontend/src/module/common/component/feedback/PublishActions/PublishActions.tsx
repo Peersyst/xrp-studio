@@ -14,7 +14,7 @@ const PublishActions = ({ title, steps, onSuccess }: NftPublishActionsProps): JS
     };
 
     return (
-        <Col gap="rem" flex={1}>
+        <Col gap="1rem" flex={1}>
             {title && (
                 <Col gap="1rem">
                     <Typography variant="h6" fontWeight={700}>
@@ -23,7 +23,7 @@ const PublishActions = ({ title, steps, onSuccess }: NftPublishActionsProps): JS
                     <Divider />
                 </Col>
             )}
-            <Col gap="2rem" flex={1} justifyContent="center" style={{ width: "100%" }}>
+            <Col gap="1.5rem" flex={1} justifyContent="center" style={{ width: "100%" }}>
                 {steps.map((step, i) => (
                     <NftPublishActionStep key={i} stepNumber={i + 1} step={step} active={currentStep === i} onSuccess={onStepSuccess} />
                 ))}

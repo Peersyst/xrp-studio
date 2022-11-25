@@ -1,7 +1,7 @@
 export interface NftPublishActionStep {
     title: string;
     description: string;
-    execution: () => Promise<string | void>;
+    execution: () => Promise<number | string | void>;
 }
 
 export interface NftPublishActionsStepsProps {
