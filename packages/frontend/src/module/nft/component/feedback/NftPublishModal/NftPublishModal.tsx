@@ -18,12 +18,23 @@ const NftPublishModal = createModal<NftPublishModalProps>(({ request, draftId, c
     const translate = useTranslate();
     const navigate = useNavigate();
 
-    const { mutateAsync: publish, isLoading: isPublishing, data: responseId } = usePublishNft(request, draftId);
-    const { mutateAsync: startPolling, isLoading: isPolling } = useNftStatePolling();
+    const {
+        mutateAsync: publish,
+        isLoading: isPublishing,
+        isError: isPublishError,
+        error: publishError,
+        data: responseId,
+    } = usePublishNft(request, draftId);
+    const { mutateAsync: startPolling, isLoading: isPolling, isError: isPollError, error: pollError } = useNftStatePolling();
 
     const { metadata: { image: nftImage = "" } = {} } = request;
 
-    const mockError = true;
+    const isError = isPublishError || isPollError;
+
+    const getError = (): string => {
+        if (isPublishError) return publishError;
+        else return pollError!;
+    };
 
     const handleCloseSuccessfully: ActionFn = ({ close }) => {
         close();
@@ -50,7 +61,7 @@ const NftPublishModal = createModal<NftPublishModalProps>(({ request, draftId, c
                         ],
                     },
                     {
-                        content: mockError ? <NftPublishError /> : <NftPublishSuccess />,
+                        content: isError ? <NftPublishError error={getError()} /> : <NftPublishSuccess id={responseId} />,
                         actions: [{ action: handleCloseSuccessfully, label: translate("close") }],
                     },
                 ],

@@ -2,28 +2,36 @@ import useTranslate from "module/common/hook/useTranslate";
 import PublishResult from "module/common/component/feedback/PublishResult/PublishResult";
 import { InformationField } from "module/common/component/display/InformationFields/InformationFields.types";
 import InformationFields from "module/common/component/display/InformationFields/InformationFields";
+import useGetNft from "module/nft/query/useGetNft";
+import { LoaderIcon } from "@peersyst/react-components";
 
-const NftPublishSuccess = (): JSX.Element => {
+interface NftPublishSuccessProps {
+    id: number | undefined;
+}
+
+const NftPublishSuccess = ({ id }: NftPublishSuccessProps): JSX.Element => {
     const translate = useTranslate();
+
+    const { data: nftData, isLoading: isNftLoading } = useGetNft(id);
 
     const publishSuccessContent: InformationField[] = [
         {
             label: translate("hashTransactionCreation"),
-            content: "mock_transactionHash",
+            content: nftData?.mintTransactionHash,
         },
         {
             label: translate("tokenId"),
-            content: "mock_id",
+            content: nftData?.id,
         },
         {
             label: translate("transferFeeCost"),
-            content: "mock_transactionFee",
+            content: nftData?.transferFee,
         },
     ];
 
     return (
         <PublishResult title={translate("successTitle")} type="success">
-            <InformationFields fields={publishSuccessContent} />
+            {isNftLoading ? <LoaderIcon /> : <InformationFields fields={publishSuccessContent} />}
         </PublishResult>
     );
 };
