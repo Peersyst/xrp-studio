@@ -25,7 +25,7 @@ const NftPublishSuccess = ({ id }: NftPublishSuccessProps): JSX.Element => {
         },
         {
             label: translate("transferFeeCost"),
-            content: nftData?.transferFee,
+            content: nftData?.transferFee?.toString(),
         },
     ];
 
