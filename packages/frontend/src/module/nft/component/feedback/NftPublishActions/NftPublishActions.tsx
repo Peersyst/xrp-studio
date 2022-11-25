@@ -1,6 +1,6 @@
-import PublishActions from "module/common/component/feedback/PublishActions/PublishActions";
 import useTranslate from "module/common/hook/useTranslate";
-import { NftPublishActionStep } from "module/common/component/feedback/PublishActions/PublishActions.types";
+import { Step } from "module/common/component/feedback/ActionSteps/ActionSteps.types";
+import ActionSteps from "module/common/component/feedback/ActionSteps/ActionSteps";
 import { UseMutateAsyncFunction } from "react-query";
 import { NftDto } from "module/api/service";
 
@@ -35,7 +35,7 @@ const NftPublishActions = ({ calls, responseId }: NftPublishActionsProps): JSX.E
         return undefined;
     };
 
-    const steps: NftPublishActionStep[] = [
+    const steps: Step[] = [
         {
             title: translate("processingNft"),
             description: translate("processingNftDescription"),
@@ -58,7 +58,7 @@ const NftPublishActions = ({ calls, responseId }: NftPublishActionsProps): JSX.E
         },
     ];
 
-    return <PublishActions steps={steps} onSuccess={onSuccess} />;
+    return <ActionSteps title={translate("creationSteps")} steps={steps} onSuccess={onSuccess} />;
 };
 
 export default NftPublishActions;

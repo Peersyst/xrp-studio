@@ -132,6 +132,7 @@
     "cantPublishCollectionWithoutNfts": "You can't publish a collection without NFTs",
     "viewDetails": "View details",
     "errorTitle": "Something bad happened...",
+    "launchDropConfirmation": "Launch drop confirmation",
     "processingNft": "Processing the nft",
     "processingNftDescription": "We are processing your Nft information in order to validate everything is correct",
     "addingNftBlockchain": "Adding your NFT to the blockchain",

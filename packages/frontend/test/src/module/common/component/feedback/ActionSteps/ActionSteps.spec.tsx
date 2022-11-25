@@ -1,11 +1,11 @@
 import { act, screen } from "@testing-library/react";
 import { waitFor } from "@testing-library/dom";
-import { NftPublishActionStep } from "module/common/component/feedback/PublishActions/PublishActions.types";
-import PublishActions from "module/common/component/feedback/PublishActions/PublishActions";
+import { Step } from "module/common/component/feedback/ActionSteps/ActionSteps.types";
+import ActionSteps from "module/common/component/feedback/ActionSteps/ActionSteps";
 import { render } from "test-utils";
 
-describe("PublishActions tests", () => {
-    const MOCK_STEPS: NftPublishActionStep[] = [
+describe("ActionSteps", () => {
+    const MOCK_STEPS: Step[] = [
         {
             title: "STEP_1",
             description: "step_1_description",
@@ -25,7 +25,7 @@ describe("PublishActions tests", () => {
 
     test("Renders correctly", async () => {
         const onSuccessMock = jest.fn();
-        render(<PublishActions steps={MOCK_STEPS} onSuccess={onSuccessMock} />);
+        render(<ActionSteps steps={MOCK_STEPS} onSuccess={onSuccessMock} />);
 
         expect(screen.getByText(MOCK_STEPS[0].title)).toBeInTheDocument();
         expect(screen.getByText(MOCK_STEPS[0].description)).toBeInTheDocument();

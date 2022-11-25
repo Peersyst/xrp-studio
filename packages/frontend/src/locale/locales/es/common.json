@@ -132,6 +132,7 @@
     "cantPublishCollectionWithoutNfts": "No puedes publicar una colección sin NFTs",
     "viewDetails": "Ver detalles",
     "errorTitle": "Algo ha pasado...",
+    "launchDropConfirmation": "Confirmación de lanzamiento del drop",
     "processingNft": "Procesando tu NFT",
     "processingNftDescription": "Estamos procesando la información de tu NFT para validar que todo está correcto.",
     "addingNftBlockchain": "Añadiendo tu nuevo NFT a la blockchain",
