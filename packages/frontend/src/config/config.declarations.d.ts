@@ -28,6 +28,8 @@ declare module "@peersyst/react-components" {
         maxNumberDecimals: number;
         tokenName: string;
         feeInDrops: number;
+        peersystEmail: string;
+        peersyst: string;
     }
 
     export interface CreateConfig {

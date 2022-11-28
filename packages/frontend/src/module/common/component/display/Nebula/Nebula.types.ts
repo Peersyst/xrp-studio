@@ -4,4 +4,5 @@ export interface NebulaProps extends LogoProps {
     height?: string;
     rotate?: string;
     alt?: string;
+    variant?: string;
 }

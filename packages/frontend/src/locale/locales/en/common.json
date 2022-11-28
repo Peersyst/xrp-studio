@@ -121,5 +121,22 @@
     "FAQs": "FAQs",
     "question": "Question",
     "publishCollectionConfirmation": "Publish collection confirmation",
-    "cantPublishCollectionWithoutNfts": "You can't publish a collection without NFTs"
+    "cantPublishCollectionWithoutNfts": "You can't publish a collection without NFTs",
+    "topArtistsThatUseXRPStudio": "Top Artists that use XRP Studio",
+    "howItWorks": "How It Works",
+    "ourPartners": "Our Partners",
+    "learnMore": "Learn more",
+    "about": "About",
+    "download": "Download",
+    "documentation": "Documentation",
+    "blog": "Blog",
+    "getInvolved": "Get involved",
+    "connect": "Connect",
+    "github": "Github",
+    "contribute": "Contribute",
+    "ourSDK": "Our SDK",
+    "support": "Support",
+    "privacyPolicy": "Privacy policy",
+    "madeWith": "Made with",
+    "inBarcelona": "in Barcelona"
 }
