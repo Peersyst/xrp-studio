@@ -1,5 +1,5 @@
-import ExplorePageHeader from "module/explore/component/ExplorePageHeader/ExplorePageHeader";
-import ExplorePageContent from "module/explore/component/ExplorePageContent/ExplorePageContent";
+import ExplorePageHeader from "module/explore/component/layout/ExplorePageHeader/ExplorePageHeader";
+import ExplorePageContent from "module/explore/component/layout/ExplorePageContent/ExplorePageContent";
 import { Tabs } from "@peersyst/react-components";
 import useRouteMatch from "module/common/hook/useRouteMatch";
 import { BasePageRoot } from "module/common/component/layout/BasePage/BasePage.styles";

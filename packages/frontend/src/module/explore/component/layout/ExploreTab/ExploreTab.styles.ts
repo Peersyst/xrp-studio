@@ -1,6 +1,6 @@
 import styled, { css } from "styled-components";
 import { Tab } from "@peersyst/react-components";
-import { ExploreTabProps } from "module/explore/component/ExploreTab/ExploreTab.types";
+import { ExploreTabProps } from "module/explore/component/layout/ExploreTab/ExploreTab.types";
 
 export const ExploreTab = styled(Tab)<ExploreTabProps>(
     ({ theme, selected }) => css`

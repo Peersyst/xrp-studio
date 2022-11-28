@@ -3,7 +3,7 @@ import { ResourceType } from "locale/i18n.types";
 import { ExploreRoutes } from "module/explore/ExploreRouter";
 import useTranslate from "module/common/hook/useTranslate";
 import { Row, Typography } from "@peersyst/react-components";
-import { ExploreTab } from "module/explore/component/ExploreTab/ExploreTab.styles";
+import { ExploreTab } from "module/explore/component/layout/ExploreTab/ExploreTab.styles";
 
 interface ExploreTabContent {
     path: string;
