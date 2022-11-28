@@ -132,5 +132,9 @@
     "cantPublishCollectionWithoutNfts": "No puedes publicar una colección sin NFTs",
     "viewDetails": "Ver detalles",
     "errorTitle": "Algo ha pasado...",
-    "launchDropConfirmation": "Confirmación de lanzamiento del drop"
+    "launchDropConfirmation": "Confirmación de lanzamiento del drop",
+    "explore": "Explora",
+    "trending": "Tendencia",
+    "collections": "Colecciones",
+    "nfts": "NFTs"
 }

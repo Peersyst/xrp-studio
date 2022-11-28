@@ -11,6 +11,7 @@ import { useLoad } from "module/common/hook/useLoad";
 import { useUserRoutes } from "module/user/UserRouter";
 import { useCollectionRoutes } from "module/collection/CollectionRouter";
 import { useDropRoutes } from "module/drop/DropRouter";
+import { useExploreRoutes } from "module/explore/ExploreRouter";
 
 export enum BaseRoutes {
     HOME = "/",
@@ -22,12 +23,14 @@ const Routes = () => {
     const nftRoutes = useNftRoutes();
     const collectionRoutes = useCollectionRoutes();
     const dropRoutes = useDropRoutes();
+    const exploreRoutes = useExploreRoutes();
     return useRoutes([
         ...dashboardRoutes,
         ...userRoutes,
         ...nftRoutes,
         ...collectionRoutes,
         ...dropRoutes,
+        ...exploreRoutes,
         { path: "*", element: <Navigate to={BaseRoutes.HOME} /> },
     ]);
 };

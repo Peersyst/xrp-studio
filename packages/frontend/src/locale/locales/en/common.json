@@ -132,5 +132,9 @@
     "cantPublishCollectionWithoutNfts": "You can't publish a collection without NFTs",
     "viewDetails": "View details",
     "errorTitle": "Something bad happened...",
-    "launchDropConfirmation": "Launch drop confirmation"
+    "launchDropConfirmation": "Launch drop confirmation",
+    "explore": "Explore",
+    "trending": "Trending",
+    "collections": "Collections",
+    "nfts": "NFTs"
 }
