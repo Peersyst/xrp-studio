@@ -1,5 +1,5 @@
 import { RouteObject } from "react-router-dom";
-import ExplorePage from "module/explore/page/ExplorePage/ExplorePage";
+import { lazy } from "react";
 
 export enum ExploreRoutes {
     MAIN = "/explore",
@@ -7,6 +7,8 @@ export enum ExploreRoutes {
     COLLECTIONS = "/explore/collections",
     NFTS = "/explore/nfts",
 }
+
+const ExplorePage = lazy(() => import("./page/ExplorePage/ExplorePage"));
 
 export const useExploreRoutes = (): RouteObject[] => {
     return [
