@@ -14,5 +14,6 @@ export type CollectionDto = {
     items: number;
     account: string;
     user?: UserDto;
+    nfts?: Array<any>;
 };
 

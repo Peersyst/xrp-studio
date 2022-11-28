@@ -2,6 +2,7 @@ import { Column, CreateDateColumn, Entity, JoinColumn, ManyToOne, OneToOne, Prim
 import { User } from "./User";
 import { NftMetadata } from "./NftMetadata";
 import { Collection } from "./Collection";
+import { NftInDrop } from "./NftInDrop";
 
 export enum NftStatus {
     DRAFT = "draft",
@@ -53,6 +54,9 @@ export class Nft {
 
     @OneToOne(() => NftMetadata, (metadata) => metadata.nft, { cascade: true })
     metadata?: NftMetadata;
+
+    @OneToOne(() => NftInDrop, (nftInDrop) => nftInDrop.nft)
+    nftInDrop?: NftInDrop;
 
     @CreateDateColumn({ name: "created_at", type: "timestamp" })
     createdAt: Date;

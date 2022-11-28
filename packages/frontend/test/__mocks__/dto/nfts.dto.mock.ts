@@ -4,6 +4,7 @@ import { NftDtoMock } from "./nft.dto.mock";
 import { InfiniteDataMock } from "./infinite-data";
 import { UserDtoMock } from "./user.dto.mock";
 import { PaginatedDataMock } from "./paginated-data.mock";
+import { MetadataDtoMock } from "./metadata.dto.mock";
 
 export interface NftsDtoMockType {
     length: number;
@@ -27,7 +28,15 @@ export class NftsDtoMock extends BaseMock implements NftsDtoMockType {
         this.issuer = issuer;
         this.nfts =
             nfts ||
-            [...Array(length)].map((_, index) => new NftDtoMock({ issuer: issuer, id: index, user: new UserDtoMock({ address: issuer }) }));
+            [...Array(length)].map(
+                (_, index) =>
+                    new NftDtoMock({
+                        issuer: issuer,
+                        id: index,
+                        user: new UserDtoMock({ address: issuer }),
+                        metadata: new MetadataDtoMock(),
+                    }),
+            );
     }
 }
 

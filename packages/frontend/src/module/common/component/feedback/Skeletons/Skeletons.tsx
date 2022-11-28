@@ -3,6 +3,7 @@ import { SkeletonComponentProps, SkeletonsProps } from "module/common/component/
 import BaseCard from "module/nft/component/surface/BaseCard/BaseCard";
 import CollectionCardSkeleton from "module/collection/component/feedback/CollectionCardSkeleton/CollectionCardSkeleton";
 import DropFaq from "module/drop/component/display/DropFaq/DropFaq";
+import NftsPreviewListItem from "module/nft/component/display/NftsPreviewList/NftsPreviewListItem/NftsPreviewListItem";
 
 const Skeletons = ({ count, ...rest }: SkeletonsProps): JSX.Element => (
     <>
@@ -45,11 +46,21 @@ export const SelectorSkeletons = ({ count }: SkeletonsProps): JSX.Element => {
     );
 };
 
-export const DropFaqSkeleton = ({ count }: SkeletonsProps): JSX.Element => {
+export const DropFaqSkeletons = ({ count }: SkeletonsProps): JSX.Element => {
     return (
         <>
             {[...Array(count)].map((_, key) => (
                 <DropFaq key={key} loading />
+            ))}
+        </>
+    );
+};
+
+export const NftsPreviewListItemSkeletons = ({ count }: SkeletonsProps): JSX.Element => {
+    return (
+        <>
+            {[...Array(count)].map((_, key) => (
+                <NftsPreviewListItem key={key} loading nft={undefined} />
             ))}
         </>
     );

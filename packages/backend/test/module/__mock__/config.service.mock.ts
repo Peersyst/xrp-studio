@@ -11,6 +11,8 @@ class ConfigServiceMock extends BaseMock {
                 return "wss://s.altnet.rippletest.net/";
             case "xrp.startingLedgerIndex":
                 return 10;
+            case "xrp.minterSecret":
+                return "sEdV5BZUNSbbpJpHPicgqU9Ef3WzHyP";
             case "pinata.gateway":
                 return "https://pinata.gateway.com/";
             case "defaultImages.profile":

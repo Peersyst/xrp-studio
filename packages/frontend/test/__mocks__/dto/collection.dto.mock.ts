@@ -30,6 +30,6 @@ export class CollectionDtoMock {
         this.header = header;
         this.items = items;
         this.user = user;
-        this.account = user?.address;
+        this.account = user.address;
     }
 }

@@ -34,5 +34,12 @@ export const $CollectionDto = {
         user: {
             type: 'UserDto',
         },
+        nfts: {
+            type: 'array',
+            contains: {
+                properties: {
+                },
+            },
+        },
     },
 } as const;

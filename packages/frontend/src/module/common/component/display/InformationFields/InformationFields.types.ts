@@ -10,6 +10,7 @@ export interface InformationFieldsProps extends Omit<LabelProps, "label" | "chil
     fields: InformationField[];
     gap?: number | string;
     labelGap?: number | string;
+    loading?: boolean;
 }
 
 export interface InformationFieldLabelProps {

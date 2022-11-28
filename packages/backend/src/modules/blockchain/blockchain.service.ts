@@ -1,10 +1,10 @@
-import { Injectable } from "@nestjs/common";
+import { Injectable, Logger } from "@nestjs/common";
 import { InjectRepository } from "@nestjs/typeorm";
 import { LastIndexedLedger } from "../../database/entities/LastIndexedLedger";
 import { Repository } from "typeorm";
 import { InjectQueue } from "@nestjs/bull";
 import { Queue } from "bull";
-import { Client } from "xrpl";
+import { Client, Wallet } from "xrpl";
 import { ConfigService } from "@nestjs/config";
 import { LedgerResponse } from "xrpl/dist/npm/models/methods";
 import { ValidatedLedgerTransaction } from "./types";
@@ -15,15 +15,19 @@ import { ValidatedLedgerTransaction } from "./types";
 @Injectable()
 export class BlockchainService {
     private readonly xrpClient: Client;
+    public readonly mintingAddress: string;
+    private readonly logger = new Logger(BlockchainService.name);
 
     constructor(
         @InjectRepository(LastIndexedLedger) private readonly lastIndexedLedgerRepository: Repository<LastIndexedLedger>,
         @InjectQueue("ledger") private readonly ledgerQueue: Queue,
         @InjectQueue("transactions") private readonly transactionsQueue: Queue,
+        @InjectQueue("drop") private readonly dropQueue: Queue,
         private readonly configService: ConfigService,
     ) {
         const xrpNode = this.configService.get<string>("xrp.node");
         this.xrpClient = new Client(xrpNode);
+        this.mintingAddress = Wallet.fromSecret(this.configService.get("xrp.minterSecret")).address;
     }
 
     /**
@@ -31,6 +35,7 @@ export class BlockchainService {
      */
     async onApplicationBootstrap(): Promise<void> {
         // We can leave the xrp ws connected indefinitely as we are making requests every ~3 seconds, it will not timeout
+        await this.ledgerQueue.empty();
         await this.xrpClient.connect();
         const currentLedgerIndex = await this.getCurrentLedgerIndex();
         const index = currentLedgerIndex || (await this.getFirstLedgerIndex());
@@ -102,14 +107,23 @@ export class BlockchainService {
 
     /**
      * Processes a transaction by its type
-     * @param transaction
-     * @param ledgerIndex
      */
-    async processTransactionByType(transaction: ValidatedLedgerTransaction, ledgerIndex: number): Promise<void> {
+    async processTransactionByType(transaction: ValidatedLedgerTransaction): Promise<void> {
+        // this.logger.debug(`Processing transaction ${JSON.stringify(transaction)}`);
         if (transaction.TransactionType === "NFTokenMint") {
             const job = await this.transactionsQueue.add(
                 "process-mint-transaction",
-                { transaction, ledgerIndex },
+                { transaction },
+                {
+                    attempts: 3,
+                    backoff: 60000,
+                },
+            );
+            await job.finished();
+        } else if (transaction.TransactionType === "NFTokenAcceptOffer") {
+            const job = await this.dropQueue.add(
+                "process-accept-offer-transaction",
+                { transaction },
                 {
                     attempts: 3,
                     backoff: 60000,
@@ -117,5 +131,13 @@ export class BlockchainService {
             );
             await job.finished();
         }
+    }
+
+    async isAccountAuthorized(account: string): Promise<boolean> {
+        const res = await this.xrpClient.request({
+            command: "account_info",
+            account: account,
+        });
+        return res.result.account_data["NFTokenMinter"] === this.mintingAddress;
     }
 }
