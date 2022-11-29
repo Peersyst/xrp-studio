@@ -1,7 +1,8 @@
 import { Col, Typography } from "@peersyst/react-components";
 import Nebula from "module/common/component/display/Nebula/Nebula";
+import Button from "module/common/component/input/Button/Button";
 import useTranslate from "module/common/hook/useTranslate";
-import { BaseButton, LandingPageHeaderRoot } from "./LandingPageHeader.styles";
+import { LandingPageHeaderRoot } from "./LandingPageHeader.styles";
 
 const LandingPageHeader = (): JSX.Element => {
     const translate = useTranslate();
@@ -17,7 +18,11 @@ const LandingPageHeader = (): JSX.Element => {
                 <Typography variant="h5" fontWeight="400" color="black.40" textAlign="center" className="subtitle">
                     {translate("landingHeaderDescription")}
                 </Typography>
-                <BaseButton size="lg">{translate("startCreatingNow")}</BaseButton>
+                <Button size="lg" variant="rainbow">
+                    <Typography variant="h5" fontWeight="500" color="black.0" textAlign="center">
+                        {translate("startCreatingNow")}
+                    </Typography>
+                </Button>
             </Col>
         </LandingPageHeaderRoot>
     );

@@ -80,6 +80,13 @@ const glassVariant = css(({ theme }) => {
     `;
 });
 
+const rainbowVariant = css(() => {
+    return css`
+        background: linear-gradient(265.96deg, #bd00ff -0.17%, #008cff 54.13%, #00f0ff 99.83%);
+        border: unset;
+    `;
+});
+
 const textVariant = css(({ theme }) => {
     return css`
         text-transform: none;
@@ -98,6 +105,7 @@ const buttonVariants: ButtonVariantStyle = {
     outlined: outlinedVariant,
     text: textVariant,
     glass: glassVariant,
+    rainbow: rainbowVariant,
 };
 
 const smSize = css(

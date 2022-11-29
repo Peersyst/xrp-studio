@@ -1,9 +1,8 @@
-import { Col, Divider, WithLoading } from "@peersyst/react-components";
-import { LandingPageProps } from "module/landing/Landing.types";
+import { Col, Divider } from "@peersyst/react-components";
 
-function LandingPageContent({ ...rest }: WithLoading<LandingPageProps>): JSX.Element {
+function LandingPageContent(): JSX.Element {
     return (
-        <Col {...rest}>
+        <Col>
             <Divider />
             Content
         </Col>

@@ -1,6 +1,5 @@
 import styled, { css } from "styled-components";
 import { Col } from "@peersyst/react-components";
-import Button from "module/common/component/input/Button/Button";
 
 export const LandingPageHeaderRoot = styled(Col).attrs({ alignItems: "center" })(
     ({ theme }) => css`
@@ -20,12 +19,5 @@ export const LandingPageHeaderRoot = styled(Col).attrs({ alignItems: "center" })
                 height: 10.6rem;
             }
         }
-    `,
-);
-
-export const BaseButton = styled(Button)(
-    () => css`
-        background: linear-gradient(265.96deg, #bd00ff -0.17%, #008cff 54.13%, #00f0ff 99.83%);
-        border: unset;
     `,
 );

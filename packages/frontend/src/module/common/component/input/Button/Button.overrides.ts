@@ -7,5 +7,6 @@ declare module "@peersyst/react-components" {
         secondary: true;
         tertiary: true;
         glass: true;
+        rainbow: true;
     }
 }
