@@ -9,7 +9,7 @@ describe("Test for the MyNftsPage", () => {
         const wallet = new WalletMock({ address: "0x" });
         jest.spyOn(UseWallet, "default").mockReturnValue(wallet);
         const data = new PaginatedDataMock<NftDtoMock[]>({ items: new NftsDtoMock({ length: 10 }).nfts });
-        jest.spyOn(NftService, "nftControllerGetNftDrafts").mockResolvedValue(data);
+        jest.spyOn(NftService, "nftControllerGetMyNfts").mockResolvedValue(data);
         const screen = render(<MyNftsPageContent />);
         //Grid
         await waitFor(() => expect(screen.getAllByRole("heading", { name: data.items[0].metadata?.name })).toHaveLength(10));
@@ -19,7 +19,7 @@ describe("Test for the MyNftsPage", () => {
         const wallet = new WalletMock();
         jest.spyOn(UseWallet, "default").mockReturnValue(wallet);
         const data = new PaginatedDataMock<NftDtoMock[]>();
-        jest.spyOn(NftService, "nftControllerGetNftDrafts").mockResolvedValue(data);
+        jest.spyOn(NftService, "nftControllerGetMyNfts").mockResolvedValue(data);
         const screen = render(<MyNftsPageContent />);
         await waitFor(() => expect(screen.getByRole("heading", { name: translate("youHaveNoNfts", { ns: "error" }) })).toBeInTheDocument());
     });

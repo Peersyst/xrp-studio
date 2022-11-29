@@ -11,7 +11,6 @@ import { User } from "../../database/entities/User";
 import { UpdateCollectionRequest } from "./request/update-collection.request";
 import { NftService } from "../nft/nft.service";
 import { QueryBuilderHelper } from "../common/util/query-builder.helper";
-import { GetNftsRequest } from "../nft/request/get-nfts.request";
 
 @Injectable()
 export class CollectionService {

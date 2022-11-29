@@ -2,7 +2,7 @@ import { ApiProperty } from "@nestjs/swagger";
 import { CollectionsExists } from "../../collection/validator/CollectionsExists";
 import { IsOptional } from "class-validator";
 import { Order } from "../../common/types";
-import { FilterType, NullsPosition, OrderType, QBFilter } from "../../common/util/query-builder.helper";
+import { FilterType, OrderType, QBFilter } from "../../common/util/query-builder.helper";
 import { IsXrplAddress } from "../../common/validator/IsXrplAddress";
 import { NftStatus } from "../../../database/entities/Nft";
 
