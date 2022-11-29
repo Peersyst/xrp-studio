@@ -17,7 +17,7 @@ export default function (id: undefined | number): UseNftStatePolling {
     };
 
     const fetch = (): Promise<NftDraftStatusDto[]> | undefined => {
-        if (id) return polling(() => NftService.nftControllerGetNftDraftStatus(undefined, [id]), handleStatus, { maxIterations: 10 });
+        if (id) return polling(() => NftService.nftControllerGetNftDraftStatus(undefined, [id]), handleStatus, { maxIterations: 1000 });
         return undefined;
     };
 
