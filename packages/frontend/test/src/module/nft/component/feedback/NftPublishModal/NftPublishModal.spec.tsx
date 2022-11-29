@@ -5,6 +5,7 @@ import { screen } from "@testing-library/react";
 import { capitalize } from "@peersyst/react-utils";
 import { waitFor } from "@testing-library/dom";
 import userEvent from "@testing-library/user-event";
+import { act } from "react-dom/test-utils";
 
 describe("NftPublishModal tests", () => {
     const createNftDraftRequestMock = new CreateNftDraftRequestMock({
@@ -35,11 +36,20 @@ describe("NftPublishModal tests", () => {
         walletMock.restore();
     });
 
-    test("Create published NFT", async () => {
+    test("Swaps tabs creating NFT", async () => {
         render(<NftPublishModal request={createNftDraftRequestMock} collection={COLLECTIONS_NFT} />);
 
         const confirmPublishButton = screen.getByRole("button", { name: capitalize(translate("confirm")) });
         await waitFor(() => expect(confirmPublishButton).not.toBeDisabled());
         userEvent.click(confirmPublishButton);
+
+        await act(() =>
+            waitFor(() => {
+                const viewDetailsButton = screen.getByText(translate("viewDetails"));
+                expect(viewDetailsButton).toBeInTheDocument();
+                waitFor(() => expect(screen.queryByText(translate("viewDetails"))).not.toBeDisabled());
+                userEvent.click(viewDetailsButton);
+            }),
+        );
     });
 });

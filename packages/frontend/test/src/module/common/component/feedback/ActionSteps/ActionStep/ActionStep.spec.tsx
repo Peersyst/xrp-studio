@@ -12,7 +12,8 @@ describe("ActionStep", () => {
 
     test("Renders correctly being active ", async () => {
         const onSuccessMock = jest.fn();
-        render(<ActionStep stepNumber={1} step={MOCK_STEP} active={true} onSuccess={onSuccessMock} />);
+        const onError = jest.fn();
+        render(<ActionStep stepNumber={1} step={MOCK_STEP} active={true} onSuccess={onSuccessMock} onError={onError} />);
 
         expect(screen.getByText(MOCK_STEP.title)).toBeInTheDocument();
         expect(screen.getByText(MOCK_STEP.description)).toBeInTheDocument();
