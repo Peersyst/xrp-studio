@@ -39,6 +39,7 @@ export class NftService {
      * @param query
      * @param collections
      * @param account
+     * @param status
      * @param order
      * @returns PaginatedNftDto
      * @throws ApiError
@@ -49,6 +50,7 @@ export class NftService {
         query?: string,
         collections?: Array<number>,
         account?: string,
+        status?: Array<'draft' | 'pending' | 'confirmed' | 'failed'>,
         order?: 'ASC' | 'DESC',
     ): CancelablePromise<PaginatedNftDto> {
         return __request(OpenAPI, {
@@ -60,6 +62,7 @@ export class NftService {
                 'query': query,
                 'collections': collections,
                 'account': account,
+                'status': status,
                 'order': order,
             },
         });
@@ -79,39 +82,6 @@ export class NftService {
             url: '/api/nft/draft',
             body: requestBody,
             mediaType: 'application/json',
-        });
-    }
-
-    /**
-     * Get all user NFT drafts (status != confirmed) paginated
-     * @param page
-     * @param pageSize
-     * @param query
-     * @param collections
-     * @param order
-     * @param status
-     * @returns PaginatedNftDraftDto
-     * @throws ApiError
-     */
-    public static nftControllerGetNftDrafts(
-        page?: number,
-        pageSize?: number,
-        query?: any,
-        collections?: Array<number>,
-        order?: 'ASC' | 'DESC',
-        status?: 'draft' | 'pending' | 'confirmed' | 'failed',
-    ): CancelablePromise<PaginatedNftDraftDto> {
-        return __request(OpenAPI, {
-            method: 'GET',
-            url: '/api/nft/draft',
-            query: {
-                'page': page,
-                'pageSize': pageSize,
-                'query': query,
-                'collections': collections,
-                'order': order,
-                'status': status,
-            },
         });
     }
 
@@ -174,6 +144,39 @@ export class NftService {
             url: '/api/nft/draft/{id}/publish',
             path: {
                 'id': id,
+            },
+        });
+    }
+
+    /**
+     * Get all user NFT drafts (status != confirmed) paginated
+     * @param page
+     * @param pageSize
+     * @param query
+     * @param collections
+     * @param order
+     * @param status
+     * @returns PaginatedNftDraftDto
+     * @throws ApiError
+     */
+    public static nftControllerGetMyNfts(
+        page?: number,
+        pageSize?: number,
+        query?: any,
+        collections?: Array<number>,
+        order?: 'ASC' | 'DESC',
+        status?: 'draft' | 'pending' | 'confirmed' | 'failed',
+    ): CancelablePromise<PaginatedNftDraftDto> {
+        return __request(OpenAPI, {
+            method: 'GET',
+            url: '/api/nft/my',
+            query: {
+                'page': page,
+                'pageSize': pageSize,
+                'query': query,
+                'collections': collections,
+                'order': order,
+                'status': status,
             },
         });
     }

@@ -38,7 +38,7 @@ const NftStatusChip = ({ label, status, nftId }: WithSkeleton<NftCardStatusChipP
                     label={isLoading ? <Loader /> : labelChip}
                     onMouseEnter={handleMouseEnter}
                     onMouseLeave={handleMouseLeave}
-                    onClick={(e) => handleClick(e)}
+                    onClick={status === "failed" ? (e) => handleClick(e) : undefined}
                 />
             </Popover.Content>
         </NftStatusChipRoot>

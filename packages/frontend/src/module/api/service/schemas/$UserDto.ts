@@ -25,5 +25,8 @@ export const $UserDto = {
         discord: {
             type: 'string',
         },
+        verifiedArtist: {
+            type: 'boolean',
+        },
     },
 } as const;

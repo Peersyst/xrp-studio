@@ -311,10 +311,6 @@ describe("NftService", () => {
                 { id: 1 },
                 {
                     issuer: ADDRESS,
-                    transferFee: null,
-                    flags: undefined,
-                    collectionId: null,
-                    metadata: undefined,
                 },
             );
             expect(publishMock).toHaveBeenCalledWith(1, ADDRESS);
@@ -512,13 +508,13 @@ describe("NftService", () => {
     describe("findOneDraft", () => {
         test("Returns existing Nft draft from its owner account", async () => {
             nftRepositoryMock.findOne.mockResolvedValueOnce(new NftMock({ status: NftStatus.DRAFT, user: new User({ address: ADDRESS }) }));
-            const nft = await nftService.findOne(1, { ownerAddress: ADDRESS, status: NftStatus.DRAFT });
+            const nft = await nftService.findOne(1, { ownerAddress: ADDRESS, status: [NftStatus.DRAFT] });
             expect(nft).toBeDefined();
         });
         test("Throws NFT_DRAFT_NOT_OWNED error", async () => {
             nftRepositoryMock.findOne.mockResolvedValueOnce(new NftMock({ user: new User({ address: ISSUER }) }));
             await expect(async () => {
-                await nftService.findOne(1, { ownerAddress: ADDRESS, status: NftStatus.DRAFT });
+                await nftService.findOne(1, { ownerAddress: ADDRESS, status: [NftStatus.DRAFT] });
             }).rejects.toEqual(new BusinessException(ErrorCode.NFT_NOT_FOUND));
         });
         test("Throws NFT_DRAFT_NOT_FOUND error", async () => {
@@ -535,7 +531,21 @@ describe("NftService", () => {
                 .spyOn(QueryBuilderHelper, "buildFindManyAndCount")
                 .mockReturnValue(Promise.resolve([[new NftMock()], 1]));
             const nfts = await nftService.findAll();
-            expect(queryBuilderHelper).toHaveBeenCalledWith(nftRepositoryMock, "nft", 0, 15, ["metadata", "metadata.attributes"], []);
+            expect(queryBuilderHelper).toHaveBeenCalledWith(
+                nftRepositoryMock,
+                "nft",
+                0,
+                15,
+                ["metadata", "metadata.attributes"],
+                [
+                    {
+                        field: "nft.status",
+                        operator: "=",
+                        value: "confirmed",
+                    },
+                ],
+                [{ field: "nft.updated_at", type: "DESC" }],
+            );
             expect(nfts).toEqual({ items: expect.any(Array), pages: 1, currentPage: 1 });
         });
         test("Returns all NFTs with all optional params", async () => {
@@ -546,10 +556,11 @@ describe("NftService", () => {
             req.query = "asd";
             req.collections = [1];
             req.account = ADDRESS;
+            req.status = [NftStatus.CONFIRMED];
             const queryBuilderHelper = jest
                 .spyOn(QueryBuilderHelper, "buildFindManyAndCount")
                 .mockReturnValue(Promise.resolve([[new NftMock()], 1]));
-            const nfts = await nftService.findAll(req, { status: NftStatus.CONFIRMED, ownerAddress: ISSUER });
+            const nfts = await nftService.findAll(req, ISSUER);
             expect(queryBuilderHelper).toHaveBeenCalledWith(
                 nftRepositoryMock,
                 "nft",
@@ -557,11 +568,12 @@ describe("NftService", () => {
                 10,
                 ["metadata", "metadata.attributes", "collection", "user"],
                 [
-                    { field: "nft.collection.id", operator: FilterType.IN, value: [1] },
-                    { field: "nft.user.address", operator: FilterType.EQUAL, value: ADDRESS },
-                    { field: "nft.status", operator: FilterType.EQUAL, value: NftStatus.CONFIRMED },
-                    { field: "nft.user.address", operator: FilterType.EQUAL, value: ISSUER },
+                    { field: "collection.id", operator: FilterType.IN, value: [1] },
+                    { field: "user.address", operator: FilterType.EQUAL, value: ISSUER },
+                    { field: "metadata.name", operator: FilterType.LIKE, value: "asd" },
+                    { field: "nft.status", operator: FilterType.IN, value: [NftStatus.CONFIRMED] },
                 ],
+                [{ field: "nft.updated_at", type: "ASC" }],
             );
             expect(nfts).toEqual({ items: expect.any(Array), pages: 1, currentPage: 2 });
         });
