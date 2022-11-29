@@ -25,6 +25,9 @@ export class User {
     @Column({ type: "varchar", length: 255, nullable: true })
     discord?: string;
 
+    @Column({ type: "boolean", nullable: false, default: false })
+    verifiedArtist: boolean;
+
     @OneToMany(() => Nft, (nft) => nft.user)
     nfts?: Nft[];
 

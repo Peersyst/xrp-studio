@@ -99,6 +99,10 @@ export class DropService {
             },
         );
 
+        if (!collection.user?.verifiedArtist) {
+            throw new BusinessException(ErrorCode.USER_IS_NOT_VERIFIED);
+        }
+
         if (collection.nfts.some((nft) => nft.status !== NftStatus.DRAFT)) {
             throw new BusinessException(ErrorCode.COLLECTION_ALREADY_LAUNCHED);
         }
