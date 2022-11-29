@@ -14,6 +14,13 @@ const typography: Partial<Theme["typography"]> = {
             fontSize: "1.625rem",
         },
     },
+    h5: {
+        component: "h5",
+        style: {
+            fontSize: "1.5rem",
+            lineHeight: "2rem",
+        },
+    },
     caption1: {
         component: "span",
         style: {

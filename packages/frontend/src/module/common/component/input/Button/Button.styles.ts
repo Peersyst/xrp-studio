@@ -84,6 +84,12 @@ const rainbowVariant = css(() => {
     return css`
         background: linear-gradient(265.96deg, #bd00ff -0.17%, #008cff 54.13%, #00f0ff 99.83%);
         border: unset;
+        &:hover {
+            opacity: 0.8;
+        }
+        &:active {
+            opacity: 0.6;
+        }
     `;
 });
 
@@ -141,10 +147,22 @@ const lgSize = css(
     `,
 );
 
+const xlSize = css(
+    ({ theme }) => css`
+        height: 4.5rem;
+        ${theme.typography.h5.style};
+        padding: 1.25rem 2rem;
+        &.Rounded {
+            border-radius: ${theme.borderRadius};
+        }
+    `,
+);
+
 const buttonSizes: ButtonSizeStyle = {
     md: mdSize,
     lg: lgSize,
     sm: smSize,
+    xl: xlSize,
 };
 
 export const ButtonRoot = styled(Button)(({ variant, size }) => {
@@ -152,7 +170,7 @@ export const ButtonRoot = styled(Button)(({ variant, size }) => {
         font-weight: 500;
         text-transform: none;
         border: 1px solid transparent;
-        transition: background-color 200ms linear, opacity 200ms linear, box-shadow 200ms linear;
+        transition: background-color 200ms linear, opacity 200ms linear, box-shadow 200ms linear, background 600ms linear;
         &:disabled {
             opacity: 0.4;
         }

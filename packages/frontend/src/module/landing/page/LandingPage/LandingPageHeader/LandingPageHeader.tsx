@@ -8,21 +8,19 @@ const LandingPageHeader = (): JSX.Element => {
     const translate = useTranslate();
     return (
         <LandingPageHeaderRoot>
-            <Col css={{ width: "100%", zIndex: -1, position: "absolute", top: 0 }}>
-                <Nebula height="16.125rem" alt="header" />
-            </Col>
-            <Col css={{ maxWidth: "37.5rem" }} gap="3rem" alignItems="center">
+            <Nebula height="16.125rem" alt="header" css={{ width: "100%", zIndex: -1, position: "absolute", top: 0 }} />
+            <Col css={{ maxWidth: "37.5rem" }} gap="2rem" alignItems="center">
                 <Typography variant="h2" fontWeight="800" color="black.0" textAlign="center" className="title">
                     {translate("createAndManageNft")}
                 </Typography>
-                <Typography variant="h5" fontWeight="400" color="black.40" textAlign="center" className="subtitle">
-                    {translate("landingHeaderDescription")}
-                </Typography>
-                <Button size="lg" variant="rainbow">
-                    <Typography variant="h5" fontWeight="500" color="black.0" textAlign="center">
-                        {translate("startCreatingNow")}
+                <Col gap="3rem" alignItems="center">
+                    <Typography variant="h5" fontWeight="400" color="black.40" textAlign="center" className="subtitle">
+                        {translate("landingHeaderDescription")}
                     </Typography>
-                </Button>
+                    <Button size="xl" variant="rainbow">
+                        {translate("startCreatingNow")}
+                    </Button>
+                </Col>
             </Col>
         </LandingPageHeaderRoot>
     );

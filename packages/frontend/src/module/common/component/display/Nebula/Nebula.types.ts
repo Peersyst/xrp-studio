@@ -9,7 +9,7 @@ export interface NebulaProps {
      */
     className?: string;
     /**
-     * Logo style
+     * Nebula style
      */
     style?: CSSProperties;
 }
