@@ -3,7 +3,7 @@ import { Typography } from "@peersyst/react-components";
 import useTranslate from "module/common/hook/useTranslate";
 
 interface NftPublishErrorProps {
-    error: string | null;
+    error: unknown;
 }
 
 const NftPublishError = ({ error }: NftPublishErrorProps): JSX.Element => {
