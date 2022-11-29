@@ -28,7 +28,6 @@ declare module "@peersyst/react-components" {
         maxNumberDecimals: number;
         tokenName: string;
         feeInDrops: number;
-        maxPollingIterations: number;
     }
 
     export interface CreateConfig {
@@ -48,7 +47,6 @@ declare module "@peersyst/react-components" {
         maxNumberDecimals: number;
         tokenName: string;
         feeInDrops: number;
-        maxPollingIterations: number;
     }
 
     export interface ExtraValidators {

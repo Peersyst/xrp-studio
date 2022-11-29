@@ -7,6 +7,7 @@ enum Queries {
     COLLECTION = "collection",
     COLLECTIONS = "collections",
     NAME_AVAILABILITY = "name-availability",
+    PUBLISH_NFT = "publish-nft",
 }
 
 export default Queries;

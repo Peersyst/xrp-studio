@@ -8,6 +8,7 @@ const ActionStep = ({
     active: active,
     stepNumber: stepNumber,
     onSuccess: onSuccess,
+    onError: onError,
 }: ActionStepProps): JSX.Element => {
     const [state, setState] = useState({ error: false, finished: false });
 
@@ -15,12 +16,13 @@ const ActionStep = ({
         if (!active || state.finished) return;
         (async function () {
             try {
-                const executionPromise = Promise.resolve(execution());
+                const executionPromise = Promise.resolve(execution?.());
                 await executionPromise;
                 setState({ error: false, finished: true });
                 onSuccess();
             } catch (_e) {
                 setState({ error: true, finished: false });
+                onError(_e);
             }
         })();
     }, [active]);
