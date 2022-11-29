@@ -68,8 +68,21 @@ export const devNftMetadataAttributes = [
 ];
 
 export default function getByEnv(env: string) {
-    if (env === "development" || env === "preview") {
+    if (env === "development") {
         return devNftMetadataAttributes;
+    }
+    if (env === "preview") {
+        const result = [];
+        for (let i = 0; i < 100; i++) {
+            result.push({
+                nftMetadataId: i + 1,
+                traitType: "attribute " + i,
+                value: "value " + i,
+                createdAt: new Date(),
+                updatedAt: new Date(),
+            });
+        }
+        return result;
     }
     if (env === "test") {
         return devNftMetadataAttributes;

@@ -10,7 +10,7 @@ import useConnectToXumm from "module/wallet/hook/useConnectToXumm/useConnectToXu
 const ConnectXummModal = createModal((modalProps): JSX.Element => {
     const translate = useTranslate();
     const { hideModal } = useModal();
-    const { signIn, xummQrUrl = "", showLoading } = useConnectToXumm();
+    const { signIn, xummQrUrl = "", showLoading } = useConnectToXumm({ callback: modalProps.onClose });
 
     useEffect(() => {
         signIn();

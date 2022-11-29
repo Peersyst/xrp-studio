@@ -20,6 +20,7 @@ import { FileModule } from "./modules/file/file.module";
 import { StorageModule, StorageType } from "@peersyst/storage-module/src/storage.module";
 import { waitForAwsSecrets } from "./config/util/loadAwsSecrets";
 import { DropModule } from "./modules/drop/drop.module";
+import { XummTransactionModule } from "./modules/xumm/xumm-transaction.module";
 
 @Module({
     imports: [
@@ -66,6 +67,7 @@ import { DropModule } from "./modules/drop/drop.module";
         CollectionModule,
         DropModule,
         FileModule,
+        XummTransactionModule,
         BullModule.forRootAsync({
             inject: [ConfigService],
             useFactory: (config: ConfigService) => ({

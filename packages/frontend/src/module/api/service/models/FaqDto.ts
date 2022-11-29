@@ -2,8 +2,7 @@
 /* tslint:disable */
 /* eslint-disable */
 
-export type FaqsDto = {
-    id: number;
+export type FaqDto = {
     question: string;
     answer: string;
 };
