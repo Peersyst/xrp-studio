@@ -10,6 +10,7 @@ import { useFormatNumber } from "module/common/hook/useFormatNumber";
 import { DropLandingDescriptionSectionProps } from "module/drop/component/display/DropLanding/DropLandingDescriptionSection/DropLandingDescriptionSection.types";
 import { XrpIcon } from "icons";
 import Description from "module/common/component/display/Desciption/Description";
+import ButtonBuyNftDrop from "module/drop/component/input/ButtonBuyNftDrop/ButtonBuyNftDrop";
 
 const DropLandingDescriptionSection = ({
     cover = "",
@@ -20,6 +21,8 @@ const DropLandingDescriptionSection = ({
     price = "0",
     sold = 0,
     loading = false,
+    dropId,
+    preview = false,
 }: WithLoading<DropLandingDescriptionSectionProps>): JSX.Element => {
     const translate = useTranslate();
     const formatNumber = useFormatNumber();
@@ -38,7 +41,7 @@ const DropLandingDescriptionSection = ({
                             {description}
                         </Description>
                     </Col>
-                    <Row gap="3rem">
+                    <Row gap="2rem">
                         <DropLandingLabel variant="body2" label={translate("items")} loading={loading}>
                             {items}
                         </DropLandingLabel>
@@ -51,6 +54,7 @@ const DropLandingDescriptionSection = ({
                                 {formatNumber((BigInt(price) * BigInt(sold)).toString())}
                             </Row>
                         </DropLandingLabel>
+                        <ButtonBuyNftDrop dropId={dropId!} disabled={preview} />
                     </Row>
                 </Col>
                 <Row flex={1} alignItems="center" justifyContent="flex-end" breakpoint={{ width: "dropLandingPage" }}>
