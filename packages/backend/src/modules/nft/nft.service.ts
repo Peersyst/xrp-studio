@@ -305,7 +305,7 @@ export class NftService {
         const { page = 1, pageSize = 15 } = nftsRequest;
         const take = pageSize;
         const skip = (page - 1) * take;
-        const { qbWheres, relations } = GetNftsRequest.toFilterClause(nftsRequest, { requesterAccount });
+        const { qbWheres, relations, qbOrders } = GetNftsRequest.toFilterClause(nftsRequest, { requesterAccount });
 
         const [entities, count] = await QueryBuilderHelper.buildFindManyAndCount(
             this.nftRepository,
@@ -314,6 +314,7 @@ export class NftService {
             take,
             [...relations],
             qbWheres,
+            qbOrders,
         );
 
         return {

@@ -2,7 +2,7 @@ import { ApiProperty } from "@nestjs/swagger";
 import { IsOptional } from "class-validator";
 import { IsXrplAddress } from "../../common/validator/IsXrplAddress";
 import { Order } from "../../common/types";
-import { FilterType, QBFilter } from "../../common/util/query-builder.helper";
+import { FilterType, OrderType, QBFilter } from "../../common/util/query-builder.helper";
 
 export class GetCollectionsRequest {
     @ApiProperty({
@@ -43,10 +43,11 @@ export class GetCollectionsRequest {
     })
     order?: Order;
 
-    static toFilterClause(req: GetCollectionsRequest): QBFilter {
-        const filter: QBFilter = {
+    static toFilterClause(req: GetCollectionsRequest): QBFilter<string> {
+        const filter: QBFilter<string> = {
             qbWheres: [],
             relations: [],
+            qbOrders: [],
         };
 
         if (req.account) {
@@ -54,6 +55,18 @@ export class GetCollectionsRequest {
         }
         if (req.query) {
             filter.qbWheres.push({ field: "name", operator: FilterType.LIKE, value: req.query });
+        }
+
+        if (req.order === "ASC") {
+            filter.qbOrders.push({
+                field: "collection.updated_at",
+                type: OrderType.ASC,
+            });
+        } else {
+            filter.qbOrders.push({
+                field: "collection.updated_at",
+                type: OrderType.DESC,
+            });
         }
 
         return filter;

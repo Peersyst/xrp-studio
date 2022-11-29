@@ -103,7 +103,7 @@ export class CollectionService {
         const { page, pageSize } = filters;
         const take = pageSize;
         const skip = (page - 1) * take;
-        const { qbWheres, relations } = GetCollectionsRequest.toFilterClause(filters);
+        const { qbWheres, relations, qbOrders } = GetCollectionsRequest.toFilterClause(filters);
 
         const [entities, count] = await QueryBuilderHelper.buildFindManyAndCount(
             this.collectionRepository,
@@ -112,6 +112,7 @@ export class CollectionService {
             take,
             [...relations, "user"],
             qbWheres,
+            qbOrders,
         );
 
         return {
