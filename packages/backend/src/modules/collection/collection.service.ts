@@ -70,13 +70,13 @@ export class CollectionService {
     }
 
     async addItems(id: number, inc: number): Promise<void> {
-        await this.collectionRepository
-            .createQueryBuilder("collection")
-            .update()
-            .set({
-                items: () => `items + ${inc}`,
-            })
-            .execute();
+        const collection = await this.findOne({ id });
+        await this.collectionRepository.update(
+            { id },
+            {
+                items: (collection.items || 0) + inc,
+            },
+        );
     }
 
     async findOne(
