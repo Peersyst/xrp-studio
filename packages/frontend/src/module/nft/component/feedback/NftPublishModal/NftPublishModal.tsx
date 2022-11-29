@@ -22,7 +22,7 @@ const NftPublishModal = createModal<NftPublishModalProps>(({ request, draftId, c
 
     const { metadata: { image: nftImage = "" } = {} } = request;
 
-    const handleCloseSuccessfully = () => {
+    const goMyNfts = () => {
         navigate(NftRoutes.MY_NFTS);
     };
 
@@ -47,7 +47,7 @@ const NftPublishModal = createModal<NftPublishModalProps>(({ request, draftId, c
                             <NftPublishActions
                                 onStart={() => setLoading(true)}
                                 onEnd={() => setLoading(false)}
-                                onSuccess={handleCloseSuccessfully}
+                                onSuccess={goMyNfts}
                                 onError={handleError}
                                 onPollingEnd={setNftId}
                                 request={request}
@@ -61,7 +61,7 @@ const NftPublishModal = createModal<NftPublishModalProps>(({ request, draftId, c
                     },
                     {
                         content: error ? <NftPublishError error={error} /> : <NftPublishSuccess id={nftId} />,
-                        actions: [{ action: handleCloseSuccessfully, label: translate("close") }],
+                        actions: [{ action: "close", label: translate("close") }],
                     },
                 ],
             }}
