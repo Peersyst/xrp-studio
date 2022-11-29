@@ -4,10 +4,8 @@ import { Nft, NftStatus } from "../../database/entities/Nft";
 import { ValidatedLedgerTransaction } from "../blockchain/types";
 import { NFTokenMint } from "xrpl/dist/npm/models/transactions/NFTokenMint";
 import { Repository, SelectQueryBuilder } from "typeorm";
-import { convertStringToHex, decodeAccountID } from "xrpl";
 import { CollectionService } from "../collection/collection.service";
 import { NftMetadataAttribute } from "../../database/entities/NftMetadataAttribute";
-import unscrambleTaxon from "./util/unscrambleTaxon";
 import { CreateNftDraftRequest } from "./request/create-nft-draft.request";
 import flagsToNumber from "./util/flagsToNumber";
 import { NftDraftDto, PaginatedNftDraftDto } from "./dto/nft-draft.dto";
@@ -18,63 +16,47 @@ import { BusinessException } from "../common/exception/business.exception";
 import { ErrorCode } from "../common/exception/error-codes";
 import { XummService } from "@peersyst/xumm-module";
 import { CreateNftQueryBuilderOptions, NftWithCollection } from "./types";
-import { IMessageEvent } from "websocket";
 import { NftDraftStatusDto } from "./dto/nft-draft-status.dto";
 import { MetadataService } from "../metadata/metadata.service";
 import { QueryBuilderHelper } from "../common/util/query-builder.helper";
 import { CollectionDto } from "../collection/dto/collection.dto";
 import { UserService } from "../user/user.service";
+import { BlockchainTransactionService } from "../blockchain/blockchain-transaction.service";
+import { XummTransactionService } from "../xumm/xumm-transaction.service";
 import { BlockchainService } from "../blockchain/blockchain.service";
+import { getTokenIdFromTransaction } from "./util/parseTokenId";
 
 @Injectable()
 export class NftService {
     constructor(
         private readonly metadataService: MetadataService,
         private readonly userService: UserService,
-        @Inject(forwardRef(() => BlockchainService)) private readonly blockchainService: BlockchainService,
         @InjectRepository(Nft) private readonly nftRepository: Repository<Nft>,
         @Inject(forwardRef(() => CollectionService)) private readonly collectionService: CollectionService,
         @Inject(XummService) private readonly xummService: XummService,
+        private readonly xummTransactionService: XummTransactionService,
+        @Inject(forwardRef(() => BlockchainService)) private readonly blockchainService: BlockchainService,
+        @Inject(forwardRef(() => BlockchainTransactionService)) private readonly blockchainTransactionService: BlockchainTransactionService,
     ) {}
 
     /**
      * Creates an Nft entity from a given NFTokenMint transaction
      */
-    async createNftFromMintTransaction(
-        { Account, Flags, TransferFee, Issuer, NFTokenTaxon, URI, hash, Memos }: ValidatedLedgerTransaction<NFTokenMint>,
-        ledgerIndex: number,
-    ): Promise<Nft> {
+    async createNftFromMintTransaction(tx: ValidatedLedgerTransaction<NFTokenMint>): Promise<Nft> {
+        const { Account, Flags, TransferFee, Issuer, NFTokenTaxon, URI, hash, Memos } = tx;
         const issuerOrCreator = Issuer || Account;
         // Get last nft tokenId from the Issuer
-        const lastNft = await this.nftRepository
-            .createQueryBuilder("nft")
-            .select("SUBSTRING(nft.token_id, 57, 64) as token_id")
-            .where("nft.issuer = :issuer AND nft.status = :confirmed", { issuer: issuerOrCreator, confirmed: NftStatus.CONFIRMED })
-            .orderBy("SUBSTRING(nft.token_id, 57, 64)::bytea", "DESC")
-            .getRawOne<{ token_id: string }>();
-        // Build new nft's tokenId
-        let lastTokenSequence;
-        if (lastNft) {
-            lastTokenSequence = Number("0x" + lastNft.token_id);
-        } else {
-            lastTokenSequence = ((await this.blockchainService.getMintedTokens(Account, ledgerIndex - 1)) || 0) - 1;
-        }
-        const tokenSequence = lastTokenSequence + 1;
-        const tokenSequenceHex = tokenSequence.toString(16).toUpperCase().padStart(8, "0");
+
+        const tokenId = getTokenIdFromTransaction(tx);
         const flags = Flags?.toString(16).padStart(8, "0").substring(4).toUpperCase() || "0000";
-        const transferFee = TransferFee?.toString(16).toUpperCase().padStart(4, "0") || "0000";
-        const issuer = decodeAccountID(issuerOrCreator).toString("hex").toUpperCase();
-        const scrambledTaxon = unscrambleTaxon(NFTokenTaxon, tokenSequence);
-        const scrambledTaxonHex = scrambledTaxon.toString(16).toUpperCase().padStart(8, "0");
-        const tokenId = flags + transferFee + issuer + scrambledTaxonHex + tokenSequenceHex;
 
         // Create collection if NFTokenTaxon > 0. Cannot use cascade as we are inserting a collection without primary key
         let collection: CollectionDto;
         if (NFTokenTaxon) {
             try {
-                collection = await this.collectionService.findOne({ taxon: NFTokenTaxon.toString(), account: Account });
+                collection = await this.collectionService.findOne({ taxon: NFTokenTaxon.toString(), account: issuerOrCreator });
             } catch (e) {
-                collection = await this.collectionService.createCollection(Account, {}, false);
+                collection = await this.collectionService.createCollection(issuerOrCreator, {}, false);
             }
         }
 
@@ -92,6 +74,7 @@ export class NftService {
                 } catch (e) {}
             }
         }
+
         let draftNft: Nft | undefined;
         if (possibleDraftId && !isNaN(possibleDraftId)) {
             // Get draft nft ensuring the draft id belongs to the user. Thus, publish is legit for that draft
@@ -99,12 +82,12 @@ export class NftService {
                 .where("nft.id = :id AND nft.status != :confirmed AND user.address = :address", {
                     id: possibleDraftId,
                     confirmed: NftStatus.CONFIRMED,
-                    address: Account,
+                    address: issuerOrCreator,
                 })
                 .getOne();
         }
 
-        await this.userService.createIfNotExists(Account);
+        await this.userService.createIfNotExists(issuerOrCreator);
 
         try {
             if (collection) await this.collectionService.addItems(collection.id, 1);
@@ -118,10 +101,11 @@ export class NftService {
                 // May not be necessary in mainnet release but has to be checked in devnet in order to store the nft even if the uri is invali,
                 uri: URI && URI.length <= 256 ? URI : undefined,
                 status: NftStatus.CONFIRMED,
-                account: Account,
+                account: issuerOrCreator,
                 collectionId: collection?.id,
             });
-            if (savedNft.uri) await this.metadataService.sendToProcessMetadata(savedNft);
+            if (savedNft.uri && Account !== this.blockchainService.mintingAddress)
+                await this.metadataService.sendToProcessMetadata(savedNft);
             return savedNft;
         } catch (e) {
             if (collection) await this.collectionService.addItems(collection.id, -1);
@@ -228,57 +212,32 @@ export class NftService {
      *   * Metadata
      *   * Metadata attributes
      */
-    public async publishDraft(nftId: number, account: string, publishMetadata = true): Promise<void> {
-        const nftDraft = await this.findOne(nftId, { ownerAddress: account });
-        if (nftDraft.status === NftStatus.PENDING) throw new BusinessException(ErrorCode.NFT_DRAFT_ALREADY_PUBLISHED);
+    public async publishDraft(nftId: number, ownerAddress?: string): Promise<void> {
+        const nftDraft = await this.findOne(nftId, {
+            status: NftStatus.DRAFT,
+            ownerAddress,
+            relations: ["metadata", "metadata.attributes", "user"],
+        });
 
-        const { id: draftId, collection, issuer, transferFee, flags, metadata } = nftDraft;
-
-        // Build metadata
-        let cid: string;
-        if (Object.entries(metadata || {}).length > 0 && publishMetadata) {
-            cid = await this.metadataService.publishMetadata(draftId);
-        }
-
-        const memo = { id: draftId, ...(metadata?.name && { name: metadata.name }) };
-
-        // Build NFTokenMintTransaction
-        const nftokenMintTransaction: NFTokenMint = {
-            TransactionType: "NFTokenMint",
-            Account: account,
-            NFTokenTaxon: Number(collection?.taxon || "0"),
-            Flags: flags,
-            Memos: [
-                {
-                    Memo: {
-                        MemoData: Buffer.from(JSON.stringify(memo), "utf8").toString("hex"),
-                    },
-                },
-            ],
-        };
-
-        if (issuer && issuer !== account) nftokenMintTransaction.Issuer = issuer;
-        if (transferFee) nftokenMintTransaction.TransferFee = transferFee;
-        if (cid) nftokenMintTransaction.URI = convertStringToHex("ipfs://" + cid);
-
-        // Create transaction and subscribe
-        const subscription = await this.xummService.transactionRequestAndSubscribe(account, { ...nftokenMintTransaction });
         // Update draft status to "pending"
-        await this.nftRepository.update({ id: draftId }, { status: NftStatus.PENDING });
+        await this.updateNftStatus(nftId, NftStatus.PENDING);
 
-        // Listen to XUMM transaction events
-        // * If rejected or expired set draft status to "failed"
-        subscription.websocket.onmessage = async (message: IMessageEvent) => {
-            if (typeof message.data === "string") {
-                try {
-                    const jsonData = JSON.parse(message.data);
-                    if (jsonData.signed === false || jsonData.expired === true) {
-                        await this.nftRepository.update({ id: draftId }, { status: NftStatus.FAILED });
-                        subscription.websocket.close();
-                    } else if (jsonData.signed === true) subscription.websocket.close();
-                } catch (e) {}
-            }
-        };
+        const { id: draftId, collection, transferFee, flags, metadata } = nftDraft;
+
+        const cid = metadata && (await this.metadataService.publishMetadata(nftId));
+
+        const transaction = await this.blockchainTransactionService.prepareNftMintTransaction({
+            account: ownerAddress,
+            flags: flags,
+            taxon: Number(collection?.taxon || "0"),
+            uri: cid && "ipfs://" + cid,
+            transferFee: transferFee,
+            memo: JSON.stringify({ id: draftId, ...(metadata?.name && { name: metadata.name }) }),
+        });
+
+        await this.xummTransactionService.sendTransactionRequest(ownerAddress, transaction, async () => {
+            await this.nftRepository.update({ id: nftId }, { status: NftStatus.FAILED });
+        });
     }
 
     async findOne<Status extends NftStatus>(
@@ -295,6 +254,19 @@ export class NftService {
         return (
             nft.status === NftStatus.CONFIRMED ? NftDto.fromEntity(nft) : NftDraftDto.fromEntity(nft)
         ) as Status extends NftStatus.CONFIRMED ? NftDto : NftDraftDto;
+    }
+
+    public async updateNftStatus(nftId: number, newStatus: NftStatus): Promise<void> {
+        const nft = await this.nftRepository.findOne(nftId);
+        if (!nft) throw new BusinessException(ErrorCode.NFT_NOT_FOUND);
+        if (
+            (nft.status === NftStatus.DRAFT && newStatus !== NftStatus.PENDING) ||
+            (nft.status === NftStatus.PENDING && newStatus !== NftStatus.FAILED && newStatus !== NftStatus.CONFIRMED) ||
+            (nft.status === NftStatus.FAILED && newStatus !== NftStatus.PENDING) ||
+            nft.status === NftStatus.CONFIRMED
+        )
+            throw new Error(`Invalid update status from ${nft.status} to ${newStatus}`);
+        await this.nftRepository.update({ id: nftId }, { status: newStatus });
     }
 
     /**

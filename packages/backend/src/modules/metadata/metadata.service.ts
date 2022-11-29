@@ -14,6 +14,7 @@ import isHttpUrl from "../common/util/isHttpUrl";
 import axios from "axios";
 import { ConfigService } from "@nestjs/config";
 import { CreateMetadataRequest } from "./request/create-metadata.request";
+import * as Hash from "ipfs-only-hash";
 
 export enum MetadataProcessingError {
     FETCH_ERROR,
@@ -60,11 +61,11 @@ export class MetadataService {
         return this.ipfsService.uploadFile(Buffer.from(metadataDto.encode()));
     }
 
-    /*
-    async calculateCid(metadata: MetadataDto): Promise<string> {
-        return this.ipfsService.calculateCid(Buffer.from(metadata.encode()));
+    async calculateUri(nftId: number): Promise<string> {
+        const metadata = await this.nftMetadataRepository.findOne({ nftId }, { relations: ["attributes"] });
+        const data = MetadataDto.fromEntity(metadata).encode();
+        return "ipfs://" + (await Hash.of(Buffer.from(data)));
     }
-     */
 
     async retrieveMetadata(uri: string): Promise<MetadataDto> {
         if (isHttpUrl(uri)) {

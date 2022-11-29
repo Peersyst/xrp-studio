@@ -30,5 +30,8 @@ export const $NftDraftDto = {
         collection: {
             type: 'CollectionDto',
         },
+        drop: {
+            type: 'DropDto',
+        },
     },
 } as const;

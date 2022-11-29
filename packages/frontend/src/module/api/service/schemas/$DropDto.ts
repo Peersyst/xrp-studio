@@ -7,6 +7,14 @@ export const $DropDto = {
             type: 'number',
             isRequired: true,
         },
+        items: {
+            type: 'number',
+            isRequired: true,
+        },
+        soldItems: {
+            type: 'number',
+            isRequired: true,
+        },
         price: {
             type: 'string',
             isRequired: true,
@@ -34,13 +42,11 @@ export const $DropDto = {
         faqs: {
             type: 'array',
             contains: {
-                type: 'FaqsDto',
+                type: 'FaqDto',
             },
-            isRequired: true,
         },
         collection: {
             type: 'CollectionDto',
-            isRequired: true,
         },
     },
 } as const;

@@ -80,8 +80,21 @@ export const devNftMetadata = [
 ];
 
 export default function getByEnv(env: string) {
-    if (env === "development" || env === "preview") {
+    if (env === "development") {
         return devNftMetadata;
+    }
+    if (env === "preview") {
+        const result = [];
+        for (let i = 0; i < 100; i++) {
+            result.push({
+                nftId: i + 1,
+                name: "Drop #" + i,
+                image: "https://opensea.io/assets/ethereum/0xb47e3cd837ddf8e4c57f05d70ab865de6e193bbb/4107",
+                createdAt: new Date(),
+                updatedAt: new Date(),
+            });
+        }
+        return result;
     }
     if (env === "test") {
         return devNftMetadata;

@@ -6,7 +6,6 @@ import {
     UseSearchParamsMock,
     WalletMock,
     UseNavigateMock,
-    UseCheckBalanceMock,
     UseCollectionCreationStateMock,
     ModalMock,
 } from "test-mocks";
@@ -97,12 +96,10 @@ describe("CollectionCreationPage", () => {
         let useWalletMock: WalletMock;
         const addressMock = "address";
         const collectionDtoMock = new CollectionDtoMock({ name: "name", user: new UserDtoMock({ address: addressMock }) });
-        let useCheckBalanceMock: UseCheckBalanceMock;
 
         beforeEach(() => {
             useSearchParamsMock = new UseSearchParamsMock({ id: "1" });
             useWalletMock = new WalletMock({ isLogged: true, active: true, address: addressMock });
-            useCheckBalanceMock = new UseCheckBalanceMock();
         });
 
         afterEach(() => {
@@ -112,7 +109,6 @@ describe("CollectionCreationPage", () => {
         afterAll(() => {
             useSearchParamsMock.restore();
             useWalletMock.restore();
-            useCheckBalanceMock.restore();
         });
 
         test("Renders correctly", async () => {

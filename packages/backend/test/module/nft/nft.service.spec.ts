@@ -4,13 +4,11 @@ import NftRepositoryMock from "../__mock__/nft.repository.mock";
 import { getRepositoryToken } from "@nestjs/typeorm";
 import { Nft, NftStatus } from "../../../src/database/entities/Nft";
 import NFTokenMintTransactionMock from "../__mock__/nftokenmint-transaction.mock";
-import { convertStringToHex, decodeAccountID, parseNFTokenID } from "xrpl";
 import { CollectionService } from "../../../src/modules/collection/collection.service";
 import CollectionServiceMock from "../__mock__/collection.service.mock";
 import CollectionMock from "../__mock__/collection.mock";
 import UserMock from "../__mock__/user.mock";
 import NftMock from "../__mock__/nft.mock";
-import unscrambleTaxon from "../../../src/modules/nft/util/unscrambleTaxon";
 import { UpdateNftDraftRequest } from "../../../src/modules/nft/request/update-nft-draft-request";
 import { User } from "../../../src/database/entities/User";
 import { BusinessException } from "../../../src/modules/common/exception/business.exception";
@@ -29,6 +27,10 @@ import { UserService } from "../../../src/modules/user/user.service";
 import UserServiceMock from "../__mock__/user.service.mock";
 import { BlockchainService } from "../../../src/modules/blockchain/blockchain.service";
 import BlockchainServiceMock from "../__mock__/blockchain.service.mock";
+import XummTransactionServiceMock from "../__mock__/xumm-transaction.service.mock";
+import { XummTransactionService } from "../../../src/modules/xumm/xumm-transaction.service";
+import BlockchainTransactionServiceMock from "../__mock__/blockchain-transaction.service.mock";
+import { BlockchainTransactionService } from "../../../src/modules/blockchain/blockchain-transaction.service";
 
 describe("NftService", () => {
     const ADDRESS = "rNCFjv8Ek5oDrNiMJ3pw6eLLFtMjZLJnf2";
@@ -41,6 +43,8 @@ describe("NftService", () => {
     const xummServiceMock = new XummServiceMock();
     const userServiceMock = new UserServiceMock();
     const blockchainServiceMock = new BlockchainServiceMock();
+    const blockchainTransactionServiceMock = new BlockchainTransactionServiceMock();
+    const xummTransactionServiceMock = new XummTransactionServiceMock();
 
     beforeEach(async () => {
         const module = await Test.createTestingModule({
@@ -62,12 +66,24 @@ describe("NftService", () => {
                     useValue: xummServiceMock,
                 },
                 {
+                    provide: XummService,
+                    useValue: xummServiceMock,
+                },
+                {
                     provide: UserService,
                     useValue: userServiceMock,
                 },
                 {
                     provide: BlockchainService,
                     useValue: blockchainServiceMock,
+                },
+                {
+                    provide: BlockchainTransactionService,
+                    useValue: blockchainTransactionServiceMock,
+                },
+                {
+                    provide: XummTransactionService,
+                    useValue: xummTransactionServiceMock,
                 },
                 NftService,
             ],
@@ -83,15 +99,8 @@ describe("NftService", () => {
     describe("createNftFromMintTransaction", () => {
         test("Creates an NFT with an NFTokenMint transaction with just the required fields. Does not queue metadata", async () => {
             const nftMintTransaction = new NFTokenMintTransactionMock();
-            const nft = await nftService.createNftFromMintTransaction(nftMintTransaction, 1);
+            const nft = await nftService.createNftFromMintTransaction(nftMintTransaction);
 
-            const nftokenId =
-                "00000000" +
-                decodeAccountID(nftMintTransaction.Account).toString("hex").toUpperCase() +
-                unscrambleTaxon(0, 2).toString(16).toUpperCase().padStart(8, "0") +
-                "00000002";
-
-            expect(nft.tokenId).toEqual(nftokenId);
             expect(nft.mintTransactionHash).toEqual(nftMintTransaction.hash);
             expect(nft.issuer).toEqual(nftMintTransaction.Account);
             expect(nft.transferFee).toBeUndefined();
@@ -100,14 +109,6 @@ describe("NftService", () => {
             expect(nft.status).toEqual(NftStatus.CONFIRMED);
             expect(nft.account).toEqual(nftMintTransaction.Account);
             expect(nft.collection).toBeUndefined();
-
-            //Token id is generated correctly
-            const parsedTokenId = parseNFTokenID(nftokenId);
-            expect(parsedTokenId.Flags).toEqual(0);
-            expect(parsedTokenId.Flags).toEqual(0);
-            expect(parsedTokenId.Issuer).toEqual(nftMintTransaction.Account);
-            expect(parsedTokenId.Taxon).toEqual(0);
-            expect(parsedTokenId.Sequence).toEqual(2);
 
             expect(metadataServiceMock.sendToProcessMetadata).not.toHaveBeenCalled();
         });
@@ -122,21 +123,16 @@ describe("NftService", () => {
             });
             const collection = new CollectionMock({ id: 1, taxon: "2", user: new UserMock({ address: nftMintTransaction.Account }) });
             collectionServiceMock.findOne.mockReturnValueOnce(new Promise((resolve) => resolve(CollectionDto.fromEntity(collection))));
-            const nft = await nftService.createNftFromMintTransaction(nftMintTransaction, 1);
+            const nft = await nftService.createNftFromMintTransaction(nftMintTransaction);
 
-            expect(nft.tokenId).toEqual(
-                "00010064" +
-                    decodeAccountID(nftMintTransaction.Issuer).toString("hex").toUpperCase() +
-                    unscrambleTaxon(2, 2).toString(16).toUpperCase().padStart(8, "0") +
-                    "00000002",
-            );
+            expect(nft.tokenId).toEqual("0008000A65880702C56031DC90384A905E59F581F8D825677CB38DD00000153F");
             expect(nft.mintTransactionHash).toEqual(nftMintTransaction.hash);
             expect(nft.issuer).toEqual(nftMintTransaction.Issuer);
             expect(nft.transferFee).toEqual(100);
             expect(nft.flags).toEqual(1);
             expect(nft.uri).toEqual(nftMintTransaction.URI);
             expect(nft.status).toEqual(NftStatus.CONFIRMED);
-            expect(nft.account).toEqual(nftMintTransaction.Account);
+            expect(nft.account).toEqual(nftMintTransaction.Issuer);
             expect(nft.collectionId).toEqual(1);
 
             expect(metadataServiceMock.sendToProcessMetadata).toHaveBeenCalledWith(nft);
@@ -144,14 +140,9 @@ describe("NftService", () => {
 
         test("Creates an NFT with an NFTokenMint transaction with URI bigger than 256 bytes. Does not queue metadata", async () => {
             const nftMintTransaction = new NFTokenMintTransactionMock({ URI: "".padStart(257, "F") });
-            const nft = await nftService.createNftFromMintTransaction(nftMintTransaction, 1);
+            const nft = await nftService.createNftFromMintTransaction(nftMintTransaction);
 
-            expect(nft.tokenId).toEqual(
-                "00000000" +
-                    decodeAccountID(nftMintTransaction.Account).toString("hex").toUpperCase() +
-                    unscrambleTaxon(0, 2).toString(16).toUpperCase().padStart(8, "0") +
-                    "00000002",
-            );
+            expect(nft.tokenId).toEqual("0008000A65880702C56031DC90384A905E59F581F8D825677CB38DD00000153F");
             expect(nft.mintTransactionHash).toEqual(nftMintTransaction.hash);
             expect(nft.issuer).toEqual(nftMintTransaction.Account);
             expect(nft.transferFee).toBeUndefined();
@@ -169,14 +160,9 @@ describe("NftService", () => {
             const nftMintTransaction = new NFTokenMintTransactionMock({
                 NFTokenTaxon: 3,
             });
-            const nft = await nftService.createNftFromMintTransaction(nftMintTransaction, 1);
+            const nft = await nftService.createNftFromMintTransaction(nftMintTransaction);
 
-            expect(nft.tokenId).toEqual(
-                "00000000" +
-                    decodeAccountID(nftMintTransaction.Account).toString("hex").toUpperCase() +
-                    unscrambleTaxon(3, 2).toString(16).toUpperCase().padStart(8, "0") +
-                    "00000002",
-            );
+            expect(nft.tokenId).toEqual("0008000A65880702C56031DC90384A905E59F581F8D825677CB38DD00000153F");
             expect(nft.mintTransactionHash).toEqual(nftMintTransaction.hash);
             expect(nft.status).toEqual(NftStatus.CONFIRMED);
             expect(nft.account).toEqual(nftMintTransaction.Account);
@@ -185,23 +171,18 @@ describe("NftService", () => {
         test("Creates a users' first NFT", async () => {
             nftRepositoryMock.getRawOne.mockReturnValueOnce(new Promise((resolve) => resolve(undefined)));
             const nftMintTransaction = new NFTokenMintTransactionMock();
-            const nft = await nftService.createNftFromMintTransaction(nftMintTransaction, 1);
-            expect(nft.tokenId).toEqual(
-                "00000000" +
-                    decodeAccountID(nftMintTransaction.Account).toString("hex").toUpperCase() +
-                    unscrambleTaxon(0, 0).toString(16).toUpperCase().padStart(8, "0") +
-                    "00000000",
-            );
+            const nft = await nftService.createNftFromMintTransaction(nftMintTransaction);
+            expect(nft.tokenId).toEqual("0008000A65880702C56031DC90384A905E59F581F8D825677CB38DD00000153F");
         });
 
         test("An error is thrown with the intended nft", async () => {
             nftRepositoryMock.save.mockReturnValueOnce(new Promise((resolve, reject) => reject("Error")));
             const nftMintTransaction = new NFTokenMintTransactionMock();
             await expect(async () => {
-                await nftService.createNftFromMintTransaction(nftMintTransaction, 1);
+                await nftService.createNftFromMintTransaction(nftMintTransaction);
             }).rejects.toEqual({
                 error: "Error",
-                tokenId: "000000005FA6C9FE61A878A87C1309D806826721A0A138FE2DCBAB9D00000002",
+                tokenId: "0008000A65880702C56031DC90384A905E59F581F8D825677CB38DD00000153F",
             } as any);
         });
 
@@ -211,7 +192,7 @@ describe("NftService", () => {
                     Memos: [{ Memo: { MemoData: Buffer.from(JSON.stringify({ id: "NaN" }), "utf8").toString("hex") } }],
                 });
 
-                await nftService.createNftFromMintTransaction(nftMintTransaction, 1);
+                await nftService.createNftFromMintTransaction(nftMintTransaction);
                 expect(nftRepositoryMock.getOne).not.toHaveBeenCalled();
                 expect(nftRepositoryMock.save).not.toHaveBeenLastCalledWith(expect.objectContaining({ id: expect.any(Number) }));
             });
@@ -223,7 +204,7 @@ describe("NftService", () => {
                     Memos: [{ Memo: { MemoData: Buffer.from(JSON.stringify({ id: 1 }), "utf8").toString("hex") } }],
                 });
 
-                await nftService.createNftFromMintTransaction(nftMintTransaction, 1);
+                await nftService.createNftFromMintTransaction(nftMintTransaction);
                 expect(nftRepositoryMock.getOne).toHaveBeenCalled();
                 expect(nftRepositoryMock.save).not.toHaveBeenLastCalledWith(expect.objectContaining({ id: expect.any(Number) }));
             });
@@ -235,7 +216,7 @@ describe("NftService", () => {
                     Memos: [{ Memo: { MemoData: Buffer.from(JSON.stringify({ id: 1 }), "utf8").toString("hex") } }],
                 });
 
-                const nft = await nftService.createNftFromMintTransaction(nftMintTransaction, 1);
+                const nft = await nftService.createNftFromMintTransaction(nftMintTransaction);
                 expect(nftRepositoryMock.save).toHaveBeenLastCalledWith(expect.objectContaining({ id: 1 }));
                 expect(nft.id).toEqual(1);
             });
@@ -244,6 +225,7 @@ describe("NftService", () => {
 
     describe("createNftDraft", () => {
         test("Creates an NFT draft without issuer, transferFee, collection or metadata and publish = true", async () => {
+            const publishMock = jest.spyOn(nftService, "publishDraft").mockImplementation(jest.fn());
             await nftService.createNftDraft(ADDRESS, {}, true);
             expect(metadataServiceMock.create).not.toHaveBeenCalled();
             expect(nftRepositoryMock.save).toHaveBeenCalledWith({
@@ -252,10 +234,7 @@ describe("NftService", () => {
                 flags: 0,
                 status: NftStatus.DRAFT,
             });
-            expect(xummServiceMock.transactionRequestAndSubscribe).toHaveBeenCalledWith(
-                ADDRESS,
-                expect.objectContaining({ TransactionType: "NFTokenMint" }),
-            );
+            expect(publishMock).toHaveBeenCalledWith(expect.any(Number), ADDRESS);
         });
 
         test("Creates an NFT draft with issuer and transferFee without collection or metadata", async () => {
@@ -325,6 +304,7 @@ describe("NftService", () => {
         });
 
         test("Update nft draft with an empty object and publish = true", async () => {
+            const publishMock = jest.spyOn(nftService, "publishDraft").mockImplementation(jest.fn());
             await nftService.updateNftDraft(1, ADDRESS, {}, true);
             expect(collectionServiceMock.findOne).not.toHaveBeenCalled();
             expect(nftRepositoryMock.update).toHaveBeenCalledWith(
@@ -337,10 +317,7 @@ describe("NftService", () => {
                     metadata: undefined,
                 },
             );
-            expect(xummServiceMock.transactionRequestAndSubscribe).toHaveBeenCalledWith(
-                ADDRESS,
-                expect.objectContaining({ TransactionType: "NFTokenMint" }),
-            );
+            expect(publishMock).toHaveBeenCalledWith(1, ADDRESS);
         });
 
         test("Update nft draft with an issuer, transferFee, flags and taxon", async () => {
@@ -435,26 +412,13 @@ describe("NftService", () => {
             await nftService.publishDraft(1, ADDRESS);
 
             expect(metadataServiceMock.publishMetadata).toHaveBeenCalledWith(1);
-            expect(xummServiceMock.transactionRequestAndSubscribe).toHaveBeenCalledWith(ADDRESS, {
-                TransactionType: "NFTokenMint",
-                Account: ADDRESS,
-                NFTokenTaxon: Number(nftMock.collection.taxon),
-                Flags: 0,
-                Memos: [
-                    {
-                        Memo: {
-                            MemoData: Buffer.from(JSON.stringify({ id: nftMock.id, name: nftMock.metadata.name }), "utf8").toString("hex"),
-                        },
-                    },
-                ],
-                Issuer: nftMock.issuer,
-                TransferFee: nftMock.transferFee,
-                URI: convertStringToHex("ipfs://cid"),
-            });
+            expect(xummTransactionServiceMock.sendTransactionRequest).toHaveBeenCalledWith(
+                ADDRESS,
+                expect.any(Object),
+                expect.any(Function),
+            );
             expect(nftRepositoryMock.update).toHaveBeenCalledWith({ id: nftMock.id }, { status: NftStatus.PENDING });
-            await xummServiceMock.websocket.onmessage({ data: '{"signed": true}' });
             expect(nftRepositoryMock.update).toHaveBeenCalledTimes(1);
-            expect(xummServiceMock.websocket.close).toHaveBeenCalled();
         });
 
         test("A draft is published without metadata or collection and rejected", async () => {
@@ -464,28 +428,19 @@ describe("NftService", () => {
                 status: NftStatus.DRAFT,
                 user: userMock,
             });
-            nftRepositoryMock.findOne.mockResolvedValueOnce(nftMock);
+            nftRepositoryMock.findOne.mockResolvedValue(nftMock);
+            xummTransactionServiceMock.sendTransactionRequest.mockImplementation(async (address, tx, onFailed) => await onFailed());
 
             await nftService.publishDraft(1, ADDRESS);
 
             expect(metadataServiceMock.publishMetadata).not.toHaveBeenCalled();
-            expect(xummServiceMock.transactionRequestAndSubscribe).toHaveBeenCalledWith(ADDRESS, {
-                TransactionType: "NFTokenMint",
-                Account: ADDRESS,
-                NFTokenTaxon: 0,
-                Flags: 0,
-                Memos: [
-                    {
-                        Memo: {
-                            MemoData: Buffer.from(JSON.stringify({ id: nftMock.id }), "utf8").toString("hex"),
-                        },
-                    },
-                ],
-            });
+            expect(xummTransactionServiceMock.sendTransactionRequest).toHaveBeenCalledWith(
+                ADDRESS,
+                expect.any(Object),
+                expect.any(Function),
+            );
             expect(nftRepositoryMock.update).toHaveBeenCalledWith({ id: nftMock.id }, { status: NftStatus.PENDING });
-            await xummServiceMock.websocket.onmessage({ data: '{"signed": false}' });
             expect(nftRepositoryMock.update).toHaveBeenCalledWith({ id: nftMock.id }, { status: NftStatus.FAILED });
-            expect(xummServiceMock.websocket.close).toHaveBeenCalled();
         });
 
         test("A draft is published without metadata or collection and expired", async () => {
@@ -495,13 +450,12 @@ describe("NftService", () => {
                 status: NftStatus.DRAFT,
                 user: userMock,
             });
-            nftRepositoryMock.getOne.mockResolvedValueOnce(nftMock);
+            nftRepositoryMock.findOne.mockResolvedValue(nftMock);
+            xummTransactionServiceMock.sendTransactionRequest.mockImplementation(async (address, tx, onFailed) => await onFailed());
 
             await nftService.publishDraft(1, ADDRESS);
 
-            await xummServiceMock.websocket.onmessage({ data: '{"expired": true}' });
             expect(nftRepositoryMock.update).toHaveBeenCalledWith({ id: nftMock.id }, { status: NftStatus.FAILED });
-            expect(xummServiceMock.websocket.close).toHaveBeenCalled();
         });
 
         test("The draft to publish is not found and throws NFT_DRAFT_NOT_FOUND", async () => {
@@ -537,7 +491,7 @@ describe("NftService", () => {
 
             await expect(async () => {
                 await nftService.publishDraft(1, ADDRESS);
-            }).rejects.toEqual(new BusinessException(ErrorCode.NFT_DRAFT_ALREADY_PUBLISHED));
+            }).rejects.toEqual(new BusinessException(ErrorCode.NFT_NOT_FOUND));
         });
     });
 

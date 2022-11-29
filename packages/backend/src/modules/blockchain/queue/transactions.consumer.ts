@@ -27,7 +27,7 @@ export class TransactionsConsumer {
     }: Job<{ transactions: ValidatedLedgerTransaction[]; ledgerIndex: number }>) {
         if (transactions.length) {
             this.logger.log(`PROCESSING ${transactions.length} TRANSACTIONS FROM LEDGER ${ledgerIndex}`);
-            for await (const tx of transactions) await this.blockchainService.processTransactionByType(tx, ledgerIndex);
+            for await (const tx of transactions) await this.blockchainService.processTransactionByType(tx);
         }
     }
 
@@ -38,14 +38,13 @@ export class TransactionsConsumer {
      */
     @Process("process-mint-transaction")
     async processMintTransaction({
-        data: { transaction, ledgerIndex },
+        data: { transaction },
     }: Job<{
         transaction: ValidatedLedgerTransaction<NFTokenMint>;
-        ledgerIndex: number;
     }>) {
         this.logger.log(`PROCESSING MINT TRANSACTION ${transaction.hash}`);
         try {
-            const nft = await this.nftService.createNftFromMintTransaction(transaction, ledgerIndex);
+            const nft = await this.nftService.createNftFromMintTransaction(transaction);
             this.logger.log(`INDEXED NFT ${nft.tokenId}`);
         } catch (e) {
             const nftError = e as { error: any; nft: Nft };

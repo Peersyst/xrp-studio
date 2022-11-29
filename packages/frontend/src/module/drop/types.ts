@@ -1,26 +1,25 @@
 import Color from "color";
-import { CollectionDto, FaqsDto } from "module/api/service";
+import { FaqDto } from "module/api/service";
 import { Loosen } from "@peersyst/react-types";
 
-export type Faq = Loosen<FaqsDto, "id">;
+export type Faq = Loosen<FaqDto, any>;
 
 export interface DropCreationForm {
     price: string;
     backgroundColor: Color;
-    fontColor: string;
+    fontColor: Color;
     videoUrl?: string;
     instagram?: string;
     twitter?: string;
     discord?: string;
-    faqs: Array<FaqsDto>;
-    collection: CollectionDto;
+    faqs: Array<FaqDto>;
 }
 
 export enum DropCreationFormFields {
     PRICE = "price",
-    BACKGROUND_COLOR = "background_color",
-    FONT_COLOR = "font_color",
-    VIDEO_URL = "external_url",
+    BACKGROUND_COLOR = "backgroundColor",
+    FONT_COLOR = "fontColor",
+    VIDEO_URL = "externalUrl",
     INSTAGRAM = "instagram",
     TWITTER = "twitter",
     DISCORD = "discord",

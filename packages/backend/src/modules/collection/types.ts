@@ -5,9 +5,10 @@ export interface FindCollectionByTaxonAndAccountOptions {
 }
 
 export interface CreateCollectionQueryBuilderOptions<WithItems extends boolean = boolean> {
+    withItems?: WithItems;
     relations?: {
         user?: boolean;
-        nft?: WithItems;
+        nft?: boolean;
     };
 }
 
