@@ -3,10 +3,12 @@
 /* eslint-disable */
 
 import type { CollectionDto } from './CollectionDto';
-import type { FaqsDto } from './FaqsDto';
+import type { FaqDto } from './FaqDto';
 
 export type DropDto = {
     id: number;
+    items: number;
+    soldItems: number;
     price: string;
     backgroundColor: string;
     fontColor: string;
@@ -14,7 +16,7 @@ export type DropDto = {
     instagram?: string;
     twitter?: string;
     discord?: string;
-    faqs: Array<FaqsDto>;
-    collection: CollectionDto;
+    faqs?: Array<FaqDto>;
+    collection?: CollectionDto;
 };
 

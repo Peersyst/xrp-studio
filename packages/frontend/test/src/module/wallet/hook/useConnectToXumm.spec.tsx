@@ -5,7 +5,7 @@ import * as XummReact from "xumm-react";
 
 const renderUseConnectToXumm = () =>
     renderHook(() => {
-        return useConnectToXumm();
+        return useConnectToXumm({ callback: () => jest.fn() });
     });
 
 describe("useConnectToXumm test", () => {

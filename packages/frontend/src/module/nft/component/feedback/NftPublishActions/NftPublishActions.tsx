@@ -1,38 +1,25 @@
 import useTranslate from "module/common/hook/useTranslate";
-import { Step } from "module/common/component/feedback/ActionSteps/ActionSteps.types";
+import { ActionStepsHandlers, Step } from "module/common/component/feedback/ActionSteps/ActionSteps.types";
 import ActionSteps from "module/common/component/feedback/ActionSteps/ActionSteps";
-import { UseMutateAsyncFunction } from "react-query";
-import { NftDto } from "module/api/service";
+import { CreateNftDraftRequest } from "module/api/service";
+import usePublishNft from "module/nft/hook/usePublishNft";
+import useNftStatePolling from "module/nft/hook/useNftStatePolling";
 
-interface NftCall {
-    publish: UseMutateAsyncFunction<number | undefined, string, unknown, unknown>;
-    startPolling: UseMutateAsyncFunction<NftDto["status"], string, number, unknown>;
+interface NftPublishActionsProps extends Omit<ActionStepsHandlers, "onSuccess"> {
+    request: CreateNftDraftRequest;
+    draftId?: number;
+    onSuccess: () => void;
 }
 
-interface NftPublishActionsProps {
-    calls: NftCall;
-    responseId: number | undefined;
-}
-
-const NftPublishActions = ({ calls, responseId }: NftPublishActionsProps): JSX.Element => {
+const NftPublishActions = ({ request, draftId, onStart, onEnd, onSuccess }: NftPublishActionsProps): JSX.Element => {
     const translate = useTranslate();
-    const { publish, startPolling } = calls;
 
-    const onSuccess = () => {
-        return undefined;
-    };
+    const { mutateAsync: publish, data: responseId } = usePublishNft(request, draftId);
+    const { fetch: startPolling } = useNftStatePolling(responseId);
 
     const poll = async () => {
-        if (responseId === undefined) throw new Error("Not valid id");
-        await startPolling(responseId);
-    };
-
-    const mockSignTransaction = async () => {
-        return undefined;
-    };
-
-    const mockSuccess = async () => {
-        return undefined;
+        if (responseId === undefined) throw new Error("Not valid Id");
+        await startPolling();
     };
 
     const steps: Step[] = [
@@ -42,11 +29,6 @@ const NftPublishActions = ({ calls, responseId }: NftPublishActionsProps): JSX.E
             execution: async () => await publish({}),
         },
         {
-            title: translate("confirmCreation"),
-            description: translate("confirmCreationDescription"),
-            execution: mockSignTransaction,
-        },
-        {
             title: translate("addingNftBlockchain"),
             description: translate("addingNftBlockchainDescription"),
             execution: poll,
@@ -54,11 +36,10 @@ const NftPublishActions = ({ calls, responseId }: NftPublishActionsProps): JSX.E
         {
             title: translate("successTitle"),
             description: translate("successDescription"),
-            execution: mockSuccess,
         },
     ];
 
-    return <ActionSteps steps={steps} onSuccess={onSuccess} />;
+    return <ActionSteps steps={steps} onStart={onStart} onEnd={onEnd} onSuccess={onSuccess} />;
 };
 
 export default NftPublishActions;

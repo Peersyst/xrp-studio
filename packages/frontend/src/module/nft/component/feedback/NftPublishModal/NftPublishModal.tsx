@@ -1,8 +1,6 @@
 import { createModal } from "@peersyst/react-components";
 import useTranslate from "module/common/hook/useTranslate";
 import ActionModal from "module/common/component/feedback/ActionModal/ActionModal";
-import usePublishNft from "module/nft/hook/usePublishNft";
-import { ActionFn } from "module/common/component/feedback/ActionModal/ActionModal.types";
 import { config } from "config";
 import { NftPublishModalCoverImage } from "module/nft/component/feedback/NftPublishModal/NftPublishModal.styles";
 import { NftPublishModalProps } from "module/nft/component/feedback/NftPublishModal/NftPublishModal.types";
@@ -12,56 +10,51 @@ import { NftRoutes } from "module/nft/NftRouter";
 import NftPublishActions from "module/nft/component/feedback/NftPublishActions/NftPublishActions";
 import NftPublishError from "module/nft/component/feedback/NftPublishError/NftPublishError";
 import NftPublishInformation from "module/nft/component/feedback/NftPublishModal/NftPublishInformation/NftPublishInformation";
-import useNftStatePolling from "module/nft/hook/useNftStatePolling";
+import { useState } from "react";
 
 const NftPublishModal = createModal<NftPublishModalProps>(({ request, draftId, collection, ...modalProps }) => {
     const translate = useTranslate();
     const navigate = useNavigate();
 
-    const {
-        mutateAsync: publish,
-        isLoading: isPublishing,
-        isError: isPublishError,
-        error: publishError,
-        data: responseId,
-    } = usePublishNft(request, draftId);
-    const { mutateAsync: startPolling, isLoading: isPolling, isError: isPollError, error: pollError } = useNftStatePolling();
+    const [loading, setLoading] = useState<boolean>();
 
     const { metadata: { image: nftImage = "" } = {} } = request;
 
-    const isError = isPublishError || isPollError;
+    const mockError = true;
 
-    const getError = (): string => {
-        if (isPublishError) return publishError;
-        else return pollError!;
-    };
-
-    const handleCloseSuccessfully: ActionFn = ({ close }) => {
-        close();
+    const handleCloseSuccessfully = () => {
         navigate(NftRoutes.MY_NFTS);
     };
 
     return (
-        <ActionModal title={translate("publishNftConfirmation")} closable={!isPublishing && !isPolling} {...modalProps}>
+        <ActionModal title={translate("publishNftConfirmation")} closable={!loading} {...modalProps}>
             {{
                 cover: <NftPublishModalCoverImage src={nftImage} fallback={config.nftDefaultCoverUrl} alt="nft-image" />,
                 tabs: [
                     {
                         content: <NftPublishInformation request={request} collection={collection} />,
                         actions: [
-                            { action: "next", disabled: isPublishing || isPolling, label: translate("confirm") },
+                            { action: "next", label: translate("confirm") },
                             { action: "close", label: translate("cancel") },
                         ],
                     },
                     {
-                        content: <NftPublishActions calls={{ publish, startPolling }} responseId={responseId} />,
+                        content: (
+                            <NftPublishActions
+                                onStart={() => setLoading(true)}
+                                onEnd={() => setLoading(false)}
+                                onSuccess={handleCloseSuccessfully}
+                                request={request}
+                                draftId={draftId}
+                            />
+                        ),
                         actions: [
-                            { action: "next", disabled: isPublishing || isPolling, label: translate("viewDetails") },
+                            { action: "next", disabled: loading, label: translate("viewDetails") },
                             { action: "close", label: translate("cancel") },
                         ],
                     },
                     {
-                        content: isError ? <NftPublishError error={getError()} /> : <NftPublishSuccess id={responseId} />,
+                        content: mockError ? <NftPublishError /> : <NftPublishSuccess />,
                         actions: [{ action: handleCloseSuccessfully, label: translate("close") }],
                     },
                 ],

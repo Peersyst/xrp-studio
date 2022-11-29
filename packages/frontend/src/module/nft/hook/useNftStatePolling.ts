@@ -1,21 +1,28 @@
-import { useMutation, UseMutationResult } from "react-query";
-import { NftDto, NftService } from "module/api/service";
-import config from "config/config";
+import { NftDraftDto, NftDraftStatusDto, NftService } from "module/api/service";
+import polling from "module/common/util/polling";
+import { useState } from "react";
 
-export default function (): UseMutationResult<NftDto["status"], string, number> {
-    async function nftPollingRequest(delay = 1000, i = 0, id: number) {
-        if (i === config.maxPollingIterations) throw new Error("Max polling calls reached");
-        const res = await NftService.nftControllerGetNftDraftStatus(undefined, [id]);
+export interface UseNftStatePolling {
+    fetch: () => Promise<NftDraftStatusDto[]> | undefined;
+    nftStatus: NftDraftDto["status"] | undefined;
+}
+
+export default function (id: undefined | number): UseNftStatePolling {
+    const [nftStatus, setNftStatus] = useState<NftDraftDto["status"] | undefined>();
+
+    const handleStatus = (res: NftDraftStatusDto[]) => {
         const status = res[0].status;
-        if (res[0].status === "pending")
-            return new Promise<NftDto["status"]>((resolve, reject) => {
-                setTimeout(async () => {
-                    const status = await nftPollingRequest(delay, i + 1, id).catch((e) => reject(e));
-                    if (status) resolve(status);
-                }, delay);
-            });
-        else return status;
-    }
+        setNftStatus(status);
+        return status === "pending";
+    };
 
-    return useMutation(["nft-state-polling"], (id) => nftPollingRequest(1000, 0, id));
+    const fetch = (): Promise<NftDraftStatusDto[]> | undefined => {
+        if (id) return polling(() => NftService.nftControllerGetNftDraftStatus(undefined, [id]), handleStatus, { maxIterations: 1000 });
+        return undefined;
+    };
+
+    return {
+        fetch,
+        nftStatus,
+    };
 }

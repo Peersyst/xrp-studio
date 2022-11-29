@@ -25,6 +25,7 @@ async function bootstrap() {
         transports: [
             new winston.transports.Console({
                 format: winston.format.combine(winston.format.timestamp(), nestWinstonModuleUtilities.format.nestLike()),
+                level: logLevel,
             }),
             new winston.transports.File({
                 format: winston.format.combine(winston.format.timestamp(), nestWinstonModuleUtilities.format.nestLike()),

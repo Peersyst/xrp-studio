@@ -4,6 +4,7 @@ import useTranslate from "module/common/hook/useTranslate";
 import useCheckBalance from "module/wallet/hook/useCheckBalance";
 import { CreateNftDraftRequest } from "module/api/service";
 import { useMutation, UseMutationResult } from "react-query";
+import Queries from "../../../query/queries";
 
 export default function (request: CreateNftDraftRequest, draftId?: number): UseMutationResult<number | undefined, string> {
     const checkBalance = useCheckBalance();
@@ -14,17 +15,16 @@ export default function (request: CreateNftDraftRequest, draftId?: number): UseM
 
     const publish = async () => {
         const hasBalance = await checkBalance();
-        let id;
-        if (!hasBalance) throw new Error(translateError("notEnoughBalance"));
+
+        if (hasBalance) throw new Error(translateError("notEnoughBalance"));
         else {
             if (draftId) await updateNftDraft({ id: draftId, publish: true, ...request });
             else {
                 const response = await createNft(request);
-                id = response.id;
+                return response.id;
             }
         }
-        return id;
     };
 
-    return useMutation(["publish-nft"], publish);
+    return useMutation([Queries.PUBLISH_NFT], publish);
 }
