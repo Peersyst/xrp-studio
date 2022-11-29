@@ -7,6 +7,7 @@ enum Queries {
     COLLECTION = "collection",
     COLLECTIONS = "collections",
     NAME_AVAILABILITY = "name-availability",
+    NFT_BUY_DROP = "nft-buy-drop",
 }
 
 export default Queries;
