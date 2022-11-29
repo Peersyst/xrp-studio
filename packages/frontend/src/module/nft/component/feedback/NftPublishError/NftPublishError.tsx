@@ -1,4 +1,4 @@
-import PublishResult from "module/common/component/feedback/PublishResult/PublishResult";
+import ActionsResult from "module/common/component/feedback/ActionsResult/ActionsResult";
 import { Typography } from "@peersyst/react-components";
 import useTranslate from "module/common/hook/useTranslate";
 
@@ -10,9 +10,9 @@ const NftPublishError = ({ error }: NftPublishErrorProps): JSX.Element => {
     const translate = useTranslate();
 
     return (
-        <PublishResult title={translate("errorTitle")} type="error">
+        <ActionsResult title={translate("errorTitle")} type="error">
             <Typography variant="body1">{error?.toString()}</Typography>
-        </PublishResult>
+        </ActionsResult>
     );
 };
 

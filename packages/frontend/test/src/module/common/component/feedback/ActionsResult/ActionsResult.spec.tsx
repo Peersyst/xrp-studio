@@ -1,18 +1,18 @@
 import { Fragment } from "react";
-import PublishResult from "module/common/component/feedback/PublishResult/PublishResult";
+import ActionsResult from "module/common/component/feedback/ActionsResult/ActionsResult";
 import { render } from "test-utils";
 import { screen } from "@testing-library/react";
 import { waitFor } from "@testing-library/dom";
 
-describe("PublishResult tests", () => {
+describe("ActionsResult tests", () => {
     test("Renders correctly with type success", async () => {
         const MOCK_TITLE = "TITLE";
         const children = <Fragment />;
 
         render(
-            <PublishResult title={MOCK_TITLE} type="success">
+            <ActionsResult title={MOCK_TITLE} type="success">
                 {children}
-            </PublishResult>,
+            </ActionsResult>,
         );
 
         await waitFor(() => expect(screen.getByTestId("CheckCircleIcon")).toBeInTheDocument());
@@ -25,9 +25,9 @@ describe("PublishResult tests", () => {
         const children = <Fragment />;
 
         render(
-            <PublishResult title={MOCK_TITLE} type="error">
+            <ActionsResult title={MOCK_TITLE} type="error">
                 {children}
-            </PublishResult>,
+            </ActionsResult>,
         );
 
         await waitFor(() => expect(screen.getByTestId("AlertCircleIcon")).toBeInTheDocument());

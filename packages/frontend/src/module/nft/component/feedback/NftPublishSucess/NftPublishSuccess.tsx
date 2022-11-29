@@ -1,5 +1,5 @@
 import useTranslate from "module/common/hook/useTranslate";
-import PublishResult from "module/common/component/feedback/PublishResult/PublishResult";
+import ActionsResult from "module/common/component/feedback/ActionsResult/ActionsResult";
 import { InformationField } from "module/common/component/display/InformationFields/InformationFields.types";
 import InformationFields from "module/common/component/display/InformationFields/InformationFields";
 import useGetNft from "module/nft/query/useGetNft";
@@ -30,9 +30,9 @@ const NftPublishSuccess = ({ id }: NftPublishSuccessProps): JSX.Element => {
     ];
 
     return (
-        <PublishResult title={translate("successTitle")} type="success">
-            {isNftLoading ? <LoaderIcon /> : <InformationFields fields={publishSuccessContent} />}
-        </PublishResult>
+        <ActionsResult title={translate("successTitle")} type="success">
+            {isNftLoading ? <LoaderIcon /> : <InformationFields fields={publishSuccessContent} style={{ wordBreak: "break-all" }} />}
+        </ActionsResult>
     );
 };
 
