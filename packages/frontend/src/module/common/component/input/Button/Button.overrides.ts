@@ -9,4 +9,10 @@ declare module "@peersyst/react-components" {
         glass: true;
         rainbow: true;
     }
+    export interface ButtonSizeOverrides {
+        sm: true;
+        md: true;
+        lg: true;
+        xl: true;
+    }
 }
