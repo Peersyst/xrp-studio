@@ -10,5 +10,6 @@ export type UserDto = {
     header?: string;
     twitter?: string;
     discord?: string;
+    verifiedArtist?: boolean;
 };
 

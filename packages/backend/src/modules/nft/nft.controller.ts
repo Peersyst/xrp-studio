@@ -65,21 +65,18 @@ export class NftController {
     @ApiOperation({ description: "Get all NFTs (status = confirmed) paginated" })
     @ApiGetNftsDecorator()
     async getNfts(@EnhancedQuery() queryParams: GetNftsRequest = new GetNftsRequest()): Promise<PaginatedNftDto> {
-        return (await this.nftService.findAll(queryParams, { status: NftStatus.CONFIRMED })) as PaginatedNftDto;
+        return (await this.nftService.findAll(queryParams)) as PaginatedNftDto;
     }
 
-    @Get("draft")
+    @Get("my")
     @ApiOperation({ description: "Get all user NFT drafts (status != confirmed) paginated" })
     @ApiGetNftDraftsDecorator()
     @XummAuthenticated()
-    async getNftDrafts(
+    async getMyNfts(
         @Request() req,
         @EnhancedQuery() queryParams: Omit<GetNftsRequest, "account"> = new GetNftsRequest(),
     ): Promise<PaginatedNftDraftDto> {
-        return this.nftService.findAll(queryParams, {
-            status: [NftStatus.DRAFT, NftStatus.FAILED, NftStatus.PENDING],
-            ownerAddress: req.user.address,
-        });
+        return this.nftService.findAll(queryParams, req.user.address);
     }
 
     @Get("draft/status")
@@ -97,7 +94,7 @@ export class NftController {
     async getNftDraft(@Request() req, @Param("id", ParseIntPipe) id: number): Promise<NftDraftDto> {
         return this.nftService.findOne(id, {
             ownerAddress: req.user.address,
-            status: NftStatus.DRAFT,
+            status: [NftStatus.DRAFT, NftStatus.FAILED],
             relations: ["metadata", "metadata.attributes", "user", "collection"],
         });
     }
@@ -105,8 +102,8 @@ export class NftController {
     @Get(":id")
     @ApiOperation({ description: "Get a single NFT (status = confirmed)" })
     async getNft(@Param("id", ParseIntPipe) id: number): Promise<NftDto> {
-        return this.nftService.findOne(id, {
-            status: NftStatus.CONFIRMED,
+        return this.nftService.findOne<[NftStatus.CONFIRMED]>(id, {
+            status: [NftStatus.CONFIRMED],
             relations: ["metadata", "metadata.attributes", "user", "collection"],
         });
     }

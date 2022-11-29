@@ -48,6 +48,15 @@ export class GetNftsRequest {
     account?: string;
 
     @ApiProperty({
+        name: "status",
+        type: "enum",
+        enum: NftStatus,
+        required: false,
+        isArray: true,
+    })
+    status?: NftStatus | NftStatus[];
+
+    @ApiProperty({
         name: "order",
         type: "string",
         enum: Order,
@@ -55,10 +64,7 @@ export class GetNftsRequest {
     })
     order?: Order;
 
-    static toFilterClause(
-        req: GetNftsRequest,
-        { status, ownerAddress }: { status?: NftStatus | NftStatus[]; ownerAddress?: string } = {},
-    ): QBFilter {
+    static toFilterClause(req: GetNftsRequest, { requesterAccount }: { requesterAccount?: string }): QBFilter {
         const filter: QBFilter = {
             qbWheres: [],
             relations: ["metadata", "metadata.attributes"],
@@ -66,22 +72,27 @@ export class GetNftsRequest {
 
         if (req.collections) {
             filter.relations.push("collection");
-            filter.qbWheres.push({ field: "nft.collection.id", operator: FilterType.IN, value: req.collections });
+            filter.qbWheres.push({ field: "collection.id", operator: FilterType.IN, value: req.collections });
         }
-        if (req.account) {
+        if (req.account || requesterAccount) {
             filter.relations.push("user");
-            filter.qbWheres.push({ field: "nft.user.address", operator: FilterType.EQUAL, value: req.account });
+            filter.qbWheres.push({ field: "user.address", operator: FilterType.EQUAL, value: requesterAccount || req.account });
         }
-        if (status) {
+        if (req.query) {
+            filter.qbWheres.push({ field: "metadata.name", operator: FilterType.LIKE, value: req.query });
+        }
+        if (!requesterAccount) {
             filter.qbWheres.push({
                 field: "nft.status",
-                operator: typeof status === "object" ? FilterType.IN : FilterType.EQUAL,
-                value: status,
+                operator: FilterType.EQUAL,
+                value: NftStatus.CONFIRMED,
             });
-        }
-        if (ownerAddress) {
-            if (filter.relations.indexOf("user") < 0) filter.relations.push("user");
-            filter.qbWheres.push({ field: "nft.user.address", operator: FilterType.EQUAL, value: ownerAddress });
+        } else if (req.status) {
+            filter.qbWheres.push({
+                field: "nft.status",
+                operator: typeof req.status === "object" ? FilterType.IN : FilterType.EQUAL,
+                value: req.status,
+            });
         }
 
         return filter;

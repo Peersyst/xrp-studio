@@ -11,6 +11,7 @@ import { User } from "../../database/entities/User";
 import { UpdateCollectionRequest } from "./request/update-collection.request";
 import { NftService } from "../nft/nft.service";
 import { QueryBuilderHelper } from "../common/util/query-builder.helper";
+import { GetNftsRequest } from "../nft/request/get-nfts.request";
 
 @Injectable()
 export class CollectionService {
@@ -102,8 +103,16 @@ export class CollectionService {
         const { page, pageSize } = filters;
         const take = pageSize;
         const skip = (page - 1) * take;
+        const { qbWheres, relations } = GetCollectionsRequest.toFilterClause(filters);
 
-        const [entities, count] = await QueryBuilderHelper.buildFindManyAndCount(this.collectionRepository, "nft", skip, take, ["user"]);
+        const [entities, count] = await QueryBuilderHelper.buildFindManyAndCount(
+            this.collectionRepository,
+            "collection",
+            skip,
+            take,
+            [...relations, "user"],
+            qbWheres,
+        );
 
         return {
             items: entities.map((collection) => CollectionDto.fromEntity(collection)),
