@@ -161,5 +161,9 @@
     "launchDropConfirmation": "Confirmación de lanzamiento del drop",
     "signaturesFailedText": "{{failedSignatures}} han fallado",
     "nftPublishesFailedText": "{{failedNfts}} han falladao",
-    "buyNft": "Comprar NFT"
+    "buyNft": "Comprar NFT",
+    "explore": "Explora",
+    "trending": "Tendencia",
+    "collections": "Colecciones",
+    "nfts": "NFTs"
 }

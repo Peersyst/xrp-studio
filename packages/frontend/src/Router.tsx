@@ -10,6 +10,7 @@ import { useLoad } from "module/common/hook/useLoad";
 import { useUserRoutes } from "module/user/UserRouter";
 import { useCollectionRoutes } from "module/collection/CollectionRouter";
 import { useDropRoutes } from "module/drop/DropRouter";
+import { useExploreRoutes } from "module/explore/ExploreRouter";
 import { useLandingRoutes } from "module/landing/LandingRouter";
 
 export enum BaseRoutes {
@@ -22,11 +23,13 @@ const Routes = () => {
     const collectionRoutes = useCollectionRoutes();
     const dropRoutes = useDropRoutes();
     const landingRoutes = useLandingRoutes();
+    const exploreRoutes = useExploreRoutes();
     return useRoutes([
         ...userRoutes,
         ...nftRoutes,
         ...collectionRoutes,
         ...dropRoutes,
+        ...exploreRoutes,
         ...landingRoutes,
         { path: "*", element: <Navigate to={BaseRoutes.HOME} /> },
     ]);
