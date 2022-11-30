@@ -1,11 +1,8 @@
 import { screen } from "@testing-library/react";
 import { render, translate } from "test-utils";
 import CollectionPublishModal from "module/collection/component/feedback/CollectionPublishModal/CollectionPublishModal";
-import { CollectionService, CreateCollectionRequest } from "module/api/service";
-import { CollectionDtoMock, ToastMock, UseCheckBalanceMock } from "test-mocks";
-import userEvent from "@testing-library/user-event";
-import { waitFor } from "@testing-library/dom";
-import { act } from "react-dom/test-utils";
+import { CreateCollectionRequest } from "module/api/service";
+import { ToastMock, UseCheckBalanceMock } from "test-mocks";
 
 describe("CollectionPublishModal", () => {
     const createCollectionRequest: CreateCollectionRequest = {
@@ -40,28 +37,5 @@ describe("CollectionPublishModal", () => {
         // Actions
         expect(screen.getByRole("button", { name: translate("back") })).toBeInTheDocument();
         expect(screen.getByRole("button", { name: translate("publish") })).toBeInTheDocument();
-    });
-
-    test("Tries to publish without balance", async () => {
-        new UseCheckBalanceMock(false);
-
-        render(<CollectionPublishModal request={createCollectionRequest} />);
-
-        userEvent.click(screen.getByRole("button", { name: translate("publish") }));
-        await waitFor(() =>
-            expect(useToastMock.showToast).toHaveBeenCalledWith(translate("notEnoughBalance", { ns: "error" }), { type: "error" }),
-        );
-    });
-
-    test("Tries to publish with balance", async () => {
-        new UseCheckBalanceMock(true);
-        const createCollectionMock = jest
-            .spyOn(CollectionService, "collectionControllerCreateCollection")
-            .mockResolvedValue(new CollectionDtoMock());
-
-        render(<CollectionPublishModal request={createCollectionRequest} />);
-
-        userEvent.click(screen.getByRole("button", { name: translate("publish") }));
-        await act(() => waitFor(() => expect(createCollectionMock).toHaveBeenCalledWith(createCollectionRequest, true)));
     });
 });
