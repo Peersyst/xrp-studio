@@ -4,8 +4,9 @@ import { screen } from "@testing-library/react";
 import { waitFor } from "@testing-library/dom";
 
 describe("NftPublishError", () => {
+    const mockError = "THIS IS AN ERROR";
     test("Renders correctly", async () => {
-        render(<NftPublishError />);
+        render(<NftPublishError error={mockError} />);
 
         await waitFor(() => expect(screen.getByTestId("AlertCircleIcon")).toBeInTheDocument());
         expect(screen.getByRole("heading", { name: translate("errorTitle") }));

@@ -118,7 +118,6 @@
     "publishNftAddingToBlockchainStepDescription": "We are adding your new NFT to the blockchain.",
     "publishNftSuccessStepTitle": "NFT published successfully!",
     "publishNftSuccessStepDescription": "Your NFT has been published successfully!",
-    "hashTransactionCreation": "Hash of creation transaction",
     "tokenId": "Token ID",
     "transferFeeCost": "Transfer fee cost",
     "theNfts": "The NFTs",

@@ -1,14 +1,20 @@
-import PublishResult from "module/common/component/feedback/PublishResult/PublishResult";
+import ActionsResult from "module/common/component/feedback/ActionsResult/ActionsResult";
 import { Typography } from "@peersyst/react-components";
 import useTranslate from "module/common/hook/useTranslate";
+import { handleErrorMessage } from "../../../../../query/handleErrorMessage";
 
-const NftPublishError = (): JSX.Element => {
+interface NftPublishErrorProps {
+    error: unknown;
+}
+
+const NftPublishError = ({ error }: NftPublishErrorProps): JSX.Element => {
     const translate = useTranslate();
+    const translateError = useTranslate("error");
 
     return (
-        <PublishResult title={translate("errorTitle")} type="error">
-            <Typography variant="body1">mock_error</Typography>
-        </PublishResult>
+        <ActionsResult title={translate("errorTitle")} type="error">
+            <Typography variant="body1">{handleErrorMessage(error, translateError).message}</Typography>
+        </ActionsResult>
     );
 };
 
