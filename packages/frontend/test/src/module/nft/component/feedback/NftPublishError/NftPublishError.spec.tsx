@@ -10,6 +10,5 @@ describe("NftPublishError", () => {
 
         await waitFor(() => expect(screen.getByTestId("AlertCircleIcon")).toBeInTheDocument());
         expect(screen.getByRole("heading", { name: translate("errorTitle") }));
-        expect(screen.getByText(mockError)).toBeInTheDocument();
     });
 });

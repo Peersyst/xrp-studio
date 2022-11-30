@@ -1,11 +1,11 @@
-import NftPublishActions from "module/nft/component/feedback/NftPublishActions/NftPublishActions";
+import NftPublishActions from "module/nft/component/feedback/NftPublishModal/NftPublishActions/NftPublishActions";
 import { render, translate } from "test-utils";
 import { CreateNftDraftRequestMock, NftDtoMock, UseCheckBalanceMock } from "test-mocks";
 import { NftService } from "module/api/service";
 import { screen } from "@testing-library/react";
 import { act } from "react-dom/test-utils";
 import { waitFor } from "@testing-library/dom";
-import { UseNftStatePollingMock } from "../../../../../../__mocks__/nft/useNftStatePolling.mock";
+import { UseNftStatePollingMock } from "test-mocks";
 
 describe("NftPublishActions tests", () => {
     const nftDtoMock = new NftDtoMock();
@@ -36,12 +36,12 @@ describe("NftPublishActions tests", () => {
         await act(() => waitFor(() => expect(createNftMock).toHaveBeenCalled()));
         await act(() => waitFor(() => expect(useNftStatePolling.mock).toHaveBeenCalled()));
 
-        expect(screen.getByText(translate("processingNft")));
-        expect(screen.getByText(translate("processingNftDescription")));
-        expect(screen.getByText(translate("addingNftBlockchain")));
-        expect(screen.getByText(translate("addingNftBlockchainDescription")));
-        expect(screen.getByText(translate("successTitle")));
-        expect(screen.getByText(translate("successDescription")));
+        expect(screen.getByText(translate("publishNftProcessingStepTitle")));
+        expect(screen.getByText(translate("publishNftProcessingStepDescription")));
+        expect(screen.getByText(translate("publishNftAddingToBlockchainStepTitle")));
+        expect(screen.getByText(translate("publishNftAddingToBlockchainStepDescription")));
+        expect(screen.getByText(translate("publishNftSuccessStepTitle")));
+        expect(screen.getByText(translate("publishNftSuccessStepDescription")));
 
         await act(() => waitFor(() => expect(screen.getAllByTestId("CheckCircleIcon")).toHaveLength(3)));
     });

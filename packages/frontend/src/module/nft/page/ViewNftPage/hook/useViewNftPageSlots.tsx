@@ -71,7 +71,7 @@ export default function ({ nft, loading = false }: UserViewNftPageSlots): ReactN
                 <Label label={translate("creator")}>
                     <UserProfileLink user={user} />
                 </Label>
-                <Label label="TokenID">
+                <Label label={translate("tokenId")}>
                     <BlockchainAddress variant="body1" address={tokenId || ""} type="nft" fontWeight={600} />
                 </Label>
                 <Label label={translate("mintTransactionHash")}>

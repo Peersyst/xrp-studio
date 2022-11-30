@@ -4,6 +4,9 @@ import { InformationField } from "module/common/component/display/InformationFie
 import InformationFields from "module/common/component/display/InformationFields/InformationFields";
 import useGetNft from "module/nft/query/useGetNft";
 import { LoaderIcon } from "@peersyst/react-components";
+import { config } from "config";
+import XrplService from "module/blockchain/service/XrplService/XrplService";
+import { useFormatBalance } from "module/common/component/display/Balance/hook/useFormatBalance";
 
 interface NftPublishSuccessProps {
     id: number | undefined;
@@ -11,12 +14,13 @@ interface NftPublishSuccessProps {
 
 const NftPublishSuccess = ({ id }: NftPublishSuccessProps): JSX.Element => {
     const translate = useTranslate();
+    const formatBalance = useFormatBalance();
 
     const { data: nftData, isLoading: isNftLoading } = useGetNft(id);
 
     const publishSuccessContent: InformationField[] = [
         {
-            label: translate("hashTransactionCreation"),
+            label: translate("mintTransactionHash"),
             content: nftData?.mintTransactionHash,
         },
         {
@@ -25,13 +29,13 @@ const NftPublishSuccess = ({ id }: NftPublishSuccessProps): JSX.Element => {
         },
         {
             label: translate("transferFeeCost"),
-            content: nftData?.transferFee?.toString(),
+            content: formatBalance(XrplService.dropsToXrp(config.feeInDrops.toString()), { units: config.tokenName }),
         },
     ];
 
     return (
         <ActionsResult title={translate("publishNftSuccessStepTitle")} type="success">
-            {isNftLoading ? <LoaderIcon /> : <InformationFields fields={publishSuccessContent} style={{ wordBreak: "break-all" }} />}
+            {isNftLoading ? <LoaderIcon /> : <InformationFields fields={publishSuccessContent} css={{ wordBreak: "break-all" }} />}
         </ActionsResult>
     );
 };

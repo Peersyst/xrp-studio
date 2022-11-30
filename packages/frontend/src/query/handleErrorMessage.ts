@@ -31,7 +31,7 @@ export function handleErrorMessage(error: AppError | ApiError | any, translate: 
         resultMsg = translate(error.message);
         resultType = error.type;
     } else {
-        resultMsg = translate("somethingWentWrong");
+        resultMsg = translate(typeof error === "string" ? [error as TFuncKey<"error">, "somethingWentWrong"] : "somethingWentWrong");
         resultType = "error";
     }
     return {
