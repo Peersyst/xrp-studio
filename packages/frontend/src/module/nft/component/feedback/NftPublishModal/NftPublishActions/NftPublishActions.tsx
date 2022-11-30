@@ -17,25 +17,20 @@ const NftPublishActions = ({ request, draftId, onStart, onEnd, onSuccess }: NftP
     const { mutateAsync: publish, data: responseId } = usePublishNft(request, draftId);
     const { fetch: startPolling } = useNftStatePolling(responseId);
 
-    const poll = async () => {
-        if (responseId === undefined) throw new Error("Not valid Id");
-        await startPolling();
-    };
-
     const steps: Step[] = [
         {
-            title: translate("processingNft"),
-            description: translate("processingNftDescription"),
+            title: translate("publishNftProcessingStepTitle"),
+            description: translate("publishNftProcessingStepDescription"),
             execution: async () => await publish({}),
         },
         {
-            title: translate("addingNftBlockchain"),
-            description: translate("addingNftBlockchainDescription"),
-            execution: poll,
+            title: translate("publishNftAddingToBlockchainStepTitle"),
+            description: translate("publishNftAddingToBlockchainStepDescription"),
+            execution: async () => await startPolling(),
         },
         {
-            title: translate("nftCreationSuccessStepTitle"),
-            description: translate("nftCreationSuccessStepDescription"),
+            title: translate("publishNftSuccessStepTitle"),
+            description: translate("publishNftSuccessStepDescription"),
         },
     ];
 
