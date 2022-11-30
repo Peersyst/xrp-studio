@@ -43,7 +43,15 @@ export class GetCollectionsRequest {
     })
     order?: Order;
 
-    static toFilterClause(req: GetCollectionsRequest, orderField?: string): QBFilter<string> {
+    @ApiProperty({
+        name: "orderField",
+        type: "string",
+        enum: ["priority", "name"],
+        required: false,
+    })
+    orderField?: "priority" | "name";
+
+    static toFilterClause(req: GetCollectionsRequest): QBFilter<string> {
         const filter: QBFilter<string> = {
             qbWheres: [],
             relations: [],
@@ -59,13 +67,13 @@ export class GetCollectionsRequest {
 
         if (req.order === "ASC") {
             filter.qbOrders.push({
-                field: "collection." + (orderField || "updated_at"),
+                field: "collection." + (req.orderField || "updated_at"),
                 type: OrderType.ASC,
                 nullsPosition: NullsPosition.NULLS_LAST,
             });
         } else {
             filter.qbOrders.push({
-                field: "collection." + (orderField || "updated_at"),
+                field: "collection." + (req.orderField || "updated_at"),
                 type: OrderType.DESC,
                 nullsPosition: NullsPosition.NULLS_LAST,
             });

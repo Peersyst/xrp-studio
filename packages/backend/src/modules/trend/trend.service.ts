@@ -18,12 +18,12 @@ export class TrendService {
     async findTrends(): Promise<TrendsDto> {
         const nfts = (
             await this.nftService.findAll(
-                { page: 1, pageSize: 10, order: Order.DESC, status: [NftStatus.CONFIRMED] },
+                { page: 1, pageSize: 10, order: Order.DESC, status: [NftStatus.CONFIRMED], orderField: "priority" },
                 undefined,
-                "priority",
             )
         ).items as NftDto[];
-        const collections = (await this.collectionService.findAll({ page: 1, pageSize: 10, order: Order.DESC }, "priority")).items;
+        const collections = (await this.collectionService.findAll({ page: 1, pageSize: 10, order: Order.DESC, orderField: "priority" }))
+            .items;
         const artists = await this.userService.findAll({ page: 1, pageSize: 10, order: Order.DESC, orderField: "priority" });
         return { nfts, collections, artists };
     }

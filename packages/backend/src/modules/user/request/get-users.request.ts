@@ -36,8 +36,9 @@ export class GetUsersRequest {
         name: "orderField",
         type: "string",
         required: false,
+        enum: ["priority", "name"],
     })
-    orderField?: string;
+    orderField?: "priority" | "name";
 
     static toFilterClause(req: GetUsersRequest): QBFilter<string> {
         const filter: QBFilter<string> = {
