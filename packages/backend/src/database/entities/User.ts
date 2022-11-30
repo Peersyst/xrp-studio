@@ -28,6 +28,9 @@ export class User {
     @Column({ type: "boolean", nullable: false, default: false })
     verifiedArtist: boolean;
 
+    @Column({ type: "int", nullable: true })
+    priority?: number;
+
     @OneToMany(() => Nft, (nft) => nft.user)
     nfts?: Nft[];
 

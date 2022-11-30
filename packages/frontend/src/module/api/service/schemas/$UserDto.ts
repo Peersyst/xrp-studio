@@ -28,5 +28,8 @@ export const $UserDto = {
         verifiedArtist: {
             type: 'boolean',
         },
+        nftsCount: {
+            type: 'number',
+        },
     },
 } as const;

@@ -11,5 +11,6 @@ export type UserDto = {
     twitter?: string;
     discord?: string;
     verifiedArtist?: boolean;
+    nftsCount?: number;
 };
 

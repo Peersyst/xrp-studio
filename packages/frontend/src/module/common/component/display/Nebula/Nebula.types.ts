@@ -1,15 +1,8 @@
-import { CSSProperties } from "react";
+import { LogoProps } from "../Logo/Logo.types";
 
-export interface NebulaProps {
+export interface NebulaProps extends LogoProps {
     height?: string;
     rotate?: string;
     alt?: string;
-    /**
-     * ClassName
-     */
-    className?: string;
-    /**
-     * Nebula style
-     */
-    style?: CSSProperties;
+    variant?: string;
 }

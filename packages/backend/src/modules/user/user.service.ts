@@ -7,6 +7,9 @@ import { BusinessException } from "../common/exception/business.exception";
 import { ErrorCode } from "../common/exception/error-codes";
 import { UpdateUserRequest } from "./request/update-user.request";
 import { ConfigService } from "@nestjs/config";
+import { QueryBuilderHelper } from "../common/util/query-builder.helper";
+import { GetUsersRequest } from "./request/get-users.request";
+import { NftStatus } from "../../database/entities/Nft";
 
 @Injectable()
 export class UserService {
@@ -33,6 +36,34 @@ export class UserService {
         { name = null, description = null, image = null, header = null, twitter = null, discord = null }: UpdateUserRequest,
     ): Promise<void> {
         await this.userRepository.save({ address, name, description, image, header, twitter, discord });
+    }
+
+    async findAll(filters: GetUsersRequest): Promise<UserDto[]> {
+        const { page, pageSize } = filters;
+        const take = pageSize;
+        const skip = (page - 1) * take;
+
+        const { relations, qbWheres, qbOrders } = GetUsersRequest.toFilterClause(filters);
+
+        const entities = await QueryBuilderHelper.buildQuery(
+            this.userRepository,
+            "user",
+            [],
+            [],
+            relations,
+            qbWheres,
+            qbOrders,
+            [],
+            undefined,
+            skip,
+            take,
+        )
+            .loadRelationCountAndMap("user.nftsCount", "user.nfts", "nft", (qb) =>
+                qb.where("nft.status = :confirmed", { confirmed: NftStatus.CONFIRMED }),
+            )
+            .getMany();
+
+        return entities.map((user) => UserDto.fromEntity(user));
     }
 
     /**

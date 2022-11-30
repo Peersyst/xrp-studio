@@ -220,7 +220,7 @@ describe("CollectionService", () => {
                 15,
                 ["user"],
                 [],
-                [{ field: "collection.updated_at", type: "DESC" }],
+                [{ field: "collection.updated_at", type: "DESC", nullsPosition: "NULLS LAST" }],
             );
             expect(collections).toEqual({ items: expect.any(Array), pages: 1, currentPage: 1 });
         });
@@ -246,7 +246,7 @@ describe("CollectionService", () => {
                     { field: "account", operator: "=", value: "rwxmBgnEtpqAMerLSLkCCLfuSisi7GAvU6" },
                     { field: "name", operator: "LIKE", value: "xyz" },
                 ],
-                [{ field: "collection.updated_at", type: "ASC" }],
+                [{ field: "collection.updated_at", type: "ASC", nullsPosition: "NULLS LAST" }],
             );
             expect(collections).toEqual({ items: expect.any(Array), pages: 1, currentPage: 3 });
         });

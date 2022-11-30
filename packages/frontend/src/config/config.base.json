@@ -12,5 +12,7 @@
     "maxNftDescChars": 255,
     "maxNumberDecimals": 6,
     "tokenName": "XRP",
-    "feeInDrops": 10
+    "feeInDrops": 10,
+    "peersystEmail": "hello@peersyst.com",
+    "peersyst": "Peersyst SL"
 }

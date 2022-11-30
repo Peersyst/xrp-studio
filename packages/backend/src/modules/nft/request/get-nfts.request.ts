@@ -2,7 +2,7 @@ import { ApiProperty } from "@nestjs/swagger";
 import { CollectionsExists } from "../../collection/validator/CollectionsExists";
 import { IsOptional } from "class-validator";
 import { Order } from "../../common/types";
-import { FilterType, OrderType, QBFilter } from "../../common/util/query-builder.helper";
+import { FilterType, NullsPosition, OrderType, QBFilter } from "../../common/util/query-builder.helper";
 import { IsXrplAddress } from "../../common/validator/IsXrplAddress";
 import { NftStatus } from "../../../database/entities/Nft";
 
@@ -64,6 +64,14 @@ export class GetNftsRequest {
     })
     order?: Order;
 
+    @ApiProperty({
+        name: "orderField",
+        type: "string",
+        enum: ["priority", "name"],
+        required: false,
+    })
+    orderField?: "priority" | "name";
+
     static toFilterClause(req: GetNftsRequest, { requesterAccount }: { requesterAccount?: string }): QBFilter<string> {
         const filter: QBFilter<string> = {
             qbWheres: [],
@@ -98,13 +106,15 @@ export class GetNftsRequest {
 
         if (req.order === "ASC") {
             filter.qbOrders.push({
-                field: "nft.updated_at",
+                field: "nft." + (req.orderField || "updated_at"),
                 type: OrderType.ASC,
+                nullsPosition: NullsPosition.NULLS_LAST,
             });
         } else {
             filter.qbOrders.push({
-                field: "nft.updated_at",
+                field: "nft." + (req.orderField || "updated_at"),
                 type: OrderType.DESC,
+                nullsPosition: NullsPosition.NULLS_LAST,
             });
         }
 
