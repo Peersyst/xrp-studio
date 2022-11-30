@@ -30,7 +30,7 @@ const NftPublishSuccess = ({ id }: NftPublishSuccessProps): JSX.Element => {
     ];
 
     return (
-        <ActionsResult title={translate("successTitle")} type="success">
+        <ActionsResult title={translate("publishNftSuccessStepTitle")} type="success">
             {isNftLoading ? <LoaderIcon /> : <InformationFields fields={publishSuccessContent} style={{ wordBreak: "break-all" }} />}
         </ActionsResult>
     );

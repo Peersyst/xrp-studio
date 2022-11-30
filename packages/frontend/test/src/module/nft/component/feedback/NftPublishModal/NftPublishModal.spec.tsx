@@ -4,8 +4,8 @@ import NftPublishModal from "module/nft/component/feedback/NftPublishModal/NftPu
 import { screen } from "@testing-library/react";
 import { capitalize } from "@peersyst/react-utils";
 import { waitFor } from "@testing-library/dom";
-import userEvent from "@testing-library/user-event";
 import { act } from "react-dom/test-utils";
+import userEvent from "@testing-library/user-event";
 
 describe("NftPublishModal tests", () => {
     const createNftDraftRequestMock = new CreateNftDraftRequestMock({

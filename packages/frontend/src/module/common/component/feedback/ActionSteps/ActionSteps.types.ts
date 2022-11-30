@@ -15,7 +15,6 @@ export interface ActionStepProps {
 export type ActionStepsProps = ActionStepsHandlers & {
     title?: string;
     steps: Step[];
-    onSuccess: () => void;
 };
 
 export interface ActionStepsHandlers {

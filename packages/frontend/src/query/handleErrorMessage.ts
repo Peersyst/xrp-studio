@@ -1,25 +1,41 @@
 import { ApiError } from "module/api/service";
+import { AppError } from "./AppError";
+import { TFuncKey, TFunction } from "react-i18next";
+import { ToastType } from "@peersyst/react-components";
 
 export interface HandleApiErrorMessageResult {
     message: string;
-    type: "error" | "warning";
+    type: ToastType;
 }
 
-export function handleErrorMessage(error: ApiError | any, translate: (text: string | string[]) => string): HandleApiErrorMessageResult {
-    const code: number = error.body?.statusCode || error.status || error.code || 500;
-    const rawMessage = error.body?.message || error.statusText;
-    const message = typeof rawMessage === "string" ? rawMessage : "somethingWentWrong";
-    const parsedMessage = message.includes(" ")
-        ? message
-        : message
-              .toLowerCase()
-              .split("_")
-              .map((w) => w.replace(/^./g, (x) => x[0].toUpperCase()))
-              .join("")
-              .replace(/^./g, (x) => x[0].toLowerCase());
-
+export function handleErrorMessage(error: AppError | ApiError | any, translate: TFunction<"error">): HandleApiErrorMessageResult {
+    let resultMsg: string;
+    let resultType: ToastType;
+    if (error.name === "ApiError") {
+        const code: number = error.body?.statusCode || error.status || error.code || 500;
+        const rawMessage = error.message || error.body?.message || error.statusText;
+        const message = typeof rawMessage === "string" ? rawMessage : "somethingWentWrong";
+        const parsedMessage = message.includes(" ")
+            ? message
+            : message
+                  .toLowerCase()
+                  .split("_")
+                  .map((w) => w.replace(/^./g, (x) => x[0].toUpperCase()))
+                  .join("")
+                  .replace(/^./g, (x) => x[0].toLowerCase());
+        resultMsg = translate(
+            parsedMessage ? ([parsedMessage, "somethingWentWrong"] as TFuncKey<"error"> | TFuncKey<"error">[]) : "somethingWentWrong",
+        );
+        resultType = code >= 400 && code < 500 ? "warning" : "error";
+    } else if (error.name === "AppError") {
+        resultMsg = translate(error.message);
+        resultType = error.type;
+    } else {
+        resultMsg = translate("somethingWentWrong");
+        resultType = "error";
+    }
     return {
-        message: translate(parsedMessage ? [parsedMessage, "somethingWentWrong"] : "somethingWentWrong"),
-        type: code >= 400 && code < 500 ? "warning" : "error",
+        message: resultMsg,
+        type: resultType,
     };
 }

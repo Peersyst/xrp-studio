@@ -8,10 +8,10 @@ async function polling<R>(fn: () => Promise<R>, condition: (res: R) => boolean, 
     if (i === maxIterations) throw new Error("Polling executed the maximum number iterations");
     const res = await fn();
     if (condition(res)) {
-        return new Promise<R>((resolve, reject) => {
+        return new Promise<R>((resolve) => {
             setTimeout(async () => {
-                const nextRes = await polling(fn, condition, options, i + 1).catch((e) => reject(e));
-                if (nextRes) resolve(nextRes);
+                const nextRes = await polling(fn, condition, options, i + 1);
+                resolve(nextRes);
             }, delay);
         });
     } else return res;

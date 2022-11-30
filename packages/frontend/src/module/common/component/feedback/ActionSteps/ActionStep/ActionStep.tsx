@@ -2,15 +2,14 @@ import { Expandable, Loader, Row, Typography } from "@peersyst/react-components"
 import { useEffect, useState } from "react";
 import { AlertCircleIcon, CheckCircleIcon } from "icons";
 import { ActionStepProps } from "module/common/component/feedback/ActionSteps/ActionSteps.types";
+import { handleErrorMessage } from "../../../../../../query/handleErrorMessage";
+import useTranslate from "module/common/hook/useTranslate";
 
-const ActionStep = ({
-    step: { title, description, execution },
-    active: active,
-    stepNumber: stepNumber,
-    onSuccess: onSuccess,
-    onError: onError,
-}: ActionStepProps): JSX.Element => {
+const ActionStep = ({ step: { title, description, execution }, active, stepNumber, onSuccess, onError }: ActionStepProps): JSX.Element => {
+    const translateError = useTranslate("error");
+
     const [state, setState] = useState({ error: false, finished: false });
+    const [errorMsg, setErrorMsg] = useState<string>();
 
     useEffect(() => {
         if (!active || state.finished) return;
@@ -20,9 +19,10 @@ const ActionStep = ({
                 await executionPromise;
                 setState({ error: false, finished: true });
                 onSuccess();
-            } catch (_e) {
+            } catch (e) {
                 setState({ error: true, finished: false });
-                onError(_e);
+                setErrorMsg(handleErrorMessage(e, translateError).message);
+                onError(e);
             }
         })();
     }, [active]);
@@ -47,7 +47,7 @@ const ActionStep = ({
             <Expandable.Body>
                 <Expandable.Content>
                     <Typography variant="body2" color={"black.40"}>
-                        {description}
+                        {state.error ? errorMsg : description}
                     </Typography>
                 </Expandable.Content>
             </Expandable.Body>

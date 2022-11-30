@@ -1,5 +1,5 @@
 import { FC, useRef } from "react";
-import { QueryCache, QueryClient, QueryClientProvider as BaseQueryClientProvider } from "react-query";
+import { MutationCache, QueryCache, QueryClient, QueryClientProvider as BaseQueryClientProvider } from "react-query";
 import useHandleErrorMessage from "./useHandleErrorMessage";
 
 const QueryClientProvider: FC = ({ children }): JSX.Element => {
@@ -13,11 +13,11 @@ const QueryClientProvider: FC = ({ children }): JSX.Element => {
                     refetchOnWindowFocus: false,
                     staleTime: 600000,
                 },
-                mutations: {
-                    onError: handleErrorMessage,
-                },
             },
             queryCache: new QueryCache({
+                onError: handleErrorMessage,
+            }),
+            mutationCache: new MutationCache({
                 onError: handleErrorMessage,
             }),
         }),

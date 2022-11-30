@@ -2,9 +2,9 @@ import { useSearchParams } from "react-router-dom";
 import MainPageHeader from "module/common/component/layout/MainPageHeader/MainPageHeader";
 import useTranslate from "module/common/hook/useTranslate";
 import { Row } from "@peersyst/react-components";
+import useGoBack from "module/common/hook/useGoBack";
 import Button from "module/common/component/input/Button/Button";
 import { NftCreationPageHeaderProps } from "module/nft/component/layout/NftCreationPageHeader/NftCreationPageHeader.types";
-import useGoBack from "module/common/hook/useGoBack";
 
 const NftCreationPageHeader = ({ loading, saving, publishing }: NftCreationPageHeaderProps): JSX.Element => {
     const translate = useTranslate();
