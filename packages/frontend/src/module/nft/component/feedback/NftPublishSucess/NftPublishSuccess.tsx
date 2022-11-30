@@ -22,7 +22,7 @@ const NftPublishSuccess = (): JSX.Element => {
     ];
 
     return (
-        <PublishResult title={translate("successTitle")} type="success">
+        <PublishResult title={translate("nftCreationSuccessStepTitle")} type="success">
             <InformationFields fields={publishSuccessContent} />
         </PublishResult>
     );
