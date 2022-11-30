@@ -11,6 +11,7 @@ import { useUserRoutes } from "module/user/UserRouter";
 import { useCollectionRoutes } from "module/collection/CollectionRouter";
 import { useDropRoutes } from "module/drop/DropRouter";
 import { useLandingRoutes } from "module/landing/LandingRouter";
+import { useExploreRoutes } from "module/explore/ExploreRouter";
 
 export enum BaseRoutes {
     HOME = "/",
@@ -22,12 +23,14 @@ const Routes = () => {
     const collectionRoutes = useCollectionRoutes();
     const dropRoutes = useDropRoutes();
     const landingRoutes = useLandingRoutes();
+    const exploreRoutes = useExploreRoutes();
     return useRoutes([
         ...userRoutes,
         ...nftRoutes,
         ...collectionRoutes,
         ...dropRoutes,
         ...landingRoutes,
+        ...exploreRoutes,
         { path: "*", element: <Navigate to={BaseRoutes.HOME} /> },
     ]);
 };

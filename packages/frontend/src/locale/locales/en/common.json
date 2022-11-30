@@ -144,5 +144,9 @@
     "launchDropConfirmation": "Launch drop confirmation",
     "signaturesFailedText": "{{failedSignatures}} have failed",
     "nftPublishesFailedText": "{{failedNfts}} have failed",
-    "buyNft": "Buy NFT"
+    "buyNft": "Buy NFT",
+    "explore": "Explore",
+    "trending": "Trending",
+    "collections": "Collections",
+    "nfts": "NFTs"
 }
