@@ -11,12 +11,14 @@ import NFTokenMintTransactionMock from "../__mock__/nftokenmint-transaction.mock
 import XrplClientMock from "../__mock__/xrpl-client.mock";
 import PaymentTransactionMock from "../__mock__/payment-transaction.mock";
 import LastIndexedLedgerRepositoryMock, { LastIndexedLedgerMockEntity } from "../__mock__/last-indexed-ledger.repository.mock";
+import DropConsumerMock from "../__mock__/drop.consumer.mock";
 
 describe("BlockchainService", () => {
     let blockchainService: BlockchainService;
     const xrpClientMock = new XrplClientMock();
     const ledgerConsumerMock = new LedgerConsumerMock();
     const transactionsConsumerMock = new TransactionsConsumerMock();
+    const dropConsumerMock = new DropConsumerMock();
     const configServiceMock = new ConfigServiceMock();
     const lastIndexedLedgerRepositoryMock = new LastIndexedLedgerRepositoryMock();
 
@@ -34,6 +36,10 @@ describe("BlockchainService", () => {
                 {
                     provide: "BullQueue_transactions",
                     useValue: transactionsConsumerMock,
+                },
+                {
+                    provide: "BullQueue_drop",
+                    useValue: dropConsumerMock,
                 },
                 {
                     provide: ConfigService,
@@ -134,16 +140,16 @@ describe("BlockchainService", () => {
     describe("processTransactionByType", () => {
         test("Sends NFTokenMint transaction to process-mint-transaction queue", async () => {
             const nftMintTransaction = new NFTokenMintTransactionMock();
-            await blockchainService.processTransactionByType(nftMintTransaction, 1);
+            await blockchainService.processTransactionByType(nftMintTransaction);
             expect(transactionsConsumerMock.add).toHaveBeenCalledWith(
                 "process-mint-transaction",
-                { transaction: nftMintTransaction, ledgerIndex: 1 },
+                { transaction: nftMintTransaction },
                 expect.any(Object),
             );
         });
         test("Does nothing if transaction is not of type NFTokenMint", async () => {
             const transaction = new PaymentTransactionMock();
-            await blockchainService.processTransactionByType(transaction, 1);
+            await blockchainService.processTransactionByType(transaction);
             expect(transactionsConsumerMock.add).not.toHaveBeenCalled();
         });
     });

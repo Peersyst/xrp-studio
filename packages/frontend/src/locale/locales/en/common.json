@@ -123,6 +123,9 @@
     "tokenId": "Token ID",
     "transferFeeCost": "Transfer fee cost",
     "theNfts": "The NFTs",
+    "createAndManageNft": "Create and manage your own NFTs",
+    "landingHeaderDescription": "Unleash the digital artist inside you. Create NFTs from your digital artwork. Manage and launch them without needing to know the tricky side of the crypto world",
+    "startCreatingNow": "Start creating now",
     "back": "Back",
     "next": "Next",
     "close": "Close",
@@ -141,5 +144,6 @@
     "collectionCreationSuccessStepText": "Your collection has been published successfully!",
     "launchDropConfirmation": "Launch drop confirmation",
     "signaturesFailedText": "{{failedSignatures}} have failed",
-    "nftPublishesFailedText": "{{failedNfts}} have failed"
+    "nftPublishesFailedText": "{{failedNfts}} have failed",
+    "buyNft": "Buy NFT"
 }

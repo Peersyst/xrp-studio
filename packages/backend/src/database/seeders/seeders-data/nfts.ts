@@ -5,12 +5,10 @@ import { devCollections } from "./collections";
 export const devNfts = [
     {
         id: 1,
-        tokenId: "000B013A95F14B0044F78A264E41713C64B5F89242540EE208C3098E00000D25",
-        mintTransactionHash: "BB1930B44E273014C7CCE4A450E90E666C2B71A55740884E1B9F6048FBB669F1",
         issuer: devUsers[0].address,
         transferFee: 10,
-        flags: 0,
-        status: NftStatus.CONFIRMED,
+        flags: 8,
+        status: NftStatus.DRAFT,
         account: devUsers[0].address,
         collectionId: devCollections[0].id,
         uri: "ipfs://bafybeigdyrzt5sfp7udm7hu76uh7y26nf4dfuylqabf3oclgtqy55fbzdi",
@@ -31,10 +29,9 @@ export const devNfts = [
     },
     {
         id: 3,
-        tokenId: "000B013A95F14B0044F78A264E41713C64B5F89242540EE208C3098E00000D69",
-        mintTransactionHash: "BB1930B44E273014C7CCE4A450E90E666C2B71A55740884E1B9F6048FBB669F3",
         issuer: devUsers[0].address,
-        flags: 3,
+        transferFee: 10,
+        flags: 8,
         status: NftStatus.DRAFT,
         account: devUsers[0].address,
         collectionId: devCollections[0].id,
@@ -75,7 +72,7 @@ export const devNfts = [
         issuer: devUsers[2].address,
         transferFee: 50,
         flags: 0,
-        status: NftStatus.CONFIRMED,
+        status: NftStatus.DRAFT,
         account: devUsers[2].address,
         collectionId: devCollections[1].id,
         uri: "ipfs://bafybeigdyrzt5sfp7udm7hu76uh7y26nf4dfuylqabf3oclgtqy55fbzdi",
@@ -87,9 +84,10 @@ export const devNfts = [
         tokenId: "000B013A95F14B0044F78A264E41713C64B5F89242540EE208C3098E00000D65",
         mintTransactionHash: "BB1930B44E273014C7CCE4A450E90E666C2B71A55740884E1B9F6048FBB669F7",
         issuer: devUsers[2].address,
+        transferFee: 10,
         flags: 4,
-        status: NftStatus.CONFIRMED,
-        account: devUsers[2].address,
+        status: NftStatus.DRAFT,
+        account: devUsers[0].address,
         collectionId: devCollections[2].id,
         uri: "ipfs://bafybeigdyrzt5sfp7udm7hu76uh7y26nf4dfuylqabf3oclgtqy55fbzdi",
         createdAt: new Date(),
@@ -103,7 +101,7 @@ export const devNfts = [
         transferFee: 10,
         flags: 1,
         status: NftStatus.DRAFT,
-        account: devUsers[2].address,
+        account: devUsers[0].address,
         collectionId: devCollections[2].id,
         uri: "ipfs://bafybeigdyrzt5sfp7udm7hu76uh7y26nf4dfuylqabf3oclgtqy55fbzdi",
         createdAt: new Date(),
@@ -143,7 +141,6 @@ export const devNfts = [
         flags: 2,
         status: NftStatus.CONFIRMED,
         account: devUsers[0].address,
-        collectionId: devCollections[0].id,
         uri: "ipfs://bafybeigdyrzt5sfp7udm7hu76uh7y26nf4dfuylqabf3oclgtqy55fbzdi",
         createdAt: new Date(),
         updatedAt: new Date(),
@@ -151,8 +148,25 @@ export const devNfts = [
 ];
 
 export default function getByEnv(env: string) {
-    if (env === "development" || env === "preview") {
+    if (env === "development") {
         return devNfts;
+    }
+    if (env === "preview") {
+        const result = [];
+        for (let i = 0; i < 100; i++) {
+            result.push({
+                id: i + 1,
+                issuer: devUsers[0].address,
+                transferFee: 10,
+                flags: 8,
+                status: NftStatus.DRAFT,
+                account: devUsers[0].address,
+                collectionId: 1,
+                createdAt: new Date(),
+                updatedAt: new Date(),
+            });
+        }
+        return result;
     }
     if (env === "test") {
         return devNfts;
