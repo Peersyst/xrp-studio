@@ -35,6 +35,7 @@ describe("NftPublishActions tests", () => {
         await act(() => waitFor(() => expect(useCheckBalanceMock.checkBalance).toHaveBeenCalled()));
         await act(() => waitFor(() => expect(createNftMock).toHaveBeenCalled()));
         await act(() => waitFor(() => expect(useNftStatePolling.mock).toHaveBeenCalled()));
+
         expect(screen.getByText(translate("processingNft")));
         expect(screen.getByText(translate("processingNftDescription")));
         expect(screen.getByText(translate("addingNftBlockchain")));

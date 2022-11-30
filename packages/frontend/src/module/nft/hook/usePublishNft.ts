@@ -16,7 +16,7 @@ export default function (request: CreateNftDraftRequest, draftId?: number): UseM
     const publish = async () => {
         const hasBalance = await checkBalance();
 
-        if (hasBalance) throw new Error(translateError("notEnoughBalance"));
+        if (!hasBalance) throw new Error(translateError("notEnoughBalance"));
         else {
             if (draftId) await updateNftDraft({ id: draftId, publish: true, ...request });
             else {
