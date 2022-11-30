@@ -34,8 +34,8 @@ const NftPublishActions = ({ request, draftId, onStart, onEnd, onSuccess }: NftP
             execution: poll,
         },
         {
-            title: translate("successTitle"),
-            description: translate("successDescription"),
+            title: translate("nftCreationSuccessStepTitle"),
+            description: translate("nftCreationSuccessStepDescription"),
         },
     ];
 

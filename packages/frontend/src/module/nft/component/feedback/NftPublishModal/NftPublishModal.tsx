@@ -7,7 +7,7 @@ import { NftPublishModalProps } from "module/nft/component/feedback/NftPublishMo
 import NftPublishSuccess from "module/nft/component/feedback/NftPublishSucess/NftPublishSuccess";
 import { useNavigate } from "react-router-dom";
 import { NftRoutes } from "module/nft/NftRouter";
-import NftPublishActions from "module/nft/component/feedback/NftPublishActions/NftPublishActions";
+import NftPublishActions from "module/nft/component/feedback/NftPublishModal/NftPublishActions/NftPublishActions";
 import NftPublishError from "module/nft/component/feedback/NftPublishError/NftPublishError";
 import NftPublishInformation from "module/nft/component/feedback/NftPublishModal/NftPublishInformation/NftPublishInformation";
 import { useState } from "react";
