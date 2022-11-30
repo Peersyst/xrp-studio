@@ -24,8 +24,7 @@ describe("ActionSteps", () => {
     ];
 
     test("Renders correctly", async () => {
-        const onSuccessMock = jest.fn();
-        render(<ActionSteps steps={MOCK_STEPS} onSuccess={onSuccessMock} />);
+        render(<ActionSteps steps={MOCK_STEPS} />);
 
         expect(screen.getByText(MOCK_STEPS[0].title)).toBeInTheDocument();
         expect(screen.getByText(MOCK_STEPS[0].description)).toBeInTheDocument();

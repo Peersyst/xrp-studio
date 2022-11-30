@@ -8,6 +8,7 @@ import {
     UseNavigateMock,
     UseCollectionCreationStateMock,
     ModalMock,
+    UseCheckBalanceMock,
 } from "test-mocks";
 import { render, translate } from "test-utils";
 import CollectionCreationPage from "module/collection/page/CollectionCreationPage/CollectionCreationPage";
@@ -22,10 +23,12 @@ describe("CollectionCreationPage", () => {
 
     const useToastMock = new ToastMock();
     const useNavigateMock = new UseNavigateMock();
+    const useCheckBalanceMock = new UseCheckBalanceMock();
 
     beforeEach(() => {
         useToastMock.clear();
         useNavigateMock.clear();
+        useCheckBalanceMock.clear();
     });
 
     describe("Creation", () => {
@@ -74,7 +77,7 @@ describe("CollectionCreationPage", () => {
         });
 
         test("Saves collection", async () => {
-            const publishCollectionMock = jest
+            const saveCollectionMock = jest
                 .spyOn(CollectionService, "collectionControllerCreateCollection")
                 .mockResolvedValueOnce(new CollectionDtoMock());
 
@@ -82,9 +85,7 @@ describe("CollectionCreationPage", () => {
 
             const saveButton = screen.getByRole("button", { name: translate("save") });
             userEvent.click(saveButton);
-            await waitFor(() =>
-                expect(publishCollectionMock).toHaveBeenCalledWith(expect.objectContaining({ name: COLLECTION_NAME }), false),
-            );
+            await waitFor(() => expect(saveCollectionMock).toHaveBeenCalledWith(expect.objectContaining({ name: COLLECTION_NAME }), false));
             await waitFor(() => expect(useToastMock.showToast).toHaveBeenCalledWith(translate("collectionCreated"), { type: "success" }));
             expect(useNavigateMock.navigate).toHaveBeenCalledWith(CollectionRoutes.MY_COLLECTIONS, { replace: true });
         });

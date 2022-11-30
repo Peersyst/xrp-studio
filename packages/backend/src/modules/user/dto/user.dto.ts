@@ -8,8 +8,9 @@ export class UserDto {
     header?: string;
     twitter?: string;
     discord?: string;
+    verifiedArtist?: boolean;
 
-    static fromEntity({ address, name, description, image, header, twitter, discord }: User): UserDto {
+    static fromEntity({ address, verifiedArtist, name, description, image, header, twitter, discord }: User): UserDto {
         return {
             address,
             name,
@@ -18,6 +19,7 @@ export class UserDto {
             header,
             twitter,
             discord,
+            verifiedArtist,
         };
     }
 }
