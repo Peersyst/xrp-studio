@@ -544,7 +544,7 @@ describe("NftService", () => {
                         value: "confirmed",
                     },
                 ],
-                [{ field: "nft.updated_at", type: "DESC", nullsPosition: "NULLS LAST", }],
+                [{ field: "nft.updated_at", type: "DESC", nullsPosition: "NULLS LAST" }],
             );
             expect(nfts).toEqual({ items: expect.any(Array), pages: 1, currentPage: 1 });
         });

@@ -17,12 +17,12 @@ export default (secrets: AwsSecrets = {}): XrpConfig => {
                 production: "wss://xrplcluster.com",
             },
             startingLedgerIndex: {
-                default: 33135515,
+                default: 33263316,
                 production: 75184704,
             },
             minterSecret: {
                 production: process.env.XRP_MINTER_SECRET || secrets.XRP_MINTER_SECRET,
-                default: "sEdV5BZUNSbbpJpHPicgqU9Ef3WzHyP",
+                default: "sEdVhyVVQL8YadiVVrizbUhbtoN8CCJ",
             },
             sellCommissionPct: {
                 default: 0.05,

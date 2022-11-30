@@ -6,7 +6,7 @@ import { UserRoutes } from "module/user/UserRouter";
 import { forwardRef } from "react";
 
 const ArtistCard = forwardRef(({ artist, loading = false }: WithLoading<LandingPageArtistProps>, ref): JSX.Element => {
-    const { address = "", image, name = "Loading Name" } = artist || {};
+    const { address = "", image, name = "Loading Name", nftsCount = 0 } = artist || {};
 
     return (
         <Row gap="1rem" alignItems="center" ref={ref}>
@@ -19,7 +19,7 @@ const ArtistCard = forwardRef(({ artist, loading = false }: WithLoading<LandingP
                                 {name}
                             </Typography>
                             <Typography variant="body2" light>
-                                {"431 NFTs"}
+                                {nftsCount}
                             </Typography>
                         </Col>
                     </Link>

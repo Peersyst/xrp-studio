@@ -11,6 +11,7 @@ export const LandingPageSectionRoot = styled("div")(
 
         ${theme.breakpoints.down("sm")} {
             .ContentPartners {
+                align-items: center;
                 flex-direction: column;
                 gap: 1rem;
             }

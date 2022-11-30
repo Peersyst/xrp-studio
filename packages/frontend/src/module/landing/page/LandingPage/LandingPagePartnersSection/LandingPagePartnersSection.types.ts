@@ -1,4 +1,4 @@
-import { encryptoart_logo, peersyst_logo, ripple_logo } from "images";
+import { encryptoart_logo, peersyst_logo, xrpl_logo } from "images";
 import { CSSProperties } from "react";
 
 export interface LandingPagePartnersSectionProps {
@@ -9,19 +9,23 @@ export interface LandingPagePartnersSectionProps {
 export interface PartnerItem {
     alt: string;
     image: string;
+    link: string;
 }
 
 export const PARTNERS: PartnerItem[] = [
     {
-        alt: "rippler logo",
-        image: ripple_logo,
+        alt: "XRPL logo",
+        image: xrpl_logo,
+        link: "https://xrpl.org",
     },
     {
         alt: "encrypto art logo",
         image: encryptoart_logo,
+        link: "https://encrypto.art",
     },
     {
         alt: "peersyst logo",
         image: peersyst_logo,
+        link: "https://peersyst.com",
     },
 ];
