@@ -98,11 +98,11 @@ export class CollectionService {
     /**
      * Finds all collections
      */
-    async findAll(filters: GetCollectionsRequest = { page: 1, pageSize: 15 }): Promise<PaginatedCollectionDto> {
+    async findAll(filters: GetCollectionsRequest = { page: 1, pageSize: 15 }, orderField?: string): Promise<PaginatedCollectionDto> {
         const { page, pageSize } = filters;
         const take = pageSize;
         const skip = (page - 1) * take;
-        const { qbWheres, relations, qbOrders } = GetCollectionsRequest.toFilterClause(filters);
+        const { qbWheres, relations, qbOrders } = GetCollectionsRequest.toFilterClause(filters, orderField);
 
         const [entities, count] = await QueryBuilderHelper.buildFindManyAndCount(
             this.collectionRepository,

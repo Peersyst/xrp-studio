@@ -544,7 +544,7 @@ describe("NftService", () => {
                         value: "confirmed",
                     },
                 ],
-                [{ field: "nft.updated_at", type: "DESC" }],
+                [{ field: "nft.updated_at", type: "DESC", nullsPosition: "NULLS LAST", }],
             );
             expect(nfts).toEqual({ items: expect.any(Array), pages: 1, currentPage: 1 });
         });
@@ -573,7 +573,7 @@ describe("NftService", () => {
                     { field: "metadata.name", operator: FilterType.LIKE, value: "asd" },
                     { field: "nft.status", operator: FilterType.IN, value: [NftStatus.CONFIRMED] },
                 ],
-                [{ field: "nft.updated_at", type: "ASC" }],
+                [{ field: "nft.updated_at", type: "ASC", nullsPosition: "NULLS LAST" }],
             );
             expect(nfts).toEqual({ items: expect.any(Array), pages: 1, currentPage: 2 });
         });

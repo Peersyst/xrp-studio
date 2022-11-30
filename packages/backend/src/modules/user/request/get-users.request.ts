@@ -1,10 +1,8 @@
 import { ApiProperty } from "@nestjs/swagger";
-import { IsOptional } from "class-validator";
-import { IsXrplAddress } from "../../common/validator/IsXrplAddress";
 import { Order } from "../../common/types";
 import { FilterType, NullsPosition, OrderType, QBFilter } from "../../common/util/query-builder.helper";
 
-export class GetCollectionsRequest {
+export class GetUsersRequest {
     @ApiProperty({
         name: "page",
         type: "integer",
@@ -27,15 +25,6 @@ export class GetCollectionsRequest {
     query?: string;
 
     @ApiProperty({
-        name: "account",
-        type: "string",
-        required: false,
-    })
-    @IsOptional()
-    @IsXrplAddress()
-    account?: string;
-
-    @ApiProperty({
         name: "order",
         type: "string",
         enum: Order,
@@ -43,29 +32,33 @@ export class GetCollectionsRequest {
     })
     order?: Order;
 
-    static toFilterClause(req: GetCollectionsRequest, orderField?: string): QBFilter<string> {
+    @ApiProperty({
+        name: "orderField",
+        type: "string",
+        required: false,
+    })
+    orderField?: string;
+
+    static toFilterClause(req: GetUsersRequest): QBFilter<string> {
         const filter: QBFilter<string> = {
             qbWheres: [],
             relations: [],
             qbOrders: [],
         };
 
-        if (req.account) {
-            filter.qbWheres.push({ field: "account", operator: FilterType.EQUAL, value: req.account });
-        }
         if (req.query) {
-            filter.qbWheres.push({ field: "name", operator: FilterType.LIKE, value: req.query });
+            filter.qbWheres.push({ field: "user.name", operator: FilterType.LIKE, value: req.query });
         }
 
         if (req.order === "ASC") {
             filter.qbOrders.push({
-                field: "collection." + (orderField || "updated_at"),
+                field: "user." + req.orderField || "updated_at",
                 type: OrderType.ASC,
                 nullsPosition: NullsPosition.NULLS_LAST,
             });
         } else {
             filter.qbOrders.push({
-                field: "collection." + (orderField || "updated_at"),
+                field: "user." + req.orderField || "updated_at",
                 type: OrderType.DESC,
                 nullsPosition: NullsPosition.NULLS_LAST,
             });

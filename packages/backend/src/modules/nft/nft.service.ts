@@ -301,11 +301,12 @@ export class NftService {
     async findAll(
         nftsRequest: GetNftsRequest = new GetNftsRequest(),
         requesterAccount?: string,
+        orderField?: string,
     ): Promise<PaginatedNftDto | PaginatedNftDraftDto> {
         const { page = 1, pageSize = 15 } = nftsRequest;
         const take = pageSize;
         const skip = (page - 1) * take;
-        const { qbWheres, relations, qbOrders } = GetNftsRequest.toFilterClause(nftsRequest, { requesterAccount });
+        const { qbWheres, relations, qbOrders } = GetNftsRequest.toFilterClause(nftsRequest, { requesterAccount }, orderField);
 
         const [entities, count] = await QueryBuilderHelper.buildFindManyAndCount(
             this.nftRepository,
