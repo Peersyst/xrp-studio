@@ -1,39 +1,40 @@
 import useTranslate from "module/common/hook/useTranslate";
-import { Step } from "module/common/component/feedback/ActionSteps/ActionSteps.types";
+import { ActionStepsHandlers, Step } from "module/common/component/feedback/ActionSteps/ActionSteps.types";
 import ActionSteps from "module/common/component/feedback/ActionSteps/ActionSteps";
+import { CreateNftDraftRequest } from "module/api/service";
+import usePublishNft from "module/nft/hook/usePublishNft";
+import useNftStatePolling from "module/nft/hook/useNftStatePolling";
 
-const NftPublishActions = (): JSX.Element => {
+interface NftPublishActionsProps extends Omit<ActionStepsHandlers, "onSuccess"> {
+    request: CreateNftDraftRequest;
+    draftId?: number;
+    onSuccess: () => void;
+}
+
+const NftPublishActions = ({ request, draftId, onStart, onEnd, onSuccess }: NftPublishActionsProps): JSX.Element => {
     const translate = useTranslate();
 
-    const onSuccess = () => {
-        return undefined;
-    };
+    const { mutateAsync: publish, data: responseId } = usePublishNft(request, draftId);
+    const { fetch: startPolling } = useNftStatePolling(responseId);
 
     const steps: Step[] = [
         {
-            title: translate("approveXRPStudio"),
-            description: translate("approveXRPStudioDescription"),
-            execution: async () => {
-                return undefined;
-            },
+            title: translate("publishNftProcessingStepTitle"),
+            description: translate("publishNftProcessingStepDescription"),
+            execution: async () => await publish({}),
         },
         {
-            title: translate("nftCreationConfirmationStepTitle"),
-            description: translate("nftCreationConfirmationStepDescription"),
-            execution: async () => {
-                return undefined;
-            },
+            title: translate("publishNftAddingToBlockchainStepTitle"),
+            description: translate("publishNftAddingToBlockchainStepDescription"),
+            execution: async () => await startPolling(),
         },
         {
-            title: translate("nftCreationSuccessStepTitle"),
-            description: translate("nftCreationSuccessStepDescription"),
-            execution: async () => {
-                return undefined;
-            },
+            title: translate("publishNftSuccessStepTitle"),
+            description: translate("publishNftSuccessStepDescription"),
         },
     ];
 
-    return <ActionSteps title={translate("nftCreationSteps")} steps={steps} onSuccess={onSuccess} />;
+    return <ActionSteps steps={steps} onStart={onStart} onEnd={onEnd} onSuccess={onSuccess} />;
 };
 
 export default NftPublishActions;
