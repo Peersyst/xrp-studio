@@ -1,4 +1,4 @@
-import polling from "module/common/util/polling";
+import { polling } from "@peersyst/react-utils";
 import { useEffect, useState } from "react";
 import { NftDraftStatusDto } from "module/api/service";
 
