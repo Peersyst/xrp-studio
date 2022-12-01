@@ -1,5 +1,5 @@
 import { TabPanel } from "@peersyst/react-components";
-import ExploreNftTab from "module/explore/component/layout/ExploreNftTab/ExploreNftTab";
+import ExploreNftGrid from "module/explore/component/display/ExploreNftGrid/ExploreNftGrid";
 import PageContent from "module/common/component/layout/PageContent/PageContent";
 
 const ExplorePageContent = (): JSX.Element => {
@@ -9,7 +9,7 @@ const ExplorePageContent = (): JSX.Element => {
             <TabPanel index={1}>This is Collections panel</TabPanel>
             <TabPanel index={2}>
                 <PageContent>
-                    <ExploreNftTab />
+                    <ExploreNftGrid />
                 </PageContent>
             </TabPanel>
         </>
