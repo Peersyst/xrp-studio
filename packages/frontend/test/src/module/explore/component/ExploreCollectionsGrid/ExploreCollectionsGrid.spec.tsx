@@ -5,13 +5,14 @@ import { CollectionDtoMock, CollectionsDtoMock, PaginatedDataMock } from "test-m
 import { waitFor } from "@testing-library/dom";
 import { screen } from "@testing-library/react";
 
-describe("ExploreCollectionsGrid tests", async () => {
+describe("ExploreCollectionsGrid tests", () => {
     test("Renders correctly with collections", async () => {
         const { collections } = new CollectionsDtoMock({ length: 10 });
         const collectionPaginatedMock = new PaginatedDataMock<CollectionDtoMock[]>({ items: collections });
         const collectionControllerGetCollectionsMock = jest
             .spyOn(CollectionService, "collectionControllerGetCollections")
             .mockResolvedValue(collectionPaginatedMock);
+
         render(<ExploreCollectionsGrid />);
 
         await waitFor(() => expect(collectionControllerGetCollectionsMock).toHaveBeenCalled());
