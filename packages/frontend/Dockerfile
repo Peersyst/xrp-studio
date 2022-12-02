@@ -24,6 +24,7 @@ RUN echo " \
         listen       80; \
         listen  [::]:80; \
         server_name  localhost; \
+        client_max_body_size 5M; \
         location / { \
             root   /var/www; \
             try_files \$uri \$uri/ /index.html; \

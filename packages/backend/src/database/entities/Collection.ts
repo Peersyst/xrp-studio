@@ -44,6 +44,9 @@ export class Collection {
     @Column({ type: "varchar", length: 255, name: "account" })
     account: string;
 
+    @Column({ type: "int", nullable: true })
+    priority?: number;
+
     @OneToOne(() => Drop, (drop) => drop.collection)
     drop?: Drop;
 

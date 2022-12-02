@@ -96,7 +96,10 @@ function DropLanding({
                             items={items}
                             price={price}
                             sold={sold}
+                            //TODO : cuando los drop tengan ID agregar valor
+                            dropId={1}
                             loading={loading}
+                            preview={preview}
                         />
                         {(loading || videoUrl) && <DropLandingVideoSection videoUrl={videoUrl} loading={loading} />}
                         <DropLandingArtistSection artist={user} loading={loading} />

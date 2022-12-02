@@ -7,7 +7,7 @@ export interface UseGetNftDraftsOptions {
     query?: string;
     collections?: Array<number>;
     order?: "ASC" | "DESC";
-    status?: "draft" | "pending" | "failed";
+    status?: "confirmed" | "draft" | "pending" | "failed";
 }
 
 export default function (
@@ -16,7 +16,7 @@ export default function (
 ): UseInfiniteQueryResult<PaginatedNftDraftDto> {
     return useInfiniteQuery(
         [Queries.NFT_DRAFTS, query, collections, order, status],
-        ({ pageParam = 1 }) => NftService.nftControllerGetNftDrafts(pageParam, 30, query, collections, order, status),
+        ({ pageParam = 1 }) => NftService.nftControllerGetMyNfts(pageParam, 100, query, collections, order, status),
         options,
     );
 }

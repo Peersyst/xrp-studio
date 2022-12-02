@@ -1,30 +1,42 @@
 import useTranslate from "module/common/hook/useTranslate";
-import PublishResult from "module/common/component/feedback/PublishResult/PublishResult";
+import ActionsResult from "module/common/component/feedback/ActionsResult/ActionsResult";
 import { InformationField } from "module/common/component/display/InformationFields/InformationFields.types";
 import InformationFields from "module/common/component/display/InformationFields/InformationFields";
+import useGetNft from "module/nft/query/useGetNft";
+import { LoaderIcon } from "@peersyst/react-components";
+import { config } from "config";
+import XrplService from "module/blockchain/service/XrplService/XrplService";
+import { useFormatBalance } from "module/common/component/display/Balance/hook/useFormatBalance";
 
-const NftPublishSuccess = (): JSX.Element => {
+interface NftPublishSuccessProps {
+    id: number | undefined;
+}
+
+const NftPublishSuccess = ({ id }: NftPublishSuccessProps): JSX.Element => {
     const translate = useTranslate();
+    const formatBalance = useFormatBalance();
+
+    const { data: nftData, isLoading: isNftLoading } = useGetNft(id);
 
     const publishSuccessContent: InformationField[] = [
         {
-            label: translate("hashTransactionCreation"),
-            content: "mock_transactionHash",
+            label: translate("mintTransactionHash"),
+            content: nftData?.mintTransactionHash,
         },
         {
             label: translate("tokenId"),
-            content: "mock_id",
+            content: nftData?.id,
         },
         {
             label: translate("transferFeeCost"),
-            content: "mock_transactionFee",
+            content: formatBalance(XrplService.dropsToXrp(config.feeInDrops.toString()), { units: config.tokenName }),
         },
     ];
 
     return (
-        <PublishResult title={translate("successTitle")} type="success">
-            <InformationFields fields={publishSuccessContent} />
-        </PublishResult>
+        <ActionsResult title={translate("publishNftSuccessStepTitle")} type="success">
+            {isNftLoading ? <LoaderIcon /> : <InformationFields fields={publishSuccessContent} css={{ wordBreak: "break-all" }} />}
+        </ActionsResult>
     );
 };
 

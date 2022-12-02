@@ -49,5 +49,6 @@
     "nftNotOwned": "NFT not owned",
     "collectionDoesNotContainNfts": "This collection does not contain any NFTs",
     "nftFailed": "An error occurred while publishing this NFT. Click to publish again.",
+    "maxPollingCalls": "Maximum polling calls reached",
     "noNftsAvailable": "There are no NFTs available at this moment."
 }

@@ -44,7 +44,7 @@ describe("ViewNftPage", () => {
             // Await get nft call
             await waitFor(() => expect(screen.getByText(nftMockWithRequiredValues.user!.name!)).toBeInTheDocument());
             // TokenID
-            expect(screen.getByText("TokenID")).toBeInTheDocument();
+            expect(screen.getByText(translate("tokenId"))).toBeInTheDocument();
             expect(screen.getByText(nftMockWithRequiredValues.tokenId)).toBeInTheDocument();
             // Mint transaction hash
             expect(screen.getByText(translate("mintTransactionHash"))).toBeInTheDocument();
@@ -107,7 +107,7 @@ describe("ViewNftPage", () => {
             expect(screen.getByText(translate("creator"))).toBeInTheDocument();
             expect(screen.getByText(nftMockWithAllValues.user!.name!)).toBeInTheDocument();
             // TokenID
-            expect(screen.getByText("TokenID")).toBeInTheDocument();
+            expect(screen.getByText(translate("tokenId"))).toBeInTheDocument();
             expect(screen.getByText(nftMockWithAllValues.tokenId)).toBeInTheDocument();
             // Mint transaction hash
             expect(screen.getByText(translate("mintTransactionHash"))).toBeInTheDocument();

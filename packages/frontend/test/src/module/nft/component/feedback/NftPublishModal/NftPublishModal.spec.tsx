@@ -1,20 +1,23 @@
 import {
     CreateNftDraftRequestMock,
     CreateNftMetadataRequestMock,
+    NftDtoMock,
     ToastMock,
     UseCheckBalanceMock,
+    UseNftStatePollingMock,
     WalletMock,
-    UsePublishNftMock,
 } from "test-mocks";
 import { render, translate } from "test-utils";
 import NftPublishModal from "module/nft/component/feedback/NftPublishModal/NftPublishModal";
 import { screen } from "@testing-library/react";
 import { capitalize } from "@peersyst/react-utils";
 import { waitFor } from "@testing-library/dom";
-import userEvent from "@testing-library/user-event";
 import { act } from "react-dom/test-utils";
+import userEvent from "@testing-library/user-event";
+import { NftService } from "module/api/service";
 
 describe("NftPublishModal tests", () => {
+    const nftDtoMock = new NftDtoMock();
     const createNftDraftRequestMock = new CreateNftDraftRequestMock({
         issuer: "issuer",
         transferFee: 3,
@@ -22,11 +25,12 @@ describe("NftPublishModal tests", () => {
         taxon: 1,
         metadata: new CreateNftMetadataRequestMock({ name: "nft_name", image: "image" }),
     });
-    const COLLECTIONS_NFT = "collection_name";
+    const COLLECTION_NAME = "collection_name";
 
     let useCheckBalanceMock: UseCheckBalanceMock;
+    let createNftMock: jest.SpyInstance;
+    let useNftStatePolling: UseNftStatePollingMock;
     let walletMock: WalletMock;
-    let usePublishNftMock: UsePublishNftMock;
 
     const useToastMock = new ToastMock();
 
@@ -36,22 +40,27 @@ describe("NftPublishModal tests", () => {
 
     beforeEach(() => {
         useCheckBalanceMock = new UseCheckBalanceMock();
+        createNftMock = jest.spyOn(NftService, "nftControllerCreateNft").mockResolvedValue(nftDtoMock);
+        useNftStatePolling = new UseNftStatePollingMock();
         walletMock = new WalletMock({ isLogged: true, active: true, address: "0x" });
-        usePublishNftMock = new UsePublishNftMock();
     });
 
-    afterEach(() => {
+    afterAll(() => {
         useCheckBalanceMock.restore();
+        createNftMock.mockRestore();
+        useNftStatePolling.restore();
         walletMock.restore();
-        usePublishNftMock.restore();
     });
 
-    test("Create published NFT", async () => {
-        render(<NftPublishModal request={createNftDraftRequestMock} collection={COLLECTIONS_NFT} />);
+    test("Renders correctly", async () => {
+        render(<NftPublishModal request={createNftDraftRequestMock} collection={COLLECTION_NAME} />);
 
         const confirmPublishButton = screen.getByRole("button", { name: capitalize(translate("confirm")) });
-        await waitFor(() => expect(confirmPublishButton).not.toBeDisabled());
         userEvent.click(confirmPublishButton);
-        await act(() => waitFor(() => expect(usePublishNftMock.mock).toHaveBeenCalled()));
+
+        const viewDetailsButton = screen.getByText(translate("viewDetails"));
+        await act(() => waitFor(() => expect(viewDetailsButton).not.toBeDisabled()));
+
+        expect(screen.getByText(translate("publishNftSuccessStepTitle"))).toBeInTheDocument();
     });
 });

@@ -6,6 +6,8 @@ export interface DropLandingDescriptionSectionProps {
     items: number;
     price: string;
     sold: number;
+    dropId: number;
+    preview?: boolean;
     loading?: boolean;
 }
 

@@ -1,35 +1,30 @@
 import useCreateNft from "module/nft/query/useCreateNft";
 import useUpdateNftDraft from "module/nft/query/useUpdateNftDraft";
-import { useToast } from "@peersyst/react-components";
 import useTranslate from "module/common/hook/useTranslate";
 import useCheckBalance from "module/wallet/hook/useCheckBalance";
 import { CreateNftDraftRequest } from "module/api/service";
+import { useMutation, UseMutationResult } from "react-query";
+import Queries from "../../../query/queries";
 
-export interface UsePublishNftReturn {
-    publish: () => Promise<void>;
-    isPublishing: boolean;
-}
-
-export function usePublishNft(request: CreateNftDraftRequest, draftId?: number): UsePublishNftReturn {
-    const translateError = useTranslate("error");
-    const { showToast } = useToast();
+export default function (request: CreateNftDraftRequest, draftId?: number): UseMutationResult<number | undefined, string> {
     const checkBalance = useCheckBalance();
+    const translateError = useTranslate("error");
 
-    const { mutateAsync: createNft, isLoading: createNftLoading } = useCreateNft();
-    const { mutateAsync: updateNftDraft, isLoading: updateNftDraftLoading, variables } = useUpdateNftDraft();
+    const { mutateAsync: createNft } = useCreateNft();
+    const { mutateAsync: updateNftDraft } = useUpdateNftDraft();
 
-    const publishing = createNftLoading || (updateNftDraftLoading && !!variables?.publish);
     const publish = async () => {
         const hasBalance = await checkBalance();
-        if (!hasBalance) showToast(translateError("notEnoughBalance"), { type: "error" });
+
+        if (!hasBalance) throw new Error(translateError("notEnoughBalance"));
         else {
             if (draftId) await updateNftDraft({ id: draftId, publish: true, ...request });
-            else await createNft(request);
+            else {
+                const response = await createNft(request);
+                return response.id;
+            }
         }
     };
 
-    return {
-        publish,
-        isPublishing: publishing,
-    };
+    return useMutation([Queries.PUBLISH_NFT], publish);
 }

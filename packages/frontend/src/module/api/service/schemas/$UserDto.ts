@@ -25,5 +25,11 @@ export const $UserDto = {
         discord: {
             type: 'string',
         },
+        verifiedArtist: {
+            type: 'boolean',
+        },
+        nftsCount: {
+            type: 'number',
+        },
     },
 } as const;

@@ -41,6 +41,9 @@ export class Nft {
     @Column({ type: "varchar", length: 255, name: "account" })
     account: string;
 
+    @Column({ type: "int", nullable: true })
+    priority?: number;
+
     @ManyToOne(() => User, (user) => user.nfts, { cascade: ["insert"] })
     @JoinColumn({ name: "account" })
     user: User;

@@ -8,6 +8,7 @@ export { default as CopyIcon } from "./CopyIcon";
 export { default as DiscordIcon } from "./DiscordIcon";
 export { default as DownloadIcon } from "./DownloadIcon";
 export { default as FilterLinesIcon } from "./FilterLinesIcon";
+export { default as HeartIcon } from "./HeartIcon";
 export { default as ImageIcon } from "./ImageIcon";
 export { default as ImageUpIcon } from "./ImageUpIcon";
 export { default as InstagramIcon } from "./InstagramIcon";

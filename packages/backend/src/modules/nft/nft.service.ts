@@ -168,7 +168,7 @@ export class NftService {
         publish = false,
     ): Promise<void> {
         // Check draft exists and belongs to the address given
-        await this.findOne(id, { ownerAddress: address, status: NftStatus.DRAFT });
+        const nft = await this.findOne(id, { ownerAddress: address, status: [NftStatus.DRAFT, NftStatus.FAILED] });
 
         // Find taxon & address collection or use undefined and remove relation if any
         let collection: CollectionDto | undefined;
@@ -182,20 +182,27 @@ export class NftService {
         } catch {}
 
         // Delete metadata if new NftDraft does not include it
-        if (Object.entries(metadata || {}).length === 0) await this.metadataService.delete(id);
-        await this.metadataService.create(id, metadata, true);
+        if (Object.entries(metadata || nft.metadata || {}).length === 0) await this.metadataService.delete(id);
+        await this.metadataService.create(id, metadata || nft.metadata, true);
 
         // Update entity
         const { burnable = false, onlyXRP = false, trustLine = false, transferable = false } = flags || {};
         await this.nftRepository.update(
             { id },
             {
-                issuer: issuer || address,
-                transferFee: transferFee ? transferFee * 1000 : null,
-                flags: flags
-                    ? flagsToNumber({ tfBurnable: burnable, tfOnlyXRP: onlyXRP, tfTrustLine: trustLine, tfTransferable: transferable })
-                    : undefined,
-                collectionId: collection?.id || null,
+                ...(issuer !== undefined || address !== undefined ? { issuer: issuer || address } : {}),
+                ...(transferFee !== undefined ? { transferFee: transferFee * 1000 } : {}),
+                ...(flags !== undefined
+                    ? {
+                          flags: flagsToNumber({
+                              tfBurnable: burnable,
+                              tfOnlyXRP: onlyXRP,
+                              tfTrustLine: trustLine,
+                              tfTransferable: transferable,
+                          }),
+                      }
+                    : {}),
+                ...(collection?.id !== undefined ? { collectionId: collection?.id } : {}),
             },
         );
 
@@ -214,9 +221,9 @@ export class NftService {
      */
     public async publishDraft(nftId: number, ownerAddress?: string): Promise<void> {
         const nftDraft = await this.findOne(nftId, {
-            status: NftStatus.DRAFT,
+            status: [NftStatus.DRAFT, NftStatus.FAILED],
             ownerAddress,
-            relations: ["metadata", "metadata.attributes", "user"],
+            relations: ["metadata", "metadata.attributes", "user", "collection"],
         });
 
         // Update draft status to "pending"
@@ -240,20 +247,24 @@ export class NftService {
         });
     }
 
-    async findOne<Status extends NftStatus>(
+    async findOne<Status extends NftStatus[]>(
         id: number,
         options?: { ownerAddress?: string; status?: Status; relations?: string[] },
-    ): Promise<Status extends NftStatus.CONFIRMED ? NftDto : NftDraftDto> {
+    ): Promise<Status extends [NftStatus.CONFIRMED] ? NftDto : NftDraftDto> {
         const { ownerAddress, status, relations = ["metadata", "metadata.attributes"] } = options || {};
         if (ownerAddress && relations.indexOf("user") === -1) relations.push("user");
         const nft = await this.nftRepository.findOne(id, { relations });
         if (!nft) throw new BusinessException(ErrorCode.NFT_NOT_FOUND);
         if (ownerAddress && nft?.user?.address !== ownerAddress) throw new BusinessException(ErrorCode.NFT_NOT_FOUND);
-        if (status && nft.status !== status) throw new BusinessException(ErrorCode.NFT_NOT_FOUND);
+        if (status && status.indexOf(nft.status) < 0) {
+            throw new BusinessException(ErrorCode.NFT_NOT_FOUND);
+        }
 
-        return (
-            nft.status === NftStatus.CONFIRMED ? NftDto.fromEntity(nft) : NftDraftDto.fromEntity(nft)
-        ) as Status extends NftStatus.CONFIRMED ? NftDto : NftDraftDto;
+        return (nft.status === NftStatus.CONFIRMED ? NftDto.fromEntity(nft) : NftDraftDto.fromEntity(nft)) as Status extends [
+            NftStatus.CONFIRMED,
+        ]
+            ? NftDto
+            : NftDraftDto;
     }
 
     public async updateNftStatus(nftId: number, newStatus: NftStatus): Promise<void> {
@@ -289,12 +300,12 @@ export class NftService {
      */
     async findAll(
         nftsRequest: GetNftsRequest = new GetNftsRequest(),
-        extraFilters: { status?: NftStatus | NftStatus[]; ownerAddress?: string } = {},
+        requesterAccount?: string,
     ): Promise<PaginatedNftDto | PaginatedNftDraftDto> {
         const { page = 1, pageSize = 15 } = nftsRequest;
         const take = pageSize;
         const skip = (page - 1) * take;
-        const { qbWheres, relations } = GetNftsRequest.toFilterClause(nftsRequest, extraFilters);
+        const { qbWheres, relations, qbOrders } = GetNftsRequest.toFilterClause(nftsRequest, { requesterAccount });
 
         const [entities, count] = await QueryBuilderHelper.buildFindManyAndCount(
             this.nftRepository,
@@ -303,6 +314,7 @@ export class NftService {
             take,
             [...relations],
             qbWheres,
+            qbOrders,
         );
 
         return {

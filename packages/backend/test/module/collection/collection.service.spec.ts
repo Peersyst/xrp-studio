@@ -213,7 +213,15 @@ describe("CollectionService", () => {
                 .spyOn(QueryBuilderHelper, "buildFindManyAndCount")
                 .mockReturnValue(Promise.resolve([[new CollectionMock()], 1]));
             const collections = await collectionService.findAll();
-            expect(queryBuilderSpy).toHaveBeenCalledWith(collectionRepositoryMock, "nft", 0, 15, ["user"]);
+            expect(queryBuilderSpy).toHaveBeenCalledWith(
+                collectionRepositoryMock,
+                "collection",
+                0,
+                15,
+                ["user"],
+                [],
+                [{ field: "collection.updated_at", type: "DESC", nullsPosition: "NULLS LAST" }],
+            );
             expect(collections).toEqual({ items: expect.any(Array), pages: 1, currentPage: 1 });
         });
 
@@ -228,7 +236,18 @@ describe("CollectionService", () => {
             req.query = "xyz";
             req.account = ACCOUNT;
             const collections = await collectionService.findAll(req);
-            expect(queryBuilderSpy).toHaveBeenCalledWith(collectionRepositoryMock, "nft", 40, 20, ["user"]);
+            expect(queryBuilderSpy).toHaveBeenCalledWith(
+                collectionRepositoryMock,
+                "collection",
+                40,
+                20,
+                ["user"],
+                [
+                    { field: "account", operator: "=", value: "rwxmBgnEtpqAMerLSLkCCLfuSisi7GAvU6" },
+                    { field: "name", operator: "LIKE", value: "xyz" },
+                ],
+                [{ field: "collection.updated_at", type: "ASC", nullsPosition: "NULLS LAST" }],
+            );
             expect(collections).toEqual({ items: expect.any(Array), pages: 1, currentPage: 3 });
         });
     });

@@ -1,8 +1,8 @@
-import { PublishResultProps } from "module/common/component/feedback/PublishResult/PublishResult.types";
+import { PublishResultProps } from "module/common/component/feedback/ActionsResult/ActionsResult.types";
 import { Col, Divider, Row, Typography } from "@peersyst/react-components";
 import { AlertCircleIcon, CheckCircleIcon } from "icons";
 
-const PublishResult = ({ title, type, children }: PublishResultProps): JSX.Element => {
+const ActionsResult = ({ title, type, children }: PublishResultProps): JSX.Element => {
     return (
         <Col gap="2rem">
             <Col gap="1rem">
@@ -19,4 +19,4 @@ const PublishResult = ({ title, type, children }: PublishResultProps): JSX.Eleme
     );
 };
 
-export default PublishResult;
+export default ActionsResult;

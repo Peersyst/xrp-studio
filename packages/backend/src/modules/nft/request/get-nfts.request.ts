@@ -2,7 +2,7 @@ import { ApiProperty } from "@nestjs/swagger";
 import { CollectionsExists } from "../../collection/validator/CollectionsExists";
 import { IsOptional } from "class-validator";
 import { Order } from "../../common/types";
-import { FilterType, QBFilter } from "../../common/util/query-builder.helper";
+import { FilterType, NullsPosition, OrderType, QBFilter } from "../../common/util/query-builder.helper";
 import { IsXrplAddress } from "../../common/validator/IsXrplAddress";
 import { NftStatus } from "../../../database/entities/Nft";
 
@@ -48,6 +48,15 @@ export class GetNftsRequest {
     account?: string;
 
     @ApiProperty({
+        name: "status",
+        type: "enum",
+        enum: NftStatus,
+        required: false,
+        isArray: true,
+    })
+    status?: NftStatus | NftStatus[];
+
+    @ApiProperty({
         name: "order",
         type: "string",
         enum: Order,
@@ -55,33 +64,58 @@ export class GetNftsRequest {
     })
     order?: Order;
 
-    static toFilterClause(
-        req: GetNftsRequest,
-        { status, ownerAddress }: { status?: NftStatus | NftStatus[]; ownerAddress?: string } = {},
-    ): QBFilter {
-        const filter: QBFilter = {
+    @ApiProperty({
+        name: "orderField",
+        type: "string",
+        enum: ["priority", "name"],
+        required: false,
+    })
+    orderField?: "priority" | "name";
+
+    static toFilterClause(req: GetNftsRequest, { requesterAccount }: { requesterAccount?: string }): QBFilter<string> {
+        const filter: QBFilter<string> = {
             qbWheres: [],
             relations: ["metadata", "metadata.attributes"],
+            qbOrders: [],
         };
 
         if (req.collections) {
             filter.relations.push("collection");
-            filter.qbWheres.push({ field: "nft.collection.id", operator: FilterType.IN, value: req.collections });
+            filter.qbWheres.push({ field: "collection.id", operator: FilterType.IN, value: req.collections });
         }
-        if (req.account) {
+        if (req.account || requesterAccount) {
             filter.relations.push("user");
-            filter.qbWheres.push({ field: "nft.user.address", operator: FilterType.EQUAL, value: req.account });
+            filter.qbWheres.push({ field: "user.address", operator: FilterType.EQUAL, value: requesterAccount || req.account });
         }
-        if (status) {
+        if (req.query) {
+            filter.qbWheres.push({ field: "metadata.name", operator: FilterType.LIKE, value: req.query });
+        }
+        if (!requesterAccount) {
             filter.qbWheres.push({
                 field: "nft.status",
-                operator: typeof status === "object" ? FilterType.IN : FilterType.EQUAL,
-                value: status,
+                operator: FilterType.EQUAL,
+                value: NftStatus.CONFIRMED,
+            });
+        } else if (req.status) {
+            filter.qbWheres.push({
+                field: "nft.status",
+                operator: typeof req.status === "object" ? FilterType.IN : FilterType.EQUAL,
+                value: req.status,
             });
         }
-        if (ownerAddress) {
-            if (filter.relations.indexOf("user") < 0) filter.relations.push("user");
-            filter.qbWheres.push({ field: "nft.user.address", operator: FilterType.EQUAL, value: ownerAddress });
+
+        if (req.order === "ASC") {
+            filter.qbOrders.push({
+                field: "nft." + (req.orderField || "updated_at"),
+                type: OrderType.ASC,
+                nullsPosition: NullsPosition.NULLS_LAST,
+            });
+        } else {
+            filter.qbOrders.push({
+                field: "nft." + (req.orderField || "updated_at"),
+                type: OrderType.DESC,
+                nullsPosition: NullsPosition.NULLS_LAST,
+            });
         }
 
         return filter;

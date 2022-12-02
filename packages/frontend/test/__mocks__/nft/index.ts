@@ -1,3 +1,3 @@
 export * from "./createNftDraftRequest.mock";
 export * from "./createNftMetadataRequest.mock";
-export * from "./usePublishNft.mock";
+export * from "./useNftStatePolling.mock";

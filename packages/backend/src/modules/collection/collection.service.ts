@@ -70,13 +70,13 @@ export class CollectionService {
     }
 
     async addItems(id: number, inc: number): Promise<void> {
-        await this.collectionRepository
-            .createQueryBuilder("collection")
-            .update()
-            .set({
-                items: () => `items + ${inc}`,
-            })
-            .execute();
+        const collection = await this.findOne({ id });
+        await this.collectionRepository.update(
+            { id },
+            {
+                items: (collection.items || 0) + inc,
+            },
+        );
     }
 
     async findOne(
@@ -102,8 +102,17 @@ export class CollectionService {
         const { page, pageSize } = filters;
         const take = pageSize;
         const skip = (page - 1) * take;
+        const { qbWheres, relations, qbOrders } = GetCollectionsRequest.toFilterClause(filters);
 
-        const [entities, count] = await QueryBuilderHelper.buildFindManyAndCount(this.collectionRepository, "nft", skip, take, ["user"]);
+        const [entities, count] = await QueryBuilderHelper.buildFindManyAndCount(
+            this.collectionRepository,
+            "collection",
+            skip,
+            take,
+            [...relations, "user"],
+            qbWheres,
+            qbOrders,
+        );
 
         return {
             items: entities.map((collection) => CollectionDto.fromEntity(collection)),
