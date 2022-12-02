@@ -49,5 +49,6 @@
     "notEnoughBalance": "No tienes suficiente XRP",
     "collectionDoesNotContainNfts": "Esta coleccion no contiene NFTs",
     "nftFailed": "Ha ocurrido un error al publicar este NFT. Haz click para volver a publicarlo",
-    "maxPollingCalls": "Número máximo de consultas alcanzado"
+    "maxPollingCalls": "Número máximo de consultas alcanzado",
+    "noNftsAvailable": "No hay ningún NFT disponible en este momento."
 }

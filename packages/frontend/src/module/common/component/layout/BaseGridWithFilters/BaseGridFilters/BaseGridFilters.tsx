@@ -7,7 +7,7 @@ import { useMediaQuery } from "@peersyst/react-hooks";
 import FiltersContainer from "../FiltersContainer/FiltersContainer";
 import Filters from "module/common/component/input/Filters/Filters";
 
-function BaseGridFilters({ children }: BaseGridFiltersProps): JSX.Element {
+function BaseGridFilters({ children, ...rest }: BaseGridFiltersProps): JSX.Element {
     const {
         breakpoints: {
             values: { nftsGrid },
@@ -30,7 +30,7 @@ function BaseGridFilters({ children }: BaseGridFiltersProps): JSX.Element {
                 {content}
             </FiltersModal>
             <Animated.Slide in={!isTablet && showFilters} direction="right" duration={500}>
-                <BaseGridFiltersRoot>{content}</BaseGridFiltersRoot>
+                <BaseGridFiltersRoot {...rest}>{content}</BaseGridFiltersRoot>
             </Animated.Slide>
         </>
     );
