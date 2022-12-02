@@ -41,6 +41,7 @@ export class NftService {
      * @param account
      * @param status
      * @param order
+     * @param orderField
      * @returns PaginatedNftDto
      * @throws ApiError
      */
@@ -52,6 +53,7 @@ export class NftService {
         account?: string,
         status?: Array<'draft' | 'pending' | 'confirmed' | 'failed'>,
         order?: 'ASC' | 'DESC',
+        orderField?: 'priority' | 'name',
     ): CancelablePromise<PaginatedNftDto> {
         return __request(OpenAPI, {
             method: 'GET',
@@ -64,6 +66,7 @@ export class NftService {
                 'account': account,
                 'status': status,
                 'order': order,
+                'orderField': orderField,
             },
         });
     }

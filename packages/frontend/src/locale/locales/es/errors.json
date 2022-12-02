@@ -50,5 +50,6 @@
     "collectionDoesNotContainNfts": "Esta coleccion no contiene NFTs",
     "nftFailed": "Ha ocurrido un error al publicar este NFT. Haz click para volver a publicarlo",
     "maxPollingCalls": "Número máximo de consultas alcanzado",
-    "noNftsAvailable": "No hay ningún NFT disponible en este momento."
+    "noNftsAvailable": "No hay ningún NFT disponible en este momento.",
+    "noCollectionsAvailable": "No hay colecciones disponibles en este momento"
 }
