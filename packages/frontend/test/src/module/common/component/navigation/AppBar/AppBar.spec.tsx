@@ -7,7 +7,6 @@ describe("AppBar test", () => {
         new WalletMock();
         render(<AppBar />);
         expect(screen.getByText(translate("letsGetStarted"))).toBeInTheDocument();
-        expect(screen.queryByText(translate("dashboard"))).not.toBeInTheDocument();
         expect(screen.queryByText(translate("myNfts"))).not.toBeInTheDocument();
         expect(screen.queryByText(translate("myCollections"))).not.toBeInTheDocument();
         expect(screen.getByTestId("MoonIcon")).toBeInTheDocument();
