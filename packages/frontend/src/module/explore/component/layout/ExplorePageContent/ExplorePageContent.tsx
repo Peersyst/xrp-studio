@@ -5,15 +5,19 @@ import ExploreNftGrid from "module/explore/component/display/ExploreNftGrid/Expl
 
 const ExplorePageContent = (): JSX.Element => {
     return (
-        <PageContent>
+        <>
             <TabPanel index={0}>This is Trending panel</TabPanel>
             <TabPanel index={1}>
-                <ExploreCollectionsGrid />
+                <PageContent>
+                    <ExploreCollectionsGrid />
+                </PageContent>
             </TabPanel>
             <TabPanel index={2}>
-                <ExploreNftGrid />
+                <PageContent>
+                    <ExploreNftGrid />
+                </PageContent>
             </TabPanel>
-        </PageContent>
+        </>
     );
 };
 
