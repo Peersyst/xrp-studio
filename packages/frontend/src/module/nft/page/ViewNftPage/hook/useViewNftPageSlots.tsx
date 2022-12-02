@@ -100,7 +100,7 @@ export default function ({ nft, loading = false }: UserViewNftPageSlots): ReactN
                 </Label>
                 {externalUrl && (
                     <Label label={translate("externalLink")}>
-                        <Link to={externalUrl} variant="body1">
+                        <Link to={externalUrl} target="_blank" variant="body1">
                             {externalUrl}
                         </Link>
                     </Label>
