@@ -16,6 +16,7 @@ const ExploreNftGrid = (): JSX.Element => {
             end={!hasNextPage}
             loadingNfts={isLoadingNfts}
             withFilters
+            withExtraSpace={false}
             nothingToShow={<NothingToShow css={{ justifyContent: "flex-start" }} label={translateError("noNftsAvailable")} />}
         />
     );
