@@ -20,6 +20,9 @@ declare module "@peersyst/react-components" {
         borderRadiusLg: string;
     }
     export interface ThemePalette {
+        green: {
+            100: string;
+        };
         gray: {
             90: string;
             "2.5": string;

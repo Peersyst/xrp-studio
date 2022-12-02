@@ -38,7 +38,7 @@ const ActionStep = ({ step: { title, description, execution }, active, stepNumbe
                     )}
                     {active && !state.error && <Loader />}
                     {active && state.error && <AlertCircleIcon />}
-                    {!active && state.finished && <CheckCircleIcon />}
+                    {!active && state.finished && <CheckCircleIcon color={"green.100"} />}
                     <Typography variant="body1" fontWeight={600}>
                         {title}
                     </Typography>

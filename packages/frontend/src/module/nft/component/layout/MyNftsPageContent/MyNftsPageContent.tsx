@@ -25,6 +25,7 @@ const MyNftsPageContent = (): JSX.Element => {
                         <Button onClick={() => navigate(NftRoutes.NFT_CREATION)}>{translate("createNft")}</Button>
                     </NothingToShow>
                 }
+                withFilters
             />
         </PageContent>
     );
