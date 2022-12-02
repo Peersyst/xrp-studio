@@ -4,9 +4,11 @@ import Link from "module/common/component/navigation/Link/Link";
 import { LandingPageArtistProps } from "module/landing/Landing.types";
 import { UserRoutes } from "module/user/UserRouter";
 import { forwardRef } from "react";
+import useTranslate from "module/common/hook/useTranslate";
 
 const ArtistCard = forwardRef(({ artist, loading = false }: WithLoading<LandingPageArtistProps>, ref): JSX.Element => {
     const { address = "", image, name = "Loading Name", nftsCount = 0 } = artist || {};
+    const translate = useTranslate();
 
     return (
         <Row gap="1rem" alignItems="center" ref={ref}>
@@ -19,7 +21,7 @@ const ArtistCard = forwardRef(({ artist, loading = false }: WithLoading<LandingP
                                 {name}
                             </Typography>
                             <Typography variant="body2" light>
-                                {nftsCount}
+                                {translate("nftsCount", { count: nftsCount ? nftsCount : 0 })}
                             </Typography>
                         </Col>
                     </Link>

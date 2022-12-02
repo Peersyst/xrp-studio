@@ -28,6 +28,8 @@
     "andNMoreItems_other": "and {{count}} more files",
     "itemWithCount_one": "{{count}} item",
     "itemWithCount_other": "{{count}} items",
+    "nftsCount_one": "{{count}} NFT",
+    "nftsCount_other": "{{count}} NFTs",
     "traitType": "Trait type",
     "value": "Value",
     "addProperty": "Add property",
