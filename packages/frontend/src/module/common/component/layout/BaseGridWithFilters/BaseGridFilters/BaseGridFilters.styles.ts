@@ -3,20 +3,23 @@ import Card from "module/common/component/surface/Card/Card";
 import styled, { css } from "styled-components";
 import { STICKY_HEADER_HEIGHT } from "module/common/component/layout/PageHeader/PageHeader.styles";
 import { GRID_FILTERS_GAP } from "module/common/component/layout/BaseGridWithFilters/BaseGridWithFilters.styles";
+import { BaseGridFiltersProps } from "module/common/component/layout/BaseGridWithFilters/BaseGridFilters/BaseGridFilters.types";
 
-export const BaseGridFiltersRoot = styled(Card)`
-    position: sticky;
-    top: calc(var(--appbar-height) + ${STICKY_HEADER_HEIGHT} + ${GRID_FILTERS_GAP});
-    max-height: calc(100vh - var(--appbar-height) - ${STICKY_HEADER_HEIGHT} - ${GRID_FILTERS_GAP} - 2rem);
-    overflow-y: auto;
-    height: fit-content;
-    width: 16.5rem;
-    padding: 1.25rem 1.25rem 1.75rem 1.25rem;
-    // Negative margin in order to remove the space occupied
-    margin-right: -16.5rem;
-    // Margin top in order to equal filter tags gap
-    margin-top: ${GRID_FILTERS_GAP};
-`;
+export const BaseGridFiltersRoot = styled(Card)<BaseGridFiltersProps>(
+    ({ withExtraSpace }) => css`
+        position: sticky;
+        top: calc(var(--appbar-height) + ${withExtraSpace ? STICKY_HEADER_HEIGHT : "0rem"} + ${GRID_FILTERS_GAP});
+        max-height: calc(100vh - var(--appbar-height) - ${withExtraSpace ? STICKY_HEADER_HEIGHT : "0rem"} - ${GRID_FILTERS_GAP} - 2rem);
+        overflow-y: auto;
+        height: fit-content;
+        width: 16.5rem;
+        padding: 1.25rem 1.25rem 1.75rem 1.25rem;
+        // Negative margin in order to remove the space occupied
+        margin-right: -16.5rem;
+        // Margin top in order to equal filter tags gap
+        margin-top: ${GRID_FILTERS_GAP};
+    `,
+);
 
 export const FiltersDivider = styled(Divider)(
     ({ theme }) => css`

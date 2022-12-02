@@ -37,7 +37,9 @@ const ExploreTabs = (): JSX.Element => {
             {EXPLORE_TABS.map(({ path, selected, label }, index) => (
                 <Link key={index} to={path}>
                     <ExploreTab index={0} selected={selected}>
-                        <Typography variant="body1">{translate(label)}</Typography>
+                        <Typography variant="body1" fontWeight={500}>
+                            {translate(label)}
+                        </Typography>
                     </ExploreTab>
                 </Link>
             ))}
