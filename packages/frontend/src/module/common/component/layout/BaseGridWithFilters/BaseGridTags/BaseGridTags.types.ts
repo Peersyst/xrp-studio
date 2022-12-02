@@ -16,4 +16,8 @@ export interface BaseGridTagsProps<T> {
      * Clear tags fn
      */
     onClear?: () => void;
+    /**
+     * Extra space for banner
+     */
+    withExtraSpace?: boolean;
 }

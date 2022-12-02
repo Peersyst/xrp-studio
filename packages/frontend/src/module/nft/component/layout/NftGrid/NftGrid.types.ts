@@ -13,4 +13,5 @@ export type NftGridProps = Omit<
     collections?: CollectionDto[];
     loadingNfts: boolean;
     loadingCollections?: boolean;
+    withExtraSpace?: boolean;
 };

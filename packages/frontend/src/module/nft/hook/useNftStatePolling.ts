@@ -1,6 +1,6 @@
 import { NftDraftDto, NftDraftStatusDto, NftService } from "module/api/service";
-import polling from "module/common/util/polling";
 import { useState } from "react";
+import { polling } from "@peersyst/react-utils";
 
 export interface UseNftStatePolling {
     fetch: () => Promise<NftDraftStatusDto[]> | undefined;

@@ -17,6 +17,7 @@ function BaseGridWithFilters<T extends PaginatedData, TagT = any>({
     tags,
     onDeleteTagClicked,
     onClearTags,
+    withExtraSpace,
     ...rest
 }: BaseGridWithFilterProps<T, TagT>): JSX.Element {
     const {
@@ -37,7 +38,7 @@ function BaseGridWithFilters<T extends PaginatedData, TagT = any>({
 
     return (
         <Row css={{ position: "relative", minHeight: "76vh" }}>
-            <BaseGridFilters>{filters}</BaseGridFilters>
+            <BaseGridFilters withExtraSpace={withExtraSpace}>{filters}</BaseGridFilters>
             <Animated
                 in={finalMoveGrid}
                 duration={500}
@@ -48,7 +49,12 @@ function BaseGridWithFilters<T extends PaginatedData, TagT = any>({
                 style={{ transformOrigin: "100% 0" }}
             >
                 <GridWrapper flex={1} justifyContent="center" isOpen={showFilters}>
-                    <BaseGridTags tags={tags} onDeleteTagClicked={onDeleteTagClicked} onClear={onClearTags} />
+                    <BaseGridTags
+                        tags={tags}
+                        onDeleteTagClicked={onDeleteTagClicked}
+                        onClear={onClearTags}
+                        withExtraSpace={withExtraSpace}
+                    />
                     <BaseGrid<T> justifyContent={isTablet ? "center" : "flex-start"} {...rest} breakpoints={finalBreakPoints} />
                 </GridWrapper>
             </Animated>
