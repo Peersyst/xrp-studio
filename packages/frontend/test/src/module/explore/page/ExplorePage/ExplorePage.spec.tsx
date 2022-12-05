@@ -13,7 +13,5 @@ describe("ExplorePage tests", () => {
         expect(screen.getByText(translate("trending"))).toBeInTheDocument();
         expect(screen.getByText(translate("collections"))).toBeInTheDocument();
         expect(screen.getByText(translate("nfts"))).toBeInTheDocument();
-
-        expect(screen.getByText("This is Trending panel")).toBeInTheDocument();
     });
 });
