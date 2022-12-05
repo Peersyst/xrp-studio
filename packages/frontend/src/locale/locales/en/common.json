@@ -164,5 +164,6 @@
     "collectionCreationSuccessStepText": "Your collection has been published successfully!",
     "signaturesFailedText": "{{failedSignatures}} have failed",
     "nftPublishesFailedText": "{{failedNfts}} have failed",
-    "buyNft": "Buy NFT"
+    "buyNft": "Buy NFT",
+    "viewAll": "View All"
 }

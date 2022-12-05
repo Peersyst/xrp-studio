@@ -1,5 +1,5 @@
+import ExploreTrendingBanner from "module/explore/component/display/ExploreTrending/ExploreTrendingBanner/ExploreTrendingBanner";
 import { render } from "test-utils";
-import ExploreBanner from "module/explore/component/display/ExploreBanner/ExploreBanner";
 
 describe("ExploreBanner tests", () => {
     test("Renders correctly", async () => {
@@ -8,7 +8,7 @@ describe("ExploreBanner tests", () => {
             to: "/",
         };
 
-        const screen = render(<ExploreBanner src={BANNER.src} to={BANNER.to} />);
+        const screen = render(<ExploreTrendingBanner src={BANNER.src} to={BANNER.to} />);
 
         const images = screen.getAllByRole("img");
         expect(images.some((image) => image.getAttribute("alt") === "Trending Top Banner")).toBe(true);
