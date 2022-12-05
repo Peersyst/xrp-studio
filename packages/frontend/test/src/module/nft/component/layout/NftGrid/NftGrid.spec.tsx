@@ -65,7 +65,6 @@ describe("Test for the NftGrid component", () => {
          * Tags
          */
         expect(screen.getByRole("button", { name: translate("search&Filter") })).toBeInTheDocument();
-        expect(screen.getByText(translate("noneApplied"))).toBeInTheDocument();
     });
 
     test("Renders correctly without nfts (with grid with filters) & without collections", () => {

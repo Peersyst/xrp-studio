@@ -64,7 +64,6 @@ describe("Test for the base grid with filters", () => {
         expect(screen.getByText("Tag1")).toBeInTheDocument();
         expect(screen.getByText("Tag2")).toBeInTheDocument();
         expect(screen.getByText("Tag3")).toBeInTheDocument();
-        expect(screen.getByRole("button", { name: translate("clearAll") })).toBeInTheDocument();
     });
 
     test("Renders correctly when has nothing to show + no tags + no Filters", () => {
@@ -95,8 +94,6 @@ describe("Test for the base grid with filters", () => {
                 {(letters) => letters.map((letter, key) => <p key={key}>{letter}</p>)}
             </BaseGridWithFilters>,
         );
-        //Tags
-        expect(screen.getByText(translate("noneApplied"))).toBeInTheDocument();
         expect(screen.getByRole("button", { name: translate("search&Filter") })).toBeInTheDocument();
         //Children
         expect(screen.getByRole("heading", { name: "Nothing to show" })).toBeInTheDocument();
