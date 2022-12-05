@@ -9,7 +9,7 @@ interface ArtistsCardCarouselProps extends InheritedCarouselProps {
 }
 
 const ArtistsCardCarousel = ({ artists, skeletonCount = 3, ...rest }: ArtistsCardCarouselProps): JSX.Element => (
-    <ArtistsCardCarouselRoot skeletonCount={skeletonCount} Skeleton={ArtistCardSkeleton} {...rest} gap={50}>
+    <ArtistsCardCarouselRoot skeletonCount={skeletonCount} Skeleton={ArtistCardSkeleton} {...rest}>
         {artists.map((artist, index) => (
             <ArtistCard key={index} artist={artist} />
         ))}
