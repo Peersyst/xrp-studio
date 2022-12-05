@@ -69,6 +69,11 @@ export const ProfileHeaderRoot = styled(PageHeader)<ProfileHeaderRootProps>(
 
             .profile-description {
                 display: block;
+                max-height: 3.6rem;
+                line-height: 1.2rem;
+                overflow: hidden;
+                text-overflow: ellipsis;
+                line-clamp: 3;
 
                 ${theme.breakpoints.down("md")} {
                     display: none;
