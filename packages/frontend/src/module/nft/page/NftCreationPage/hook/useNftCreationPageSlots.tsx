@@ -38,24 +38,27 @@ export default function ({ nft, collections, fixedCollection, loading = false }:
     const translateError = useTranslate("error");
     const { address: connectedWalletAddress } = useWallet();
 
-    const [transferableValue, setTransferableValue] = useState(false);
-    const [transferFeeValue, setTransferFeeValue] = useState("");
-
     const {
         issuer,
         transferFee,
         metadata: { image = "", name = "", description = "", externalUrl = "", attributes = [], backgroundColor = "" } = {},
         collection: nftCollection,
-        flags = 0,
+        flags,
     } = nft || {};
 
+    const defaultFlags = 8;
+
     const taxon = nftCollection?.taxon;
-    const { burnable, onlyXRP, trustLine, transferable } = typeof flags === "number" ? parseFlags(flags) : flags;
+    const { burnable, onlyXRP, transferable } =
+        flags !== undefined ? (typeof flags === "number" ? parseFlags(flags) : flags) : parseFlags(defaultFlags);
 
     const collectionOptions: SelectOption<number>[] = (collections || (nftCollection ? [nftCollection] : [])).map((collection) => ({
         value: collection.taxon,
         label: collection.name || collection.taxon.toString(),
     }));
+
+    const [transferableValue] = useState(transferable);
+    const [transferFeeValue, setTransferFeeValue] = useState("");
 
     return (
         <>
@@ -150,18 +153,10 @@ export default function ({ nft, collections, fixedCollection, loading = false }:
                     defaultValue={onlyXRP}
                 />
                 <Switch
-                    key={"trustLine: " + JSON.stringify(trustLine)}
-                    name={NftFormFields.trustLine}
-                    label={translate("trustLine")}
-                    defaultValue={trustLine}
-                />
-                <Switch
                     key={"transferable: " + JSON.stringify(transferable)}
                     name={NftFormFields.transferable}
                     label={translate("transferable")}
                     defaultValue={transferable}
-                    value={transferableValue}
-                    onChange={setTransferableValue}
                 />
                 <Divider />
                 <PropertiesInput
