@@ -1,12 +1,12 @@
 import { Col, Grid, Row, Skeleton, Typography } from "@peersyst/react-components";
-import CollectionCard from "module/collection/component/display/CollectionCard/CollectionCard";
 import useTranslate from "module/common/hook/useTranslate";
-import { ExploreTrendingCollectionsProps } from "module/explore/Explore.types";
+import { ExploreTrendingNftsProps } from "module/explore/Explore.types";
 import Link from "module/common/component/navigation/Link/Link";
 import { ExploreRoutes } from "module/explore/ExploreRouter";
+import NftCard from "module/nft/component/display/NftCard/NftCard";
 import { useGetNftGridBreakpoints } from "module/nft/component/layout/NftGrid/hook/useGetNftGridBreakpoints";
 
-const ExploreTrendingCollections = ({ collections = [], loading = false, ...rest }: ExploreTrendingCollectionsProps): JSX.Element => {
+const ExploreTrendingNfts = ({ nfts = [], loading = false, ...rest }: ExploreTrendingNftsProps): JSX.Element => {
     const translate = useTranslate();
     const breakpoints = useGetNftGridBreakpoints();
     return (
@@ -14,22 +14,22 @@ const ExploreTrendingCollections = ({ collections = [], loading = false, ...rest
             <Skeleton loading={loading}>
                 <Row gap={"1.5rem"}>
                     <Typography variant="h3" fontWeight={800}>
-                        {translate("collections")}
+                        {translate("theNfts")}
                     </Typography>
-                    <Link to={ExploreRoutes.COLLECTIONS} variant="body2">
+                    <Link to={ExploreRoutes.NFTS} variant="body2">
                         <Typography variant="h5" fontWeight={500} color={"status.info"} css={{ lineHeight: "2.5rem" }}>
                             {translate("viewAll")}
                         </Typography>
                     </Link>
                 </Row>
             </Skeleton>
-            <Grid cols={3} css={{ width: "fit-content" }} justifyContent="stretch" {...rest} breakpoints={breakpoints}>
-                {collections.slice(0, 3).map((collection, key) => (
-                    <CollectionCard size="lg" collection={collection} key={key} />
+            <Grid cols={4} css={{ width: "100%" }} justifyContent="stretch" {...rest} breakpoints={breakpoints}>
+                {nfts.slice(0, 8).map((nft, key) => (
+                    <NftCard nft={nft} key={key} css={{ width: "100%" }} />
                 ))}
             </Grid>
         </Col>
     );
 };
 
-export default ExploreTrendingCollections;
+export default ExploreTrendingNfts;
