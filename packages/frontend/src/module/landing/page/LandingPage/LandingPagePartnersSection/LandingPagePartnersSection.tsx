@@ -12,8 +12,8 @@ const LandingPagePartnersSection = ({ ...rest }: LandingPagePartnersSectionProps
                 {translate("ourPartners")}
             </Typography>
             <Row gap={"1.5rem"} className={"ContentPartners"}>
-                {PARTNERS.map((partner) => (
-                    <PartnersCard partner={partner} />
+                {PARTNERS.map((partner, index) => (
+                    <PartnersCard key={index} partner={partner} />
                 ))}
             </Row>
         </LandingPageSectionRoot>
