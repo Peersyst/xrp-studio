@@ -90,7 +90,7 @@ const CollectionCreationPageContent = ({ collection, loading = false }: WithLoad
                                 <TextArea
                                     key={"description: " + collectionDescription}
                                     name={CollectionCreationFormFields.DESCRIPTION}
-                                    defaultValue={collectionDescription}
+                                    defaultValue={collectionDescription || ""}
                                     label={translate("description")}
                                     placeholder={translate("collectionDescriptionPlaceholder")}
                                     variant="filled"
