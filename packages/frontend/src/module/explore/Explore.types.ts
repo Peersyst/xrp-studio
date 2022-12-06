@@ -5,21 +5,21 @@ export interface ExploreTrendingCollectionsProps {
     collections: CollectionDto[];
     className?: string;
     style?: CSSProperties;
-    loading: boolean;
+    loading?: boolean;
 }
 
 export interface ExploreTrendingArtistsProps {
     artists: UserDto[];
     className?: string;
     style?: CSSProperties;
-    loading: boolean;
+    loading?: boolean;
 }
 
 export interface ExploreTrendingNftsProps {
     nfts: NftDto[];
     className?: string;
     style?: CSSProperties;
-    loading: boolean;
+    loading?: boolean;
 }
 
 export interface ExploreTrendingBannerProps {
