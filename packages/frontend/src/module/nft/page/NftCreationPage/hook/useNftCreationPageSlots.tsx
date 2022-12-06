@@ -60,7 +60,7 @@ export default function ({ nft, collections, fixedCollection, loading = false }:
     }, [transferable]);
 
     useEffect(() => {
-        if (transferFee) setTransferFeeValue((transferFee * 1000).toString());
+        if (transferFee) setTransferFeeValue((transferFee / 1000).toString());
     }, [transferFee]);
 
     return (
