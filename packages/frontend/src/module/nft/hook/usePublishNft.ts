@@ -18,8 +18,10 @@ export default function (request: CreateNftDraftRequest, draftId?: number): UseM
 
         if (!hasBalance) throw new Error(translateError("notEnoughBalance"));
         else {
-            if (draftId) await updateNftDraft({ id: draftId, publish: true, ...request });
-            else {
+            if (draftId) {
+                await updateNftDraft({ id: draftId, publish: true, ...request });
+                return draftId;
+            } else {
                 const response = await createNft(request);
                 return response.id;
             }

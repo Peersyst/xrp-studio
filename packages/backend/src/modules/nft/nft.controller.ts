@@ -94,7 +94,7 @@ export class NftController {
     async getNftDraft(@Request() req, @Param("id", ParseIntPipe) id: number): Promise<NftDraftDto> {
         return this.nftService.findOne(id, {
             ownerAddress: req.user.address,
-            status: [NftStatus.DRAFT, NftStatus.FAILED],
+            status: [NftStatus.DRAFT, NftStatus.FAILED, NftStatus.PENDING],
             relations: ["metadata", "metadata.attributes", "user", "collection"],
         });
     }
