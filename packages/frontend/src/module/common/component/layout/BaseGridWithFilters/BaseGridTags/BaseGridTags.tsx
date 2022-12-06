@@ -1,4 +1,3 @@
-import { Typography } from "@peersyst/react-components";
 import Button from "module/common/component/input/Button/Button";
 import { filtersVisibilityState } from "module/common/component/state/FiltersVisibilityState";
 import useTranslate from "module/common/hook/useTranslate";
@@ -36,14 +35,10 @@ function BaseGridTags<T>({ tags, onClear, onDeleteTagClicked }: BaseGridTagsProp
                     ))}
                 </TagCarousel>
             )}
-            {tags && tags.length > 0 ? (
+            {tags && tags.length > 0 && (
                 <Button variant="outlined" onClick={handleClear} size="md">
                     {t("clearAll")}
                 </Button>
-            ) : (
-                <Typography variant="body1" light>
-                    {t("noneApplied")}
-                </Typography>
             )}
         </BaseGridTagsRoot>
     );

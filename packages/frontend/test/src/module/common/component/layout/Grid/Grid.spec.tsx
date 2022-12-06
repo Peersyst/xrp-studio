@@ -175,8 +175,6 @@ describe("Test for the Grid component", () => {
                 {(letters) => letters.map((letter, key) => <p key={key}>{letter}</p>)}
             </Grid>,
         );
-        //Tags
-        expect(screen.getByText(translate("noneApplied"))).toBeInTheDocument();
         expect(screen.getByRole("button", { name: translate("search&Filter") })).toBeInTheDocument();
         //Children
         expect(screen.getByRole("heading", { name: "Nothing to show" })).toBeInTheDocument();

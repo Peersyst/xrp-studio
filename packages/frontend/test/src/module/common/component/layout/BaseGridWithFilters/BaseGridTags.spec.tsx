@@ -40,7 +40,6 @@ describe("Test for the base grid with tags", () => {
         const mockedSetShowFilters = jest.fn();
         jest.spyOn(Recoil, "useRecoilState").mockReturnValue([false, mockedSetShowFilters]);
         const screen = render(<BaseGridTags />);
-        expect(screen.getByText(translate("noneApplied"))).toBeInTheDocument();
         const btn = screen.getByText(translate("search&Filter"));
         expect(btn).toBeInTheDocument();
         fireEvent.click(btn);

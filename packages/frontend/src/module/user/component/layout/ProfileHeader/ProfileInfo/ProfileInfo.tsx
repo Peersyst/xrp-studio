@@ -56,7 +56,7 @@ const ProfileInfo = (): JSX.Element => {
                     </ProfileButtons>
                 </Row>
                 <Skeleton width="70%" loading={isLoading}>
-                    <Typography className="profile-description" variant="body1" light singleLine>
+                    <Typography className="profile-description" variant="body1" light>
                         {description}
                     </Typography>
                 </Skeleton>
