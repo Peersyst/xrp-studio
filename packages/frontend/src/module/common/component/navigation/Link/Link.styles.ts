@@ -1,14 +1,11 @@
-import styled, { css } from "styled-components";
-import { alpha } from "@peersyst/react-utils";
+import styled from "styled-components";
 
-export const LinkRoot = styled.a(
-    ({ theme }) => css`
-        display: flex;
-        text-decoration: none;
-        font-weight: 600;
+export const LinkRoot = styled.a`
+    display: flex;
+    text-decoration: none;
+    font-weight: 600;
 
-        &:hover {
-            color: ${alpha(theme.palette.primary, 0.8)};
-        }
-    `,
-);
+    &:hover {
+        opacity: 0.8;
+    }
+`;
