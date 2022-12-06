@@ -8,7 +8,7 @@ export const CollectionCardRoot = styled.div<CollectionCardSizeProps>(
         display: flex;
         flex-direction: column;
         position: relative;
-        width: 22.5rem;
+        width: 100%;
         height: ${size == "md" ? "12rem" : "18.75rem"};
         border-radius: ${theme.borderRadiusMd};
         background-color: ${theme.palette.black["85"]};
@@ -17,9 +17,10 @@ export const CollectionCardRoot = styled.div<CollectionCardSizeProps>(
 
 export const CollectionCardCover = styled(Image)<CollectionCardSizeProps>(
     ({ theme, size }) => css`
-        width: inherit;
+        width: 100%;
         height: ${size == "md" ? "67%" : "78%"};
         border-radius: ${theme.borderRadiusMd};
+        max-width: 100%;
     `,
 );
 

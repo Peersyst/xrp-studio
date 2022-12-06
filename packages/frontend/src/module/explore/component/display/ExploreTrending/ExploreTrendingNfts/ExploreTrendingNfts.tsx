@@ -16,10 +16,15 @@ const ExploreTrendingNfts = ({ nfts = [], loading = false, ...rest }: ExploreTre
                     <Typography variant="h3" fontWeight={800}>
                         {translate("theNfts")}
                     </Typography>
-                    <Link to={ExploreRoutes.NFTS} variant="body2">
-                        <Typography variant="h5" fontWeight={500} color={"status.info"} css={{ lineHeight: "2.5rem" }}>
-                            {translate("viewAll")}
-                        </Typography>
+                    <Link
+                        to={ExploreRoutes.NFTS}
+                        variant="h6"
+                        fontWeight={500}
+                        color={"status.info"}
+                        style={{ alignItems: "center" }}
+                        type="router"
+                    >
+                        {translate("viewAll")}
                     </Link>
                 </Row>
             </Skeleton>

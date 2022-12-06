@@ -22,7 +22,11 @@ const CollectionCard = forwardRef(
         const alt = "collection-" + id;
 
         return (
-            <ConditionalLink condition={!loading} to={CollectionRoutes.VIEW_COLLECTION.replace(":id", id.toString())}>
+            <ConditionalLink
+                condition={!loading}
+                to={CollectionRoutes.VIEW_COLLECTION.replace(":id", id.toString())}
+                css={{ width: "100%" }}
+            >
                 <CollectionCardRoot size={size} ref={(r) => setRef(ref, r)}>
                     <CollectionCardCover size={size} src={header} alt={`${alt}-cover`} loading={loading} />
                     <CollectionCardFooter>
