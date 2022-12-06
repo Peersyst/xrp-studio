@@ -8,19 +8,22 @@ export const CollectionCardRoot = styled.div<CollectionCardSizeProps>(
         display: flex;
         flex-direction: column;
         position: relative;
-        width: 100%;
+        width: 22.5rem;
         height: ${size == "md" ? "12rem" : "18.75rem"};
         border-radius: ${theme.borderRadiusMd};
         background-color: ${theme.palette.black["85"]};
+
+        ${theme.breakpoints.down("mobile")} {
+            width: min(20rem, 77vw);
+        }
     `,
 );
 
 export const CollectionCardCover = styled(Image)<CollectionCardSizeProps>(
     ({ theme, size }) => css`
-        width: 100%;
+        width: inherit;
         height: ${size == "md" ? "67%" : "78%"};
         border-radius: ${theme.borderRadiusMd};
-        max-width: 100%;
     `,
 );
 

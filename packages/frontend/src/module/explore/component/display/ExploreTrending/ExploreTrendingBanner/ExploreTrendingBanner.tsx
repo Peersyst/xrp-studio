@@ -1,11 +1,11 @@
-import { BaseExploreBanner } from "./ExploreTrendingBanner.styles";
-import Link from "module/common/component/navigation/Link/Link";
+import { ExploreBannerRoot } from "./ExploreTrendingBanner.styles";
 import { ExploreTrendingBannerProps } from "module/explore/Explore.types";
+import { Link } from "react-router-dom";
 
 const ExploreBanner = ({ src, to }: ExploreTrendingBannerProps): JSX.Element => {
     return (
-        <Link to={to} variant="body2">
-            <BaseExploreBanner src={src} alt={"Trending Top Banner"} height="22.5rem" />
+        <Link to={to}>
+            <ExploreBannerRoot src={src} alt="explore-banner" />
         </Link>
     );
 };
