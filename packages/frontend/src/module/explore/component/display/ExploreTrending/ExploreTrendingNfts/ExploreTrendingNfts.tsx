@@ -10,7 +10,7 @@ const ExploreTrendingNfts = ({ nfts = [], loading = false, ...rest }: ExploreTre
     const translate = useTranslate();
     const breakpoints = useGetNftGridBreakpoints();
     return (
-        <Col gap="1.5rem" {...rest}>
+        <Col gap="1.5rem">
             <Skeleton loading={loading}>
                 <Row gap={"1.5rem"}>
                     <Typography variant="h3" fontWeight={800}>

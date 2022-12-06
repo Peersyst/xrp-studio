@@ -6,6 +6,7 @@ import { useGetTrends } from "module/explore/query/useGetTrending";
 import ExploreTrendingCollections from "../../display/ExploreTrending/ExploreTrendingCollections/ExploreTrendingCollections";
 import ExploreTrendingBanner from "../../display/ExploreTrending/ExploreTrendingBanner/ExploreTrendingBanner";
 import ExploreTrendingNfts from "../../display/ExploreTrending/ExploreTrendingNfts/ExploreTrendingNfts";
+import ExploreTrendingArtists from "../../display/ExploreTrending/ExploreTrendingArtists/ExploreTrendingArtists";
 
 const ExplorePageContent = (): JSX.Element => {
     const { data: { nfts, artists, collections } = { nfts: [], artists: [], collections: [] }, isLoading } = useGetTrends();
@@ -23,6 +24,7 @@ const ExplorePageContent = (): JSX.Element => {
                         <ExploreTrendingBanner src={BANNER.src} to={BANNER.to} />
                         <ExploreTrendingCollections loading={isLoading} collections={collections} />
                         <ExploreTrendingNfts loading={isLoading} nfts={nfts} />
+                        <ExploreTrendingArtists loading={isLoading} artists={artists} />
                     </Col>
                 </PageContent>
             </TabPanel>
