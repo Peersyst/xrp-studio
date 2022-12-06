@@ -1,7 +1,6 @@
 import { CollectionDto } from "module/api/service";
 import { ReactNode, useState } from "react";
 import useTranslate from "module/common/hook/useTranslate";
-import useWallet from "module/wallet/hook//useWallet";
 import parseFlags from "module/nft/util/parseFlags";
 import { Divider, SelectOption, Switch } from "@peersyst/react-components";
 import BaseNftPageContent from "module/nft/component/layout/BaseNftPage/BaseNftPageContent/BaseNftPageContent";
@@ -36,26 +35,31 @@ export interface UseNftCreationPageSlotsParams {
 export default function ({ nft, collections, fixedCollection, loading = false }: UseNftCreationPageSlotsParams): ReactNode {
     const translate = useTranslate();
     const translateError = useTranslate("error");
-    const { address: connectedWalletAddress } = useWallet();
-
-    const [transferableValue, setTransferableValue] = useState(false);
-    const [transferFeeValue, setTransferFeeValue] = useState("");
 
     const {
-        issuer,
         transferFee,
         metadata: { image = "", name = "", description = "", externalUrl = "", attributes = [], backgroundColor = "" } = {},
         collection: nftCollection,
-        flags = 0,
+        flags,
     } = nft || {};
 
+    const defaultFlags = 8;
+
     const taxon = nftCollection?.taxon;
-    const { burnable, onlyXRP, trustLine, transferable } = typeof flags === "number" ? parseFlags(flags) : flags;
+    const {
+        burnable,
+        onlyXRP,
+        trustLine = false,
+        transferable,
+    } = flags !== undefined ? (typeof flags === "number" ? parseFlags(flags) : flags) : parseFlags(defaultFlags);
 
     const collectionOptions: SelectOption<number>[] = (collections || (nftCollection ? [nftCollection] : [])).map((collection) => ({
         value: collection.taxon,
         label: collection.name || collection.taxon.toString(),
     }));
+
+    const [transferableValue] = useState(transferable);
+    const [transferFeeValue, setTransferFeeValue] = useState("");
 
     return (
         <>
@@ -96,15 +100,6 @@ export default function ({ nft, collections, fixedCollection, loading = false }:
                         defaultValue={taxon}
                     />
                 )}
-                <TextField
-                    key={"issuer: " + issuer}
-                    name={NftFormFields.issuer}
-                    label={translate("issuer")}
-                    placeholder={connectedWalletAddress}
-                    variant="filled"
-                    defaultValue={issuer}
-                    validators={{ address: true }}
-                />
                 <TextField
                     key={"transferFee: " + transferFee?.toString()}
                     name={NftFormFields.transferFee}
@@ -154,14 +149,13 @@ export default function ({ nft, collections, fixedCollection, loading = false }:
                     name={NftFormFields.trustLine}
                     label={translate("trustLine")}
                     defaultValue={trustLine}
+                    style={{ display: "none" }}
                 />
                 <Switch
                     key={"transferable: " + JSON.stringify(transferable)}
                     name={NftFormFields.transferable}
                     label={translate("transferable")}
                     defaultValue={transferable}
-                    value={transferableValue}
-                    onChange={setTransferableValue}
                 />
                 <Divider />
                 <PropertiesInput

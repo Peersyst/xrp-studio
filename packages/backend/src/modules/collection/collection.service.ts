@@ -11,6 +11,7 @@ import { User } from "../../database/entities/User";
 import { UpdateCollectionRequest } from "./request/update-collection.request";
 import { NftService } from "../nft/nft.service";
 import { QueryBuilderHelper } from "../common/util/query-builder.helper";
+import { NftStatus } from "../../database/entities/Nft";
 
 @Injectable()
 export class CollectionService {
@@ -49,14 +50,18 @@ export class CollectionService {
         if (nfts)
             for await (const nft of nfts)
                 await this.nftService.createNftDraft(address, { ...nft, taxon: Number(collection.taxon) }, publish);
-
-        return CollectionDto.fromEntity(collection);
+        return this.findOne({ id: collection.id }, { relations: ["user", "nfts"] });
     }
 
     /**
      * Updates a collection
      */
-    async updateCollection(id: number, address: string, { name, description, image, header }: UpdateCollectionRequest): Promise<void> {
+    async updateCollection(
+        id: number,
+        address: string,
+        { name, description, image, header, nfts }: UpdateCollectionRequest,
+        publish?: boolean,
+    ): Promise<CollectionDto> {
         const collection = await this.findOne({ id }, { relations: ["user"] });
 
         if (collection?.user?.address !== address) throw new BusinessException(ErrorCode.COLLECTION_NOT_OWNED);
@@ -67,6 +72,18 @@ export class CollectionService {
             image: image || null,
             header: header || null,
         });
+
+        if (nfts) for await (const nft of nfts) await this.nftService.createNftDraft(address, { ...nft, taxon: Number(collection.taxon) });
+
+        if (publish) {
+            const collection = await this.findOne({ id }, { relations: ["nfts"] });
+            for (const nft of collection.nfts) {
+                if (nft.status !== NftStatus.CONFIRMED && nft.status !== NftStatus.PENDING) {
+                    await this.nftService.publishDraft(nft.id, address);
+                }
+            }
+        }
+        return this.findOne({ id: collection.id }, { relations: ["user", "nfts"] });
     }
 
     async addItems(id: number, inc: number): Promise<void> {

@@ -7,6 +7,15 @@ import { CreateMetadataRequest } from "../../metadata/request/create-metadata.re
 
 export class CreateCollectionNftRequest {
     @ApiProperty({
+        name: "id",
+        description: "The id of the nft if its already a draft",
+        type: "number",
+        required: false,
+    })
+    @IsOptional()
+    id?: number;
+
+    @ApiProperty({
         name: "issuer",
         description: "Issuer of the NFT, if not provided the sender of the transaction acts as the issuer",
         type: "string",

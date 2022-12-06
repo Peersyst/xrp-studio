@@ -28,15 +28,6 @@ describe("parseFlags", () => {
         });
     });
 
-    test("Returns trustLine true", () => {
-        expect(parseFlags(4)).toEqual({
-            burnable: false,
-            onlyXRP: false,
-            trustLine: true,
-            transferable: false,
-        });
-    });
-
     test("Returns transferable true", () => {
         expect(parseFlags(8)).toEqual({
             burnable: false,

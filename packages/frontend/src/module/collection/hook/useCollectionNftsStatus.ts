@@ -1,12 +1,6 @@
 import { polling } from "@peersyst/react-utils";
 import { useEffect, useState } from "react";
-import { NftDraftStatusDto } from "module/api/service";
-
-// TODO: Mock xummSignaturesMock as it is not defined in the API
-async function collectionNftsStatusMock(ids: number[]): Promise<NftDraftStatusDto[]> {
-    await new Promise<void>((resolve) => setTimeout(resolve, 3000));
-    return ids.map((id) => ({ id, status: "confirmed" }));
-}
+import { NftDraftStatusDto, NftService } from "module/api/service";
 
 export interface UseCollectionNftsStatusResult {
     fetch: () => Promise<NftDraftStatusDto[]> | undefined;
@@ -50,11 +44,7 @@ export default function (ids: number[] | undefined): UseCollectionNftsStatusResu
     };
 
     const fetch = (): Promise<NftDraftStatusDto[]> | undefined => {
-        if (ids)
-            return polling(
-                () => collectionNftsStatusMock(ids) /*NftService.nftControllerGetNftDraftStatus(undefined, ids)*/,
-                handleStatuses,
-            );
+        if (ids) return polling(() => NftService.nftControllerGetNftDraftStatus(undefined, ids), handleStatuses);
         return undefined;
     };
 

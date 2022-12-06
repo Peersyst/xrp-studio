@@ -34,18 +34,23 @@ export class CollectionService {
      * Updates a collection
      * @param id
      * @param requestBody
-     * @returns void
+     * @param publish
+     * @returns CollectionDto
      * @throws ApiError
      */
     public static collectionControllerUpdateCollection(
         id: number,
         requestBody: UpdateCollectionRequest,
-    ): CancelablePromise<void> {
+        publish?: boolean,
+    ): CancelablePromise<CollectionDto> {
         return __request(OpenAPI, {
             method: 'PUT',
             url: '/api/collection/{id}',
             path: {
                 'id': id,
+            },
+            query: {
+                'publish': publish,
             },
             body: requestBody,
             mediaType: 'application/json',

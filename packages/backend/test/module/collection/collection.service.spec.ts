@@ -71,16 +71,14 @@ describe("CollectionService", () => {
 
         test("Creates collection with auto generated taxon with user having smallest missing taxon = 1", async () => {
             collectionRepositoryMock.query.mockResolvedValueOnce([{ missing_taxon: "2" }]);
-            const collection = await collectionService.createCollection(ACCOUNT, CREATE_COLLECTION_REQUEST);
+            await collectionService.createCollection(ACCOUNT, CREATE_COLLECTION_REQUEST);
             expect(collectionRepositoryMock.save).toHaveBeenCalledWith({ ...baseCreatedCollection, taxon: "2" });
-            expect(collection).toEqual(expect.objectContaining({ taxon: 2 }));
         });
 
         test("Creates collection with auto generated taxon with user having smallest missing taxon = 3", async () => {
             collectionRepositoryMock.query.mockResolvedValueOnce([{ missing_taxon: "3" }]);
-            const collection = await collectionService.createCollection(ACCOUNT, CREATE_COLLECTION_REQUEST);
+            await collectionService.createCollection(ACCOUNT, CREATE_COLLECTION_REQUEST);
             expect(collectionRepositoryMock.save).toHaveBeenCalledWith({ ...baseCreatedCollection, taxon: "3" });
-            expect(collection).toEqual(expect.objectContaining({ taxon: 3 }));
         });
 
         test("Throws NO_MORE_TAXONS_AVAILABLE when user has 4294967295 collections", async () => {
@@ -94,9 +92,8 @@ describe("CollectionService", () => {
 
         test("Creates a collection with a given taxon not used by the account", async () => {
             const findCollectionByTaxonAndAccountMock = jest.spyOn(CollectionService.prototype, "findOne").mockResolvedValue(undefined);
-            const collection = await collectionService.createCollection(ACCOUNT, { taxon: 25, ...CREATE_COLLECTION_REQUEST });
+            await collectionService.createCollection(ACCOUNT, { taxon: 25, ...CREATE_COLLECTION_REQUEST });
             expect(collectionRepositoryMock.save).toHaveBeenCalledWith({ ...baseCreatedCollection, taxon: "25" });
-            expect(collection).toEqual(expect.objectContaining({ taxon: 25 }));
             findCollectionByTaxonAndAccountMock.mockRestore();
         });
 

@@ -26,17 +26,17 @@ export class Drop {
     @Column({ type: "varchar", length: 7 })
     fontColor: string;
 
-    @Column({ type: "varchar", length: 1023 })
-    videoUrl: string;
+    @Column({ type: "varchar", length: 1023, nullable: true })
+    videoUrl?: string;
 
-    @Column({ type: "varchar", length: 255 })
-    instagram: string;
+    @Column({ type: "varchar", length: 255, nullable: true })
+    instagram?: string;
 
-    @Column({ type: "varchar", length: 255 })
-    twitter: string;
+    @Column({ type: "varchar", length: 255, nullable: true })
+    twitter?: string;
 
-    @Column({ type: "varchar", length: 255 })
-    discord: string;
+    @Column({ type: "varchar", length: 1023, nullable: true })
+    discord?: string;
 
     @OneToOne(() => Collection, (collection) => collection.drop)
     @JoinColumn([{ name: "collection_id", referencedColumnName: "id" }])

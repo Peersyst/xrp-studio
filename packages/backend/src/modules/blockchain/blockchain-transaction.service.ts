@@ -3,6 +3,7 @@ import { AccountSetAsfFlags, Client, convertStringToHex, SubmitResponse, Transac
 import { ConfigService } from "@nestjs/config";
 import { NFTokenMint } from "xrpl/dist/npm/models/transactions/NFTokenMint";
 import { TransactionMetadata } from "xrpl/dist/npm/models/transactions";
+import parseFlags from "../nft/util/parseFlags";
 
 export enum TransactionStatus {
     UNCONFIRMED = "unconfirmed",
@@ -41,30 +42,32 @@ export class BlockchainTransactionService {
         return sequence;
     }
 
-    async prepareNftMintTransaction({
-        account,
-        flags = 0,
-        memo,
-        taxon = 0,
-        uri,
-        issuer,
-        transferFee,
-    }: {
-        account: string;
-        flags?: number;
-        memo?: string;
-        taxon?: number;
-        uri?: string;
-        issuer?: string;
-        transferFee?: number;
-    }): Promise<NFTokenMint> {
-        return this.xrpClient.autofill({
+    async prepareNftMintTransaction(
+        {
+            account,
+            flags = 0,
+            memo,
+            taxon = 0,
+            uri,
+            issuer,
+            transferFee,
+        }: {
+            account: string;
+            flags?: number;
+            memo?: string;
+            taxon?: number;
+            uri?: string;
+            issuer?: string;
+            transferFee?: number;
+        },
+        autofill = true,
+    ): Promise<NFTokenMint> {
+        const tx = {
             TransactionType: "NFTokenMint",
             Account: account,
             NFTokenTaxon: taxon,
             Flags: flags,
             Issuer: issuer,
-            TransferFee: transferFee,
             URI: uri && convertStringToHex(uri),
             Sequence: account === this.mintingAccount.address ? this.consumeSequence() : undefined,
             Memos: [
@@ -74,7 +77,10 @@ export class BlockchainTransactionService {
                     },
                 },
             ],
-        });
+        } as NFTokenMint;
+        const { transferable } = parseFlags(flags);
+        if (transferable) tx.TransferFee = transferFee || 0;
+        return autofill ? this.xrpClient.autofill(tx) : tx;
     }
 
     async prepareSellOfferTransaction({

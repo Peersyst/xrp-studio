@@ -124,8 +124,8 @@ describe("CollectionCreationPage", () => {
             // Await get collection call
             await waitFor(() => expect(screen.getByDisplayValue(collectionDtoMock.name!)).toBeInTheDocument());
 
-            // Nfts input not rendered
-            expect(screen.queryByText(translate("uploadAFileToCreateAnNfts"))).toBeNull();
+            // Nfts rendered
+            expect(screen.queryByText(translate("uploadAFileToCreateAnNfts"))).toBeInTheDocument();
 
             // Nfts form no rednered
             expect(screen.queryByPlaceholderText(translate("externalLinkPlaceholder"))).toBeNull();
@@ -158,7 +158,9 @@ describe("CollectionCreationPage", () => {
 
         test("Updates collection", async () => {
             getCollectionMock = jest.spyOn(CollectionService, "collectionControllerGetCollection").mockResolvedValueOnce(collectionDtoMock);
-            const updateCollectionMock = jest.spyOn(CollectionService, "collectionControllerUpdateCollection").mockResolvedValueOnce();
+            const updateCollectionMock = jest
+                .spyOn(CollectionService, "collectionControllerUpdateCollection")
+                .mockResolvedValueOnce(collectionDtoMock);
 
             render(<CollectionCreationPage />);
 
@@ -171,12 +173,16 @@ describe("CollectionCreationPage", () => {
             userEvent.click(saveButton);
 
             await waitFor(() =>
-                expect(updateCollectionMock).toHaveBeenCalledWith(1, {
-                    name: COLLECTION_NAME,
-                    description: collectionDtoMock.description,
-                    header: collectionDtoMock.header,
-                    image: collectionDtoMock.image,
-                }),
+                expect(updateCollectionMock).toHaveBeenCalledWith(
+                    1,
+                    {
+                        name: COLLECTION_NAME,
+                        description: collectionDtoMock.description,
+                        header: collectionDtoMock.header,
+                        image: collectionDtoMock.image,
+                    },
+                    undefined,
+                ),
             );
             await waitFor(() => expect(useToastMock.showToast).toHaveBeenCalledWith(translate("collectionUpdated"), { type: "success" }));
             expect(useNavigateMock.navigate).toHaveBeenCalledWith(CollectionRoutes.MY_COLLECTIONS, { replace: true });

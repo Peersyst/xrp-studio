@@ -6,14 +6,22 @@ import Button from "module/common/component/input/Button/Button";
 import { CollectionCreationPageHeaderProps } from "./CollectionCreationPageHeader.types";
 import useGoBack from "module/common/hook/useGoBack";
 import useCollectionCreationState from "module/collection/hook/useCollectionCreationState";
+import useWallet from "module/wallet/hook/useWallet";
+import useGetUser from "module/user/query/useGetUser";
 
-const CollectionCreationPageHeader = ({ loading, saving, publishing }: CollectionCreationPageHeaderProps): JSX.Element => {
+const CollectionCreationPageHeader = ({ collection, loading, saving, publishing }: CollectionCreationPageHeaderProps): JSX.Element => {
     const translate = useTranslate();
     const goBack = useGoBack();
     const [searchParams] = useSearchParams();
 
+    const { address } = useWallet();
+    const { data: user } = useGetUser(address);
+
     const [{ nfts }] = useCollectionCreationState();
-    const hasNfts = !!nfts.length;
+    const hasUnpublishedNfts =
+        nfts.length > 0 || (collection?.nfts || []).some((nft) => nft.status !== "confirmed" && nft.status !== "pending");
+
+    const allNftsAreDrafts = !(collection?.nfts || []).some((nft) => nft.status !== "draft");
 
     const isEdition = !!searchParams.get("id");
 
@@ -30,24 +38,38 @@ const CollectionCreationPageHeader = ({ loading, saving, publishing }: Collectio
                     <Button size="lg" type="submit" action="save" loading={saving} disabled={loading || publishing}>
                         {translate("save")}
                     </Button>
-                    {!isEdition && (
-                        <Popover visible={hasNfts ? false : undefined} arrow position="top">
+                    <Popover visible={hasUnpublishedNfts ? false : undefined} arrow position="top">
+                        <Popover.Content>
+                            <span>
+                                <Button
+                                    size="lg"
+                                    type="submit"
+                                    action="publish"
+                                    loading={publishing}
+                                    disabled={loading || saving || !hasUnpublishedNfts}
+                                >
+                                    {translate("publish")}
+                                </Button>
+                            </span>
+                        </Popover.Content>
+                        <Popover.Popper>
+                            <Typography variant="body2" css={{ padding: "0.75rem" }}>
+                                {translate("cantPublishCollectionWithoutNfts")}
+                            </Typography>
+                        </Popover.Popper>
+                    </Popover>
+                    {user && user.verifiedArtist && [...nfts, ...(collection?.nfts || [])].length > 0 && (
+                        <Popover visible={allNftsAreDrafts ? false : undefined} arrow position="top">
                             <Popover.Content>
                                 <span>
-                                    <Button
-                                        size="lg"
-                                        type="submit"
-                                        action="publish"
-                                        loading={publishing}
-                                        disabled={!hasNfts || loading || saving}
-                                    >
-                                        {translate("publish")}
+                                    <Button size="lg" type="submit" action="launch" disabled={loading || saving || !allNftsAreDrafts}>
+                                        {translate("launch")}
                                     </Button>
                                 </span>
                             </Popover.Content>
                             <Popover.Popper>
                                 <Typography variant="body2" css={{ padding: "0.75rem" }}>
-                                    {translate("cantPublishCollectionWithoutNfts")}
+                                    {translate("cantLaunchCollectionWithPublishedNfts")}
                                 </Typography>
                             </Popover.Popper>
                         </Popover>

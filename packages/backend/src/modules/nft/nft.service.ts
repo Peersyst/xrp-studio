@@ -233,14 +233,17 @@ export class NftService {
 
         const cid = metadata && (await this.metadataService.publishMetadata(nftId));
 
-        const transaction = await this.blockchainTransactionService.prepareNftMintTransaction({
-            account: ownerAddress,
-            flags: flags,
-            taxon: Number(collection?.taxon || "0"),
-            uri: cid && "ipfs://" + cid,
-            transferFee: transferFee,
-            memo: JSON.stringify({ id: draftId, ...(metadata?.name && { name: metadata.name }) }),
-        });
+        const transaction = await this.blockchainTransactionService.prepareNftMintTransaction(
+            {
+                account: ownerAddress,
+                flags: flags,
+                taxon: Number(collection?.taxon || "0"),
+                uri: cid && "ipfs://" + cid,
+                transferFee: transferFee,
+                memo: JSON.stringify({ id: draftId, ...(metadata?.name && { name: metadata.name }) }),
+            },
+            false,
+        );
 
         await this.xummTransactionService.sendTransactionRequest(ownerAddress, transaction, async () => {
             await this.nftRepository.update({ id: nftId }, { status: NftStatus.FAILED });
@@ -285,9 +288,8 @@ export class NftService {
      */
     async getNftDraftsStatus(ids: number[], account: string): Promise<NftDraftStatusDto[]> {
         const drafts = await this.createQueryBuilder({ relations: { user: true } })
-            .where("nft.id IN (:...ids) AND nft.status != :confirmed AND user.address = :account", {
+            .where("nft.id IN (:...ids) AND user.address = :account", {
                 ids,
-                confirmed: NftStatus.CONFIRMED,
                 account,
             })
             .getMany();
