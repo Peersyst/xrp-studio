@@ -22,7 +22,7 @@ describe("NftCreationPage", () => {
         burnable: false,
         onlyXRP: false,
         trustLine: false,
-        transferable: false,
+        transferable: true,
         backgroundColor: new Color(),
         attributes: [],
     });
@@ -82,9 +82,7 @@ describe("NftCreationPage", () => {
             // collection
             expect(screen.getByText(translate("collection"))).toBeInTheDocument();
             expect(screen.getByText(translate("collectionPlaceholder"))).toBeInTheDocument();
-            // issuer
-            expect(screen.getByText(translate("issuer"))).toBeInTheDocument();
-            expect(screen.getByPlaceholderText(translate(walletMock.address))).toBeInTheDocument();
+
             // transfer fee
             expect(screen.getByText(translate("transferFee"))).toBeInTheDocument();
             expect(screen.getByPlaceholderText("0")).toBeInTheDocument();

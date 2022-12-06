@@ -25,7 +25,7 @@ export interface CollectionCreationState {
 
 const collectionCreationState = atom<CollectionCreationState>({
     key: "collection-creation",
-    default: { burnable: false, onlyXRP: false, trustLine: false, transferable: false, nfts: [] },
+    default: { burnable: false, onlyXRP: false, trustLine: false, transferable: true, nfts: [] },
 });
 
 export default collectionCreationState;

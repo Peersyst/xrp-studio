@@ -30,14 +30,13 @@ export default function ({ nft, loading = false }: UserViewNftPageSlots): ReactN
     const {
         tokenId,
         mintTransactionHash,
-        issuer,
         transferFee,
         metadata: { image = "", name = "", description = "", externalUrl = "", attributes = [], backgroundColor = "" } = {},
         collection: nftCollection,
         flags = 0,
         user = { address: "" },
     } = nft || {};
-    const { burnable, onlyXRP, trustLine, transferable } = parseFlags(flags);
+    const { burnable, onlyXRP, transferable } = parseFlags(flags);
 
     return (
         <>
@@ -89,9 +88,6 @@ export default function ({ nft, loading = false }: UserViewNftPageSlots): ReactN
                         </Typography>
                     )}
                 </Label>
-                <Label label={translate("issuer")}>
-                    <BlockchainAddress variant="body1" address={issuer || ""} type="address" fontWeight={600} />
-                </Label>
                 <Label label={translate("transferFee")}>
                     <Typography variant="body1" fontStyle={transferFee === undefined ? "italic" : undefined}>
                         {transferFee === undefined
@@ -119,7 +115,6 @@ export default function ({ nft, loading = false }: UserViewNftPageSlots): ReactN
                 <Divider />
                 <Switch label={translate("burnable")} value={burnable} readonly />
                 <Switch label={translate("onlyXRP")} value={onlyXRP} readonly />
-                <Switch label={translate("trustLine")} value={trustLine} readonly />
                 <Switch label={translate("transferable")} value={transferable} readonly />
                 <Divider />
                 <Col>

@@ -1,15 +1,9 @@
 import { screen } from "@testing-library/react";
 import { render, translate } from "test-utils";
 import CollectionCreationPageContent from "module/collection/page/CollectionCreationPage/CollectionCreationPageContent/CollectionCreationPageContent";
-import { CollectionDtoMock, WalletMock } from "test-mocks";
+import { CollectionDtoMock } from "test-mocks";
 
 describe("CollectionCreationPageContent", () => {
-    let useWalletMock: WalletMock;
-
-    beforeAll(() => {
-        useWalletMock = new WalletMock({ isLogged: true, address: "address" });
-    });
-
     test("Renders creation", () => {
         render(<CollectionCreationPageContent collection={undefined} />);
 
@@ -19,8 +13,7 @@ describe("CollectionCreationPageContent", () => {
         expect(screen.getByPlaceholderText(translate("collectionNamePlaceholder"))).toBeInTheDocument();
         // Description
         expect(screen.getByPlaceholderText(translate("collectionDescriptionPlaceholder"))).toBeInTheDocument();
-        // Issuer
-        expect(screen.getByPlaceholderText(useWalletMock.address!)).toBeInTheDocument();
+
         // Transfer fee
         expect(screen.getByPlaceholderText("0")).toBeInTheDocument();
         // External url
