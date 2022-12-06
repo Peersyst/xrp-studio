@@ -12,6 +12,7 @@ import { useCollectionRoutes } from "module/collection/CollectionRouter";
 import { useDropRoutes } from "module/drop/DropRouter";
 import { useExploreRoutes } from "module/explore/ExploreRouter";
 import { useLandingRoutes } from "module/landing/LandingRouter";
+import LoadingLogo from "module/common/component/layout/LoadingLogo/LoadingLogo";
 
 export enum BaseRoutes {
     HOME = "/",
@@ -42,9 +43,9 @@ const Router = (): JSX.Element => {
         <BrowserRouter basename={config.publicUrl}>
             <ModalProvider>
                 <ScrollToTop />
-                <Suspense fallback={<div>Loading</div>}>
+                <Suspense fallback={<LoadingLogo />}>
                     {loading ? (
-                        <div>Loading</div>
+                        <LoadingLogo />
                     ) : (
                         <>
                             <AppBar />
