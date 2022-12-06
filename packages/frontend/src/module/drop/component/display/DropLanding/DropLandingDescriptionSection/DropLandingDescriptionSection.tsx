@@ -11,6 +11,7 @@ import { DropLandingDescriptionSectionProps } from "module/drop/component/displa
 import { XrpIcon } from "icons";
 import Description from "module/common/component/display/Desciption/Description";
 import ButtonBuyNftDrop from "module/drop/component/input/ButtonBuyNftDrop/ButtonBuyNftDrop";
+import { dropsToXrp } from "xrpl";
 
 const DropLandingDescriptionSection = ({
     cover = "",
@@ -51,7 +52,7 @@ const DropLandingDescriptionSection = ({
                         <DropLandingLabel variant="body2" label={translate("sales")} loading={loading}>
                             <Row gap="0.5rem" alignItems="center">
                                 <XrpIcon />
-                                {formatNumber((BigInt(price) * BigInt(sold)).toString())}
+                                {formatNumber((Number(dropsToXrp(price)) * sold).toString())}
                             </Row>
                         </DropLandingLabel>
                         <ButtonBuyNftDrop dropId={dropId!} disabled={preview} />

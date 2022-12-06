@@ -6,15 +6,22 @@ import Button from "module/common/component/input/Button/Button";
 import { CollectionCreationPageHeaderProps } from "./CollectionCreationPageHeader.types";
 import useGoBack from "module/common/hook/useGoBack";
 import useCollectionCreationState from "module/collection/hook/useCollectionCreationState";
+import useWallet from "module/wallet/hook/useWallet";
+import useGetUser from "module/user/query/useGetUser";
 
 const CollectionCreationPageHeader = ({ collection, loading, saving, publishing }: CollectionCreationPageHeaderProps): JSX.Element => {
     const translate = useTranslate();
     const goBack = useGoBack();
     const [searchParams] = useSearchParams();
 
+    const { address } = useWallet();
+    const { data: user } = useGetUser(address);
+
     const [{ nfts }] = useCollectionCreationState();
     const hasUnpublishedNfts =
         nfts.length > 0 || (collection?.nfts || []).some((nft) => nft.status !== "confirmed" && nft.status !== "pending");
+
+    const allNftsAreDrafts = !(collection?.nfts || []).some((nft) => nft.status !== "draft");
 
     const isEdition = !!searchParams.get("id");
 
@@ -51,6 +58,22 @@ const CollectionCreationPageHeader = ({ collection, loading, saving, publishing 
                             </Typography>
                         </Popover.Popper>
                     </Popover>
+                    {user && user.verifiedArtist && [...nfts, ...(collection?.nfts || [])].length > 0 && (
+                        <Popover visible={allNftsAreDrafts ? false : undefined} arrow position="top">
+                            <Popover.Content>
+                                <span>
+                                    <Button size="lg" type="submit" action="launch" disabled={loading || saving || !allNftsAreDrafts}>
+                                        {translate("launch")}
+                                    </Button>
+                                </span>
+                            </Popover.Content>
+                            <Popover.Popper>
+                                <Typography variant="body2" css={{ padding: "0.75rem" }}>
+                                    {translate("cantLaunchCollectionWithPublishedNfts")}
+                                </Typography>
+                            </Popover.Popper>
+                        </Popover>
+                    )}
                 </Row>
             }
         />

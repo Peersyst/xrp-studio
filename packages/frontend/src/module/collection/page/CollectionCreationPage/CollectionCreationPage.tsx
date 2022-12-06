@@ -16,6 +16,7 @@ import CollectionPublishModal from "module/collection/component/feedback/Collect
 import { useResetRecoilState } from "recoil";
 import collectionCreationState from "module/collection/state/CollectionCreationState";
 import useCollectionCreationState from "module/collection/hook/useCollectionCreationState";
+import { DropRoutes } from "module/drop/DropRouter";
 
 const CollectionCreationPage = (): JSX.Element => {
     const translate = useTranslate();
@@ -69,21 +70,30 @@ const CollectionCreationPage = (): JSX.Element => {
                     id: collection.id,
                     collection: createCollectionRequestFromForm("update", data),
                 });
-                showToast(translate("collectionUpdated"), { type: "success" });
-                navigate(CollectionRoutes.MY_COLLECTIONS, { replace: true });
                 resetCollectionCreationState();
+                showToast(translate("collectionUpdated"), { type: "success" });
+                if (action === "launch") {
+                    navigate(DropRoutes.DROP_CREATION + "?id=" + collection.id);
+                } else {
+                    navigate(CollectionRoutes.MY_COLLECTIONS, { replace: true });
+                }
             }
         } else {
             if (action === "publish") {
                 showModal(CollectionPublishModal, { request: createCollectionRequestFromForm("create", data) });
             } else {
-                await createCollection({
+                const collectionData = await createCollection({
                     collection: createCollectionRequestFromForm("create", data),
                     publish: false,
                 });
+
                 resetCollectionCreationState();
                 showToast(translate("collectionCreated"), { type: "success" });
-                navigate(CollectionRoutes.MY_COLLECTIONS, { replace: true });
+                if (action === "launch") {
+                    navigate(DropRoutes.DROP_CREATION + "?id=" + collectionData.id);
+                } else {
+                    navigate(CollectionRoutes.MY_COLLECTIONS, { replace: true });
+                }
             }
         }
     };

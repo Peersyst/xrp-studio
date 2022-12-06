@@ -3,6 +3,7 @@ import { AccountSetAsfFlags, Client, convertStringToHex, SubmitResponse, Transac
 import { ConfigService } from "@nestjs/config";
 import { NFTokenMint } from "xrpl/dist/npm/models/transactions/NFTokenMint";
 import { TransactionMetadata } from "xrpl/dist/npm/models/transactions";
+import parseFlags from "../nft/util/parseFlags";
 
 export enum TransactionStatus {
     UNCONFIRMED = "unconfirmed",
@@ -67,7 +68,6 @@ export class BlockchainTransactionService {
             NFTokenTaxon: taxon,
             Flags: flags,
             Issuer: issuer,
-            TransferFee: transferFee,
             URI: uri && convertStringToHex(uri),
             Sequence: account === this.mintingAccount.address ? this.consumeSequence() : undefined,
             Memos: [
@@ -78,6 +78,8 @@ export class BlockchainTransactionService {
                 },
             ],
         } as NFTokenMint;
+        const { transferable } = parseFlags(flags);
+        if (transferable) tx.TransferFee = transferFee || 0;
         return autofill ? this.xrpClient.autofill(tx) : tx;
     }
 

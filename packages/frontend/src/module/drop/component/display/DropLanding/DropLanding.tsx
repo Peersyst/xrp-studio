@@ -18,9 +18,10 @@ function DropLanding({
     ...rest
 }: WithLoading<DropLandingProps>): JSX.Element {
     const {
+        id = 0,
         collection,
         price = "0",
-        sold = 0,
+        soldItems = 0,
         fontColor = "#FFFFFF",
         backgroundColor = "#000000",
         videoUrl,
@@ -28,8 +29,9 @@ function DropLanding({
         instagram,
         discord,
         twitter,
+        items = 0,
     } = drop || {};
-    const { header = "", image = "", name = "", description = "", items = 0, user } = collection || {};
+    const { header = "", image = "", name = "", description = "", user } = collection || {};
 
     const rootRef = useRef<HTMLDivElement>();
     const contentRef = useRef<HTMLDivElement>();
@@ -95,9 +97,8 @@ function DropLanding({
                             description={description}
                             items={items}
                             price={price}
-                            sold={sold}
-                            //TODO : cuando los drop tengan ID agregar valor
-                            dropId={1}
+                            sold={soldItems}
+                            dropId={id}
                             loading={loading}
                             preview={preview}
                         />

@@ -20,7 +20,7 @@ export class CollectionController {
     @Get(":id")
     @ApiOperation({ description: "Gets a collection" })
     async getCollection(@Param("id", ParseIntPipe) id: number): Promise<CollectionDto> {
-        return this.collectionService.findOne({ id }, { relations: ["nfts", "nfts.metadata", "nfts.metadata.attributes"] });
+        return this.collectionService.findOne({ id }, { relations: ["user", "nfts", "nfts.metadata", "nfts.metadata.attributes"] });
     }
 
     @Get()
