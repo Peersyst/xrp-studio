@@ -11,7 +11,7 @@ describe("ExplorePage tests", () => {
         expect(useRouteMatchMock).toHaveBeenCalled();
         expect(screen.getByRole("heading", { name: translate("explore") })).toBeInTheDocument();
         expect(screen.getByText(translate("trending"))).toBeInTheDocument();
-        expect(screen.getByText(translate("collections"))).toBeInTheDocument();
+        expect(screen.getAllByText(translate("collections"))).toHaveLength(2);
         expect(screen.getByText(translate("nfts"))).toBeInTheDocument();
     });
 });
