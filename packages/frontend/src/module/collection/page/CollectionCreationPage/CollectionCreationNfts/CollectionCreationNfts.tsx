@@ -24,20 +24,7 @@ const CollectionCreationNfts = ({
 
     const [nftsUploading, setNftsUploading] = useState(0);
     const [
-        {
-            issuer,
-            transferFee,
-            burnable,
-            onlyXRP,
-            trustLine,
-            transferable,
-            name,
-            description,
-            backgroundColor,
-            externalUrl,
-            attributes,
-            nfts = [],
-        },
+        { issuer, transferFee, burnable, onlyXRP, transferable, name, description, backgroundColor, externalUrl, attributes, nfts = [] },
         setCollectionCreationState,
     ] = useCollectionCreationState();
 
@@ -64,7 +51,7 @@ const CollectionCreationNfts = ({
                         flags: {
                             burnable,
                             onlyXRP,
-                            trustLine,
+                            trustLine: false,
                             transferable,
                         },
                         metadata: {
