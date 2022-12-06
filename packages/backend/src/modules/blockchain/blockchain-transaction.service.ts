@@ -41,24 +41,27 @@ export class BlockchainTransactionService {
         return sequence;
     }
 
-    async prepareNftMintTransaction({
-        account,
-        flags = 0,
-        memo,
-        taxon = 0,
-        uri,
-        issuer,
-        transferFee,
-    }: {
-        account: string;
-        flags?: number;
-        memo?: string;
-        taxon?: number;
-        uri?: string;
-        issuer?: string;
-        transferFee?: number;
-    }): Promise<NFTokenMint> {
-        return this.xrpClient.autofill({
+    async prepareNftMintTransaction(
+        {
+            account,
+            flags = 0,
+            memo,
+            taxon = 0,
+            uri,
+            issuer,
+            transferFee,
+        }: {
+            account: string;
+            flags?: number;
+            memo?: string;
+            taxon?: number;
+            uri?: string;
+            issuer?: string;
+            transferFee?: number;
+        },
+        autofill = true,
+    ): Promise<NFTokenMint> {
+        const tx = {
             TransactionType: "NFTokenMint",
             Account: account,
             NFTokenTaxon: taxon,
@@ -74,7 +77,8 @@ export class BlockchainTransactionService {
                     },
                 },
             ],
-        });
+        } as NFTokenMint;
+        return autofill ? this.xrpClient.autofill(tx) : tx;
     }
 
     async prepareSellOfferTransaction({

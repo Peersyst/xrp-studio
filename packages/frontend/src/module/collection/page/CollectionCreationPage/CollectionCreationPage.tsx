@@ -4,7 +4,7 @@ import CollectionCreationPageHeader from "module/collection/page/CollectionCreat
 import { useNavigate, useSearchParams } from "react-router-dom";
 import useGetCollection from "module/collection/query/useGetCollection";
 import useWallet from "module/wallet/hook//useWallet";
-import { useEffect } from "react";
+import { useEffect, useMemo } from "react";
 import useTranslate from "module/common/hook/useTranslate";
 import CollectionCreationPageContent from "module/collection/page/CollectionCreationPage/CollectionCreationPageContent/CollectionCreationPageContent";
 import useCreateCollection from "module/collection/query/useCreateCollection";
@@ -15,6 +15,7 @@ import { CollectionRoutes } from "module/collection/CollectionRouter";
 import CollectionPublishModal from "module/collection/component/feedback/CollectionPublishModal/CollectionPublishModal";
 import { useResetRecoilState } from "recoil";
 import collectionCreationState from "module/collection/state/CollectionCreationState";
+import useCollectionCreationState from "module/collection/hook/useCollectionCreationState";
 
 const CollectionCreationPage = (): JSX.Element => {
     const translate = useTranslate();
@@ -32,6 +33,21 @@ const CollectionCreationPage = (): JSX.Element => {
     const { mutateAsync: updateCollection, isLoading: saving } = useUpdateCollection();
 
     const { address: userAddress } = useWallet();
+    const [{ name, image, header, description }, setCollectionCreationState] = useCollectionCreationState();
+
+    const collectionData = useMemo(
+        () => ({
+            name: name || collection?.name,
+            description: description || collection?.description,
+            header: header || collection?.header,
+            image: image || collection?.image,
+        }),
+        [collection],
+    );
+
+    useEffect(() => {
+        setCollectionCreationState(collectionData);
+    }, [collectionData]);
 
     useEffect(() => {
         if (collection && collection.account !== userAddress) {
@@ -46,9 +62,17 @@ const CollectionCreationPage = (): JSX.Element => {
 
     const handleSubmit = async (data: CollectionCreationForm, action?: string) => {
         if (collection) {
-            await updateCollection({ id: collection.id, collection: createCollectionRequestFromForm("update", data) });
-            showToast(translate("collectionUpdated"), { type: "success" });
-            navigate(CollectionRoutes.MY_COLLECTIONS, { replace: true });
+            if (action === "publish") {
+                showModal(CollectionPublishModal, { request: createCollectionRequestFromForm("update", data), collection });
+            } else {
+                await updateCollection({
+                    id: collection.id,
+                    collection: createCollectionRequestFromForm("update", data),
+                });
+                showToast(translate("collectionUpdated"), { type: "success" });
+                navigate(CollectionRoutes.MY_COLLECTIONS, { replace: true });
+                resetCollectionCreationState();
+            }
         } else {
             if (action === "publish") {
                 showModal(CollectionPublishModal, { request: createCollectionRequestFromForm("create", data) });
@@ -68,7 +92,14 @@ const CollectionCreationPage = (): JSX.Element => {
         <Form onSubmit={handleSubmit}>
             <BasePage>
                 {{
-                    header: <CollectionCreationPageHeader loading={collectionLoading} publishing={publishing} saving={saving} />,
+                    header: (
+                        <CollectionCreationPageHeader
+                            collection={collection}
+                            loading={collectionLoading}
+                            publishing={publishing}
+                            saving={saving}
+                        />
+                    ),
                     content: <CollectionCreationPageContent collection={collection} loading={collectionLoading} />,
                 }}
             </BasePage>

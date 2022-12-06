@@ -11,8 +11,10 @@ import { CollectionRoutes } from "module/collection/CollectionRouter";
 import { useResetRecoilState } from "recoil";
 import collectionCreationState from "module/collection/state/CollectionCreationState";
 
-const CollectionPublishModal = createModal<CollectionPublishModalProps>(({ request, ...modalProps }): JSX.Element => {
+const CollectionPublishModal = createModal<CollectionPublishModalProps>(({ request, collection, ...modalProps }): JSX.Element => {
     const { header, image, name = "", nfts = [] } = request;
+    const collectionNfts = (collection?.nfts || []).filter((nft) => nft.status !== "confirmed" && nft.status !== "pending");
+    const allNfts = [...nfts, ...collectionNfts];
 
     const translate = useTranslate();
     const navigate = useNavigate();
@@ -28,16 +30,17 @@ const CollectionPublishModal = createModal<CollectionPublishModalProps>(({ reque
     return (
         <ActionModal title={translate("publishCollectionConfirmation")} closable={!loading} {...modalProps}>
             {{
-                cover: <CollectionInformation header={header} image={image} name={name} items={nfts.length} />,
+                cover: <CollectionInformation header={header} image={image} name={name} items={allNfts.length} />,
                 tabs: [
                     {
-                        content: <NftsPreviewList nfts={nfts} />,
+                        content: <NftsPreviewList nfts={allNfts} />,
                         actions: [{ label: translate("publish"), action: "next" }, { action: "back" }],
                     },
                     {
                         content: (
                             <CollectionPublishActions
                                 request={request}
+                                collection={collection}
                                 onStart={() => setLoading(true)}
                                 onEnd={() => setLoading(false)}
                                 onSuccess={handleSuccess}

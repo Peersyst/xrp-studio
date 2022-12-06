@@ -8,10 +8,12 @@ import { BaseCardSkeletons } from "module/common/component/feedback/Skeletons/Sk
 import { CollectionCreationNftsProps } from "module/collection/page/CollectionCreationPage/CollectionCreationNfts/CollectionCreationNfts.types";
 import { CollectionCreationFormFields } from "module/collection/types";
 import useTranslate from "module/common/hook/useTranslate";
+import NftCard from "module/nft/component/display/NftCard/NftCard";
 
 const CollectionCreationNfts = ({
     loading,
     name: formName = CollectionCreationFormFields.NFTS,
+    collection,
 }: CollectionCreationNftsProps): JSX.Element => {
     const {
         breakpoints: {
@@ -49,7 +51,7 @@ const CollectionCreationNfts = ({
     const handleNftsUploaded = (nftUrls: string[] | undefined = []) => {
         setNftsUploading(0);
 
-        const initialIndex = nfts.length;
+        const initialIndex = nfts.length + (collection?.nfts?.length || 0);
         setCollectionCreationState({
             nfts: [
                 ...nfts,
@@ -94,6 +96,8 @@ const CollectionCreationNfts = ({
         />
     ));
 
+    const collectionNftCards = (collection?.nfts || []).map((nft) => <NftCard nft={nft} />);
+
     return (
         <Col flex={1} gap="3.5rem">
             {(!!nftsUploading || !!nftCards.length) && (
@@ -122,6 +126,17 @@ const CollectionCreationNfts = ({
                     disabled={!collectionFormIsValid}
                 />
             </Skeleton>
+            {!!collectionNftCards && (
+                <Grid
+                    cols={2}
+                    colGap="1.5rem"
+                    rowGap="1.5rem"
+                    justifyItems="stretch"
+                    breakpoints={[{ maxWidth: createCollectionNftGrid, cols: 1 }]}
+                >
+                    {collectionNftCards}
+                </Grid>
+            )}
         </Col>
     );
 };

@@ -3,6 +3,10 @@
 /* eslint-disable */
 export const $CreateCollectionNftRequest = {
     properties: {
+        id: {
+            type: 'number',
+            description: `The id of the nft if its already a draft`,
+        },
         issuer: {
             type: 'string',
             description: `Issuer of the NFT, if not provided the sender of the transaction acts as the issuer`,

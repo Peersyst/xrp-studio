@@ -52,11 +52,9 @@ const CollectionCreationPageContent = ({ collection, loading = false }: WithLoad
     return (
         <PageContent>
             <Row flex={1} gap="1.5rem" breakpoint={{ width: "createCollectionPage", alignItems: "stretch", gap: "1.5rem", reverse: true }}>
-                {!collection && (
-                    <Col flex={4}>
-                        <CollectionCreationNfts loading={loading} />
-                    </Col>
-                )}
+                <Col flex={4}>
+                    <CollectionCreationNfts loading={loading} collection={collection} />
+                </Col>
                 <Col flex={3} alignItems="center">
                     <Skeleton loading={loading} width="100%">
                         <CollectionCreationPageContentCard>

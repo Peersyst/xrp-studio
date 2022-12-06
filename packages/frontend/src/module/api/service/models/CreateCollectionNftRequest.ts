@@ -7,6 +7,10 @@ import type { NftFlagsRequest } from './NftFlagsRequest';
 
 export type CreateCollectionNftRequest = {
     /**
+     * The id of the nft if its already a draft
+     */
+    id?: number;
+    /**
      * Issuer of the NFT, if not provided the sender of the transaction acts as the issuer
      */
     issuer?: string;
