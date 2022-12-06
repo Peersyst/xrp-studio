@@ -2,6 +2,7 @@ import { screen } from "@testing-library/react";
 import { render, translate } from "test-utils";
 import DropLandingDescriptionSection from "module/drop/component/display/DropLanding/DropLandingDescriptionSection/DropLandingDescriptionSection";
 import { DropDtoMock } from "test-mocks";
+import { dropsToXrp } from "xrpl";
 
 describe("DropLandingDescriptionSection", () => {
     test("Renders correctly", () => {
@@ -33,7 +34,7 @@ describe("DropLandingDescriptionSection", () => {
         // Sales
         expect(screen.getByText(translate("sales"))).toBeInTheDocument();
         expect(
-            screen.getByText(translate("formatNumber", { val: (BigInt(dropMock.price) * BigInt(dropMock.sold)).toString() })),
+            screen.getByText(translate("formatNumber", { val: (Number(dropsToXrp(dropMock.price)) * dropMock.sold).toString() })),
         ).toBeInTheDocument();
         // Image
         expect(screen.getByAltText(`${dropMock.collection.name}-image`)).toHaveAttribute("src", dropMock.collection.image);

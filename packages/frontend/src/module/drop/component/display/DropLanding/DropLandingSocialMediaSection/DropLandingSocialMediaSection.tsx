@@ -19,8 +19,8 @@ const DropLandingSocialMediaSection = ({
             </Skeleton>
             <Skeleton width="19rem" height="3.25rem" loading={loading}>
                 <Row gap="1rem" alignItems="center">
-                    {twitter && <SocialButton className="footer" icon="twitter" link={twitter} />}
-                    {instagram && <SocialButton className="footer" icon="instagram" link={instagram} />}
+                    {twitter && <SocialButton className="footer" icon="twitter" link={`https://twitter.com/${twitter}`} />}
+                    {instagram && <SocialButton className="footer" icon="instagram" link={`https://instagram.com/${instagram}`} />}
                     {discord && <SocialButton className="footer" icon="discord" link={discord} />}
                 </Row>
             </Skeleton>

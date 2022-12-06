@@ -4,7 +4,7 @@ import { render, translate } from "test-utils";
 
 describe("Drop Landing Faqs Section ", () => {
     test("Renders correctly :", () => {
-        render(<DropLandingFaqsSection faqs={[{ id: 1, answer: "answer", question: "question" }]} loading={false} />);
+        render(<DropLandingFaqsSection faqs={[{ answer: "answer", question: "question" }]} loading={false} />);
 
         // Text
         expect(screen.getByText(translate("FAQs"))).toBeInTheDocument();

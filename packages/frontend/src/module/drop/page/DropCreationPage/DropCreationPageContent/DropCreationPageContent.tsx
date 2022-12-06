@@ -10,15 +10,11 @@ import useDropCreationState from "module/drop/hook/useDropCreationState";
 import { DropCreationFormFields } from "module/drop/types";
 import FaqsInput from "module/drop/component/input/FaqsInput/FaqsInput";
 import DropLanding from "module/drop/component/display/DropLanding/DropLanding";
-import { useGetCollectionNfts } from "module/nft/query/useGetCollectionNfts";
-import { usePaginatedList } from "@peersyst/react-hooks";
 import { XrpIcon } from "icons";
+import { xrpToDrops } from "xrpl";
 
 const DropCreationPageContent = ({ loading = false, collection }: WithLoading<CollectionCreationPageContentProps>): JSX.Element => {
     const translate = useTranslate();
-
-    const { data: paginatedNfts, isLoading: loadingNfts } = useGetCollectionNfts(collection?.id);
-    const nfts = usePaginatedList(paginatedNfts?.pages, (page) => page.items);
 
     const [{ backgroundColor, videoUrl, instagram, discord, twitter, faqs, price, fontColor }, setDropCreationState] =
         useDropCreationState();
@@ -35,9 +31,9 @@ const DropCreationPageContent = ({ loading = false, collection }: WithLoading<Co
                         preview
                         loading={loading}
                         drop={{
-                            price,
-                            items: collection?.items || 500,
-                            soldItems: collection?.items || 500,
+                            price: xrpToDrops(price),
+                            items: collection?.nfts?.length || 500,
+                            soldItems: collection?.nfts?.length || 500,
                             backgroundColor: backgroundColor.hex(),
                             fontColor: fontColor.hex(),
                             videoUrl,
@@ -47,8 +43,8 @@ const DropCreationPageContent = ({ loading = false, collection }: WithLoading<Co
                             faqs,
                             collection: collection!,
                         }}
-                        loadingNfts={loadingNfts}
-                        nfts={nfts}
+                        loadingNfts={loading}
+                        nfts={(collection?.nfts || []).slice(0, 10)}
                     />
                 </Col>
                 <Col flex={3} alignItems="center">
@@ -101,7 +97,6 @@ const DropCreationPageContent = ({ loading = false, collection }: WithLoading<Co
                                     name={DropCreationFormFields.INSTAGRAM}
                                     placeholder={translate("instagram")}
                                     variant="filled"
-                                    validators={{ url: true }}
                                     value={instagram}
                                     onChange={normalizedHandleChange("instagram")}
                                 />
@@ -109,7 +104,6 @@ const DropCreationPageContent = ({ loading = false, collection }: WithLoading<Co
                                     name={DropCreationFormFields.TWITTER}
                                     placeholder={translate("twitter")}
                                     variant="filled"
-                                    validators={{ url: true }}
                                     value={twitter}
                                     onChange={normalizedHandleChange("twitter")}
                                 />

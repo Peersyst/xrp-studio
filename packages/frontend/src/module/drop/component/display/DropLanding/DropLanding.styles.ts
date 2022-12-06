@@ -7,6 +7,7 @@ export const DropLandingRoot = styled(Col)<DropLandingRootProps>(
         position: relative;
         overflow: hidden;
         width: 100%;
+        padding-bottom: 7rem;
 
         ${preview &&
         css`

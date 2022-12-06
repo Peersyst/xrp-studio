@@ -1,8 +1,7 @@
 import Color from "color";
 import { FaqDto } from "module/api/service";
-import { Loosen } from "@peersyst/react-types";
 
-export type Faq = Loosen<FaqDto, any>;
+export type Faq = FaqDto;
 
 export interface DropCreationForm {
     price: string;
@@ -19,7 +18,7 @@ export enum DropCreationFormFields {
     PRICE = "price",
     BACKGROUND_COLOR = "backgroundColor",
     FONT_COLOR = "fontColor",
-    VIDEO_URL = "externalUrl",
+    VIDEO_URL = "videoUrl",
     INSTAGRAM = "instagram",
     TWITTER = "twitter",
     DISCORD = "discord",

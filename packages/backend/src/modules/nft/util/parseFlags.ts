@@ -1,4 +1,3 @@
-import { NftFlagsRequest } from "module/api/service";
 /**
  * Parse flags from request
  * 001 -> burnable
@@ -7,7 +6,7 @@ import { NftFlagsRequest } from "module/api/service";
  * 011 -> burnable i onlyXRP
  * 111 -> all activated
  */
-export default function (flags: number): NftFlagsRequest {
+export default function (flags: number) {
     return {
         burnable: !!(flags & 1),
         onlyXRP: !!(flags & (1 << 1)),

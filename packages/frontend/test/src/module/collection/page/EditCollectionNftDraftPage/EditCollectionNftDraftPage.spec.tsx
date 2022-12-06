@@ -54,9 +54,7 @@ describe("EditCollectionNftDraftPage", () => {
             // collection
             expect(screen.getByText(translate("collection"))).toBeInTheDocument();
             expect(screen.getByDisplayValue("name")).toBeInTheDocument();
-            // issuer
-            expect(screen.getByText(translate("issuer"))).toBeInTheDocument();
-            expect(screen.getByPlaceholderText(translate(walletMock.address))).toBeInTheDocument();
+
             // transfer fee
             expect(screen.getByText(translate("transferFee"))).toBeInTheDocument();
             expect(screen.getByPlaceholderText("0")).toBeInTheDocument();

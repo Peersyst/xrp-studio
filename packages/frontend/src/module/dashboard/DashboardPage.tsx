@@ -8,7 +8,7 @@ export default function DashboardPage(): JSX.Element {
                 drop={{
                     id: 1,
                     price: "100",
-                    sold: 50,
+                    soldItems: 50,
                     backgroundColor: "#141A1F",
                     fontColor: "#FFFFFF",
                     faqs: [
@@ -35,7 +35,6 @@ export default function DashboardPage(): JSX.Element {
                         },
                     },
                     items: 500,
-                    soldItems: 30,
                 }}
                 nfts={[...Array(10)].map((_, i) => ({
                     id: i,

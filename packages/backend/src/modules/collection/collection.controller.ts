@@ -1,5 +1,5 @@
 import { ApiOperation, ApiTags } from "@nestjs/swagger";
-import { Body, Controller, Get, HttpCode, Param, ParseIntPipe, Post, Put, Request } from "@nestjs/common";
+import { Body, Controller, Get, Param, ParseIntPipe, Post, Put, Request } from "@nestjs/common";
 import { ApiErrorDecorators } from "../common/exception/error-response.decorator";
 import { CollectionService } from "./collection.service";
 import { CollectionDto, PaginatedCollectionDto } from "./dto/collection.dto";
@@ -20,7 +20,7 @@ export class CollectionController {
     @Get(":id")
     @ApiOperation({ description: "Gets a collection" })
     async getCollection(@Param("id", ParseIntPipe) id: number): Promise<CollectionDto> {
-        return this.collectionService.findOne({ id });
+        return this.collectionService.findOne({ id }, { relations: ["user", "nfts", "nfts.metadata", "nfts.metadata.attributes"] });
     }
 
     @Get()
@@ -43,13 +43,13 @@ export class CollectionController {
 
     @Put(":id")
     @ApiOperation({ description: "Updates a collection" })
-    @HttpCode(204)
     @XummAuthenticated()
     async updateCollection(
         @Param("id", ParseIntPipe) id: number,
         @Request() req,
+        @EnhancedQuery() { publish }: CreateCollectionQueryRequest = {},
         @Body() collection: UpdateCollectionRequest,
-    ): Promise<void> {
-        return this.collectionService.updateCollection(id, req.user.address, collection);
+    ): Promise<CollectionDto> {
+        return this.collectionService.updateCollection(id, req.user.address, collection, publish);
     }
 }

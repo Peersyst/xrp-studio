@@ -10,7 +10,6 @@ import TextField from "module/common/component/input/TextField/TextField";
 import useTranslate from "module/common/hook/useTranslate";
 import TextArea from "module/common/component/input/TextArea/TextArea";
 import { capitalize } from "@peersyst/react-utils";
-import useWallet from "module/wallet/hook//useWallet";
 import ColorInput from "module/common/component/input/ColorInput/ColorInput";
 import PropertiesInput from "module/nft/component/input/PropertiesInput/PropertiesInput";
 import useCollectionCreationState from "module/collection/hook/useCollectionCreationState";
@@ -22,7 +21,6 @@ import { config } from "config";
 const CollectionCreationPageContent = ({ collection, loading = false }: WithLoading<CollectionCreationPageContentProps>): JSX.Element => {
     const translate = useTranslate();
     const translateError = useTranslate("error");
-    const { address: connectedWalletAddress } = useWallet();
 
     const { header: collectionHeader, image: collectionImage, name: collectionName, description: collectionDescription } = collection || {};
 
@@ -32,13 +30,12 @@ const CollectionCreationPageContent = ({ collection, loading = false }: WithLoad
             image,
             name,
             description,
-            issuer,
             transferFee,
             externalUrl,
             backgroundColor,
             burnable,
             onlyXRP,
-            trustLine,
+            trustLine = false,
             transferable,
             attributes,
         },
@@ -52,11 +49,9 @@ const CollectionCreationPageContent = ({ collection, loading = false }: WithLoad
     return (
         <PageContent>
             <Row flex={1} gap="1.5rem" breakpoint={{ width: "createCollectionPage", alignItems: "stretch", gap: "1.5rem", reverse: true }}>
-                {!collection && (
-                    <Col flex={4}>
-                        <CollectionCreationNfts loading={loading} />
-                    </Col>
-                )}
+                <Col flex={4}>
+                    <CollectionCreationNfts loading={loading} collection={collection} />
+                </Col>
                 <Col flex={3} alignItems="center">
                     <Skeleton loading={loading} width="100%">
                         <CollectionCreationPageContentCard>
@@ -95,7 +90,7 @@ const CollectionCreationPageContent = ({ collection, loading = false }: WithLoad
                                 <TextArea
                                     key={"description: " + collectionDescription}
                                     name={CollectionCreationFormFields.DESCRIPTION}
-                                    defaultValue={collectionDescription}
+                                    defaultValue={collectionDescription || ""}
                                     label={translate("description")}
                                     placeholder={translate("collectionDescriptionPlaceholder")}
                                     variant="filled"
@@ -106,15 +101,6 @@ const CollectionCreationPageContent = ({ collection, loading = false }: WithLoad
                                 />
                                 {!collection && (
                                     <>
-                                        <TextField
-                                            name={CollectionCreationFormFields.ISSUER}
-                                            label={translate("issuer")}
-                                            placeholder={connectedWalletAddress}
-                                            variant="filled"
-                                            validators={{ address: true }}
-                                            value={issuer}
-                                            onChange={normalizedHandleChange("issuer")}
-                                        />
                                         <TextField
                                             name={CollectionCreationFormFields.TRANSFER_FEE}
                                             label={translate("transferFee")}
@@ -165,6 +151,7 @@ const CollectionCreationPageContent = ({ collection, loading = false }: WithLoad
                                             label={translate("trustLine")}
                                             value={trustLine}
                                             onChange={normalizedHandleChange("trustLine")}
+                                            style={{ display: "none" }}
                                         />
                                         <Switch
                                             name={CollectionCreationFormFields.TRANSFERABLE}

@@ -7,7 +7,7 @@ import { waitFor } from "@testing-library/dom";
 import { act } from "react-dom/test-utils";
 
 describe("CollectionPublishActions", function () {
-    const collectionDtoMock = new CollectionDtoMock();
+    const collectionDtoMock = new CollectionDtoMock({ nfts: [] });
     const createCollectionRequest: CreateCollectionRequest = {
         name: "collection-name",
         nfts: [{ metadata: { name: "NFT #1", image: "image1" } }, { metadata: { name: "NFT #2", image: "image2" } }],

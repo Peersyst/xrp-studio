@@ -11,6 +11,7 @@ describe("createCollectionRequestFromForm", () => {
                 image: formMock.image,
                 name: formMock.name,
                 description: formMock.description,
+                nfts: formMock.nfts,
             });
         });
     });
