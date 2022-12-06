@@ -46,8 +46,12 @@ export default function ({ nft, collections, fixedCollection, loading = false }:
     const defaultFlags = 8;
 
     const taxon = nftCollection?.taxon;
-    const { burnable, onlyXRP, transferable } =
-        flags !== undefined ? (typeof flags === "number" ? parseFlags(flags) : flags) : parseFlags(defaultFlags);
+    const {
+        burnable,
+        onlyXRP,
+        trustLine = false,
+        transferable,
+    } = flags !== undefined ? (typeof flags === "number" ? parseFlags(flags) : flags) : parseFlags(defaultFlags);
 
     const collectionOptions: SelectOption<number>[] = (collections || (nftCollection ? [nftCollection] : [])).map((collection) => ({
         value: collection.taxon,
@@ -139,6 +143,13 @@ export default function ({ nft, collections, fixedCollection, loading = false }:
                     name={NftFormFields.onlyXRP}
                     label={translate("onlyXRP")}
                     defaultValue={onlyXRP}
+                />
+                <Switch
+                    key={"trustLine: " + JSON.stringify(trustLine)}
+                    name={NftFormFields.trustLine}
+                    label={translate("trustLine")}
+                    defaultValue={trustLine}
+                    style={{ display: "none" }}
                 />
                 <Switch
                     key={"transferable: " + JSON.stringify(transferable)}

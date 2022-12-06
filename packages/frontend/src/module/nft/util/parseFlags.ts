@@ -11,6 +11,7 @@ export default function (flags: number): NftFlagsRequest {
     return {
         burnable: !!(flags & 1),
         onlyXRP: !!(flags & (1 << 1)),
-        transferable: !!(flags & (1 << 2)),
+        trustLine: false,
+        transferable: !!(flags & (1 << 3)),
     };
 }

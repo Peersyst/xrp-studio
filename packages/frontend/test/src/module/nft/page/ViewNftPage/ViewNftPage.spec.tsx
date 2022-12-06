@@ -115,9 +115,7 @@ describe("ViewNftPage", () => {
             // Collection
             expect(screen.getByText(translate("collection"))).toBeInTheDocument();
             expect(screen.getByText(collectionMock.name!)).toBeInTheDocument();
-            // Issuer
-            expect(screen.getByText(translate("issuer"))).toBeInTheDocument();
-            expect(screen.getByText(nftMockWithAllValues.issuer!)).toBeInTheDocument();
+
             // Transfer fee
             expect(screen.getByText(translate("transferFee"))).toBeInTheDocument();
             expect(

@@ -29,7 +29,6 @@ export default function ({ nft, loading = false }: UserViewNftPageSlots): ReactN
     const {
         tokenId,
         mintTransactionHash,
-        issuer,
         transferFee,
         metadata: { image = "", name = "", description = "", externalUrl = "", attributes = [], backgroundColor = "" } = {},
         collection: nftCollection,
@@ -87,9 +86,6 @@ export default function ({ nft, loading = false }: UserViewNftPageSlots): ReactN
                             {translate("none", { context: "female" })}
                         </Typography>
                     )}
-                </Label>
-                <Label label={translate("issuer")}>
-                    <BlockchainAddress variant="body1" address={issuer || ""} type="address" fontWeight={600} />
                 </Label>
                 <Label label={translate("transferFee")}>
                     <Typography variant="body1" fontStyle={transferFee === undefined ? "italic" : undefined}>
