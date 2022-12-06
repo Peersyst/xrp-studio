@@ -34,7 +34,7 @@ describe("DropLandingDescriptionSection", () => {
         // Sales
         expect(screen.getByText(translate("sales"))).toBeInTheDocument();
         expect(
-            screen.getByText(translate("formatNumber", { val: (BigInt(dropsToXrp(dropMock.price)) * BigInt(dropMock.sold)).toString() })),
+            screen.getByText(translate("formatNumber", { val: (Number(dropsToXrp(dropMock.price)) * dropMock.sold).toString() })),
         ).toBeInTheDocument();
         // Image
         expect(screen.getByAltText(`${dropMock.collection.name}-image`)).toHaveAttribute("src", dropMock.collection.image);
