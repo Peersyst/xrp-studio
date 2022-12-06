@@ -1,13 +1,12 @@
-import { Expandable, Loader, Row, Typography, useTheme } from "@peersyst/react-components";
+import { Expandable, Loader, Row, Typography } from "@peersyst/react-components";
 import { useEffect, useState } from "react";
-import { AlertCircleIcon, CheckCircleIcon } from "icons";
 import { ActionStepProps } from "module/common/component/feedback/ActionSteps/ActionSteps.types";
 import { handleErrorMessage } from "../../../../../../query/handleErrorMessage";
 import useTranslate from "module/common/hook/useTranslate";
+import { AlertCircleIconRoot, CheckCircleIconRoot } from "module/common/component/feedback/ActionSteps/ActionStep/ActionStep.styles";
 
 const ActionStep = ({ step: { title, description, execution }, active, stepNumber, onSuccess, onError }: ActionStepProps): JSX.Element => {
     const translateError = useTranslate("error");
-    const theme = useTheme();
 
     const [state, setState] = useState({ error: false, finished: false });
     const [errorMsg, setErrorMsg] = useState<string>();
@@ -38,8 +37,8 @@ const ActionStep = ({ step: { title, description, execution }, active, stepNumbe
                         </Typography>
                     )}
                     {active && !state.error && <Loader />}
-                    {active && state.error && <AlertCircleIcon />}
-                    {!active && state.finished && <CheckCircleIcon style={{ color: theme.palette.green[100] }} />}
+                    {active && state.error && <AlertCircleIconRoot />}
+                    {!active && state.finished && <CheckCircleIconRoot />}
                     <Typography variant="body1" fontWeight={600}>
                         {title}
                     </Typography>

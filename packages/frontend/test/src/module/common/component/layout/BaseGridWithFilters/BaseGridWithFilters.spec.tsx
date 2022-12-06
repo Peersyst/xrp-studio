@@ -64,6 +64,7 @@ describe("Test for the base grid with filters", () => {
         expect(screen.getByText("Tag1")).toBeInTheDocument();
         expect(screen.getByText("Tag2")).toBeInTheDocument();
         expect(screen.getByText("Tag3")).toBeInTheDocument();
+        expect(screen.getByRole("button", { name: translate("clearAll") })).toBeInTheDocument();
     });
 
     test("Renders correctly when has nothing to show + no tags + no Filters", () => {

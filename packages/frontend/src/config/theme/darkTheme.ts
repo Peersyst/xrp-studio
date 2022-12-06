@@ -1,10 +1,6 @@
 import { createTheme, ThemePalette } from "@peersyst/react-components";
 import theme from "config/theme/theme";
 
-const green: ThemePalette["green"] = {
-    100: "#37FF33",
-};
-
 const gray: ThemePalette["gray"] = {
     90: "#141A1F",
     "2.5": "#FAFAFA",
@@ -59,7 +55,6 @@ const darkTheme = createTheme({
             warning: "#F57C00",
             error: "#FF3364",
         },
-        green,
         gray,
         blue,
         black,

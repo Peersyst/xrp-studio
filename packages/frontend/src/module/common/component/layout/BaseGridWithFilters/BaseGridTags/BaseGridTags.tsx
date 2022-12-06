@@ -35,12 +35,10 @@ function BaseGridTags<T>({ tags, onClear, onDeleteTagClicked }: BaseGridTagsProp
                     ))}
                 </TagCarousel>
             )}
-            {tags && tags.length > 0 ? (
+            {tags && tags.length > 0 && (
                 <Button variant="outlined" onClick={handleClear} size="md">
                     {t("clearAll")}
                 </Button>
-            ) : (
-                <></>
             )}
         </BaseGridTagsRoot>
     );
