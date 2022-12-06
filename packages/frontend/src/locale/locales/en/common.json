@@ -130,7 +130,7 @@
     "FAQs": "FAQs",
     "question": "Question",
     "publishCollectionConfirmation": "Publish collection confirmation",
-    "cantPublishCollectionWithoutNfts": "You can't publish a collection without NFTs",
+    "cantPublishCollectionWithoutNfts": "There are no NFTs to publish",
     "topArtistsThatUseXRPStudio": "Top Artists that use XRP Studio",
     "howItWorks": "How It Works",
     "ourPartners": "Our Partners",

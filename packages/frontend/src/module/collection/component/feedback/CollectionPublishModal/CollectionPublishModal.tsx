@@ -5,7 +5,7 @@ import useTranslate from "module/common/hook/useTranslate";
 import NftsPreviewList from "module/nft/component/display/NftsPreviewList/NftsPreviewList";
 import CollectionPublishActions from "./CollectionPublishActions/CollectionPublishActions";
 import CollectionInformation from "module/collection/component/display/CollectionInformation/CollectionInformation";
-import { useState } from "react";
+import { useMemo, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { CollectionRoutes } from "module/collection/CollectionRouter";
 import { useResetRecoilState } from "recoil";
@@ -13,8 +13,10 @@ import collectionCreationState from "module/collection/state/CollectionCreationS
 
 const CollectionPublishModal = createModal<CollectionPublishModalProps>(({ request, collection, ...modalProps }): JSX.Element => {
     const { header, image, name = "", nfts = [] } = request;
-    const collectionNfts = (collection?.nfts || []).filter((nft) => nft.status !== "confirmed" && nft.status !== "pending");
-    const allNfts = [...nfts, ...collectionNfts];
+    const allNfts = useMemo(
+        () => [...(collection?.nfts || []).filter((nft) => nft.status !== "confirmed" && nft.status !== "pending"), ...nfts],
+        [collection, nfts],
+    );
 
     const translate = useTranslate();
     const navigate = useNavigate();

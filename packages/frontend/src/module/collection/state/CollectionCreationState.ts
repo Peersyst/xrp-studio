@@ -7,6 +7,7 @@ export type CollectionCreationNft = CreateCollectionNftRequest & {
 };
 
 export interface CollectionCreationState {
+    id?: number;
     header?: string;
     image?: string;
     name?: string;

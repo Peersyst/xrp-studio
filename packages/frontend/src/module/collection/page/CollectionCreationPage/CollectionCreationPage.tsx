@@ -4,7 +4,7 @@ import CollectionCreationPageHeader from "module/collection/page/CollectionCreat
 import { useNavigate, useSearchParams } from "react-router-dom";
 import useGetCollection from "module/collection/query/useGetCollection";
 import useWallet from "module/wallet/hook//useWallet";
-import { useEffect, useMemo } from "react";
+import { useEffect } from "react";
 import useTranslate from "module/common/hook/useTranslate";
 import CollectionCreationPageContent from "module/collection/page/CollectionCreationPage/CollectionCreationPageContent/CollectionCreationPageContent";
 import useCreateCollection from "module/collection/query/useCreateCollection";
@@ -35,19 +35,15 @@ const CollectionCreationPage = (): JSX.Element => {
     const { address: userAddress } = useWallet();
     const [{ name, image, header, description }, setCollectionCreationState] = useCollectionCreationState();
 
-    const collectionData = useMemo(
-        () => ({
+    useEffect(() => {
+        setCollectionCreationState({
+            id: collection?.id,
             name: name || collection?.name,
             description: description || collection?.description,
             header: header || collection?.header,
             image: image || collection?.image,
-        }),
-        [collection],
-    );
-
-    useEffect(() => {
-        setCollectionCreationState(collectionData);
-    }, [collectionData]);
+        });
+    }, [collection]);
 
     useEffect(() => {
         if (collection && collection.account !== userAddress) {
