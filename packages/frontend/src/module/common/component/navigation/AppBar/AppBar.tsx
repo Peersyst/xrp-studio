@@ -22,10 +22,10 @@ const AppBar = (): JSX.Element => {
                         {isLogged ? (
                             <Fragment>
                                 {APPBAR_TABS.map((item) => (
-                                    <ConditionalLink key={item.path} condition={isLogged} to={item.path}>
+                                    <ConditionalLink key={item.label} condition={isLogged} to={item.path}>
                                         <Typography
                                             variant="body1"
-                                            color={location.pathname === item.path ? "black.0" : "black.40"}
+                                            color={location.pathname.includes(item.path) ? "black.0" : "black.40"}
                                             fontWeight={500}
                                         >
                                             {translate(item.label)}
