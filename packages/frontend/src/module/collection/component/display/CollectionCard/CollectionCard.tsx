@@ -35,7 +35,7 @@ const CollectionCard = forwardRef(
                             </Skeleton>
                             <Skeleton width="50%" loading={loading}>
                                 <Typography variant="body2" light singleLine>
-                                    {translate("itemWithCount", { count: items })}
+                                    {translate("itemWithCount", { count: items || 0 })}
                                 </Typography>
                             </Skeleton>
                         </Col>

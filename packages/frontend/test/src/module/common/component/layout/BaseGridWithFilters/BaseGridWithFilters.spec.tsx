@@ -95,8 +95,6 @@ describe("Test for the base grid with filters", () => {
                 {(letters) => letters.map((letter, key) => <p key={key}>{letter}</p>)}
             </BaseGridWithFilters>,
         );
-        //Tags
-        expect(screen.getByText(translate("noneApplied"))).toBeInTheDocument();
         expect(screen.getByRole("button", { name: translate("search&Filter") })).toBeInTheDocument();
         //Children
         expect(screen.getByRole("heading", { name: "Nothing to show" })).toBeInTheDocument();

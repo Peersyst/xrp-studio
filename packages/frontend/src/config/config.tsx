@@ -1,5 +1,4 @@
 import { CreateConfig, createConfig } from "@peersyst/react-components";
-import lightTheme from "./theme/lightTheme";
 import darkTheme from "./theme/darkTheme";
 import prodConfig from "./config.prod.json";
 import previewConfig from "./config.preview.json";
@@ -33,8 +32,7 @@ const config = createConfig({
         ...components,
     },
     themes: {
-        light: lightTheme,
-        dark: darkTheme,
+        default: darkTheme,
     },
     validators: {
         address: XrplAddressValidator,

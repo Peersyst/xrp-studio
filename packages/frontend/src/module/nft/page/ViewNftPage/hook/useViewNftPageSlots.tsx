@@ -11,6 +11,7 @@ import PropertiesInput from "module/nft/component/input/PropertiesInput/Properti
 import { BaseNftPageContentLeftSlot } from "module/nft/component/layout/BaseNftPage/BaseNftPageContent/BaseNftPageContentSlots";
 import Link from "module/common/component/navigation/Link/Link";
 import UserProfileLink from "module/user/component/navigation/UserProfileLink/UserProfileLink";
+import { config } from "config";
 
 export interface UserViewNftPageSlots {
     nft: NftDto | undefined;
@@ -42,7 +43,7 @@ export default function ({ nft, loading = false }: UserViewNftPageSlots): ReactN
         <>
             <BaseNftPageContent.Left>
                 <BaseNftPageContentLeftSlot.Image loading={loading} key={nft?.id}>
-                    <Image src={image} alt="nft-image" />
+                    <Image src={image} alt="nft-image" fallback={config.nftDefaultCoverUrl} />
                 </BaseNftPageContentLeftSlot.Image>
                 <BaseNftPageContentLeftSlot.Info loading={loading}>
                     <Label label={capitalize(translate("name"))}>
@@ -100,7 +101,7 @@ export default function ({ nft, loading = false }: UserViewNftPageSlots): ReactN
                 </Label>
                 {externalUrl && (
                     <Label label={translate("externalLink")}>
-                        <Link to={externalUrl} variant="body1">
+                        <Link to={externalUrl} target="_blank" variant="body1">
                             {externalUrl}
                         </Link>
                     </Label>

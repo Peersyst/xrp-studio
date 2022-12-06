@@ -28,7 +28,7 @@ const CollectionInfo = (): JSX.Element => {
                 </Row>
                 <Skeleton width="60px" loading={collectionLoading}>
                     <Typography className="collection-item" variant="body1" light singleLine style={{ flex: 1 }}>
-                        {translate("itemWithCount_other", { count: items })}
+                        {translate("itemWithCount_other", { count: items ? items : 0 })}
                     </Typography>
                 </Skeleton>
             </Col>
