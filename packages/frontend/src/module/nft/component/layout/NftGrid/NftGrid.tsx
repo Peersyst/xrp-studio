@@ -21,6 +21,7 @@ function InnerNftGrid({
             loading={loading}
             Skeletons={BaseCardSkeletons}
             justifyItems="stretch"
+            alignItems="flex-start"
             {...rest}
         >
             {(nfts) => nfts.map((nft, key) => <NftCard nft={nft} key={key} loading={loading} />)}
