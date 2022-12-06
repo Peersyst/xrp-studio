@@ -36,7 +36,7 @@ export default function ({ nft, loading = false }: UserViewNftPageSlots): ReactN
         flags = 0,
         user = { address: "" },
     } = nft || {};
-    const { burnable, onlyXRP, trustLine, transferable } = parseFlags(flags);
+    const { burnable, onlyXRP, transferable } = parseFlags(flags);
 
     return (
         <>
@@ -118,7 +118,6 @@ export default function ({ nft, loading = false }: UserViewNftPageSlots): ReactN
                 <Divider />
                 <Switch label={translate("burnable")} value={burnable} readonly />
                 <Switch label={translate("onlyXRP")} value={onlyXRP} readonly />
-                <Switch label={translate("trustLine")} value={trustLine} readonly />
                 <Switch label={translate("transferable")} value={transferable} readonly />
                 <Divider />
                 <Col>
