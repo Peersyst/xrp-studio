@@ -2,7 +2,7 @@ import { ModalProvider } from "@peersyst/react-components";
 import AppBar from "module/common/component/navigation/AppBar/AppBar";
 import ScrollToTop from "module/common/component/navigation/ScrollToTop/ScrollToTop";
 import { Suspense } from "react";
-import { BrowserRouter, Navigate, useRoutes } from "react-router-dom";
+import { BrowserRouter, useRoutes } from "react-router-dom";
 import Footer from "module/common/component/navigation/Footer/Footer";
 import { config } from "config";
 import { useNftRoutes } from "module/nft/NftRouter";
@@ -12,10 +12,7 @@ import { useCollectionRoutes } from "module/collection/CollectionRouter";
 import { useDropRoutes } from "module/drop/DropRouter";
 import { useExploreRoutes } from "module/explore/ExploreRouter";
 import { useLandingRoutes } from "module/landing/LandingRouter";
-
-export enum BaseRoutes {
-    HOME = "/",
-}
+import NotFoundPage from "module/common/page/NotFoundPage/NotFoundPage";
 
 const Routes = () => {
     const userRoutes = useUserRoutes();
@@ -31,7 +28,7 @@ const Routes = () => {
         ...dropRoutes,
         ...exploreRoutes,
         ...landingRoutes,
-        { path: "*", element: <Navigate to={BaseRoutes.HOME} /> },
+        { path: "*", element: <NotFoundPage /> },
     ]);
 };
 
