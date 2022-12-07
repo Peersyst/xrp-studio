@@ -13,6 +13,7 @@ import { useDropRoutes } from "module/drop/DropRouter";
 import { useExploreRoutes } from "module/explore/ExploreRouter";
 import { useLandingRoutes } from "module/landing/LandingRouter";
 import NotFoundPage from "module/common/page/NotFoundPage/NotFoundPage";
+import LoadingLogo from "module/common/component/layout/LoadingLogo/LoadingLogo";
 
 const Routes = () => {
     const userRoutes = useUserRoutes();
@@ -39,9 +40,9 @@ const Router = (): JSX.Element => {
         <BrowserRouter basename={config.publicUrl}>
             <ModalProvider>
                 <ScrollToTop />
-                <Suspense fallback={<div>Loading</div>}>
+                <Suspense fallback={<LoadingLogo />}>
                     {loading ? (
-                        <div>Loading</div>
+                        <LoadingLogo />
                     ) : (
                         <>
                             <AppBar />
