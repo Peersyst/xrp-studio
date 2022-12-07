@@ -50,6 +50,8 @@ export class NftService {
         const tokenId = getTokenIdFromTransaction(tx);
         const flags = Flags?.toString(16).padStart(8, "0").substring(4).toUpperCase() || "0000";
 
+        await this.userService.createIfNotExists(issuerOrCreator);
+
         // Create collection if NFTokenTaxon > 0. Cannot use cascade as we are inserting a collection without primary key
         let collection: CollectionDto;
         if (NFTokenTaxon) {
@@ -87,8 +89,6 @@ export class NftService {
                 .getOne();
         }
 
-        await this.userService.createIfNotExists(issuerOrCreator);
-
         try {
             if (collection) await this.collectionService.addItems(collection.id, 1);
             const savedNft = await this.nftRepository.save({
@@ -102,6 +102,7 @@ export class NftService {
                 uri: URI && URI.length <= 256 ? URI : undefined,
                 status: NftStatus.CONFIRMED,
                 account: issuerOrCreator,
+                ownerAccount: issuerOrCreator,
                 collectionId: collection?.id,
             });
             if (savedNft.uri && Account !== this.blockchainService.mintingAddress)
@@ -145,6 +146,7 @@ export class NftService {
             flags: flagsToNumber({ tfBurnable: burnable, tfOnlyXRP: onlyXRP, tfTrustLine: trustLine, tfTransferable: transferable }),
             status: NftStatus.DRAFT,
             account: address,
+            ownerAccount: address,
             collectionId: collection?.id,
         });
 
@@ -251,12 +253,12 @@ export class NftService {
     }
 
     async findOne<Status extends NftStatus[]>(
-        id: number,
+        id: number | string,
         options?: { ownerAddress?: string; status?: Status; relations?: string[] },
     ): Promise<Status extends [NftStatus.CONFIRMED] ? NftDto : NftDraftDto> {
         const { ownerAddress, status, relations = ["metadata", "metadata.attributes"] } = options || {};
         if (ownerAddress && relations.indexOf("user") === -1) relations.push("user");
-        const nft = await this.nftRepository.findOne(id, { relations });
+        const nft = await this.nftRepository.findOne(typeof id === "number" ? { id } : { tokenId: id }, { relations });
         if (!nft) throw new BusinessException(ErrorCode.NFT_NOT_FOUND);
         if (ownerAddress && nft?.user?.address !== ownerAddress) throw new BusinessException(ErrorCode.NFT_NOT_FOUND);
         if (status && status.indexOf(nft.status) < 0) {
@@ -281,6 +283,11 @@ export class NftService {
         )
             throw new Error(`Invalid update status from ${nft.status} to ${newStatus}`);
         await this.nftRepository.update({ id: nftId }, { status: newStatus });
+    }
+
+    public async updateOwnerAccount(id: number, ownerAccount: string): Promise<void> {
+        await this.userService.createIfNotExists(ownerAccount);
+        await this.nftRepository.update({ id }, { ownerAccount });
     }
 
     /**

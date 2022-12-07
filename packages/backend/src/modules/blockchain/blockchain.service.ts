@@ -1,4 +1,4 @@
-import { Injectable, Logger } from "@nestjs/common";
+import { forwardRef, Inject, Injectable, Logger } from "@nestjs/common";
 import { InjectRepository } from "@nestjs/typeorm";
 import { LastIndexedLedger } from "../../database/entities/LastIndexedLedger";
 import { Repository } from "typeorm";
@@ -8,6 +8,7 @@ import { Client, Wallet } from "xrpl";
 import { ConfigService } from "@nestjs/config";
 import { LedgerResponse } from "xrpl/dist/npm/models/methods";
 import { ValidatedLedgerTransaction } from "./types";
+import { OfferService } from "../offer/offer.service";
 
 /**
  * Service in charge of all blockchain related stuff
@@ -24,6 +25,7 @@ export class BlockchainService {
         @InjectQueue("transactions") private readonly transactionsQueue: Queue,
         @InjectQueue("drop") private readonly dropQueue: Queue,
         private readonly configService: ConfigService,
+        @Inject(forwardRef(() => OfferService)) private readonly offerService: OfferService,
     ) {
         const xrpNode = this.configService.get<string>("xrp.node");
         this.xrpClient = new Client(xrpNode);
@@ -130,6 +132,9 @@ export class BlockchainService {
                 },
             );
             await job.finished();
+            await this.offerService.processAcceptOfferTransaction(transaction);
+        } else if (transaction.TransactionType === "NFTokenCreateOffer") {
+            await this.offerService.processCreateOfferTransaction(transaction);
         }
     }
 

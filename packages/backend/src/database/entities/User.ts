@@ -1,6 +1,7 @@
 import { Entity, Column, PrimaryColumn, CreateDateColumn, UpdateDateColumn, OneToMany } from "typeorm";
 import { Collection } from "./Collection";
 import { Nft } from "./Nft";
+import { Offer } from "./Offer";
 
 @Entity("user")
 export class User {
@@ -25,7 +26,7 @@ export class User {
     @Column({ type: "varchar", length: 255, nullable: true })
     discord?: string;
 
-    @Column({ type: "boolean", nullable: false, default: false })
+    @Column({ type: "boolean", name: "verified_artist", nullable: false, default: false })
     verifiedArtist: boolean;
 
     @Column({ type: "int", nullable: true })
@@ -33,6 +34,15 @@ export class User {
 
     @OneToMany(() => Nft, (nft) => nft.user)
     nfts?: Nft[];
+
+    @OneToMany(() => Nft, (nft) => nft.ownerUser)
+    ownedNfts?: Nft[];
+
+    @OneToMany(() => Offer, (offer) => offer.creatorUser, { cascade: ["insert"] })
+    createdOffers?: Offer[];
+
+    @OneToMany(() => Offer, (offer) => offer.accepterUser, { cascade: ["insert"] })
+    acceptedOffers?: Offer[];
 
     @OneToMany(() => Collection, (collection) => collection.user)
     collections?: Collection[];
