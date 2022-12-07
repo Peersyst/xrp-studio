@@ -9,7 +9,13 @@ import useCollectionCreationState from "module/collection/hook/useCollectionCrea
 import useWallet from "module/wallet/hook/useWallet";
 import useGetUser from "module/user/query/useGetUser";
 
-const CollectionCreationPageHeader = ({ collection, loading, saving, publishing }: CollectionCreationPageHeaderProps): JSX.Element => {
+const CollectionCreationPageHeader = ({
+    collection,
+    loading,
+    saving,
+    publishing,
+    creating,
+}: CollectionCreationPageHeaderProps): JSX.Element => {
     const translate = useTranslate();
     const goBack = useGoBack();
     const [searchParams] = useSearchParams();
@@ -35,7 +41,7 @@ const CollectionCreationPageHeader = ({ collection, loading, saving, publishing 
                     <Button size="lg" variant="secondary" disabled={disableCancel} onClick={goBack}>
                         {translate("cancel")}
                     </Button>
-                    <Button size="lg" type="submit" action="save" loading={saving} disabled={loading || publishing}>
+                    <Button size="lg" type="submit" action="save" loading={saving || creating} disabled={loading || publishing}>
                         {translate("save")}
                     </Button>
                     <Popover visible={hasUnpublishedNfts ? false : undefined} arrow position="top">
@@ -45,8 +51,8 @@ const CollectionCreationPageHeader = ({ collection, loading, saving, publishing 
                                     size="lg"
                                     type="submit"
                                     action="publish"
-                                    loading={publishing}
-                                    disabled={loading || saving || !hasUnpublishedNfts}
+                                    loading={publishing && !creating}
+                                    disabled={loading || saving || creating || !hasUnpublishedNfts}
                                 >
                                     {translate("publish")}
                                 </Button>
@@ -62,7 +68,12 @@ const CollectionCreationPageHeader = ({ collection, loading, saving, publishing 
                         <Popover visible={allNftsAreDrafts ? false : undefined} arrow position="top">
                             <Popover.Content>
                                 <span>
-                                    <Button size="lg" type="submit" action="launch" disabled={loading || saving || !allNftsAreDrafts}>
+                                    <Button
+                                        size="lg"
+                                        type="submit"
+                                        action="launch"
+                                        disabled={loading || saving || creating || !allNftsAreDrafts}
+                                    >
                                         {translate("launch")}
                                     </Button>
                                 </span>
