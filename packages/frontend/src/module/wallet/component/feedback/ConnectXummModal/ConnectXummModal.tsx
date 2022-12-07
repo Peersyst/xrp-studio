@@ -23,7 +23,7 @@ const ConnectXummModal = createModal((modalProps): JSX.Element => {
                     <QrImage alt="xumm-login" src={xummQrUrl} />
                     <Col gap="1rem" alignItems="center">
                         <Typography variant="body2">{translate("getXummCTA")}</Typography>
-                        <Row gap="1.5rem" wrap wrapGap="1rem" justifyContent="center">
+                        <Row gap="1.5rem" justifyContent="center">
                             <XummAppLink.AppStore />
                             <XummAppLink.PlayStore />
                         </Row>
