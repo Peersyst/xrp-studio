@@ -32,7 +32,7 @@ describe("Profile Collections test", () => {
         const screen = render(<ProfileCollections />);
         expect(screen.getAllByText("collection name loading")).toHaveLength(3);
         await waitFor(() =>
-            expect(screen.getByRole("heading", { name: translate("youHaveNoCollections", { ns: "error" }) })).toBeInTheDocument(),
+            expect(screen.getByRole("heading", { name: translate("userNoCollections", { ns: "error" }) })).toBeInTheDocument(),
         );
     });
 });
