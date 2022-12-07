@@ -168,6 +168,14 @@
     "collectionCreationSuccessStepText": "Your collection has been published successfully!",
     "signaturesFailedText": "{{failedSignatures}} have failed",
     "nftPublishesFailedText": "{{failedNfts}} have failed",
+    "dropCreationStepTitle": "Drop creation",
+    "dropCreationStepText": "Your drop is being created.",
+    "dropCreationAuthorizationStepTitle": "NFT mint authorization",
+    "dropCreationAuthorizationStepText": "Please, sign the authorization transaction on your XUMM wallet. With this transaction, XRP Studio will be able to mint all the NFTs",
+    "dropCreationMintingStepTitle": "Drop NFTs minting",
+    "dropCreationMintingStepText": "The NFTs are being minted by XRP Studio. There are {{minted}}/{{total}} NFTs already minted.",
+    "dropCreationSuccessStepTitle": "Drop published successfully!",
+    "dropCreationSuccessStepText": "Your drop has been published successfully!",
     "buyNft": "Buy NFT",
     "viewAll": "View All"
 }

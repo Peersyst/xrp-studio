@@ -12,9 +12,6 @@ import useWallet from "module/wallet/hook/useWallet";
 import useTranslate from "module/common/hook/useTranslate";
 import DropLaunchModal from "module/drop/component/feedback/DropLaunchModal/DropLaunchModal";
 import createDropRequestFromForm from "module/drop/util/createDropRequestFromForm";
-import { DropService } from "module/api/service";
-import { DropRoutes } from "module/drop/DropRouter";
-import { xrpToDrops } from "xrpl";
 
 const DropCreationPage = (): JSX.Element => {
     const [searchParams] = useSearchParams();
@@ -34,21 +31,7 @@ const DropCreationPage = (): JSX.Element => {
     const navigate = useNavigate();
 
     const handleSubmit = async (data: DropCreationForm) => {
-        const dropCreated = await DropService.dropControllerPublishDrop({
-            collectionId: collectionId!,
-            price: xrpToDrops(data.price),
-            backgroundColor: data.backgroundColor.hex(),
-            fontColor: data.fontColor.hex(),
-            videoUrl: data.videoUrl === "" ? undefined : data.videoUrl,
-            instagram: data.instagram === "" ? undefined : data.instagram,
-            twitter: data.twitter === "" ? undefined : data.twitter,
-            discord: data.discord === "" ? undefined : data.discord,
-            faqs: data.faqs,
-        });
-        navigate(DropRoutes.DROP.replace(":id", dropCreated.id.toString()), { replace: true });
-        return;
-        // TODO: Process with the drop modal
-        showModal(DropLaunchModal, { request: createDropRequestFromForm(data), collectionId: collectionId! });
+        showModal(DropLaunchModal, { request: createDropRequestFromForm(data), collection: collection! });
     };
 
     useEffect(() => {
