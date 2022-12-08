@@ -7,7 +7,6 @@ function Grid<T extends PaginatedData, TagT = any>({
     filterBreakpoints,
     filters,
     withFilters = false,
-    withExtraSpace,
     tags,
     onClearTags,
     onDeleteTagClicked,
@@ -20,7 +19,6 @@ function Grid<T extends PaginatedData, TagT = any>({
             tags={tags}
             onClearTags={onClearTags}
             onDeleteTagClicked={onDeleteTagClicked}
-            withExtraSpace={withExtraSpace}
             {...baseGridProps}
         />
     ) : (

@@ -30,6 +30,7 @@ const ProfileNftsGrid = (): JSX.Element => {
             loadingCollections={isLoadingCollections}
             collections={collections}
             withFilters
+            withExtraSpace
             nothingToShow={
                 <NothingToShow
                     css={{ justifyContent: "flex-start" }}
