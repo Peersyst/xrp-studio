@@ -2466,10 +2466,10 @@
     "@peersyst/react-utils" "^2.1.0"
     validator "^13.7.0"
 
-"@peersyst/react-components@^3.0.17":
-  version "3.0.17"
-  resolved "https://registry.yarnpkg.com/@peersyst/react-components/-/react-components-3.0.17.tgz#cfe608f7e49ce3eb80db4e9d2ea2a0a63ff39971"
-  integrity sha512-XqkcxELoksLO+vSQO0/3XuCuY51n18YmPCpFF/kMLucAMsavR/l8mxtYJG20bGQPF3MYoVBpnHMSA2gwSfHQyA==
+"@peersyst/react-components@^3.0.21":
+  version "3.0.21"
+  resolved "https://registry.yarnpkg.com/@peersyst/react-components/-/react-components-3.0.21.tgz#71fd04ced4388adb6e7010c80f08e06287a4f004"
+  integrity sha512-Mo/RKHXA4N8i5NJkYyn+gEl3JrYE9O3gbTMiCd8f3AjTRdXbv2HBft0vNt+tYD3NiyHNFO3+Jb9AckNdwVoPZQ==
   dependencies:
     "@babel/runtime" "^7.16.7"
     "@peersyst/react-components-core" "^1.0.6"
