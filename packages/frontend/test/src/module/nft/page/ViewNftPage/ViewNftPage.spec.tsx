@@ -140,7 +140,7 @@ describe("ViewNftPage", () => {
             expect(screen.getByDisplayValue(metadataMock.attributes![1].traitType)).toBeInTheDocument();
             expect(screen.getByDisplayValue(metadataMock.attributes![1].value)).toBeInTheDocument();
             // Collections carousel
-            await waitFor(() => expect(screen.getByText(translate("showCollection"))).toBeInTheDocument());
+            await waitFor(() => expect(screen.getByText(translate("hideCollection"))).toBeInTheDocument());
         });
     });
 });
