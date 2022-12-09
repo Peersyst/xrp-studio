@@ -8,16 +8,19 @@ import { Fragment } from "react";
 import { useLocation } from "react-router-dom";
 import useTranslate from "module/common/hook/useTranslate";
 import { APPBAR_TABS } from "module/common/component/navigation/AppBar/AppBarTabs";
+import useIsMobile from "module/common/hook/useIsMobile";
 
 const AppBar = (): JSX.Element => {
     const location = useLocation();
     const { isLogged } = useWallet();
     const translate = useTranslate();
+
+    const isMobile = useIsMobile();
     return (
         <AppBarRoot>
             <Toolbar>
                 <Row flex={1} alignItems="center" justifyContent="space-between">
-                    <Logo />
+                    <Logo fullSize={!isMobile} />
                     <Row gap={24} alignItems="center" justifyContent="space-between">
                         {isLogged ? (
                             <Fragment>
