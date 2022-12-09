@@ -20,6 +20,8 @@ export const ProfileInfoRoot = styled(Col).attrs({ flex: 1 })(
             .profile-name {
                 font-size: ${theme.typography.subtitle1.style.fontSize};
             }
+            padding-left: 0;
+            align-items: center;
         }
     `,
 );

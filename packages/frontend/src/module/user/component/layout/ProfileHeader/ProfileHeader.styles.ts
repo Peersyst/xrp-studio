@@ -80,6 +80,12 @@ export const ProfileHeaderRoot = styled(PageHeader)<ProfileHeaderRootProps>(
                 }
             }
         }
+
+        ${theme.breakpoints.down("mobile")} {
+            .content-profile-header {
+                gap: 2.5rem;
+            }
+        }
     `,
 );
 
@@ -128,5 +134,9 @@ export const ProfileAvatar = styled(Avatar).attrs({ size: "xl" })(
 
         width: var(--profile-avatar-width) !important;
         height: auto !important;
+
+        ${theme.breakpoints.down("mobile")} {
+            left: 40%;
+        }
     `,
 );

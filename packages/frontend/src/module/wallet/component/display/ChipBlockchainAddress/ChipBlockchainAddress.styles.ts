@@ -8,5 +8,9 @@ export const ChipBlockchainAddressRoot = styled(BlockchainAddress)(
         color: ${theme.palette.black[60]};
         font-weight: 500;
         border-radius: ${theme.borderRadius};
+        ${theme.breakpoints.down("mobile")} {
+            align-items: center;
+            margin: auto;
+        }
     `,
 );
