@@ -1,11 +1,15 @@
-import { NotFoundPageRoot } from "module/common/page/NotFoundPage/NotFoundPage.styles";
 import NotFoundBanner from "module/common/component/feedback/NotFoundBanner/NotFoundBanner";
+import BasePage from "module/common/component/layout/BasePage/BasePage";
+import PageHeader from "module/common/component/layout/PageHeader/PageHeader";
 
 const NotFoundPage = (): JSX.Element => {
     return (
-        <NotFoundPageRoot>
-            <NotFoundBanner />
-        </NotFoundPageRoot>
+        <BasePage>
+            {{
+                header: <PageHeader />,
+                content: <NotFoundBanner />,
+            }}
+        </BasePage>
     );
 };
 
