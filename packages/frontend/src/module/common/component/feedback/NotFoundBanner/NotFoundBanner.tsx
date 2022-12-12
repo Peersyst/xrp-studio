@@ -8,7 +8,7 @@ const NotFoundBanner = (): JSX.Element => {
     const translateError = useTranslate("error");
 
     return (
-        <PageContent>
+        <PageContent css={{ padding: "14rem 1rem 12rem" }}>
             <Row gap="2rem" alignItems="center" breakpoint={{ width: "mobile", alignItems: "center", gap: "2rem" }}>
                 <Col flex={1} alignItems="flex-end">
                     <BannerImage src={logo} alt="xrp-studio-logo" />
