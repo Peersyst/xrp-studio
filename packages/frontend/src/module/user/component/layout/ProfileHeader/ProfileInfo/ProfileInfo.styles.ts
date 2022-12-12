@@ -9,6 +9,7 @@ export const ProfileInfoRoot = styled(Col).attrs({ flex: 1 })(
         ${theme.breakpoints.down("md")} {
             .profile-name {
                 font-size: ${theme.typography.h6.style.fontSize};
+                text-align: center;
             }
 
             .profile-description {

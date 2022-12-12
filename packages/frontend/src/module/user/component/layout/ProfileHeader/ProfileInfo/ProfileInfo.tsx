@@ -1,12 +1,11 @@
 import useGetUser from "module/user/query/useGetUser";
-import { Col, Row, Skeleton, Typography, useDrawer, useTheme } from "@peersyst/react-components";
+import { Col, Row, Skeleton, Typography, useDrawer } from "@peersyst/react-components";
 import {
     ProfileButtons,
     ProfileInfoRoot,
     ProfileMainInfo,
 } from "module/user/component/layout/ProfileHeader/ProfileInfo/ProfileInfo.styles";
 import Button from "module/common/component/input/Button/Button";
-import { useMediaQuery } from "@peersyst/react-hooks";
 import useTranslate from "module/common/hook/useTranslate";
 import useWallet from "module/wallet/hook//useWallet";
 import EditProfileDrawer from "module/user/component/feedback/EditProfileDrawer/EditProfileDrawer";
@@ -19,18 +18,12 @@ const ProfileInfo = (): JSX.Element => {
     const { data: user, isLoading } = useGetUser();
     const { address: walletAddress } = useWallet();
     const { name = "name", address = "", description = "description", discord, twitter } = user || {};
-    const {
-        breakpoints: {
-            values: { sm },
-        },
-    } = useTheme();
-    const isSm = useMediaQuery(`(max-width: ${sm}px)`);
     const isMobile = useIsMobile();
     const { showDrawer } = useDrawer();
     const showEditBtn = !isLoading && walletAddress === address;
     return (
         <ProfileInfoRoot>
-            <Col flex={1} gap="0.5rem">
+            <Col flex={1} gap={isMobile ? "1rem" : "0.5rem"}>
                 <Row justifyContent={isMobile ? "center" : "space-between"} css={{ maxWidth: "100%" }}>
                     <ProfileMainInfo gap="1rem" alignItems="center" breakpoint={{ width: "mobile", gap: "1rem" }}>
                         <Skeleton width="200px" loading={isLoading}>
@@ -38,13 +31,13 @@ const ProfileInfo = (): JSX.Element => {
                                 {name}
                             </Typography>
                         </Skeleton>
-                        <Skeleton width="331px" loading={isLoading}>
+                        <Skeleton width={isMobile ? "331px" : "134px"} loading={isLoading}>
                             <ChipBlockchainAddress
                                 className="account-address"
                                 variant="body1"
                                 address={address}
                                 type="address"
-                                length={isSm ? 3 : "auto"}
+                                length={isMobile ? 12 : 3}
                             />
                         </Skeleton>
                     </ProfileMainInfo>

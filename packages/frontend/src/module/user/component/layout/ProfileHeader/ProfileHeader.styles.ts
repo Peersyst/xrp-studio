@@ -40,16 +40,6 @@ export const ProfileHeaderRoot = styled(PageHeader)<ProfileHeaderRootProps>(
             background-position: 50% 50%;
         }
 
-        // Responsive layout, display these element in different places depending on the breakpoint
-        .account-address {
-            display: none;
-
-            ${theme.breakpoints.down("mobile")} {
-                display: flex;
-                width: fit-content;
-            }
-        }
-
         .profile-description {
             display: none;
 
@@ -61,10 +51,6 @@ export const ProfileHeaderRoot = styled(PageHeader)<ProfileHeaderRootProps>(
         ${ProfileInfoRoot} {
             .account-address {
                 display: flex;
-
-                ${theme.breakpoints.down("mobile")} {
-                    display: none;
-                }
             }
 
             .profile-description {

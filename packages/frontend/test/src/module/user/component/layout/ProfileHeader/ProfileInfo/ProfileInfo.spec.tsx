@@ -18,7 +18,7 @@ describe("ProfileInfo", () => {
     test("Renders correctly", async () => {
         render(<ProfileInfo />);
         await waitFor(() => expect(screen.getByRole("heading", { name: userDtoMock.name })).toBeInTheDocument());
-        expect(screen.getByText(formatHash(userDtoMock.address, undefined, 3))).toBeInTheDocument();
+        expect(screen.getByText(formatHash(userDtoMock.address, undefined, 12))).toBeInTheDocument();
         expect(screen.getByText(userDtoMock.description!)).toBeInTheDocument();
     });
 
@@ -26,7 +26,7 @@ describe("ProfileInfo", () => {
         jest.spyOn(Hooks, "useMediaQuery").mockReturnValue(true);
         render(<ProfileInfo />);
         await waitFor(() => expect(screen.getByRole("heading", { name: userDtoMock.name })).toBeInTheDocument());
-        expect(screen.getByText(formatHash(userDtoMock.address, undefined, 3))).toBeInTheDocument();
+        expect(screen.getByText(formatHash(userDtoMock.address, undefined, 12))).toBeInTheDocument();
         expect(screen.getByText(userDtoMock.description!)).toBeInTheDocument();
     });
 });

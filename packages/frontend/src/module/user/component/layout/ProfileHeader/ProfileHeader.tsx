@@ -5,17 +5,13 @@ import {
     ProfileHeaderFooter,
     ProfileHeaderRoot,
 } from "module/user/component/layout/ProfileHeader/ProfileHeader.styles";
-import { Col, Skeleton } from "@peersyst/react-components";
+import { Col } from "@peersyst/react-components";
 import ProfileInfo from "module/user/component/layout/ProfileHeader/ProfileInfo/ProfileInfo";
-import ChipBlockchainAddress from "module/wallet/component/display/ChipBlockchainAddress/ChipBlockchainAddress";
-import useIsMobile from "module/common/hook/useIsMobile";
 
 const ProfileHeader = (): JSX.Element => {
     const { data: user, isLoading } = useGetUser();
 
-    const { header = "", image = "", name = "", address = "" } = user || {};
-    const isMobile = useIsMobile();
-
+    const { header = "", image = "", name = "" } = user || {};
     return (
         <ProfileHeaderRoot showStickyTitle={!!header} image={header} stickyTitle={name}>
             <Col gap="1rem" className="content-profile-header">
@@ -25,15 +21,6 @@ const ProfileHeader = (): JSX.Element => {
                     <ProfileInfo />
                 </ProfileHeaderFooter>
             </Col>
-            <Skeleton width="134px" loading={isLoading}>
-                <ChipBlockchainAddress
-                    className="account-address"
-                    variant="body2"
-                    address={address}
-                    type="address"
-                    length={isMobile ? 12 : 3}
-                />
-            </Skeleton>
         </ProfileHeaderRoot>
     );
 };
