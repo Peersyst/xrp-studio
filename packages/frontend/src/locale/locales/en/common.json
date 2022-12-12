@@ -170,5 +170,6 @@
     "nftPublishesFailedText": "{{failedNfts}} have failed",
     "buyNft": "Buy NFT",
     "viewAll": "View All",
-    "unnamed": "Unnamed"
+    "unnamed": "Unnamed",
+    "mint": "Mint"
 }
