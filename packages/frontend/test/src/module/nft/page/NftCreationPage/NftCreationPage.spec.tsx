@@ -4,16 +4,7 @@ import NftCreationPage from "module/nft/page/NftCreationPage/NftCreationPage";
 import userEvent from "@testing-library/user-event";
 import { CollectionService, NftService } from "module/api/service";
 import createNftRequestFromForm from "module/nft/util/createNftRequestFromForm";
-import {
-    NftDtoMock,
-    WalletMock,
-    UseSearchParamsMock,
-    ToastMock,
-    ModalMock,
-    UserDtoMock,
-    CollectionsDtoMock,
-    PaginatedCollectionMock,
-} from "test-mocks";
+import { NftDtoMock, WalletMock, UseSearchParamsMock, ToastMock, ModalMock, UserDtoMock, PaginatedCollectionMock } from "test-mocks";
 import { waitFor } from "@testing-library/dom";
 import Color from "color";
 import parseFlags from "module/nft/util/parseFlags";
@@ -21,7 +12,8 @@ import { capitalize } from "@peersyst/react-utils";
 import NftPublishModal from "module/nft/component/feedback/NftPublishModal/NftPublishModal";
 
 describe("NftCreationPage", () => {
-    const nftDraftMock = new NftDtoMock({ status: "draft", flags: 2 });
+    const userMock = new UserDtoMock();
+    const nftDraftMock = new NftDtoMock({ status: "draft", flags: 2, user: userMock });
     const nftDraftMockFlags = parseFlags(nftDraftMock.flags);
     const nftDraftMockMetadata = nftDraftMock.metadata;
 
@@ -53,6 +45,7 @@ describe("NftCreationPage", () => {
 
     const useToastMock = new ToastMock();
     const useModalMock = new ModalMock();
+    const useWallet = new WalletMock({ isLogged: true, active: true, address: userMock.address });
     const getMyCollectionsMock = jest
         .spyOn(CollectionService, "collectionControllerGetCollections")
         .mockResolvedValue(new PaginatedCollectionMock().pages[0]);
@@ -60,26 +53,25 @@ describe("NftCreationPage", () => {
     beforeEach(() => {
         useToastMock.clear();
         useModalMock.clear();
+        useWallet.clear();
     });
 
     afterAll(() => {
         useToastMock.restore();
         useModalMock.restore();
+        useWallet.restore();
         getMyCollectionsMock.mockRestore();
     });
 
-    /*describe("Creation with balance", () => {
+    describe("Creation with balance", () => {
         let useSearchParamsMock: UseSearchParamsMock;
-        let walletMock: WalletMock;
 
         beforeAll(() => {
             useSearchParamsMock = new UseSearchParamsMock();
-            walletMock = new WalletMock({ active: true, address: "address" });
         });
 
         afterAll(() => {
             useSearchParamsMock.restore();
-            walletMock.restore();
         });
 
         test("Renders creation correctly", () => {
@@ -146,7 +138,7 @@ describe("NftCreationPage", () => {
                 ),
             );
         });
-    });*/
+    });
 
     describe("Edition with balance", () => {
         let useSearchParamsMock: UseSearchParamsMock;
@@ -161,7 +153,7 @@ describe("NftCreationPage", () => {
             useSearchParamsMock.restore();
             getNftMock.mockRestore();
         });
-        /*
+
         test("Renders edition correctly", async () => {
             render(<NftCreationPage />);
 
@@ -205,7 +197,7 @@ describe("NftCreationPage", () => {
 
             await waitFor(() => expect(useSearchParamsMock.params.delete).toHaveBeenCalledWith("id"));
             expect(useSearchParamsMock.setParams).toHaveBeenCalledWith(useSearchParamsMock.params);
-        });*/
+        });
 
         test("Updates an NFT draft", async () => {
             const updateNftDraftMock = jest.spyOn(NftService, "nftControllerUpdateNftDraft").mockResolvedValueOnce(undefined);
@@ -219,10 +211,10 @@ describe("NftCreationPage", () => {
             userEvent.type(nameInput, NFT_NAME);
             userEvent.click(saveButton);
 
-            expect(updateNftDraftMock).toHaveBeenCalledWith(1, UPDATE_NFT_REQUEST, false);
+            await waitFor(() => expect(updateNftDraftMock).toHaveBeenCalledWith(1, UPDATE_NFT_REQUEST, false));
         });
 
-        /*test("Publishes an NFT draft", async () => {
+        test("Publishes an NFT draft", async () => {
             render(<NftCreationPage />);
 
             const publishButton = screen.getByRole("button", { name: translate("publish") });
@@ -241,6 +233,6 @@ describe("NftCreationPage", () => {
                     }),
                 ),
             );
-        });*/
+        });
     });
 });

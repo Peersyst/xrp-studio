@@ -50,7 +50,6 @@ const NftCreationPage = (): JSX.Element => {
     }, [nftDraftLoading, nftDraft]);
 
     const handleSubmit = async (data: NftCreationForm, action: string | undefined) => {
-        console.log(action);
         const requestNft = createNftRequestFromForm(data);
         const collection = collections.find((el) => el.taxon === requestNft.taxon);
         if (action === "publish" && requestNft) {
