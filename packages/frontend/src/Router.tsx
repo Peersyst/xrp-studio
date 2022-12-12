@@ -2,7 +2,7 @@ import { ModalProvider } from "@peersyst/react-components";
 import AppBar from "module/common/component/navigation/AppBar/AppBar";
 import ScrollToTop from "module/common/component/navigation/ScrollToTop/ScrollToTop";
 import { Suspense } from "react";
-import { BrowserRouter, Navigate, useRoutes } from "react-router-dom";
+import { BrowserRouter, useRoutes } from "react-router-dom";
 import Footer from "module/common/component/navigation/Footer/Footer";
 import { config } from "config";
 import { useNftRoutes } from "module/nft/NftRouter";
@@ -12,10 +12,8 @@ import { useCollectionRoutes } from "module/collection/CollectionRouter";
 import { useDropRoutes } from "module/drop/DropRouter";
 import { useExploreRoutes } from "module/explore/ExploreRouter";
 import { useLandingRoutes } from "module/landing/LandingRouter";
-
-export enum BaseRoutes {
-    HOME = "/",
-}
+import NotFoundPage from "module/common/page/NotFoundPage/NotFoundPage";
+import LoadingLogo from "module/common/component/layout/LoadingLogo/LoadingLogo";
 
 const Routes = () => {
     const userRoutes = useUserRoutes();
@@ -31,7 +29,7 @@ const Routes = () => {
         ...dropRoutes,
         ...exploreRoutes,
         ...landingRoutes,
-        { path: "*", element: <Navigate to={BaseRoutes.HOME} /> },
+        { path: "*", element: <NotFoundPage /> },
     ]);
 };
 
@@ -42,9 +40,9 @@ const Router = (): JSX.Element => {
         <BrowserRouter basename={config.publicUrl}>
             <ModalProvider>
                 <ScrollToTop />
-                <Suspense fallback={<div>Loading</div>}>
+                <Suspense fallback={<LoadingLogo />}>
                     {loading ? (
-                        <div>Loading</div>
+                        <LoadingLogo />
                     ) : (
                         <>
                             <AppBar />

@@ -2,10 +2,6 @@ import styled, { css } from "styled-components";
 import { Image, Col, Typography } from "@peersyst/react-components";
 
 export const HowWorkCardRoot = styled(Col)`
-    .Skeleton {
-        min-width: 40rem;
-        max-width: 40rem;
-    }
     .Typography {
         overflow: initial;
     }
@@ -15,6 +11,8 @@ export const HowWorkCardRoot = styled(Col)`
 export const BaseImage = styled(Image)(
     ({ theme }) => css`
         width: 60rem;
+        aspect-ratio: 1.09;
+
         ${theme.breakpoints.down("sm")} {
             width: 40rem;
         }
@@ -25,7 +23,6 @@ export const BaseImage = styled(Image)(
 );
 
 export const BaseDescription = styled(Typography)`
-    line-height: 28px;
     line-height: 145%;
     text-align: center;
 `;

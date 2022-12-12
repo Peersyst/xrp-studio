@@ -8,4 +8,5 @@ export { default as nebula } from "./nebula.png";
 export { default as nebula_rotate } from "./nebula_rotate.png";
 export { default as peersyst_logo } from "./peersystLogo.png";
 export { default as ripple_logo } from "./rippleLogo.png";
+export { default as xrp_studio_logo } from "./xrpStudioLogo.png";
 export { default as xrpl_logo } from "./xrplLogo.png";
