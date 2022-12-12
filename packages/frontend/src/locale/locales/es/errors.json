@@ -56,5 +56,6 @@
     "userNoCollections": "Este usuario no tiene colecciones",
     "notFound": "No encontrado",
     "content404": "El contenido que estás buscando no existe",
-    "yourSessionHasExpired": "Tu sesión ha caducado"
+    "yourSessionHasExpired": "Tu sesión ha caducado",
+    "nftMinting": "Ha fallado la firma de la transacción del NFT"
 }
