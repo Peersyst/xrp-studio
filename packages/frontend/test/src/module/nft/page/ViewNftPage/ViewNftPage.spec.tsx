@@ -121,7 +121,7 @@ describe("ViewNftPage", () => {
             expect(
                 screen.getByText(
                     translate("formatNumber", {
-                        val: nftMockWithAllValues.transferFee,
+                        val: nftMockWithAllValues.transferFee! / 1000,
                         minimumFractionDigits: 3,
                         maximumFractionDigits: 3!,
                     }) + "%",

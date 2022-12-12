@@ -122,7 +122,7 @@
     "tokenId": "Token ID",
     "transferFeeCost": "Coste de transferencia",
     "theNfts": "The NFTs",
-    "createAndManageNft": "Crea y administra tus NFT's",
+    "createAndManageNft": "Crea y administra tus NFTs",
     "landingHeaderDescription": "Unleash the digital artist inside you. Create NFTs from your digital artwork. Manage and launch them without needing to know the tricky side of the crypto world",
     "startCreatingNow": "Comienza ahora",
     "back": "Volver",
@@ -167,5 +167,6 @@
     "trending": "Tendencia",
     "collections": "Colecciones",
     "nfts": "NFTs",
-    "viewAll": "Ver todos"
+    "viewAll": "Ver todos",
+    "unnamed": "Sin nombre"
 }
