@@ -7,5 +7,4 @@ export interface NftPreviewProps {
     loading?: boolean;
     className?: string;
     style?: CSSProperties;
-    defaultPreviewUrl: string | undefined;
 }
