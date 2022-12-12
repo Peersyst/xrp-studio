@@ -20,11 +20,13 @@ export default function ({ publish }: UseCreateCollectionProps): UseMutationResu
 
     return useMutation(
         async ({ collection }: UseCreateCollectionParams) => {
-            // Should be guaranteed by precondition
-            const nfts = collection.nfts!;
-            const amount = nfts.length * config.feeInDrops;
-            const valid = amount && (await checkBalance(amount));
-            if (!valid) throw new AppError("notEnoughBalance");
+            if (publish) {
+                // Should be guaranteed by precondition
+                const nfts = collection.nfts!;
+                const amount = nfts.length * config.feeInDrops;
+                const valid = amount && (await checkBalance(amount));
+                if (!valid) throw new AppError("notEnoughBalance");
+            }
             return CollectionService.collectionControllerCreateCollection(collection, publish);
         },
         {
