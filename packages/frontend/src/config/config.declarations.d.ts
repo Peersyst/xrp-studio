@@ -19,7 +19,9 @@ declare module "@peersyst/react-components" {
             discordLink: string;
         };
         blockchainLinks: Omit<BlockchainLinks, "token">;
-        nftDefaultCoverUrl: string;
+        nftDefaultImageUrl: string;
+        collectionDefaultImageUrl: string;
+        collectionDefaultHeaderUrl: string;
         network: NetworkType;
         xrpNodeUrl: string;
         maxBioChars: number;
@@ -42,13 +44,19 @@ declare module "@peersyst/react-components" {
             discordLink: string;
         };
         blockchainLinks: Omit<BlockchainLinks, "token">;
-        nftDefaultCoverUrl: string;
+        nftDefaultImageUrl: string;
+        collectionDefaultImageUrl: string;
+        collectionDefaultHeaderUrl: string;
+        network: string;
+        xrpNodeUrl: string;
         maxBioChars: number;
         maxUsernameChars: number;
         maxNftDescChars: number;
         maxNumberDecimals: number;
         tokenName: string;
         feeInDrops: number;
+        peersystEmail: string;
+        peersyst: string;
     }
 
     export interface ExtraValidators {

@@ -11,6 +11,7 @@ import ConditionalLink from "module/common/component/navigation/ConditionalLink/
 import { forwardRef } from "react";
 import { setRef } from "@peersyst/react-utils";
 import { CollectionRoutes } from "module/collection/CollectionRouter";
+import { config } from "config";
 
 const CollectionCard = forwardRef(
     (
@@ -24,9 +25,15 @@ const CollectionCard = forwardRef(
         return (
             <ConditionalLink condition={!loading} to={CollectionRoutes.VIEW_COLLECTION.replace(":id", id.toString())}>
                 <CollectionCardRoot size={size} ref={(r) => setRef(ref, r)}>
-                    <CollectionCardCover size={size} src={header} alt={`${alt}-cover`} loading={loading} />
+                    <CollectionCardCover
+                        size={size}
+                        src={header}
+                        alt={`${alt}-cover`}
+                        loading={loading}
+                        fallback={config.collectionDefaultHeaderUrl}
+                    />
                     <CollectionCardFooter>
-                        <CollectionAvatar img={image} alt={`${alt}-image`} loading={loading} />
+                        <CollectionAvatar img={image} alt={`${alt}-image`} loading={loading} fallback={config.collectionDefaultImageUrl} />
                         <Col gap="0.375rem" justifyContent="flex-end" css={{ maxWidth: "63%" }}>
                             <Skeleton loading={loading}>
                                 <Typography variant="body1" fontWeight={800} singleLine>
