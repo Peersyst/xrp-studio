@@ -25,7 +25,7 @@ describe("createNftRequestFromForm", () => {
             flags: {
                 burnable: true,
                 onlyXRP: true,
-                trustLine: true,
+                trustLine: false,
                 transferable: true,
             },
             taxon: 1,

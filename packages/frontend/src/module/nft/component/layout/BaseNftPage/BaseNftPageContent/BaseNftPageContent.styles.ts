@@ -8,7 +8,7 @@ export const BaseNftPageContentCard = styled(Card)(
         padding: 1.5rem;
 
         ${theme.breakpoints.up("nftPage")} {
-            max-width: 34.5rem;
+            max-width: 41.5625rem;
         }
     `,
 );
