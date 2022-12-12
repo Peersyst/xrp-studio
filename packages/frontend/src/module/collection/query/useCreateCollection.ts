@@ -7,16 +7,19 @@ import { AppError } from "../../../query/AppError";
 
 export interface UseCreateCollectionParams {
     collection: CreateCollectionRequest;
+}
+
+export interface UseCreateCollectionProps {
     publish: boolean;
 }
 
-export default function (): UseMutationResult<CollectionDto, unknown, UseCreateCollectionParams> {
+export default function ({ publish }: UseCreateCollectionProps): UseMutationResult<CollectionDto, unknown, UseCreateCollectionParams> {
     const queryClient = useQueryClient();
 
     const checkBalance = useCheckBalance();
 
     return useMutation(
-        async ({ collection, publish }: UseCreateCollectionParams) => {
+        async ({ collection }: UseCreateCollectionParams) => {
             // Should be guaranteed by precondition
             const nfts = collection.nfts!;
             const amount = nfts.length * config.feeInDrops;

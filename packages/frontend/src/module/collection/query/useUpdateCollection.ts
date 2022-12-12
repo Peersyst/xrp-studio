@@ -5,14 +5,17 @@ import Queries from "../../../query/queries";
 export interface UseUpdateCollectionParams {
     id: number;
     collection: UpdateCollectionRequest;
-    publish?: boolean;
 }
 
-export default function (): UseMutationResult<CollectionDto, unknown, UseUpdateCollectionParams> {
+export interface UseUpdateCollectionProps {
+    publish: boolean;
+}
+
+export default function ({ publish }: UseUpdateCollectionProps): UseMutationResult<CollectionDto, unknown, UseUpdateCollectionParams> {
     const queryClient = useQueryClient();
 
     return useMutation(
-        async ({ id, collection, publish }: UseUpdateCollectionParams) =>
+        async ({ id, collection }: UseUpdateCollectionParams) =>
             CollectionService.collectionControllerUpdateCollection(id, collection, publish),
         {
             onSuccess: async (_, { id }) => {

@@ -17,8 +17,8 @@ const CollectionPublishActions = ({
 }: CollectionPublishActionsProps): JSX.Element => {
     const translate = useTranslate();
 
-    const { mutateAsync: publishCreate, data: dataCreate } = useCreateCollection();
-    const { mutateAsync: publishUpdate, data: dataUpdate } = useUpdateCollection();
+    const { mutateAsync: publishCreate, data: dataCreate } = useCreateCollection({ publish: true });
+    const { mutateAsync: publishUpdate, data: dataUpdate } = useUpdateCollection({ publish: false });
     const { publish, data } = collection ? { publish: publishUpdate, data: dataUpdate } : { publish: publishCreate, data: dataCreate };
 
     const collectionIds = useMemo(() => (data?.nfts || []).map((nft) => nft.id), [data]);
@@ -33,7 +33,7 @@ const CollectionPublishActions = ({
             title: translate("collectionCreationStepTitle"),
             description: translate("collectionCreationStepText"),
             // eslint-disable-next-line @typescript-eslint/no-non-null-asserted-optional-chain
-            execution: async () => await publish({ id: collection?.id!, collection: request, publish: true }),
+            execution: async () => await publish({ id: collection?.id!, collection: request }),
         },
         {
             title: translate("collectionNftsConfirmationStepTitle"),

@@ -4,7 +4,7 @@ import CollectionCreationPageHeader from "module/collection/page/CollectionCreat
 import { useNavigate, useSearchParams } from "react-router-dom";
 import useGetCollection from "module/collection/query/useGetCollection";
 import useWallet from "module/wallet/hook//useWallet";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import useTranslate from "module/common/hook/useTranslate";
 import CollectionCreationPageContent from "module/collection/page/CollectionCreationPage/CollectionCreationPageContent/CollectionCreationPageContent";
 import useCreateCollection from "module/collection/query/useCreateCollection";
@@ -30,9 +30,14 @@ const CollectionCreationPage = (): JSX.Element => {
     const collectionId = searchParams.get("id");
     const { data: collection, isLoading: collectionLoading } = useGetCollection(collectionId ? Number(collectionId) : undefined);
 
-    const { mutateAsync: createCollection, isLoading: publishing } = useCreateCollection();
-    const { mutateAsync: updateCollection, isLoading: saving } = useUpdateCollection();
-    const [creating, setCreating] = useState<boolean>();
+    const { isLoading: creatingAndPublishingCollection } = useCreateCollection({ publish: true });
+    const { mutateAsync: createCollection, isLoading: creatingCollection } = useCreateCollection({ publish: false });
+    const { isLoading: updatingAndPublishingCollection } = useUpdateCollection({ publish: true });
+    const { mutateAsync: updateCollection, isLoading: updatingCollection } = useUpdateCollection({ publish: false });
+
+    const publishing = creatingAndPublishingCollection || updatingAndPublishingCollection;
+    const saving = creatingCollection || updatingCollection;
+
     const { address: userAddress } = useWallet();
     const [{ name, image, header, description }, setCollectionCreationState] = useCollectionCreationState();
 
@@ -78,14 +83,11 @@ const CollectionCreationPage = (): JSX.Element => {
             if (action === "publish") {
                 showModal(CollectionPublishModal, { request: createCollectionRequestFromForm("create", data) });
             } else {
-                setCreating(true);
                 const collectionData = await createCollection({
                     collection: createCollectionRequestFromForm("create", data),
-                    publish: false,
                 });
 
                 resetCollectionCreationState();
-                setCreating(false);
                 showToast(translate("collectionCreated"), { type: "success" });
 
                 if (action === "launch") {
@@ -107,7 +109,6 @@ const CollectionCreationPage = (): JSX.Element => {
                             loading={collectionLoading}
                             publishing={publishing}
                             saving={saving}
-                            creating={creating}
                         />
                     ),
                     content: <CollectionCreationPageContent collection={collection} loading={collectionLoading} />,
