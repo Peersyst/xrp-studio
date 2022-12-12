@@ -18,23 +18,29 @@ const BaseNftPageContent = rack(
         const translate = useTranslate();
 
         return (
-            <PageContent>
-                <Row gap="1.5rem" flex={1} breakpoint={{ width: "nftPage", alignItems: "stretch", gap: "1.5rem" }}>
-                    <Col gap="3rem" flex={1}>
-                        {slots.Left}
-                    </Col>
-                    <Col flex={1}>{slots.Right}</Col>
-                </Row>
-                {collectionNfts && (
-                    <Collapsable label={translate("hideCollection")} collapsedLabel={translate("showCollection")}>
-                        <NftPreviewCarousel
-                            loading={loadingCollectionNfts}
-                            nfts={collectionNfts}
-                            activeId={activeCarouselNftId}
-                            to={collectionNftLink}
-                        />
-                    </Collapsable>
-                )}
+            <PageContent css={{ paddingBottom: collectionNfts ? 0 : undefined }}>
+                <Col flex={1} gap="1.5rem">
+                    <Row gap="1.5rem" flex={1} breakpoint={{ width: "nftPage", alignItems: "stretch", gap: "1.5rem" }}>
+                        <Col gap="3rem" flex={1}>
+                            {slots.Left}
+                        </Col>
+                        <Col flex={1}>{slots.Right}</Col>
+                    </Row>
+                    {collectionNfts && (
+                        <Collapsable
+                            defaultCollapsed={false}
+                            label={translate("hideCollection")}
+                            collapsedLabel={translate("showCollection")}
+                        >
+                            <NftPreviewCarousel
+                                loading={loadingCollectionNfts}
+                                nfts={collectionNfts}
+                                activeId={activeCarouselNftId}
+                                to={collectionNftLink}
+                            />
+                        </Collapsable>
+                    )}
+                </Col>
             </PageContent>
         );
     },
