@@ -42,6 +42,7 @@ const CollectionCreationPage = (): JSX.Element => {
     const [{ name, image, header, description }, setCollectionCreationState] = useCollectionCreationState();
 
     useEffect(() => {
+        resetCollectionCreationState();
         setCollectionCreationState({
             id: collection?.id,
             name: name || collection?.name,
@@ -52,6 +53,7 @@ const CollectionCreationPage = (): JSX.Element => {
     }, [collection]);
 
     useEffect(() => {
+        resetCollectionCreationState();
         if (collection && collection.account !== userAddress) {
             showToast(translateError("collectionNotOwned"), { type: "warning" });
             searchParams.delete("id");

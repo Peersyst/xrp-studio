@@ -14,12 +14,12 @@ const EditCollectionNftDraftHeader = ({ saving }: EditCollectionNftDraftHeaderPr
             title={translate("editCollectionNft")}
             back
             backIconSize="md"
+            backPath={CollectionRoutes.CREATE_COLLECTION + (id ? `?id=${id}` : "")}
             complement={
                 <Button type="submit" loading={saving}>
                     {translate("saveChanges")}
                 </Button>
             }
-            backPath={CollectionRoutes.CREATE_COLLECTION + (id ? `?id=${id}` : "")}
         />
     );
 };
