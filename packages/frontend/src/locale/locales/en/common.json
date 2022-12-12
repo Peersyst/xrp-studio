@@ -163,7 +163,7 @@
     "collectionCreationStepTitle": "Collection creation",
     "collectionCreationStepText": "Your collection is being created.",
     "collectionNftsConfirmationStepTitle": "Collection NFTs confirmation",
-    "collectionNftsConfirmationStepText": "Please, sign all NFT mint transactions on your XUMM wallet in order to be sent the XRPL chain and confirmed. There are {{pendingNFTs}} NFTs left.",
+    "collectionNftsConfirmationStepText": "Please, sign all NFT mint transactions in your XUMM wallet in order to be sent the XRPL chain and confirmed. There are {{pendingNFTs}} NFTs left.",
     "collectionCreationSuccessStepTitle": "Collection published successfully!",
     "collectionCreationSuccessStepText": "Your collection has been published successfully!",
     "signaturesFailedText": "{{failedSignatures}} have failed",
