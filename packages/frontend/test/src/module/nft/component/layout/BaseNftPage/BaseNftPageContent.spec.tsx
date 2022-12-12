@@ -31,6 +31,6 @@ describe("BaseNftPageContent", () => {
         );
 
         // Collection nfts carousel
-        expect(screen.getByText(translate("showCollection"))).toBeInTheDocument();
+        expect(screen.getByText(translate("hideCollection"))).toBeInTheDocument();
     });
 });

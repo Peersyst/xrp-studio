@@ -17,6 +17,8 @@ const Collapsable = ({
     label,
     collapsedLabel: collapsedLabelProp,
     children,
+    className,
+    style,
     ...collapseProps
 }: CollapsableProps): JSX.Element => {
     const [collapsed, setCollapsed] = useControlled(defaultCollapsed, collapse, onChange);
@@ -24,7 +26,7 @@ const Collapsable = ({
     const collapsedLabel = collapsedLabelProp ?? label;
 
     return (
-        <CollapsableRoot>
+        <CollapsableRoot className={className} style={style}>
             <CollapsableHeader>
                 <CollapsableDivider />
                 <CollapsableButton variant="tertiary" rounded size="sm" onClick={() => setCollapsed(!collapsed)}>

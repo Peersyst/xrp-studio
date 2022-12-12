@@ -24,6 +24,7 @@ function BaseGridFilters({ children, ...rest }: BaseGridFiltersProps): JSX.Eleme
             <Filters>{children}</Filters>
         </FiltersContainer>
     );
+
     return (
         <>
             <FiltersModal animation="from-bottom" open={isTablet && showFilters} onClose={handleHide}>

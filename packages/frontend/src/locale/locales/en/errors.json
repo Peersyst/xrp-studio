@@ -56,5 +56,6 @@
     "noCollectionsAvailable": "There are no collections available at this moment",
     "notFound": "Not Found",
     "content404": "The content you are looking for does not exist",
+    "yourSessionHasExpired": "Your session has expired",
     "nftMinting": "NFT transaction signature failed"
 }

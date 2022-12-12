@@ -7,7 +7,7 @@ export interface BaseGridTagsProps<T> {
     /**
      * The tags to display
      */
-    tags?: Tag<T>[];
+    tags: Tag<T>[];
     /**
      * The function to call when a tag is clicked
      */
@@ -20,4 +20,8 @@ export interface BaseGridTagsProps<T> {
      * Extra space for banner
      */
     withExtraSpace?: boolean;
+}
+
+export interface BaseGridTagsRootProps {
+    withExtraSpace: boolean;
 }
