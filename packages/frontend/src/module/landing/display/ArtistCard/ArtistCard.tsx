@@ -13,10 +13,10 @@ const ArtistCard = forwardRef(({ artist, loading = false }: WithLoading<LandingP
 
     return (
         <ArtistCardRoot to={UserRoutes.PROFILE.replace(":address", address)}>
-        <Row gap="1rem" alignItems="center" ref={ref} css={{ minWidth: "16.5rem", maxWidth: "16.5rem" }}>
-            <Avatar img={image} alt="artist-image" loading={loading} size={"md"} />
-            <Col gap="1rem" alignItems="center">
-                <Skeleton loading={loading}>
+            <Row gap="1rem" alignItems="center" ref={ref} css={{ minWidth: "16.5rem", maxWidth: "16.5rem" }}>
+                <Avatar img={image} alt="artist-image" loading={loading} size={"md"} />
+                <Col gap="1rem" alignItems="center">
+                    <Skeleton loading={loading}>
                         <Col gap={"0.5rem"} css={{ maxWidth: "8rem" }}>
                             <Username name={name} verified={verifiedArtist} variant="body1" fontWeight={800} />
                             <Typography variant="body2" light>
