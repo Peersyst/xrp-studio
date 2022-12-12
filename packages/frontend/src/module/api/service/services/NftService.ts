@@ -1,34 +1,31 @@
 /* istanbul ignore file */
 /* tslint:disable */
 /* eslint-disable */
-import type { CreateNftDraftRequest } from '../models/CreateNftDraftRequest';
-import type { NftDraftDto } from '../models/NftDraftDto';
-import type { NftDraftStatusDto } from '../models/NftDraftStatusDto';
-import type { NftDto } from '../models/NftDto';
-import type { PaginatedNftDraftDto } from '../models/PaginatedNftDraftDto';
-import type { PaginatedNftDto } from '../models/PaginatedNftDto';
-import type { UpdateNftDraftRequest } from '../models/UpdateNftDraftRequest';
+import type { CreateNftDraftRequest } from "../models/CreateNftDraftRequest";
+import type { NftDraftDto } from "../models/NftDraftDto";
+import type { NftDraftStatusDto } from "../models/NftDraftStatusDto";
+import type { NftDto } from "../models/NftDto";
+import type { PaginatedNftDraftDto } from "../models/PaginatedNftDraftDto";
+import type { PaginatedNftDto } from "../models/PaginatedNftDto";
+import type { UpdateNftDraftRequest } from "../models/UpdateNftDraftRequest";
 
-import type { CancelablePromise } from '../core/CancelablePromise';
-import { OpenAPI } from '../core/OpenAPI';
-import { request as __request } from '../core/request';
+import type { CancelablePromise } from "../core/CancelablePromise";
+import { OpenAPI } from "../core/OpenAPI";
+import { request as __request } from "../core/request";
 
 export class NftService {
-
     /**
      * Create an NFT
      * @param requestBody
      * @returns NftDraftDto
      * @throws ApiError
      */
-    public static nftControllerCreateNft(
-        requestBody: CreateNftDraftRequest,
-    ): CancelablePromise<NftDraftDto> {
+    public static nftControllerCreateNft(requestBody: CreateNftDraftRequest): CancelablePromise<NftDraftDto> {
         return __request(OpenAPI, {
-            method: 'POST',
-            url: '/api/nft',
+            method: "POST",
+            url: "/api/nft",
             body: requestBody,
-            mediaType: 'application/json',
+            mediaType: "application/json",
         });
     }
 
@@ -51,22 +48,22 @@ export class NftService {
         query?: string,
         collections?: Array<number>,
         account?: string,
-        status?: Array<'draft' | 'pending' | 'confirmed' | 'failed'>,
-        order?: 'ASC' | 'DESC',
-        orderField?: 'priority' | 'name',
+        status?: Array<"draft" | "pending" | "confirmed" | "failed">,
+        order?: "ASC" | "DESC",
+        orderField?: "priority" | "name",
     ): CancelablePromise<PaginatedNftDto> {
         return __request(OpenAPI, {
-            method: 'GET',
-            url: '/api/nft',
+            method: "GET",
+            url: "/api/nft",
             query: {
-                'page': page,
-                'pageSize': pageSize,
-                'query': query,
-                'collections': collections,
-                'account': account,
-                'status': status,
-                'order': order,
-                'orderField': orderField,
+                page: page,
+                pageSize: pageSize,
+                query: query,
+                collections: collections,
+                account: account,
+                status: status,
+                order: order,
+                orderField: orderField,
             },
         });
     }
@@ -77,14 +74,12 @@ export class NftService {
      * @returns NftDraftDto
      * @throws ApiError
      */
-    public static nftControllerCreateNftDraft(
-        requestBody: CreateNftDraftRequest,
-    ): CancelablePromise<NftDraftDto> {
+    public static nftControllerCreateNftDraft(requestBody: CreateNftDraftRequest): CancelablePromise<NftDraftDto> {
         return __request(OpenAPI, {
-            method: 'POST',
-            url: '/api/nft/draft',
+            method: "POST",
+            url: "/api/nft/draft",
             body: requestBody,
-            mediaType: 'application/json',
+            mediaType: "application/json",
         });
     }
 
@@ -96,22 +91,18 @@ export class NftService {
      * @returns void
      * @throws ApiError
      */
-    public static nftControllerUpdateNftDraft(
-        id: number,
-        requestBody: UpdateNftDraftRequest,
-        publish?: boolean,
-    ): CancelablePromise<void> {
+    public static nftControllerUpdateNftDraft(id: number, requestBody: UpdateNftDraftRequest, publish?: boolean): CancelablePromise<void> {
         return __request(OpenAPI, {
-            method: 'PUT',
-            url: '/api/nft/draft/{id}',
+            method: "PUT",
+            url: "/api/nft/draft/{id}",
             path: {
-                'id': id,
+                id: id,
             },
             query: {
-                'publish': publish,
+                publish: publish,
             },
             body: requestBody,
-            mediaType: 'application/json',
+            mediaType: "application/json",
         });
     }
 
@@ -121,14 +112,12 @@ export class NftService {
      * @returns NftDraftDto
      * @throws ApiError
      */
-    public static nftControllerGetNftDraft(
-        id: number,
-    ): CancelablePromise<NftDraftDto> {
+    public static nftControllerGetNftDraft(id: number): CancelablePromise<NftDraftDto> {
         return __request(OpenAPI, {
-            method: 'GET',
-            url: '/api/nft/draft/{id}',
+            method: "GET",
+            url: "/api/nft/draft/{id}",
             path: {
-                'id': id,
+                id: id,
             },
         });
     }
@@ -139,14 +128,12 @@ export class NftService {
      * @returns void
      * @throws ApiError
      */
-    public static nftControllerPublishNftDraft(
-        id: number,
-    ): CancelablePromise<void> {
+    public static nftControllerPublishNftDraft(id: number): CancelablePromise<void> {
         return __request(OpenAPI, {
-            method: 'PATCH',
-            url: '/api/nft/draft/{id}/publish',
+            method: "PATCH",
+            url: "/api/nft/draft/{id}/publish",
             path: {
-                'id': id,
+                id: id,
             },
         });
     }
@@ -167,19 +154,19 @@ export class NftService {
         pageSize?: number,
         query?: any,
         collections?: Array<number>,
-        order?: 'ASC' | 'DESC',
-        status?: 'draft' | 'pending' | 'confirmed' | 'failed',
+        order?: "ASC" | "DESC",
+        status?: "draft" | "pending" | "confirmed" | "failed",
     ): CancelablePromise<PaginatedNftDraftDto> {
         return __request(OpenAPI, {
-            method: 'GET',
-            url: '/api/nft/my',
+            method: "GET",
+            url: "/api/nft/my",
             query: {
-                'page': page,
-                'pageSize': pageSize,
-                'query': query,
-                'collections': collections,
-                'order': order,
-                'status': status,
+                page: page,
+                pageSize: pageSize,
+                query: query,
+                collections: collections,
+                order: order,
+                status: status,
             },
         });
     }
@@ -191,16 +178,13 @@ export class NftService {
      * @returns NftDraftStatusDto
      * @throws ApiError
      */
-    public static nftControllerGetNftDraftStatus(
-        id?: number,
-        ids?: Array<number>,
-    ): CancelablePromise<Array<NftDraftStatusDto>> {
+    public static nftControllerGetNftDraftStatus(id?: number, ids?: Array<number>): CancelablePromise<Array<NftDraftStatusDto>> {
         return __request(OpenAPI, {
-            method: 'GET',
-            url: '/api/nft/draft/status',
+            method: "GET",
+            url: "/api/nft/draft/status",
             query: {
-                'id': id,
-                'ids': ids,
+                id: id,
+                ids: ids,
             },
         });
     }
@@ -211,16 +195,13 @@ export class NftService {
      * @returns NftDto
      * @throws ApiError
      */
-    public static nftControllerGetNft(
-        id: number,
-    ): CancelablePromise<NftDto> {
+    public static nftControllerGetNft(id: number): CancelablePromise<NftDto> {
         return __request(OpenAPI, {
-            method: 'GET',
-            url: '/api/nft/{id}',
+            method: "GET",
+            url: "/api/nft/{id}",
             path: {
-                'id': id,
+                id: id,
             },
         });
     }
-
 }
