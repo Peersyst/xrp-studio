@@ -53,5 +53,7 @@
     "noNftsAvailable": "No hay ningún NFT disponible en este momento.",
     "noCollectionsAvailable": "No hay colecciones disponibles en este momento",
     "userNoNfts": "Este usuario no tiene NFTs",
-    "userNoCollections": "Este usuario no tiene colecciones"
+    "userNoCollections": "Este usuario no tiene colecciones",
+    "notFound": "No encontrado",
+    "content404": "El contenido que estás buscando no existe"
 }

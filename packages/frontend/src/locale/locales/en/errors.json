@@ -51,7 +51,9 @@
     "nftFailed": "An error occurred while publishing this NFT. Click to publish again.",
     "maxPollingCalls": "Maximum polling calls reached",
     "noNftsAvailable": "There are no NFTs available at this moment.",
-    "noCollectionsAvailable": "There are no collections available at this moment",
     "userNoNfts": "This user has no NFTs",
-    "userNoCollections": "This user has no collections"
+    "userNoCollections": "This user has no collections",
+    "noCollectionsAvailable": "There are no collections available at this moment",
+    "notFound": "Not Found",
+    "content404": "The content you are looking for does not exist"
 }

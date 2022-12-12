@@ -30,8 +30,13 @@ const CollectionCreationPage = (): JSX.Element => {
     const collectionId = searchParams.get("id");
     const { data: collection, isLoading: collectionLoading } = useGetCollection(collectionId ? Number(collectionId) : undefined);
 
-    const { mutateAsync: createCollection, isLoading: publishing } = useCreateCollection();
-    const { mutateAsync: updateCollection, isLoading: saving } = useUpdateCollection();
+    const { isLoading: creatingAndPublishingCollection } = useCreateCollection({ publish: true });
+    const { mutateAsync: createCollection, isLoading: creatingCollection } = useCreateCollection({ publish: false });
+    const { isLoading: updatingAndPublishingCollection } = useUpdateCollection({ publish: true });
+    const { mutateAsync: updateCollection, isLoading: updatingCollection } = useUpdateCollection({ publish: false });
+
+    const publishing = creatingAndPublishingCollection || updatingAndPublishingCollection;
+    const saving = creatingCollection || updatingCollection;
 
     const { address: userAddress } = useWallet();
     const [{ name, image, header, description }, setCollectionCreationState] = useCollectionCreationState();
@@ -80,11 +85,11 @@ const CollectionCreationPage = (): JSX.Element => {
             } else {
                 const collectionData = await createCollection({
                     collection: createCollectionRequestFromForm("create", data),
-                    publish: false,
                 });
 
                 resetCollectionCreationState();
                 showToast(translate("collectionCreated"), { type: "success" });
+
                 if (action === "launch") {
                     navigate(DropRoutes.DROP_CREATION + "?id=" + collectionData.id);
                 } else {

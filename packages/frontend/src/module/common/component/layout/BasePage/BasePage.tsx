@@ -8,7 +8,7 @@ import { BasePageRoot } from "module/common/component/layout/BasePage/BasePage.s
  */
 
 interface BasePageProps {
-    children: { header: ReactElement; content: ReactElement };
+    children: { header?: ReactElement; content: ReactElement };
     className?: string;
     style?: CSSProperties;
 }
