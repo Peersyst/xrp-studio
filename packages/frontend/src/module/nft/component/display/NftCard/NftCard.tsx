@@ -13,7 +13,7 @@ const NftCard = forwardRef(
         ref,
     ): JSX.Element => {
         const translate = useTranslate();
-        const defaultImgUrl = useConfig("nftDefaultCoverUrl");
+        const defaultImgUrl = useConfig("nftDefaultImageUrl");
 
         return (
             <BaseCard

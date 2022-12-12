@@ -8,7 +8,7 @@ const NftsPreviewListItem = ({ nft, loading = false, ...rest }: NftsPreviewListI
 
     return (
         <Row gap="1.5rem" alignItems="center" {...rest}>
-            <NftsPreviewListItemImage src={image} alt={(name || "nft") + "-image"} fallback={config.nftDefaultCoverUrl} loading={loading} />
+            <NftsPreviewListItemImage src={image} alt={(name || "nft") + "-image"} fallback={config.nftDefaultImageUrl} loading={loading} />
             <Skeleton loading={loading}>
                 <Typography variant="body2" fontWeight={500} light singleLine>
                     {loading ? "Loading Name" : name}
