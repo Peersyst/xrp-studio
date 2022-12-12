@@ -93,7 +93,11 @@ export default function ({ nft, loading = false }: UserViewNftPageSlots): ReactN
                     <Typography variant="body1" fontStyle={transferFee === undefined ? "italic" : undefined}>
                         {transferFee === undefined
                             ? translate("none", { context: "female" })
-                            : `${translate("formatNumber", { val: transferFee, minimumFractionDigits: 3, maximumFractionDigits: 3 })}%`}
+                            : `${translate("formatNumber", {
+                                  val: transferFee / 1000,
+                                  minimumFractionDigits: 3,
+                                  maximumFractionDigits: 3,
+                              })}%`}
                     </Typography>
                 </Label>
                 {externalUrl && (

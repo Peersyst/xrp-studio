@@ -7,14 +7,15 @@ export const DropLandingRoot = styled(Col)<DropLandingRootProps>(
         position: relative;
         overflow: hidden;
         width: 100%;
-        padding-bottom: 7rem;
 
-        ${preview &&
-        css`
-            border-radius: ${theme.borderRadiusLg};
-
-            pointer-events: none;
-        `}
+        ${preview
+            ? css`
+                  border-radius: ${theme.borderRadiusLg};
+                  pointer-events: none;
+              `
+            : css`
+                  padding: var(--appbar-height) 0;
+              `}
     `,
 );
 
@@ -24,11 +25,13 @@ export const DropLandingContent = styled(Col).attrs({ gap: "5.5rem" })<DropLandi
         Cannot use zoom as it is not an standard css properties
         A workaround will be used, which sets a wrapper that adapts its size to its scaled content
         */
-        width: ${document.documentElement.clientWidth}px;
+
         height: auto;
+        padding-bottom: 7rem;
         background-color: inherit;
         ${preview &&
         css`
+            width: ${document.documentElement.clientWidth}px;
             position: absolute;
             top: 0;
             left: 0;

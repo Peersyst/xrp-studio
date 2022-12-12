@@ -9,13 +9,13 @@ const DropFaq = ({ faq, loading = false, ...rest }: WithLoading<DropFaqProps>): 
             <Expandable {...rest}>
                 <Expandable.Display>
                     <Typography variant="h5" fontWeight={500}>
-                        {answer}
+                        {question}
                     </Typography>
                 </Expandable.Display>
                 <Expandable.Body>
                     <Expandable.Content>
                         <Typography variant="body2" light fontWeight={500}>
-                            {question}
+                            {answer}
                         </Typography>
                     </Expandable.Content>
                 </Expandable.Body>

@@ -5,18 +5,21 @@ import { NftRoutes } from "module/nft/NftRouter";
 import NftCardStatusChip from "../NftCardStatusChip/NftCardStatusChip";
 import { forwardRef } from "react";
 import { cx } from "@peersyst/react-utils";
+import useTranslate from "module/common/hook/useTranslate";
 
 const NftCard = forwardRef(
     (
-        { nft: { id, metadata: { name = "", image } = {}, status }, loading = false, className, ...rest }: WithSkeleton<NftCardProps>,
+        { nft: { id, metadata: { name, image } = {}, status }, loading = false, className, ...rest }: WithSkeleton<NftCardProps>,
         ref,
     ): JSX.Element => {
+        const translate = useTranslate();
         const defaultImgUrl = useConfig("nftDefaultImageUrl");
 
         return (
             <BaseCard
                 ref={ref}
                 title={loading ? "NFT name loading" : name}
+                titlePlaceholder={translate("unnamed")}
                 to={
                     status === "confirmed"
                         ? NftRoutes.VIEW_NFT.replace(":id", id.toString())

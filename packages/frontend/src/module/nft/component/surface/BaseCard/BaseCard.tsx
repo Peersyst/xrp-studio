@@ -9,6 +9,7 @@ const BaseCard = forwardRef(
         {
             loading = false,
             title,
+            titlePlaceholder,
             coverUrl = "",
             defaultCoverUrl,
             children,
@@ -21,8 +22,14 @@ const BaseCard = forwardRef(
         ref,
     ): JSX.Element => {
         const footerContent = [
-            <Typography variant="subtitle1" fontWeight={800} singleLine css={{ minWidth: "10rem" }}>
-                {title}
+            <Typography
+                variant="subtitle1"
+                fontWeight={800}
+                singleLine
+                css={{ minWidth: "10rem" }}
+                fontStyle={title ? undefined : "italic"}
+            >
+                {title || titlePlaceholder}
             </Typography>,
             ...(note
                 ? [

@@ -115,8 +115,8 @@
     "confirm": "Confirm",
     "noDataProvided": "No NFT information has been provided",
     "finish": "Finish",
-    "publishNftProcessingStepTitle": "Processing the nft",
-    "publishNftProcessingStepDescription": "We are processing your Nft information in order to validate everything is correct",
+    "publishNftProcessingStepTitle": "Processing the NFT",
+    "publishNftProcessingStepDescription": "We are processing your NFT information in order to validate everything is correct",
     "publishNftAddingToBlockchainStepTitle": "Sign the transaction on your Xumm wallet to add your NFT to the blockchain",
     "publishNftAddingToBlockchainStepDescription": "We are adding your new NFT to the blockchain.",
     "publishNftSuccessStepTitle": "NFT published successfully!",
@@ -169,5 +169,7 @@
     "signaturesFailedText": "{{failedSignatures}} have failed",
     "nftPublishesFailedText": "{{failedNfts}} have failed",
     "buyNft": "Buy NFT",
-    "viewAll": "View All"
+    "viewAll": "View All",
+    "unnamed": "Unnamed",
+    "mint": "Mint"
 }
