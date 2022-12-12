@@ -31,7 +31,7 @@ const DropCreationPage = (): JSX.Element => {
     const navigate = useNavigate();
 
     const handleSubmit = async (data: DropCreationForm) => {
-        showModal(DropLaunchModal, { request: createDropRequestFromForm(data), collection: collection! });
+        showModal(DropLaunchModal, { request: createDropRequestFromForm(collection!.id, data), collection: collection! });
     };
 
     useEffect(() => {
@@ -51,7 +51,7 @@ const DropCreationPage = (): JSX.Element => {
         <Form onSubmit={handleSubmit}>
             <BasePage>
                 {{
-                    header: <DropCreationPageHeader />,
+                    header: <DropCreationPageHeader loading={collectionLoading} />,
                     content: <DropCreationPageContent collection={collection} loading={collectionLoading} />,
                 }}
             </BasePage>

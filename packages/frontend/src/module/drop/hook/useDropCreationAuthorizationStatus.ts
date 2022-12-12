@@ -1,6 +1,7 @@
 import { polling } from "@peersyst/react-utils";
 import XrplService from "module/blockchain/service/XrplService/XrplService";
 import { useConfig } from "@peersyst/react-components";
+import { useRef } from "react";
 
 export interface UseDropCreationAuthorizationStatusResult {
     fetch: () => Promise<boolean> | undefined;
@@ -9,7 +10,7 @@ export interface UseDropCreationAuthorizationStatusResult {
 export default function (creatorAddress: string): UseDropCreationAuthorizationStatusResult {
     const minterAddress = useConfig("dropMinterAddress");
 
-    const xrplService = new XrplService();
+    const xrplService = useRef(new XrplService()).current;
 
     const fetch = (): Promise<boolean> | undefined => {
         return polling(

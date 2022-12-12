@@ -3,11 +3,10 @@ import { CollectionService, NftService } from "module/api/service";
 import { CollectionDtoMock, PaginatedNftsMock, CreateDropRequestMock, NftDtoMock } from "test-mocks";
 import { render, translate } from "test-utils";
 import DropLaunchModal from "module/drop/component/feedback/DropLaunchModal/DropLaunchModal";
-import { CreateDropRequest } from "module/drop/util/createDropRequestFromForm";
 import { waitFor } from "@testing-library/dom";
 
 describe("DropLaunchModal", () => {
-    const dropRequestMock: CreateDropRequest = new CreateDropRequestMock();
+    const dropRequestMock = new CreateDropRequestMock();
 
     const collectionDtoMock = new CollectionDtoMock();
     const paginatedNftsMock = new PaginatedNftsMock({ nftsParams: { length: 1 } }).pages[0];

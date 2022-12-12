@@ -1,7 +1,8 @@
-import { CreateDropRequest } from "module/drop/util/createDropRequestFromForm";
 import { Faq } from "module/drop/types";
+import { CreateDropRequest } from "module/api/service";
 
 export class CreateDropRequestMock implements CreateDropRequest {
+    collectionId: number;
     price: string;
     backgroundColor: string;
     fontColor: string;
@@ -12,6 +13,7 @@ export class CreateDropRequestMock implements CreateDropRequest {
     faqs: Array<Faq>;
 
     constructor({
+        collectionId = 1,
         price = "100",
         backgroundColor = "#000000",
         fontColor = "#FFFFFF",
@@ -21,6 +23,7 @@ export class CreateDropRequestMock implements CreateDropRequest {
         discord,
         faqs = [],
     }: Partial<CreateDropRequest> = {}) {
+        this.collectionId = collectionId;
         this.price = price;
         this.backgroundColor = backgroundColor;
         this.fontColor = fontColor;
