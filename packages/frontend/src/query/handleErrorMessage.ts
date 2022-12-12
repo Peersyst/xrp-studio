@@ -13,6 +13,7 @@ export function handleErrorMessage(error: AppError | ApiError | any, translate: 
     let resultType: ToastType;
     if (error.name === "ApiError") {
         const code: number = error.body?.statusCode || error.status || error.code || 500;
+        if (code === 401) return { message: translate("yourSessionHasExpired"), type: "warning" };
         const rawMessage = error.message || error.body?.message || error.statusText;
         const message = typeof rawMessage === "string" ? rawMessage : "somethingWentWrong";
         const parsedMessage = message.includes(" ")
