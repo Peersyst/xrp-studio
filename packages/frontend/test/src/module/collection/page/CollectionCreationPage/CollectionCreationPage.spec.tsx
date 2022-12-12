@@ -181,7 +181,7 @@ describe("CollectionCreationPage", () => {
                         header: collectionDtoMock.header,
                         image: collectionDtoMock.image,
                     },
-                    undefined,
+                    false,
                 ),
             );
             await waitFor(() => expect(useToastMock.showToast).toHaveBeenCalledWith(translate("collectionUpdated"), { type: "success" }));

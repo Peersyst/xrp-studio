@@ -28,7 +28,7 @@ const NftPublishActions = ({ request, draftId, onStart, onEnd, onSuccess, onErro
         {
             title: translate("publishNftAddingToBlockchainStepTitle"),
             description: translate("publishNftAddingToBlockchainStepDescription"),
-            execution: async () => await startPolling(),
+            execution: startPolling,
         },
         {
             title: translate("publishNftSuccessStepTitle"),

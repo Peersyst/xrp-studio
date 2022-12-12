@@ -9,6 +9,7 @@ import createNftRequestFromForm from "module/nft/util/createNftRequestFromForm";
 import { CollectionRoutes } from "module/collection/CollectionRouter";
 import useSetCollectionCreationNft from "module/collection/query/useSetCollectionCreationNft";
 import useTranslate from "module/common/hook/useTranslate";
+import { useEffect } from "react";
 
 const EditCollectionNftDraftPage = (): JSX.Element => {
     const translate = useTranslate();
@@ -22,6 +23,10 @@ const EditCollectionNftDraftPage = (): JSX.Element => {
     const [collectionCreationState] = useCollectionCreationState();
     const nfts = collectionCreationState.nfts;
     const nft = nftDraftIndex !== undefined ? nfts[nftDraftIndex] : undefined;
+
+    useEffect(() => {
+        if (!nft) navigate(CollectionRoutes.CREATE_COLLECTION, { replace: true });
+    }, [collectionCreationState.nfts, nftDraftIndex]);
 
     const { mutate: setCollectionCreationNft, isLoading: savingNft } = useSetCollectionCreationNft();
 

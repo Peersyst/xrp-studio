@@ -24,7 +24,7 @@ const ButtonBuyNftDrop = ({ disabled = false, dropId }: BuyNftDropProps): JSX.El
 
     return (
         <Button style={{ alignSelf: "center" }} onClick={onBuyNftDrop} disabled={disabled}>
-            {translate("buyNft")}
+            {translate("mint")}
         </Button>
     );
 };

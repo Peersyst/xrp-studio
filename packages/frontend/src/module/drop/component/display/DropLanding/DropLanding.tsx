@@ -46,9 +46,7 @@ function DropLanding({
             return () => {
                 rootObserver.disconnect();
             };
-        } else {
-            if (rootWidth !== undefined) setRooWidth(undefined);
-        }
+        } else if (rootWidth !== undefined) setRooWidth(undefined);
     }, [rootRef, preview]);
 
     // Get content height so root can adjust its own
@@ -59,10 +57,8 @@ function DropLanding({
             return () => {
                 contentObserver.disconnect();
             };
-        } else {
-            if (contentHeight !== undefined) setContentHeight(undefined);
-        }
-    }, [rootRef, preview]);
+        } else if (contentHeight !== undefined) setContentHeight(undefined);
+    }, [contentRef, preview]);
 
     const handleRootObserver = (entries: ResizeObserverEntry[]) => {
         const child = entries[0];

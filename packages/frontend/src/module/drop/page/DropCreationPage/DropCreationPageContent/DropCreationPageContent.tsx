@@ -31,7 +31,7 @@ const DropCreationPageContent = ({ loading = false, collection }: WithLoading<Co
                         preview
                         loading={loading}
                         drop={{
-                            price: xrpToDrops(price),
+                            price: price ? xrpToDrops(price) : "0",
                             items: collection?.nfts?.length || 500,
                             soldItems: collection?.nfts?.length || 500,
                             backgroundColor: backgroundColor.hex(),
@@ -58,6 +58,7 @@ const DropCreationPageContent = ({ loading = false, collection }: WithLoading<Co
                                     variant="filled"
                                     value={price}
                                     required
+                                    type="number"
                                     onChange={normalizedHandleChange("price")}
                                     suffix={<XrpIcon />}
                                 />

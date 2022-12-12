@@ -1,19 +1,12 @@
 import { DropCreationForm } from "module/drop/types";
+import { CreateDropRequest } from "module/api/service";
 
-// TODO: Add backend type
-export type CreateDropRequest = any;
-
-export default function ({
-    price,
-    backgroundColor,
-    fontColor,
-    videoUrl,
-    instagram,
-    twitter,
-    discord,
-    faqs,
-}: DropCreationForm): CreateDropRequest {
+export default function (
+    collectionId: number,
+    { price, backgroundColor, fontColor, videoUrl, instagram, twitter, discord, faqs }: DropCreationForm,
+): CreateDropRequest {
     return {
+        collectionId,
         price,
         backgroundColor: backgroundColor.hex(),
         fontColor: fontColor.hex(),
