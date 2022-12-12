@@ -11,7 +11,7 @@ const NftCard = forwardRef(
         { nft: { id, metadata: { name = "", image } = {}, status }, loading = false, className, ...rest }: WithSkeleton<NftCardProps>,
         ref,
     ): JSX.Element => {
-        const defaultImgUrl = useConfig("nftDefaultCoverUrl");
+        const defaultImgUrl = useConfig("nftDefaultImageUrl");
 
         return (
             <BaseCard
