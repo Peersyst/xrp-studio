@@ -5,7 +5,7 @@ import {
     ProfileHeaderFooter,
     ProfileHeaderRoot,
 } from "module/user/component/layout/ProfileHeader/ProfileHeader.styles";
-import { Col, Skeleton, Typography } from "@peersyst/react-components";
+import { Col, Skeleton } from "@peersyst/react-components";
 import ProfileInfo from "module/user/component/layout/ProfileHeader/ProfileInfo/ProfileInfo";
 import ChipBlockchainAddress from "module/wallet/component/display/ChipBlockchainAddress/ChipBlockchainAddress";
 import useIsMobile from "module/common/hook/useIsMobile";
@@ -13,7 +13,7 @@ import useIsMobile from "module/common/hook/useIsMobile";
 const ProfileHeader = (): JSX.Element => {
     const { data: user, isLoading } = useGetUser();
 
-    const { header = "", image = "", name = "", address = "", description } = user || {};
+    const { header = "", image = "", name = "", address = "" } = user || {};
     const isMobile = useIsMobile();
 
     return (
@@ -33,11 +33,6 @@ const ProfileHeader = (): JSX.Element => {
                     type="address"
                     length={isMobile ? 12 : 3}
                 />
-            </Skeleton>
-            <Skeleton width="90%" loading={isLoading}>
-                <Typography className="profile-description" variant="body2" light>
-                    {description}
-                </Typography>
             </Skeleton>
         </ProfileHeaderRoot>
     );

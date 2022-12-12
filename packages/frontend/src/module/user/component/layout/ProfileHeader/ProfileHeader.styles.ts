@@ -74,16 +74,13 @@ export const ProfileHeaderRoot = styled(PageHeader)<ProfileHeaderRootProps>(
                 overflow: hidden;
                 text-overflow: ellipsis;
                 line-clamp: 3;
-
-                ${theme.breakpoints.down("md")} {
-                    display: none;
-                }
             }
         }
 
         ${theme.breakpoints.down("mobile")} {
             .content-profile-header {
-                gap: 2.5rem;
+                gap: 10vw;
+                margin-bottom: 1rem;
             }
         }
     `,

@@ -22,7 +22,7 @@ const Footer = ({ className, ...rest }: FooterProps): JSX.Element => {
                     className={"ContentFooter"}
                 >
                     <Col gap={"3.125rem"} flex={1}>
-                        <Logo />
+                        <Logo fullSize={true} />
                         <Col gap={"0.5rem"}>
                             <Typography variant="body2" color="blue.40">
                                 {config.peersystEmail}

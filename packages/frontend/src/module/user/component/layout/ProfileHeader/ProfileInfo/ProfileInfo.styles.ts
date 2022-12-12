@@ -29,7 +29,6 @@ export const ProfileInfoRoot = styled(Col).attrs({ flex: 1 })(
 export const ProfileMainInfo = styled(Row).attrs({ gap: "1rem", alignItems: "center", breakpoint: { width: "mobile", gap: "1rem" } })(
     ({ theme }) => css`
         max-width: 70%;
-
         ${theme.breakpoints.down("sm")} {
             max-width: 100%;
         }

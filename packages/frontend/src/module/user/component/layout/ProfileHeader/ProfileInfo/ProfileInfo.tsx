@@ -12,6 +12,7 @@ import useWallet from "module/wallet/hook//useWallet";
 import EditProfileDrawer from "module/user/component/feedback/EditProfileDrawer/EditProfileDrawer";
 import SocialButtons from "module/common/component/navigation/SocialButtons/SocialButtons";
 import ChipBlockchainAddress from "module/wallet/component/display/ChipBlockchainAddress/ChipBlockchainAddress";
+import useIsMobile from "module/common/hook/useIsMobile";
 
 const ProfileInfo = (): JSX.Element => {
     const translate = useTranslate();
@@ -24,12 +25,13 @@ const ProfileInfo = (): JSX.Element => {
         },
     } = useTheme();
     const isSm = useMediaQuery(`(max-width: ${sm}px)`);
+    const isMobile = useIsMobile();
     const { showDrawer } = useDrawer();
     const showEditBtn = !isLoading && walletAddress === address;
     return (
         <ProfileInfoRoot>
             <Col flex={1} gap="0.5rem">
-                <Row justifyContent="space-between" css={{ maxWidth: "100%" }}>
+                <Row justifyContent={isMobile ? "center" : "space-between"} css={{ maxWidth: "100%" }}>
                     <ProfileMainInfo gap="1rem" alignItems="center" breakpoint={{ width: "mobile", gap: "1rem" }}>
                         <Skeleton width="200px" loading={isLoading}>
                             <Typography className="profile-name" variant="h5" fontWeight={800} singleLine>
