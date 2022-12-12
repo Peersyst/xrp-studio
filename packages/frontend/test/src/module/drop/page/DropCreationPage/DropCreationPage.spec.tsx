@@ -8,15 +8,15 @@ import {
     ToastMock,
     UserDtoMock,
     ModalMock,
-    DropDtoMock,
 } from "test-mocks";
 import { render, translate } from "test-utils";
 import { waitFor } from "@testing-library/dom";
 import DropCreationPage from "module/drop/page/DropCreationPage/DropCreationPage";
-import { CollectionService, DropService, NftService } from "module/api/service";
+import { CollectionService, NftService } from "module/api/service";
 import { DashboardRoutes } from "module/dashboard/DashboardRouter";
 import userEvent from "@testing-library/user-event";
 import * as CreateDropRequestFromForm from "module/drop/util/createDropRequestFromForm";
+import DropLaunchModal from "module/drop/component/feedback/DropLaunchModal/DropLaunchModal";
 
 describe("DropCreationPage", () => {
     const paginatedNftsMock = new PaginatedNftsMock().pages[0];
@@ -68,13 +68,12 @@ describe("DropCreationPage", () => {
         });
 
         test("Launch drop", async () => {
-            const mock = jest.spyOn(DropService, "dropControllerPublishDrop").mockResolvedValueOnce(new DropDtoMock());
             render(<DropCreationPage />);
             const launchButton = screen.getByRole("button", { name: translate("launchDrop") });
             // Await Collection call
             await waitFor(() => expect(launchButton).not.toBeDisabled());
             userEvent.click(launchButton);
-            await waitFor(() => expect(mock).toHaveBeenCalled());
+            await waitFor(() => expect(useModalMock.showModal).toHaveBeenCalledWith(DropLaunchModal, expect.any(Object)));
         });
     });
 

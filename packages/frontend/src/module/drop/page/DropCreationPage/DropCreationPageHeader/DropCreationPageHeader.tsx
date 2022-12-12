@@ -4,7 +4,11 @@ import { Row } from "@peersyst/react-components";
 import Button from "module/common/component/input/Button/Button";
 import useGoBack from "module/common/hook/useGoBack";
 
-const DropCreationPageHeader = (): JSX.Element => {
+export interface DropCreationPageHeaderProps {
+    loading?: boolean;
+}
+
+const DropCreationPageHeader = ({ loading }: DropCreationPageHeaderProps): JSX.Element => {
     const translate = useTranslate();
     const goBack = useGoBack();
 
@@ -18,7 +22,7 @@ const DropCreationPageHeader = (): JSX.Element => {
                     <Button size="lg" variant="secondary" onClick={goBack}>
                         {translate("cancel")}
                     </Button>
-                    <Button size="lg" type="submit">
+                    <Button size="lg" type="submit" disabled={loading}>
                         {translate("launchDrop")}
                     </Button>
                 </Row>

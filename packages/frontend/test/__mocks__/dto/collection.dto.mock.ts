@@ -1,4 +1,4 @@
-import { CollectionDto, UserDto } from "module/api/service";
+import { CollectionDto, NftDto, UserDto } from "module/api/service";
 import { UserDtoMock } from "./user.dto.mock";
 
 export class CollectionDtoMock {
@@ -10,6 +10,7 @@ export class CollectionDtoMock {
     header?: string;
     items: number;
     account: string;
+    nfts: NftDto[];
     user: UserDto;
 
     constructor({
@@ -21,6 +22,7 @@ export class CollectionDtoMock {
         header = "collection_header_url",
         items = 1000,
         user = new UserDtoMock(),
+        nfts = [],
     }: Partial<CollectionDto> = {}) {
         this.id = id;
         this.taxon = taxon;
@@ -30,6 +32,7 @@ export class CollectionDtoMock {
         this.header = header;
         this.items = items;
         this.user = user;
+        this.nfts = nfts;
         this.account = user.address;
     }
 }
