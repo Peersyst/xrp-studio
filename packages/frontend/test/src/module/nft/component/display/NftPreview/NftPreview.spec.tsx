@@ -7,10 +7,9 @@ describe("NftPreview", () => {
     const nftMock = new NftDtoMock();
     const nftName = nftMock.metadata!.name!;
     const nftPreviewLink = `/nft/creation?id=${nftMock.id}`;
-    const mockNftDefaultPreviewIUrl = "url";
 
     test("Renders correctly without link", () => {
-        render(<NftPreview nft={nftMock} defaultPreviewUrl={mockNftDefaultPreviewIUrl} />);
+        render(<NftPreview nft={nftMock} />);
 
         expect(screen.queryByRole("link")).toBeNull();
         expect(screen.getByRole("img")).toHaveAttribute("alt", `${nftName}-preview-img`);
@@ -18,13 +17,13 @@ describe("NftPreview", () => {
     });
 
     test("Renders correctly with link", () => {
-        render(<NftPreview nft={nftMock} to={nftPreviewLink} defaultPreviewUrl={mockNftDefaultPreviewIUrl} />);
+        render(<NftPreview nft={nftMock} to={nftPreviewLink} />);
 
         expect(screen.queryByRole("link")).toHaveAttribute("href", nftPreviewLink);
     });
 
     test("Renders correctly with link", () => {
-        render(<NftPreview nft={nftMock} loading defaultPreviewUrl={mockNftDefaultPreviewIUrl} />);
+        render(<NftPreview nft={nftMock} loading />);
 
         expect(screen.getByText("loading name")).toBeInTheDocument();
     });
