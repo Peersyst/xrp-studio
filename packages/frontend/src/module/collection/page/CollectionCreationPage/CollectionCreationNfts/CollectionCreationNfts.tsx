@@ -69,7 +69,7 @@ const CollectionCreationNfts = ({
                         },
                         metadata: {
                             name: `${name} #${index + 1}`,
-                            description,
+                            description: description || undefined,
                             backgroundColor: backgroundColor?.hex(),
                             externalUrl,
                             attributes,

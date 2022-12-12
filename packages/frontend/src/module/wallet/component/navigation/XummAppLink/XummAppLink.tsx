@@ -9,7 +9,7 @@ const XummAppLink: XummAppLinkType = (({ img, link, alt }: XummAppLinkProps): JS
     return (
         <a href={link} target="_blank" rel="noreferrer" className={cx("xumm-app-link", alt)}>
             <Button size="lg">
-                <Image css={{ height: "2rem", width: "fit-content" }} src={img} alt={alt} />
+                <Image css={{ height: "2.5rem", width: "inherit" }} src={img} alt={alt} />
             </Button>
         </a>
     );
