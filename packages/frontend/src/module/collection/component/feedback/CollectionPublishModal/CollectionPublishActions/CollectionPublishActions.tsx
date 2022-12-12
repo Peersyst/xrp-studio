@@ -18,7 +18,7 @@ const CollectionPublishActions = ({
     const translate = useTranslate();
 
     const { mutateAsync: publishCreate, data: dataCreate } = useCreateCollection({ publish: true });
-    const { mutateAsync: publishUpdate, data: dataUpdate } = useUpdateCollection({ publish: false });
+    const { mutateAsync: publishUpdate, data: dataUpdate } = useUpdateCollection({ publish: true });
     const { publish, data } = collection ? { publish: publishUpdate, data: dataUpdate } : { publish: publishCreate, data: dataCreate };
 
     const collectionIds = useMemo(() => (data?.nfts || []).map((nft) => nft.id), [data]);
