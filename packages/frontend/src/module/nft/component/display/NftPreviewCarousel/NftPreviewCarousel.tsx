@@ -4,11 +4,14 @@ import { NftPreviewCarouselItem } from "module/nft/component/display/NftPreviewC
 import useTranslate from "module/common/hook/useTranslate";
 import NothingToShow from "module/common/component/feedback/NothingToShow/NothingToShow";
 import NftPreviewSkeleton from "../../feedback/NftPreviewSkeleton/NftPreviewSkeleton";
+import { useConfig } from "@peersyst/react-components";
 
 const NftPreviewCarousel = ({ nfts, loading, to, activeId, ...rest }: NftPreviewCarouselProps): JSX.Element => {
     // Prevents to?.(nft) to be evaluated for each NftPreview rendered
     const normalizedToCb = to || (() => undefined);
     const translateError = useTranslate("error");
+    const defaultPreviewImage = useConfig("nftDefaultCoverUrl");
+
     return (
         <Carousel loading={loading} Skeleton={NftPreviewSkeleton} skeletonCount={7} arrowSize="md" {...rest}>
             {nfts.length > 0 ? (
@@ -19,6 +22,7 @@ const NftPreviewCarousel = ({ nfts, loading, to, activeId, ...rest }: NftPreview
                         key={index}
                         nft={nft}
                         to={normalizedToCb(nft, index)}
+                        defaultPreviewUrl={defaultPreviewImage}
                     />
                 ))
             ) : (

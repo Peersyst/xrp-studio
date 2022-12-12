@@ -4,13 +4,13 @@ import { NftPreviewImage } from "module/nft/component/display/NftPreview/NftPrev
 import { forwardRef } from "react";
 import ConditionalLink from "module/common/component/navigation/ConditionalLink/ConditionalLink";
 
-const NftPreview = forwardRef(({ nft, loading = false, to, ...rest }: NftPreviewProps, ref): JSX.Element => {
+const NftPreview = forwardRef(({ nft, loading = false, to, defaultPreviewUrl, ...rest }: NftPreviewProps, ref): JSX.Element => {
     const { metadata: { image = "", name = "" } = {} } = nft || {};
 
     return (
         <ConditionalLink condition={!!to} to={to || ""}>
             <Col gap="0.75rem" ref={ref} {...rest}>
-                <NftPreviewImage src={image} alt={`${name}-preview-img`} loading={loading} />
+                <NftPreviewImage src={image} alt={`${name}-preview-img`} loading={loading} fallback={defaultPreviewUrl} />
                 <Skeleton loading={loading}>
                     <Typography variant="body2" light>
                         {loading ? "loading name" : name}
