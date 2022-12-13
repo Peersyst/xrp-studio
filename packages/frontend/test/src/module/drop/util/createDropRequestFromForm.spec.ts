@@ -10,7 +10,8 @@ describe("createDropRequestFormForm", () => {
             fontColor: new Color("#FFFFFF"),
             faqs: [],
         };
-        expect(createDropRequestFromForm(formData)).toEqual({
+        expect(createDropRequestFromForm(1, formData)).toEqual({
+            collectionId: 1,
             price: "1",
             backgroundColor: "#000000",
             fontColor: "#FFFFFF",
@@ -33,7 +34,8 @@ describe("createDropRequestFormForm", () => {
             discord: "discord",
             faqs: [],
         };
-        expect(createDropRequestFromForm(formData)).toEqual({
+        expect(createDropRequestFromForm(1, formData)).toEqual({
+            collectionId: 1,
             price: "1",
             backgroundColor: "#000000",
             fontColor: "#FFFFFF",

@@ -67,7 +67,6 @@ describe("EditCollectionNftDraftPage", () => {
             // flags
             expect(screen.getByText(translate("burnable")));
             expect(screen.getByText(translate("onlyXRP")));
-            expect(screen.getByText(translate("trustLine")));
             expect(screen.getByText(translate("transferable")));
             // attributes
             expect(screen.getByText(translate("attributes"))).toBeInTheDocument();

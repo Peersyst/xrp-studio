@@ -7,7 +7,7 @@ import { useRecoilState } from "recoil";
 import { BaseGridTagsRoot, Tag, TagCarousel } from "./BaseGridTags.styles";
 import { BaseGridTagsProps } from "./BaseGridTags.types";
 
-function BaseGridTags<T>({ tags, onClear, onDeleteTagClicked }: BaseGridTagsProps<T>): JSX.Element {
+function BaseGridTags<T>({ tags, onClear, onDeleteTagClicked, withExtraSpace }: BaseGridTagsProps<T>): JSX.Element {
     const [showFilters, setShowFilters] = useRecoilState(filtersVisibilityState);
     const t = useTranslate();
 
@@ -16,14 +16,14 @@ function BaseGridTags<T>({ tags, onClear, onDeleteTagClicked }: BaseGridTagsProp
     };
 
     return (
-        <BaseGridTagsRoot>
+        <BaseGridTagsRoot withExtraSpace={!!withExtraSpace}>
             {!showFilters && (
                 <Button onClick={() => setShowFilters(true)} size="md">
                     {t("search&Filter")}
                     <FilterLinesIcon css={{ fontSize: "1.5rem" }} />
                 </Button>
             )}
-            {tags !== undefined && tags.length !== 0 && (
+            {tags.length !== 0 && (
                 <TagCarousel arrowSize="sm">
                     {tags.map(({ label, value }, index) => (
                         <Tag

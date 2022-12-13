@@ -9,7 +9,7 @@ export const LandingPageSectionRoot = styled("div")(
         padding: 0 var(--horizontal-page-padding);
         margin: 0 auto;
 
-        ${theme.breakpoints.down("sm")} {
+        ${theme.breakpoints.down("md")} {
             .ContentPartners {
                 align-items: center;
                 flex-direction: column;

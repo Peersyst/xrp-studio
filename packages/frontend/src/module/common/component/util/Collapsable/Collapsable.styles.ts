@@ -4,10 +4,10 @@ import Button from "module/common/component/input/Button/Button";
 
 export const CollapsableRoot = styled(Col)(
     ({ theme }) => css`
-        position: fixed;
+        position: sticky;
         bottom: 0;
-        left: 0;
-        width: 100%;
+        width: 100vw;
+        align-self: center;
         background-color: ${theme.palette.background};
     `,
 );

@@ -3,7 +3,8 @@ import { CSSProperties, ReactNode } from "react";
 export interface BaseCardProps {
     coverUrl: string | undefined;
     defaultCoverUrl: string;
-    title: string;
+    title?: string;
+    titlePlaceholder?: string;
     note?: string;
     to?: string;
     children?: ReactNode;

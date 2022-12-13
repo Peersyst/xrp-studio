@@ -1,13 +1,12 @@
 import { screen } from "@testing-library/react";
 import { CollectionService, NftService } from "module/api/service";
-import { CollectionDtoMock, PaginatedNftsMock, CreateDropRequestMock } from "test-mocks";
+import { CollectionDtoMock, PaginatedNftsMock, CreateDropRequestMock, NftDtoMock } from "test-mocks";
 import { render, translate } from "test-utils";
 import DropLaunchModal from "module/drop/component/feedback/DropLaunchModal/DropLaunchModal";
-import { CreateDropRequest } from "module/drop/util/createDropRequestFromForm";
 import { waitFor } from "@testing-library/dom";
 
 describe("DropLaunchModal", () => {
-    const dropRequestMock: CreateDropRequest = new CreateDropRequestMock();
+    const dropRequestMock = new CreateDropRequestMock();
 
     const collectionDtoMock = new CollectionDtoMock();
     const paginatedNftsMock = new PaginatedNftsMock({ nftsParams: { length: 1 } }).pages[0];
@@ -26,7 +25,7 @@ describe("DropLaunchModal", () => {
     });
 
     test("Renders correctly", async () => {
-        render(<DropLaunchModal request={dropRequestMock} collectionId={1} />);
+        render(<DropLaunchModal request={dropRequestMock} collection={new CollectionDtoMock({ nfts: [new NftDtoMock()] })} />);
 
         // Title
         expect(screen.getByRole("heading", { name: translate("launchDropConfirmation") })).toBeInTheDocument();
