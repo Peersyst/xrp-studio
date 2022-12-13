@@ -22,15 +22,15 @@ const ProfileHeader = (): JSX.Element => {
                     <ProfileAvatar loading={isLoading} img={image} alt="profile-image" />
                     <ProfileInfo />
                 </ProfileHeaderFooter>
+                <Skeleton width="134px" loading={isLoading}>
+                    <ChipBlockchainAddress className="account-address" variant="body2" address={address} type="address" length={6} />
+                </Skeleton>
+                <Skeleton width="90%" loading={isLoading}>
+                    <Typography className="profile-description" variant="body2" light>
+                        {description}
+                    </Typography>
+                </Skeleton>
             </Col>
-            <Skeleton width="134px" loading={isLoading}>
-                <ChipBlockchainAddress className="account-address" variant="body2" address={address} type="address" length={3} />
-            </Skeleton>
-            <Skeleton width="90%" loading={isLoading}>
-                <Typography className="profile-description" variant="body2" light>
-                    {description}
-                </Typography>
-            </Skeleton>
         </ProfileHeaderRoot>
     );
 };

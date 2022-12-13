@@ -1,8 +1,7 @@
 import { Row, Toolbar } from "@peersyst/react-components";
-import { AppBarRoot } from "./AppBar.styles";
+import { AppBarContent, AppBarRoot } from "./AppBar.styles";
 import Logo from "module/common/component/display/Logo/Logo";
 import Wallet from "module/wallet/component/core/Wallet/Wallet";
-import { Fragment } from "react";
 import useIsMobile from "module/common/hook/useIsMobile";
 import HeaderMenuButton from "../HeaderMenuButton/HeaderMenuButton";
 import MenuLinks from "../MenuLinks/MenuLinks";
@@ -15,17 +14,11 @@ const AppBar = (): JSX.Element => {
             <Toolbar>
                 <Row flex={1} alignItems="center" justifyContent="space-between">
                     <Logo fullSize={!isMobile} />
-                    <Row gap={24} alignItems="center" justifyContent="space-between">
-                        <Fragment>
-                            {!isMobile ? (
-                                <>
-                                    <MenuLinks />
-                                </>
-                            ) : undefined}
-                        </Fragment>
+                    <AppBarContent alignItems="center" justifyContent="space-between">
+                        {!isMobile ? <MenuLinks /> : undefined}
                         <Wallet />
                         <HeaderMenuButton />
-                    </Row>
+                    </AppBarContent>
                 </Row>
             </Toolbar>
         </AppBarRoot>

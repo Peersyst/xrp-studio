@@ -1,5 +1,5 @@
 import { Animated, IconButton, TransitionStyles, useDrawer } from "@peersyst/react-components";
-import { CrossIcon, MenuIcon } from "icons";
+import { MenuIcon } from "icons";
 import { useMemo } from "react";
 import HeaderMenu from "../HeaderMenu/HeaderMenu";
 import { HeaderMenuButtonRoot } from "./HeaderMenuButton.styles";
@@ -32,7 +32,7 @@ export default function HeaderMenuButton(): JSX.Element {
         <HeaderMenuButtonRoot>
             <Animated animation={menuIconAnimation} animatedProperties="transform" in={menuIsOpen} hideOnExit={false} duration={200}>
                 <IconButton onClick={handleClick} css={{ fontSize: "20px" }}>
-                    {menuIsOpen ? <CrossIcon /> : <MenuIcon />}
+                    <MenuIcon />
                 </IconButton>
             </Animated>
         </HeaderMenuButtonRoot>

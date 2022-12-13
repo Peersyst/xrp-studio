@@ -1,25 +1,18 @@
-import { createDrawer, DrawerProps, Toolbar, useDrawer } from "@peersyst/react-components";
-import useIsMobile from "module/common/hook/useIsMobile";
+import { createModal, ModalProps, Slide, useDrawer } from "@peersyst/react-components";
 import { HeaderMenuLinksWrapper, HeaderMenuRoot } from "./HeaderMenu.styles";
 import MenuLinks from "../MenuLinks/MenuLinks";
 
-const HeaderMenu = createDrawer(({ ...drawerProps }: Omit<DrawerProps, "children">) => {
+const HeaderMenu = createModal<ModalProps>((props) => {
     const { hideDrawer } = useDrawer();
-    const isMobile = useIsMobile();
 
     return (
-        <HeaderMenuRoot position="top" elevation={6} BackdropProps={{ transparent: true, style: { zIndex: 1 } }} {...drawerProps}>
-            <Toolbar />
+        <HeaderMenuRoot animation={{ AnimatedComponent: Slide, props: { direction: "down" } }} {...props}>
             <HeaderMenuLinksWrapper>
-                {isMobile ? (
-                    <>
-                        <MenuLinks
-                            onClick={() => {
-                                hideDrawer(HeaderMenu.id);
-                            }}
-                        />
-                    </>
-                ) : undefined}
+                <MenuLinks
+                    onClick={() => {
+                        hideDrawer(HeaderMenu.id);
+                    }}
+                />
             </HeaderMenuLinksWrapper>
         </HeaderMenuRoot>
     );

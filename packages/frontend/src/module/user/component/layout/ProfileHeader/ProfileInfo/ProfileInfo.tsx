@@ -23,6 +23,7 @@ const ProfileInfo = (): JSX.Element => {
     const isSm = useMediaQuery(`(max-width: ${sm}px)`);
     const { showDrawer } = useDrawer();
     const showEditBtn = !isLoading && walletAddress === address;
+
     return (
         <ProfileInfoRoot>
             <Col gap="0.5rem">

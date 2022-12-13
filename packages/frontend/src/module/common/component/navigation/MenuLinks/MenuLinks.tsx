@@ -10,6 +10,7 @@ import { MenuLinksProps } from "./MenuLinks.types";
 const MenuLinks = ({ onClick }: MenuLinksProps): JSX.Element => {
     const { isLogged } = useWallet();
     const translate = useTranslate();
+
     return (
         <>
             {isLogged ? (
