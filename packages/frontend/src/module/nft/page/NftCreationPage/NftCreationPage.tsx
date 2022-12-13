@@ -30,9 +30,9 @@ const NftCreationPage = (): JSX.Element => {
     const isLoading = nftDraftLoading || collectionsLoading;
     const navigate = useNavigate();
 
-    const { mutate: createNftDraft, isLoading: createNftDraftLoading } = useCreateNftDraft();
+    const { mutateAsync: createNftDraft, isLoading: createNftDraftLoading } = useCreateNftDraft();
     const { isLoading: createNftLoading } = useCreateNft();
-    const { mutate: updateNftDraft, isLoading: updateNftDraftLoading, variables } = useUpdateNftDraft();
+    const { mutateAsync: updateNftDraft, isLoading: updateNftDraftLoading, variables } = useUpdateNftDraft();
 
     const saving = createNftDraftLoading || (updateNftDraftLoading && !variables?.publish);
     const publishing = createNftLoading || (updateNftDraftLoading && !!variables?.publish);
@@ -49,7 +49,7 @@ const NftCreationPage = (): JSX.Element => {
         }
     }, [nftDraftLoading, nftDraft]);
 
-    const handleSubmit = (data: NftCreationForm, action: string | undefined) => {
+    const handleSubmit = async (data: NftCreationForm, action: string | undefined) => {
         const requestNft = createNftRequestFromForm(data);
         const collection = collections.find((el) => el.taxon === requestNft.taxon);
         if (action === "publish" && requestNft) {
@@ -57,9 +57,9 @@ const NftCreationPage = (): JSX.Element => {
         } else if (action === "save") {
             /* After this line, you are saving */
             if (nftDraft) {
-                updateNftDraft({ id: nftDraft.id, publish: false, ...requestNft });
+                await updateNftDraft({ id: nftDraft.id, publish: false, ...requestNft }).catch();
             } else {
-                createNftDraft(requestNft);
+                await createNftDraft(requestNft).catch();
             }
             navigate(NftRoutes.MY_NFTS, { replace: true });
         }

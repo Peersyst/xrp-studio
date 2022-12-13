@@ -32,7 +32,6 @@ export default function ({
     transferFee,
     burnable,
     onlyXRP,
-    trustLine,
     transferable,
 }: NftCreationForm): CreateNftDraftRequest {
     return {
@@ -41,7 +40,7 @@ export default function ({
         flags: {
             burnable,
             onlyXRP,
-            trustLine,
+            trustLine: false,
             transferable,
         },
         taxon: collection ? Number(collection) : undefined,

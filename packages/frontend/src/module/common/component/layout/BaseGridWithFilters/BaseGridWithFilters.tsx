@@ -14,7 +14,7 @@ function BaseGridWithFilters<T extends PaginatedData, TagT = any>({
     filterBreakpoints,
     breakpoints,
     filters,
-    tags,
+    tags = [],
     onDeleteTagClicked,
     onClearTags,
     withExtraSpace,
@@ -30,6 +30,10 @@ function BaseGridWithFilters<T extends PaginatedData, TagT = any>({
     const finalBreakPoints = showFilters ? filterBreakpoints || breakpoints : breakpoints;
     const isTablet = useMediaQuery(`(max-width: ${nftsGrid.sm}px)`);
     const finalMoveGrid = showFilters && !isTablet;
+
+    useEffect(() => {
+        if (isTablet) setShowFilters(false);
+    }, [isTablet]);
 
     useEffect(() => {
         if (isTablet) setShowFilters(false);

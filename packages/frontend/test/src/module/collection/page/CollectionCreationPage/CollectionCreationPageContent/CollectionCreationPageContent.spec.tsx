@@ -23,7 +23,6 @@ describe("CollectionCreationPageContent", () => {
         // Flags
         expect(screen.getByText(translate("burnable"))).toBeInTheDocument();
         expect(screen.getByText(translate("onlyXRP"))).toBeInTheDocument();
-        expect(screen.getByText(translate("trustLine"))).toBeInTheDocument();
         expect(screen.getByText(translate("transferable"))).toBeInTheDocument();
         // Attributes
         expect(screen.getByText(translate("attributes"))).toBeInTheDocument();
