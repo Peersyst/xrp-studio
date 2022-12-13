@@ -7,9 +7,7 @@ const HowWorkCard = forwardRef(({ item, loading = false }: WithLoading<LandingPa
     const { title = "Loading title", image, description = "Loading description" } = item || {};
     return (
         <HowWorkCardRoot gap="2rem" alignItems="center" flex={1} ref={ref}>
-            <Skeleton loading={loading} css={{ height: "15rem" }}>
-                <BaseImage src={image!} alt={title} />
-            </Skeleton>
+            <BaseImage src={image!} alt={title} loading={loading} />
             <Skeleton loading={loading}>
                 <Typography variant="h5" fontWeight={800}>
                     {title}
