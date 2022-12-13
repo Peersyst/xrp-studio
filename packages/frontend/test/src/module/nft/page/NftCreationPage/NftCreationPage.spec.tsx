@@ -4,7 +4,16 @@ import NftCreationPage from "module/nft/page/NftCreationPage/NftCreationPage";
 import userEvent from "@testing-library/user-event";
 import { CollectionService, NftService } from "module/api/service";
 import createNftRequestFromForm from "module/nft/util/createNftRequestFromForm";
-import { NftDtoMock, WalletMock, UseSearchParamsMock, ToastMock, ModalMock, UserDtoMock, PaginatedCollectionMock } from "test-mocks";
+import {
+    NftDtoMock,
+    WalletMock,
+    UseSearchParamsMock,
+    ToastMock,
+    ModalMock,
+    UserDtoMock,
+    PaginatedCollectionMock,
+    PaginatedNftsMock,
+} from "test-mocks";
 import { waitFor } from "@testing-library/dom";
 import Color from "color";
 import parseFlags from "module/nft/util/parseFlags";
@@ -49,6 +58,7 @@ describe("NftCreationPage", () => {
     const getMyCollectionsMock = jest
         .spyOn(CollectionService, "collectionControllerGetCollections")
         .mockResolvedValue(new PaginatedCollectionMock().pages[0]);
+    const getCollectionNfts = jest.spyOn(NftService, "nftControllerGetMyNfts").mockResolvedValue(new PaginatedNftsMock().pages[0]);
 
     beforeEach(() => {
         useToastMock.clear();
@@ -61,6 +71,7 @@ describe("NftCreationPage", () => {
         useModalMock.restore();
         useWallet.restore();
         getMyCollectionsMock.mockRestore();
+        getCollectionNfts.mockRestore();
     });
 
     describe("Creation with balance", () => {

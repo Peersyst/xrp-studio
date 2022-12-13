@@ -202,7 +202,7 @@ export class NftService {
                           }),
                       }
                     : {}),
-                ...(collection?.id !== undefined ? { collectionId: collection?.id } : {}),
+                collectionId: collection?.id,
             },
         );
 
