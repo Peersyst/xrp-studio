@@ -1,56 +1,27 @@
-import { CreateNftDraftRequest } from "module/api/service";
-import { Nft } from "../types";
+import { CreateNftDraftRequest, NftDraftDto, NftDto } from "module/api/service";
+import parseFlags from "module/nft/util/parseFlags";
 
-/**
- * Creates a CreateNftRequest/UpdateNftRequest from an NftCreationNft
- * Note the || undefined in most fields.
- *   Firstly,if a property is not specified it must be set to undefined instead of "", the default value of inouts.
- *   Secondly, issuer must never be "", because it is set to the creator address by default if not specified
- * @param name
- * @param description
- * @param image
- * @param backgroundColor
- * @param externalUrl
- * @param attributes
- * @param collection
- * @param issuer
- * @param transferFee
- * @param burnable
- * @param onlyXRP
- * @param trustLine
- * @param transferable
- */
 export default function ({
-    name,
-    description,
-    image,
-    backgroundColor,
-    externalUrl,
-    attributes,
     collection,
     issuer,
     transferFee,
-    burnable,
-    onlyXRP,
-    transferable,
-}: Nft): CreateNftDraftRequest {
+    flags: nFlags,
+    metadata: { name, description, image, backgroundColor, externalUrl, attributes } = {},
+}: NftDraftDto | NftDto): CreateNftDraftRequest {
+    const flags = parseFlags(nFlags);
+
     return {
-        issuer: issuer || undefined,
-        transferFee: transferFee ? Number(transferFee) : undefined,
-        flags: {
-            burnable,
-            onlyXRP,
-            trustLine: false,
-            transferable,
-        },
-        taxon: collection ? Number(collection) : undefined,
+        issuer,
+        transferFee: transferFee ?? undefined,
+        flags,
+        taxon: collection ? collection.taxon : undefined,
         metadata: {
             name: name || undefined,
             description: description || undefined,
             image: image || undefined,
-            backgroundColor: backgroundColor?.hex(),
+            backgroundColor: backgroundColor || undefined,
             externalUrl: externalUrl || undefined,
-            attributes,
+            attributes: attributes || undefined,
         },
     };
 }

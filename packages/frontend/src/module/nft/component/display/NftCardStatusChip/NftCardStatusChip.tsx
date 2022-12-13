@@ -6,31 +6,26 @@ import { SyntheticEvent, useState } from "react";
 import { cx } from "@peersyst/react-utils";
 import NftPublishModal from "../../feedback/NftPublishModal/NftPublishModal";
 import createNftRequestFromNft from "module/nft/util/createNftRequestFromNft";
-import { useGetMyCollections } from "module/collection/query/useGetMyCollections";
-import { usePaginatedList } from "@peersyst/react-hooks";
 
 const NftStatusChip = ({ nft }: WithSkeleton<NftCardStatusChipProps>): JSX.Element => {
     const translate = useTranslate();
     const { showModal } = useModal();
     const translateError = useTranslate("error");
-    const [labelChip, setLabelChip] = useState(nft.status);
-    const { data: { pages = [] } = {} } = useGetMyCollections();
-    const collections = usePaginatedList(pages, (page) => page.items);
+    const [labelChip, setLabelChip] = useState<string>(nft.status);
 
     const handleMouseEnter = () => {
-        setLabelChip(nft.status === "failed" ? translate("publish") : nft.status);
+        if (nft.status === "failed") setLabelChip(translate("publish"));
     };
 
     const handleMouseLeave = () => {
-        setLabelChip(nft.status);
+        if (nft.status === "failed") setLabelChip(nft.status);
     };
 
     const handleClick = (e: SyntheticEvent): void => {
         e.preventDefault();
 
         const requestNft = createNftRequestFromNft(nft);
-        const collection = collections.find((el) => el.taxon === requestNft.taxon);
-        showModal(NftPublishModal, { request: requestNft, collection: collection?.name, draftId: nft?.id });
+        showModal(NftPublishModal, { request: requestNft, collection: nft.collection?.name, draftId: nft?.id });
     };
 
     return (
