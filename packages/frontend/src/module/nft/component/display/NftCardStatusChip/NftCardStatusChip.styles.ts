@@ -35,6 +35,7 @@ export const NftStatusChipRoot = styled(Popover)(
 
 export const NftStatusChipPopoverCard = styled(Card)(
     () => css`
+        max-width: 22rem;
         padding: 0.5rem;
     `,
 );
