@@ -1,8 +1,8 @@
-import { NftDraftDto, NftDto } from "module/api/service";
+import { Nft } from "module/nft/types";
 import { CSSProperties } from "react";
 
 export interface NftCardProps {
-    nft: NftDto | NftDraftDto;
+    nft: Nft;
     className?: string;
     style?: CSSProperties;
 }

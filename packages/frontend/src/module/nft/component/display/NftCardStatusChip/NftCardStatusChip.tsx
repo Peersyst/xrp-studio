@@ -1,32 +1,40 @@
-import { Popover, Typography, WithSkeleton, Loader } from "@peersyst/react-components";
+import { Popover, Typography, WithSkeleton, useModal } from "@peersyst/react-components";
 import { NftCardChip, NftStatusChipPopoverCard, NftStatusChipRoot } from "../NftCardStatusChip/NftCardStatusChip.styles";
 import { NftCardStatusChipProps } from "../NftCardStatusChip/NftCardStatusChip.types";
 import useTranslate from "module/common/hook/useTranslate";
-import useUpdateNftDraft from "module/nft/query/useUpdateNftDraft";
 import { SyntheticEvent, useState } from "react";
 import { cx } from "@peersyst/react-utils";
+import NftPublishModal from "../../feedback/NftPublishModal/NftPublishModal";
+import createNftRequestFromNft from "module/nft/util/createNftRequestFromNft";
+import { useGetMyCollections } from "module/collection/query/useGetMyCollections";
+import { usePaginatedList } from "@peersyst/react-hooks";
 
-const NftStatusChip = ({ label, status, nftId }: WithSkeleton<NftCardStatusChipProps>): JSX.Element => {
+const NftStatusChip = ({ nft }: WithSkeleton<NftCardStatusChipProps>): JSX.Element => {
     const translate = useTranslate();
+    const { showModal } = useModal();
     const translateError = useTranslate("error");
-    const { mutate: updateNftDraft, isLoading: isLoading } = useUpdateNftDraft();
-    const [labelChip, setLabelChip] = useState(label);
+    const [labelChip, setLabelChip] = useState(nft.status);
+    const { data: { pages = [] } = {} } = useGetMyCollections();
+    const collections = usePaginatedList(pages, (page) => page.items);
 
     const handleMouseEnter = () => {
-        setLabelChip(status === "failed" ? translate("publish") : label);
+        setLabelChip(nft.status === "failed" ? translate("publish") : nft.status);
     };
 
     const handleMouseLeave = () => {
-        setLabelChip(label);
+        setLabelChip(nft.status);
     };
 
     const handleClick = (e: SyntheticEvent): void => {
         e.preventDefault();
-        updateNftDraft({ id: nftId, publish: true });
+
+        const requestNft = createNftRequestFromNft(nft);
+        const collection = collections.find((el) => el.taxon === requestNft.taxon);
+        showModal(NftPublishModal, { request: requestNft, collection: collection?.name, draftId: nft?.id });
     };
 
     return (
-        <NftStatusChipRoot position="top" arrow visible={status === "failed" ? undefined : false}>
+        <NftStatusChipRoot position="top" arrow visible={nft.status === "failed" ? undefined : false}>
             <Popover.Popper>
                 <NftStatusChipPopoverCard>
                     <Typography variant="body1">{translateError("nftFailed")}</Typography>
@@ -34,11 +42,11 @@ const NftStatusChip = ({ label, status, nftId }: WithSkeleton<NftCardStatusChipP
             </Popover.Popper>
             <Popover.Content>
                 <NftCardChip
-                    className={cx("nft-card-chip", status)}
-                    label={isLoading ? <Loader /> : labelChip}
+                    className={cx("nft-card-chip", nft.status)}
+                    label={labelChip}
                     onMouseEnter={handleMouseEnter}
                     onMouseLeave={handleMouseLeave}
-                    onClick={status === "failed" ? (e) => handleClick(e) : undefined}
+                    onClick={nft.status === "failed" ? (e) => handleClick(e) : undefined}
                 />
             </Popover.Content>
         </NftStatusChipRoot>
