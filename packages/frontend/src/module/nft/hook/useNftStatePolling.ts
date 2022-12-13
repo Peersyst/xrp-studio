@@ -10,7 +10,7 @@ export interface UseNftStatePollingResult {
     fetch: () => Promise<NftDraftStatusDto[] | undefined>;
 }
 
-export default function (id: undefined | number): UseNftStatePolling {
+export default function (id: undefined | number, { onSuccess }: UseNftStatePollingOptions = {}): UseNftStatePollingResult {
     const handleStatus = (res: NftDraftStatusDto[]) => {
         const status = res[0].status;
         if (status === "failed") throw new AppError("nftMinting");
