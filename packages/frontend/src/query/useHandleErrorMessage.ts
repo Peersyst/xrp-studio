@@ -11,7 +11,7 @@ export default function (): (error: any) => void {
     const resetWalletState = useResetRecoilState(walletState);
 
     return (error) => {
-        if (error.body.statusCode === 401) {
+        if (error?.body?.statusCode === 401) {
             resetWalletState();
             AuthTokenStorage.clear();
         }
