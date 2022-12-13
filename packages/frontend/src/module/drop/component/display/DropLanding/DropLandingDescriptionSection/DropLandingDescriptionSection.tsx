@@ -5,6 +5,7 @@ import {
     DropLandingDescriptionSectionContent,
     DropLandingDescriptionSectionRoot,
     DropLandingImage,
+    MintProgress,
 } from "module/drop/component/display/DropLanding/DropLandingDescriptionSection/DropLandingDescriptionSection.styles";
 import { useFormatNumber } from "module/common/hook/useFormatNumber";
 import { DropLandingDescriptionSectionProps } from "module/drop/component/display/DropLanding/DropLandingDescriptionSection/DropLandingDescriptionSection.types";
@@ -42,21 +43,24 @@ const DropLandingDescriptionSection = ({
                             {description}
                         </Description>
                     </Col>
-                    <Row gap="2rem">
-                        <DropLandingLabel variant="body2" label={translate("items")} loading={loading}>
-                            {items}
-                        </DropLandingLabel>
-                        <DropLandingLabel variant="body2" label={translate("sold")} loading={loading}>
-                            {sold}
-                        </DropLandingLabel>
-                        <DropLandingLabel variant="body2" label={translate("sales")} loading={loading}>
-                            <Row gap="0.5rem" alignItems="center">
-                                <XrpIcon />
-                                {formatNumber((Number(dropsToXrp(price)) * sold).toString())}
-                            </Row>
-                        </DropLandingLabel>
-                        <ButtonBuyNftDrop dropId={dropId!} disabled={preview} />
-                    </Row>
+                    <Col gap="1rem" css={{ width: "fit-content" }}>
+                        <Row gap="2rem" css={{ width: "fit-content" }} wrap wrapGap="1rem">
+                            <DropLandingLabel variant="body2" label={translate("items")} loading={loading}>
+                                {items}
+                            </DropLandingLabel>
+                            <DropLandingLabel variant="body2" label={translate("sold")} loading={loading}>
+                                {sold}
+                            </DropLandingLabel>
+                            <DropLandingLabel variant="body2" label={translate("sales")} loading={loading}>
+                                <Row gap="0.5rem" alignItems="center">
+                                    <XrpIcon />
+                                    {formatNumber((Number(dropsToXrp(price)) * sold).toString())}
+                                </Row>
+                            </DropLandingLabel>
+                            <ButtonBuyNftDrop dropId={dropId!} disabled={preview} />
+                        </Row>
+                        <MintProgress value={20} />
+                    </Col>
                 </Col>
                 <Row flex={1} alignItems="center" justifyContent="flex-end" breakpoint={{ width: "dropLandingPage" }}>
                     <DropLandingImage src={image} alt={`${name}-image`} loading={loading} />
