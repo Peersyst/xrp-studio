@@ -55,7 +55,7 @@ const NftPublishModal = createModal<NftPublishModalProps>(({ request, draftId, c
                             />
                         ),
                         actions: [
-                            { action: "next", disabled: loading, label: translate("viewDetails") },
+                            { action: "next", disabled: loading || !!error, label: translate("viewDetails") },
                             { action: "close", label: translate("cancel") },
                         ],
                     },

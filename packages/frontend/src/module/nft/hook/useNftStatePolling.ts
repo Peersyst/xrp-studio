@@ -1,6 +1,6 @@
 import { NftDraftStatusDto, NftService } from "module/api/service";
 import { polling } from "@peersyst/react-utils";
-import useTranslate from "module/common/hook/useTranslate";
+import { AppError } from "../../../query/AppError";
 
 export interface UseNftStatePollingOptions {
     onSuccess?: () => void;
@@ -10,12 +10,10 @@ export interface UseNftStatePollingResult {
     fetch: () => Promise<NftDraftStatusDto[] | undefined>;
 }
 
-export default function (id: undefined | number, { onSuccess }: UseNftStatePollingOptions = {}): UseNftStatePollingResult {
-    const translate = useTranslate("error");
-
+export default function (id: undefined | number): UseNftStatePolling {
     const handleStatus = (res: NftDraftStatusDto[]) => {
         const status = res[0].status;
-        if (status === "failed") throw new Error(translate("nftMinting"));
+        if (status === "failed") throw new AppError("nftMinting");
         return status === "pending";
     };
 
