@@ -19,7 +19,7 @@ const DropLandingDescriptionSection = ({
     image = "",
     name = "Loading Name",
     description = "Loading Description",
-    items,
+    items = 0,
     price = "0",
     sold = 0,
     loading = false,
@@ -57,9 +57,13 @@ const DropLandingDescriptionSection = ({
                                     {formatNumber((Number(dropsToXrp(price)) * sold).toString())}
                                 </Row>
                             </DropLandingLabel>
-                            <ButtonBuyNftDrop dropId={dropId!} disabled={preview} />
+                            <Skeleton loading={loading}>
+                                <ButtonBuyNftDrop dropId={dropId!} disabled={preview} />
+                            </Skeleton>
                         </Row>
-                        <MintProgress value={20} />
+                        <Skeleton loading={loading} height="6px" width="100%">
+                            <MintProgress value={(sold / items) * 100} />
+                        </Skeleton>
                     </Col>
                 </Col>
                 <Row flex={1} alignItems="center" justifyContent="flex-end" breakpoint={{ width: "dropLandingPage" }}>
