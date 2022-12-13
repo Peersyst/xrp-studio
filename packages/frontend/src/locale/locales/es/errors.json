@@ -55,5 +55,6 @@
     "userNoNfts": "Este usuario no tiene NFTs",
     "userNoCollections": "Este usuario no tiene colecciones",
     "notFound": "No encontrado",
-    "content404": "El contenido que estás buscando no existe"
+    "content404": "El contenido que estás buscando no existe",
+    "noMatchingNftsWithFilters": "No se han encontrado NFTs que coincidan con los filtros seleccionados"
 }

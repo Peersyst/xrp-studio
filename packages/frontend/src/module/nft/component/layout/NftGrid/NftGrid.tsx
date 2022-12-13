@@ -9,12 +9,20 @@ import useGetCollectionOptions from "./hook/useGetCollectionOptions";
 import useCleanCollections from "./hook/useCleanCollections";
 import NftCollectionsSelectorGroup from "../../input/NftColletionsSelectorGroupFilter/NftCollectionsSelectorGroupFilter";
 import { GridProps } from "module/common/component/layout/Grid/Grid.types";
+import useNftsFilters from "module/nft/hook/useNftsFilters";
+import useTranslate from "module/common/hook/useTranslate";
 
 function InnerNftGrid({
     loading,
+    nothingToShow,
     ...rest
 }: Omit<GridProps<PaginatedNftDto | PaginatedNftDraftDto, string>, "Skeletons" | "children" | "breakpoints">): JSX.Element {
     const breakpoints = useGetNftGridBreakpoints();
+    const filters = useNftsFilters();
+    const translateError = useTranslate("error");
+
+    const hasFilters = !!filters.collections || !!filters.query;
+
     return (
         <Grid<PaginatedNftDto | PaginatedNftDraftDto, string>
             breakpoints={breakpoints}
@@ -22,6 +30,7 @@ function InnerNftGrid({
             Skeletons={BaseCardSkeletons}
             justifyItems="stretch"
             alignItems="flex-start"
+            nothingToShow={hasFilters ? translateError("noMatchingNftsWithFilters") : nothingToShow}
             {...rest}
         >
             {(nfts) => nfts.map((nft, key) => <NftCard nft={nft} key={key} loading={loading} />)}
@@ -34,6 +43,7 @@ function InnerNftGridWithFilters({ loadingNfts, loadingCollections, collections,
     const collectionsOptions = useGetCollectionOptions(collections || []);
     const { cleanAllCollections, cleanCollection } = useCleanCollections();
     const showCollections = collections && collections.length > 0;
+
     return (
         <InnerNftGrid
             withFilters
