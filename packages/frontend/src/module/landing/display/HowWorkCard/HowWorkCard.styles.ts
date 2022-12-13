@@ -11,7 +11,8 @@ export const HowWorkCardRoot = styled(Col)`
 export const BaseImage = styled(Image)(
     ({ theme }) => css`
         width: 60rem;
-        aspect-ratio: 1.09;
+        aspect-ratio: 1.391;
+        object-fit: contain;
 
         ${theme.breakpoints.down("sm")} {
             width: 40rem;

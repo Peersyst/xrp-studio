@@ -5,7 +5,6 @@ import WalletNotConnected from "module/wallet/component/core/WalletNotConnected/
 describe("WalletNotConnected test", () => {
     test("Renders correctly", () => {
         render(<WalletNotConnected />);
-        expect(screen.getByText(translate("letsGetStarted"))).toBeInTheDocument();
         expect(screen.getByRole("button", { name: translate("loginWithXumm") })).toBeInTheDocument();
     });
 });
