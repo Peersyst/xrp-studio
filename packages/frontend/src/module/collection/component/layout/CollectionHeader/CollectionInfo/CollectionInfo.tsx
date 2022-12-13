@@ -6,6 +6,8 @@ import useTranslate from "module/common/hook/useTranslate";
 import Button from "module/common/component/input/Button/Button";
 import { useNavigate } from "react-router-dom";
 import { CollectionRoutes } from "module/collection/CollectionRouter";
+import { useResetRecoilState } from "recoil";
+import collectionCreationState from "module/collection/state/CollectionCreationState";
 
 const CollectionInfo = (): JSX.Element => {
     const { id } = useParams<string>();
@@ -13,6 +15,12 @@ const CollectionInfo = (): JSX.Element => {
     const { data: collection, isLoading: collectionLoading } = useGetCollection(id ? Number(id) : undefined);
     const { name = "", items = 0 } = collection || {};
     const navigate = useNavigate();
+    const resetCollectionCreationState = useResetRecoilState(collectionCreationState);
+
+    const goToEditCollection = () => {
+        resetCollectionCreationState();
+        navigate(`${CollectionRoutes.CREATE_COLLECTION}?id=${id}`);
+    };
 
     return (
         <CollectionInfoRoot>
@@ -33,7 +41,7 @@ const CollectionInfo = (): JSX.Element => {
                 </Skeleton>
             </Col>
             <CollectionsButtons gap="0.5rem">
-                <Button size="sm" onClick={() => navigate(`${CollectionRoutes.CREATE_COLLECTION}?id=${id}`)}>
+                <Button size="sm" onClick={goToEditCollection}>
                     {translate("editCollection")}
                 </Button>
             </CollectionsButtons>
