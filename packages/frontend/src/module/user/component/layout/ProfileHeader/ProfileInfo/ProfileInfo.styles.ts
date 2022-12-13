@@ -17,6 +17,8 @@ export const ProfileInfoRoot = styled(Col).attrs({ flex: 1 })(
         }
 
         ${theme.breakpoints.down("mobile")} {
+            padding-left: var(--profile-avatar-width);
+
             .profile-name {
                 font-size: ${theme.typography.subtitle1.style.fontSize};
             }
