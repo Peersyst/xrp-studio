@@ -2,11 +2,15 @@ import { NftDraftStatusDto, NftService } from "module/api/service";
 import { polling } from "@peersyst/react-utils";
 import useTranslate from "module/common/hook/useTranslate";
 
-export interface UseNftStatePolling {
-    fetch: () => Promise<NftDraftStatusDto[]> | undefined;
+export interface UseNftStatePollingOptions {
+    onSuccess?: () => void;
 }
 
-export default function (id: undefined | number): UseNftStatePolling {
+export interface UseNftStatePollingResult {
+    fetch: () => Promise<NftDraftStatusDto[] | undefined>;
+}
+
+export default function (id: undefined | number, { onSuccess }: UseNftStatePollingOptions = {}): UseNftStatePollingResult {
     const translate = useTranslate("error");
 
     const handleStatus = (res: NftDraftStatusDto[]) => {
@@ -15,8 +19,11 @@ export default function (id: undefined | number): UseNftStatePolling {
         return status === "pending";
     };
 
-    const fetch = (): Promise<NftDraftStatusDto[]> | undefined => {
-        if (id) return polling(() => NftService.nftControllerGetNftDraftStatus(undefined, [id]), handleStatus);
+    const fetch = async (): Promise<NftDraftStatusDto[] | undefined> => {
+        if (id) {
+            await polling(() => NftService.nftControllerGetNftDraftStatus(undefined, [id]), handleStatus);
+            onSuccess?.();
+        }
         return undefined;
     };
 

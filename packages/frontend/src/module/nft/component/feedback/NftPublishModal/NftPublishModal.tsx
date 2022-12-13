@@ -49,7 +49,7 @@ const NftPublishModal = createModal<NftPublishModalProps>(({ request, draftId, c
                                 onEnd={() => setLoading(false)}
                                 onSuccess={goMyNfts}
                                 onError={handleError}
-                                onPollingEnd={setNftId}
+                                onPublished={(id) => setNftId(id)}
                                 request={request}
                                 draftId={draftId}
                             />

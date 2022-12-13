@@ -14,7 +14,7 @@ const XummProvider = ({ children }: XummProviderProps): JSX.Element => {
     const handleErrorMessage = useHandleErrorMessage();
 
     const handleError = (e: FetchError) => {
-        if (e.body.statusCode !== 401) {
+        if (e?.body?.statusCode !== 401) {
             handleErrorMessage(e);
         }
     };
