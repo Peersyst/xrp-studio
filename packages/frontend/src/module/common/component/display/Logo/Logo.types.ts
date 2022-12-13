@@ -9,4 +9,5 @@ export interface LogoProps {
      * Logo style
      */
     style?: CSSProperties;
+    fullSize?: boolean;
 }

@@ -73,7 +73,6 @@ export const ProfileHeaderRoot = styled(PageHeader)<ProfileHeaderRootProps>(
                 line-height: 1.2rem;
                 overflow: hidden;
                 text-overflow: ellipsis;
-                line-clamp: 3;
 
                 ${theme.breakpoints.down("md")} {
                     display: none;
@@ -114,7 +113,7 @@ export const ProfileHeaderFooter = styled(Row).attrs({ gap: "1rem", flex: 1 })(
         }
 
         ${theme.breakpoints.down("mini")} {
-            --profile-avatar-width: max(6rem, 20vw);
+            --profile-avatar-width: max(7.5rem, 20vw);
         }
     `,
 );
