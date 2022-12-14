@@ -62,7 +62,7 @@ const DropLandingDescriptionSection = ({
                             </Skeleton>
                         </Row>
                         <Skeleton loading={loading} height="6px" width="100%">
-                            <MintProgress value={(sold / items) * 100} />
+                            <MintProgress value={items ? (sold / items) * 100 : 0} />
                         </Skeleton>
                     </Col>
                 </Col>
