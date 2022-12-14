@@ -5,6 +5,7 @@ import { ExploreRoutes } from "module/explore/ExploreRouter";
 import NftCard from "module/nft/component/display/NftCard/NftCard";
 import { useGetNftGridBreakpoints } from "module/nft/component/layout/NftGrid/hook/useGetNftGridBreakpoints";
 import ExploreSection from "module/explore/component/layout/ExploreSection/ExploreSection";
+import { NftCardSkeletons } from "module/common/component/feedback/Skeletons/Skeletons";
 
 const ExploreTrendingNfts = ({ nfts = [], loading = false, ...rest }: ExploreTrendingNftsProps): JSX.Element => {
     const translate = useTranslate();
@@ -12,9 +13,11 @@ const ExploreTrendingNfts = ({ nfts = [], loading = false, ...rest }: ExploreTre
     return (
         <ExploreSection loading={loading} title={translate("theNfts")} viewMoreLink={ExploreRoutes.NFTS} {...rest}>
             <Grid cols={4} css={{ width: "100%" }} justifyContent="stretch" breakpoints={breakpoints}>
-                {nfts.slice(0, 8).map((nft, key) => (
-                    <NftCard nft={nft} key={key} css={{ width: "100%" }} />
-                ))}
+                {loading ? (
+                    <NftCardSkeletons count={8} />
+                ) : (
+                    nfts.slice(0, 8).map((nft, key) => <NftCard nft={nft} key={key} css={{ width: "100%" }} />)
+                )}
             </Grid>
         </ExploreSection>
     );

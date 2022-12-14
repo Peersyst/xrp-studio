@@ -24,7 +24,7 @@ const ExplorePageContent = (): JSX.Element => {
                         <ExploreTrendingBanner src={BANNER.src} to={BANNER.to} />
                         <ExploreTrendingCollections loading={isLoading} collections={collections} />
                         <ExploreTrendingNfts loading={isLoading} nfts={nfts} />
-                        <ExploreTrendingArtists loading={isLoading} artists={artists} />
+                        <ExploreTrendingArtists loading={true} artists={artists} />
                     </Col>
                 </PageContent>
             </TabPanel>
