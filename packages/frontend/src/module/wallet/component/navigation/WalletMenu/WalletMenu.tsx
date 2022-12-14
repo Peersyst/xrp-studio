@@ -7,7 +7,6 @@ import { WalletMenuRoot, WalletLink } from "./WalletMenu.styles";
 import useWallet from "module/wallet/hook//useWallet";
 import { AuthTokenStorage } from "module/auth/AuthTokenStorage";
 import { UserRoutes } from "module/user/UserRouter";
-import { SettingsRoutes } from "module/settings/SettingsRouter";
 import { MouseEventHandler } from "react";
 import useGetUser from "module/user/query/useGetUser";
 import useIsMobile from "module/common/hook/useIsMobile";
@@ -36,7 +35,6 @@ const WalletMenu = (): JSX.Element => {
                     </>
                 )}
                 <WalletLink to={UserRoutes.PROFILE.replace(":address", address)}>{translate("profile")}</WalletLink>
-                <WalletLink to={SettingsRoutes.SETTINGS}>{translate("settings")}</WalletLink>
                 <WalletCard />
                 <Divider />
                 <WalletLink to="" onClick={logout}>
