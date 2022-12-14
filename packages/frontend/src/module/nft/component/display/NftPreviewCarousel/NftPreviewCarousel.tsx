@@ -23,7 +23,7 @@ const NftPreviewCarousel = ({ nfts, loading, to, activeId, ...rest }: NftPreview
                     />
                 ))
             ) : (
-                <NothingToShow css={{ minHeight: "6rem" }} label={translateError("withoutNftsToShow")} />
+                <NothingToShow css={{ minHeight: "12rem" }} label={translateError("withoutNftsToShow")} />
             )}
         </Carousel>
     );

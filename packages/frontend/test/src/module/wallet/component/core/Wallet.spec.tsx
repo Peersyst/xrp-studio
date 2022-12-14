@@ -15,13 +15,17 @@ describe("Wallet", () => {
 
     test("Renders correctly when not connected", () => {
         new WalletMock({ isLogged: false, address: undefined, active: false });
+
         render(<Wallet />);
+
         expect(screen.getByRole("button", { name: translate("loginWithXumm") })).toBeInTheDocument();
     });
 
     test("Renders correctly when connected", () => {
         new WalletMock({ isLogged: true, address: XRP_ADDRESS_MOCK, active: true });
+
         render(<Wallet />);
+
         expect(screen.queryByRole("button", { name: translate("loginWithXumm") })).toBeNull();
     });
 });
