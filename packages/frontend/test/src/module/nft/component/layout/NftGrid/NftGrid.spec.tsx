@@ -2,6 +2,7 @@ import NftGrid from "module/nft/component/layout/NftGrid/NftGrid";
 import { CollectionsDtoMock, PaginatedNftsMock, UseFilterMock } from "test-mocks";
 import { render, translate } from "test-utils";
 import * as Recoil from "recoil";
+import * as useFilters from "module/common/component/input/Filters/hooks/useFilters/useFilters";
 
 describe("Test for the NftGrid component", () => {
     /**
@@ -28,6 +29,8 @@ describe("Test for the NftGrid component", () => {
         //set true to display filters
         new UseFilterMock<string, true>({ filter: ["0", "1"] });
         jest.spyOn(Recoil, "useRecoilState").mockReturnValueOnce([true, jest.fn()]);
+        const useFiltersMock = jest.spyOn(useFilters, "default").mockReturnValue({});
+
         const { collections } = new CollectionsDtoMock({ length: 4 });
         const data = new PaginatedNftsMock({ nftsParams: { length: 10 } });
 
@@ -49,6 +52,8 @@ describe("Test for the NftGrid component", () => {
          * Tags
          */
         expect(screen.getByRole("button", { name: translate("clearAll") })).toBeInTheDocument();
+
+        expect(useFiltersMock).toHaveBeenCalled();
     });
 
     test("Renders correctly with filters closed + without tags (with grid with filters)", () => {
