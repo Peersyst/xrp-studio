@@ -6,7 +6,7 @@ describe("NftCardStatusChip", () => {
     test("Status draft", async () => {
         const nftMock = new NftDtoMock({ status: "draft" });
 
-        const screen = render(<NftCardStatusChip label={nftMock.status} status={nftMock.status} nftId={nftMock.id} />);
+        const screen = render(<NftCardStatusChip nft={nftMock} />);
 
         expect(screen.getByText(nftMock.status)).toBeInTheDocument();
         fireEvent.mouseEnter(screen.getByText(nftMock.status));
@@ -16,7 +16,7 @@ describe("NftCardStatusChip", () => {
     test("Status failed", async () => {
         const nftMock = new NftDtoMock({ status: "failed" });
 
-        const screen = render(<NftCardStatusChip label={nftMock.status} status={nftMock.status} nftId={nftMock.id} />);
+        const screen = render(<NftCardStatusChip nft={nftMock} />);
 
         expect(screen.getByText(nftMock.status)).toBeInTheDocument();
         fireEvent.mouseEnter(screen.getByText(nftMock.status));

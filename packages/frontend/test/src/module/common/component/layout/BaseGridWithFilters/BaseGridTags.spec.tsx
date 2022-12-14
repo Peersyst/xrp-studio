@@ -39,7 +39,7 @@ describe("Test for the base grid with tags", () => {
     test("Renders correctly without tags + triggers button correctly", () => {
         const mockedSetShowFilters = jest.fn();
         jest.spyOn(Recoil, "useRecoilState").mockReturnValue([false, mockedSetShowFilters]);
-        const screen = render(<BaseGridTags />);
+        const screen = render(<BaseGridTags tags={[]} />);
         const btn = screen.getByText(translate("search&Filter"));
         expect(btn).toBeInTheDocument();
         fireEvent.click(btn);

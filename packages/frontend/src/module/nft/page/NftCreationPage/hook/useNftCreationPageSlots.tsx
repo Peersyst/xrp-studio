@@ -1,5 +1,5 @@
 import { CollectionDto } from "module/api/service";
-import { ReactNode, useState } from "react";
+import { ReactNode, useEffect, useState } from "react";
 import useTranslate from "module/common/hook/useTranslate";
 import parseFlags from "module/nft/util/parseFlags";
 import { Divider, SelectOption, Switch } from "@peersyst/react-components";
@@ -43,23 +43,25 @@ export default function ({ nft, collections, fixedCollection, loading = false }:
         flags,
     } = nft || {};
 
-    const defaultFlags = 8;
-
     const taxon = nftCollection?.taxon;
-    const {
-        burnable,
-        onlyXRP,
-        trustLine = false,
-        transferable,
-    } = flags !== undefined ? (typeof flags === "number" ? parseFlags(flags) : flags) : parseFlags(defaultFlags);
+    const { burnable, onlyXRP, transferable } =
+        flags !== undefined ? (typeof flags === "number" ? parseFlags(flags) : flags) : parseFlags(8);
 
     const collectionOptions: SelectOption<number>[] = (collections || (nftCollection ? [nftCollection] : [])).map((collection) => ({
         value: collection.taxon,
         label: collection.name || collection.taxon.toString(),
     }));
 
-    const [transferableValue] = useState(transferable);
+    const [transferableValue, setTransferableValue] = useState(false);
     const [transferFeeValue, setTransferFeeValue] = useState("");
+
+    useEffect(() => {
+        setTransferableValue(!!transferable);
+    }, [transferable]);
+
+    useEffect(() => {
+        if (transferFee) setTransferFeeValue((transferFee / 1000).toString());
+    }, [transferFee]);
 
     return (
         <>
@@ -145,17 +147,12 @@ export default function ({ nft, collections, fixedCollection, loading = false }:
                     defaultValue={onlyXRP}
                 />
                 <Switch
-                    key={"trustLine: " + JSON.stringify(trustLine)}
-                    name={NftFormFields.trustLine}
-                    label={translate("trustLine")}
-                    defaultValue={trustLine}
-                    style={{ display: "none" }}
-                />
-                <Switch
                     key={"transferable: " + JSON.stringify(transferable)}
                     name={NftFormFields.transferable}
                     label={translate("transferable")}
                     defaultValue={transferable}
+                    value={transferableValue}
+                    onChange={setTransferableValue}
                 />
                 <Divider />
                 <PropertiesInput

@@ -34,6 +34,17 @@ class XrplService {
     static isValidXrpAddress(address: string): boolean {
         return xrpl.isValidAddress(address);
     }
+
+    async isAuthorized(address: string, minterAddress: string): Promise<boolean> {
+        const res = await this.clientRequest((client) =>
+            client.request({
+                command: "account_info",
+                account: address,
+            }),
+        );
+        // @ts-ignore XRPL library service doesn't have the correct updated type
+        return res.result.account_data["NFTokenMinter"] === minterAddress;
+    }
 }
 
 export default XrplService;

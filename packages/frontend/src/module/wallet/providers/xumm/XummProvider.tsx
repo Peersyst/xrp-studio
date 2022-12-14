@@ -3,6 +3,7 @@ import { ReactNode } from "react";
 import { useConfig } from "@peersyst/react-components";
 import { AuthTokenStorage } from "module/auth/AuthTokenStorage";
 import useHandleErrorMessage from "../../../../query/useHandleErrorMessage";
+import { FetchError } from "xumm-react/@types/util/useFetch";
 
 export interface XummProviderProps {
     children?: ReactNode;
@@ -10,7 +11,13 @@ export interface XummProviderProps {
 
 const XummProvider = ({ children }: XummProviderProps): JSX.Element => {
     const backendUrl = useConfig("backendUrl");
-    const handleError = useHandleErrorMessage();
+    const handleErrorMessage = useHandleErrorMessage();
+
+    const handleError = (e: FetchError) => {
+        if (e.body.statusCode !== 401) {
+            handleErrorMessage(e);
+        }
+    };
 
     return (
         <BaseXummProvider

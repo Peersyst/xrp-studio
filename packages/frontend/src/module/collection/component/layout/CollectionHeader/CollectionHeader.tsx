@@ -9,6 +9,7 @@ import {
 } from "./CollectionHeader.styles";
 import CollectionInfo from "./CollectionInfo/CollectionInfo";
 import { useParams } from "react-router-dom";
+import { config } from "config";
 
 const CollectionHeader = (): JSX.Element => {
     const { id } = useParams<string>();
@@ -18,10 +19,20 @@ const CollectionHeader = (): JSX.Element => {
     return (
         <CollectionHeaderRoot image={image} stickyTitle={name}>
             <Col gap="1.5rem">
-                <CollectionCover loading={collectionLoading} src={header} alt="collection-header" />
+                <CollectionCover
+                    loading={collectionLoading}
+                    src={header}
+                    alt="collection-header"
+                    fallback={config.collectionDefaultHeaderUrl}
+                />
                 <CollectionHeaderFooter>
                     <CollectionHeaderBack />
-                    <CollectionAvatar loading={collectionLoading} img={image} alt="collection-image" />
+                    <CollectionAvatar
+                        loading={collectionLoading}
+                        img={image}
+                        alt="collection-image"
+                        fallback={config.collectionDefaultImageUrl}
+                    />
                     <CollectionInfo />
                 </CollectionHeaderFooter>
                 <Skeleton loading={collectionLoading}>

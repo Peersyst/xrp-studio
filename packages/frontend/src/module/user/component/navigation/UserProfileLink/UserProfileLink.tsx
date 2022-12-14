@@ -1,9 +1,10 @@
 import { UserDto } from "module/api/service";
 import { CSSProperties } from "react";
 import Avatar from "module/common/component/display/Avatar/Avatar";
-import { Hash, Row, Typography, TypographyProps } from "@peersyst/react-components";
+import { Hash, Row, TypographyProps } from "@peersyst/react-components";
 import { UserProfileLinkRoot } from "module/user/component/navigation/UserProfileLink/UserProfileLink.styles";
 import { UserRoutes } from "module/user/UserRouter";
+import Username from "module/user/component/Username/Username";
 
 export interface UserProfileLinkProps {
     user: UserDto;
@@ -14,20 +15,18 @@ export interface UserProfileLinkProps {
 }
 
 const UserProfileLink = ({
-    user: { image, address, name },
+    user: { image, address, name, verifiedArtist },
     variant = "body1",
     fontWeight = 600,
     ...rest
 }: UserProfileLinkProps): JSX.Element => {
     return (
         <UserProfileLinkRoot to={UserRoutes.PROFILE.replace(":address", address)} {...rest}>
-            <Row flex={1} alignItems="center" gap="0.75rem">
+            <Row flex={1} alignItems="center" gap="0.75rem" css={{ overflow: "hidden" }}>
                 <Avatar img={image} alt={`${name || "user"}-image`} size="sm" />
-                <span css={{ width: "100%", maxWidth: "75%" }}>
+                <span css={{ overflow: "hidden" }}>
                     {name ? (
-                        <Typography variant={variant} fontWeight={fontWeight} singleLine>
-                            {name}
-                        </Typography>
+                        <Username name={name} verified={verifiedArtist} variant={variant} fontWeight={fontWeight} />
                     ) : (
                         <Hash hash={address} variant={variant} fontWeight={fontWeight} copy={false} />
                     )}
