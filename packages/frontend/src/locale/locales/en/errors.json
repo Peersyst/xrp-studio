@@ -57,5 +57,6 @@
     "notFound": "Not Found",
     "content404": "The content you are looking for does not exist",
     "yourSessionHasExpired": "Your session has expired",
-    "nftMinting": "NFT transaction signature failed"
+    "nftMinting": "NFT transaction signature failed",
+    "noMatchingCollections": "No collections were found matching the selected filters."
 }

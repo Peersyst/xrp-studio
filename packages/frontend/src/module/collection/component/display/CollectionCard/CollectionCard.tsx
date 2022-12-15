@@ -15,7 +15,12 @@ import { config } from "config";
 
 const CollectionCard = forwardRef(
     (
-        { collection: { id, name = "", image = "", items, header = "" }, loading = false, size = "md" }: WithSkeleton<CollectionCardProps>,
+        {
+            collection: { id, name = "", image = "", items, header = "" },
+            loading = false,
+            size = "md",
+            gridWidth = false,
+        }: WithSkeleton<CollectionCardProps>,
         ref,
     ): JSX.Element => {
         const translate = useTranslate();
@@ -24,7 +29,7 @@ const CollectionCard = forwardRef(
 
         return (
             <ConditionalLink condition={!loading} to={CollectionRoutes.VIEW_COLLECTION.replace(":id", id.toString())}>
-                <CollectionCardRoot size={size} ref={(r) => setRef(ref, r)}>
+                <CollectionCardRoot gridWidth={gridWidth} size={size} ref={(r) => setRef(ref, r)}>
                     <CollectionCardCover
                         size={size}
                         src={header}

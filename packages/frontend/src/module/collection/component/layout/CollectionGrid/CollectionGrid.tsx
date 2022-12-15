@@ -8,6 +8,7 @@ import { GridProps } from "module/common/component/layout/Grid/Grid.types";
 import { useRecoilState } from "recoil";
 import { filtersVisibilityState } from "module/common/component/state/FiltersVisibilityState";
 import useCollectionFilters from "module/collection/hook/useCollectionFilters";
+import useTranslate from "module/common/hook/useTranslate";
 
 function InnerCollectionGrid({
     loading,
@@ -16,6 +17,8 @@ function InnerCollectionGrid({
 }: Omit<GridProps<PaginatedCollectionDto>, "Skeletons" | "children" | "breakpoints">) {
     const breakpoints = useCollectionGridBreakpoints();
     const gridFilters = useCollectionFilters();
+    const translateError = useTranslate("error");
+    const [hideFiltersState] = useRecoilState(filtersVisibilityState);
 
     const hasFilters = !!gridFilters.query;
 
@@ -23,21 +26,23 @@ function InnerCollectionGrid({
         <Grid<PaginatedCollectionDto, any>
             loading={loading}
             breakpoints={breakpoints}
+            breakpointType="collection"
             Skeletons={LgCollectionCardSkeletons}
             css={{ width: "fit-content" }}
             justifyContent="stretch"
-            nothingToShow={hasFilters ? "text" : nothingToShow}
+            nothingToShow={hasFilters ? translateError("noMatchingCollections") : nothingToShow}
+            cols={hideFiltersState ? 2 : 3}
             {...rest}
         >
-            {(collections) => collections.map((collection, key) => <CollectionCard size="lg" collection={collection} key={key} />)}
+            {(collections) =>
+                collections.map((collection, key) => <CollectionCard gridWidth size="lg" collection={collection} key={key} />)
+            }
         </Grid>
     );
 }
 
 function InnerCollectionGridWithFilters({ loading, ...rest }: Omit<CollectionGridProps, "filters">) {
-    const [hideFiltersState] = useRecoilState(filtersVisibilityState);
-
-    return <InnerCollectionGrid withFilters cols={hideFiltersState ? 2 : 3} loading={loading} {...rest} />;
+    return <InnerCollectionGrid withFilters loading={loading} {...rest} />;
 }
 
 function CollectionGrid({ loading, withFilters, ...rest }: CollectionGridProps): JSX.Element {

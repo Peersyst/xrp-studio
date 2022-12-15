@@ -1,11 +1,16 @@
 import CollectionGrid from "module/collection/component/layout/CollectionGrid/CollectionGrid";
 import useTranslate from "module/common/hook/useTranslate";
-import useGetCollections from "module/collection/query/useGetCollections";
+import useGetCollections, { UseGetCollectionsOptions } from "module/collection/query/useGetCollections";
 import NothingToShow from "module/common/component/feedback/NothingToShow/NothingToShow";
+import useCollectionFilters from "module/collection/hook/useCollectionFilters";
 
 const ExploreCollectionsGrid = (): JSX.Element => {
     const translateError = useTranslate("error");
-    const { data, fetchNextPage, hasNextPage, isFetching } = useGetCollections();
+    const filters: Omit<UseGetCollectionsOptions, "account"> = useCollectionFilters();
+    const { data, fetchNextPage, hasNextPage, isFetching } = useGetCollections({
+        account: undefined,
+        ...filters,
+    });
 
     return (
         <CollectionGrid
@@ -14,6 +19,7 @@ const ExploreCollectionsGrid = (): JSX.Element => {
             loading={isFetching}
             end={!hasNextPage}
             withFilters
+            withExtraSpace={false}
             nothingToShow={<NothingToShow css={{ justifyContent: "flex-start" }} label={translateError("noCollectionsAvailable")} />}
         />
     );

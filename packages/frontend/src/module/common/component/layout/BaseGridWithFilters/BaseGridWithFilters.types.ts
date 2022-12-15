@@ -11,6 +11,7 @@ export interface BaseGridWithFilterProps<T extends PaginatedData, TagT = any> ex
     onDeleteTagClicked?: BaseGridTagsProps<TagT>["onDeleteTagClicked"];
     onClearTags?: BaseGridTagsProps<TagT>["onClear"];
     withExtraSpace?: boolean;
+    breakpointType?: "collection" | "nft";
 }
 
 export interface GridWrapperProps {
