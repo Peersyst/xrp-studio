@@ -13,6 +13,7 @@ const ExploreCollectionsGrid = (): JSX.Element => {
             callback={() => fetchNextPage()}
             loading={isFetching}
             end={!hasNextPage}
+            withFilters
             nothingToShow={<NothingToShow css={{ justifyContent: "flex-start" }} label={translateError("noCollectionsAvailable")} />}
         />
     );
