@@ -1,4 +1,4 @@
-import { CSSProperties } from "react";
+import { CSSProperties, ReactNode } from "react";
 
 export interface SocialButtonsProps {
     className?: string;
@@ -6,4 +6,5 @@ export interface SocialButtonsProps {
     userId: string;
     twitterId?: string;
     discordId?: string;
+    popover?: ReactNode;
 }

@@ -11,19 +11,32 @@ const SocialButtonInfo: SocialButtonIconsType = {
     instagram: <InstagramIcon />,
 };
 
-const SocialButton = ({ icon: iconProps, link, className, onClick, ...rest }: SocialButtonProps): JSX.Element => {
+const SocialButton = ({
+    icon: iconProps,
+    link,
+    className,
+    onClick,
+    showOn = "hover",
+    popover,
+    ...rest
+}: SocialButtonProps): JSX.Element => {
     const icon = SocialButtonInfo[iconProps];
     const content = (
         <SocialButtonRoot {...rest} onClick={onClick} className={cx("social-button", className)}>
             {icon}
         </SocialButtonRoot>
     );
+
     return (
-        <Popover showOn="hover" position="top" arrow>
+        <Popover showOn={showOn} position="top" arrow>
             <Popover.Popper>
-                <Row css={{ padding: "0.25rem 0.35rem" }}>
-                    <Typography variant="caption1">{iconProps}</Typography>
-                </Row>
+                {popover ? (
+                    popover
+                ) : (
+                    <Row css={{ padding: "0.25rem 0.35rem" }}>
+                        <Typography variant="caption1">{iconProps}</Typography>
+                    </Row>
+                )}
             </Popover.Popper>
             <Popover.Content>
                 {link ? (
