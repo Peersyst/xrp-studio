@@ -13,6 +13,7 @@ import { XrpIcon } from "icons";
 import Description from "module/common/component/display/Desciption/Description";
 import ButtonBuyNftDrop from "module/drop/component/input/ButtonBuyNftDrop/ButtonBuyNftDrop";
 import { dropsToXrp } from "xrpl";
+import { config } from "config";
 
 const DropLandingDescriptionSection = ({
     cover = "",
@@ -67,7 +68,7 @@ const DropLandingDescriptionSection = ({
                     </Col>
                 </Col>
                 <Row flex={1} alignItems="center" justifyContent="flex-end" breakpoint={{ width: "dropLandingPage" }}>
-                    <DropLandingImage src={image} alt={`${name}-image`} loading={loading} />
+                    <DropLandingImage src={image} alt={`${name}-image`} loading={loading} fallback={config.collectionDefaultImageUrl} />
                 </Row>
             </DropLandingDescriptionSectionContent>
         </DropLandingDescriptionSectionRoot>

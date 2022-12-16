@@ -22,7 +22,6 @@ describe("WalletConnected test", () => {
         expect(screen.getAllByText("0x123").length).toBeLessThanOrEqual(2);
         //Menu
         expect(screen.getByText(translate("profile"))).toBeInTheDocument();
-        expect(screen.getByText(translate("settings"))).toBeInTheDocument();
         expect(screen.getByText(translate("logout"))).toBeInTheDocument();
         //WalletCard
         expect(screen.getByText(translate("0x123"))).toBeInTheDocument();

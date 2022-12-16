@@ -14,6 +14,7 @@ import { DrawerStyles } from "./component/Drawer.styles";
 import { ColorInputStyles } from "config/theme/component/ColorInput.styles";
 import { LabelStyles } from "config/theme/component/Label.styles";
 import { RadioButtonStyles } from "./component/RadioButton.styles";
+import { PopoverStyles } from "config/theme/component/Popover.styles";
 import { ProgressBarStyles } from "config/theme/component/ProgressBar.styles";
 
 export const GlobalStyles = createGlobalStyle`
@@ -170,6 +171,7 @@ export const GlobalStyles = createGlobalStyle`
       ${FormControlStyles};
       ${TextInputStyles};
       ${BlockchainAddressStyles};
-      ${ColorInputStyles};  
+      ${ColorInputStyles};
+      ${PopoverStyles};
       ${ProgressBarStyles};
     `;

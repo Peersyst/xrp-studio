@@ -12,11 +12,11 @@ export default function (): UseMutationResult<void, unknown, UseUpdateNftDraftPa
 
     return useMutation(({ id, publish, ...nftDraft }) => NftService.nftControllerUpdateNftDraft(id, nftDraft, publish), {
         onSuccess: async (_, { id }) => {
-            await queryClient.invalidateQueries(Queries.NFTS);
-            await queryClient.invalidateQueries(Queries.NFT_DRAFTS);
+            await queryClient.invalidateQueries([Queries.NFTS]);
+            await queryClient.invalidateQueries([Queries.NFT_DRAFTS]);
             await queryClient.invalidateQueries([Queries.NFT_DRAFT, id]);
-            await queryClient.invalidateQueries(Queries.COLLECTIONS);
-            await queryClient.invalidateQueries(Queries.COLLECTION);
+            await queryClient.invalidateQueries([Queries.COLLECTIONS]);
+            await queryClient.invalidateQueries([Queries.COLLECTION]);
         },
     });
 }

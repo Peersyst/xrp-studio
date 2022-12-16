@@ -2,16 +2,10 @@ import Card from "module/common/component/surface/Card/Card";
 import styled, { css } from "styled-components";
 import { Col } from "@peersyst/react-components";
 
-export const BaseNftPageContentCard = styled(Card)(
-    ({ theme }) => css`
-        width: 100%;
-        padding: 1.5rem;
-
-        ${theme.breakpoints.up("nftPage")} {
-            max-width: 41.5625rem;
-        }
-    `,
-);
+export const BaseNftPageContentCard = styled(Card)`
+    width: 100%;
+    padding: 1.5rem;
+`;
 
 export const BaseNftPageImageWrapper = styled.div(
     ({ theme }) => css`

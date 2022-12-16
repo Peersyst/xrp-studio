@@ -20,7 +20,6 @@ describe("WalletMenu", () => {
         const screen = render(<WalletMenu />);
 
         expect(screen.getByRole("link", { name: translate("profile") })).toBeInTheDocument();
-        expect(screen.getByRole("link", { name: translate("settings") })).toBeInTheDocument();
         expect(screen.getByRole("link", { name: translate("logout") })).toBeInTheDocument();
 
         expect(screen.getByText(translate("0x123"))).toBeInTheDocument();
