@@ -14,21 +14,36 @@ import useNftCreationPageSlots from "module/nft/page/NftCreationPage/hook/useNft
 import NftPublishModal from "module/nft/component/feedback/NftPublishModal/NftPublishModal";
 import { useNavigate } from "react-router-dom";
 import { NftRoutes } from "module/nft/NftRouter";
-import { useEffect } from "react";
+import { useEffect, useMemo } from "react";
 import useWallet from "module/wallet/hook/useWallet";
 import useTranslate from "module/common/hook/useTranslate";
+import useGetNftDrafts from "module/nft/query/useGetNftDrafts";
 
 const NftCreationPage = (): JSX.Element => {
     const translateError = useTranslate("error");
     const [searchParams, setSearchParams] = useSearchParams();
     const { showModal } = useModal();
     const { showToast } = useToast();
+    const navigate = useNavigate();
+
     const nfrDraftId = searchParams.get("id");
     const { data: nftDraft, isLoading: nftDraftLoading } = useGetNftDraft(nfrDraftId ? Number(nfrDraftId) : undefined);
+
+    const hasCollection = !!nftDraft?.collection;
+    const { data: collectionNftsData, isLoading: loadingCollectionNfts } = useGetNftDrafts(
+        { collections: [nftDraft?.collection?.id || 0] },
+        { enabled: hasCollection },
+    );
+    const collectionNfts = usePaginatedList(collectionNftsData?.pages, (page) => page.items);
+    const collectionNftDrafts = useMemo(
+        () => collectionNfts.filter((nft) => nft.status !== "confirmed" && nft.status !== "pending"),
+        [collectionNftsData],
+    );
+
     const { data: { pages = [] } = {}, isLoading: collectionsLoading } = useGetMyCollections();
     const collections = usePaginatedList(pages, (page) => page.items);
+
     const isLoading = nftDraftLoading || collectionsLoading;
-    const navigate = useNavigate();
 
     const { mutateAsync: createNftDraft, isLoading: createNftDraftLoading } = useCreateNftDraft();
     const { isLoading: createNftLoading } = useCreateNft();
@@ -69,7 +84,12 @@ const NftCreationPage = (): JSX.Element => {
 
     return (
         <Form onSubmit={handleSubmit}>
-            <BaseNftPage>
+            <BaseNftPage
+                collectionNfts={collectionNftDrafts}
+                loadingCollectionNfts={loadingCollectionNfts}
+                collectionNftLink={(nft) => `${NftRoutes.NFT_CREATION}?id=${nft.id}`}
+                activeCarouselNftId={nftDraft?.id}
+            >
                 {{
                     header: <NftCreationPageHeader loading={isLoading} saving={saving} publishing={publishing} />,
                     content: slots,
