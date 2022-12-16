@@ -19,14 +19,14 @@ interface DropCardProps {
 }
 
 const DropCard = forwardRef(
-    ({ loading = false, size = "md", drop: { items, price, collection } }: WithSkeleton<DropCardProps>, ref): JSX.Element => {
+    ({ loading = false, size = "md", drop: { id, items, price, collection } }: WithSkeleton<DropCardProps>, ref): JSX.Element => {
         const translate = useTranslate();
 
         const alt = "drop";
 
         return (
-            <ConditionalLink condition={!loading} to={DropRoutes.DROP}>
-                <CollectionCardRoot size={size} ref={(r: any) => setRef(ref, r)}>
+            <ConditionalLink condition={!loading} to={DropRoutes.DROP.replace(":id", id.toString())}>
+                <CollectionCardRoot size={size} ref={(r) => setRef(ref, r)}>
                     <CollectionCardCover
                         size={size}
                         src={collection?.header || ""}
@@ -34,27 +34,27 @@ const DropCard = forwardRef(
                         loading={loading}
                         fallback={config.collectionDefaultHeaderUrl}
                     />
+                    <CollectionCardFooter>
+                        <CollectionAvatar
+                            img={collection?.image || ""}
+                            alt={`${alt}-image`}
+                            loading={loading}
+                            fallback={config.collectionDefaultImageUrl}
+                        />
+                        <Col gap="0.375rem" justifyContent="flex-end" css={{ maxWidth: "63%" }}>
+                            <Skeleton loading={loading}>
+                                <Typography variant="body1" fontWeight={800} singleLine>
+                                    {collection?.name || ""}
+                                </Typography>
+                            </Skeleton>
+                            <Skeleton width="50%" loading={loading}>
+                                <Typography variant="body2" light singleLine>
+                                    {translate("itemWithCount", { count: items || 0 })} · XRP {price} mint price
+                                </Typography>
+                            </Skeleton>
+                        </Col>
+                    </CollectionCardFooter>
                 </CollectionCardRoot>
-                <CollectionCardFooter>
-                    <CollectionAvatar
-                        img={collection?.image || ""}
-                        alt={`${alt}-image`}
-                        loading={loading}
-                        fallback={config.collectionDefaultImageUrl}
-                    />
-                    <Col gap="0.375rem" justifyContent="flex-end" css={{ maxWidth: "63%" }}>
-                        <Skeleton loading={loading}>
-                            <Typography variant="body1" fontWeight={800} singleLine>
-                                {collection?.name || ""}
-                            </Typography>
-                        </Skeleton>
-                        <Skeleton width="50%" loading={loading}>
-                            <Typography variant="body2" light singleLine>
-                                {translate("itemWithCount", { count: items || 0 })} · XRP {price} mint price
-                            </Typography>
-                        </Skeleton>
-                    </Col>
-                </CollectionCardFooter>
             </ConditionalLink>
         );
     },
