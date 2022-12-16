@@ -3,7 +3,7 @@ import ActionsResult from "module/common/component/feedback/ActionsResult/Action
 import { InformationField } from "module/common/component/display/InformationFields/InformationFields.types";
 import InformationFields from "module/common/component/display/InformationFields/InformationFields";
 import useGetNft from "module/nft/query/useGetNft";
-import { LoaderIcon } from "@peersyst/react-components";
+import { BlockchainAddress, Hash, LoaderIcon } from "@peersyst/react-components";
 import { config } from "config";
 import XrplService from "module/blockchain/service/XrplService/XrplService";
 import { useFormatBalance } from "module/common/component/display/Balance/hook/useFormatBalance";
@@ -16,20 +16,23 @@ const NftPublishSuccess = ({ id }: NftPublishSuccessProps): JSX.Element => {
     const translate = useTranslate();
     const formatBalance = useFormatBalance();
 
-    const { data: nftData, isLoading: isNftLoading } = useGetNft(id);
+    const { data: { mintTransactionHash, tokenId } = {}, isLoading: isNftLoading } = useGetNft(id);
 
     const publishSuccessContent: InformationField[] = [
         {
             label: translate("mintTransactionHash"),
-            content: nftData?.mintTransactionHash,
+            content: mintTransactionHash && <BlockchainAddress variant="body1" address={mintTransactionHash} type="tx" length={8} />,
         },
         {
             label: translate("tokenId"),
-            content: nftData?.id,
+            content: tokenId && <Hash variant="body1" hash={tokenId} length={8} />,
         },
         {
             label: translate("transferFeeCost"),
-            content: formatBalance(XrplService.dropsToXrp(config.feeInDrops.toString()), { units: config.tokenName }),
+            content: formatBalance(XrplService.dropsToXrp(config.feeInDrops.toString()), {
+                units: config.tokenName,
+                numberFormatOptions: { maximumFractionDigits: 6, minimumFractionDigits: 6 },
+            }),
         },
     ];
 

@@ -19,7 +19,7 @@ export default function ({ publish }: UseUpdateCollectionProps): UseMutationResu
             CollectionService.collectionControllerUpdateCollection(id, collection, publish),
         {
             onSuccess: async (_, { id }) => {
-                await queryClient.invalidateQueries(Queries.COLLECTIONS);
+                await queryClient.invalidateQueries([Queries.COLLECTIONS]);
                 await queryClient.invalidateQueries([Queries.COLLECTION, id]);
             },
         },
