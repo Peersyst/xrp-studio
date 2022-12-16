@@ -28,7 +28,11 @@ export const useDropRoutes = (): RouteObject[] => {
         },
         {
             path: DropRoutes.MY_DROPS,
-            element: <MyDropsPage />,
+            element: (
+                <LoggedInRoute>
+                    <MyDropsPage />
+                </LoggedInRoute>
+            ),
         },
     ];
 };

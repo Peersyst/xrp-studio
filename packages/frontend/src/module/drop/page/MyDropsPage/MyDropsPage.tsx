@@ -1,5 +1,5 @@
 import BasePage from "module/common/component/layout/BasePage/BasePage";
-import MyDropPageHeader from "module/drop/page/MyDropsPage/MyDropsPageHeader/MyDropPageHeader";
+import MyDropPageHeader from "module/drop/page/MyDropsPage/MyDropsPageHeader/MyDropsPageHeader";
 import MyDropsPageContent from "module/drop/page/MyDropsPage/MyDropsPageContent/MyDropsPageContent";
 
 const MyDropsPage = (): JSX.Element => {
