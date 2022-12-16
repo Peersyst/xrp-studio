@@ -17,16 +17,25 @@ const BaseNftPageContent = rack(
     ): JSX.Element => {
         const translate = useTranslate();
 
+        const hasNfts = !!collectionNfts?.length;
+
         return (
-            <PageContent css={{ paddingBottom: collectionNfts ? 0 : undefined }}>
+            <PageContent css={{ paddingBottom: hasNfts ? 0 : undefined }}>
                 <Col flex={1} gap="1.5rem">
-                    <Row gap="1.5rem" flex={1} breakpoint={{ width: "nftPage", alignItems: "stretch", gap: "1.5rem" }}>
-                        <Col gap="3rem" flex={1}>
+                    <Row
+                        gap="1.5rem"
+                        flex={1}
+                        breakpoint={{ width: "nftPage", alignItems: "stretch", gap: "1.5rem" }}
+                        css={{ paddingBottom: hasNfts ? "1rem" : undefined }}
+                    >
+                        <Col gap="3rem" flex={1} css={{ overflow: "hidden" }}>
                             {slots.Left}
                         </Col>
-                        <Col flex={1}>{slots.Right}</Col>
+                        <Col flex={1} css={{ overflow: "hidden" }}>
+                            {slots.Right}
+                        </Col>
                     </Row>
-                    {collectionNfts && (
+                    {hasNfts && (
                         <Collapsable
                             defaultCollapsed={false}
                             label={translate("hideCollection")}
