@@ -1,4 +1,4 @@
-import { Injectable } from "@nestjs/common";
+import { Injectable, Logger } from "@nestjs/common";
 import { AccountSetAsfFlags, Client, convertStringToHex, SubmitResponse, Transaction, Wallet } from "xrpl";
 import { ConfigService } from "@nestjs/config";
 import { NFTokenMint } from "xrpl/dist/npm/models/transactions/NFTokenMint";
@@ -29,11 +29,16 @@ export class BlockchainTransactionService {
 
     async onApplicationBootstrap(): Promise<void> {
         await this.xrpClient.connect();
-        const res = await this.xrpClient.request({
-            command: "account_info",
-            account: this.mintingAccount.address,
-        });
-        this.minterSequence = res.result.account_data.Sequence;
+        try {
+            const res = await this.xrpClient.request({
+                command: "account_info",
+                account: this.mintingAccount.address,
+            });
+            this.minterSequence = res.result.account_data.Sequence;
+        } catch (e) {
+            Logger.warn("Error fetching minting address sequence " + e);
+            this.minterSequence = 0;
+        }
     }
 
     consumeSequence(): number {
