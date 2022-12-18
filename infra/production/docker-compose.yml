@@ -18,6 +18,7 @@ services:
         environment:
             CONFIG_ENV: production
             AWS_REGION: eu-west-1
+            AWS_SECRET_ID: production/${projectName}
     http:
         image: peersyst/${projectName}-http:latest
         restart: always
