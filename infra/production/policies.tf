@@ -5,7 +5,7 @@ data "aws_iam_policy_document" "server" {
       "secretsmanager:GetSecretValue",
     ]
     resources = [
-      data.aws_secretsmanager_secret.secrets.arn + "*"
+      "${data.aws_secretsmanager_secret.secrets.arn}*"
     ]
   }
 }
