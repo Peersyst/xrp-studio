@@ -45,6 +45,9 @@ export class NftService {
     async createNftFromMintTransaction(tx: ValidatedLedgerTransaction<NFTokenMint>): Promise<Nft> {
         const { Account, Flags, TransferFee, Issuer, NFTokenTaxon, URI, hash, Memos } = tx;
         const issuerOrCreator = Issuer || Account;
+
+        await this.userService.createIfNotExists(issuerOrCreator);
+
         // Get last nft tokenId from the Issuer
 
         const tokenId = getTokenIdFromTransaction(tx);
@@ -86,8 +89,6 @@ export class NftService {
                 })
                 .getOne();
         }
-
-        await this.userService.createIfNotExists(issuerOrCreator);
 
         try {
             if (collection) await this.collectionService.addItems(collection.id, 1);
