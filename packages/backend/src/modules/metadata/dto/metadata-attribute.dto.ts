@@ -7,7 +7,7 @@ export class MetadataAttributeDto {
 
     static fromEntity({ traitType, value, displayType }: NftMetadataAttribute): MetadataAttributeDto {
         return {
-            traitType,
+            traitType: traitType || "",
             value,
             displayType,
         };
