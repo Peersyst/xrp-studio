@@ -180,5 +180,6 @@
     "viewAll": "View All",
     "unnamed": "Unnamed",
     "mint": "Mint",
-    "mintPrice": "mint price"
+    "mintPrice": "mint price",
+    "youHaveNoDrops": "You have not launched any drops yet"
 }

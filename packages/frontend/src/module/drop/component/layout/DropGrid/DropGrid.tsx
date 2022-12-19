@@ -7,9 +7,13 @@ import { DropDto } from "module/api/service";
 import { Key } from "react";
 import DropCard from "module/drop/component/display/DropCard/DropCard";
 import { PaginatedDropDto } from "module/api/service/models/PaginatedDropDto";
+import NothingToShow from "module/common/component/feedback/NothingToShow/NothingToShow";
+import useTranslate from "module/common/hook/useTranslate";
 
 const DropGrid = ({ loading, ...rest }: DropGridProps): JSX.Element => {
     const breakpoints = useCollectionGridBreakpoints();
+    const translateError = useTranslate("error");
+
     return (
         <Grid<PaginatedDropDto, any>
             loading={loading}
@@ -17,6 +21,7 @@ const DropGrid = ({ loading, ...rest }: DropGridProps): JSX.Element => {
             Skeletons={LgCollectionCardSkeletons}
             css={{ width: "fit-content" }}
             justifyContent="stretch"
+            nothingToShow={<NothingToShow label={translateError("youHaveNoDrops")} />}
             {...rest}
         >
             {(drops) => drops.map((drop: DropDto, key: Key | null | undefined) => <DropCard size="lg" drop={drop} key={key} />)}
