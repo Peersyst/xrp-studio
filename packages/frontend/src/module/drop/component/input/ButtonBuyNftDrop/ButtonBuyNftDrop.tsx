@@ -4,6 +4,7 @@ import useTranslate from "module/common/hook/useTranslate";
 import useBuyNftDrop from "module/drop/query/useBuyNftDrop";
 import ConnectXummModal from "module/wallet/component/feedback/ConnectXummModal/ConnectXummModal";
 import useWallet from "module/wallet/hook/useWallet";
+import DropNftBuyModal from "module/drop/component/feedback/DropNftBuyModal/DropNftBuyModal";
 import { BuyNftDropProps } from "./ButtonBuyNftDrop.types";
 
 const ButtonBuyNftDrop = ({ disabled = false, dropId }: BuyNftDropProps): JSX.Element => {
@@ -14,7 +15,7 @@ const ButtonBuyNftDrop = ({ disabled = false, dropId }: BuyNftDropProps): JSX.El
 
     const onBuyNftDrop = () => {
         isLogged
-            ? buyNftDrop(dropId)
+            ? showModal(DropNftBuyModal, { dropId: dropId })
             : showModal(ConnectXummModal, {
                   onClose: () => {
                       buyNftDrop(dropId);
