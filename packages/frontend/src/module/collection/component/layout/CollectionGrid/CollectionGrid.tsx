@@ -9,12 +9,9 @@ import { useRecoilState } from "recoil";
 import { filtersVisibilityState } from "module/common/component/state/FiltersVisibilityState";
 import useCollectionFilters from "module/collection/hook/useCollectionFilters";
 import useTranslate from "module/common/hook/useTranslate";
+import NothingToShow from "module/common/component/feedback/NothingToShow/NothingToShow";
 
-function InnerCollectionGrid({
-    loading,
-    nothingToShow,
-    ...rest
-}: Omit<GridProps<PaginatedCollectionDto>, "Skeletons" | "children" | "breakpoints">) {
+function InnerCollectionGrid({ loading, ...rest }: Omit<GridProps<PaginatedCollectionDto>, "Skeletons" | "children" | "breakpoints">) {
     const breakpoints = useCollectionGridBreakpoints();
     const gridFilters = useCollectionFilters();
     const translateError = useTranslate("error");
@@ -31,7 +28,9 @@ function InnerCollectionGrid({
             css={{ width: "fit-content" }}
             justifyContent="stretch"
             alignItems="flex-start"
-            nothingToShow={hasFilters ? translateError("noMatchingCollections") : nothingToShow}
+            nothingToShow={
+                <NothingToShow label={hasFilters ? translateError("noMatchingCollections") : translateError("noCollectionsAvailable")} />
+            }
             cols={hideFiltersState ? 2 : 3}
             {...rest}
         >
