@@ -11,8 +11,13 @@ import useCollectionFilters from "module/collection/hook/useCollectionFilters";
 import useTranslate from "module/common/hook/useTranslate";
 import NothingToShow from "module/common/component/feedback/NothingToShow/NothingToShow";
 
-function InnerCollectionGrid({ loading, ...rest }: Omit<GridProps<PaginatedCollectionDto>, "Skeletons" | "children" | "breakpoints">) {
+function InnerCollectionGrid({
+    loading,
+    nothingToShow,
+    ...rest
+}: Omit<GridProps<PaginatedCollectionDto>, "Skeletons" | "children" | "breakpoints">) {
     const breakpoints = useCollectionGridBreakpoints();
+    const translateError = useTranslate("error");
 
     return (
         <Grid<PaginatedCollectionDto, any>
@@ -23,6 +28,7 @@ function InnerCollectionGrid({ loading, ...rest }: Omit<GridProps<PaginatedColle
             css={{ width: "fit-content" }}
             justifyContent="stretch"
             alignItems="flex-start"
+            nothingToShow={nothingToShow || <NothingToShow label={translateError("noCollectionsAvailable")} />}
             {...rest}
         >
             {(collections) =>
