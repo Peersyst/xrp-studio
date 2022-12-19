@@ -29,14 +29,14 @@ const DropCard = forwardRef(
                 <CollectionCardRoot size={size} ref={(r) => setRef(ref, r)}>
                     <CollectionCardCover
                         size={size}
-                        src={collection?.header || ""}
+                        src={collection?.header || config.collectionDefaultHeaderUrl}
                         alt={`${alt}-cover`}
                         loading={loading}
                         fallback={config.collectionDefaultHeaderUrl}
                     />
                     <CollectionCardFooter>
                         <CollectionAvatar
-                            img={collection?.image || ""}
+                            img={collection?.image || config.collectionDefaultImageUrl}
                             alt={`${alt}-image`}
                             loading={loading}
                             fallback={config.collectionDefaultImageUrl}
@@ -49,7 +49,7 @@ const DropCard = forwardRef(
                             </Skeleton>
                             <Skeleton width="50%" loading={loading}>
                                 <Typography variant="body2" light singleLine>
-                                    {translate("itemWithCount", { count: items || 0 })} · XRP {price} mint price
+                                    {translate("itemWithCount", { count: items || 0 })} · XRP {price} {translate("mintPrice")}
                                 </Typography>
                             </Skeleton>
                         </Col>
