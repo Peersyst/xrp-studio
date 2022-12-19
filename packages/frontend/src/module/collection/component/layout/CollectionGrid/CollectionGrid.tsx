@@ -30,6 +30,7 @@ function InnerCollectionGrid({
             Skeletons={LgCollectionCardSkeletons}
             css={{ width: "fit-content" }}
             justifyContent="stretch"
+            alignItems="flex-start"
             nothingToShow={hasFilters ? translateError("noMatchingCollections") : nothingToShow}
             cols={hideFiltersState ? 2 : 3}
             {...rest}
