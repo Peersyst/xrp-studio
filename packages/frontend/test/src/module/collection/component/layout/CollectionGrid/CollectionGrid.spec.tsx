@@ -1,5 +1,5 @@
 import { PaginatedCollectionMock } from "test-mocks";
-import { render } from "test-utils";
+import { render, translate } from "test-utils";
 import CollectionGrid from "module/collection/component/layout/CollectionGrid/CollectionGrid";
 
 describe("Test for CollectionGrid component", () => {
@@ -11,6 +11,6 @@ describe("Test for CollectionGrid component", () => {
     test("Renders no collections properly with BaseGrid", () => {
         const data = new PaginatedCollectionMock();
         const screen = render(<CollectionGrid data={data} callback={() => undefined} loading={false} end={false} />);
-        expect(screen.getByRole("heading", { name: "Nothing to show" })).toBeInTheDocument();
+        expect(screen.getByRole("heading", { name: translate("noCollectionsAvailable", { ns: "error" }) })).toBeInTheDocument();
     });
 });
