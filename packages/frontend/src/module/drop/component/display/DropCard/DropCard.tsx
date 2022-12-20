@@ -4,17 +4,12 @@ import { forwardRef } from "react";
 import { setRef } from "@peersyst/react-utils";
 import { DropDto } from "module/api/service";
 import { config } from "config";
-import {
-    CollectionAvatar,
-    CollectionCardCover,
-    CollectionCardFooter,
-    CollectionCardRoot,
-} from "module/collection/component/display/CollectionCard/CollectionCard.styles";
 import { Col, Skeleton, Typography, WithSkeleton } from "@peersyst/react-components";
 import useTranslate from "module/common/hook/useTranslate";
+import { GroupAvatar, GroupCardCover, GroupCardFooter, GroupCardRoot } from "module/common/component/display/GroupCard/GroupCard.styles";
+import { GroupCardProps } from "module/common/component/display/GroupCard/GroupCard.types";
 
-interface DropCardProps {
-    size: "md" | "lg";
+interface DropCardProps extends GroupCardProps {
     drop: DropDto;
 }
 
@@ -26,16 +21,16 @@ const DropCard = forwardRef(
 
         return (
             <ConditionalLink condition={!loading} to={DropRoutes.DROP.replace(":id", id.toString())}>
-                <CollectionCardRoot size={size} ref={(r) => setRef(ref, r)}>
-                    <CollectionCardCover
+                <GroupCardRoot size={size} ref={(r) => setRef(ref, r)}>
+                    <GroupCardCover
                         size={size}
                         src={collection?.header || config.collectionDefaultHeaderUrl}
                         alt={`${alt}-cover`}
                         loading={loading}
                         fallback={config.collectionDefaultHeaderUrl}
                     />
-                    <CollectionCardFooter>
-                        <CollectionAvatar
+                    <GroupCardFooter>
+                        <GroupAvatar
                             img={collection?.image || config.collectionDefaultImageUrl}
                             alt={`${alt}-image`}
                             loading={loading}
@@ -53,8 +48,8 @@ const DropCard = forwardRef(
                                 </Typography>
                             </Skeleton>
                         </Col>
-                    </CollectionCardFooter>
-                </CollectionCardRoot>
+                    </GroupCardFooter>
+                </GroupCardRoot>
             </ConditionalLink>
         );
     },

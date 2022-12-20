@@ -15,7 +15,7 @@ const DropGrid = ({ loading, ...rest }: DropGridProps): JSX.Element => {
     const translateError = useTranslate("error");
 
     return (
-        <Grid<PaginatedDropDto, any>
+        <Grid<PaginatedDropDto>
             loading={loading}
             breakpoints={breakpoints}
             Skeletons={LgCollectionCardSkeletons}
