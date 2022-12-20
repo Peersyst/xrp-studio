@@ -1,4 +1,4 @@
 export class RequestBuyNftDto {
     nftId: number;
-    xummRequestUuid: string;
+    xummRequestUuid: string | void;
 }
