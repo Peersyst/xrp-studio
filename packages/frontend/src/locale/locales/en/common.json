@@ -182,5 +182,15 @@
     "mint": "Mint",
     "checkoutMyCollection": "Check out my XRP Studio Collection!",
     "checkoutNft": "Check out XRP Studio Nft!",
-    "dropBuyNftConfirmation": "Drop buy NFT confirmation"
+    "dropBuyNftConfirmation": "Drop NFT mint confirmation",
+    "buyRandomNft": "You are about to buy a random NFT from the {{collection}} drop with a cost of {{price}} XRP.",
+    "randomNameNft": "Random {{collection}} NFT",
+    "preparingYourOrder": "Preparing your order:",
+    "yourOrderIsBeingPrepared": "Your order is being prepared and will be ready in a few moments!",
+    "transactionSignature": "Transaction signature",
+    "pleaseSignTransaction": "Please sign the transaction we’ve sent to your XUMM wallet in order to mint your NFT.",
+    "processingYourOrder": "Processing your order",
+    "yourOrderIsBeingProcessed": "Your order is being processed. Your new NFT is on the way!",
+    "nftMintingSuccess": "NFT minting success",
+    "youHaveMintedYourNftSuccessfully": "You have minted your NFT successfully!"
 }

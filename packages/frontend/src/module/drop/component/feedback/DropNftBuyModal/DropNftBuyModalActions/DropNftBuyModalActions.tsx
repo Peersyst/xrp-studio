@@ -4,7 +4,7 @@ import ActionSteps from "module/common/component/feedback/ActionSteps/ActionStep
 import { Dispatch, SetStateAction } from "react";
 import useBuyNftDrop from "module/drop/query/useBuyNftDrop";
 import useDropBuyNftStatePolling from "module/drop/hook/useDropBuyNftStatePolling";
-import useWallet from "module/wallet/hook/useWallet";
+import useXummGetStatusByUuidPolling from "module/drop/hook/useXummGetStatusByUuidPolling";
 
 interface DropNftBuyModalActionsProps extends Omit<ActionStepsHandlers, "onSuccess"> {
     dropId?: number;
@@ -15,24 +15,29 @@ interface DropNftBuyModalActionsProps extends Omit<ActionStepsHandlers, "onSucce
 const DropNftBuyModalActions = ({ dropId, onStart, onEnd, onSuccess, onError }: DropNftBuyModalActionsProps): JSX.Element => {
     const translate = useTranslate();
 
-    const { mutateAsync: buyNftDrop } = useBuyNftDrop();
-    const { address } = useWallet();
-    const { fetch: startPolling } = useDropBuyNftStatePolling(dropId, address!);
+    const { mutateAsync: buyNftDrop, data: data } = useBuyNftDrop();
+    const { fetch: startPolling } = useDropBuyNftStatePolling(data?.nftId);
+    const { fetch: startPollingXumm } = useXummGetStatusByUuidPolling(data?.xummRequestUuid);
 
     const steps: Step[] = [
         {
-            title: translate("publishNftProcessingStepTitle"),
-            description: translate("publishNftProcessingStepDescription"),
+            title: translate("preparingYourOrder"),
+            description: translate("yourOrderIsBeingPrepared"),
             execution: async () => await buyNftDrop(dropId!),
         },
         {
-            title: translate("publishNftAddingToBlockchainStepTitle"),
-            description: translate("publishNftAddingToBlockchainStepDescription"),
+            title: translate("transactionSignature"),
+            description: translate("pleaseSignTransaction"),
             execution: startPolling,
         },
         {
-            title: translate("publishNftSuccessStepTitle"),
-            description: translate("publishNftSuccessStepDescription"),
+            title: translate("processingYourOrder"),
+            description: translate("yourOrderIsBeingProcessed"),
+            execution: startPollingXumm,
+        },
+        {
+            title: translate("nftMintingSuccess"),
+            description: translate("youHaveMintedYourNftSuccessfully"),
         },
     ];
 

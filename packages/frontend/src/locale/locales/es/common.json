@@ -181,5 +181,15 @@
     "mint": "Mint",
     "checkoutMyCollection": "¡Échale un ojo a mi colleccion de XRP Studio!",
     "checkoutNft": "¡Échale un ojo a este NFT de XRP Studio!",
-    "dropBuyNftConfirmation": "Confirmación de compra del NFT drop"
+    "dropBuyNftConfirmation": "Confirmación de mint del NFT drop",
+    "buyRandomNft": "Estas por comprar un NFt aleatorio de la coleccion {{collection}} drop por un costo de {{price}} XRP.",
+    "randomNameNft": "Aleatorio {{collection}} NFT",
+    "preparingYourOrder": "Preparando su orden:",
+    "yourOrderIsBeingPrepared": "Su orden ha comenzado a realizarse y estara lista es un par de minutos",
+    "transactionSignature": "Firma de la transacción",
+    "pleaseSignTransaction": "Por favor firme la transacción que le enviamos a su XUMM wallet sobre la orden de su NFT.",
+    "processingYourOrder": "Precesando su orden",
+    "yourOrderIsBeingProcessed": "Su orden fur precesada. Su nuevo NFT esta en camino",
+    "nftMintingSuccess": "Compra realizada",
+    "youHaveMintedYourNftSuccessfully": "Se ha realizado la compra de NFT con éxito"
 }

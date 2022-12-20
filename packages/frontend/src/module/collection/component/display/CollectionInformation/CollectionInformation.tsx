@@ -11,6 +11,7 @@ const CollectionInformation = ({
     image,
     name = "Loading name",
     items = 0,
+    collection = "Loading name",
     loading,
     additionalFields = [],
 }: CollectionInformationProps): JSX.Element => {
@@ -22,12 +23,23 @@ const CollectionInformation = ({
             label: translate("name"),
             content: name,
         },
-        {
+    ];
+
+    if (collection) {
+        collectionFields.push({
+            label: translate("collection"),
+            content: collection,
+        });
+    }
+
+    if (items) {
+        collectionFields.push({
             label: translate("items"),
             content: formatNumber(items),
-        },
-        ...additionalFields,
-    ];
+        });
+    }
+
+    collectionFields.push(...additionalFields);
 
     return (
         <Col>
