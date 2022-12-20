@@ -6,6 +6,7 @@ import useGetUser from "module/user/query/useGetUser";
 import { useEffect, useState } from "react";
 import { useLocation } from "react-router-dom";
 import useWallet from "module/wallet/hook/useWallet";
+import useIsMobile from "module/common/hook/useIsMobile";
 
 const WalletConnected = (): JSX.Element => {
     const { address = "" } = useWallet();
@@ -15,6 +16,8 @@ const WalletConnected = (): JSX.Element => {
     useEffect(() => {
         setVisible(false);
     }, [pathname]);
+
+    const isMobile = useIsMobile();
 
     return (
         <Popover
@@ -34,14 +37,16 @@ const WalletConnected = (): JSX.Element => {
                     <Row alignItems={"center"}>
                         <Avatar size={"sm"} img={user?.image ?? ""} alt="avatar" />
                     </Row>
-                    <Col gap={2}>
-                        {user?.name ? (
-                            <Typography variant={"body2"}>@{user.name}</Typography>
-                        ) : (
-                            <Hash hash={address} length={6} variant="body2" copy={false} />
-                        )}
-                        <NetworkConnect />
-                    </Col>
+                    {!isMobile && (
+                        <Col gap={2}>
+                            {user?.name ? (
+                                <Typography variant={"body2"}>@{user.name}</Typography>
+                            ) : (
+                                <Hash hash={address} length={6} variant="body2" copy={false} />
+                            )}
+                            <NetworkConnect />
+                        </Col>
+                    )}
                 </Row>
             </Popover.Content>
         </Popover>

@@ -23,7 +23,7 @@ const DropLandingPage = (): JSX.Element => {
         }
     }, [dropId, drop, dropLoading]);
 
-    return <DropLanding drop={drop} nfts={nfts} loadingNfts={loadingNfts} />;
+    return <DropLanding drop={drop} nfts={nfts} loadingNfts={loadingNfts} loading={dropLoading} />;
 };
 
 export default DropLandingPage;

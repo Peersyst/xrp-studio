@@ -17,24 +17,39 @@ const BaseNftPageContent = rack(
     ): JSX.Element => {
         const translate = useTranslate();
 
+        const hasNfts = !!collectionNfts?.length;
+
         return (
-            <PageContent>
-                <Row gap="1.5rem" flex={1} breakpoint={{ width: "nftPage", alignItems: "stretch", gap: "1.5rem" }}>
-                    <Col gap="3rem" flex={1}>
-                        {slots.Left}
-                    </Col>
-                    <Col flex={1}>{slots.Right}</Col>
-                </Row>
-                {collectionNfts && (
-                    <Collapsable label={translate("hideCollection")} collapsedLabel={translate("showCollection")}>
-                        <NftPreviewCarousel
-                            loading={loadingCollectionNfts}
-                            nfts={collectionNfts}
-                            activeId={activeCarouselNftId}
-                            to={collectionNftLink}
-                        />
-                    </Collapsable>
-                )}
+            <PageContent css={{ paddingBottom: hasNfts ? 0 : undefined }}>
+                <Col flex={1} gap="1.5rem">
+                    <Row
+                        gap="1.5rem"
+                        flex={1}
+                        breakpoint={{ width: "nftPage", alignItems: "stretch", gap: "1.5rem" }}
+                        css={{ paddingBottom: hasNfts ? "1rem" : undefined }}
+                    >
+                        <Col gap="3rem" flex={1} css={{ overflow: "hidden" }}>
+                            {slots.Left}
+                        </Col>
+                        <Col flex={1} css={{ overflow: "hidden" }}>
+                            {slots.Right}
+                        </Col>
+                    </Row>
+                    {hasNfts && (
+                        <Collapsable
+                            defaultCollapsed={false}
+                            label={translate("hideCollection")}
+                            collapsedLabel={translate("showCollection")}
+                        >
+                            <NftPreviewCarousel
+                                loading={loadingCollectionNfts}
+                                nfts={collectionNfts}
+                                activeId={activeCarouselNftId}
+                                to={collectionNftLink}
+                            />
+                        </Collapsable>
+                    )}
+                </Col>
             </PageContent>
         );
     },

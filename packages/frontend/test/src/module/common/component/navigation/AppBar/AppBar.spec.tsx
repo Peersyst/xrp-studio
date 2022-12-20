@@ -5,8 +5,9 @@ import { render, translate, screen } from "test-utils";
 describe("AppBar test", () => {
     test("Renders correctly without login", () => {
         new WalletMock();
+
         render(<AppBar />);
-        expect(screen.getByText(translate("letsGetStarted"))).toBeInTheDocument();
+
         expect(screen.queryByText(translate("myNfts"))).not.toBeInTheDocument();
         expect(screen.queryByText(translate("myCollections"))).not.toBeInTheDocument();
     });

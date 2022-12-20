@@ -21,11 +21,11 @@ describe("createNftRequestFromForm", () => {
 
         expect(request).toEqual({
             issuer: "issuer",
-            transferFee: 10,
+            transferFee: 10000,
             flags: {
                 burnable: true,
                 onlyXRP: true,
-                trustLine: true,
+                trustLine: false,
                 transferable: true,
             },
             taxon: 1,

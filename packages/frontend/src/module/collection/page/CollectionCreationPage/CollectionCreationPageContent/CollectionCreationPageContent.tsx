@@ -25,20 +25,7 @@ const CollectionCreationPageContent = ({ collection, loading = false }: WithLoad
     const { header: collectionHeader, image: collectionImage, name: collectionName, description: collectionDescription } = collection || {};
 
     const [
-        {
-            header,
-            image,
-            name,
-            description,
-            transferFee,
-            externalUrl,
-            backgroundColor,
-            burnable,
-            onlyXRP,
-            trustLine = false,
-            transferable,
-            attributes,
-        },
+        { header, image, name, description, transferFee, externalUrl, backgroundColor, burnable, onlyXRP, transferable, attributes },
         setCollectionCreationState,
     ] = useCollectionCreationState();
 
@@ -145,13 +132,6 @@ const CollectionCreationPageContent = ({ collection, loading = false }: WithLoad
                                             label={translate("onlyXRP")}
                                             value={onlyXRP}
                                             onChange={normalizedHandleChange("onlyXRP")}
-                                        />
-                                        <Switch
-                                            name={CollectionCreationFormFields.TRUST_LINE}
-                                            label={translate("trustLine")}
-                                            value={trustLine}
-                                            onChange={normalizedHandleChange("trustLine")}
-                                            style={{ display: "none" }}
                                         />
                                         <Switch
                                             name={CollectionCreationFormFields.TRANSFERABLE}

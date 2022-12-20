@@ -18,7 +18,7 @@ export default (secrets: AwsSecrets = {}): XrpConfig => {
             },
             startingLedgerIndex: {
                 default: 33492597,
-                production: 75184704,
+                production: 75443457,
             },
             minterSecret: {
                 production: process.env.XRP_MINTER_SECRET || secrets.XRP_MINTER_SECRET,

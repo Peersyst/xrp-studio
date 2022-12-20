@@ -9,6 +9,7 @@ const NftPreviewCarousel = ({ nfts, loading, to, activeId, ...rest }: NftPreview
     // Prevents to?.(nft) to be evaluated for each NftPreview rendered
     const normalizedToCb = to || (() => undefined);
     const translateError = useTranslate("error");
+
     return (
         <Carousel loading={loading} Skeleton={NftPreviewSkeleton} skeletonCount={7} arrowSize="md" {...rest}>
             {nfts.length > 0 ? (
@@ -22,7 +23,7 @@ const NftPreviewCarousel = ({ nfts, loading, to, activeId, ...rest }: NftPreview
                     />
                 ))
             ) : (
-                <NothingToShow css={{ minHeight: "6rem" }} label={translateError("withoutNftsToShow")} />
+                <NothingToShow css={{ minHeight: "12rem" }} label={translateError("withoutNftsToShow")} />
             )}
         </Carousel>
     );

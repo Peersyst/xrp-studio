@@ -7,6 +7,7 @@ export const HexagonRoot = styled.svg.attrs({
 })(
     ({ theme }) => css`
         position: relative;
+        flex-shrink: 0;
 
         color: ${theme.palette.background};
 

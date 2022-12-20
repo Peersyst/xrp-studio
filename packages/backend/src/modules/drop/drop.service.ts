@@ -65,7 +65,7 @@ export class DropService {
     }
 
     async findById(id: number): Promise<DropDto> {
-        const drop = await this.dropRepository.findOne(id, { relations: ["collection", "collection.user"] });
+        const drop = await this.dropRepository.findOne(id, { relations: ["collection", "collection.user", "faqs"] });
         return DropDto.fromEntity(drop);
     }
 

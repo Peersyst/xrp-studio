@@ -12,6 +12,7 @@ import { BaseNftPageContentLeftSlot } from "module/nft/component/layout/BaseNftP
 import Link from "module/common/component/navigation/Link/Link";
 import UserProfileLink from "module/user/component/navigation/UserProfileLink/UserProfileLink";
 import { config } from "config";
+import { CollectionRoutes } from "module/collection/CollectionRouter";
 
 export interface UserViewNftPageSlots {
     nft: NftDto | undefined;
@@ -42,7 +43,7 @@ export default function ({ nft, loading = false }: UserViewNftPageSlots): ReactN
         <>
             <BaseNftPageContent.Left>
                 <BaseNftPageContentLeftSlot.Image loading={loading} key={nft?.id}>
-                    <Image src={image} alt="nft-image" fallback={config.nftDefaultCoverUrl} />
+                    <Image src={image} alt="nft-image" fallback={config.nftDefaultImageUrl} />
                 </BaseNftPageContentLeftSlot.Image>
                 <BaseNftPageContentLeftSlot.Info loading={loading}>
                     <Label label={capitalize(translate("name"))}>
@@ -79,7 +80,7 @@ export default function ({ nft, loading = false }: UserViewNftPageSlots): ReactN
                 </Label>
                 <Label label={translate("collection")}>
                     {nftCollection ? (
-                        <Link to={`collections/${nftCollection.id}`} variant="body1">
+                        <Link to={CollectionRoutes.VIEW_COLLECTION.replace(":id", nftCollection.id.toString())} variant="body1">
                             {nftCollection.name}
                         </Link>
                     ) : (
@@ -92,7 +93,11 @@ export default function ({ nft, loading = false }: UserViewNftPageSlots): ReactN
                     <Typography variant="body1" fontStyle={transferFee === undefined ? "italic" : undefined}>
                         {transferFee === undefined
                             ? translate("none", { context: "female" })
-                            : `${translate("formatNumber", { val: transferFee, minimumFractionDigits: 3, maximumFractionDigits: 3 })}%`}
+                            : `${translate("formatNumber", {
+                                  val: transferFee / 1000,
+                                  minimumFractionDigits: 3,
+                                  maximumFractionDigits: 3,
+                              })}%`}
                     </Typography>
                 </Label>
                 {externalUrl && (

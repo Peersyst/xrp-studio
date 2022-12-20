@@ -32,16 +32,15 @@ export default function ({
     transferFee,
     burnable,
     onlyXRP,
-    trustLine,
     transferable,
 }: NftCreationForm): CreateNftDraftRequest {
     return {
         issuer: issuer || undefined,
-        transferFee: transferFee ? Number(transferFee) : undefined,
+        transferFee: transferFee ? Number(transferFee) * 1000 : undefined,
         flags: {
             burnable,
             onlyXRP,
-            trustLine,
+            trustLine: false,
             transferable,
         },
         taxon: collection ? Number(collection) : undefined,

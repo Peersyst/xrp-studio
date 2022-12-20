@@ -14,7 +14,7 @@ const Skeletons = ({ count, ...rest }: SkeletonsProps): JSX.Element => (
 );
 
 export const BaseCardSkeletons = ({ count }: SkeletonComponentProps): JSX.Element => {
-    const defaultImgUrl = useConfig("nftDefaultCoverUrl");
+    const defaultImgUrl = useConfig("nftDefaultImageUrl");
     return (
         <>
             {[...Array(count)].map((_, key) => (

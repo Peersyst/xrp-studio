@@ -4,20 +4,19 @@ import ActionSteps from "module/common/component/feedback/ActionSteps/ActionStep
 import { CreateNftDraftRequest } from "module/api/service";
 import usePublishNft from "module/nft/hook/usePublishNft";
 import useNftStatePolling from "module/nft/hook/useNftStatePolling";
-import { Dispatch, SetStateAction } from "react";
 
 interface NftPublishActionsProps extends Omit<ActionStepsHandlers, "onSuccess"> {
     request: CreateNftDraftRequest;
     draftId?: number;
     onSuccess: () => void;
-    onPollingEnd: Dispatch<SetStateAction<number | undefined>>;
+    onPublished: (id: number) => void;
 }
 
-const NftPublishActions = ({ request, draftId, onStart, onEnd, onSuccess, onError }: NftPublishActionsProps): JSX.Element => {
+const NftPublishActions = ({ request, draftId, onStart, onEnd, onSuccess, onError, onPublished }: NftPublishActionsProps): JSX.Element => {
     const translate = useTranslate();
 
     const { mutateAsync: publish, data: responseId } = usePublishNft(request, draftId);
-    const { fetch: startPolling } = useNftStatePolling(responseId);
+    const { fetch: startPolling } = useNftStatePolling(responseId, { onSuccess: () => onPublished(responseId!) });
 
     const steps: Step[] = [
         {
@@ -28,7 +27,7 @@ const NftPublishActions = ({ request, draftId, onStart, onEnd, onSuccess, onErro
         {
             title: translate("publishNftAddingToBlockchainStepTitle"),
             description: translate("publishNftAddingToBlockchainStepDescription"),
-            execution: async () => await startPolling(),
+            execution: startPolling,
         },
         {
             title: translate("publishNftSuccessStepTitle"),

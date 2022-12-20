@@ -39,7 +39,7 @@ const ActionStep = ({ step: { title, description, execution }, active, stepNumbe
                     {active && !state.error && <Loader />}
                     {active && state.error && <AlertCircleIconRoot />}
                     {!active && state.finished && <CheckCircleIconRoot />}
-                    <Typography variant="body1" fontWeight={600}>
+                    <Typography variant="body1" fontWeight={600} css={{ flex: 1 }}>
                         {title}
                     </Typography>
                 </Row>
