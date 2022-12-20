@@ -1,9 +1,9 @@
 import styled, { css } from "styled-components";
 import { Image, Row } from "@peersyst/react-components";
 import Avatar from "module/common/component/display/Avatar/Avatar";
-import { GroupCardProps } from "module/common/component/display/GroupCard/GroupCard.types";
+import { CollectionCardProps } from "./BaseCollectionCard.types";
 
-export const GroupCardRoot = styled.div<GroupCardProps>(
+export const CollectionCardRoot = styled.div<CollectionCardProps>(
     ({ theme, size }) => css`
         display: flex;
         flex-direction: column;
@@ -19,7 +19,7 @@ export const GroupCardRoot = styled.div<GroupCardProps>(
     `,
 );
 
-export const GroupCardCover = styled(Image)<GroupCardProps>(
+export const CollectionCardCover = styled(Image)<CollectionCardProps>(
     ({ theme, size }) => css`
         width: inherit;
         height: ${size == "md" ? "67%" : "78%"};
@@ -27,7 +27,7 @@ export const GroupCardCover = styled(Image)<GroupCardProps>(
     `,
 );
 
-export const GroupCardFooter = styled(Row).attrs({ gap: "0.75rem", flex: 1 })`
+export const CollectionCardFooter = styled(Row).attrs({ gap: "0.75rem", flex: 1 })`
     position: absolute;
     bottom: 0;
     left: 0;
