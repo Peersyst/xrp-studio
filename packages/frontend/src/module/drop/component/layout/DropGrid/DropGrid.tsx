@@ -2,7 +2,7 @@ import Grid from "module/common/component/layout/Grid/Grid";
 
 import { DropGridProps } from "module/drop/component/layout/DropGrid/DropGrid.types";
 import { useCollectionGridBreakpoints } from "module/collection/component/layout/CollectionGrid/hooks/useCollectionGridBreakpoints";
-import { LgCollectionCardSkeletons } from "module/common/component/feedback/Skeletons/Skeletons";
+import { CollectionCardSkeletons } from "module/common/component/feedback/Skeletons/Skeletons";
 import { DropDto } from "module/api/service";
 import { Key } from "react";
 import DropCard from "module/drop/component/display/DropCard/DropCard";
@@ -18,7 +18,7 @@ const DropGrid = ({ loading, ...rest }: DropGridProps): JSX.Element => {
         <Grid<PaginatedDropDto>
             loading={loading}
             breakpoints={breakpoints}
-            Skeletons={LgCollectionCardSkeletons}
+            Skeletons={CollectionCardSkeletons}
             css={{ width: "fit-content" }}
             justifyContent="stretch"
             nothingToShow={<NothingToShow label={translateError("youHaveNoDrops")} />}

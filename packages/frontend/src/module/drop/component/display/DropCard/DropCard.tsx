@@ -19,7 +19,7 @@ const DropCard = forwardRef(
             <BaseCollectionCard
                 loading={loading}
                 size={size}
-                to={DropRoutes.DROP_DETAIL.replace(":id", id)}
+                to={DropRoutes.DROP.replace(":id", id.toString())}
                 header={collection?.header || config.collectionDefaultHeaderUrl}
                 alt={alt}
                 image={collection?.image || config.collectionDefaultImageUrl}
