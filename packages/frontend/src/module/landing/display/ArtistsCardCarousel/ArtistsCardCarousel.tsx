@@ -8,7 +8,7 @@ interface ArtistsCardCarouselProps extends InheritedCarouselProps {
     artists: UserDto[];
 }
 
-const ArtistsCardCarousel = ({ artists, skeletonCount = 3, ...rest }: ArtistsCardCarouselProps): JSX.Element => (
+const ArtistsCardCarousel = ({ artists, skeletonCount = 4, ...rest }: ArtistsCardCarouselProps): JSX.Element => (
     <ArtistsCardCarouselRoot skeletonCount={skeletonCount} Skeleton={ArtistCardSkeleton} {...rest}>
         {artists.map((artist, index) => (
             <ArtistCard key={index} artist={artist} />
