@@ -3,7 +3,7 @@ import { Col, Divider, Typography } from "@peersyst/react-components";
 import { ActionStepsProps } from "module/common/component/feedback/ActionSteps/ActionSteps.types";
 import ActionStep from "module/common/component/feedback/ActionSteps/ActionStep/ActionStep";
 
-const ActionSteps = ({ title, steps, onStart, onEnd, onSuccess, onError }: ActionStepsProps): JSX.Element => {
+const ActionSteps = ({ title, steps, onStart, onEnd, onSuccess, onError, warning }: ActionStepsProps): JSX.Element => {
     const [currentStep, setCurrentStep] = useState(0);
 
     useEffect(() => {
@@ -42,6 +42,7 @@ const ActionSteps = ({ title, steps, onStart, onEnd, onSuccess, onError }: Actio
                         active={currentStep === i}
                         onSuccess={handleStepSuccess}
                         onError={handleError}
+                        warning={warning}
                     />
                 ))}
             </Col>

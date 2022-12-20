@@ -7,6 +7,12 @@ export const CheckCircleIconRoot = styled(CheckCircleIcon)(
     `,
 );
 
+export const AlertTriangleIconRoot = styled(AlertCircleIcon)(
+    ({ theme }) => css`
+        color: ${theme.palette.status.warning};
+    `,
+);
+
 export const AlertCircleIconRoot = styled(AlertCircleIcon)(
     ({ theme }) => css`
         color: ${theme.palette.status.error};

@@ -3,9 +3,20 @@ import { useEffect, useState } from "react";
 import { ActionStepProps } from "module/common/component/feedback/ActionSteps/ActionSteps.types";
 import { handleErrorMessage } from "../../../../../../query/handleErrorMessage";
 import useTranslate from "module/common/hook/useTranslate";
-import { AlertCircleIconRoot, CheckCircleIconRoot } from "module/common/component/feedback/ActionSteps/ActionStep/ActionStep.styles";
+import {
+    AlertCircleIconRoot,
+    AlertTriangleIconRoot,
+    CheckCircleIconRoot,
+} from "module/common/component/feedback/ActionSteps/ActionStep/ActionStep.styles";
 
-const ActionStep = ({ step: { title, description, execution }, active, stepNumber, onSuccess, onError }: ActionStepProps): JSX.Element => {
+const ActionStep = ({
+    step: { title, description, execution },
+    active,
+    stepNumber,
+    onSuccess,
+    onError,
+    warning,
+}: ActionStepProps): JSX.Element => {
     const translateError = useTranslate("error");
 
     const [state, setState] = useState({ error: false, finished: false });
@@ -36,7 +47,8 @@ const ActionStep = ({ step: { title, description, execution }, active, stepNumbe
                             {stepNumber}
                         </Typography>
                     )}
-                    {active && !state.error && <Loader />}
+                    {active && !state.error && !warning && <Loader />}
+                    {active && !state.error && warning && <AlertTriangleIconRoot />}
                     {active && state.error && <AlertCircleIconRoot />}
                     {!active && state.finished && <CheckCircleIconRoot />}
                     <Typography variant="body1" fontWeight={600} css={{ flex: 1 }}>

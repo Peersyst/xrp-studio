@@ -48,7 +48,16 @@ const CollectionPublishActions = ({
         },
     ];
 
-    return <ActionSteps steps={steps} onStart={onStart} onError={onError} onSuccess={handleSuccess} onEnd={onEnd} />;
+    return (
+        <ActionSteps
+            steps={steps}
+            onStart={onStart}
+            onError={onError}
+            onSuccess={handleSuccess}
+            onEnd={onEnd}
+            warning={!!failedIds.length}
+        />
+    );
 };
 
 export default CollectionPublishActions;

@@ -10,6 +10,7 @@ export interface ActionStepProps {
     active: boolean;
     onSuccess: () => void;
     onError: (e: unknown) => void;
+    warning?: boolean;
 }
 
 export type ActionStepsProps = ActionStepsHandlers & {
@@ -22,4 +23,5 @@ export interface ActionStepsHandlers {
     onEnd?: () => void;
     onSuccess?: () => void;
     onError?: (e: unknown) => void;
+    warning?: boolean;
 }
