@@ -3,6 +3,7 @@ import { CollectionCardProps } from "module/collection/component/display/Collect
 import { forwardRef } from "react";
 import { CollectionRoutes } from "module/collection/CollectionRouter";
 import BaseCollectionCard from "../BaseCollectionCard/BaseCollectionCard";
+import useTranslate from "module/common/hook/useTranslate";
 
 const CollectionCard = forwardRef(
     (
@@ -13,6 +14,7 @@ const CollectionCard = forwardRef(
         }: WithSkeleton<CollectionCardProps>,
         ref,
     ): JSX.Element => {
+        const translate = useTranslate();
         const alt = "collection-" + id;
         return (
             <BaseCollectionCard
@@ -22,7 +24,7 @@ const CollectionCard = forwardRef(
                 header={header}
                 image={image}
                 name={name}
-                items={items}
+                description={translate("itemWithCount", { count: items || 0 })}
                 to={CollectionRoutes.VIEW_COLLECTION.replace(":id", id.toString())}
                 alt={alt}
             />

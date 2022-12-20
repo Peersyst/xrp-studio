@@ -11,5 +11,5 @@ export interface BaseCollectionCardProps {
     alt: string;
     image: string;
     name: string;
-    items: number;
+    description: string;
 }

@@ -9,7 +9,7 @@ import { BaseCollectionCardProps } from "./BaseCollectionCard.types";
 
 const BaseCollectionCard = forwardRef(
     (
-        { loading = false, size = "md", to, header = "", alt, image = "", name = "", items = 0 }: WithSkeleton<BaseCollectionCardProps>,
+        { loading = false, size = "md", to, header = "", alt, image = "", name = "", description }: WithSkeleton<BaseCollectionCardProps>,
         ref,
     ): JSX.Element => {
         const translate = useTranslate();
@@ -33,7 +33,7 @@ const BaseCollectionCard = forwardRef(
                             </Skeleton>
                             <Skeleton width="50%" loading={loading}>
                                 <Typography variant="body2" light singleLine>
-                                    {translate("itemWithCount", { count: items || 0 })}
+                                    {description}
                                 </Typography>
                             </Skeleton>
                         </Col>
