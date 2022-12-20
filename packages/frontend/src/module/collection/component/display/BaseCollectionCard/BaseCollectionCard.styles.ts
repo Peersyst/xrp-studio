@@ -1,9 +1,9 @@
 import styled, { css } from "styled-components";
 import { Image, Row } from "@peersyst/react-components";
 import Avatar from "module/common/component/display/Avatar/Avatar";
-import { CollectionCardProps } from "./BaseCollectionCard.types";
+import { BaseCollectionCardSizeProps } from "./BaseCollectionCard.types";
 
-export const CollectionCardRoot = styled.div<CollectionCardProps>(
+export const BaseCollectionCardRoot = styled.div<BaseCollectionCardSizeProps>(
     ({ theme, size }) => css`
         display: flex;
         flex-direction: column;
@@ -19,7 +19,7 @@ export const CollectionCardRoot = styled.div<CollectionCardProps>(
     `,
 );
 
-export const CollectionCardCover = styled(Image)<CollectionCardProps>(
+export const BaseCollectionCardCover = styled(Image)<BaseCollectionCardSizeProps>(
     ({ theme, size }) => css`
         width: inherit;
         height: ${size == "md" ? "67%" : "78%"};
@@ -27,7 +27,7 @@ export const CollectionCardCover = styled(Image)<CollectionCardProps>(
     `,
 );
 
-export const CollectionCardFooter = styled(Row).attrs({ gap: "0.75rem", flex: 1 })`
+export const BaseCollectionCardFooter = styled(Row).attrs({ gap: "0.75rem", flex: 1 })`
     position: absolute;
     bottom: 0;
     left: 0;

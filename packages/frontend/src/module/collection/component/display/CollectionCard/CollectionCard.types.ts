@@ -1,6 +1,6 @@
 import { CollectionDto } from "module/api/service";
-import { GroupCardProps } from "module/common/component/display/GroupCard/GroupCard.types";
+import { BaseCollectionCardProps } from "../BaseCollectionCard/BaseCollectionCard.types";
 
-export interface CollectionCardProps extends GroupCardProps {
+export interface CollectionCardProps extends Pick<BaseCollectionCardProps, "size"> {
     collection: CollectionDto;
 }

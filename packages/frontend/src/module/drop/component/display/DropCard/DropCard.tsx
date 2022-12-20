@@ -4,10 +4,10 @@ import { DropDto } from "module/api/service";
 import { config } from "config";
 import { WithSkeleton } from "@peersyst/react-components";
 import useTranslate from "module/common/hook/useTranslate";
-import { GroupCardProps } from "module/common/component/display/GroupCard/GroupCard.types";
 import BaseCollectionCard from "module/collection/component/display/BaseCollectionCard/BaseCollectionCard";
+import { BaseCollectionCardProps } from "module/collection/component/display/BaseCollectionCard/BaseCollectionCard.types";
 
-interface DropCardProps extends GroupCardProps {
+interface DropCardProps extends Pick<BaseCollectionCardProps, "size"> {
     drop: DropDto;
 }
 
