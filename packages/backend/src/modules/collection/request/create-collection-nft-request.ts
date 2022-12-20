@@ -32,7 +32,7 @@ export class CreateCollectionNftRequest {
         description: "Transfer fee in percentage representing percentages from 0% to 50% with up to 3 decimals",
         type: "number",
         required: false,
-        maximum: 50,
+        maximum: 50000,
         minimum: 0,
     })
     transferFee?: number;
