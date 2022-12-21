@@ -230,6 +230,7 @@ describe("NftService", () => {
             expect(metadataServiceMock.create).not.toHaveBeenCalled();
             expect(nftRepositoryMock.save).toHaveBeenCalledWith({
                 account: ADDRESS,
+                ownerAccount: ADDRESS,
                 issuer: ADDRESS,
                 flags: 0,
                 status: NftStatus.DRAFT,
@@ -242,6 +243,7 @@ describe("NftService", () => {
             expect(metadataServiceMock.create).not.toHaveBeenCalled();
             expect(nftRepositoryMock.save).toHaveBeenCalledWith({
                 account: ADDRESS,
+                ownerAccount: ADDRESS,
                 issuer: ISSUER,
                 flags: 0,
                 status: NftStatus.DRAFT,
@@ -254,6 +256,7 @@ describe("NftService", () => {
             expect(metadataServiceMock.create).not.toHaveBeenCalled();
             expect(nftRepositoryMock.save).toHaveBeenCalledWith({
                 account: ADDRESS,
+                ownerAccount: ADDRESS,
                 issuer: ISSUER,
                 flags: 0,
                 status: NftStatus.DRAFT,
@@ -268,6 +271,7 @@ describe("NftService", () => {
             expect(metadataServiceMock.create).toHaveBeenCalledWith(1, metadata);
             expect(nftRepositoryMock.save).toHaveBeenCalledWith({
                 account: ADDRESS,
+                ownerAccount: ADDRESS,
                 issuer: ISSUER,
                 flags: 0,
                 status: NftStatus.DRAFT,
@@ -286,6 +290,7 @@ describe("NftService", () => {
             expect(metadataServiceMock.create).toHaveBeenCalledWith(1, metadata);
             expect(nftRepositoryMock.save).toHaveBeenCalledWith({
                 account: "rNCFjv8Ek5oDrNiMJ3pw6eLLFtMjZLJnf2",
+                ownerAccount: "rNCFjv8Ek5oDrNiMJ3pw6eLLFtMjZLJnf2",
                 collectionId: 1,
                 flags: 0,
                 issuer: "rNCFjv8Ek5oDrNiMJ3pw6eLLFtMjZLJnf3",
@@ -570,6 +575,7 @@ describe("NftService", () => {
                 [
                     { field: "collection.id", operator: FilterType.IN, value: [1] },
                     { field: "user.address", operator: FilterType.EQUAL, value: ISSUER },
+                    { field: "owner_account", operator: FilterType.EQUAL, value: ADDRESS },
                     { field: "metadata.name", operator: FilterType.LIKE, value: "asd" },
                     { field: "nft.status", operator: FilterType.IN, value: [NftStatus.CONFIRMED] },
                 ],

@@ -12,6 +12,8 @@ import XrplClientMock from "../__mock__/xrpl-client.mock";
 import PaymentTransactionMock from "../__mock__/payment-transaction.mock";
 import LastIndexedLedgerRepositoryMock, { LastIndexedLedgerMockEntity } from "../__mock__/last-indexed-ledger.repository.mock";
 import DropConsumerMock from "../__mock__/drop.consumer.mock";
+import { OfferService } from "../../../src/modules/offer/offer.service";
+import OfferServiceMock from "../__mock__/offer.service.mock";
 
 describe("BlockchainService", () => {
     let blockchainService: BlockchainService;
@@ -20,6 +22,7 @@ describe("BlockchainService", () => {
     const transactionsConsumerMock = new TransactionsConsumerMock();
     const dropConsumerMock = new DropConsumerMock();
     const configServiceMock = new ConfigServiceMock();
+    const offerServiceMock = new OfferServiceMock();
     const lastIndexedLedgerRepositoryMock = new LastIndexedLedgerRepositoryMock();
 
     beforeEach(async () => {
@@ -44,6 +47,10 @@ describe("BlockchainService", () => {
                 {
                     provide: ConfigService,
                     useValue: configServiceMock,
+                },
+                {
+                    provide: OfferService,
+                    useValue: offerServiceMock,
                 },
                 BlockchainService,
             ],

@@ -22,6 +22,7 @@ import { waitForAwsSecrets } from "./config/util/loadAwsSecrets";
 import { DropModule } from "./modules/drop/drop.module";
 import { XummTransactionModule } from "./modules/xumm/xumm-transaction.module";
 import { TrendModule } from "./modules/trend/trend.module";
+import { OfferModule } from "./modules/offer/offer.module";
 
 @Module({
     imports: [
@@ -68,6 +69,7 @@ import { TrendModule } from "./modules/trend/trend.module";
         CollectionModule,
         DropModule,
         FileModule,
+        OfferModule,
         XummTransactionModule,
         TrendModule,
         BullModule.forRootAsync({
