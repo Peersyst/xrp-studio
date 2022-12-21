@@ -58,5 +58,6 @@
     "content404": "El contenido que estás buscando no existe",
     "yourSessionHasExpired": "Tu sesión ha caducado",
     "nftMinting": "Ha fallado la firma de la transacción del NFT",
+    "noMatchingNftsWithFilters": "No se han encontrado NFTs que coincidan con los filtros seleccionados",
     "youHaveNoDrops": "No has publicado ningún drop todavía"
 }
