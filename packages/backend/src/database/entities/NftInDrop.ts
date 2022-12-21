@@ -14,7 +14,7 @@ export enum NftInDropStatus {
     FUNDED = "funded",
 }
 
-@Entity("nft-in-drop")
+@Entity("nft_in_drop")
 export class NftInDrop {
     @OneToOne(() => Nft, { primary: true })
     @JoinColumn({ name: "nft_id" })
