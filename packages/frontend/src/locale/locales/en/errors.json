@@ -55,7 +55,8 @@
     "userNoCollections": "This user has no collections",
     "noCollectionsAvailable": "There are no collections available at this moment",
     "notFound": "Not Found",
-    "content404": "The content you are looking for does not exist",
     "yourSessionHasExpired": "Your session has expired",
-    "nftMinting": "NFT transaction signature failed"
+    "nftMinting": "NFT transaction signature failed",
+    "content404": "The content you are looking for does not exist",
+    "noMatchingNftsWithFilters": "No NFTs were found matching the selected filters."
 }
