@@ -89,7 +89,7 @@ export class DropService {
 
         const transaction = this.blockchainTransactionService.prepareAcceptOfferTransaction(buyerAddress, nftInDrop.offerId);
         const payload = await this.xummTransactionService.sendTransactionRequest(buyerAddress, transaction);
-        return { nftId: nftInDrop.nftId, xummRequestUuid: payload };
+        return { nftId: nftInDrop.nftId, xummRequestUuid: payload.uuid };
     }
 
     async publish(ownerAddress: string, createDropRequest: CreateDropRequest): Promise<DropDto> {

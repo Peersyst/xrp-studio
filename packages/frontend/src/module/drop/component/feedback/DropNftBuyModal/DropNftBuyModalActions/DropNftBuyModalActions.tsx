@@ -1,15 +1,13 @@
 import useTranslate from "module/common/hook/useTranslate";
 import { ActionStepsHandlers, Step } from "module/common/component/feedback/ActionSteps/ActionSteps.types";
 import ActionSteps from "module/common/component/feedback/ActionSteps/ActionSteps";
-import { Dispatch, SetStateAction } from "react";
 import useBuyNftDrop from "module/drop/query/useBuyNftDrop";
 import useDropBuyNftStatePolling from "module/drop/hook/useDropBuyNftStatePolling";
 import useXummGetStatusByUuidPolling from "module/drop/hook/useXummGetStatusByUuidPolling";
 
 interface DropNftBuyModalActionsProps extends Omit<ActionStepsHandlers, "onSuccess"> {
     dropId?: number;
-    onSuccess: () => void;
-    onPollingEnd: Dispatch<SetStateAction<number | undefined>>;
+    onSuccess: (id: number) => void;
 }
 
 const DropNftBuyModalActions = ({ dropId, onStart, onEnd, onSuccess, onError }: DropNftBuyModalActionsProps): JSX.Element => {
@@ -28,12 +26,12 @@ const DropNftBuyModalActions = ({ dropId, onStart, onEnd, onSuccess, onError }: 
         {
             title: translate("transactionSignature"),
             description: translate("pleaseSignTransaction"),
-            execution: startPolling,
+            execution: startPollingXumm,
         },
         {
             title: translate("processingYourOrder"),
             description: translate("yourOrderIsBeingProcessed"),
-            execution: startPollingXumm,
+            execution: startPolling,
         },
         {
             title: translate("nftMintingSuccess"),
@@ -41,7 +39,7 @@ const DropNftBuyModalActions = ({ dropId, onStart, onEnd, onSuccess, onError }: 
         },
     ];
 
-    return <ActionSteps steps={steps} onStart={onStart} onEnd={onEnd} onSuccess={onSuccess} onError={onError} />;
+    return <ActionSteps steps={steps} onStart={onStart} onEnd={onEnd} onSuccess={() => onSuccess(data!.nftId)} onError={onError} />;
 };
 
 export default DropNftBuyModalActions;
