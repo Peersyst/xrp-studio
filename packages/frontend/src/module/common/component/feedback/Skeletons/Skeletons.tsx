@@ -4,6 +4,8 @@ import BaseCard from "module/nft/component/surface/BaseCard/BaseCard";
 import CollectionCardSkeleton from "module/collection/component/feedback/CollectionCardSkeleton/CollectionCardSkeleton";
 import DropFaq from "module/drop/component/display/DropFaq/DropFaq";
 import NftsPreviewListItem from "module/nft/component/display/NftsPreviewList/NftsPreviewListItem/NftsPreviewListItem";
+import NftCardSkeleton from "module/nft/component/feedback/NftCardSkeleton/NftCardSkeleton";
+import { CollectionCardProps } from "module/collection/component/display/CollectionCard/CollectionCard.types";
 
 const Skeletons = ({ count, ...rest }: SkeletonsProps): JSX.Element => (
     <>
@@ -24,11 +26,14 @@ export const BaseCardSkeletons = ({ count }: SkeletonComponentProps): JSX.Elemen
     );
 };
 
-export const LgCollectionCardSkeletons = ({ count }: SkeletonComponentProps): JSX.Element => {
+export const CollectionCardSkeletons = ({
+    count,
+    size = "lg",
+}: SkeletonComponentProps & Pick<CollectionCardProps, "size">): JSX.Element => {
     return (
         <>
             {[...Array(count)].map((_, key) => (
-                <CollectionCardSkeleton key={key} size="lg" />
+                <CollectionCardSkeleton key={key} size={size} />
             ))}
         </>
     );
@@ -61,6 +66,16 @@ export const NftsPreviewListItemSkeletons = ({ count }: SkeletonsProps): JSX.Ele
         <>
             {[...Array(count)].map((_, key) => (
                 <NftsPreviewListItem key={key} loading nft={undefined} />
+            ))}
+        </>
+    );
+};
+
+export const NftCardSkeletons = ({ count }: SkeletonsProps): JSX.Element => {
+    return (
+        <>
+            {[...Array(count)].map((_, key) => (
+                <NftCardSkeleton key={key} />
             ))}
         </>
     );

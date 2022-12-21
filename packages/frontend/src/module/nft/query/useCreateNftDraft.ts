@@ -6,10 +6,11 @@ export default function (): UseMutationResult<NftDraftDto, unknown, CreateNftDra
     const queryClient = useQueryClient();
 
     return useMutation(NftService.nftControllerCreateNftDraft, {
-        onSuccess: async () => {
-            await queryClient.invalidateQueries(Queries.NFT_DRAFTS);
-            await queryClient.invalidateQueries(Queries.COLLECTIONS);
-            await queryClient.invalidateQueries(Queries.COLLECTION);
+        onSuccess: async ({ id }) => {
+            await queryClient.invalidateQueries([Queries.NFT_DRAFT, id]);
+            await queryClient.invalidateQueries([Queries.NFT_DRAFTS]);
+            await queryClient.invalidateQueries([Queries.COLLECTIONS]);
+            await queryClient.invalidateQueries([Queries.COLLECTION]);
         },
     });
 }

@@ -3,7 +3,6 @@ import { lazy } from "react";
 
 export enum UserRoutes {
     PROFILE = "/user/:address",
-    SETTINGS = "/user/settings",
 }
 
 const ProfilePage = lazy(() => import("./page/ProfilePage"));

@@ -11,19 +11,20 @@ const ViewNftPage = (): JSX.Element => {
     const params = useParams();
 
     const id = Number(params.id);
-    const { data: nft, isLoading } = useGetNft(id);
+    const { data: nft, isLoading: loadingNft } = useGetNft(id);
+    const hasCollection = !!nft?.collection;
     const { data: collectionNftsData, isLoading: loadingCollectionNfts } = useGetNfts(
         { collections: [nft?.collection?.id || 0] },
-        { enabled: !!nft?.collection },
+        { enabled: hasCollection },
     );
     const collectionNfts = usePaginatedList(collectionNftsData?.pages, (page) => page.items);
 
-    const slots = useViewNftPageSlots({ nft, loading: isLoading });
+    const slots = useViewNftPageSlots({ nft, loading: loadingNft });
 
     return (
         <BaseNftPage
             collectionNfts={collectionNfts}
-            loadingCollectionNfts={loadingCollectionNfts}
+            loadingCollectionNfts={loadingNft || loadingCollectionNfts}
             activeCarouselNftId={id}
             collectionNftLink={(collectionNft) => NftRoutes.VIEW_NFT.replace(":id", collectionNft.id.toString())}
         >

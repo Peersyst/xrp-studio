@@ -1,5 +1,5 @@
 import styled, { css } from "styled-components";
-import { Image, Row } from "@peersyst/react-components";
+import { Image, ProgressBar, Row } from "@peersyst/react-components";
 import { DropLandingDescriptionSectionRootProps } from "module/drop/component/display/DropLanding/DropLandingDescriptionSection/DropLandingDescriptionSection.types";
 import { alpha, getLuminance } from "@peersyst/react-utils";
 
@@ -62,5 +62,12 @@ export const DropLandingImage = styled(Image)(
         max-height: 360px;
         aspect-ratio: 1;
         border-radius: ${theme.borderRadiusMd};
+    `,
+);
+
+export const MintProgress = styled(ProgressBar)(
+    ({ theme }) => css`
+        color: ${theme.palette.text};
+        background-color: ${theme.palette.primary};
     `,
 );
