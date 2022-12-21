@@ -2,7 +2,7 @@ import { CollectionGridProps } from "module/collection/component/layout/Collecti
 import Grid from "module/common/component/layout/Grid/Grid";
 import { PaginatedCollectionDto } from "module/api/service";
 import { useCollectionGridBreakpoints } from "module/collection/component/layout/CollectionGrid/hooks/useCollectionGridBreakpoints";
-import { LgCollectionCardSkeletons } from "module/common/component/feedback/Skeletons/Skeletons";
+import { CollectionCardSkeletons } from "module/common/component/feedback/Skeletons/Skeletons";
 import CollectionCard from "module/collection/component/display/CollectionCard/CollectionCard";
 import { GridProps } from "module/common/component/layout/Grid/Grid.types";
 import { useRecoilState } from "recoil";
@@ -24,7 +24,7 @@ function InnerCollectionGrid({
             loading={loading}
             breakpoints={breakpoints}
             breakpointType="collection"
-            Skeletons={LgCollectionCardSkeletons}
+            Skeletons={CollectionCardSkeletons}
             css={{ width: "fit-content" }}
             justifyContent="stretch"
             alignItems="flex-start"
