@@ -1,12 +1,10 @@
 import { CollectionGridProps } from "module/collection/component/layout/CollectionGrid/CollectionGrid.types";
 import Grid from "module/common/component/layout/Grid/Grid";
 import { PaginatedCollectionDto } from "module/api/service";
-import { useCollectionGridBreakpoints } from "module/collection/component/layout/CollectionGrid/hooks/useCollectionGridBreakpoints";
 import { CollectionCardSkeletons } from "module/common/component/feedback/Skeletons/Skeletons";
 import CollectionCard from "module/collection/component/display/CollectionCard/CollectionCard";
 import { GridProps } from "module/common/component/layout/Grid/Grid.types";
 import useCollectionGridConfig from "module/collection/component/layout/CollectionGrid/hooks/useCollectionGridConfig";
-import { useTheme } from "@peersyst/react-components";
 
 function InnerCollectionGrid({
     loading,
@@ -14,19 +12,18 @@ function InnerCollectionGrid({
     cols = 3,
     ...rest
 }: Omit<GridProps<PaginatedCollectionDto>, "Skeletons" | "children" | "breakpoints">) {
-    const breakpoints = useCollectionGridBreakpoints();
     const {
-        breakpoints: {
-            values: { collectionsGrid },
-        },
-    } = useTheme();
-    const { nothingToShow: collectionNothingToShow, cols: collectionGridCols } = useCollectionGridConfig({ nothingToShow, cols });
+        nothingToShow: collectionNothingToShow,
+        cols: collectionGridCols,
+        breakpoints,
+        tabletBreakpoint,
+    } = useCollectionGridConfig({ nothingToShow, cols });
 
     return (
         <Grid<PaginatedCollectionDto, any>
             loading={loading}
             breakpoints={breakpoints}
-            tabletBreakPoint={collectionsGrid.xxs}
+            tabletBreakPoint={tabletBreakpoint}
             Skeletons={CollectionCardSkeletons}
             css={{ width: "fit-content" }}
             justifyContent="stretch"
