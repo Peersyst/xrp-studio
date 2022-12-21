@@ -27,7 +27,13 @@ export class TransactionsConsumer {
     }: Job<{ transactions: ValidatedLedgerTransaction[]; ledgerIndex: number }>) {
         if (transactions.length) {
             this.logger.log(`PROCESSING ${transactions.length} TRANSACTIONS FROM LEDGER ${ledgerIndex}`);
-            for await (const tx of transactions) await this.blockchainService.processTransactionByType(tx);
+            for await (const tx of transactions) {
+                try {
+                    await this.blockchainService.processTransactionByType(tx);
+                } catch (e) {
+                    this.logger.error("Error processing transaction with hash " + tx.hash + " " + e.toString());
+                }
+            }
         }
     }
 

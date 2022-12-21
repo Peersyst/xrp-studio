@@ -178,5 +178,6 @@
     "nfts": "NFTs",
     "viewAll": "Ver todos",
     "unnamed": "Sin nombre",
-    "mint": "Mint"
+    "mint": "Mint",
+    "mintPrice": "precio de mint"
 }
