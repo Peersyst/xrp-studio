@@ -6,15 +6,21 @@ import { CollectionCardSkeletons } from "module/common/component/feedback/Skelet
 import CollectionCard from "module/collection/component/display/CollectionCard/CollectionCard";
 import { GridProps } from "module/common/component/layout/Grid/Grid.types";
 import useCollectionGridConfig from "module/collection/component/layout/CollectionGrid/hooks/useCollectionGridConfig";
+import { useTheme } from "@peersyst/react-components";
 
 function InnerCollectionGrid({ loading, ...rest }: Omit<GridProps<PaginatedCollectionDto>, "Skeletons" | "children" | "breakpoints">) {
     const breakpoints = useCollectionGridBreakpoints();
+    const {
+        breakpoints: {
+            values: { collectionsGrid },
+        },
+    } = useTheme();
 
     return (
         <Grid<PaginatedCollectionDto, any>
             loading={loading}
             breakpoints={breakpoints}
-            breakpointType="collection"
+            tabletBreakPoint={collectionsGrid.xxs}
             Skeletons={CollectionCardSkeletons}
             css={{ width: "fit-content" }}
             justifyContent="stretch"
@@ -22,13 +28,13 @@ function InnerCollectionGrid({ loading, ...rest }: Omit<GridProps<PaginatedColle
             {...rest}
         >
             {(collections) =>
-                collections.map((collection, key) => <CollectionCard gridWidth size="lg" collection={collection} key={key} />)
+                collections.map((collection, key) => <CollectionCard size="lg" gridWidth collection={collection} key={key} />)
             }
         </Grid>
     );
 }
 
-function InnerCollectionGridWithFilters({ loading, cols = 3, nothingToShow, ...rest }: Omit<CollectionGridProps, "filters">) {
+function InnerCollectionGridWithFilters({ loading, nothingToShow, cols = 3, ...rest }: Omit<CollectionGridProps, "filters">) {
     const { nothingToShow: collectionNothingToShow, cols: collectionGridCols } = useCollectionGridConfig({ nothingToShow, cols });
 
     return (

@@ -10,6 +10,7 @@ import useCleanCollections from "./hook/useCleanCollections";
 import NftCollectionsSelectorGroup from "../../input/NftColletionsSelectorGroupFilter/NftCollectionsSelectorGroupFilter";
 import { GridProps } from "module/common/component/layout/Grid/Grid.types";
 import useNftNothingToShow from "module/nft/hook/useNftNothingToShow";
+import { useTheme } from "@peersyst/react-components";
 
 function InnerNftGrid({
     loading,
@@ -17,11 +18,17 @@ function InnerNftGrid({
     ...rest
 }: Omit<GridProps<PaginatedNftDto | PaginatedNftDraftDto, string>, "Skeletons" | "children" | "breakpoints">): JSX.Element {
     const breakpoints = useGetNftGridBreakpoints();
+    const {
+        breakpoints: {
+            values: { nftsGrid },
+        },
+    } = useTheme();
     const { nftNothingToShow } = useNftNothingToShow({ nothingToShow });
 
     return (
         <Grid<PaginatedNftDto | PaginatedNftDraftDto, string>
             breakpoints={breakpoints}
+            tabletBreakPoint={nftsGrid.sm}
             loading={loading}
             Skeletons={BaseCardSkeletons}
             justifyItems="stretch"
