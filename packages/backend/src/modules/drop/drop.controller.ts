@@ -1,11 +1,14 @@
 import { ApiOperation, ApiTags } from "@nestjs/swagger";
 import { Body, Controller, Get, Param, ParseIntPipe, Post, Request } from "@nestjs/common";
 import { ApiErrorDecorators } from "../common/exception/error-response.decorator";
-import { DropDto } from "./dto/drop.dto";
+import { DropDto, PaginatedDropDto } from "./dto/drop.dto";
 import { XummAuthenticated } from "@peersyst/xumm-module";
 import { CreateDropRequest } from "./request/create-drop.request";
 import { DropService } from "./drop.service";
 import { RequestBuyNftDto } from "./dto/requestBuyNft.dto";
+import { EnhancedQuery } from "../common/decorator/enhanced-query";
+import { GetDropsRequest } from "./request/get-drops.request";
+import { ApiGetDropsDecorator } from "./decorator/api-get-drops.decorator";
 
 @ApiTags("drop")
 @Controller("drop")
@@ -18,6 +21,13 @@ export class DropController {
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
     async getDrop(@Param("id", ParseIntPipe) id: number): Promise<DropDto> {
         return this.dropService.findById(id);
+    }
+
+    @Get()
+    @ApiOperation({ description: "Get all Drops" })
+    @ApiGetDropsDecorator()
+    async getDrops(@EnhancedQuery() queryParams: GetDropsRequest = {}): Promise<PaginatedDropDto> {
+        return this.dropService.findAll(queryParams);
     }
 
     @Post("")

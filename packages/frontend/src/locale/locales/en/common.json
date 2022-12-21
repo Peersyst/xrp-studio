@@ -192,5 +192,7 @@
     "processingYourOrder": "Processing your order",
     "yourOrderIsBeingProcessed": "Your order is being processed. Your new NFT is on the way!",
     "nftMintingSuccess": "NFT minting success",
-    "youHaveMintedYourNftSuccessfully": "You have minted your NFT successfully!"
+    "youHaveMintedYourNftSuccessfully": "You have minted your NFT successfully!",
+    "mintPrice": "mint price",
+    "youHaveNoDrops": "You have not launched any drops yet"
 }

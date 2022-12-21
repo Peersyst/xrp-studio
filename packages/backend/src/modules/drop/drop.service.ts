@@ -3,7 +3,7 @@ import { InjectRepository } from "@nestjs/typeorm";
 import { Repository } from "typeorm";
 import { Drop } from "../../database/entities/Drop";
 import { DropDto, PaginatedDropDto } from "./dto/drop.dto";
-import { DropFilter } from "./request/drop-filter.request";
+
 import { QueryBuilderHelper } from "../common/util/query-builder.helper";
 import { CollectionService } from "../collection/collection.service";
 import { NftService } from "../nft/nft.service";
@@ -23,6 +23,7 @@ import { ValidatedLedgerTransaction } from "../blockchain/types";
 import { dropsToXrp, NFTokenAcceptOffer, xrpToDrops } from "xrpl";
 import { ConfigService } from "@nestjs/config";
 import { RequestBuyNftDto } from "./dto/requestBuyNft.dto";
+import { GetDropsRequest } from "./request/get-drops.request";
 
 @Injectable()
 export class DropService {
@@ -44,10 +45,11 @@ export class DropService {
         this.sellCommissionPct = this.configService.get<number>("xrp.sellCommissionPct");
     }
 
-    async findAll(page = 1, pageSize = 25, filter?: DropFilter): Promise<PaginatedDropDto> {
+    async findAll(filters: GetDropsRequest = { page: 1, pageSize: 15 }): Promise<PaginatedDropDto> {
+        const { page, pageSize } = filters;
         const take = pageSize;
         const skip = (page - 1) * take;
-        const { qbWheres, relations } = DropFilter.toFilterClause(filter);
+        const { qbWheres, relations, qbOrders } = GetDropsRequest.toFilterClause(filters);
 
         const [entities, count] = await QueryBuilderHelper.buildFindManyAndCount(
             this.dropRepository,
@@ -56,6 +58,7 @@ export class DropService {
             take,
             ["collection", "collection.user", ...relations],
             qbWheres,
+            qbOrders,
         );
 
         return {

@@ -191,5 +191,6 @@
     "processingYourOrder": "Precesando su orden",
     "yourOrderIsBeingProcessed": "Su orden fur precesada. Su nuevo NFT esta en camino",
     "nftMintingSuccess": "Compra realizada",
-    "youHaveMintedYourNftSuccessfully": "Se ha realizado la compra de NFT con éxito"
+    "youHaveMintedYourNftSuccessfully": "Se ha realizado la compra de NFT con éxito",
+    "mintPrice": "precio de mint"
 }
