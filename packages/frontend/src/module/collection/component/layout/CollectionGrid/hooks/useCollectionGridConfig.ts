@@ -19,11 +19,11 @@ export default function ({ nothingToShow, cols }: UseCollectionGridConfigParams)
 
     const hasFilters = !!gridFilters.query;
 
-    const collectionNothingToShow = hasFilters ? translateError("noMatchingCollections") : translateError("noCollectionsAvailable");
+    const collectionNothingToShow = hasFilters ? translateError("noMatchingCollections") : nothingToShow;
     const collectionGridCols = hideFiltersState ? 2 : cols;
 
     return {
-        nothingToShow: nothingToShow || collectionNothingToShow,
+        nothingToShow: collectionNothingToShow,
         cols: collectionGridCols,
     };
 }

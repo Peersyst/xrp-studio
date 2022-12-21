@@ -22,7 +22,7 @@ const BaseCollectionCard = forwardRef(
         ref,
     ): JSX.Element => {
         return (
-            <ConditionalLink condition={!loading} to={to} style={{ width: "100%" }}>
+            <ConditionalLink condition={!loading} to={to}>
                 <BaseCollectionCardRoot size={size} ref={(r) => setRef(ref, r)} gridWidth={gridWidth}>
                     <BaseCollectionCardCover
                         size={size}

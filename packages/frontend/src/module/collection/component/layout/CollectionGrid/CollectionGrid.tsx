@@ -8,13 +8,19 @@ import { GridProps } from "module/common/component/layout/Grid/Grid.types";
 import useCollectionGridConfig from "module/collection/component/layout/CollectionGrid/hooks/useCollectionGridConfig";
 import { useTheme } from "@peersyst/react-components";
 
-function InnerCollectionGrid({ loading, ...rest }: Omit<GridProps<PaginatedCollectionDto>, "Skeletons" | "children" | "breakpoints">) {
+function InnerCollectionGrid({
+    loading,
+    nothingToShow,
+    cols = 3,
+    ...rest
+}: Omit<GridProps<PaginatedCollectionDto>, "Skeletons" | "children" | "breakpoints">) {
     const breakpoints = useCollectionGridBreakpoints();
     const {
         breakpoints: {
             values: { collectionsGrid },
         },
     } = useTheme();
+    const { nothingToShow: collectionNothingToShow, cols: collectionGridCols } = useCollectionGridConfig({ nothingToShow, cols });
 
     return (
         <Grid<PaginatedCollectionDto, any>
@@ -25,6 +31,8 @@ function InnerCollectionGrid({ loading, ...rest }: Omit<GridProps<PaginatedColle
             css={{ width: "fit-content" }}
             justifyContent="stretch"
             alignItems="flex-start"
+            nothingToShow={collectionNothingToShow}
+            cols={collectionGridCols}
             {...rest}
         >
             {(collections) =>
@@ -34,12 +42,8 @@ function InnerCollectionGrid({ loading, ...rest }: Omit<GridProps<PaginatedColle
     );
 }
 
-function InnerCollectionGridWithFilters({ loading, nothingToShow, cols = 3, ...rest }: Omit<CollectionGridProps, "filters">) {
-    const { nothingToShow: collectionNothingToShow, cols: collectionGridCols } = useCollectionGridConfig({ nothingToShow, cols });
-
-    return (
-        <InnerCollectionGrid withFilters loading={loading} nothingToShow={collectionNothingToShow} cols={collectionGridCols} {...rest} />
-    );
+function InnerCollectionGridWithFilters({ loading, ...rest }: Omit<CollectionGridProps, "filters">) {
+    return <InnerCollectionGrid withFilters loading={loading} {...rest} />;
 }
 
 function CollectionGrid({ loading, withFilters, ...rest }: CollectionGridProps): JSX.Element {
