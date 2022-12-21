@@ -11,6 +11,7 @@ enum Queries {
     PUBLISH_NFT = "publish-nft",
     TRENDS = "trends",
     DROP = "drop",
+    DROPS = "drops",
 }
 
 export default Queries;

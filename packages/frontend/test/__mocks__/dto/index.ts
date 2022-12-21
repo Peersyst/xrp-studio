@@ -8,4 +8,5 @@ export * from "./metadata.dto.mock";
 export * from "./metadata-attribute.dto.mock";
 export * from "./infinite-data";
 export * from "./paginated-data.mock";
+export * from "./drops.dto.mock";
 export * from "./trends.dto.mock";
