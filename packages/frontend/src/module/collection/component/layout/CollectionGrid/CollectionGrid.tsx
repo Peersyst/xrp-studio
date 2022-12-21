@@ -5,19 +5,10 @@ import { useCollectionGridBreakpoints } from "module/collection/component/layout
 import { CollectionCardSkeletons } from "module/common/component/feedback/Skeletons/Skeletons";
 import CollectionCard from "module/collection/component/display/CollectionCard/CollectionCard";
 import { GridProps } from "module/common/component/layout/Grid/Grid.types";
-import { useRecoilState } from "recoil";
-import { filtersVisibilityState } from "module/common/component/state/FiltersVisibilityState";
-import useCollectionFilters from "module/collection/hook/useCollectionFilters";
-import useTranslate from "module/common/hook/useTranslate";
-import NothingToShow from "module/common/component/feedback/NothingToShow/NothingToShow";
+import useCollectionGridConfig from "module/collection/component/layout/CollectionGrid/hooks/useCollectionGridConfig";
 
-function InnerCollectionGrid({
-    loading,
-    nothingToShow,
-    ...rest
-}: Omit<GridProps<PaginatedCollectionDto>, "Skeletons" | "children" | "breakpoints">) {
+function InnerCollectionGrid({ loading, ...rest }: Omit<GridProps<PaginatedCollectionDto>, "Skeletons" | "children" | "breakpoints">) {
     const breakpoints = useCollectionGridBreakpoints();
-    const translateError = useTranslate("error");
 
     return (
         <Grid<PaginatedCollectionDto, any>
@@ -28,7 +19,6 @@ function InnerCollectionGrid({
             css={{ width: "fit-content" }}
             justifyContent="stretch"
             alignItems="flex-start"
-            nothingToShow={nothingToShow || <NothingToShow label={translateError("noCollectionsAvailable")} />}
             {...rest}
         >
             {(collections) =>
@@ -38,24 +28,11 @@ function InnerCollectionGrid({
     );
 }
 
-function InnerCollectionGridWithFilters({ loading, cols = 3, ...rest }: Omit<CollectionGridProps, "filters">) {
-    const translateError = useTranslate("error");
-
-    const gridFilters = useCollectionFilters();
-    const [hideFiltersState] = useRecoilState(filtersVisibilityState);
-
-    const hasFilters = !!gridFilters.query;
+function InnerCollectionGridWithFilters({ loading, cols = 3, nothingToShow, ...rest }: Omit<CollectionGridProps, "filters">) {
+    const { nothingToShow: collectionNothingToShow, cols: collectionGridCols } = useCollectionGridConfig({ nothingToShow, cols });
 
     return (
-        <InnerCollectionGrid
-            withFilters
-            loading={loading}
-            nothingToShow={
-                <NothingToShow label={hasFilters ? translateError("noMatchingCollections") : translateError("noCollectionsAvailable")} />
-            }
-            cols={hideFiltersState ? 2 : cols}
-            {...rest}
-        />
+        <InnerCollectionGrid withFilters loading={loading} nothingToShow={collectionNothingToShow} cols={collectionGridCols} {...rest} />
     );
 }
 
