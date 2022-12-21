@@ -2,6 +2,7 @@ import { ConditionalLinkProps } from "module/common/component/navigation/Conditi
 
 export interface BaseCollectionCardSizeProps {
     size?: "md" | "lg";
+    gridWidth?: boolean;
 }
 
 export interface BaseCollectionCardProps extends BaseCollectionCardSizeProps {

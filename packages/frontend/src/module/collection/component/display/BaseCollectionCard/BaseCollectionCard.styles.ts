@@ -4,7 +4,7 @@ import Avatar from "module/common/component/display/Avatar/Avatar";
 import { BaseCollectionCardSizeProps } from "./BaseCollectionCard.types";
 
 export const BaseCollectionCardRoot = styled.div<BaseCollectionCardSizeProps>(
-    ({ theme, size }) => css`
+    ({ theme, size, gridWidth }) => css`
         display: flex;
         flex-direction: column;
         position: relative;
