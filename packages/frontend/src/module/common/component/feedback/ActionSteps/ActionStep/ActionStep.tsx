@@ -10,12 +10,11 @@ import {
 } from "module/common/component/feedback/ActionSteps/ActionStep/ActionStep.styles";
 
 const ActionStep = ({
-    step: { title, description, execution },
+    step: { title, description, execution, warning },
     active,
     stepNumber,
     onSuccess,
     onError,
-    warning,
 }: ActionStepProps): JSX.Element => {
     const translateError = useTranslate("error");
 
@@ -47,7 +46,7 @@ const ActionStep = ({
                             {stepNumber}
                         </Typography>
                     )}
-                    {active && !state.error && !warning && <Loader />}
+                    {active && !state.error && <Loader />}
                     {active && !state.error && warning && <AlertTriangleIconRoot />}
                     {active && state.error && <AlertCircleIconRoot />}
                     {!active && state.finished && <CheckCircleIconRoot />}

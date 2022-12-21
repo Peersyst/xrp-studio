@@ -45,19 +45,11 @@ const CollectionPublishActions = ({
         {
             title: translate("collectionCreationSuccessStepTitle"),
             description: translate("collectionCreationSuccessStepText"),
+            warning: !!failedIds.length,
         },
     ];
 
-    return (
-        <ActionSteps
-            steps={steps}
-            onStart={onStart}
-            onError={onError}
-            onSuccess={handleSuccess}
-            onEnd={onEnd}
-            warning={!!failedIds.length}
-        />
-    );
+    return <ActionSteps steps={steps} onStart={onStart} onError={onError} onSuccess={handleSuccess} onEnd={onEnd} />;
 };
 
 export default CollectionPublishActions;
