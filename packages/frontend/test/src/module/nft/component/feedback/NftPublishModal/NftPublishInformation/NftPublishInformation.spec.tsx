@@ -8,7 +8,6 @@ describe("NftPublishInformation", () => {
 
     test("Renders correctly with data", () => {
         const createNftDraftRequestMock = new CreateNftDraftRequestMock({
-            issuer: "0x",
             transferFee: 1,
             flags: undefined,
             taxon: 1,
@@ -19,7 +18,6 @@ describe("NftPublishInformation", () => {
 
         expect(screen.getByText("nft-name")).toBeInTheDocument();
         expect(screen.getByText(COLLECTION_NFT)).toBeInTheDocument();
-        expect(screen.getByText("0x")).toBeInTheDocument();
         expect(screen.getByText("1%")).toBeInTheDocument();
     });
     test("Renders correctly without data", () => {
