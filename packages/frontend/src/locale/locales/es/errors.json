@@ -55,8 +55,9 @@
     "userNoNfts": "Este usuario no tiene NFTs",
     "userNoCollections": "Este usuario no tiene colecciones",
     "notFound": "No encontrado",
+    "content404": "El contenido que estás buscando no existe",
     "yourSessionHasExpired": "Tu sesión ha caducado",
     "nftMinting": "Ha fallado la firma de la transacción del NFT",
-    "content404": "El contenido que estás buscando no existe",
-    "noMatchingNftsWithFilters": "No se han encontrado NFTs que coincidan con los filtros seleccionados"
+    "noMatchingNftsWithFilters": "No se han encontrado NFTs que coincidan con los filtros seleccionados",
+    "youHaveNoDrops": "No has publicado ningún drop todavía"
 }
