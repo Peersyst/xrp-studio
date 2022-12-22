@@ -6,6 +6,6 @@ interface UserConfig {
 
 export default function (): UserConfig {
     return buildConfig<UserConfig>({
-        isVerified: getConfigEnv() !== "production",
+        isVerified: getConfigEnv() === "staging",
     });
 }
