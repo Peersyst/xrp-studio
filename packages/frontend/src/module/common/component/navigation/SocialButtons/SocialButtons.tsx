@@ -6,7 +6,7 @@ import { ShareData } from "../../input/ShareButton/ShareButton.types";
 import SocialButton from "../../input/SocialButton/SocialButton";
 import { SocialButtonsProps } from "./SocialButtons.types";
 
-const SocialButtons = ({ userId, twitterId, discordId, popover }: SocialButtonsProps): JSX.Element => {
+const SocialButtons = ({ userId, twitterId, discordId }: SocialButtonsProps): JSX.Element => {
     const { twitterLink, discordLink } = useConfig("socialLinks");
     const translate = useTranslate();
 
@@ -20,7 +20,7 @@ const SocialButtons = ({ userId, twitterId, discordId, popover }: SocialButtonsP
         <Row gap="0.5rem">
             {twitterId && <SocialButton icon="twitter" link={twitterLink + twitterId} />}
             {discordId && <SocialButton icon="discord" link={discordLink + discordId} />}
-            <ShareButton shareData={shareData} popover={popover} />
+            <ShareButton shareData={shareData} networks={["twitter"]} />
         </Row>
     );
 };

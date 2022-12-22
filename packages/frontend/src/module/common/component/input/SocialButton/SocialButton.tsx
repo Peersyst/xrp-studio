@@ -1,6 +1,7 @@
 import { Popover, Row, Typography } from "@peersyst/react-components";
 import { cx } from "@peersyst/react-utils";
 import { DiscordIcon, ShareIcon, TwitterIcon, InstagramIcon } from "icons";
+import ShareButtonPopover from "../ShareButton/ShareButtonPopover";
 import { SocialButtonRoot } from "./SocialButton.styles";
 import { SocialButtonIconsType, SocialButtonProps } from "./SocialButton.types";
 
@@ -17,7 +18,7 @@ const SocialButton = ({
     className,
     onClick,
     showOn = "hover",
-    popover,
+    optionsShare,
     ...rest
 }: SocialButtonProps): JSX.Element => {
     const icon = SocialButtonInfo[iconProps];
@@ -30,8 +31,8 @@ const SocialButton = ({
     return (
         <Popover showOn={showOn} position="top" arrow>
             <Popover.Popper>
-                {popover ? (
-                    popover
+                {optionsShare ? (
+                    <ShareButtonPopover options={optionsShare} />
                 ) : (
                     <Row css={{ padding: "0.25rem 0.35rem" }}>
                         <Typography variant="caption1">{iconProps}</Typography>

@@ -9,9 +9,6 @@ import EditProfileDrawer from "module/user/component/feedback/EditProfileDrawer/
 import SocialButtons from "module/common/component/navigation/SocialButtons/SocialButtons";
 import ChipBlockchainAddress from "module/wallet/component/display/ChipBlockchainAddress/ChipBlockchainAddress";
 import Username from "module/user/component/Username/Username";
-import ShareButtonPopover from "module/common/component/input/ShareButton/ShareButtonPopover";
-import { UserRoutes } from "module/user/UserRouter";
-import { SHARE_ITEMS } from "module/common/component/input/ShareButton/ShareButton.types";
 
 const ProfileInfo = (): JSX.Element => {
     const translate = useTranslate();
@@ -52,19 +49,7 @@ const ProfileInfo = (): JSX.Element => {
                         </Skeleton>
                     </Row>
                     <ProfileButtons gap="0.5rem">
-                        <SocialButtons
-                            userId={address}
-                            twitterId={twitter}
-                            discordId={discord}
-                            popover={
-                                <ShareButtonPopover
-                                    options={SHARE_ITEMS(
-                                        translate("checkoutMyProfile"),
-                                        window.location.origin + UserRoutes.PROFILE.replace(":address", address),
-                                    )}
-                                />
-                            }
-                        />
+                        <SocialButtons userId={address} twitterId={twitter} discordId={discord} />
                         {showEditBtn && (
                             <Button size="sm" onClick={() => showDrawer(EditProfileDrawer)} css={{ flexShrink: 0 }}>
                                 {translate("editProfile")}

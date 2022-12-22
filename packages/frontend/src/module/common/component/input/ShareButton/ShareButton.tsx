@@ -1,10 +1,12 @@
 import SocialButton from "../../input/SocialButton/SocialButton";
 import { useShare } from "./hook/useShare";
+import { useSocialShare } from "./hook/useSocialShare";
 import { ShareButtonProps } from "./ShareButton.types";
 
-export const ShareButton = ({ shareData, popover }: ShareButtonProps): JSX.Element => {
+export const ShareButton = ({ shareData, networks = [] }: ShareButtonProps): JSX.Element => {
     const { canShare, share } = useShare(shareData);
-    return <SocialButton icon="share" onClick={share} showOn={canShare ? "hover" : "click"} popover={popover} />;
+    const { getOptionsShare } = useSocialShare({ networks, shareData });
+    return <SocialButton icon="share" onClick={share} showOn={canShare ? "hover" : "click"} optionsShare={getOptionsShare()} />;
 };
 
 export default ShareButton;

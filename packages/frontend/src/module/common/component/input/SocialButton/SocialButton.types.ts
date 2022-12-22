@@ -10,4 +10,5 @@ export interface SocialButtonProps extends ButtonProps {
     link?: string;
     popover?: ReactNode;
     showOn?: "hover" | "click";
+    optionsShare?: ShareData[];
 }

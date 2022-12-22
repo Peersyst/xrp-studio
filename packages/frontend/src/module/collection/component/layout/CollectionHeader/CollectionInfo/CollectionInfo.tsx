@@ -7,8 +7,6 @@ import Button from "module/common/component/input/Button/Button";
 import { useNavigate } from "react-router-dom";
 import { CollectionRoutes } from "module/collection/CollectionRouter";
 import ShareButton from "module/common/component/input/ShareButton/ShareButton";
-import ShareButtonPopover from "module/common/component/input/ShareButton/ShareButtonPopover";
-import { SHARE_ITEMS } from "module/common/component/input/ShareButton/ShareButton.types";
 
 const CollectionInfo = (): JSX.Element => {
     const { id } = useParams<string>();
@@ -41,17 +39,7 @@ const CollectionInfo = (): JSX.Element => {
                 </Skeleton>
             </Col>
             <Row gap="0.5rem">
-                <ShareButton
-                    shareData={shareData}
-                    popover={
-                        <ShareButtonPopover
-                            options={SHARE_ITEMS(
-                                translate("checkoutMyCollection"),
-                                window.location.origin + CollectionRoutes.VIEW_COLLECTION.replace(":id", id ? String(id) : ""),
-                            )}
-                        />
-                    }
-                />
+                <ShareButton shareData={shareData} networks={["twitter"]} />
             </Row>
             <CollectionsButtons gap="0.5rem">
                 <Button size="sm" onClick={() => navigate(`${CollectionRoutes.CREATE_COLLECTION}?id=${id}`)}>
