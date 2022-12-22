@@ -6,7 +6,7 @@ export class UpdateUserRequest {
         name: "name",
         type: "string",
         required: false,
-        maxLength: 255,
+        maxLength: 32,
         example: "user",
     })
     name?: string;
@@ -43,7 +43,7 @@ export class UpdateUserRequest {
         name: "twitter",
         type: "string",
         required: false,
-        maxLength: 255,
+        maxLength: 15,
         example: "twitter",
     })
     twitter?: string;
@@ -52,7 +52,8 @@ export class UpdateUserRequest {
         name: "discord",
         type: "string",
         required: false,
-        maxLength: 255,
+        maxLength: 32,
+        minLength: 2,
         example: "discord",
     })
     discord?: string;
