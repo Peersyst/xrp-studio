@@ -11,7 +11,7 @@ describe("NftPublishActions tests", () => {
     const nftDtoMock = new NftDtoMock();
     const requestMock = new CreateNftDraftRequestMock();
     const onSuccessMock = jest.fn();
-    const onPollingEndMock = jest.fn();
+    const onPublishMock = jest.fn();
 
     let useCheckBalanceMock: UseCheckBalanceMock;
     let createNftMock: jest.SpyInstance;
@@ -30,7 +30,7 @@ describe("NftPublishActions tests", () => {
     });
 
     test("Renders correclty", async () => {
-        render(<NftPublishActions request={requestMock} onSuccess={onSuccessMock} onPollingEnd={onPollingEndMock} />);
+        render(<NftPublishActions request={requestMock} onSuccess={onSuccessMock} onPublished={onPublishMock} />);
 
         await act(() => waitFor(() => expect(useCheckBalanceMock.checkBalance).toHaveBeenCalled()));
         await act(() => waitFor(() => expect(createNftMock).toHaveBeenCalled()));

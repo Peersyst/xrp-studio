@@ -47,7 +47,7 @@ const CollectionCreationNfts = ({
                     return {
                         id: index,
                         issuer,
-                        transferFee: transferFee !== undefined ? Number(transferFee) : undefined,
+                        transferFee: transferFee !== undefined ? Number(transferFee) * 1000 : undefined,
                         flags: {
                             burnable,
                             onlyXRP,

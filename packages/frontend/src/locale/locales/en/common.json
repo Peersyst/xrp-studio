@@ -181,5 +181,7 @@
     "unnamed": "Unnamed",
     "mint": "Mint",
     "checkoutMyCollection": "Check out my XRP Studio Collection!",
-    "checkoutNft": "Check out XRP Studio Nft!"
+    "checkoutNft": "Check out XRP Studio Nft!",
+    "mintPrice": "mint price",
+    "youHaveNoDrops": "You have not launched any drops yet"
 }

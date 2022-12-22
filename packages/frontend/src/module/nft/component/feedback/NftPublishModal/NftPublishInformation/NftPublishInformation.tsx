@@ -27,10 +27,6 @@ const NftPublishInformation = ({
             content: collection,
         },
         {
-            label: translate("issuer"),
-            content: issuer,
-        },
-        {
             label: translate("transferFee"),
             content: transferFee ? transferFee + "%" : undefined,
         },
