@@ -15,6 +15,7 @@ import { config } from "config";
 import { CollectionRoutes } from "module/collection/CollectionRouter";
 import ShareButton from "module/common/component/input/ShareButton/ShareButton";
 import { NftRoutes } from "module/nft/NftRouter";
+import { SocialShareOptions } from "module/common/component/input/ShareButton/ShareButton.types";
 
 export interface UserViewNftPageSlots {
     nft: NftDto | undefined;
@@ -75,7 +76,7 @@ export default function ({ nft, loading = false }: UserViewNftPageSlots): ReactN
                         )}
                     </Label>
                     <Row gap="0.5rem">
-                        <ShareButton shareData={shareData} networks={["twitter"]} />
+                        <ShareButton shareData={shareData} networks={[SocialShareOptions.TWITTER]} />
                     </Row>
                 </BaseNftPageContentLeftSlot.Info>
             </BaseNftPageContent.Left>

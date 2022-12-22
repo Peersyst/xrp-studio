@@ -31,3 +31,7 @@ export function shareItems(text: string, url: string): ShareData[] {
         },
     ];
 }
+
+export const enum SocialShareOptions {
+    TWITTER = "twitter",
+}
