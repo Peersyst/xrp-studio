@@ -10,7 +10,7 @@
     "collectionDefaultImageUrl": "https://i.ibb.co/bPzfKZj/default-profile-img.png",
     "collectionDefaultHeaderUrl": "https://i.ibb.co/CHjP5Zm/default-header-img.png",
     "maxBioChars": 255,
-    "maxUsernameChars": 30,
+    "maxUsernameChars": 32,
     "maxTwitterUsernameChars": 15,
     "maxDiscordUsernameChars": 32,
     "minDiscordUsernameChars": 2,
