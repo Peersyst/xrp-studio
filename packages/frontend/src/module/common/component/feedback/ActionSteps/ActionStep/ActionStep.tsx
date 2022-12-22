@@ -10,7 +10,7 @@ import {
 } from "module/common/component/feedback/ActionSteps/ActionStep/ActionStep.styles";
 
 const ActionStep = ({
-    step: { title, description, execution, warning },
+    step: { title, description, execution, warning, warningMessage },
     active,
     stepNumber,
     onSuccess,
@@ -38,7 +38,7 @@ const ActionStep = ({
     }, [active]);
 
     return (
-        <Expandable open={active}>
+        <Expandable open={active || warning}>
             <Expandable.Display ExpandComponent={false}>
                 <Row gap={10} alignItems="center">
                     {!active && !state.error && !state.finished && (
@@ -47,9 +47,9 @@ const ActionStep = ({
                         </Typography>
                     )}
                     {active && !state.error && <Loader />}
-                    {active && !state.error && warning && <AlertTriangleIconRoot />}
                     {active && state.error && <AlertCircleIconRoot />}
-                    {!active && state.finished && <CheckCircleIconRoot />}
+                    {!active && state.finished && warning && <AlertTriangleIconRoot />}
+                    {!active && state.finished && !warning && <CheckCircleIconRoot />}
                     <Typography variant="body1" fontWeight={600} css={{ flex: 1 }}>
                         {title}
                     </Typography>
@@ -58,7 +58,7 @@ const ActionStep = ({
             <Expandable.Body>
                 <Expandable.Content>
                     <Typography variant="body2" color={"black.40"}>
-                        {state.error ? errorMsg : description}
+                        {state.error || warning ? (state.error ? errorMsg : warningMessage) : description}
                     </Typography>
                 </Expandable.Content>
             </Expandable.Body>

@@ -3,6 +3,7 @@ export interface Step {
     description: string;
     execution?: () => any;
     warning?: boolean;
+    warningMessage?: string;
 }
 
 export interface ActionStepProps {
