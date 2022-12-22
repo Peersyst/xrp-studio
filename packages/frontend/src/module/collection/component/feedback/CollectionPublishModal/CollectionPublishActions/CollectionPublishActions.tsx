@@ -46,7 +46,9 @@ const CollectionPublishActions = ({
             title: translate("collectionCreationSuccessStepTitle"),
             description: translate("collectionCreationSuccessStepText"),
             warning: !!failedIds.length,
-            warningMessage: ` ${translate("nftPublishesFailedText", { failedNfts: failedIds.length })}.`,
+            warningMessage: `${translate("collectionCreationSuccessStepTitle")}. ${translate("nftPublishesFailedText", {
+                failedNfts: failedIds.length,
+            })}.`,
         },
     ];
 

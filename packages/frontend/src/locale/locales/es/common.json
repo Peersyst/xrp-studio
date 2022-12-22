@@ -161,7 +161,7 @@
     "collectionCreationSuccessStepText": "Tu colección ha sido publicada correctamente!",
     "launchDropConfirmation": "Confirmación de lanzamiento del drop",
     "signaturesFailedText": "{{failedSignatures}} han fallado",
-    "nftPublishesFailedText": "{{failedNfts}} han falladao",
+    "nftPublishesFailedText": "{{failedNfts}} NFTs han fallado",
     "dropCreationSteps": "Pasos para la creación del drop",
     "dropCreationStepTitle": "Creando el drop",
     "dropCreationStepText": "Tu drop está siendo creado.",
