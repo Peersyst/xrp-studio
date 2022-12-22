@@ -9,6 +9,13 @@ describe("ActionStep", () => {
         description: "step_1_description",
         execution: jest.fn(async () => new Promise<void>((resolve) => resolve())),
     };
+    const MOCK_WARNING_STEP = {
+        title: "WARNING_STEP",
+        description: "step_warning",
+        execution: jest.fn(async () => new Promise<void>((resolve) => resolve())),
+        warning: true,
+        warningMessage: "This is a warning message",
+    };
     const ERROR__MOCK_STEP = {
         title: "ERROR_STEP",
         description: "Error_step_description",
@@ -33,5 +40,11 @@ describe("ActionStep", () => {
         expect(screen.queryByText(ERROR__MOCK_STEP.description)).toBeNull();
         expect(handleError).toHaveBeenCalled();
         expect(screen.getByText(translate("somethingWentWrong", { ns: "error" }))).toBeInTheDocument();
+    });
+
+    test("Renders correclty with warning step and not active", async () => {
+        render(<ActionStep stepNumber={1} step={MOCK_WARNING_STEP} active={false} onSuccess={jest.fn()} onError={jest.fn()} />);
+
+        expect(screen.getByText("This is a warning message")).toBeInTheDocument();
     });
 });
