@@ -27,6 +27,9 @@ declare module "@peersyst/react-components" {
         dropMinterAddress: string;
         maxBioChars: number;
         maxUsernameChars: number;
+        maxTwitterUsernameChars: number;
+        maxDiscordUsernameChars: number;
+        minDiscordUsernameChars: number;
         maxNftDescChars: number;
         maxNumberDecimals: number;
         tokenName: string;
