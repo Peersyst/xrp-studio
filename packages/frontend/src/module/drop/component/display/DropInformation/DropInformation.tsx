@@ -5,6 +5,7 @@ import { InformationField } from "module/common/component/display/InformationFie
 import CollectionInformation from "module/collection/component/display/CollectionInformation/CollectionInformation";
 import { Row } from "@peersyst/react-components";
 import { XrpIcon } from "icons";
+import { dropsToXrp } from "xrpl";
 
 const DropInformation = ({ price = "0", additionalFields = [], ...collectionInformationProps }: DropInformationProps): JSX.Element => {
     const translate = useTranslate();
@@ -16,7 +17,7 @@ const DropInformation = ({ price = "0", additionalFields = [], ...collectionInfo
             content: (
                 <Row gap="0.25rem" alignItems="center">
                     <XrpIcon />
-                    {formatNumber(price)}
+                    {formatNumber(dropsToXrp(price))}
                 </Row>
             ),
         },
