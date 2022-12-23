@@ -6,7 +6,7 @@ import { LandingPageSectionRoot } from "../LandingPage.styles";
 import { LandingPageHowWorkSectionRoot } from "./LandingPageHowWorkSection.styles";
 import { LandingPageHowWorkSectionProps } from "./LandingPageHowWorkSection.types";
 
-const LandingPageHowWorkSection = ({ items, ...rest }: LandingPageHowWorkSectionProps): JSX.Element => {
+const LandingPageHowWorkSection = ({ items, loading = false, ...rest }: LandingPageHowWorkSectionProps): JSX.Element => {
     const translate = useTranslate();
     return (
         <LandingPageHowWorkSectionRoot>
@@ -17,7 +17,7 @@ const LandingPageHowWorkSection = ({ items, ...rest }: LandingPageHowWorkSection
                 <Typography variant="h3" fontWeight={800} textAlign="center">
                     {translate("howItWorks")}
                 </Typography>
-                <HowWorkCardCarousel items={items} />
+                <HowWorkCardCarousel items={items} loading={loading} />
             </LandingPageSectionRoot>
         </LandingPageHowWorkSectionRoot>
     );

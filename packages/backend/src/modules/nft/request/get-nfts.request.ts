@@ -83,9 +83,12 @@ export class GetNftsRequest {
             filter.relations.push("collection");
             filter.qbWheres.push({ field: "collection.id", operator: FilterType.IN, value: req.collections });
         }
-        if (req.account || requesterAccount) {
+        if (requesterAccount) {
             filter.relations.push("user");
-            filter.qbWheres.push({ field: "user.address", operator: FilterType.EQUAL, value: requesterAccount || req.account });
+            filter.qbWheres.push({ field: "user.address", operator: FilterType.EQUAL, value: requesterAccount });
+        }
+        if (req.account) {
+            filter.qbWheres.push({ field: "owner_account", operator: FilterType.EQUAL, value: req.account });
         }
         if (req.query) {
             filter.qbWheres.push({ field: "metadata.name", operator: FilterType.LIKE, value: req.query });

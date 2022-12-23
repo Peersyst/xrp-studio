@@ -12,7 +12,7 @@ const ArtistCard = forwardRef(({ artist, loading = false }: WithLoading<LandingP
     const translate = useTranslate();
 
     return (
-        <ArtistCardRoot to={UserRoutes.PROFILE.replace(":address", address)}>
+        <ArtistCardRoot condition={!loading} to={UserRoutes.PROFILE.replace(":address", address)}>
             <Row gap="1rem" alignItems="center" ref={ref} css={{ minWidth: "16.5rem", maxWidth: "16.5rem" }}>
                 <Avatar img={image} alt="artist-image" loading={loading} size={"md"} />
                 <Col gap="1rem" alignItems="center">

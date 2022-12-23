@@ -21,7 +21,7 @@ const MyNftsPageContent = (): JSX.Element => {
                 end={!hasNextPage}
                 loadingNfts={isFetching}
                 nothingToShow={
-                    <NothingToShow css={{ height: "12rem" }} label={translateError("youHaveNoNfts")}>
+                    <NothingToShow label={translateError("youHaveNoNfts")}>
                         <Button onClick={() => navigate(NftRoutes.NFT_CREATION)}>{translate("createNft")}</Button>
                     </NothingToShow>
                 }

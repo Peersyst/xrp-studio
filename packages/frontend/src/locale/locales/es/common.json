@@ -178,5 +178,8 @@
     "nfts": "NFTs",
     "viewAll": "Ver todos",
     "unnamed": "Sin nombre",
-    "mint": "Mint"
+    "mint": "Mint",
+    "checkoutMyCollection": "¡Échale un ojo a mi colleccion de XRP Studio!",
+    "checkoutNft": "¡Échale un ojo a este NFT de XRP Studio!",
+    "mintPrice": "precio de mint"
 }

@@ -2,6 +2,9 @@
 export { default as google_play_store } from "./GooglePlayStore.svg";
 export { default as ios_app_store } from "./IosAppStore.svg";
 export { default as encryptoart_logo } from "./encryptoartLogo.png";
+export { default as how_it_works_create_landing } from "./how_it_works_create_landing.png";
+export { default as how_it_works_create_nft } from "./how_it_works_create_nft.png";
+export { default as how_it_works_dashboard } from "./how_it_works_dashboard.png";
 export { default as logo } from "./logo.svg";
 export { default as logo_dark } from "./logoDark.svg";
 export { default as nebula } from "./nebula.png";
