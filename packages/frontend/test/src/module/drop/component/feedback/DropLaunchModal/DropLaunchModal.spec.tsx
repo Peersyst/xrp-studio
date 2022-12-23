@@ -4,6 +4,7 @@ import { CollectionDtoMock, PaginatedNftsMock, CreateDropRequestMock, NftDtoMock
 import { render, translate } from "test-utils";
 import DropLaunchModal from "module/drop/component/feedback/DropLaunchModal/DropLaunchModal";
 import { waitFor } from "@testing-library/dom";
+import { dropsToXrp } from "xrpl";
 
 describe("DropLaunchModal", () => {
     const dropRequestMock = new CreateDropRequestMock();
@@ -31,7 +32,7 @@ describe("DropLaunchModal", () => {
         expect(screen.getByRole("heading", { name: translate("launchDropConfirmation") })).toBeInTheDocument();
         // Drop Information
         // Wait for collection request
-        await waitFor(() => expect(screen.getByText(dropRequestMock.price)).toBeInTheDocument());
+        await waitFor(() => expect(screen.getByText(dropsToXrp(dropRequestMock.price))).toBeInTheDocument());
         // Nfts
         // Wait for NFTs request
         await waitFor(() => expect(screen.getByText(paginatedNftsMock.items[0].metadata!.name!)).toBeInTheDocument());

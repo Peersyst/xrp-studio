@@ -173,7 +173,7 @@
     "dropCreationAuthorizationStepTitle": "NFT mint authorization",
     "dropCreationAuthorizationStepText": "Please, sign the authorization transaction on your XUMM wallet. With this transaction, XRP Studio will be able to mint all the NFTs",
     "dropCreationMintingStepTitle": "Drop NFTs minting",
-    "dropCreationMintingStepText": "The NFTs are being minted by XRP Studio. There are {{minted}}/{{total}} NFTs already minted.",
+    "dropCreationMintingStepText": "The NFTs are being minted by XRP Studio. There are {{minted}} NFTs already minted.",
     "dropCreationSuccessStepTitle": "Drop published successfully!",
     "dropCreationSuccessStepText": "Your drop has been published successfully!",
     "buyNft": "Buy NFT",
