@@ -1,8 +1,8 @@
 import { screen } from "@testing-library/react";
 import { InformationField } from "module/common/component/display/InformationFields/InformationFields.types";
+import { capitalize } from "@peersyst/react-utils";
 import { render } from "test-utils";
 import DropInformation from "module/drop/component/display/DropInformation/DropInformation";
-import { capitalize } from "@peersyst/react-utils";
 
 describe("DropInformation", function () {
     test("Renders correctly", () => {
