@@ -5,7 +5,7 @@ export default function (path?: string): () => void {
     const navigate = useNavigate();
 
     return () => {
-        if (path) navigate(path);
+        if (path) navigate(path, { replace: true });
         //Verify not leaving the site
         else if (!window.history?.state || window.history?.state?.idx === 0) navigate(DashboardRoutes.MAIN, { replace: true });
         else navigate(-1);

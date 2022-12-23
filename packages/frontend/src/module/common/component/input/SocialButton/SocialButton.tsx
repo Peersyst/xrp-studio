@@ -29,7 +29,7 @@ const SocialButton = ({
     );
 
     return (
-        <Popover showOn={showOn} position="top" arrow>
+        <Popover showOn={showOn} position="bottom" arrow>
             <Popover.Popper>
                 {optionsShare ? (
                     <ShareButtonPopover options={optionsShare} />
@@ -41,7 +41,7 @@ const SocialButton = ({
             </Popover.Popper>
             <Popover.Content>
                 {link ? (
-                    <a href={link} target="_blank" rel="noopener noreferrer" role="link">
+                    <a href={link} target="_blank" rel="noopener noreferrer">
                         {content}
                     </a>
                 ) : (

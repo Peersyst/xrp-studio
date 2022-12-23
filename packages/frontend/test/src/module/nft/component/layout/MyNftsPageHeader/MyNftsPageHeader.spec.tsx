@@ -1,6 +1,7 @@
 import MyNftsPageHeader from "module/nft/component/layout/MyNftsPageHeader/MyNftsPageHeader";
 import { act, render, translate, waitFor } from "test-utils";
 import * as ReactRouterDom from "react-router-dom";
+import * as recoil from "recoil";
 import userEvent from "@testing-library/user-event";
 import { CollectionRoutes } from "module/collection/CollectionRouter";
 import { NftRoutes } from "module/nft/NftRouter";
@@ -19,11 +20,16 @@ describe("Test for the MyNftsPageHeader test", () => {
     });
     test("Navigates to the create collection page", () => {
         const mockedNavigate = jest.fn();
+        const mockedResetRecoilState = jest.fn();
         jest.spyOn(ReactRouterDom, "useNavigate").mockReturnValue(mockedNavigate);
+        jest.spyOn(recoil, "useResetRecoilState").mockReturnValue(mockedResetRecoilState);
+
         const screen = render(<MyNftsPageHeader />);
         const button = screen.getByRole("button", { name: translate("createCollection") });
         userEvent.click(button);
+
         expect(mockedNavigate).toHaveBeenCalledWith(CollectionRoutes.CREATE_COLLECTION);
+        expect(mockedResetRecoilState).toHaveBeenCalled();
     });
     test("Navigates to the create nft page", () => {
         const mockedNavigate = jest.fn();

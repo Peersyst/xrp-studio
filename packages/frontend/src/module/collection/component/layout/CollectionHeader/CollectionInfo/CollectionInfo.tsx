@@ -39,8 +39,8 @@ const CollectionInfo = (): JSX.Element => {
                     </Typography>
                 </Skeleton>
             </Col>
-            <ShareButton shareData={shareData} networks={[SocialShareOptions.TWITTER]} />
             <CollectionsButtons gap="0.5rem">
+                <ShareButton shareData={shareData} networks={[SocialShareOptions.TWITTER]} />
                 <Button size="sm" onClick={() => navigate(`${CollectionRoutes.CREATE_COLLECTION}?id=${id}`)}>
                     {translate("editCollection")}
                 </Button>
