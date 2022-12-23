@@ -59,5 +59,6 @@
     "nftMinting": "NFT transaction signature failed",
     "content404": "The content you are looking for does not exist",
     "noMatchingNftsWithFilters": "No NFTs were found matching the selected filters.",
-    "youHaveNoDrops": "You have not launched any drops yet"
+    "youHaveNoDrops": "You have not launched any drops yet",
+    "noMatchingCollections": "No collections were found matching the selected filters."
 }

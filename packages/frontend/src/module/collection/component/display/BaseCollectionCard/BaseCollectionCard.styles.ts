@@ -4,11 +4,11 @@ import Avatar from "module/common/component/display/Avatar/Avatar";
 import { BaseCollectionCardSizeProps } from "./BaseCollectionCard.types";
 
 export const BaseCollectionCardRoot = styled.div<BaseCollectionCardSizeProps>(
-    ({ theme, size }) => css`
+    ({ theme, size, gridWidth }) => css`
         display: flex;
         flex-direction: column;
         position: relative;
-        width: 22.5rem;
+        width: ${gridWidth ? "100%" : "22.5rem"};
         height: ${size == "md" ? "12rem" : "18.75rem"};
         border-radius: ${theme.borderRadiusMd};
         background-color: ${theme.palette.black["85"]};

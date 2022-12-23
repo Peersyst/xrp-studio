@@ -11,6 +11,7 @@ const CollectionCard = forwardRef(
             collection: { id, header = "", image = "", items = 0, name = "" },
             loading = false,
             size = "md",
+            gridWidth,
         }: WithSkeleton<CollectionCardProps>,
         ref,
     ): JSX.Element => {
@@ -27,6 +28,7 @@ const CollectionCard = forwardRef(
                 description={translate("itemWithCount", { count: items || 0 })}
                 to={CollectionRoutes.VIEW_COLLECTION.replace(":id", id.toString())}
                 alt={alt}
+                gridWidth={gridWidth}
             />
         );
     },

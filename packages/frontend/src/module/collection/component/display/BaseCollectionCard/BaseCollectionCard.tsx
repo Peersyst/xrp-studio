@@ -8,12 +8,22 @@ import { BaseCollectionCardRoot, BaseCollectionCardCover, BaseCollectionCardFoot
 
 const BaseCollectionCard = forwardRef(
     (
-        { loading = false, size = "md", to, header = "", alt, image = "", name = "", description }: WithSkeleton<BaseCollectionCardProps>,
+        {
+            loading = false,
+            size = "md",
+            to,
+            header = "",
+            alt,
+            image = "",
+            name = "",
+            description,
+            gridWidth,
+        }: WithSkeleton<BaseCollectionCardProps>,
         ref,
     ): JSX.Element => {
         return (
             <ConditionalLink condition={!loading} to={to}>
-                <BaseCollectionCardRoot size={size} ref={(r) => setRef(ref, r)}>
+                <BaseCollectionCardRoot size={size} ref={(r) => setRef(ref, r)} gridWidth={gridWidth}>
                     <BaseCollectionCardCover
                         size={size}
                         src={header}

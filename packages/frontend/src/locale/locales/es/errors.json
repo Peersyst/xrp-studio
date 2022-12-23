@@ -59,5 +59,6 @@
     "yourSessionHasExpired": "Tu sesión ha caducado",
     "nftMinting": "Ha fallado la firma de la transacción del NFT",
     "noMatchingNftsWithFilters": "No se han encontrado NFTs que coincidan con los filtros seleccionados",
-    "youHaveNoDrops": "No has publicado ningún drop todavía"
+    "youHaveNoDrops": "No has publicado ningún drop todavía",
+    "noMatchingCollections": "No se han encontrado colecciones que coincidan con los filtros seleccionados."
 }

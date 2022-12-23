@@ -3,25 +3,24 @@ import NftCard from "../../display/NftCard/NftCard";
 import { PaginatedNftDraftDto, PaginatedNftDto } from "module/api/service";
 import { NftGridProps } from "./NftGrid.types";
 import Grid from "module/common/component/layout/Grid/Grid";
-import { useGetNftGridBreakpoints } from "./hook/useGetNftGridBreakpoints";
 import useGetNftActiveTags from "./hook/useGetNftActiveTags";
 import useGetCollectionOptions from "./hook/useGetCollectionOptions";
 import useCleanCollections from "./hook/useCleanCollections";
 import NftCollectionsSelectorGroup from "../../input/NftColletionsSelectorGroupFilter/NftCollectionsSelectorGroupFilter";
 import { GridProps } from "module/common/component/layout/Grid/Grid.types";
-import useNftNothingToShow from "module/nft/hook/useNftNothingToShow";
+import useNftNothingToShow from "module/nft/component/layout/NftGrid/hook/useNftGridConfig";
 
 function InnerNftGrid({
     loading,
     nothingToShow,
     ...rest
 }: Omit<GridProps<PaginatedNftDto | PaginatedNftDraftDto, string>, "Skeletons" | "children" | "breakpoints">): JSX.Element {
-    const breakpoints = useGetNftGridBreakpoints();
-    const { nftNothingToShow } = useNftNothingToShow({ nothingToShow });
+    const { nftNothingToShow, breakpoints, tabletBreakpoint } = useNftNothingToShow({ nothingToShow });
 
     return (
         <Grid<PaginatedNftDto | PaginatedNftDraftDto, string>
             breakpoints={breakpoints}
+            tabletBreakPoint={tabletBreakpoint}
             loading={loading}
             Skeletons={BaseCardSkeletons}
             justifyItems="stretch"
