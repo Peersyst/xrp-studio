@@ -167,7 +167,7 @@
     "collectionCreationSuccessStepTitle": "Collection published successfully!",
     "collectionCreationSuccessStepText": "Your collection has been published successfully!",
     "signaturesFailedText": "{{failedSignatures}} have failed",
-    "nftPublishesFailedText": "{{failedNfts}} have failed",
+    "nftPublishesFailedText": "{{failedNfts}} NFTs have failed",
     "dropCreationStepTitle": "Drop creation",
     "dropCreationStepText": "Your drop is being created.",
     "dropCreationAuthorizationStepTitle": "NFT mint authorization",

@@ -17,7 +17,7 @@ const CollectionContent = (): JSX.Element => {
                 callback={() => fetchNextPage({ cancelRefetch: false })}
                 end={!hasNextPage}
                 loadingNfts={isFetching}
-                nothingToShow={<NothingToShow css={{ height: "12rem" }} label={translateError("collectionDoesNotContainNfts")} />}
+                nothingToShow={<NothingToShow label={translateError("collectionDoesNotContainNfts")} />}
             />
         </PageContent>
     );

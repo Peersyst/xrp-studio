@@ -7,5 +7,6 @@ export const BasePageRoot = styled.div(
         ${theme.breakpoints.down("md")} {
             max-width: unset;
         }
+        min-height: 60vh;
     `,
 );

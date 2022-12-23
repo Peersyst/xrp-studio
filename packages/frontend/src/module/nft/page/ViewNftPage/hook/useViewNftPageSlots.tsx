@@ -13,6 +13,9 @@ import Link from "module/common/component/navigation/Link/Link";
 import UserProfileLink from "module/user/component/navigation/UserProfileLink/UserProfileLink";
 import { config } from "config";
 import { CollectionRoutes } from "module/collection/CollectionRouter";
+import ShareButton from "module/common/component/input/ShareButton/ShareButton";
+import { NftRoutes } from "module/nft/NftRouter";
+import { SocialShareOptions } from "module/common/component/input/ShareButton/ShareButton.types";
 
 export interface UserViewNftPageSlots {
     nft: NftDto | undefined;
@@ -38,6 +41,12 @@ export default function ({ nft, loading = false }: UserViewNftPageSlots): ReactN
         user = { address: "" },
     } = nft || {};
     const { burnable, onlyXRP, transferable } = parseFlags(flags);
+
+    const shareData: ShareData = {
+        title: "XRP Studio",
+        text: translate("checkoutNft"),
+        url: window.location.origin + NftRoutes.VIEW_NFT.replace(":id", nft?.id ? String(nft.id) : ""),
+    };
 
     return (
         <>
@@ -66,6 +75,9 @@ export default function ({ nft, loading = false }: UserViewNftPageSlots): ReactN
                             </Typography>
                         )}
                     </Label>
+                    <Row gap="0.5rem">
+                        <ShareButton shareData={shareData} networks={[SocialShareOptions.TWITTER]} />
+                    </Row>
                 </BaseNftPageContentLeftSlot.Info>
             </BaseNftPageContent.Left>
             <BaseNftPageContent.Right loading={loading}>
