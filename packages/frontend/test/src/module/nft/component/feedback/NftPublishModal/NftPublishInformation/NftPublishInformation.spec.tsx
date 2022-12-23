@@ -9,7 +9,7 @@ describe("NftPublishInformation", () => {
     test("Renders correctly with data", () => {
         const createNftDraftRequestMock = new CreateNftDraftRequestMock({
             issuer: "0x",
-            transferFee: 1,
+            transferFee: 1000,
             flags: undefined,
             taxon: 1,
             metadata: new CreateNftMetadataRequestMock({ name: "nft-name", image: "src-image" }),
