@@ -54,10 +54,7 @@ const NftPublishModal = createModal<NftPublishModalProps>(({ request, draftId, c
                                 draftId={draftId}
                             />
                         ),
-                        actions: [
-                            { action: "next", disabled: loading || !!error, label: translate("viewDetails") },
-                            { action: "close", label: translate("cancel") },
-                        ],
+                        actions: [{ action: "next", disabled: loading || !!error, label: translate("viewDetails") }],
                     },
                     {
                         content: error ? <NftPublishError error={error} /> : <NftPublishSuccess id={nftId} />,
