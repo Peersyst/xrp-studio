@@ -2,6 +2,7 @@ import { Inject, Injectable } from "@nestjs/common";
 import { Transaction } from "xrpl";
 import { XummService } from "@peersyst/xumm-module";
 import { IMessageEvent } from "websocket";
+import { XummPostPayloadResponse } from "xumm-sdk/dist/src/types";
 
 @Injectable()
 export class XummTransactionService {
@@ -12,7 +13,7 @@ export class XummTransactionService {
         transaction: Transaction,
         onFailed?: () => Promise<void>,
         onSuccess?: () => Promise<void>,
-    ): Promise<void> {
+    ): Promise<XummPostPayloadResponse> {
         // Create transaction and subscribe
         const subscription = await this.xummService.transactionRequestAndSubscribe(signerAddress, { ...transaction });
 
@@ -32,5 +33,6 @@ export class XummTransactionService {
                 } catch (e) {}
             }
         };
+        return subscription.created;
     }
 }

@@ -7,7 +7,7 @@ import { Row } from "@peersyst/react-components";
 import { XrpIcon } from "icons";
 import { dropsToXrp } from "xrpl";
 
-const DropInformation = ({ price = "0", additionalFields = [], ...collectionInformationProps }: DropInformationProps): JSX.Element => {
+const DropInformation = ({ price, additionalFields = [], ...collectionInformationProps }: DropInformationProps): JSX.Element => {
     const translate = useTranslate();
     const formatNumber = useFormatNumber();
 

@@ -5,6 +5,7 @@ import { DropDto, PaginatedDropDto } from "./dto/drop.dto";
 import { XummAuthenticated } from "@peersyst/xumm-module";
 import { CreateDropRequest } from "./request/create-drop.request";
 import { DropService } from "./drop.service";
+import { RequestBuyNftDto } from "./dto/requestBuyNft.dto";
 import { EnhancedQuery } from "../common/decorator/enhanced-query";
 import { GetDropsRequest } from "./request/get-drops.request";
 import { ApiGetDropsDecorator } from "./decorator/api-get-drops.decorator";
@@ -46,7 +47,7 @@ export class DropController {
     @Post("/:id/buy")
     @ApiOperation({ description: "Buys a random nft from drop that is on sale" })
     @XummAuthenticated()
-    async buy(@Param("id", ParseIntPipe) id: number, @Request() req): Promise<void> {
+    async buy(@Param("id", ParseIntPipe) id: number, @Request() req): Promise<RequestBuyNftDto> {
         return this.dropService.requestBuyNft(req.user.address, id);
     }
 }

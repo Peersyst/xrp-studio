@@ -22,6 +22,7 @@ import { getRandomNumber } from "../common/util/random";
 import { ValidatedLedgerTransaction } from "../blockchain/types";
 import { dropsToXrp, NFTokenAcceptOffer, xrpToDrops } from "xrpl";
 import { ConfigService } from "@nestjs/config";
+import { RequestBuyNftDto } from "./dto/requestBuyNft.dto";
 import { GetDropsRequest } from "./request/get-drops.request";
 
 @Injectable()
@@ -77,7 +78,7 @@ export class DropService {
         await this.xummTransactionService.sendTransactionRequest(address, transaction);
     }
 
-    async requestBuyNft(buyerAddress, dropId: number): Promise<void> {
+    async requestBuyNft(buyerAddress, dropId: number): Promise<RequestBuyNftDto> {
         const nftsInDrop = await this.nftInDropRepository
             .createQueryBuilder("nftInDrop")
             .where("nftInDrop.dropId = :dropId AND nftInDrop.status != :status AND nftInDrop.offerId IS NOT NULL", {
@@ -90,7 +91,8 @@ export class DropService {
         const nftInDrop = nftsInDrop[getRandomNumber(0, nftsInDrop.length)];
 
         const transaction = this.blockchainTransactionService.prepareAcceptOfferTransaction(buyerAddress, nftInDrop.offerId);
-        await this.xummTransactionService.sendTransactionRequest(buyerAddress, transaction);
+        const payload = await this.xummTransactionService.sendTransactionRequest(buyerAddress, transaction);
+        return { nftId: nftInDrop.nftId, xummRequestUuid: payload.uuid };
     }
 
     async publish(ownerAddress: string, createDropRequest: CreateDropRequest): Promise<DropDto> {
