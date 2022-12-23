@@ -5,7 +5,7 @@ export const $UpdateUserRequest = {
     properties: {
         name: {
             type: 'string',
-            maxLength: 255,
+            maxLength: 32,
         },
         description: {
             type: 'string',
@@ -18,11 +18,12 @@ export const $UpdateUserRequest = {
         },
         twitter: {
             type: 'string',
-            maxLength: 255,
+            maxLength: 15,
         },
         discord: {
             type: 'string',
-            maxLength: 255,
+            maxLength: 32,
+            minLength: 2,
         },
     },
 } as const;
