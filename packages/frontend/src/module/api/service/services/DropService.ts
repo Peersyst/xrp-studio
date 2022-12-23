@@ -3,8 +3,8 @@
 /* eslint-disable */
 import type { CreateDropRequest } from '../models/CreateDropRequest';
 import type { DropDto } from '../models/DropDto';
-import type { RequestBuyNftDto } from '../models/RequestBuyNftDto';
 import type { PaginatedDropDto } from '../models/PaginatedDropDto';
+import type { RequestBuyNftDto } from '../models/RequestBuyNftDto';
 
 import type { CancelablePromise } from '../core/CancelablePromise';
 import { OpenAPI } from '../core/OpenAPI';

@@ -4,11 +4,11 @@ import ActionModal from "module/common/component/feedback/ActionModal/ActionModa
 import { useNavigate } from "react-router-dom";
 import { useState } from "react";
 import { DropNftBuyModalProps } from "./DropNftBuyModal.types";
-import DropInformation from "../../display/DropInformation/DropInformation";
 import useGetDrop from "module/drop/query/useGetDrop";
 import DropNftBuyModalInformation from "./DropNftBuyModalInformation/DropNftBuyModalInformation";
 import DropNftBuyModalActions from "./DropNftBuyModalActions/DropNftBuyModalActions";
 import { NftRoutes } from "module/nft/NftRouter";
+import DropNftInformation from "module/drop/component/display/DropNftInformation/DropNftInformation";
 
 const DropNftBuyModal = createModal<DropNftBuyModalProps>(({ dropId, ...modalProps }) => {
     const translate = useTranslate();
@@ -18,6 +18,7 @@ const DropNftBuyModal = createModal<DropNftBuyModalProps>(({ dropId, ...modalPro
     const [error, setError] = useState<unknown>();
 
     const { data: drop, isLoading: dropLoading } = useGetDrop(dropId);
+    const { collection: { header = "", image = "", name = "" } = {}, price = "0" } = drop || {};
 
     const handleSuccess = (id: number) => {
         navigate(NftRoutes.VIEW_NFT.replace(":id", String(id)));
@@ -31,19 +32,19 @@ const DropNftBuyModal = createModal<DropNftBuyModalProps>(({ dropId, ...modalPro
         <ActionModal title={translate("dropBuyNftConfirmation")} closable={!loading} {...modalProps}>
             {{
                 cover: (
-                    <DropInformation
-                        header={drop?.collection?.header}
-                        image={drop?.collection?.image}
-                        name={translate("randomNameNft", { collection: drop?.collection?.name })}
+                    <DropNftInformation
+                        header={header}
+                        image={image}
+                        name={translate("randomNameNft", { collection: name })}
                         items={undefined}
-                        price={drop?.price}
+                        price={price}
                         loading={dropLoading}
-                        collection={drop?.collection?.name}
+                        collection={name}
                     />
                 ),
                 tabs: [
                     {
-                        content: <DropNftBuyModalInformation drop={drop!} collection={drop?.collection?.name} />,
+                        content: <DropNftBuyModalInformation drop={drop!} collection={name} />,
                         actions: [
                             { action: "next", label: translate("confirm") },
                             { action: "close", label: translate("cancel") },
