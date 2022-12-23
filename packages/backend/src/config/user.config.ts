@@ -1,4 +1,4 @@
-import { buildConfig, getConfigEnv } from "./util/config.utils";
+import { buildConfig } from "./util/config.utils";
 
 interface UserConfig {
     isVerified: boolean;
@@ -6,6 +6,9 @@ interface UserConfig {
 
 export default function (): UserConfig {
     return buildConfig<UserConfig>({
-        isVerified: getConfigEnv() === "staging",
+        isVerified: {
+            default: true,
+            production: false,
+        },
     });
 }
