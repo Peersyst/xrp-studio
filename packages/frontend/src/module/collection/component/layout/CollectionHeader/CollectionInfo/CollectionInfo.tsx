@@ -6,8 +6,6 @@ import useTranslate from "module/common/hook/useTranslate";
 import Button from "module/common/component/input/Button/Button";
 import { useNavigate } from "react-router-dom";
 import { CollectionRoutes } from "module/collection/CollectionRouter";
-import { useResetRecoilState } from "recoil";
-import collectionCreationState from "module/collection/state/CollectionCreationState";
 import ShareButton from "module/common/component/input/ShareButton/ShareButton";
 import { SocialShareOptions } from "module/common/component/input/ShareButton/ShareButton.types";
 
@@ -17,12 +15,6 @@ const CollectionInfo = (): JSX.Element => {
     const { data: collection, isLoading: collectionLoading } = useGetCollection(id ? Number(id) : undefined);
     const { name = "", items = 0 } = collection || {};
     const navigate = useNavigate();
-    const resetCollectionCreationState = useResetRecoilState(collectionCreationState);
-
-    const goToEditCollection = () => {
-        resetCollectionCreationState();
-        navigate(`${CollectionRoutes.CREATE_COLLECTION}?id=${id}`);
-    };
 
     const shareData: ShareData = {
         title: "XRP Studio",
@@ -49,7 +41,7 @@ const CollectionInfo = (): JSX.Element => {
             </Col>
             <CollectionsButtons gap="0.5rem">
                 <ShareButton shareData={shareData} networks={[SocialShareOptions.TWITTER]} />
-                <Button size="sm" onClick={goToEditCollection}>
+                <Button size="sm" onClick={() => navigate(`${CollectionRoutes.CREATE_COLLECTION}?id=${id}`)}>
                     {translate("editCollection")}
                 </Button>
             </CollectionsButtons>
