@@ -1,7 +1,7 @@
 import { RouteObject } from "react-router-dom";
 import { lazy } from "react";
 import LoggedInRoute from "module/wallet/component/navigation/LoggedInRoute/LoggedInRoute";
-import useCollectionCreationRoutesProxy from "module/collection/hook/useCollectionCreationRoutesProxy";
+import useCollectionCreationRoutesObserver from "module/collection/hook/useCollectionCreationRoutesObserver";
 
 export enum CollectionRoutes {
     VIEW_COLLECTION = "/collections/:id",
@@ -18,7 +18,7 @@ const EditCollectionNftDraftPage = lazy(() => import("./page/EditCollectionNftDr
 const MyCollectionsPage = lazy(() => import("./page/MyCollectionsPage"));
 
 export const useCollectionRoutes = (): RouteObject[] => {
-    useCollectionCreationRoutesProxy();
+    useCollectionCreationRoutesObserver();
 
     return [
         {
