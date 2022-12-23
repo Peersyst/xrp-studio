@@ -32,7 +32,7 @@ const NftPublishInformation = ({
         },
         {
             label: translate("transferFee"),
-            content: transferFee ? transferFee + "%" : undefined,
+            content: transferFee ? Number(transferFee / 1000) + "%" : undefined,
         },
         {
             label: capitalize(translate("flags")),
