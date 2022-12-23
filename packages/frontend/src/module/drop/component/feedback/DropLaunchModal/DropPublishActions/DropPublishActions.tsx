@@ -6,10 +6,11 @@ import { DropPublishActionsProps } from "module/drop/component/feedback/DropLaun
 import useWallet from "module/wallet/hook/useWallet";
 import useDropCreationAuthorizationStatus from "module/drop/hook/useDropCreationAuthorizationStatus";
 import useDropCreationMintingItemsStatus from "module/drop/hook/useDropCreationMintingItemsStatus";
+import { useFormatNumber } from "module/common/hook/useFormatNumber";
 
 const DropPublishActions = ({ onStart, onSuccess, onEnd, onError, request, collection }: DropPublishActionsProps): JSX.Element => {
     const translate = useTranslate();
-
+    const formatNumber = useFormatNumber();
     const { mutateAsync: create, data: data } = useCreateDrop();
     const { address } = useWallet();
 
@@ -33,7 +34,7 @@ const DropPublishActions = ({ onStart, onSuccess, onEnd, onError, request, colle
         },
         {
             title: translate("dropCreationMintingStepTitle"),
-            description: translate("dropCreationMintingStepText", { pendingNFTs: mintedNfts }),
+            description: translate("dropCreationMintingStepText", { minted: formatNumber(mintedNfts) }),
             execution: fetchMintedNfts,
         },
         {

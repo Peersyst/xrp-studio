@@ -12,10 +12,14 @@ describe("Test for MyCollectionsPageHeader", () => {
     });
     test("Navigates to the create collection page", () => {
         const mockedNavigate = jest.fn();
+
         jest.spyOn(ReactRouterDom, "useNavigate").mockReturnValue(mockedNavigate);
+
         const screen = render(<MyCollectionsPageHeader />);
+
         const button = screen.getByRole("button", { name: translate("createCollection") });
         userEvent.click(button);
+
         expect(mockedNavigate).toHaveBeenCalledWith(CollectionRoutes.CREATE_COLLECTION);
     });
 });

@@ -14,14 +14,14 @@ import { config } from "config";
 const CollectionHeader = (): JSX.Element => {
     const { id } = useParams<string>();
     const { data: collection, isLoading: collectionLoading } = useGetCollection(id ? Number(id) : undefined);
-    const { header = "", image = "", name = "" } = collection || {};
+    const { header, image, name = "" } = collection || {};
 
     return (
         <CollectionHeaderRoot image={image} stickyTitle={name}>
             <Col gap="1.5rem">
                 <CollectionCover
                     loading={collectionLoading}
-                    src={header}
+                    src={header || "."}
                     alt="collection-header"
                     fallback={config.collectionDefaultHeaderUrl}
                 />
@@ -29,7 +29,7 @@ const CollectionHeader = (): JSX.Element => {
                     <CollectionHeaderBack />
                     <CollectionAvatar
                         loading={collectionLoading}
-                        img={image}
+                        img={image || "."}
                         alt="collection-image"
                         fallback={config.collectionDefaultImageUrl}
                     />

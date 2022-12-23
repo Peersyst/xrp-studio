@@ -10,9 +10,10 @@ describe("createDropRequestFormForm", () => {
             fontColor: new Color("#FFFFFF"),
             faqs: [],
         };
+
         expect(createDropRequestFromForm(1, formData)).toEqual({
             collectionId: 1,
-            price: "1",
+            price: "1000000",
             backgroundColor: "#000000",
             fontColor: "#FFFFFF",
             videoUrl: undefined,
@@ -36,7 +37,7 @@ describe("createDropRequestFormForm", () => {
         };
         expect(createDropRequestFromForm(1, formData)).toEqual({
             collectionId: 1,
-            price: "1",
+            price: "1000000",
             backgroundColor: "#000000",
             fontColor: "#FFFFFF",
             videoUrl: "video_url",

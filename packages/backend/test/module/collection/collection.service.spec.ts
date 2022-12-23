@@ -241,7 +241,7 @@ describe("CollectionService", () => {
                 ["user"],
                 [
                     { field: "account", operator: "=", value: "rwxmBgnEtpqAMerLSLkCCLfuSisi7GAvU6" },
-                    { field: "name", operator: "LIKE", value: "xyz" },
+                    { field: "collection.name", operator: "LIKE", value: "xyz" },
                 ],
                 [{ field: "collection.updated_at", type: "ASC", nullsPosition: "NULLS LAST" }],
             );

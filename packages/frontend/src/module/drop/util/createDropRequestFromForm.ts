@@ -1,5 +1,6 @@
 import { DropCreationForm } from "module/drop/types";
 import { CreateDropRequest } from "module/api/service";
+import { xrpToDrops } from "xrpl";
 
 export default function (
     collectionId: number,
@@ -7,7 +8,7 @@ export default function (
 ): CreateDropRequest {
     return {
         collectionId,
-        price,
+        price: xrpToDrops(price),
         backgroundColor: backgroundColor.hex(),
         fontColor: fontColor.hex(),
         videoUrl: videoUrl || undefined,
