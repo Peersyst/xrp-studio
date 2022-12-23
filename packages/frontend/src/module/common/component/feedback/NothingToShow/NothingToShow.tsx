@@ -11,7 +11,15 @@ export interface NothingToShowProps {
 
 const NothingToShow = ({ className, style, label, children }: NothingToShowProps): JSX.Element => {
     return (
-        <Col className={cx("nothing-to-show", className)} style={style} flex={1} alignItems="center" justifyContent="center" gap="2rem">
+        <Col
+            className={cx("nothing-to-show", className)}
+            css={{ minHeight: "12rem" }}
+            style={style}
+            flex={1}
+            alignItems="center"
+            justifyContent="center"
+            gap="2rem"
+        >
             {label && (
                 <Typography variant="h6" fontWeight="bold" light>
                     {label}

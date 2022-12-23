@@ -19,7 +19,6 @@ describe("NftPublishInformation", () => {
 
         expect(screen.getByText("nft-name")).toBeInTheDocument();
         expect(screen.getByText(COLLECTION_NFT)).toBeInTheDocument();
-        expect(screen.getByText("0x")).toBeInTheDocument();
         expect(screen.getByText("1%")).toBeInTheDocument();
     });
     test("Renders correctly without data", () => {

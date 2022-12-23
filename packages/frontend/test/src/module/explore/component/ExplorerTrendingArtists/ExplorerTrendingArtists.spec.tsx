@@ -1,12 +1,13 @@
 import ExploreTrendingArtists from "module/explore/component/display/ExploreTrending/ExploreTrendingArtists/ExploreTrendingArtists";
 import { render, waitFor } from "test-utils";
-import { UserDtoMock } from "../../../../../__mocks__/dto";
+import { TrendsDtoMock } from "test-mocks";
 
 describe("ExplorerTrendingArtists tests", () => {
     test("Renders correctly", async () => {
-        const artists = [new UserDtoMock(), new UserDtoMock(), new UserDtoMock()];
-        const screen = render(<ExploreTrendingArtists artists={artists} />);
+        const { mock } = new TrendsDtoMock({});
 
-        await waitFor(() => expect(screen.getAllByAltText("artist-image")).toHaveLength(3));
+        render(<ExploreTrendingArtists />);
+
+        await waitFor(() => expect(mock).toHaveBeenCalled());
     });
 });

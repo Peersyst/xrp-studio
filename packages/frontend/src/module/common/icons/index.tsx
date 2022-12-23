@@ -1,4 +1,5 @@
 export { default as AlertCircleIcon } from "./AlertCircleIcon";
+export { default as AlertTriangleIcon } from "./AlertTriangleIcon";
 export { default as ArrowIcon } from "./ArrowIcon";
 export { default as CheckCircleIcon } from "./CheckCircleIcon";
 export { default as ChevronLeftIcon } from "./ChevronLeftIcon";

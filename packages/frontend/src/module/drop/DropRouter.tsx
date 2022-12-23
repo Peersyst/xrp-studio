@@ -10,6 +10,7 @@ export enum DropRoutes {
 
 const DropCreationPage = lazy(() => import("../drop/page/DropCreationPage/DropCreationPage"));
 const DropLandingPage = lazy(() => import("../drop/page/DropLandingPage/DropLandingPage"));
+const MyDropsPage = lazy(() => import("../drop/page/MyDropsPage/MyDropsPage"));
 
 export const useDropRoutes = (): RouteObject[] => {
     return [
@@ -24,6 +25,14 @@ export const useDropRoutes = (): RouteObject[] => {
         {
             path: DropRoutes.DROP,
             element: <DropLandingPage />,
+        },
+        {
+            path: DropRoutes.MY_DROPS,
+            element: (
+                <LoggedInRoute>
+                    <MyDropsPage />
+                </LoggedInRoute>
+            ),
         },
     ];
 };

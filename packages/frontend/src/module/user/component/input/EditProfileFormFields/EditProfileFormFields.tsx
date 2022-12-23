@@ -36,6 +36,7 @@ const EditProfileFormFields = (): JSX.Element => {
                         label={"Discord"}
                         name={UpdateUserFields.discord}
                         defaultValue={discord}
+                        validators={{ maxChars: config.maxDiscordUsernameChars, minChars: config.minDiscordUsernameChars }}
                     />
                     <HalfWidthTextField
                         prefix="@"
@@ -43,6 +44,7 @@ const EditProfileFormFields = (): JSX.Element => {
                         label={"Twitter"}
                         name={UpdateUserFields.twitter}
                         defaultValue={twitter}
+                        validators={{ maxChars: config.maxTwitterUsernameChars }}
                     />
                 </Row>
             </Col>
