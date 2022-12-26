@@ -22,6 +22,7 @@ enum AppErrorCode {
     NFT_ALREADY_LAUNCHED = "NFT_ALREADY_LAUNCHED",
     DROP_SOLD_OUT = "DROP_SOLD_OUT",
     USER_IS_NOT_VERIFIED = "USER_IS_NOT_VERIFIED",
+    DROP_NOT_FOUND = "DROP_NOT_FOUND",
 }
 
 export const ErrorCode = { ...AppErrorCode, ...XummErrorCode, ...StorageErrorCode };
@@ -101,5 +102,9 @@ export const ErrorBody: { [code in ErrorCodeType]: { statusCode: HttpStatus; mes
     [ErrorCode.USER_IS_NOT_VERIFIED]: {
         statusCode: HttpStatus.UNAUTHORIZED,
         message: ErrorCode.USER_IS_NOT_VERIFIED,
+    },
+    [ErrorCode.DROP_NOT_FOUND]: {
+        statusCode: HttpStatus.NOT_FOUND,
+        message: ErrorCode.DROP_NOT_FOUND,
     },
 };

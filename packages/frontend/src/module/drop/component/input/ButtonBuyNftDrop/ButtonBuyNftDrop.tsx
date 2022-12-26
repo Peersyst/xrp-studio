@@ -17,7 +17,7 @@ const ButtonBuyNftDrop = ({ disabled = false, dropId }: BuyNftDropProps): JSX.El
         isLogged
             ? showModal(DropNftBuyModal, { dropId: dropId })
             : showModal(ConnectXummModal, {
-                  onClose: () => {
+                  onSignIn: () => {
                       buyNftDrop(dropId);
                   },
               });
