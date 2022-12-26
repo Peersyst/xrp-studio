@@ -6,18 +6,24 @@ import XummAppLink from "../../navigation/XummAppLink/XummAppLink";
 import { QrCard, QrImage } from "./ConnectXummModal.styles";
 import { useEffect } from "react";
 import useConnectToXumm from "module/wallet/hook/useConnectToXumm/useConnectToXumm";
+import { ConnectXummModalProps } from "module/wallet/component/feedback/ConnectXummModal/ConnectXummModal.types";
 
-const ConnectXummModal = createModal((modalProps): JSX.Element => {
+const ConnectXummModal = createModal<ConnectXummModalProps>(({ close, onSignIn, ...rest }): JSX.Element => {
     const translate = useTranslate();
     const { hideModal } = useModal();
-    const { signIn, xummQrUrl = "", showLoading } = useConnectToXumm({ callback: modalProps.onClose });
+
+    const handleSignIn = () => {
+        onSignIn?.();
+        close();
+    };
+    const { signIn, xummQrUrl = "", showLoading } = useConnectToXumm({ callback: handleSignIn });
 
     useEffect(() => {
         signIn();
     }, []);
 
     return (
-        <Modal size="md" title={translate("scanXummQR")} subtitle={translate("scanXummQRExplanation")} {...modalProps}>
+        <Modal size="md" title={translate("scanXummQR")} subtitle={translate("scanXummQRExplanation")} {...rest}>
             <QrCard>
                 <Col alignItems="center" gap="3rem" className="qr-card-cont">
                     <QrImage alt="xumm-login" src={xummQrUrl} />

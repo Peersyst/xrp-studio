@@ -70,6 +70,7 @@ export class DropService {
 
     async findById(id: number): Promise<DropDto> {
         const drop = await this.dropRepository.findOne(id, { relations: ["collection", "collection.user", "faqs"] });
+        if (!drop) throw new BusinessException(ErrorCode.DROP_NOT_FOUND);
         return DropDto.fromEntity(drop);
     }
 

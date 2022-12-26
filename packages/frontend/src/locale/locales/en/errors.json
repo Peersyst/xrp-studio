@@ -60,5 +60,6 @@
     "content404": "The content you are looking for does not exist",
     "noMatchingNftsWithFilters": "No NFTs were found matching the selected filters.",
     "youHaveNoDrops": "You have not launched any drops yet",
-    "noMatchingCollections": "No collections were found matching the selected filters."
+    "noMatchingCollections": "No collections were found matching the selected filters.",
+    "dropNotFound": "Drop not found"
 }
