@@ -39,9 +39,11 @@ export class BlockchainService {
         // We can leave the xrp ws connected indefinitely as we are making requests every ~3 seconds, it will not timeout
         await this.ledgerQueue.empty();
         await this.xrpClient.connect();
-        const currentLedgerIndex = await this.getCurrentLedgerIndex();
-        const index = currentLedgerIndex || (await this.getFirstLedgerIndex());
-        await this.indexLedger(index);
+        if (this.configService.get<boolean>("xrp.enableIndexer")) {
+            const currentLedgerIndex = await this.getCurrentLedgerIndex();
+            const index = currentLedgerIndex || (await this.getFirstLedgerIndex());
+            await this.indexLedger(index);
+        }
     }
 
     /**
