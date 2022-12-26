@@ -7,6 +7,7 @@ interface XrpConfig {
     startingLedgerIndex: number;
     minterSecret: string;
     sellCommissionPct: number;
+    enableIndexer: boolean;
 }
 
 export default (secrets: AwsSecrets = {}): XrpConfig => {
@@ -26,6 +27,11 @@ export default (secrets: AwsSecrets = {}): XrpConfig => {
             },
             sellCommissionPct: {
                 default: 0.05,
+            },
+            enableIndexer: {
+                default: true,
+                production: true,
+                test: false,
             },
         },
         {
