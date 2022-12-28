@@ -1,6 +1,5 @@
 export * from "./collection.dto.mock";
 export * from "./collections.dto.mock";
-export * from "./drop.dto.mock";
 export * from "./nft.dto.mock";
 export * from "./nfts.dto.mock";
 export * from "./user.dto.mock";
@@ -8,5 +7,4 @@ export * from "./metadata.dto.mock";
 export * from "./metadata-attribute.dto.mock";
 export * from "./infinite-data";
 export * from "./paginated-data.mock";
-export * from "./drops.dto.mock";
 export * from "./trends.dto.mock";

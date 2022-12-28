@@ -2,7 +2,6 @@ import { Selector, Skeleton, useConfig } from "@peersyst/react-components";
 import { SkeletonComponentProps, SkeletonsProps } from "module/common/component/feedback/Skeletons/Skeletons.types";
 import BaseCard from "module/nft/component/surface/BaseCard/BaseCard";
 import CollectionCardSkeleton from "module/collection/component/feedback/CollectionCardSkeleton/CollectionCardSkeleton";
-import DropFaq from "module/drop/component/display/DropFaq/DropFaq";
 import NftsPreviewListItem from "module/nft/component/display/NftsPreviewList/NftsPreviewListItem/NftsPreviewListItem";
 import NftCardSkeleton from "module/nft/component/feedback/NftCardSkeleton/NftCardSkeleton";
 import { CollectionCardProps } from "module/collection/component/display/CollectionCard/CollectionCard.types";
@@ -46,16 +45,6 @@ export const SelectorSkeletons = ({ count }: SkeletonsProps): JSX.Element => {
                 <Skeleton loading={true} width="100%" key={key}>
                     <Selector label="Loading selector" value={0} type="switch" />
                 </Skeleton>
-            ))}
-        </>
-    );
-};
-
-export const DropFaqSkeletons = ({ count }: SkeletonsProps): JSX.Element => {
-    return (
-        <>
-            {[...Array(count)].map((_, key) => (
-                <DropFaq key={key} loading />
             ))}
         </>
     );

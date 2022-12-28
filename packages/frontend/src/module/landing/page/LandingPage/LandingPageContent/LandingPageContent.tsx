@@ -4,7 +4,7 @@ import LandingPageArtistsSection from "../LandingPageArtistsSection/LandingPageA
 import LandingPageHowWorkSection from "../LandingPageHowWorkSection/LandingPageHowWorkSection";
 import LandingPageNftsSection from "../LandingPageNftsSection/LandingPageNftsSection";
 import LandingPagePartnersSection from "../LandingPagePartnersSection/LandingPagePartnersSection";
-import { useGetTrends } from "module/explore/query/useGetTrending";
+import { useGetTrends } from "../../../query/useGetTrending";
 import { how_it_works_create_landing, how_it_works_create_nft, how_it_works_dashboard } from "images";
 
 function LandingPageContent({ ...rest }: WithLoading<LandingPageProps>): JSX.Element {

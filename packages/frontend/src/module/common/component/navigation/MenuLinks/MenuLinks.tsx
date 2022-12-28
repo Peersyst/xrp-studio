@@ -3,8 +3,6 @@ import useTranslate from "module/common/hook/useTranslate";
 import useWallet from "module/wallet/hook/useWallet";
 import { APPBAR_TABS } from "../AppBar/AppBarTabs";
 import ConditionalLink from "../ConditionalLink/ConditionalLink";
-import Link from "../Link/Link";
-import { ExploreRoutes } from "module/explore/ExploreRouter";
 import { MenuLinksProps } from "./MenuLinks.types";
 
 const MenuLinks = ({ onClick }: MenuLinksProps): JSX.Element => {
@@ -22,15 +20,7 @@ const MenuLinks = ({ onClick }: MenuLinksProps): JSX.Element => {
                     </ConditionalLink>
                 ))
             ) : (
-                <Link to={ExploreRoutes.MAIN}>
-                    <Typography
-                        variant="body1"
-                        color={location.pathname.includes(ExploreRoutes.MAIN) ? "black.0" : "black.40"}
-                        fontWeight={500}
-                    >
-                        {translate("explore")}
-                    </Typography>
-                </Link>
+                <></>
             )}
         </>
     );

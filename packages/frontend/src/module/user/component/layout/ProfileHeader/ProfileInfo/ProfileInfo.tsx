@@ -14,7 +14,7 @@ const ProfileInfo = (): JSX.Element => {
     const translate = useTranslate();
     const { data: user, isLoading } = useGetUser();
     const { address: walletAddress } = useWallet();
-    const { name = "name", address = "", description = "description", discord, twitter, verifiedArtist } = user || {};
+    const { name = "name", address = "", description = "description", discord, twitter } = user || {};
     const {
         breakpoints: {
             values: { sm },
@@ -29,14 +29,7 @@ const ProfileInfo = (): JSX.Element => {
             <Col gap="0.5rem">
                 <Row justifyContent="space-between" alignItems="center">
                     <Row flex={1} gap="1rem" alignItems="center" breakpoint={{ width: "mobile", gap: "1rem" }} css={{ overflow: "hidden" }}>
-                        <Username
-                            name={name}
-                            verified={verifiedArtist}
-                            loading={isLoading}
-                            className="profile-name"
-                            variant="h5"
-                            fontWeight={800}
-                        />
+                        <Username name={name} loading={isLoading} className="profile-name" variant="h5" fontWeight={800} />
                         <Skeleton width="280px" loading={isLoading}>
                             <ChipBlockchainAddress
                                 className="account-address"

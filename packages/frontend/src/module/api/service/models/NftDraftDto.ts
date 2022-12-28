@@ -3,7 +3,6 @@
 /* eslint-disable */
 
 import type { CollectionDto } from './CollectionDto';
-import type { DropDto } from './DropDto';
 import type { MetadataDto } from './MetadataDto';
 import type { UserDto } from './UserDto';
 
@@ -16,6 +15,5 @@ export type NftDraftDto = {
     metadata?: MetadataDto;
     user?: UserDto;
     collection?: CollectionDto;
-    drop?: DropDto;
 };
 

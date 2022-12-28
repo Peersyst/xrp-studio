@@ -9,8 +9,6 @@ import { useNftRoutes } from "module/nft/NftRouter";
 import { useLoad } from "module/common/hook/useLoad";
 import { useUserRoutes } from "module/user/UserRouter";
 import { useCollectionRoutes } from "module/collection/CollectionRouter";
-import { useDropRoutes } from "module/drop/DropRouter";
-import { useExploreRoutes } from "module/explore/ExploreRouter";
 import { useLandingRoutes } from "module/landing/LandingRouter";
 import NotFoundPage from "module/common/page/NotFoundPage/NotFoundPage";
 import LoadingLogo from "module/common/component/layout/LoadingLogo/LoadingLogo";
@@ -19,18 +17,8 @@ const Routes = () => {
     const userRoutes = useUserRoutes();
     const nftRoutes = useNftRoutes();
     const collectionRoutes = useCollectionRoutes();
-    const dropRoutes = useDropRoutes();
     const landingRoutes = useLandingRoutes();
-    const exploreRoutes = useExploreRoutes();
-    return useRoutes([
-        ...userRoutes,
-        ...nftRoutes,
-        ...collectionRoutes,
-        ...dropRoutes,
-        ...exploreRoutes,
-        ...landingRoutes,
-        { path: "*", element: <NotFoundPage /> },
-    ]);
+    return useRoutes([...userRoutes, ...nftRoutes, ...collectionRoutes, ...landingRoutes, { path: "*", element: <NotFoundPage /> }]);
 };
 
 const Router = (): JSX.Element => {

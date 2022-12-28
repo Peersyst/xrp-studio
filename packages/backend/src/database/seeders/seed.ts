@@ -3,12 +3,11 @@ import { createConnection, Connection, EntityTarget } from "typeorm";
 import { TypeORMSeederAdapter } from "./adapter";
 import { User } from "../entities/User";
 import { getTypeORMConfig } from "../../config/typeorm.config";
-import { collections, drops, nftMetadata, nftMetadataAttributes, nfts, users } from "./seeders-data";
+import { collections, nftMetadata, nftMetadataAttributes, nfts, users } from "./seeders-data";
 import { Collection } from "../entities/Collection";
 import { Nft } from "../entities/Nft";
 import { NftMetadata } from "../entities/NftMetadata";
 import { NftMetadataAttribute } from "../entities/NftMetadataAttribute";
-import { Drop } from "../entities/Drop";
 import { ConfigEnvType, getConfigEnv } from "../../config/util/config.utils";
 
 export interface SeederAdapterI {
@@ -62,7 +61,6 @@ export class Seeder {
     }
 
     async deleteAll(): Promise<void> {
-        await this.adapter.delete(Drop);
         await this.adapter.delete(NftMetadataAttribute);
         await this.adapter.delete(NftMetadata);
         await this.adapter.delete(Nft);
@@ -76,7 +74,6 @@ export class Seeder {
         await this.adapter.insert(Nft, nfts(this.environment) as Nft[]);
         await this.adapter.insert(NftMetadata, nftMetadata(this.environment) as NftMetadata[]);
         await this.adapter.insert(NftMetadataAttribute, nftMetadataAttributes(this.environment) as NftMetadataAttribute[]);
-        await this.adapter.insert(Drop, drops(this.environment) as Drop[]);
     }
 }
 

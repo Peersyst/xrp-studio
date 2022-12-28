@@ -1,7 +1,6 @@
 import styled, { css } from "styled-components";
 import { Row } from "@peersyst/react-components";
 import { UsernameRootProps } from "./Username.types";
-import { VerifiedIcon as BaseVerifiedIcon } from "icons";
 
 export const UsernameRoot = styled(Row).attrs({ alignItems: "center" })<UsernameRootProps>(({ variant, theme }) => {
     const style = theme.typography[variant !== "inherit" ? variant : "body1"].style;
@@ -17,10 +16,3 @@ export const UsernameRoot = styled(Row).attrs({ alignItems: "center" })<Username
         }
     `;
 });
-
-export const VerifiedIcon = styled(BaseVerifiedIcon)(
-    ({ theme }) => css`
-        color: ${theme.palette.primary};
-        flex-shrink: 0;
-    `,
-);

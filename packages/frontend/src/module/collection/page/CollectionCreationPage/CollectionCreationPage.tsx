@@ -16,7 +16,6 @@ import CollectionPublishModal from "module/collection/component/feedback/Collect
 import { useResetRecoilState } from "recoil";
 import collectionCreationState from "module/collection/state/CollectionCreationState";
 import useCollectionCreationState from "module/collection/hook/useCollectionCreationState";
-import { DropRoutes } from "module/drop/DropRouter";
 
 const CollectionCreationPage = (): JSX.Element => {
     const translate = useTranslate();
@@ -72,27 +71,19 @@ const CollectionCreationPage = (): JSX.Element => {
                     collection: createCollectionRequestFromForm("update", data),
                 });
                 showToast(translate("collectionUpdated"), { type: "success" });
-                if (action === "launch") {
-                    navigate(DropRoutes.DROP_CREATION + "?id=" + collection.id);
-                } else {
-                    resetCollectionCreationState();
-                    navigate(CollectionRoutes.MY_COLLECTIONS, { replace: true });
-                }
+                resetCollectionCreationState();
+                navigate(CollectionRoutes.MY_COLLECTIONS, { replace: true });
             }
         } else {
             if (action === "publish") {
                 showModal(CollectionPublishModal, { request: createCollectionRequestFromForm("create", data) });
             } else {
-                const collectionData = await createCollection({
+                await createCollection({
                     collection: createCollectionRequestFromForm("create", data),
                 });
                 showToast(translate("collectionCreated"), { type: "success" });
-                if (action === "launch") {
-                    navigate(DropRoutes.DROP_CREATION + "?id=" + collectionData.id);
-                } else {
-                    resetCollectionCreationState();
-                    navigate(CollectionRoutes.MY_COLLECTIONS, { replace: true });
-                }
+                resetCollectionCreationState();
+                navigate(CollectionRoutes.MY_COLLECTIONS, { replace: true });
             }
         }
     };

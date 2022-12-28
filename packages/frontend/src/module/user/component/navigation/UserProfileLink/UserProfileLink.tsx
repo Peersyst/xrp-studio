@@ -15,7 +15,7 @@ export interface UserProfileLinkProps {
 }
 
 const UserProfileLink = ({
-    user: { image, address, name, verifiedArtist },
+    user: { image, address, name },
     variant = "body1",
     fontWeight = 600,
     ...rest
@@ -26,7 +26,7 @@ const UserProfileLink = ({
                 <Avatar img={image} alt={`${name || "user"}-image`} size="sm" />
                 <span css={{ overflow: "hidden" }}>
                     {name ? (
-                        <Username name={name} verified={verifiedArtist} variant={variant} fontWeight={fontWeight} />
+                        <Username name={name} variant={variant} fontWeight={fontWeight} />
                     ) : (
                         <Hash hash={address} variant={variant} fontWeight={fontWeight} copy={false} />
                     )}

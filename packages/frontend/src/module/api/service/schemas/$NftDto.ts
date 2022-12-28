@@ -41,8 +41,5 @@ export const $NftDto = {
         collection: {
             type: 'CollectionDto',
         },
-        drop: {
-            type: 'DropDto',
-        },
     },
 } as const;
