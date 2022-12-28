@@ -1,42 +1,25 @@
-import { buildConfig, ConfigValidators } from "./util/config.utils";
-import { AwsSecrets } from "./util/loadAwsSecrets";
-import { validXrpSecret } from "./util/config.validator";
+import { buildConfig } from "./util/config.utils";
 
 interface XrpConfig {
     node: string;
     startingLedgerIndex: number;
-    minterSecret: string;
-    sellCommissionPct: number;
     enableIndexer: boolean;
 }
 
-export default (secrets: AwsSecrets = {}): XrpConfig => {
-    return buildConfig<XrpConfig>(
-        {
-            node: {
-                default: "wss://s.altnet.rippletest.net/",
-                production: "wss://xrplcluster.com",
-            },
-            startingLedgerIndex: {
-                default: 33492597,
-                production: 75443457,
-            },
-            minterSecret: {
-                production: process.env.XRP_MINTER_SECRET || secrets.XRP_MINTER_SECRET,
-                default: "sEdVhyVVQL8YadiVVrizbUhbtoN8CCJ",
-            },
-            sellCommissionPct: {
-                default: 0.05,
-            },
-            enableIndexer: {
-                default: true,
-                production: true,
-                test: false,
-            },
+export default (): XrpConfig => {
+    return buildConfig<XrpConfig>({
+        node: {
+            default: "wss://s.altnet.rippletest.net/",
+            production: "wss://xrplcluster.com",
         },
-        {
-            minterSecret: validXrpSecret,
-            sellCommissionPct: (value: number) => value < 1 && value >= 0,
-        } as ConfigValidators<XrpConfig>,
-    );
+        startingLedgerIndex: {
+            default: 33492597,
+            production: 75443457,
+        },
+        enableIndexer: {
+            default: true,
+            production: true,
+            test: false,
+        },
+    });
 };

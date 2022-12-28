@@ -14,7 +14,7 @@ export function getTypeORMConfig(secrets: AwsSecrets = {}): ConnectionOptions {
     return buildConfig<ConnectionOptions>(
         {
             host: {
-                default: process.env.DB_HOST || secrets.DB_HOST || "db",
+                default: process.env.DB_HOST || secrets.DB_HOST || "localhost",
                 development: "localhost",
             },
             port: {

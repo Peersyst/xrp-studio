@@ -8,20 +8,9 @@ export class UserDto {
     header?: string;
     twitter?: string;
     discord?: string;
-    verifiedArtist?: boolean;
     nftsCount?: number;
 
-    static fromEntity({
-        address,
-        verifiedArtist,
-        name,
-        description,
-        image,
-        header,
-        twitter,
-        discord,
-        nftsCount,
-    }: User & { nftsCount?: number }): UserDto {
+    static fromEntity({ address, name, description, image, header, twitter, discord, nftsCount }: User & { nftsCount?: number }): UserDto {
         return {
             address,
             name,
@@ -30,7 +19,6 @@ export class UserDto {
             header,
             twitter,
             discord,
-            verifiedArtist,
             nftsCount,
         };
     }

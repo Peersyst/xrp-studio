@@ -25,7 +25,6 @@ export class UserService {
             address,
             image: this.configService.get<string>("defaultImages.profile"),
             header: this.configService.get<string>("defaultImages.header"),
-            verifiedArtist: this.configService.get<boolean>("user.isVerified"),
         });
     }
 

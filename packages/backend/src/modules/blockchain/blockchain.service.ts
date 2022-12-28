@@ -1,14 +1,13 @@
-import { forwardRef, Inject, Injectable, Logger } from "@nestjs/common";
+import { Injectable } from "@nestjs/common";
 import { InjectRepository } from "@nestjs/typeorm";
 import { LastIndexedLedger } from "../../database/entities/LastIndexedLedger";
 import { Repository } from "typeorm";
 import { InjectQueue } from "@nestjs/bull";
 import { Queue } from "bull";
-import { Client, Wallet } from "xrpl";
+import { Client } from "xrpl";
 import { ConfigService } from "@nestjs/config";
 import { LedgerResponse } from "xrpl/dist/npm/models/methods";
 import { ValidatedLedgerTransaction } from "./types";
-import { OfferService } from "../offer/offer.service";
 
 /**
  * Service in charge of all blockchain related stuff
@@ -17,19 +16,15 @@ import { OfferService } from "../offer/offer.service";
 export class BlockchainService {
     private readonly xrpClient: Client;
     public readonly mintingAddress: string;
-    private readonly logger = new Logger(BlockchainService.name);
 
     constructor(
         @InjectRepository(LastIndexedLedger) private readonly lastIndexedLedgerRepository: Repository<LastIndexedLedger>,
         @InjectQueue("ledger") private readonly ledgerQueue: Queue,
         @InjectQueue("transactions") private readonly transactionsQueue: Queue,
-        @InjectQueue("drop") private readonly dropQueue: Queue,
         private readonly configService: ConfigService,
-        @Inject(forwardRef(() => OfferService)) private readonly offerService: OfferService,
     ) {
         const xrpNode = this.configService.get<string>("xrp.node");
         this.xrpClient = new Client(xrpNode);
-        this.mintingAddress = Wallet.fromSecret(this.configService.get("xrp.minterSecret")).address;
     }
 
     /**
@@ -124,27 +119,6 @@ export class BlockchainService {
                 },
             );
             await job.finished();
-        } else if (transaction.TransactionType === "NFTokenAcceptOffer") {
-            const job = await this.dropQueue.add(
-                "process-accept-offer-transaction",
-                { transaction },
-                {
-                    attempts: 3,
-                    backoff: 60000,
-                },
-            );
-            await job.finished();
-            await this.offerService.processAcceptOfferTransaction(transaction);
-        } else if (transaction.TransactionType === "NFTokenCreateOffer") {
-            await this.offerService.processCreateOfferTransaction(transaction);
         }
-    }
-
-    async isAccountAuthorized(account: string): Promise<boolean> {
-        const res = await this.xrpClient.request({
-            command: "account_info",
-            account: account,
-        });
-        return res.result.account_data["NFTokenMinter"] === this.mintingAddress;
     }
 }

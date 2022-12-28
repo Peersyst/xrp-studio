@@ -11,18 +11,13 @@ import NFTokenMintTransactionMock from "../__mock__/nftokenmint-transaction.mock
 import XrplClientMock from "../__mock__/xrpl-client.mock";
 import PaymentTransactionMock from "../__mock__/payment-transaction.mock";
 import LastIndexedLedgerRepositoryMock, { LastIndexedLedgerMockEntity } from "../__mock__/last-indexed-ledger.repository.mock";
-import DropConsumerMock from "../__mock__/drop.consumer.mock";
-import { OfferService } from "../../../src/modules/offer/offer.service";
-import OfferServiceMock from "../__mock__/offer.service.mock";
 
 describe("BlockchainService", () => {
     let blockchainService: BlockchainService;
     const xrpClientMock = new XrplClientMock();
     const ledgerConsumerMock = new LedgerConsumerMock();
     const transactionsConsumerMock = new TransactionsConsumerMock();
-    const dropConsumerMock = new DropConsumerMock();
     const configServiceMock = new ConfigServiceMock();
-    const offerServiceMock = new OfferServiceMock();
     const lastIndexedLedgerRepositoryMock = new LastIndexedLedgerRepositoryMock();
 
     beforeEach(async () => {
@@ -41,16 +36,8 @@ describe("BlockchainService", () => {
                     useValue: transactionsConsumerMock,
                 },
                 {
-                    provide: "BullQueue_drop",
-                    useValue: dropConsumerMock,
-                },
-                {
                     provide: ConfigService,
                     useValue: configServiceMock,
-                },
-                {
-                    provide: OfferService,
-                    useValue: offerServiceMock,
                 },
                 BlockchainService,
             ],

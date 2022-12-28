@@ -19,10 +19,8 @@ import { IpfsModule } from "@peersyst/ipfs-module/src/ipfs.module";
 import { FileModule } from "./modules/file/file.module";
 import { StorageModule, StorageType } from "@peersyst/storage-module/src/storage.module";
 import { waitForAwsSecrets } from "./config/util/loadAwsSecrets";
-import { DropModule } from "./modules/drop/drop.module";
 import { XummTransactionModule } from "./modules/xumm/xumm-transaction.module";
 import { TrendModule } from "./modules/trend/trend.module";
-import { OfferModule } from "./modules/offer/offer.module";
 
 @Module({
     imports: [
@@ -67,9 +65,7 @@ import { OfferModule } from "./modules/offer/offer.module";
         BlockchainModule,
         NftModule,
         CollectionModule,
-        DropModule,
         FileModule,
-        OfferModule,
         XummTransactionModule,
         TrendModule,
         BullModule.forRootAsync({

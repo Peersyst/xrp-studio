@@ -5,14 +5,12 @@ import {
     JoinColumn,
     ManyToOne,
     OneToMany,
-    OneToOne,
     PrimaryGeneratedColumn,
     Unique,
     UpdateDateColumn,
 } from "typeorm";
 import { User } from "./User";
 import { Nft } from "./Nft";
-import { Drop } from "./Drop";
 
 @Entity("collection")
 @Unique(["taxon", "user"])
@@ -46,9 +44,6 @@ export class Collection {
 
     @Column({ type: "int", nullable: true })
     priority?: number;
-
-    @OneToOne(() => Drop, (drop) => drop.collection)
-    drop?: Drop;
 
     @ManyToOne(() => User, (user) => user.collections)
     @JoinColumn({ name: "account" })

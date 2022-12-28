@@ -1,19 +1,7 @@
-import {
-    Column,
-    CreateDateColumn,
-    Entity,
-    JoinColumn,
-    ManyToOne,
-    OneToMany,
-    OneToOne,
-    PrimaryGeneratedColumn,
-    UpdateDateColumn,
-} from "typeorm";
+import { Column, CreateDateColumn, Entity, JoinColumn, ManyToOne, OneToOne, PrimaryGeneratedColumn, UpdateDateColumn } from "typeorm";
 import { User } from "./User";
 import { NftMetadata } from "./NftMetadata";
 import { Collection } from "./Collection";
-import { NftInDrop } from "./NftInDrop";
-import { Offer } from "./Offer";
 
 export enum NftStatus {
     DRAFT = "draft",
@@ -66,9 +54,6 @@ export class Nft {
     @JoinColumn({ name: "owner_account" })
     ownerUser: User;
 
-    @OneToMany(() => Offer, (offer) => offer.nft, { cascade: ["insert"] })
-    offers: Offer[];
-
     @Column({ type: "int", name: "collection_id", nullable: true })
     collectionId?: number;
 
@@ -78,9 +63,6 @@ export class Nft {
 
     @OneToOne(() => NftMetadata, (metadata) => metadata.nft, { cascade: true })
     metadata?: NftMetadata;
-
-    @OneToOne(() => NftInDrop, (nftInDrop) => nftInDrop.nft)
-    nftInDrop?: NftInDrop;
 
     @CreateDateColumn({ name: "created_at", type: "timestamp" })
     createdAt: Date;

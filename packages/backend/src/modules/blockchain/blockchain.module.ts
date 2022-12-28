@@ -7,21 +7,16 @@ import { LedgerConsumer } from "./queue/ledger.consumer";
 import { TransactionsConsumer } from "./queue/transactions.consumer";
 import { NftModule } from "../nft/nft.module";
 import { BlockchainTransactionService } from "./blockchain-transaction.service";
-import { TransactionStatusConsumer } from "./queue/transaction-status.consumer";
-import { OfferModule } from "../offer/offer.module";
 
 @Module({
     imports: [
-        forwardRef(() => OfferModule),
         TypeOrmModule.forFeature([LastIndexedLedger]),
         BullModule.registerQueue({ name: "ledger" }),
         BullModule.registerQueue({ name: "transactions" }),
-        BullModule.registerQueue({ name: "transaction-status" }),
-        BullModule.registerQueue({ name: "drop" }),
         forwardRef(() => NftModule),
     ],
     controllers: [],
-    providers: [BlockchainService, BlockchainTransactionService, LedgerConsumer, TransactionsConsumer, TransactionStatusConsumer],
+    providers: [BlockchainService, BlockchainTransactionService, LedgerConsumer, TransactionsConsumer],
     exports: [BlockchainService, BlockchainTransactionService],
 })
 export class BlockchainModule {}
