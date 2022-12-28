@@ -23,7 +23,7 @@ describe("DropLanding", () => {
         // Faqs section
         expect(screen.getByText(translate("FAQs")));
         // Social Media Section
-        expect(screen.getByText(translate("jounOurCommunity")));
+        expect(screen.getByText(translate("joinOurCommunity")));
     });
 
     test("Renders correctly without optional properties", () => {
@@ -48,7 +48,7 @@ describe("DropLanding", () => {
         // Not show Faqs
         expect(screen.queryByText("FAQs")).not.toBeInTheDocument();
         // Social Media Section
-        expect(screen.getByText(translate("jounOurCommunity")));
+        expect(screen.getByText(translate("joinOurCommunity")));
         // Social Network Twitter Show
         expect(screen.getByTestId("TwitterIcon")).toBeInTheDocument();
         // Social Network not show Intagram

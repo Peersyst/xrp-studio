@@ -14,7 +14,7 @@ const DropLandingSocialMediaSection = ({
         <DropLandingFooterSectionRoot as={Col} gap="1.5rem" alignItems="center" {...rest}>
             <Skeleton loading={loading}>
                 <Typography variant="body2" textAlign="center">
-                    {translate("jounOurCommunity")}
+                    {translate("joinOurCommunity")}
                 </Typography>
             </Skeleton>
             <Skeleton width="19rem" height="3.25rem" loading={loading}>

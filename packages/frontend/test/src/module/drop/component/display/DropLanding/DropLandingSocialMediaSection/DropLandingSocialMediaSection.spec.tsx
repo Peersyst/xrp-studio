@@ -12,7 +12,7 @@ describe("Drop Landing Social Media Section", () => {
         );
 
         // Text
-        expect(screen.getByText(translate("jounOurCommunity"))).toBeInTheDocument();
+        expect(screen.getByText(translate("joinOurCommunity"))).toBeInTheDocument();
         // Social Network show test
         expect(screen.getByTestId("DiscordIcon")).toBeInTheDocument();
         expect(screen.getByTestId("TwitterIcon")).toBeInTheDocument();
