@@ -4,4 +4,4 @@ coverage
 package-lock.json
 yarn.lock
 openapi-spec.json
-backend/src/database/migrations
+src/database/migrations

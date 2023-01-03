@@ -112,9 +112,9 @@
     "publishNftSuccessStepDescription": "Tu NFT ha sido publicado correctamente!",
     "tokenId": "Token ID",
     "transferFeeCost": "Coste de transferencia",
-    "theNfts": "The NFTs",
+    "theNfts": "NFTs",
     "createAndManageNft": "Crea y administra tus NFTs",
-    "landingHeaderDescription": "Unleash the digital artist inside you. Create NFTs from your digital artwork. Manage and launch them without needing to know the tricky side of the crypto world",
+    "landingHeaderDescription": "Saca el artista digital que hay dentro de ti. Crea Nfts desde tu arte digital. Administra y lanza tus colecciones sin necesidad de conocer el lado complejo del mundo crypto.",
     "startCreatingNow": "Comienza ahora",
     "back": "Volver",
     "next": "Siguiente",
@@ -156,5 +156,11 @@
     "viewAll": "Ver todos",
     "unnamed": "Sin nombre",
     "checkoutMyCollection": "¡Échale un ojo a mi colleccion de XRP Studio!",
-    "checkoutNft": "¡Échale un ojo a este NFT de XRP Studio!"
+    "checkoutNft": "¡Échale un ojo a este NFT de XRP Studio!",
+    "howItWorksSlide1Title": "Crea NFTs y administra tu galería digital",
+    "howItWorksSlide1Description": "Crea colecciones y NFTs fácilmente sin ningún conocimiento sobre XRPL. Pudes guardar tus obras como esbozos sin costes y trabajar en tus coleccions hasta que esten listas!",
+    "howItWorksSlide2Title": "Crea páginas de aterrizaje increíbles para tus lanzamientos",
+    "howItWorksSlide2Description": "Puedes personalizar tus temas, secciones y disposiciones con la herramienta visual para ofrecer la mejor experiencia. Tu propia página de aterrizaje, tus propias colecciones.",
+    "howItWorksSlide3Title": "Controla el imacto generado por tus NFTs",
+    "howItWorksSlide3Description": "Una vez tus colecciones se publican y lanzan, puedes controlar el impacto que tu arte genera cada día. Descubre hasta donde puedes llegar!"
 }
