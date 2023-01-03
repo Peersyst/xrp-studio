@@ -7,6 +7,5 @@
         "nft": "https://testnet.xrpl.org/nft/"
     },
     "network": "devnet",
-    "xrpNodeUrl": "wss://s.altnet.rippletest.net",
-    "dropMinterAddress": "rQ92R9TengnnAennt6bFubFbeWh2B2mNta"
+    "xrpNodeUrl": "wss://s.altnet.rippletest.net"
 }

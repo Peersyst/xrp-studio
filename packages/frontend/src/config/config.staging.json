@@ -2,11 +2,10 @@
     "publicUrl": "/",
     "backendUrl": "",
     "blockchainLinks": {
-        "address": "https://testnet.xrpl.org/accounts/",
-        "tx": "https:/testnet.xrpl.org/transactions/",
-        "nft": "https://testnet.xrpl.org/nft/"
+        "address": "https://livenet.xrpl.org/accounts/",
+        "tx": "https:/livenet.xrpl.org/transactions/",
+        "nft": "https://livenet.xrpl.org/nft/"
     },
-    "network": "testnet",
-    "xrpNodeUrl": "wss://s.altnet.rippletest.net",
-    "dropMinterAddress": "rQ92R9TengnnAennt6bFubFbeWh2B2mNta"
+    "network": "mainnet",
+    "xrpNodeUrl": "wss://xrplcluster.com/"
 }
