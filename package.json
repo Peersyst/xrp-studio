@@ -1,22 +1,22 @@
 {
     "name": "xrp-studio",
     "private": true,
+    "license": "UNLICENSED",
     "scripts": {
         "start": "yarn docker:start:dev && lerna run start --stream",
-        "start:e2e": "yarn docker:clean:e2e && yarn docker:start:e2e && lerna run --scope xrp-studio-backend db:pack && lerna run start:e2e --stream",
         "bootstrap": "lerna bootstrap",
         "build": "lerna run build --stream",
         "clean": "lerna clean",
         "docker:start:dev": "docker-compose up -d",
-        "docker:start:e2e": "docker-compose -f ./docker-compose-e2e.yml --env-file .env up -d"
+        "generate:files:integrity": "sh -c 'find . -type f -not -path \"./integrity/*\" -and -not -path \"./node_modules/*\" -and -not -path \"./**/node_modules/*\" -and -not -path \"./.git/*\" -and -not -path \"./coverage/*\" -and -not -path \"./**/coverage/*\" -and -not -path \"./.idea/*\" -and -not -path \"./nyc_output/*\" -and -not -path \"./docker/*\" -and -not -path \"./**/dist/*\" -and -not -path \"./**/build/*\" -and -not -path \"./.env\" -and -not -path \"./.env.e2e\" -and -not -path \"./**/.env\" -and -not -path \"./**/.env.e2e\" -and -not -path \"./infra/*\" -and -not -path \".github/*\" -and -not -name \".DS_Store\" -exec sha256sum {} \\; > ${0}'",
+        "generate:project:integrity": "sh -c 'find . -type f -path ${0} -exec sha256sum {} \\; > ${1}'",
+        "generate:integrity": "node ./integrity/generate-integrity.js",
+        "check:integrity": "node ./integrity/check-integrity.js",
+        "read:integrity": "node ./integrity/read-integrity.js"
     },
     "devDependencies": {
-        "@cypress/code-coverage": "^3.10.0",
-        "cypress": "^10.9.0",
-        "cypress-react-selector": "^3.0.0",
         "lerna": "5.1.6",
         "rimraf": "^3.0.2",
-        "start-server-and-test": "^1.14.0",
         "typescript": "^4.5.5"
     },
     "dependencies": {}

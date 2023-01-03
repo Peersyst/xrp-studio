@@ -2,6 +2,7 @@
     "name": "xrp-studio-frontend",
     "version": "0.1.0",
     "private": true,
+    "license": "UNLICENSED",
     "scripts": {
         "prebuild": "rimraf build",
         "start": "npm run generate && craco start",

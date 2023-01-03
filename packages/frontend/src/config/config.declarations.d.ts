@@ -24,7 +24,6 @@ declare module "@peersyst/react-components" {
         collectionDefaultHeaderUrl: string;
         network: NetworkType;
         xrpNodeUrl: string;
-        dropMinterAddress: string;
         maxBioChars: number;
         maxUsernameChars: number;
         maxTwitterUsernameChars: number;

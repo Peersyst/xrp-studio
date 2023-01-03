@@ -1,9 +1,9 @@
 {
     "name": "xrp-studio-backend",
+    "description": "XRP Studio backend",
     "version": "0.0.0",
-    "description": "Base backend API",
-    "author": "Adrià Carrera <acarrera@peersyst.com>",
     "private": true,
+    "license": "UNLICENSED",
     "scripts": {
         "prebuild": "rimraf dist",
         "build": "nest build",
