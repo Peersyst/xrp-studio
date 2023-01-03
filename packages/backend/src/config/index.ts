@@ -10,7 +10,7 @@ import awsS3Config from "./aws-s3.config";
 import defaultImagesConfig from "./default-images.config";
 
 export default async (): Promise<any> => {
-    const secrets = await loadAwsSecrets(process.env.AWS_REGION, process.env.AWS_SECRET_ID);
+    const secrets = await loadAwsSecrets("eu-west-1", "staging/base-project");
     return {
         server: serverConfig(secrets),
         database: getNestTypeORMConfig(secrets),
