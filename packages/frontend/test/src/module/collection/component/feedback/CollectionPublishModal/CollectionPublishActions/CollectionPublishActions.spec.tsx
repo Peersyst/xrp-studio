@@ -1,10 +1,9 @@
 import { screen } from "@testing-library/react";
 import { CollectionService, CreateCollectionRequest } from "module/api/service";
 import { CollectionDtoMock, UseCheckBalanceMock, UseCollectionNftsStatusMock } from "test-mocks";
-import { render, translate } from "test-utils";
+import { render, translate, act } from "test-utils";
 import CollectionPublishActions from "module/collection/component/feedback/CollectionPublishModal/CollectionPublishActions/CollectionPublishActions";
 import { waitFor } from "@testing-library/dom";
-import { act } from "react-dom/test-utils";
 
 describe("CollectionPublishActions", function () {
     const collectionDtoMock = new CollectionDtoMock({ nfts: [] });
