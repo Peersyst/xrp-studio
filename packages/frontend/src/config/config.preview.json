@@ -1,12 +1,12 @@
 {
     "publicUrl": "/",
-    "backendUrl": "",
+    "backendUrl": "https://xrp-studio.peersyst.tech/",
     "blockchainLinks": {
         "address": "https://testnet.xrpl.org/accounts/",
         "tx": "https:/testnet.xrpl.org/transactions/",
         "nft": "https://testnet.xrpl.org/nft/"
     },
-    "network": "devnet",
+    "network": "testnet",
     "xrpNodeUrl": "wss://s.altnet.rippletest.net",
     "dropMinterAddress": "rQ92R9TengnnAennt6bFubFbeWh2B2mNta"
 }
