@@ -1,6 +1,6 @@
 {
     "publicUrl": "/",
-    "backendUrl": "",
+    "backendUrl": "https://xrp-studio.peersyst.tech",
     "blockchainLinks": {
         "address": "https://testnet.xrpl.org/accounts/",
         "tx": "https:/testnet.xrpl.org/transactions/",
