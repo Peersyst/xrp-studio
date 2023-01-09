@@ -17,14 +17,14 @@ const MenuLinks = ({ onClick }: MenuLinksProps): JSX.Element => {
         <MenuLinksRoot>
             {isLogged ? (
                 APPBAR_TABS.map((item) => (
-                    <Link key={item.label} to={item.path} onClick={onClick ? () => onClick() : undefined}>
+                    <Link type="router" key={item.label} to={item.path} onClick={onClick ? () => onClick() : undefined}>
                         <Typography variant="body1" color={location.pathname.includes(item.path) ? "black.0" : "black.40"} fontWeight={500}>
                             {translate(item.label)}
                         </Typography>
                     </Link>
                 ))
             ) : (
-                <Link to={ExploreRoutes.MAIN}>
+                <Link type="router" to={ExploreRoutes.MAIN}>
                     <Typography
                         variant="body1"
                         color={location.pathname.includes(ExploreRoutes.MAIN) ? "black.0" : "black.40"}
