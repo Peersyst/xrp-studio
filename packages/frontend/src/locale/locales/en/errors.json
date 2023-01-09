@@ -35,7 +35,7 @@
     "nftDraftNotOwned": "NFT draft not owned",
     "nftDraftAlreadyPublished": "NFT draft is already published",
     "badDraftStatusRequest": "Invalid draft status request",
-    "useNotFound": "User not found",
+    "userNotFound": "User not found",
     "collectionTaxonAlreadyExists": "That collection taxon already exists",
     "noMoreTaxonsAvailable": "There are no more taxons available",
     "collectionNotOwned": "Collection not owned",
