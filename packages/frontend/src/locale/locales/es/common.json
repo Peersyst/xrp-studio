@@ -195,5 +195,6 @@
     "nftMintingSuccess": "Compra realizada",
     "youHaveMintedYourNftSuccessfully": "Se ha realizado la compra de tu NFT con éxito",
     "mintPrice": "Precio de mint",
-    "youHaveNoDrops": "Aún no has lanzado ningún drop"
+    "youHaveNoDrops": "Aún no has lanzado ningún drop",
+    "nftDraftSaved": "Esbozo de NFT guardado"
 }

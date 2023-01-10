@@ -195,5 +195,6 @@
     "nftMintingSuccess": "NFT minting success",
     "youHaveMintedYourNftSuccessfully": "You have minted your NFT successfully!",
     "mintPrice": "Mint price",
-    "youHaveNoDrops": "You have not launched any drops yet"
+    "youHaveNoDrops": "You have not launched any drops yet",
+    "nftDraftSaved": "NFT draft saved"
 }
