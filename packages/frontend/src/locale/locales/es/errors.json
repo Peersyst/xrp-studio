@@ -35,7 +35,7 @@
     "nftDraftNotOwned": "No eres propietario del esbozo de NFT",
     "nftDraftAlreadyPublished": "El esbozo de NFT ya ha sido publicado",
     "badDraftStatusRequest": "Petición de estado de esbozo de NFT incorrecta",
-    "useNotFound": "No se ha encontrado el usuario",
+    "userNotFound": "No se ha encontrado el usuario",
     "collectionTaxonAlreadyExists": "Ya existe una colección con ese taxon",
     "noMoreTaxonsAvailable": "No quedan más taxones disponibles",
     "collectionNotOwned": "No eres propietario de la colección",
@@ -59,7 +59,8 @@
     "yourSessionHasExpired": "Tu sesión ha caducado",
     "nftMinting": "Ha fallado la firma de la transacción del NFT",
     "noMatchingNftsWithFilters": "No se han encontrado NFTs que coincidan con los filtros seleccionados",
-    "youHaveNoDrops": "No has publicado ningún drop todavía",
     "noMatchingCollections": "No se han encontrado colecciones que coincidan con los filtros seleccionados.",
-    "dropNotFound": "No se ha encontrado el drop"
+    "xummSignInRequestDeclined": "La petición de autenticación ha sido rechazada",
+    "xummSignInRequestCancelled": "La petición de autenticación ha sido cancelada",
+    "xummSignInRequestExpired": "La petición de autenticación ha expirado"
 }

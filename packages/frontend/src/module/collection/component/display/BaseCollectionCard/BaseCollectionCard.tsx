@@ -15,7 +15,8 @@ const BaseCollectionCard = forwardRef(
             header = "",
             alt,
             image = "",
-            name = "",
+            name,
+            namePlaceholder,
             description,
             gridWidth,
         }: WithSkeleton<BaseCollectionCardProps>,
@@ -35,8 +36,8 @@ const BaseCollectionCard = forwardRef(
                         <GroupAvatar img={image} alt={`${alt}-image`} loading={loading} fallback={config.collectionDefaultImageUrl} />
                         <Col gap="0.375rem" justifyContent="flex-end" css={{ maxWidth: "63%" }}>
                             <Skeleton loading={loading}>
-                                <Typography variant="body1" fontWeight={800} singleLine>
-                                    {name}
+                                <Typography variant="body1" fontWeight={800} singleLine fontStyle={!name ? "italic" : undefined}>
+                                    {name || namePlaceholder}
                                 </Typography>
                             </Skeleton>
                             <Skeleton width="50%" loading={loading}>

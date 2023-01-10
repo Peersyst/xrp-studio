@@ -7,16 +7,15 @@ export interface UseGetNftDraftsOptions {
     query?: string;
     collections?: Array<number>;
     order?: "ASC" | "DESC";
-    status?: "confirmed" | "draft" | "pending" | "failed";
 }
 
 export default function (
-    { query, collections, order, status }: UseGetNftDraftsOptions = {},
+    { query, collections, order }: UseGetNftDraftsOptions = {},
     options?: Omit<UseInfiniteQueryOptions<PaginatedNftDraftDto, unknown, PaginatedNftDraftDto>, "queryKey" | "queryFn">,
 ): UseInfiniteQueryResult<PaginatedNftDraftDto> {
     return useInfiniteQuery(
-        [Queries.NFT_DRAFTS, query, collections, order, status],
-        ({ pageParam = 1 }) => NftService.nftControllerGetMyNfts(pageParam, 100, query, collections, order, status),
+        [Queries.NFT_DRAFTS, query, collections, order],
+        ({ pageParam = 1 }) => NftService.nftControllerGetMyNfts(pageParam, 100, query, collections, order),
         options,
     );
 }

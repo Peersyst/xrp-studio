@@ -53,8 +53,9 @@ export class GetNftsRequest {
         enum: NftStatus,
         required: false,
         isArray: true,
+        example: [NftStatus.DRAFT, NftStatus.PENDING, NftStatus.FAILED],
     })
-    status?: NftStatus | NftStatus[];
+    status?: NftStatus[];
 
     @ApiProperty({
         name: "order",

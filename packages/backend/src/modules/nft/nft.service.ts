@@ -314,7 +314,10 @@ export class NftService {
         const { page = 1, pageSize = 15 } = nftsRequest;
         const take = pageSize;
         const skip = (page - 1) * take;
-        const { qbWheres, relations, qbOrders } = GetNftsRequest.toFilterClause(nftsRequest, { requesterAccount });
+        const { qbWheres, relations, qbOrders } = GetNftsRequest.toFilterClause(
+            { ...nftsRequest, status: [NftStatus.DRAFT, NftStatus.PENDING, NftStatus.FAILED] },
+            { requesterAccount },
+        );
 
         const [entities, count] = await QueryBuilderHelper.buildFindManyAndCount(
             this.nftRepository,

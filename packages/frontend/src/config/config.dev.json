@@ -7,5 +7,9 @@
         "nft": "https://testnet.xrpl.org/nft/"
     },
     "network": "testnet",
-    "xrpNodeUrl": "wss://s.altnet.rippletest.net:51233"
+    "xrpNodeUrl": "wss://s.altnet.rippletest.net:51233",
+    "altNetwork": {
+        "network": "mainnet",
+        "url": "https://xrp-studio.peersyst.tech"
+    }
 }

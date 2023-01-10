@@ -3,7 +3,7 @@ import { lazy } from "react";
 import LoggedInRoute from "module/wallet/component/navigation/LoggedInRoute/LoggedInRoute";
 
 export enum NftRoutes {
-    MY_NFTS = "/nfts/my-nfts",
+    MY_NFTS = "/nfts/my-drafts",
     NFT_CREATION = "/nfts/creation",
     VIEW_NFT = "/nfts/:id",
 }
