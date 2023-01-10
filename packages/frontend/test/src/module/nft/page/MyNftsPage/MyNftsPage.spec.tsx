@@ -1,8 +1,8 @@
+import { render, translate, waitFor } from "test-utils";
 import { NftService } from "module/api/service";
 import MyNftsPage from "module/nft/page/MyNftsPage";
 import * as UseWallet from "module/wallet/hook//useWallet";
 import { NftDtoMock, NftsDtoMock, PaginatedDataMock, WalletMock } from "test-mocks";
-import { render, translate, waitFor } from "test-utils";
 
 describe("Test for the MyNftsPage", () => {
     test("Renders correctly with nfts", async () => {
