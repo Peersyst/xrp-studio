@@ -74,7 +74,7 @@ export class NftController {
     @XummAuthenticated()
     async getMyNfts(
         @Request() req,
-        @EnhancedQuery() queryParams: Omit<GetNftsRequest, "account"> = new GetNftsRequest(),
+        @EnhancedQuery() queryParams: Omit<GetNftsRequest, "account" | "status"> = new GetNftsRequest(),
     ): Promise<PaginatedNftDraftDto> {
         return this.nftService.findAll(queryParams, req.user.address);
     }

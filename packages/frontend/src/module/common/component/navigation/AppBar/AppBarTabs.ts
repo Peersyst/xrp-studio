@@ -9,7 +9,7 @@ export interface AppBarTab {
 
 export const APPBAR_TABS: AppBarTab[] = [
     {
-        label: "myNfts",
+        label: "myDrafts",
         path: NftRoutes.MY_NFTS,
     },
     {
