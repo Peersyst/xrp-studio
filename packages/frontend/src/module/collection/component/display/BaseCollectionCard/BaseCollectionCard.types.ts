@@ -10,6 +10,7 @@ export interface BaseCollectionCardProps extends BaseCollectionCardSizeProps {
     header: string;
     alt: string;
     image: string;
-    name: string;
+    name: string | undefined;
+    namePlaceholder?: string;
     description: string;
 }
