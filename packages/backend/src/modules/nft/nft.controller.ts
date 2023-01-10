@@ -76,7 +76,10 @@ export class NftController {
         @Request() req,
         @EnhancedQuery() queryParams: Omit<GetNftsRequest, "account" | "status"> = new GetNftsRequest(),
     ): Promise<PaginatedNftDraftDto> {
-        return this.nftService.findAll(queryParams, req.user.address);
+        return this.nftService.findAll(
+            { ...queryParams, status: [NftStatus.DRAFT, NftStatus.PENDING, NftStatus.FAILED] },
+            req.user.address,
+        );
     }
 
     @Get("draft/status")
