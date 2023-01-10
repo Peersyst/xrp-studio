@@ -8,7 +8,6 @@
     },
     "network": "mainnet",
     "xrpNodeUrl": "wss://xls20-sandbox.rippletest.net:51233",
-    "dropMinterAddress": "rQ92R9TengnnAennt6bFubFbeWh2B2mNta",
     "altNetwork": {
         "network": "testnet",
         "url": "https://xrp-studio.peersyst.tech"
