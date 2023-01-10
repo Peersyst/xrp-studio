@@ -9,6 +9,7 @@ import { ErrorCode } from "../../../src/modules/common/exception/error-codes";
 import { UpdateUserRequest } from "../../../src/modules/user/request/update-user.request";
 import { ConfigService } from "@nestjs/config";
 import ConfigServiceMock from "../__mock__/config.service.mock";
+import * as GenerateName from "../../../src/modules/user/util/name-generator/generate-name";
 
 describe("UserService", () => {
     const ADDRESS = "rNCFjv8Ek5oDrNiMJ3pw6eLLFtMjZLJnf2";
@@ -38,10 +39,13 @@ describe("UserService", () => {
 
     describe("createIfNotExists", () => {
         test("Executes save on repository", async () => {
+            jest.spyOn(GenerateName, "default").mockReturnValue("GeneratedName");
+
             userRepositoryMock.findOne.mockResolvedValueOnce(undefined);
             const user = await userService.createIfNotExists(ADDRESS);
             expect(user).toEqual(
                 new User({
+                    name: "GeneratedName",
                     address: ADDRESS,
                     image: "default_profile_img_url",
                     header: "default_header_img_url",
@@ -49,6 +53,7 @@ describe("UserService", () => {
                 }),
             );
             expect(userRepositoryMock.save).toHaveBeenCalledWith({
+                name: "GeneratedName",
                 address: ADDRESS,
                 image: "default_profile_img_url",
                 header: "default_header_img_url",

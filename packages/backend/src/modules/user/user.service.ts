@@ -10,6 +10,7 @@ import { ConfigService } from "@nestjs/config";
 import { QueryBuilderHelper } from "../common/util/query-builder.helper";
 import { GetUsersRequest } from "./request/get-users.request";
 import { NftStatus } from "../../database/entities/Nft";
+import generateName from "./util/name-generator/generate-name";
 
 @Injectable()
 export class UserService {
@@ -22,6 +23,7 @@ export class UserService {
         const user = await this.userRepository.findOne({ address });
         if (user) return user;
         return this.userRepository.save({
+            name: generateName(),
             address,
             image: this.configService.get<string>("defaultImages.profile"),
             header: this.configService.get<string>("defaultImages.header"),
