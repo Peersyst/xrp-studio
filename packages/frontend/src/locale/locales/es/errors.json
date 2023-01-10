@@ -35,7 +35,7 @@
     "nftDraftNotOwned": "No eres propietario del esbozo de NFT",
     "nftDraftAlreadyPublished": "El esbozo de NFT ya ha sido publicado",
     "badDraftStatusRequest": "Petición de estado de esbozo de NFT incorrecta",
-    "useNotFound": "No se ha encontrado el usuario",
+    "userNotFound": "No se ha encontrado el usuario",
     "collectionTaxonAlreadyExists": "Ya existe una colección con ese taxon",
     "noMoreTaxonsAvailable": "No quedan más taxones disponibles",
     "collectionNotOwned": "No eres propietario de la colección",

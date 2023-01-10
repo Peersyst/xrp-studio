@@ -9,6 +9,7 @@ import { NftRoutes } from "module/nft/NftRouter";
 import useTranslate from "module/common/hook/useTranslate";
 import { SocialShareOptions } from "module/common/component/input/ShareButton/ShareButton.types";
 import ShareButton from "module/common/component/input/ShareButton/ShareButton";
+import NotFoundPage from "module/common/page/NotFoundPage/NotFoundPage";
 
 const ViewNftPage = (): JSX.Element => {
     const translate = useTranslate();
@@ -24,6 +25,8 @@ const ViewNftPage = (): JSX.Element => {
     const collectionNfts = usePaginatedList(collectionNftsData?.pages, (page) => page.items);
 
     const slots = useViewNftPageSlots({ nft, loading: loadingNft });
+
+    if (!loadingNft && !nft) return <NotFoundPage />;
 
     const shareData: ShareData = {
         title: "XRP Studio",
