@@ -7,9 +7,9 @@
         "nft": "https://livenet.xrpl.org/nft/"
     },
     "network": "mainnet",
-    "xrpNodeUrl": "wss://xrplcluster.com/",
+    "xrpNodeUrl": "wss://xrplcluster.com",
     "altNetwork": {
-        "network": "mainnet",
+        "network": "testnet",
         "url": "https://xrp-studio.peersyst.tech"
     }
 }
