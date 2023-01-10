@@ -163,5 +163,6 @@
     "howItWorksSlide2Title": "Crea páginas de aterrizaje increíbles para tus lanzamientos",
     "howItWorksSlide2Description": "Puedes personalizar tus temas, secciones y disposiciones con la herramienta visual para ofrecer la mejor experiencia. Tu propia página de aterrizaje, tus propias colecciones.",
     "howItWorksSlide3Title": "Controla el imacto generado por tus NFTs",
-    "howItWorksSlide3Description": "Una vez tus colecciones se publican y lanzan, puedes controlar el impacto que tu arte genera cada día. Descubre hasta donde puedes llegar!"
+    "howItWorksSlide3Description": "Una vez tus colecciones se publican y lanzan, puedes controlar el impacto que tu arte genera cada día. Descubre hasta donde puedes llegar!",
+    "goTo": "Ir a {{destination}}"
 }
