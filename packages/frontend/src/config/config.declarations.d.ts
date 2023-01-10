@@ -36,6 +36,10 @@ declare module "@peersyst/react-components" {
         feeInDrops: number;
         peersystEmail: string;
         peersyst: string;
+        altNetwork: {
+            network: NetworkType;
+            url: string;
+        };
     }
 
     export interface CreateConfig {
@@ -61,6 +65,10 @@ declare module "@peersyst/react-components" {
         feeInDrops: number;
         peersystEmail: string;
         peersyst: string;
+        altNetwork: {
+            network: string;
+            url: string;
+        };
     }
 
     export interface ExtraValidators {
