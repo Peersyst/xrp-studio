@@ -39,6 +39,8 @@ export default function ({ publish }: UseUpdateCollectionProps): UseMutationResu
             onSuccess: async (_, { id }) => {
                 await queryClient.invalidateQueries([Queries.COLLECTIONS]);
                 await queryClient.invalidateQueries([Queries.COLLECTION, id]);
+                await queryClient.invalidateQueries([Queries.NFT_DRAFTS]);
+                await queryClient.invalidateQueries([Queries.NFTS]);
             },
         },
     );
