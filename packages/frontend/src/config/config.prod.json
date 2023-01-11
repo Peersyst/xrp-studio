@@ -2,12 +2,12 @@
     "publicUrl": "/",
     "backendUrl": "",
     "blockchainLinks": {
-        "address": "https://nft-devnet.xrpl.org/accounts/",
-        "tx": "https://nft-devnet.xrpl.org/transactions/",
-        "nft": "https://nft-devnet.xrpl.org/nft/"
+        "address": "https://livenet.xrpl.org/accounts/",
+        "tx": "https:/livenet.xrpl.org/transactions/",
+        "nft": "https://livenet.xrpl.org/nft/"
     },
     "network": "mainnet",
-    "xrpNodeUrl": "wss://xls20-sandbox.rippletest.net:51233",
+    "xrpNodeUrl": "wss://xrplcluster.com",
     "altNetwork": {
         "network": "testnet",
         "url": "https://xrp-studio.peersyst.tech"
