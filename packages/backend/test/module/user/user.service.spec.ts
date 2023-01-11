@@ -39,13 +39,15 @@ describe("UserService", () => {
 
     describe("createIfNotExists", () => {
         test("Executes save on repository", async () => {
-            jest.spyOn(GenerateName, "default").mockReturnValue("GeneratedName");
+            const generatedName = "GeneratedName";
+            jest.spyOn(GenerateName, "default").mockReturnValue(generatedName);
+            userRepositoryMock.query.mockReturnValueOnce([]);
 
             userRepositoryMock.findOne.mockResolvedValueOnce(undefined);
             const user = await userService.createIfNotExists(ADDRESS);
             expect(user).toEqual(
                 new User({
-                    name: "GeneratedName",
+                    name: generatedName,
                     address: ADDRESS,
                     image: "default_profile_img_url",
                     header: "default_header_img_url",
@@ -53,7 +55,7 @@ describe("UserService", () => {
                 }),
             );
             expect(userRepositoryMock.save).toHaveBeenCalledWith({
-                name: "GeneratedName",
+                name: generatedName,
                 address: ADDRESS,
                 image: "default_profile_img_url",
                 header: "default_header_img_url",

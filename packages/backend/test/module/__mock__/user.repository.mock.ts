@@ -5,6 +5,7 @@ import UserMock from "./user.mock";
 class UserRepositoryMock extends BaseMock {
     save = jest.fn((user: Partial<User>) => new Promise((resolve) => resolve(user)));
     findOne = jest.fn((address: string) => new Promise((resolve) => resolve(new UserMock({ address }))));
+    query = jest.fn();
 }
 
 export default UserRepositoryMock;
