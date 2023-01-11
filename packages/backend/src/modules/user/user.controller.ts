@@ -1,4 +1,4 @@
-import { Body, Controller, Get, HttpCode, Put, Request } from "@nestjs/common";
+import { Body, Controller, Get, HttpCode, Param, Put, Request } from "@nestjs/common";
 import { ApiOperation, ApiTags } from "@nestjs/swagger";
 import { UserService } from "./user.service";
 import { ApiErrorDecorators } from "../common/exception/error-response.decorator";
@@ -7,8 +7,7 @@ import { EnhancedParams } from "../common/decorator/enhanced-params";
 import { GetUserParamsRequest } from "./request/get-user-params.request";
 import { XummAuthenticated } from "@peersyst/xumm-module";
 import { UpdateUserRequest } from "./request/update-user.request";
-import { CheckUserNameRequest } from "./request/check-user-name.request";
-import { ExistDto } from "./dto/exist.dto";
+import { AvailabilityDto } from "../drop/dto/availability.dto";
 
 @ApiTags("user")
 @Controller("user")
@@ -22,10 +21,10 @@ export class UserController {
         return this.userService.findOne(address);
     }
 
-    @Get("check-username/:name")
+    @Get("name-availability/:name")
     @ApiOperation({ description: "Check if the name of a user already exists." })
-    async checkUserName(@EnhancedParams() { name }: CheckUserNameRequest): Promise<ExistDto> {
-        return { exist: await this.userService.findName(name) };
+    async userNameAvailability(@Param("name") name: string): Promise<AvailabilityDto> {
+        return { available: await this.userService.userNameIsAvailable(name) };
     }
 
     @Put()

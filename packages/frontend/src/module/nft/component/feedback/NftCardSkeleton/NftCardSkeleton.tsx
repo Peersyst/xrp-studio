@@ -10,7 +10,7 @@ const NftCardSkeleton = forwardRef((_, ref): JSX.Element => {
                 id: 0,
                 status: "confirmed",
                 flags: 0,
-                user: { address: "" },
+                user: { address: "", name: "" },
             }}
             css={{ width: "100%" }}
         />

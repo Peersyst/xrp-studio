@@ -74,6 +74,15 @@ export class DropService {
         return DropDto.fromEntity(drop);
     }
 
+    async findByPath(path: string): Promise<DropDto> {
+        const drop = await this.dropRepository.findOne({
+            where: { collection: { path } },
+            relations: ["collection", "collection.user", "faqs"],
+        });
+        if (!drop) throw new BusinessException(ErrorCode.DROP_NOT_FOUND);
+        return DropDto.fromEntity(drop);
+    }
+
     async requestAuthorization(address: string): Promise<void> {
         const transaction = this.blockchainTransactionService.prepareAuthorizeMinterTransaction(address);
         await this.xummTransactionService.sendTransactionRequest(address, transaction);

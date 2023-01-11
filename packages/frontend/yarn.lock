@@ -2455,25 +2455,25 @@
     mkdirp "^1.0.4"
     rimraf "^3.0.2"
 
-"@peersyst/react-components-core@^1.0.9":
-  version "1.0.9"
-  resolved "https://registry.yarnpkg.com/@peersyst/react-components-core/-/react-components-core-1.0.9.tgz#7c566b677ee6bcf49496cc4a216b8be6f8bb8df1"
-  integrity sha512-yb9T17IG+ERf9+jDyK635Eb2pQmqWRRWO5Gf+nsOy/fesrWzzqmjIxIgdnc/04UmZjAcXr3/gpRsYzkxYq624Q==
+"@peersyst/react-components-core@^1.0.12":
+  version "1.0.12"
+  resolved "https://registry.yarnpkg.com/@peersyst/react-components-core/-/react-components-core-1.0.12.tgz#9dad55d8b62cd877b91fbea86ba934368482bf18"
+  integrity sha512-tNK7q3PTA6CQkBTxq4CQ9c7VZyqEmS1AxnOkSCH4E4Cqpzq8NdAXEybEJjh3Ds/M6Gl6AO9bpctLIHXXVi5HOA==
   dependencies:
     "@babel/runtime" "^7.16.7"
-    "@peersyst/react-hooks" "^2.0.4"
+    "@peersyst/react-hooks" "^2.2.0"
     "@peersyst/react-types" "^1.5.0"
     "@peersyst/react-utils" "^2.1.0"
     validator "^13.7.0"
 
-"@peersyst/react-components@^3.0.24":
-  version "3.0.24"
-  resolved "https://registry.yarnpkg.com/@peersyst/react-components/-/react-components-3.0.24.tgz#a7c95469b98d79c8a7651d2df7272755de5d4327"
-  integrity sha512-dVWPInX0aZ2MzjOr7TR4op31apoGRlrmcLE5HtslPIi5xMCl2MVkvcof21BUOTx5/c0wkIcZu/FdN0AutGhGFQ==
+"@peersyst/react-components@^3.0.27":
+  version "3.0.27"
+  resolved "https://registry.yarnpkg.com/@peersyst/react-components/-/react-components-3.0.27.tgz#9d82dd02aeb2bf32ebffbcde58f0109537d8f5ef"
+  integrity sha512-YYNP8OLJvVl7mj9wCcSbQ+ccq/8IKsJRvpG3M6LO9ildapheXf8H5t3GpH7nxfwLvafTzifkU4yYebh1xTlm8Q==
   dependencies:
     "@babel/runtime" "^7.16.7"
-    "@peersyst/react-components-core" "^1.0.9"
-    "@peersyst/react-hooks" "^2.0.4"
+    "@peersyst/react-components-core" "^1.0.12"
+    "@peersyst/react-hooks" "^2.2.0"
     "@peersyst/react-types" "^1.5.0"
     "@peersyst/react-utils" "^2.1.0"
     "@popperjs/core" "^2.11.5"
@@ -2487,10 +2487,10 @@
     react-player "^2.9.0"
     react-transition-group "^4.4.2"
 
-"@peersyst/react-hooks@^2.0.4":
-  version "2.0.4"
-  resolved "https://registry.yarnpkg.com/@peersyst/react-hooks/-/react-hooks-2.0.4.tgz#7eaf9c2676766a94471684cc425d4578a82da377"
-  integrity sha512-XO6xHmBIrsVdCyf22YDqatNc1CLdTmMmBxTQU2BKW4t1I4rDfLd+5DYnLif4kb3JpDvdQws8iU8Iyf8RypbW8A==
+"@peersyst/react-hooks@^2.2.0":
+  version "2.2.0"
+  resolved "https://registry.yarnpkg.com/@peersyst/react-hooks/-/react-hooks-2.2.0.tgz#4cc58494690dbe96d682a67307eb832bef44bb06"
+  integrity sha512-pJAg2ih0ecJ0t+jNK9SB03HfCoFCSlmC2C2iUjdoABOmkyIqy0962gYSznsYZkP/GjFZ0n3XAb5+zLA+MKrUyA==
   dependencies:
     "@babel/runtime" "^7.16.7"
     "@peersyst/react-utils" "^2.1.0"

@@ -7,6 +7,7 @@ export { OpenAPI } from './core/OpenAPI';
 export type { OpenAPIConfig } from './core/OpenAPI';
 
 export type { ApiException } from './models/ApiException';
+export type { AvailabilityDto } from './models/AvailabilityDto';
 export type { CollectionDto } from './models/CollectionDto';
 export type { CreateCollectionNftRequest } from './models/CreateCollectionNftRequest';
 export type { CreateCollectionRequest } from './models/CreateCollectionRequest';
@@ -16,7 +17,6 @@ export type { CreateMetadataAttributeRequest } from './models/CreateMetadataAttr
 export type { CreateMetadataRequest } from './models/CreateMetadataRequest';
 export type { CreateNftDraftRequest } from './models/CreateNftDraftRequest';
 export type { DropDto } from './models/DropDto';
-export type { ExistDto } from './models/ExistDto';
 export type { FaqDto } from './models/FaqDto';
 export type { MetadataAttributeDto } from './models/MetadataAttributeDto';
 export type { MetadataDto } from './models/MetadataDto';
@@ -36,6 +36,7 @@ export type { UpdateUserRequest } from './models/UpdateUserRequest';
 export type { UserDto } from './models/UserDto';
 
 export { $ApiException } from './schemas/$ApiException';
+export { $AvailabilityDto } from './schemas/$AvailabilityDto';
 export { $CollectionDto } from './schemas/$CollectionDto';
 export { $CreateCollectionNftRequest } from './schemas/$CreateCollectionNftRequest';
 export { $CreateCollectionRequest } from './schemas/$CreateCollectionRequest';
@@ -45,7 +46,6 @@ export { $CreateMetadataAttributeRequest } from './schemas/$CreateMetadataAttrib
 export { $CreateMetadataRequest } from './schemas/$CreateMetadataRequest';
 export { $CreateNftDraftRequest } from './schemas/$CreateNftDraftRequest';
 export { $DropDto } from './schemas/$DropDto';
-export { $ExistDto } from './schemas/$ExistDto';
 export { $FaqDto } from './schemas/$FaqDto';
 export { $MetadataAttributeDto } from './schemas/$MetadataAttributeDto';
 export { $MetadataDto } from './schemas/$MetadataDto';

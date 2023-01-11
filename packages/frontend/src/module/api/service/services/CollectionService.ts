@@ -1,6 +1,7 @@
 /* istanbul ignore file */
 /* tslint:disable */
 /* eslint-disable */
+import type { AvailabilityDto } from '../models/AvailabilityDto';
 import type { CollectionDto } from '../models/CollectionDto';
 import type { CreateCollectionRequest } from '../models/CreateCollectionRequest';
 import type { PaginatedCollectionDto } from '../models/PaginatedCollectionDto';
@@ -13,7 +14,7 @@ import { request as __request } from '../core/request';
 export class CollectionService {
 
     /**
-     * Gets a collection
+     * Gets a collection by id
      * @param id
      * @returns CollectionDto
      * @throws ApiError
@@ -54,6 +55,42 @@ export class CollectionService {
             },
             body: requestBody,
             mediaType: 'application/json',
+        });
+    }
+
+    /**
+     * Gets a collection by collection name and artist name
+     * @param path
+     * @returns CollectionDto
+     * @throws ApiError
+     */
+    public static collectionControllerGetCollectionByPath(
+        path: string,
+    ): CancelablePromise<CollectionDto> {
+        return __request(OpenAPI, {
+            method: 'GET',
+            url: '/api/collection/by-path/{path}',
+            path: {
+                'path': path,
+            },
+        });
+    }
+
+    /**
+     * Check if the name of a collection already exists for a user.
+     * @param name
+     * @returns AvailabilityDto
+     * @throws ApiError
+     */
+    public static collectionControllerCollectionNameAvailability(
+        name: string,
+    ): CancelablePromise<AvailabilityDto> {
+        return __request(OpenAPI, {
+            method: 'GET',
+            url: '/api/collection/name-availability/{name}',
+            path: {
+                'name': name,
+            },
         });
     }
 

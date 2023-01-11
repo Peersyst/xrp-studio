@@ -9,13 +9,14 @@ import { ErrorCode } from "../../../src/modules/common/exception/error-codes";
 import { Order } from "../../../src/modules/common/types";
 import { CollectionDto } from "../../../src/modules/collection/dto/collection.dto";
 import { CreateCollectionRequest } from "../../../src/modules/collection/request/create-collection.request";
-import { User } from "../../../src/database/entities/User";
 import UserMock from "../__mock__/user.mock";
 import { UpdateCollectionRequest } from "../../../src/modules/collection/request/update-collection.request";
 import { NftService } from "../../../src/modules/nft/nft.service";
 import NftServiceMock from "../__mock__/nft.service.mock";
 import { GetNftsRequest } from "../../../src/modules/nft/request/get-nfts.request";
 import { QueryBuilderHelper } from "../../../src/modules/common/util/query-builder.helper";
+import UserServiceMock from "../__mock__/user.service.mock";
+import { UserService } from "../../../src/modules/user/user.service";
 
 describe("CollectionService", () => {
     const ACCOUNT = "rwxmBgnEtpqAMerLSLkCCLfuSisi7GAvU6";
@@ -23,6 +24,7 @@ describe("CollectionService", () => {
     let collectionService: CollectionService;
     const collectionRepositoryMock = new CollectionRepositoryMock();
     const nftServiceMock = new NftServiceMock();
+    const userServiceMock = new UserServiceMock();
 
     beforeEach(async () => {
         const module = await Test.createTestingModule({
@@ -34,6 +36,10 @@ describe("CollectionService", () => {
                 {
                     provide: NftService,
                     useValue: nftServiceMock,
+                },
+                {
+                    provide: UserService,
+                    useValue: userServiceMock,
                 },
                 CollectionService,
             ],
@@ -57,9 +63,12 @@ describe("CollectionService", () => {
             nfts: [{ metadata: { name: "NFT #1" } }, { metadata: { name: "NFT #2" } }, { metadata: { name: "NFT #3" } }],
         };
 
-        const baseCreatedCollection: Omit<Collection, "account" | "items" | "taxon" | "id" | "nfts" | "createdAt" | "updatedAt"> = {
+        const user = new UserMock({ address: ACCOUNT });
+        const baseCreatedCollection: Omit<Collection, "user" | "taxon" | "id" | "nfts" | "createdAt" | "updatedAt"> = {
             ...CREATE_COLLECTION_REQUEST,
-            user: new User({ address: ACCOUNT }),
+            path: `${CREATE_COLLECTION_REQUEST.name}_by_${user.name}`,
+            account: user.address,
+            items: 0,
         };
 
         test("Creates collection with auto generated taxon with user having 0 collections", async () => {
@@ -161,7 +170,10 @@ describe("CollectionService", () => {
                 header: "NEW_HEADER_URL",
             };
             await collectionService.updateCollection(1, ACCOUNT, updateCollectionRequest);
-            expect(collectionRepositoryMock.update).toHaveBeenCalledWith(1, updateCollectionRequest);
+            expect(collectionRepositoryMock.update).toHaveBeenCalledWith(1, {
+                ...updateCollectionRequest,
+                path: `${updateCollectionRequest.name}_by_${collectionMock.user.name}`,
+            });
         });
 
         test("Updates collection with null values", async () => {
@@ -171,6 +183,7 @@ describe("CollectionService", () => {
                 description: null,
                 image: null,
                 header: null,
+                path: `NEW_NAME_by_${collectionMock.user.name}`,
             });
         });
     });

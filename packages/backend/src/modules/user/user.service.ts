@@ -104,12 +104,8 @@ export class UserService {
     /**
      * Checks if a userName already exists
      */
-    async findName(name: string): Promise<boolean> {
-        try {
-            await this.findOneByName(name);
-            return true;
-        } catch (e) {
-            return false;
-        }
+    async userNameIsAvailable(name: string): Promise<boolean> {
+        const user = await this.userRepository.findOne({ name });
+        return !user;
     }
 }

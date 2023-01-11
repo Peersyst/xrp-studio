@@ -17,10 +17,16 @@ export class DropController {
     constructor(private readonly dropService: DropService) {}
 
     @Get(":id")
-    @ApiOperation({ description: "Gets a drop" })
+    @ApiOperation({ description: "Gets a drop by id" })
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
     async getDrop(@Param("id", ParseIntPipe) id: number): Promise<DropDto> {
         return this.dropService.findById(id);
+    }
+
+    @Get("by-path/:path")
+    @ApiOperation({ description: "Gets a drop by drop name and artist name" })
+    async getDropByPath(@Param("path") path: string): Promise<DropDto> {
+        return this.dropService.findByPath(path);
     }
 
     @Get()

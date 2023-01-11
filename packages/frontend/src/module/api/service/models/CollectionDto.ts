@@ -13,7 +13,8 @@ export type CollectionDto = {
     header?: string;
     items: number;
     account: string;
-    user?: UserDto;
+    path: string;
+    user: UserDto;
     nfts?: Array<any>;
 };
 

@@ -9,7 +9,6 @@ import {
 import TextField from "module/common/component/input/TextField/TextField";
 import useTranslate from "module/common/hook/useTranslate";
 import TextArea from "module/common/component/input/TextArea/TextArea";
-import { capitalize } from "@peersyst/react-utils";
 import ColorInput from "module/common/component/input/ColorInput/ColorInput";
 import PropertiesInput from "module/nft/component/input/PropertiesInput/PropertiesInput";
 import useCollectionCreationState from "module/collection/hook/useCollectionCreationState";
@@ -17,6 +16,7 @@ import { CollectionCreationState } from "module/collection/state/CollectionCreat
 import { CollectionCreationFormFields } from "module/collection/types";
 import CollectionCreationNfts from "module/collection/page/CollectionCreationPage/CollectionCreationNfts/CollectionCreationNfts";
 import { config } from "config";
+import EditCollectionNameTextField from "module/collection/component/input/EditCollectionNameTextField/EditCollectionNameTextField";
 
 const CollectionCreationPageContent = ({ collection, loading = false }: WithLoading<CollectionCreationPageContentProps>): JSX.Element => {
     const translate = useTranslate();
@@ -25,7 +25,7 @@ const CollectionCreationPageContent = ({ collection, loading = false }: WithLoad
     const { header: collectionHeader, image: collectionImage, name: collectionName, description: collectionDescription } = collection || {};
 
     const [
-        { header, image, name, description, transferFee, externalUrl, backgroundColor, burnable, onlyXRP, transferable, attributes },
+        { header, image, description, transferFee, externalUrl, backgroundColor, burnable, onlyXRP, transferable, attributes },
         setCollectionCreationState,
     ] = useCollectionCreationState();
 
@@ -63,15 +63,9 @@ const CollectionCreationPageContent = ({ collection, loading = false }: WithLoad
                                         />
                                     </div>
                                 </Col>
-                                <TextField
+                                <EditCollectionNameTextField
                                     key={"name: " + collectionName}
-                                    name={CollectionCreationFormFields.NAME}
                                     defaultValue={collectionName}
-                                    label={capitalize(translate("name"))}
-                                    placeholder={translate("collectionNamePlaceholder")}
-                                    variant="filled"
-                                    value={name}
-                                    required
                                     onChange={normalizedHandleChange("name")}
                                 />
                                 <TextArea

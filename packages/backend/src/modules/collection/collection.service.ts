@@ -7,17 +7,18 @@ import { ErrorCode } from "../common/exception/error-codes";
 import { CollectionDto, PaginatedCollectionDto } from "./dto/collection.dto";
 import { GetCollectionsRequest } from "./request/get-collections.request";
 import { CreateCollectionRequest } from "./request/create-collection.request";
-import { User } from "../../database/entities/User";
 import { UpdateCollectionRequest } from "./request/update-collection.request";
 import { NftService } from "../nft/nft.service";
 import { QueryBuilderHelper } from "../common/util/query-builder.helper";
 import { NftStatus } from "../../database/entities/Nft";
+import { UserService } from "../user/user.service";
 
 @Injectable()
 export class CollectionService {
     constructor(
         @InjectRepository(Collection) private readonly collectionRepository: Repository<Collection>,
         @Inject(forwardRef(() => NftService)) private readonly nftService: NftService,
+        private readonly userService: UserService,
     ) {}
 
     /**
@@ -25,7 +26,7 @@ export class CollectionService {
      */
     async createCollection(
         address: string,
-        { taxon: reqTaxon, nfts, ...restOfCollection }: CreateCollectionRequest,
+        { taxon: reqTaxon, nfts, name, ...restOfCollection }: CreateCollectionRequest,
         publish?: boolean,
     ): Promise<CollectionDto> {
         // Get the taxon
@@ -41,10 +42,17 @@ export class CollectionService {
         }
 
         // Build User attached to the collection
-        const user = new User({ address });
+        const user = await this.userService.findOne(address);
 
         // Build and save Collection
-        const collection = await this.collectionRepository.save(new Collection({ taxon, ...restOfCollection, user, items: 0 }));
+        const collection = await this.collectionRepository.save({
+            taxon,
+            name,
+            ...restOfCollection,
+            account: user.address,
+            items: 0,
+            path: this.generateCollectionPath(name, user.name),
+        });
 
         //Create nfts
         if (nfts)
@@ -71,6 +79,7 @@ export class CollectionService {
             description: description || null,
             image: image || null,
             header: header || null,
+            ...(collection.name !== name ? { path: this.generateCollectionPath(name, collection.user.name) } : {}),
         });
 
         if (nfts) for await (const nft of nfts) await this.nftService.createNftDraft(address, { ...nft, taxon: Number(collection.taxon) });
@@ -97,13 +106,15 @@ export class CollectionService {
     }
 
     async findOne(
-        key: { id: number } | { taxon: string; account: string },
+        key: { id: number } | { taxon: string; account: string } | { path: string },
         { relations, ownerAddress }: { ownerAddress?: string; relations?: string[] } = { relations: ["user"] },
     ): Promise<CollectionDto> {
-        if ("taxon" in key && relations.indexOf("user") < 0) relations.push("user");
-        else if (ownerAddress && relations.indexOf("user") < 0) relations.push("user");
+        if (("taxon" in key || "path" in key || ownerAddress) && relations.indexOf("user") < 0) relations.push("user");
 
-        const where = "id" in key ? { id: key.id } : { taxon: key.taxon, user: { address: key.account } };
+        let where;
+        if ("id" in key) where = { id: key.id };
+        else if ("taxon" in key) where = { taxon: key.taxon, user: { address: key.account } };
+        else where = { path: key.path };
 
         const collection = await this.collectionRepository.findOne({ where, relations });
         if (!collection || (ownerAddress && collection.account !== ownerAddress))
@@ -136,6 +147,21 @@ export class CollectionService {
             pages: Math.ceil(count / take),
             currentPage: page,
         };
+    }
+
+    /**
+     * Checks if a collection name is available for a user
+     */
+    async collectionNameIsAvailable(name: string, account): Promise<boolean> {
+        const collection = await this.collectionRepository.findOne({ name, account });
+        return !collection;
+    }
+
+    /**
+     * Generates collection path from a collection name and a user name
+     */
+    private generateCollectionPath(collectionName: string, userName: string): string {
+        return `${collectionName.replace(" ", "_")}_by_${userName.replace(" ", "_")}`;
     }
 
     /**

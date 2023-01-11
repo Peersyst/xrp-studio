@@ -2,7 +2,7 @@ import { User } from "../../../database/entities/User";
 
 export class UserDto {
     address: string;
-    name?: string;
+    name: string;
     description?: string;
     image?: string;
     header?: string;

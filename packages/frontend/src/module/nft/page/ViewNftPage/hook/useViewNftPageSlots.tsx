@@ -35,7 +35,7 @@ export default function ({ nft, loading = false }: UserViewNftPageSlots): ReactN
         metadata: { image = "", name = "", description = "", externalUrl = "", attributes = [], backgroundColor = "" } = {},
         collection: nftCollection,
         flags = 0,
-        user = { address: "" },
+        user = { address: "", name: "" },
     } = nft || {};
     const { burnable, onlyXRP, transferable } = parseFlags(flags);
 

@@ -8,7 +8,7 @@ import useTranslate from "module/common/hook/useTranslate";
 const CollectionCard = forwardRef(
     (
         {
-            collection: { id, header = "", image = "", items = 0, name },
+            collection: { header = "", image = "", items = 0, name, path },
             loading = false,
             size = "md",
             gridWidth,
@@ -16,7 +16,6 @@ const CollectionCard = forwardRef(
         ref,
     ): JSX.Element => {
         const translate = useTranslate();
-        const alt = "collection-" + id;
         return (
             <BaseCollectionCard
                 loading={loading}
@@ -27,8 +26,8 @@ const CollectionCard = forwardRef(
                 name={name}
                 namePlaceholder={translate("unnamed")}
                 description={translate("itemWithCount", { count: items || 0 })}
-                to={CollectionRoutes.VIEW_COLLECTION.replace(":id", id.toString())}
-                alt={alt}
+                to={CollectionRoutes.VIEW_COLLECTION.replace(":path", path.toString())}
+                alt={path}
                 gridWidth={gridWidth}
             />
         );

@@ -15,7 +15,7 @@ describe("EditProfileName", () => {
     test("Renders correctly and validates correctly", async () => {
         const userDtoMock = new UserDtoMock({ name: "" });
         jest.spyOn(UserService, "userControllerGetUser").mockResolvedValue(userDtoMock);
-        jest.spyOn(UserService, "userControllerCheckUserName").mockResolvedValueOnce({ exist: true });
+        jest.spyOn(UserService, "userControllerUserNameAvailability").mockResolvedValueOnce({ available: false });
         const screen = render(<EditProfileName />);
         //Renders correctly
         expect(screen.getByText(capitalize(translate("name")))).toBeInTheDocument();
@@ -26,7 +26,7 @@ describe("EditProfileName", () => {
         await waitFor(() => expect(screen.queryByText(translate("userAlreadyExists", { ns: "error" }))).not.toBeInTheDocument());
         //Update with a name that already exists
         fireEvent.change(input, { target: { value: "Manolo" } });
-        jest.spyOn(UserService, "userControllerCheckUserName").mockResolvedValueOnce({ exist: true });
+        jest.spyOn(UserService, "userControllerUserNameAvailability").mockResolvedValueOnce({ available: false });
         //Loading -> fetching the name
         expect(screen.getByTestId("LoaderIcon")).toBeInTheDocument();
         //Wait until the validation is done -> show error msg bc the name already exists
@@ -34,7 +34,7 @@ describe("EditProfileName", () => {
         expect(screen.queryByTestId("LoaderIcon")).not.toBeInTheDocument();
         //Update with a name that doesn't exist
         fireEvent.change(input, { target: { value: "Manolo Parra" } });
-        jest.spyOn(UserService, "userControllerCheckUserName").mockResolvedValueOnce({ exist: false });
+        jest.spyOn(UserService, "userControllerUserNameAvailability").mockResolvedValueOnce({ available: true });
         //Name updated
         await waitFor(() => expect(screen.queryByText(translate("userAlreadyExists", { ns: "error" }))).not.toBeInTheDocument());
         //Not Loading
@@ -48,14 +48,14 @@ describe("EditProfileName", () => {
         const input = screen.getByPlaceholderText(translate("writeYour", { name: translate("name") }));
         //Update with a name that already exists
         fireEvent.change(input, { target: { value: "Manolo" } });
-        jest.spyOn(UserService, "userControllerCheckUserName").mockResolvedValueOnce({ exist: true });
+        jest.spyOn(UserService, "userControllerUserNameAvailability").mockResolvedValueOnce({ available: false });
         //Loading -> fetching the name
         expect(screen.getByTestId("LoaderIcon")).toBeInTheDocument();
         //Wait until the validation is done -> show error msg bc the name already exists
         await waitFor(() => expect(screen.getByText(translate("userAlreadyExists", { ns: "error" }))).toBeInTheDocument());
         //Update with an empty name
         fireEvent.change(input, { target: { value: "" } });
-        jest.spyOn(UserService, "userControllerCheckUserName").mockResolvedValueOnce({ exist: false });
+        jest.spyOn(UserService, "userControllerUserNameAvailability").mockResolvedValueOnce({ available: true });
         //Show empty name error
         await waitFor(() => expect(screen.getByText(translate("nameCanNotBeEmpty", { ns: "error" }))).toBeInTheDocument());
     });

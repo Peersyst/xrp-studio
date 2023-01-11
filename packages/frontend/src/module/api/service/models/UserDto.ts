@@ -4,7 +4,7 @@
 
 export type UserDto = {
     address: string;
-    name?: string;
+    name: string;
     description?: string;
     image?: string;
     header?: string;

@@ -25,6 +25,9 @@ describe("CollectionCreationPage", () => {
     const useNavigateMock = new UseNavigateMock();
     const useCheckBalanceMock = new UseCheckBalanceMock();
 
+    const addressMock = "address";
+    const collectionDtoMock = new CollectionDtoMock({ name: "name", user: new UserDtoMock({ address: addressMock }) });
+
     beforeEach(() => {
         useToastMock.clear();
         useNavigateMock.clear();
@@ -35,17 +38,22 @@ describe("CollectionCreationPage", () => {
         let useSearchParamsMock: UseSearchParamsMock;
         let useCollectionCreationStateMock: UseCollectionCreationStateMock;
         let useModalMock: ModalMock;
+        let collectionNameAvailability: jest.SpyInstance;
 
         beforeEach(() => {
             useSearchParamsMock = new UseSearchParamsMock();
             useCollectionCreationStateMock = new UseCollectionCreationStateMock({ name: COLLECTION_NAME, nfts: [{ id: 1 }] });
             useModalMock = new ModalMock();
+            collectionNameAvailability = jest
+                .spyOn(CollectionService, "collectionControllerCollectionNameAvailability")
+                .mockResolvedValue({ available: true });
         });
 
         afterAll(() => {
             useSearchParamsMock.restore();
             useCollectionCreationStateMock.restore();
             useModalMock.restore();
+            collectionNameAvailability.mockRestore();
         });
 
         test("Renders correctly", () => {
@@ -67,7 +75,10 @@ describe("CollectionCreationPage", () => {
         test("Publishes collection", async () => {
             render(<CollectionCreationPage />);
 
+            const nameInput = screen.getByPlaceholderText(translate("collectionNamePlaceholder"));
+            userEvent.type(nameInput, COLLECTION_NAME);
             const publishButton = screen.getByRole("button", { name: translate("publish") });
+            await waitFor(() => expect(publishButton).not.toBeDisabled());
             userEvent.click(publishButton);
             await waitFor(() =>
                 expect(useModalMock.showModal).toHaveBeenCalledWith(CollectionPublishModal, {
@@ -82,8 +93,10 @@ describe("CollectionCreationPage", () => {
                 .mockResolvedValueOnce(new CollectionDtoMock());
 
             render(<CollectionCreationPage />);
-
+            const nameInput = screen.getByPlaceholderText(translate("collectionNamePlaceholder"));
+            userEvent.type(nameInput, COLLECTION_NAME);
             const saveButton = screen.getByRole("button", { name: translate("save") });
+            await waitFor(() => expect(saveButton).not.toBeDisabled());
             userEvent.click(saveButton);
             await waitFor(() => expect(saveCollectionMock).toHaveBeenCalledWith(expect.objectContaining({ name: COLLECTION_NAME }), false));
             await waitFor(() => expect(useToastMock.showToast).toHaveBeenCalledWith(translate("collectionCreated"), { type: "success" }));
@@ -95,8 +108,6 @@ describe("CollectionCreationPage", () => {
         let useSearchParamsMock: UseSearchParamsMock;
         let getCollectionMock: jest.SpyInstance;
         let useWalletMock: WalletMock;
-        const addressMock = "address";
-        const collectionDtoMock = new CollectionDtoMock({ name: "name", user: new UserDtoMock({ address: addressMock }) });
 
         beforeEach(() => {
             useSearchParamsMock = new UseSearchParamsMock({ id: "1" });
@@ -170,6 +181,7 @@ describe("CollectionCreationPage", () => {
             const nameInput = screen.getByDisplayValue(collectionDtoMock.name!);
             userEvent.clear(nameInput);
             userEvent.type(nameInput, COLLECTION_NAME);
+            await waitFor(() => expect(saveButton).not.toBeDisabled());
             userEvent.click(saveButton);
 
             await waitFor(() =>

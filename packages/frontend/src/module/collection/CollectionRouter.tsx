@@ -4,7 +4,7 @@ import LoggedInRoute from "module/wallet/component/navigation/LoggedInRoute/Logg
 import useCollectionCreationRoutesObserver from "module/collection/hook/useCollectionCreationRoutesObserver";
 
 export enum CollectionRoutes {
-    VIEW_COLLECTION = "/collections/:id",
+    VIEW_COLLECTION = "/collections/:path",
     MY_COLLECTIONS = "/collections/my-collections",
     CREATE_COLLECTION = "/collections/creation",
     EDIT_NFT_CREATE_COLLECTION = "/collections/creation/nft/:index",

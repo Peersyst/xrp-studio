@@ -15,11 +15,11 @@ const EditProfileName = (): JSX.Element => {
     const { data: user = { name: "" } } = useGetWalletUser();
     const username = user.name || "";
     const { value, handleChange, debouncedValue, debouncing } = useDebounce(username);
-    const { data: { exist } = { exist: true }, isLoading: nameLoading } = useCheckNameAvailability(debouncedValue);
+    const { data: { available } = { exist: true }, isLoading: nameLoading } = useCheckNameAvailability(debouncedValue);
 
     const finalLoading = nameLoading || debouncing;
 
-    const nameError = finalLoading || (exist && username !== value); //loading: error, if exists but is the current userName: no error
+    const nameError = finalLoading || (!available && username !== value); //loading: error, if exists but is the current userName: no error
     const emptyError = username !== "" && value === ""; //if have a name do not allow to delete it
     const error = finalLoading || nameError || emptyError;
 
