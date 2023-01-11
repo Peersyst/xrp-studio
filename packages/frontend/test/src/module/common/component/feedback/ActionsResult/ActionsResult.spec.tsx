@@ -1,8 +1,8 @@
 import { Fragment } from "react";
 import ActionsResult from "module/common/component/feedback/ActionsResult/ActionsResult";
 import { render } from "test-utils";
-import { screen } from "@testing-library/react";
 import { waitFor } from "@testing-library/dom";
+import { screen } from "@testing-library/react";
 
 describe("ActionsResult tests", () => {
     test("Renders correctly with type success", async () => {
