@@ -10,11 +10,8 @@ import * as packageJson from "../package.json";
 import registerBullBoard from "./register-bull-board";
 import { ValidationPipe } from "@nestjs/common";
 import { useContainer } from "class-validator";
-import { getConfigEnv } from "./config/util/config.utils";
-import { runSeeders } from "./database/seeders/seed";
 
 async function bootstrap() {
-    if (getConfigEnv() === "preview") await runSeeders(true);
     const app = await NestFactory.create(AppModule);
     const configService = app.get("ConfigService");
     const logLevel = configService.get("logger.logLevel");
