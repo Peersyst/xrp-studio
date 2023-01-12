@@ -1,4 +1,4 @@
-import { Col, Row, Typography } from "@peersyst/react-components";
+import { Col, Row, Typography, useConfig } from "@peersyst/react-components";
 import Logo from "module/common/component/display/Logo/Logo";
 import { config } from "config";
 import { ContentFooter, FooterRoot } from "./Footer.styles";
@@ -6,9 +6,12 @@ import { FooterProps, FOOTER_LINK } from "./Footer.types";
 import useTranslate from "module/common/hook/useTranslate";
 import FooterColumn from "./FooterColumn";
 import Nebula from "../../display/Nebula/Nebula";
+import Link from "module/common/component/navigation/Link/Link";
 
 const Footer = ({ className, ...rest }: FooterProps): JSX.Element => {
     const translate = useTranslate();
+    const altNetwork = useConfig("altNetwork");
+
     return (
         <FooterRoot className={className}>
             <Col css={{ width: "100%", zIndex: -1, position: "absolute", top: 0 }}>
@@ -21,7 +24,7 @@ const Footer = ({ className, ...rest }: FooterProps): JSX.Element => {
                     css={{ position: "relative", paddingTop: "3rem", marginBottom: "10rem" }}
                     className={"ContentFooter"}
                 >
-                    <Col gap={"3.125rem"} flex={1}>
+                    <Col gap="1rem" justifyContent="space-between" flex={1}>
                         <Logo />
                         <Col gap={"0.5rem"}>
                             <Typography variant="body2" color="blue.40">
@@ -31,6 +34,9 @@ const Footer = ({ className, ...rest }: FooterProps): JSX.Element => {
                                 {`@ ${new Date().getFullYear()} ${config.peersyst}`}
                             </Typography>
                         </Col>
+                        <Link to={altNetwork.url} css={{ width: "fit-content" }}>
+                            {translate("goTo", { destination: altNetwork.network })}
+                        </Link>
                     </Col>
 
                     <Col gap={"1.5rem"} flex={1}>

@@ -20,6 +20,7 @@ import useTranslate from "module/common/hook/useTranslate";
 import useGetNftDrafts from "module/nft/query/useGetNftDrafts";
 
 const NftCreationPage = (): JSX.Element => {
+    const translate = useTranslate();
     const translateError = useTranslate("error");
     const [searchParams, setSearchParams] = useSearchParams();
     const { showModal } = useModal();
@@ -76,6 +77,7 @@ const NftCreationPage = (): JSX.Element => {
             } else {
                 await createNftDraft(requestNft).catch();
             }
+            showToast(translate("nftDraftSaved"), { type: "success" });
             navigate(NftRoutes.MY_NFTS, { replace: true });
         }
     };

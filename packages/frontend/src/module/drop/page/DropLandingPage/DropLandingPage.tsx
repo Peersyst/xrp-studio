@@ -6,6 +6,7 @@ import useGetDrop from "module/drop/query/useGetDrop";
 import DropLanding from "module/drop/component/display/DropLanding/DropLanding";
 import { useGetCollectionNfts } from "module/nft/query/useGetCollectionNfts";
 import { usePaginatedList } from "@peersyst/react-hooks";
+import NotFoundPage from "module/common/page/NotFoundPage/NotFoundPage";
 
 const DropLandingPage = (): JSX.Element => {
     const { id } = useParams<string>();
@@ -18,10 +19,9 @@ const DropLandingPage = (): JSX.Element => {
 
     useEffect(() => {
         if (dropId !== undefined && (Number.isNaN(dropId) || dropId < 1)) navigate(DashboardRoutes.MAIN);
-        else if (dropId && !dropLoading && !drop) {
-            navigate(DashboardRoutes.MAIN);
-        }
     }, [dropId, drop, dropLoading]);
+
+    if (!dropLoading && !drop) return <NotFoundPage />;
 
     return <DropLanding drop={drop} nfts={nfts} loadingNfts={loadingNfts} loading={dropLoading} />;
 };
