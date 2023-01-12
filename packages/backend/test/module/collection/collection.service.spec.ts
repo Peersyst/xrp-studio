@@ -72,20 +72,26 @@ describe("CollectionService", () => {
         };
 
         test("Creates collection with auto generated taxon with user having 0 collections", async () => {
-            collectionRepositoryMock.query.mockResolvedValueOnce([{ missing_taxon: "1" }]);
+            collectionRepositoryMock.query
+                .mockResolvedValueOnce([{ missing_taxon: "1" }])
+                .mockResolvedValueOnce([{ missing_sequence: "1" }]);
             const collection = await collectionService.createCollection(ACCOUNT, CREATE_COLLECTION_REQUEST);
             expect(collectionRepositoryMock.save).toHaveBeenCalledWith({ ...baseCreatedCollection, taxon: "1" });
             expect(collection).toEqual(expect.objectContaining({ taxon: 1 }));
         });
 
         test("Creates collection with auto generated taxon with user having smallest missing taxon = 1", async () => {
-            collectionRepositoryMock.query.mockResolvedValueOnce([{ missing_taxon: "2" }]);
+            collectionRepositoryMock.query
+                .mockResolvedValueOnce([{ missing_taxon: "2" }])
+                .mockResolvedValueOnce([{ missing_sequence: "1" }]);
             await collectionService.createCollection(ACCOUNT, CREATE_COLLECTION_REQUEST);
             expect(collectionRepositoryMock.save).toHaveBeenCalledWith({ ...baseCreatedCollection, taxon: "2" });
         });
 
         test("Creates collection with auto generated taxon with user having smallest missing taxon = 3", async () => {
-            collectionRepositoryMock.query.mockResolvedValueOnce([{ missing_taxon: "3" }]);
+            collectionRepositoryMock.query
+                .mockResolvedValueOnce([{ missing_taxon: "3" }])
+                .mockResolvedValueOnce([{ missing_sequence: "1" }]);
             await collectionService.createCollection(ACCOUNT, CREATE_COLLECTION_REQUEST);
             expect(collectionRepositoryMock.save).toHaveBeenCalledWith({ ...baseCreatedCollection, taxon: "3" });
         });
@@ -100,6 +106,7 @@ describe("CollectionService", () => {
         });
 
         test("Creates a collection with a given taxon not used by the account", async () => {
+            collectionRepositoryMock.query.mockResolvedValueOnce([{ missing_sequence: "1" }]);
             const findCollectionByTaxonAndAccountMock = jest.spyOn(CollectionService.prototype, "findOne").mockResolvedValue(undefined);
             await collectionService.createCollection(ACCOUNT, { taxon: 25, ...CREATE_COLLECTION_REQUEST });
             expect(collectionRepositoryMock.save).toHaveBeenCalledWith({ ...baseCreatedCollection, taxon: "25" });
@@ -118,7 +125,9 @@ describe("CollectionService", () => {
         });
 
         test("Creates collection with nft drafts", async () => {
-            collectionRepositoryMock.query.mockResolvedValueOnce([{ missing_taxon: "1" }]);
+            collectionRepositoryMock.query
+                .mockResolvedValueOnce([{ missing_taxon: "1" }])
+                .mockResolvedValueOnce([{ missing_sequence: "1" }]);
             await collectionService.createCollection(ACCOUNT, CREATE_COLLECTRION_WITH_NFTS_REQUEST);
             expect(collectionRepositoryMock.save).toHaveBeenCalledWith({ ...baseCreatedCollection, taxon: "1" });
             expect(nftServiceMock.createNftDraft).toHaveBeenCalledWith(
@@ -132,7 +141,9 @@ describe("CollectionService", () => {
         });
 
         test("Creates collection with published nfts", async () => {
-            collectionRepositoryMock.query.mockResolvedValueOnce([{ missing_taxon: "1" }]);
+            collectionRepositoryMock.query
+                .mockResolvedValueOnce([{ missing_taxon: "1" }])
+                .mockResolvedValueOnce([{ missing_sequence: "1" }]);
             await collectionService.createCollection(ACCOUNT, CREATE_COLLECTRION_WITH_NFTS_REQUEST, true);
             expect(collectionRepositoryMock.save).toHaveBeenCalledWith({ ...baseCreatedCollection, taxon: "1" });
             expect(nftServiceMock.createNftDraft).toHaveBeenCalledWith(
@@ -156,10 +167,12 @@ describe("CollectionService", () => {
             findCollectionByTaxonAndAccountMock = jest
                 .spyOn(CollectionService.prototype, "findOne")
                 .mockResolvedValue(CollectionDto.fromEntity(collectionMock));
+            collectionRepositoryMock.query.mockResolvedValue([{ missing_sequence: "1" }]);
         });
 
         afterAll(() => {
             findCollectionByTaxonAndAccountMock.mockRestore();
+            collectionRepositoryMock.query.mockReset();
         });
 
         test("Updates collection with new values", async () => {

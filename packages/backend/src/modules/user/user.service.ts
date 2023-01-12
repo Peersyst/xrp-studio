@@ -37,12 +37,15 @@ export class UserService {
      */
     async getRandomUserName(): Promise<string> {
         const name = generateName();
-        const nameSequence = await this.userRepository.query(
-            `SELECT CASE WHEN REPLACE(name, $1, '') = '' THEN 1 ELSE CAST(REPLACE(name, $1, '') as int) END as sequence FROM "user" WHERE "user".name LIKE CONCAT($1, '%') ORDER BY sequence DESC LIMIT 1;`,
+        const nameSequenceQuery = await this.userRepository.query(
+            `SELECT s.i AS missing_sequence FROM generate_series(1,99999) s(i) WHERE NOT EXISTS (SELECT 1 FROM "user" WHERE s.i = 1 AND name = $1 OR name = CONCAT($1, s.i)) LIMIT 1;`,
             [name],
         );
-        if (nameSequence.length) return name + (nameSequence[0].sequence + 1);
-        else return name;
+        const nameSequenceQueryRes = nameSequenceQuery?.[0];
+        if (!nameSequenceQueryRes) return this.getRandomUserName();
+        const missingSequence = Number(nameSequenceQueryRes.missing_sequence);
+        if (missingSequence === 1) return name;
+        else return name + missingSequence;
     }
 
     /**

@@ -51,7 +51,7 @@ export class CollectionService {
             ...restOfCollection,
             account: user.address,
             items: 0,
-            path: this.generateCollectionPath(name, user.name),
+            path: await this.generateCollectionPath(name, user.name),
         });
 
         //Create nfts
@@ -79,7 +79,7 @@ export class CollectionService {
             description: description || null,
             image: image || null,
             header: header || null,
-            ...(collection.name !== name ? { path: this.generateCollectionPath(name, collection.user.name) } : {}),
+            ...(collection.name !== name ? { path: await this.generateCollectionPath(name, collection.user.name) } : {}),
         });
 
         if (nfts) for await (const nft of nfts) await this.nftService.createNftDraft(address, { ...nft, taxon: Number(collection.taxon) });
@@ -160,8 +160,18 @@ export class CollectionService {
     /**
      * Generates collection path from a collection name and a user name
      */
-    private generateCollectionPath(collectionName: string, userName: string): string {
-        return `${collectionName.replace(" ", "_")}_by_${userName.replace(" ", "_")}`;
+    private async generateCollectionPath(collectionName: string, userName: string): Promise<string> {
+        const path = `${collectionName.replace(" ", "_")}_by_${userName.replace(" ", "_")}`;
+        const pathSequenceQuery = await this.collectionRepository.query(
+            `SELECT s.i AS missing_sequence FROM generate_series(1,99999) s(i) WHERE NOT EXISTS (SELECT 1 FROM collection WHERE s.i = 1 AND collection.path = $1 OR collection.path = CONCAT($1, CONCAT('_', s.i))) LIMIT 1;`,
+            [path],
+        );
+        const pathSequenceQueryRes = pathSequenceQuery?.[0];
+        // If there where 100000 collections with the same name, add an extra "_" and repeat de process
+        if (!pathSequenceQueryRes) return this.generateCollectionPath(collectionName, userName + "_");
+        const missingSequence = Number(pathSequenceQueryRes.missing_sequence);
+        if (missingSequence === 1) return path;
+        else return path + "_" + missingSequence;
     }
 
     /**

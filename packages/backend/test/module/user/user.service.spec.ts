@@ -41,7 +41,7 @@ describe("UserService", () => {
         test("Executes save on repository", async () => {
             const generatedName = "GeneratedName";
             jest.spyOn(GenerateName, "default").mockReturnValue(generatedName);
-            userRepositoryMock.query.mockReturnValueOnce([]);
+            userRepositoryMock.query.mockReturnValueOnce([{ missing_sequence: 1 }]);
 
             userRepositoryMock.findOne.mockResolvedValueOnce(undefined);
             const user = await userService.createIfNotExists(ADDRESS);
