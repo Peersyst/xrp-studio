@@ -3,7 +3,7 @@
     "backendUrl": "http://localhost:3001",
     "blockchainLinks": {
         "address": "https://testnet.xrpl.org/accounts/",
-        "tx": "https:/testnet.xrpl.org/transactions/",
+        "tx": "https://testnet.xrpl.org/transactions/",
         "nft": "https://testnet.xrpl.org/nft/"
     },
     "network": "testnet",
