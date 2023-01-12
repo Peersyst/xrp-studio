@@ -15,6 +15,8 @@ import axios from "axios";
 import { ConfigService } from "@nestjs/config";
 import { CreateMetadataRequest } from "./request/create-metadata.request";
 import * as Hash from "ipfs-only-hash";
+import { RawMetadataDto } from "./dto/raw-metadata.dto";
+import { MetadataAttributeDto } from "./dto/metadata-attribute.dto";
 
 export enum MetadataProcessingError {
     FETCH_ERROR,
@@ -57,13 +59,13 @@ export class MetadataService {
     async publishMetadata(nftId: number): Promise<string> {
         const metadata = await this.nftMetadataRepository.findOne({ nftId });
         if (!metadata) throw new BusinessException(ErrorCode.METADATA_NOT_FOUND);
-        const metadataDto = MetadataDto.fromEntity(metadata);
+        const metadataDto = RawMetadataDto.fromEntity(metadata);
         return this.ipfsService.uploadFile(Buffer.from(metadataDto.encode()));
     }
 
     async calculateUri(nftId: number): Promise<string> {
         const metadata = await this.nftMetadataRepository.findOne({ nftId }, { relations: ["attributes"] });
-        const data = MetadataDto.fromEntity(metadata).encode();
+        const data = RawMetadataDto.fromEntity(metadata).encode();
         return "ipfs://" + (await Hash.of(Buffer.from(data)));
     }
 
@@ -105,13 +107,18 @@ export class MetadataService {
     }
 
     async constructMetadata(obj: any): Promise<MetadataDto> {
+        const image = obj.image || obj.image_url;
+        const attributes = Array.isArray(obj.attributes)
+            ? obj.attributes.map(({ trait_type, value, display_type }) => new MetadataAttributeDto(trait_type, value, display_type))
+            : undefined;
+
         return new MetadataDto(
             obj.name,
             obj.description,
-            obj.image ? await this.processImage(obj.image) : undefined,
-            obj.backgroundColor,
-            obj.externalUrl,
-            obj.attributes,
+            image ? await this.processImage(image) : undefined,
+            obj.background_color,
+            obj.external_url,
+            attributes,
         );
     }
 
