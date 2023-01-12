@@ -3,7 +3,7 @@
     "backendUrl": "",
     "blockchainLinks": {
         "address": "https://livenet.xrpl.org/accounts/",
-        "tx": "https:/livenet.xrpl.org/transactions/",
+        "tx": "https://livenet.xrpl.org/transactions/",
         "nft": "https://livenet.xrpl.org/nft/"
     },
     "network": "mainnet",
