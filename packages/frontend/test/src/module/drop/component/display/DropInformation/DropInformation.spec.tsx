@@ -3,6 +3,7 @@ import { InformationField } from "module/common/component/display/InformationFie
 import { render } from "test-utils";
 import DropInformation from "module/drop/component/display/DropInformation/DropInformation";
 import { capitalize } from "@peersyst/react-utils";
+import { dropsToXrp } from "xrpl";
 
 describe("DropInformation", function () {
     test("Renders correctly", () => {
@@ -10,7 +11,7 @@ describe("DropInformation", function () {
         const image = "collection-image";
         const name = "collection-name";
         const items = 10;
-        const price = "100";
+        const price = "10000";
         const additionalField: InformationField = {
             label: "additional-label",
             content: "additional-content",
@@ -24,7 +25,7 @@ describe("DropInformation", function () {
         expect(screen.getByAltText(image)).toBeInTheDocument();
         expect(screen.getByText(name)).toBeInTheDocument();
         expect(screen.getByText(items)).toBeInTheDocument();
-        expect(screen.getByText(price)).toBeInTheDocument();
+        expect(screen.getByText(dropsToXrp(price))).toBeInTheDocument();
         expect(screen.getByText(capitalize(additionalField.label))).toBeInTheDocument();
         expect(screen.getByText(additionalField.content as string)).toBeInTheDocument();
     });

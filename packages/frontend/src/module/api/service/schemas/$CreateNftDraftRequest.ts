@@ -11,7 +11,7 @@ export const $CreateNftDraftRequest = {
         transferFee: {
             type: 'number',
             description: `Transfer fee in percentage representing percentages from 0% to 50% with up to 3 decimals`,
-            maximum: 50,
+            maximum: 50000,
         },
         flags: {
             type: 'all-of',

@@ -4,6 +4,7 @@
 import type { CreateDropRequest } from '../models/CreateDropRequest';
 import type { DropDto } from '../models/DropDto';
 import type { PaginatedDropDto } from '../models/PaginatedDropDto';
+import type { RequestBuyNftDto } from '../models/RequestBuyNftDto';
 
 import type { CancelablePromise } from '../core/CancelablePromise';
 import { OpenAPI } from '../core/OpenAPI';
@@ -94,12 +95,12 @@ export class DropService {
     /**
      * Buys a random nft from drop that is on sale
      * @param id
-     * @returns any
+     * @returns RequestBuyNftDto
      * @throws ApiError
      */
     public static dropControllerBuy(
         id: number,
-    ): CancelablePromise<any> {
+    ): CancelablePromise<RequestBuyNftDto> {
         return __request(OpenAPI, {
             method: 'POST',
             url: '/api/drop/{id}/buy',

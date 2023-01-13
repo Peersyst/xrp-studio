@@ -4,14 +4,15 @@ import useTranslate from "module/common/hook/useTranslate";
 import { Popover, Row, Typography } from "@peersyst/react-components";
 import Button from "module/common/component/input/Button/Button";
 import { CollectionCreationPageHeaderProps } from "./CollectionCreationPageHeader.types";
-import useGoBack from "module/common/hook/useGoBack";
 import useCollectionCreationState from "module/collection/hook/useCollectionCreationState";
 import useWallet from "module/wallet/hook/useWallet";
 import useGetUser from "module/user/query/useGetUser";
+import useGoBack from "module/common/hook/useGoBack";
+import { CollectionRoutes } from "module/collection/CollectionRouter";
 
 const CollectionCreationPageHeader = ({ collection, loading, saving, publishing }: CollectionCreationPageHeaderProps): JSX.Element => {
     const translate = useTranslate();
-    const goBack = useGoBack();
+    const goBack = useGoBack(CollectionRoutes.MY_COLLECTIONS);
     const [searchParams] = useSearchParams();
 
     const { address } = useWallet();

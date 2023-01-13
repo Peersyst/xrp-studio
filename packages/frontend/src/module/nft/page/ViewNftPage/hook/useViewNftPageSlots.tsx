@@ -81,7 +81,7 @@ export default function ({ nft, loading = false }: UserViewNftPageSlots): ReactN
                 <Label label={translate("collection")}>
                     {nftCollection ? (
                         <Link to={CollectionRoutes.VIEW_COLLECTION.replace(":id", nftCollection.id.toString())} variant="body1">
-                            {nftCollection.name}
+                            {nftCollection.name || translate("unnamed")}
                         </Link>
                     ) : (
                         <Typography variant="body1" fontStyle="italic">

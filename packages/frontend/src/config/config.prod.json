@@ -8,5 +8,9 @@
     },
     "network": "mainnet",
     "xrpNodeUrl": "wss://xrplcluster.com",
-    "dropMinterAddress": "rQnKiCD6yTtSRA9eiFXY5tHYQriCT41FJT"
+    "dropMinterAddress": "rQnKiCD6yTtSRA9eiFXY5tHYQriCT41FJT",
+        "altNetwork": {
+        "network": "testnet",
+        "url": "https://xrp-studio.peersyst.tech"
+    }
 }

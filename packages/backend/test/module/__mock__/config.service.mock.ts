@@ -19,6 +19,8 @@ class ConfigServiceMock extends BaseMock {
                 return "default_profile_img_url";
             case "defaultImages.header":
                 return "default_header_img_url";
+            case "user.isVerified":
+                return true;
             default:
                 return "default-config-setting";
         }

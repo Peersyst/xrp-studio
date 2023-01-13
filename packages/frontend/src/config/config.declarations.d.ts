@@ -27,12 +27,19 @@ declare module "@peersyst/react-components" {
         dropMinterAddress: string;
         maxBioChars: number;
         maxUsernameChars: number;
+        maxTwitterUsernameChars: number;
+        maxDiscordUsernameChars: number;
+        minDiscordUsernameChars: number;
         maxNftDescChars: number;
         maxNumberDecimals: number;
         tokenName: string;
         feeInDrops: number;
         peersystEmail: string;
         peersyst: string;
+        altNetwork: {
+            network: NetworkType;
+            url: string;
+        };
     }
 
     export interface CreateConfig {
@@ -58,6 +65,10 @@ declare module "@peersyst/react-components" {
         feeInDrops: number;
         peersystEmail: string;
         peersyst: string;
+        altNetwork: {
+            network: string;
+            url: string;
+        };
     }
 
     export interface ExtraValidators {

@@ -62,7 +62,7 @@ export class GetCollectionsRequest {
             filter.qbWheres.push({ field: "account", operator: FilterType.EQUAL, value: req.account });
         }
         if (req.query) {
-            filter.qbWheres.push({ field: "name", operator: FilterType.LIKE, value: req.query });
+            filter.qbWheres.push({ field: "collection.name", operator: FilterType.LIKE, value: req.query });
         }
 
         if (req.order === "ASC") {

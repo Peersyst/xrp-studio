@@ -10,16 +10,20 @@ import { UserRoutes } from "module/user/UserRouter";
 import { MouseEventHandler } from "react";
 import useGetUser from "module/user/query/useGetUser";
 import useIsMobile from "module/common/hook/useIsMobile";
+import { useQueryClient } from "react-query";
+import Queries from "../../../../../query/queries";
 
 const WalletMenu = (): JSX.Element => {
     const translate = useTranslate();
     const { address = "" } = useWallet();
     const { data: user } = useGetUser(address);
     const resetWalletState = useResetRecoilState(walletState);
+    const queryClient = useQueryClient();
 
     const logout: MouseEventHandler = (e) => {
         e.preventDefault();
         AuthTokenStorage.clear();
+        queryClient.invalidateQueries([Queries.NFT_DRAFTS]);
         resetWalletState();
     };
 

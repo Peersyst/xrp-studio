@@ -2466,10 +2466,10 @@
     "@peersyst/react-utils" "^2.1.0"
     validator "^13.7.0"
 
-"@peersyst/react-components@^3.0.23":
-  version "3.0.23"
-  resolved "https://registry.yarnpkg.com/@peersyst/react-components/-/react-components-3.0.23.tgz#f6986b9eab286db65f5297a166c5e80e7a833933"
-  integrity sha512-TjVungudh1MNAGR2uH2dQO35POOB62mjIkduZ5nc7rJV5wjyTGSLStVPX/vv8bhx8+aLA3EsTBV0aXDAL/WIxQ==
+"@peersyst/react-components@^3.0.24":
+  version "3.0.24"
+  resolved "https://registry.yarnpkg.com/@peersyst/react-components/-/react-components-3.0.24.tgz#a7c95469b98d79c8a7651d2df7272755de5d4327"
+  integrity sha512-dVWPInX0aZ2MzjOr7TR4op31apoGRlrmcLE5HtslPIi5xMCl2MVkvcof21BUOTx5/c0wkIcZu/FdN0AutGhGFQ==
   dependencies:
     "@babel/runtime" "^7.16.7"
     "@peersyst/react-components-core" "^1.0.9"
@@ -14166,10 +14166,10 @@ xtend@^4.0.0, xtend@~4.0.1:
   resolved "https://registry.yarnpkg.com/xtend/-/xtend-4.0.2.tgz#bb72779f5fa465186b1f438f674fa347fdb5db54"
   integrity sha512-LKYU1iAXJXUgAXn9URjiu+MWhyUXHsvfp7mcuYm9dSUKK0/CjtrUwFAxD82/mCWbtLsGjFIad0wIsod4zrTAEQ==
 
-xumm-react@^1.0.3:
-  version "1.0.3"
-  resolved "https://registry.yarnpkg.com/xumm-react/-/xumm-react-1.0.3.tgz#76155239381f5ba8bb9cdbb19f6e8d50de5c615c"
-  integrity sha512-kYS2INQSltZxt+97gGSJ+H8KWDt4ozTru2XuPmSV0GkZAX5ZF0NbucNK5MqLnC20sSMQgqs6IGwcJdi7W+CWmg==
+xumm-react@^1.3.0:
+  version "1.3.0"
+  resolved "https://registry.yarnpkg.com/xumm-react/-/xumm-react-1.3.0.tgz#2939d4c5657e3437e4a02cd7c63044e59c20fe4e"
+  integrity sha512-/dQaazi9kr2XKDcpQQA2SP3MVP09Y0IRSRZTAZV8nXGXzLwnxXD7TBckZssGbHdNeFiOQYxGg81Dnaiw5lmITQ==
 
 y18n@^4.0.0:
   version "4.0.3"

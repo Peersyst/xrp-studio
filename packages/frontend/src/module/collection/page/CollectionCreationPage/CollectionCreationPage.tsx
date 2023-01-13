@@ -71,11 +71,11 @@ const CollectionCreationPage = (): JSX.Element => {
                     id: collection.id,
                     collection: createCollectionRequestFromForm("update", data),
                 });
-                resetCollectionCreationState();
                 showToast(translate("collectionUpdated"), { type: "success" });
                 if (action === "launch") {
                     navigate(DropRoutes.DROP_CREATION + "?id=" + collection.id);
                 } else {
+                    resetCollectionCreationState();
                     navigate(CollectionRoutes.MY_COLLECTIONS, { replace: true });
                 }
             }
@@ -86,13 +86,11 @@ const CollectionCreationPage = (): JSX.Element => {
                 const collectionData = await createCollection({
                     collection: createCollectionRequestFromForm("create", data),
                 });
-
-                resetCollectionCreationState();
                 showToast(translate("collectionCreated"), { type: "success" });
-
                 if (action === "launch") {
                     navigate(DropRoutes.DROP_CREATION + "?id=" + collectionData.id);
                 } else {
+                    resetCollectionCreationState();
                     navigate(CollectionRoutes.MY_COLLECTIONS, { replace: true });
                 }
             }

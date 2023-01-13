@@ -14,7 +14,7 @@ export class CreateDropRequestMock implements CreateDropRequest {
 
     constructor({
         collectionId = 1,
-        price = "100",
+        price = "10000",
         backgroundColor = "#000000",
         fontColor = "#FFFFFF",
         videoUrl,

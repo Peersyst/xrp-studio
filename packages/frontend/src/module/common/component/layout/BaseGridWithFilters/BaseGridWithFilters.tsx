@@ -1,4 +1,4 @@
-import { Animated, Row, useTheme } from "@peersyst/react-components";
+import { Animated, Row } from "@peersyst/react-components";
 import { useMediaQuery } from "@peersyst/react-hooks";
 import { PaginatedData } from "query-utils";
 import { useEffect } from "react";
@@ -18,17 +18,12 @@ function BaseGridWithFilters<T extends PaginatedData, TagT = any>({
     onDeleteTagClicked,
     onClearTags,
     withExtraSpace,
+    tabletBreakPoint,
     ...rest
 }: BaseGridWithFilterProps<T, TagT>): JSX.Element {
-    const {
-        breakpoints: {
-            values: { nftsGrid },
-        },
-    } = useTheme();
-
     const [showFilters, setShowFilters] = useRecoilState(filtersVisibilityState);
     const finalBreakPoints = showFilters ? filterBreakpoints || breakpoints : breakpoints;
-    const isTablet = useMediaQuery(`(max-width: ${nftsGrid.sm}px)`);
+    const isTablet = useMediaQuery(`(max-width: ${tabletBreakPoint}px)`);
     const finalMoveGrid = showFilters && !isTablet;
 
     useEffect(() => {
