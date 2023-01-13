@@ -1,6 +1,6 @@
 resource "aws_instance" "server" {
     ami                         = "ami-0b95c8042c84717b9"
-    instance_type               = "t2.large"
+    instance_type               = "t2.xlarge"
     iam_instance_profile = aws_iam_instance_profile.server.name
     associate_public_ip_address = true
     security_groups = [aws_security_group.sg.name]
