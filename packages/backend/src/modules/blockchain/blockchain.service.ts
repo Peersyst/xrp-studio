@@ -113,7 +113,7 @@ export class BlockchainService {
     async processTransactionByType(transaction: ValidatedLedgerTransaction): Promise<void> {
         // this.logger.debug(`Processing transaction ${JSON.stringify(transaction)}`);
         if (transaction.TransactionType === "NFTokenMint") {
-            const job = await this.transactionsQueue.add(
+            await this.transactionsQueue.add(
                 "process-mint-transaction",
                 { transaction },
                 {
@@ -121,9 +121,8 @@ export class BlockchainService {
                     backoff: 60000,
                 },
             );
-            await job.finished();
         } else if (transaction.TransactionType === "NFTokenAcceptOffer") {
-            const job = await this.dropQueue.add(
+            await this.dropQueue.add(
                 "process-accept-offer-transaction",
                 { transaction },
                 {
@@ -131,7 +130,6 @@ export class BlockchainService {
                     backoff: 60000,
                 },
             );
-            await job.finished();
             await this.offerService.processAcceptOfferTransaction(transaction);
         } else if (transaction.TransactionType === "NFTokenCreateOffer") {
             await this.offerService.processCreateOfferTransaction(transaction);
