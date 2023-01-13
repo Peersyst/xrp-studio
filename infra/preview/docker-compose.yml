@@ -16,7 +16,7 @@ services:
         image: peersyst/${projectName}-backend:${branch}
         restart: always
         environment:
-            CONFIG_ENV: preview
+            CONFIG_ENV: staging
             AWS_REGION: eu-west-1
             AWS_SECRET_ID: staging/${projectName}
             AWS_ACCESS_KEY_ID: ${awsAccessKeyId}

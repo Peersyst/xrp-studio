@@ -7,8 +7,8 @@ export class RawMetadataAttributeDto {
 
     static fromEntity({ traitType, value, displayType }: NftMetadataAttribute): RawMetadataAttributeDto {
         return {
-            trait_type: traitType,
-            value,
+            trait_type: traitType || "",
+            value: value || "",
             display_type: displayType,
         };
     }
