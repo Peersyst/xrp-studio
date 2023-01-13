@@ -4,7 +4,6 @@ import { NftService } from "../nft/nft.service";
 import { CollectionService } from "../collection/collection.service";
 import { UserService } from "../user/user.service";
 import { Order } from "../common/types";
-import { NftStatus } from "../../database/entities/Nft";
 import { NftDto } from "../nft/dto/nft.dto";
 
 @Injectable()
@@ -16,15 +15,9 @@ export class TrendService {
     ) {}
 
     async findTrends(): Promise<TrendsDto> {
-        const nfts = (
-            await this.nftService.findAll(
-                { page: 1, pageSize: 10, order: Order.DESC, status: [NftStatus.CONFIRMED], orderField: "priority" },
-                undefined,
-            )
-        ).items as NftDto[];
-        const collections = (await this.collectionService.findAll({ page: 1, pageSize: 10, order: Order.DESC, orderField: "priority" }))
-            .items;
-        const artists = await this.userService.findAll({ page: 1, pageSize: 10, order: Order.DESC, orderField: "priority" });
+        const nfts = (await this.nftService.findAll({ page: 1, pageSize: 10, order: Order.DESC })).items as NftDto[];
+        const collections = (await this.collectionService.findAll({ page: 1, pageSize: 10, order: Order.DESC })).items;
+        const artists = await this.userService.findAll({ page: 1, pageSize: 10, order: Order.DESC });
         return { nfts, collections, artists };
     }
 }
