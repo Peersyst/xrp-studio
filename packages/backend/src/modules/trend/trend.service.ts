@@ -17,7 +17,7 @@ export class TrendService {
     async findTrends(): Promise<TrendsDto> {
         const nfts = (await this.nftService.findAll({ page: 1, pageSize: 10, order: Order.DESC })).items as NftDto[];
         const collections = (await this.collectionService.findAll({ page: 1, pageSize: 10, order: Order.DESC })).items;
-        const artists = await this.userService.findAll({ page: 1, pageSize: 10, order: Order.DESC });
+        const artists = await this.userService.findAll({ page: 1, pageSize: 10, order: Order.DESC, orderField: "name" });
         return { nfts, collections, artists };
     }
 }
