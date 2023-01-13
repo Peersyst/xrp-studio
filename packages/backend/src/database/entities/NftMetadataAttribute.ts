@@ -1,13 +1,16 @@
-import { Column, CreateDateColumn, Entity, JoinColumn, ManyToOne, PrimaryColumn, UpdateDateColumn } from "typeorm";
+import { Column, CreateDateColumn, Entity, JoinColumn, ManyToOne, PrimaryColumn, PrimaryGeneratedColumn, UpdateDateColumn } from "typeorm";
 import { NftMetadata } from "./NftMetadata";
 
 @Entity("nft_metadata_attribute")
 export class NftMetadataAttribute {
+    @PrimaryGeneratedColumn()
+    id: number;
+
     @PrimaryColumn({ name: "nft_metadata_id" })
     nftMetadataId: number;
 
-    @PrimaryColumn({ name: "trait_type", type: "varchar", length: 255 })
-    traitType: string;
+    @Column({ name: "trait_type", type: "varchar", length: 255, nullable: true })
+    traitType?: string;
 
     @Column({ type: "varchar", length: 255 })
     value: string;

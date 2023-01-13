@@ -6,8 +6,8 @@ export class MetadataAttributeDto {
     displayType?: string | null;
 
     constructor(traitType: string, value: string, displayType?: string | null) {
-        this.traitType = traitType;
-        this.value = value;
+        this.traitType = traitType || "";
+        this.value = value || "";
         this.displayType = displayType;
     }
 
