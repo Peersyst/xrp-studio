@@ -2,35 +2,39 @@ version: '3.5'
 services:
     db:
         image: postgres:14.2
+        tty: true
         restart: always
         environment:
             POSTGRES_DB: db_database
             POSTGRES_USER: db_user
             POSTGRES_PASSWORD: db_password
+        volumes:
+            - ./docker/data/prod/postgres:/var/lib/postgresql
+
     redis:
         image: redis:6.2
         command: "redis-server --requirepass redis_password"
+        restart: always
+        volumes:
+            - ./docker/data/prod/redis:/var/lib/redis
         environment:
             REDIS_PASSWORD: redis_password
+
     backend:
-        image: peersyst/${projectName}-backend:${branch}
+        build:
+            context: ../../packages/backend/
+            dockerfile: Dockerfile
         restart: always
-        environment:
-            CONFIG_ENV: preview
-            AWS_REGION: eu-west-1
-            AWS_SECRET_ID: staging/${projectName}
-            AWS_ACCESS_KEY_ID: ${awsAccessKeyId}
-            AWS_SECRET_ACCESS_KEY: ${awsSecretAccessKey}
+        env_file:
+            - ../../packages/backend/.env
+
     http:
-        image: peersyst/${projectName}-http:${branch}
-        restart: always
+        build:
+            context: ../../packages/frontend/
+            dockerfile: Dockerfile
         ports:
             - '80:80'
         environment:
-            BACKEND_UPSTREAM: "server backend:3000;"
-    watchtower:
-        image: containrrr/watchtower
+            BACKEND_UPSTREAM: "server backend:$BACKEND_PORT;"
         volumes:
-            - /var/run/docker.sock:/var/run/docker.sock
-            - /root/.docker/config.json:/config.json
-        command: --interval 30
+            - ../../logs/http:/var/log/nginx/
