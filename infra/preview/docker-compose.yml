@@ -35,6 +35,6 @@ services:
         ports:
             - '80:80'
         environment:
-            BACKEND_UPSTREAM: "server backend:$BACKEND_PORT;"
+            BACKEND_UPSTREAM: "server backend:3000;"
         volumes:
             - ../../logs/http:/var/log/nginx/
