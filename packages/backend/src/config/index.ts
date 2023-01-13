@@ -8,6 +8,7 @@ import xrpConfig from "./xrp.config";
 import xummConfig from "./xumm.config";
 import awsS3Config from "./aws-s3.config";
 import defaultImagesConfig from "./default-images.config";
+import pinataConfig from "./pinata.config";
 
 export default async (): Promise<any> => {
     const secrets = await loadAwsSecrets(process.env.AWS_REGION, process.env.AWS_SECRET_ID);
@@ -19,7 +20,7 @@ export default async (): Promise<any> => {
         bull: bullConfig(),
         xrp: xrpConfig(),
         xumm: xummConfig(secrets),
-        pinata: xummConfig(secrets),
+        pinata: pinataConfig(secrets),
         aws: awsS3Config(secrets),
         defaultImages: defaultImagesConfig(),
     };
