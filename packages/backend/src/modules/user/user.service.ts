@@ -10,6 +10,7 @@ import { ConfigService } from "@nestjs/config";
 import { QueryBuilderHelper } from "../common/util/query-builder.helper";
 import { GetUsersRequest } from "./request/get-users.request";
 import { NftStatus } from "../../database/entities/Nft";
+import generateName from "./util/name-generator/generate-name";
 
 @Injectable()
 export class UserService {
@@ -21,11 +22,26 @@ export class UserService {
     async createIfNotExists(address: string): Promise<User> {
         const user = await this.userRepository.findOne({ address });
         if (user) return user;
+        const name = await this.getRandomUserName();
         return this.userRepository.save({
+            name,
             address,
             image: this.configService.get<string>("defaultImages.profile"),
             header: this.configService.get<string>("defaultImages.header"),
         });
+    }
+
+    /**
+     * Gets a random user name handling reps
+     */
+    async getRandomUserName(): Promise<string> {
+        const name = generateName();
+        const nameSequence = await this.userRepository.query(
+            `SELECT CASE WHEN REPLACE(name, $1, '') = '' THEN 1 ELSE CAST(REPLACE(name, $1, '') as int) END as sequence FROM "user" WHERE "user".name LIKE CONCAT($1, '%') ORDER BY sequence DESC LIMIT 1;`,
+            [name],
+        );
+        if (nameSequence.length) return name + (nameSequence[0].sequence + 1);
+        else return name;
     }
 
     /**
