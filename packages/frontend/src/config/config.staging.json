@@ -2,14 +2,14 @@
     "publicUrl": "/",
     "backendUrl": "",
     "blockchainLinks": {
-        "address": "https://livenet.xrpl.org/accounts/",
-        "tx": "https://livenet.xrpl.org/transactions/",
-        "nft": "https://livenet.xrpl.org/nft/"
+        "address": "https://testnet.xrpl.org/accounts/",
+        "tx": "https://testnet.xrpl.org/transactions/",
+        "nft": "https://testnet.xrpl.org/nft/"
     },
-    "network": "mainnet",
-    "xrpNodeUrl": "wss://xrplcluster.com",
+    "network": "testnet",
+    "xrpNodeUrl": "wss://s.altnet.rippletest.net:51233",
     "altNetwork": {
-        "network": "testnet",
+        "network": "mainnet",
         "url": "https://xrp-studio_445.peersyst.tech"
     }
 }

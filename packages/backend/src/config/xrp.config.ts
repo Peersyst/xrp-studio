@@ -9,11 +9,11 @@ interface XrpConfig {
 export default (): XrpConfig => {
     return buildConfig<XrpConfig>({
         node: {
-            default: "wss://xrplcluster.com",
+            default: "wss://s.altnet.rippletest.net:51233",
             production: "wss://xrplcluster.com",
         },
         startingLedgerIndex: {
-            default: 77064000,
+            default: 34560000,
             production: 77064000,
         },
         enableIndexer: {
