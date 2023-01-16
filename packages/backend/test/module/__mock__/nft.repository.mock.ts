@@ -84,6 +84,7 @@ class NftRepositoryMock extends BaseMock {
     update = jest.fn();
     getMany = jest.fn(() => new Promise((resolve) => resolve([new NftMock({ id: 1 }), new NftMock({ id: 2 }), new NftMock({ id: 3 })])));
     findOne = jest.fn(() => new Promise((resolve) => resolve(new NftMock())));
+    delete = jest.fn();
 }
 
 export default NftRepositoryMock;

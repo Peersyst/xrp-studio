@@ -255,6 +255,15 @@ export class NftService {
         });
     }
 
+    /**
+     * Deletes an NFT draft
+     */
+    public async deleteNftDraft(id: number, account: string): Promise<void> {
+        const nft = await this.findOne(id, { ownerAddress: account, status: [NftStatus.DRAFT, NftStatus.FAILED] });
+        await this.metadataService.delete(nft.id);
+        await this.nftRepository.delete({ id: nft.id });
+    }
+
     async findOne<Status extends NftStatus[]>(
         id: number | string,
         options?: { ownerAddress?: string; status?: Status; relations?: string[] },

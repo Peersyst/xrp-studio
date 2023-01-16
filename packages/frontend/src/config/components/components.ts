@@ -1,6 +1,12 @@
 import { CreateConfig } from "@peersyst/react-components";
+import Button from "module/common/component/input/Button/Button";
 
 const components: CreateConfig["components"] = {
+    Dialog: {
+        actions: {
+            component: Button,
+        },
+    },
     Divider: {
         defaultProps: {
             color: "black.80",

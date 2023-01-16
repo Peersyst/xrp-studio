@@ -134,6 +134,24 @@ export class NftService {
     }
 
     /**
+     * Delete an NFT draft (status = draft | failed)
+     * @param id
+     * @returns any
+     * @throws ApiError
+     */
+    public static nftControllerDeleteNftDraft(
+        id: number,
+    ): CancelablePromise<any> {
+        return __request(OpenAPI, {
+            method: 'DELETE',
+            url: '/api/nft/draft/{id}',
+            path: {
+                'id': id,
+            },
+        });
+    }
+
+    /**
      * Publish an NFT draft
      * @param id
      * @returns void

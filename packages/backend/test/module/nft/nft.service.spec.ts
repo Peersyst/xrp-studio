@@ -496,6 +496,18 @@ describe("NftService", () => {
         });
     });
 
+    describe("deleteNftDraft", () => {
+        beforeEach(() => {
+            nftRepositoryMock.findOne.mockResolvedValueOnce(new NftMock({ status: NftStatus.DRAFT, user: new User({ address: ADDRESS }) }));
+        });
+
+        test("Deletes NFT correctly", async () => {
+            await nftService.deleteNftDraft(1, ADDRESS);
+            expect(metadataServiceMock.delete).toHaveBeenCalledWith(1);
+            expect(nftRepositoryMock.delete).toHaveBeenCalledWith({ id: 1 });
+        });
+    });
+
     describe("findOne", () => {
         test("Returns existing Nft", async () => {
             const nft = await nftService.findOne(1);
