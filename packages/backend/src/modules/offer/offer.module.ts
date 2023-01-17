@@ -6,6 +6,7 @@ import { Offer } from "../../database/entities/Offer";
 import { OfferService } from "./offer.service";
 import { BlockchainModule } from "../blockchain/blockchain.module";
 import { BullModule } from "@nestjs/bull";
+import { OfferConsumer } from "./queue/offer.consumer";
 
 @Module({
     imports: [
@@ -15,7 +16,7 @@ import { BullModule } from "@nestjs/bull";
         BullModule.registerQueue({ name: "offer" }),
         TypeOrmModule.forFeature([Offer]),
     ],
-    providers: [OfferService],
+    providers: [OfferService, OfferConsumer],
     exports: [OfferService],
 })
 export class OfferModule {}

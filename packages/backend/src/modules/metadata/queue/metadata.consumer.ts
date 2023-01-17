@@ -1,7 +1,6 @@
 import { OnQueueFailed, Process, Processor } from "@nestjs/bull";
 import { Inject, Logger } from "@nestjs/common";
 import { Job } from "bull";
-import { convertHexToString } from "xrpl";
 import { MetadataProcessingError, MetadataService } from "../metadata.service";
 
 @Processor("metadata")
@@ -28,24 +27,23 @@ Error: ${err}`,
     /**
      * Processes an NFT metadata from ipfs or http URIs
      */
-    @Process({ name: "process-metadata", concurrency: 5 })
+    @Process({ name: "process-metadata", concurrency: 10 })
     async processMetadata({ data: { nftId, uri }, opts }: Job<{ nftId: number; uri: string }>) {
         this.logger.log(`[process-metadata] consuming ${JSON.stringify({ nftId, uri })}`);
         try {
-            const parsedUri = convertHexToString(uri);
-            const metadata = await this.metadataService.retrieveMetadata(parsedUri);
+            const metadata = await this.metadataService.retrieveMetadata(uri);
             await this.metadataService.create(nftId, metadata);
-            this.logger.log(`[process-metadata] indexed ${JSON.stringify({ nftId, parsedUri })}`);
+            this.logger.log(`[process-metadata] indexed ${JSON.stringify({ nftId, uri })}`);
         } catch (e) {
-            if (e === MetadataProcessingError.FETCH_ERROR)
+            if (e === MetadataProcessingError.FETCH_ERROR) {
                 this.logger.warn(`[process-metadata] could not fetch metadata from ${JSON.stringify({ nftId, uri })}`);
-            else if (e === MetadataProcessingError.INVALID)
+                await this.metadataService.sendToProcessMetadata(nftId, uri, (opts.delay || 500) * 2);
+            } else if (e === MetadataProcessingError.INVALID)
                 this.logger.warn(`[process-metadata] metadata is not valid from ${JSON.stringify({ nftId, uri })}`);
             else {
                 this.logger.error(`[process-metadata] could not process metadata from ${JSON.stringify({ nftId, uri })}
 Error: ${e}`);
             }
-            await this.metadataService.sendToProcessMetadata(nftId, uri, (opts.delay || 500) * 2);
         }
     }
 }

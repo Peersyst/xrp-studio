@@ -24,7 +24,7 @@ export class LedgerConsumer {
         try {
             const ledger = await this.blockchainService.getLedger(index);
             if (ledger.validated) {
-                this.logger.log(`INDEXED LEDGER ${index} next is ${index + INDEX_LEDGER_JOB_CONCURRENCY}`);
+                this.logger.log(`INDEXED LEDGER ${index}`);
                 await this.transactionsQueue.add("process-transactions", {
                     transactions: ledger.transactions,
                     ledgerIndex: index,

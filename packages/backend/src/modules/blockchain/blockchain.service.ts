@@ -27,7 +27,6 @@ export class BlockchainService {
         @InjectQueue("transactions") private readonly transactionsQueue: Queue,
         @InjectQueue("drop") private readonly dropQueue: Queue,
         @InjectQueue("offer") private readonly offerQueue: Queue,
-        @InjectQueue("metadata") private readonly metadataQueue: Queue,
         private readonly configService: ConfigService,
         @Inject(forwardRef(() => OfferService)) private readonly offerService: OfferService,
     ) {
@@ -42,6 +41,7 @@ export class BlockchainService {
     async onApplicationBootstrap(): Promise<void> {
         // We can leave the xrp ws connected indefinitely as we are making requests every ~3 seconds, it will not timeout
         await this.ledgerQueue.empty();
+        await this.ledgerQueue.clean(0);
         await this.pauseTransactionQueues();
         await this.xrpClient.connect();
         const currentIndexedLedgerIndex = await this.getCurrentLedgerIndex();
@@ -54,13 +54,11 @@ export class BlockchainService {
     async pauseTransactionQueues(): Promise<void> {
         this.logger.log("Pausing transaction processor queues for indexing focus");
         await this.dropQueue.pause();
-        await this.offerQueue.pause();
     }
 
     async resumeTransactionQueues(): Promise<void> {
         this.logger.log("Resuming transaction processor queues");
         if (await this.dropQueue.isPaused()) await this.dropQueue.resume();
-        if (await this.offerQueue.isPaused()) await this.offerQueue.resume();
     }
 
     /**
@@ -128,7 +126,7 @@ export class BlockchainService {
     /**
      * Processes a transaction by its type
      */
-    async processTransactionByType(transaction: ValidatedLedgerTransaction): Promise<void> {
+    async processTransactionByType(transaction: ValidatedLedgerTransaction, ledgerIndex: number): Promise<void> {
         if (transaction.metaData.TransactionResult !== "tesSUCCESS") return;
         // this.logger.debug(`Processing transaction ${JSON.stringify(transaction)}`);
         if (transaction.TransactionType === "NFTokenMint") {
@@ -138,6 +136,7 @@ export class BlockchainService {
                 {
                     attempts: 3,
                     backoff: 60000,
+                    priority: ledgerIndex,
                 },
             );
         } else if (transaction.TransactionType === "NFTokenAcceptOffer") {
@@ -147,11 +146,12 @@ export class BlockchainService {
                 {
                     attempts: 3,
                     backoff: 60000,
+                    priority: ledgerIndex,
                 },
             );
-            await this.offerQueue.add("process-accept-offer-transaction", { transaction });
+            await this.offerQueue.add("process-accept-offer-transaction", { transaction }, { priority: ledgerIndex, delay: 3500 });
         } else if (transaction.TransactionType === "NFTokenCreateOffer") {
-            await this.offerQueue.add("process-create-offer-transaction", { transaction });
+            await this.offerQueue.add("process-create-offer-transaction", { transaction }, { priority: ledgerIndex, delay: 3500 });
         }
     }
 

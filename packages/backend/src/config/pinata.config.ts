@@ -20,7 +20,17 @@ export default (secrets: AwsSecrets): PinataConfig => {
             default: "https://ipfs.pixura.io/ipfs/",
         },
         gateways: {
-            default: ["https://ipfs.pixura.io/ipfs/", "https://xrp-stamp.mypinata.cloud/ipfs/", "https://xrp-studio.infura-ipfs.io/ipfs/"],
+            default: [
+                "https://cloudflare-ipfs.com/ipfs/",
+                "https://ipfs.pixura.io/ipfs/",
+                "https://xrp-stamp.mypinata.cloud/ipfs/",
+                "https://jorropo.net/ipfs/",
+                "https://gateway.pinata.cloud/ipfs/",
+                "https://gateway.ipfs.io/ipfs/",
+                "https://fleek.ipfs.io/ipfs/",
+                "https://ipfs.eth.aragon.network/ipfs/",
+                "https://ipfs-gateway.cloud/ipfs/",
+            ],
         },
     });
 };

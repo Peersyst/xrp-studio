@@ -29,7 +29,7 @@ export class TransactionsConsumer {
             this.logger.log(`PROCESSING ${transactions.length} TRANSACTIONS FROM LEDGER ${ledgerIndex}`);
             for await (const tx of transactions) {
                 try {
-                    await this.blockchainService.processTransactionByType(tx);
+                    await this.blockchainService.processTransactionByType(tx, ledgerIndex);
                 } catch (e) {
                     this.logger.error("Error processing transaction with hash " + tx.hash + " " + e.toString());
                 }
