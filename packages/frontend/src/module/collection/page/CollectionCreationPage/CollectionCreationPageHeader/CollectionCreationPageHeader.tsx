@@ -8,7 +8,7 @@ import useCollectionCreationState from "module/collection/hook/useCollectionCrea
 import useWallet from "module/wallet/hook/useWallet";
 import useGetUser from "module/user/query/useGetUser";
 import useGoBack from "module/common/hook/useGoBack";
-import { CollectionRoutes } from "module/collection/CollectionRouter";
+import { CollectionRoutes } from "module/collection/router/CollectionRouter";
 
 const CollectionCreationPageHeader = ({ collection, loading, saving, publishing }: CollectionCreationPageHeaderProps): JSX.Element => {
     const translate = useTranslate();

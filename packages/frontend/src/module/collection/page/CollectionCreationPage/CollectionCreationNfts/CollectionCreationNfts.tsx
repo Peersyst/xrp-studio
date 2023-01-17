@@ -2,7 +2,7 @@ import ImageInput from "module/common/component/input/ImageInput/ImageInput";
 import { Col, Grid, Skeleton, useFormNotification, useFormValidity, useTheme } from "@peersyst/react-components";
 import useCollectionCreationState from "module/collection/hook/useCollectionCreationState";
 import NftCreationCard from "module/nft/component/display/NftCreationCard/NftCreationCard";
-import { CollectionRoutes } from "module/collection/CollectionRouter";
+import { CollectionRoutes } from "module/collection/router/CollectionRouter";
 import { useState } from "react";
 import { BaseCardSkeletons } from "module/common/component/feedback/Skeletons/Skeletons";
 import { CollectionCreationNftsProps } from "module/collection/page/CollectionCreationPage/CollectionCreationNfts/CollectionCreationNfts.types";

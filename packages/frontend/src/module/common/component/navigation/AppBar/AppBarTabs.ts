@@ -1,6 +1,6 @@
 import { ResourceType } from "locale/i18n.types";
 import { NftRoutes } from "module/nft/NftRouter";
-import { CollectionRoutes } from "module/collection/CollectionRouter";
+import { CollectionRoutes } from "module/collection/router/CollectionRouter";
 import { ExploreRoutes } from "module/explore/ExploreRouter";
 import { DropRoutes } from "module/drop/DropRouter";
 

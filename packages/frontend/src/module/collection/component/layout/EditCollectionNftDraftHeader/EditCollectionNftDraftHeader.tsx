@@ -3,7 +3,7 @@ import MainPageHeader from "module/common/component/layout/MainPageHeader/MainPa
 import Button from "module/common/component/input/Button/Button";
 import { EditCollectionNftDraftHeaderProps } from "module/collection/component/layout/EditCollectionNftDraftHeader/EditCollectionNftDraftHeader.types";
 import useCollectionCreationState from "module/collection/hook/useCollectionCreationState";
-import { CollectionRoutes } from "module/collection/CollectionRouter";
+import { CollectionRoutes } from "module/collection/router/CollectionRouter";
 
 const EditCollectionNftDraftHeader = ({ saving }: EditCollectionNftDraftHeaderProps): JSX.Element => {
     const translate = useTranslate();

@@ -8,7 +8,7 @@ import { config } from "config";
 import { useNftRoutes } from "module/nft/NftRouter";
 import { useLoad } from "module/common/hook/useLoad";
 import { useUserRoutes } from "module/user/UserRouter";
-import { useCollectionRoutes } from "module/collection/CollectionRouter";
+import { useCollectionRoutes } from "module/collection/router/CollectionRouter";
 import { useDropRoutes } from "module/drop/DropRouter";
 import { useExploreRoutes } from "module/explore/ExploreRouter";
 import { useLandingRoutes } from "module/landing/LandingRouter";

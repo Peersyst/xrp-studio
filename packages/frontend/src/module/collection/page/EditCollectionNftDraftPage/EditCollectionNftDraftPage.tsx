@@ -6,7 +6,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import { NftCreationForm } from "module/nft/types";
 import useCollectionCreationState from "module/collection/hook/useCollectionCreationState";
 import createNftRequestFromForm from "module/nft/util/createNftRequestFromForm";
-import { CollectionRoutes } from "module/collection/CollectionRouter";
+import { CollectionRoutes } from "module/collection/router/CollectionRouter";
 import useSetCollectionCreationNft from "module/collection/query/useSetCollectionCreationNft";
 import useTranslate from "module/common/hook/useTranslate";
 import { useEffect } from "react";
