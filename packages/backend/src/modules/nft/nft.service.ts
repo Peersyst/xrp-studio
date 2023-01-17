@@ -109,7 +109,7 @@ export class NftService {
                 collectionId: collection?.id,
             });
             if (savedNft.uri && Account !== this.blockchainService.mintingAddress)
-                await this.metadataService.sendToProcessMetadata(savedNft);
+                await this.metadataService.sendToProcessMetadata(savedNft.id, savedNft.uri);
             return savedNft;
         } catch (e) {
             if (collection) await this.collectionService.addItems(collection.id, -1);

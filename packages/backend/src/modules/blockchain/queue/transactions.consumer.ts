@@ -1,6 +1,6 @@
 import { Process, Processor } from "@nestjs/bull";
 import { forwardRef, Inject, Logger } from "@nestjs/common";
-import { BlockchainService } from "../blockchain.service";
+import { BlockchainService, INDEX_LEDGER_JOB_CONCURRENCY } from "../blockchain.service";
 import { Job } from "bull";
 import { NFTokenMint } from "xrpl/dist/npm/models/transactions/NFTokenMint";
 import { ValidatedLedgerTransaction } from "../types";
@@ -42,7 +42,7 @@ export class TransactionsConsumer {
      * @param transaction
      * @param ledgerIndex
      */
-    @Process("process-mint-transaction")
+    @Process({ name: "process-mint-transaction", concurrency: INDEX_LEDGER_JOB_CONCURRENCY })
     async processMintTransaction({
         data: { transaction },
     }: Job<{

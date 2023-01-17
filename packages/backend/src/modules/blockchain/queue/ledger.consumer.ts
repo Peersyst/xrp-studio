@@ -1,7 +1,7 @@
 import { Logger } from "@nestjs/common";
 import { InjectQueue, Process, Processor } from "@nestjs/bull";
 import { Job, Queue } from "bull";
-import { BlockchainService } from "../blockchain.service";
+import { BlockchainService, INDEX_LEDGER_JOB_CONCURRENCY } from "../blockchain.service";
 
 @Processor("ledger")
 export class LedgerConsumer {
@@ -16,23 +16,23 @@ export class LedgerConsumer {
      * Indexes ledgers and sends their transactions to the transactions queue
      * @param index
      */
-    @Process("index-ledger")
+    @Process({ name: "index-ledger", concurrency: INDEX_LEDGER_JOB_CONCURRENCY })
     async indexLedger({ data: { index } }: Job<{ index: number }>) {
+        await this.blockchainService.indexLedger(index + INDEX_LEDGER_JOB_CONCURRENCY);
         this.logger.log(`CONSUMING LEDGER ${index}`);
 
         try {
             const ledger = await this.blockchainService.getLedger(index);
             if (ledger.validated) {
-                this.logger.log(`INDEXED LEDGER ${index}`);
-                const job = await this.transactionsQueue.add("process-transactions", {
+                this.logger.log(`INDEXED LEDGER ${index} next is ${index + INDEX_LEDGER_JOB_CONCURRENCY}`);
+                await this.transactionsQueue.add("process-transactions", {
                     transactions: ledger.transactions,
                     ledgerIndex: index,
                 });
-                await job.finished();
                 await this.blockchainService.setCurrentLedgerIndex(index + 1);
-                await this.blockchainService.indexLedger(index + 1);
             } else {
                 this.logger.log(`LEDGER INDEX ${index} NOT VALIDATED YET`);
+                await this.blockchainService.resumeTransactionQueues();
                 await this.blockchainService.indexLedger(index, 3000);
             }
         } catch (e) {
