@@ -4,7 +4,7 @@ import { getRepositoryToken } from "@nestjs/typeorm";
 import { LastIndexedLedger } from "../../../../src/database/entities/LastIndexedLedger";
 import { ConfigService } from "@nestjs/config";
 import ConfigServiceMock from "../../__mock__/config.service.mock";
-import { BlockchainService } from "../../../../src/modules/blockchain/blockchain.service";
+import { BlockchainService, INDEX_LEDGER_JOB_CONCURRENCY } from "../../../../src/modules/blockchain/blockchain.service";
 import BlockchainServiceMock from "../../__mock__/blockchain.service.mock";
 import { Job } from "bull";
 import LoggerMock from "../../__mock__/logger.mock";
@@ -55,7 +55,7 @@ describe("LedgerConsumer", () => {
         expect(blockchainServiceMock.getLedger).toHaveBeenCalledTimes(1);
         expect(loggerMock.log).toHaveBeenCalledWith("INDEXED LEDGER 1");
         expect(blockchainServiceMock.setCurrentLedgerIndex).toHaveBeenCalledWith(2);
-        expect(blockchainServiceMock.indexLedger).toHaveBeenCalledWith(2);
+        expect(blockchainServiceMock.indexLedger).toHaveBeenCalledWith(1 + INDEX_LEDGER_JOB_CONCURRENCY);
     });
 
     test("Does not index a non validated ledger", async () => {

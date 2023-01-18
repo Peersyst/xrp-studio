@@ -1,8 +1,6 @@
 import { OnQueueFailed, Process, Processor } from "@nestjs/bull";
 import { Inject, Logger } from "@nestjs/common";
 import { Job } from "bull";
-import { Nft } from "../../../database/entities/Nft";
-import { convertHexToString } from "xrpl";
 import { MetadataProcessingError, MetadataService } from "../metadata.service";
 
 @Processor("metadata")
@@ -29,22 +27,34 @@ Error: ${err}`,
     /**
      * Processes an NFT metadata from ipfs or http URIs
      */
-    @Process("process-metadata")
-    async processMetadata({ data: { nft } }: Job<{ nft: Nft }>) {
-        this.logger.log(`[process-metadata] consuming ${JSON.stringify(nft)}`);
+    @Process({ name: "process-metadata", concurrency: 10 })
+    async processMetadata({ data: { nftId, uri }, opts }: Job<{ nftId: number; uri: string }>) {
+        this.logger.log(`[process-metadata] consuming ${JSON.stringify({ nftId, uri })}`);
         try {
-            const { uri: hexUri } = nft;
-            const uri = convertHexToString(hexUri);
             const metadata = await this.metadataService.retrieveMetadata(uri);
-            await this.metadataService.create(nft.id, metadata);
-            this.logger.log(`[process-metadata] indexed ${JSON.stringify(nft)}`);
+            await this.metadataService.create(nftId, metadata);
+            this.logger.log(`[process-metadata] indexed ${JSON.stringify({ nftId, uri })}`);
         } catch (e) {
-            if (e === MetadataProcessingError.FETCH_ERROR)
-                this.logger.warn(`[process-metadata] could not fetch metadata from ${JSON.stringify(nft)}`);
-            else if (e === MetadataProcessingError.INVALID)
-                this.logger.warn(`[process-metadata] metadata is not valid from ${JSON.stringify(nft)}`);
+            if (e === MetadataProcessingError.FETCH_ERROR) {
+                this.logger.warn(
+                    `[process-metadata] could not fetch metadata from ${JSON.stringify({
+                        nftId,
+                        uri,
+                    })}`,
+                );
+                await this.metadataService.sendToProcessMetadata(nftId, uri, (opts.delay || 500) * 2);
+            } else if (e === MetadataProcessingError.INVALID)
+                this.logger.warn(
+                    `[process-metadata] metadata is not valid from ${JSON.stringify({
+                        nftId,
+                        uri,
+                    })}`,
+                );
             else {
-                this.logger.error(`[process-metadata] could not process metadata from ${JSON.stringify(nft)}
+                this.logger.error(`[process-metadata] could not process metadata from ${JSON.stringify({
+                    nftId,
+                    uri,
+                })}
 Error: ${e}`);
             }
         }

@@ -1,4 +1,4 @@
-import { BlockchainService } from "../../../src/modules/blockchain/blockchain.service";
+import { BlockchainService, INDEX_LEDGER_JOB_CONCURRENCY } from "../../../src/modules/blockchain/blockchain.service";
 import { Test } from "@nestjs/testing";
 import { getRepositoryToken } from "@nestjs/typeorm";
 import { LastIndexedLedger } from "../../../src/database/entities/LastIndexedLedger";
@@ -70,8 +70,7 @@ describe("BlockchainService", () => {
         });
         test("Should get current index from db", async () => {
             await blockchainService.onApplicationBootstrap();
-            expect(getCurrentLedgerIndexMock).toHaveBeenCalledTimes(1);
-            expect(indexLedgerMock).toHaveBeenCalledWith(5);
+            expect(ledgerConsumerMock.add).toHaveBeenCalledTimes(INDEX_LEDGER_JOB_CONCURRENCY);
         });
         test("Should get current index from config", async () => {
             getCurrentLedgerIndexMock.mockReturnValue(new Promise((resolve) => resolve(undefined)));
@@ -80,7 +79,7 @@ describe("BlockchainService", () => {
             );
             await blockchainService.onApplicationBootstrap();
             expect(getCurrentLedgerIndexMock).toHaveBeenCalledTimes(1);
-            expect(indexLedgerMock).toHaveBeenCalledWith(configServiceMock.get("xrp.startingLedgerIndex"));
+            expect(ledgerConsumerMock.add).toHaveBeenCalledTimes(INDEX_LEDGER_JOB_CONCURRENCY);
         });
         test("Should get current index from chain", async () => {
             getCurrentLedgerIndexMock.mockReturnValue(new Promise((resolve) => resolve(undefined)));
@@ -89,15 +88,7 @@ describe("BlockchainService", () => {
             );
             await blockchainService.onApplicationBootstrap();
             expect(getCurrentLedgerIndexMock).toHaveBeenCalledTimes(1);
-            expect(indexLedgerMock).toHaveBeenCalledWith(11);
-        });
-    });
-
-    describe("indexLedger", () => {
-        test("Should empty ledger queue and and a new index", async () => {
-            await blockchainService.indexLedger(1);
-            expect(ledgerConsumerMock.empty).toHaveBeenCalledTimes(1);
-            expect(ledgerConsumerMock.add).toHaveBeenCalledWith("index-ledger", { index: 1 }, { delay: undefined });
+            expect(ledgerConsumerMock.add).toHaveBeenCalledTimes(INDEX_LEDGER_JOB_CONCURRENCY);
         });
     });
 
@@ -134,7 +125,7 @@ describe("BlockchainService", () => {
     describe("processTransactionByType", () => {
         test("Sends NFTokenMint transaction to process-mint-transaction queue", async () => {
             const nftMintTransaction = new NFTokenMintTransactionMock();
-            await blockchainService.processTransactionByType(nftMintTransaction);
+            await blockchainService.processTransactionByType(nftMintTransaction, 1);
             expect(transactionsConsumerMock.add).toHaveBeenCalledWith(
                 "process-mint-transaction",
                 { transaction: nftMintTransaction },
@@ -143,7 +134,8 @@ describe("BlockchainService", () => {
         });
         test("Does nothing if transaction is not of type NFTokenMint", async () => {
             const transaction = new PaymentTransactionMock();
-            await blockchainService.processTransactionByType(transaction);
+            transaction.metaData = { ...transaction.metaData, TransactionResult: "tesSUCCESS" };
+            await blockchainService.processTransactionByType(transaction, 1);
             expect(transactionsConsumerMock.add).not.toHaveBeenCalled();
         });
     });
