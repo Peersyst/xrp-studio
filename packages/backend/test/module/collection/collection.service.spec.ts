@@ -16,6 +16,7 @@ import { NftService } from "../../../src/modules/nft/nft.service";
 import NftServiceMock from "../__mock__/nft.service.mock";
 import { GetNftsRequest } from "../../../src/modules/nft/request/get-nfts.request";
 import { QueryBuilderHelper } from "../../../src/modules/common/util/query-builder.helper";
+import * as random from "../../../src/modules/common/util/random";
 
 describe("CollectionService", () => {
     const ACCOUNT = "rwxmBgnEtpqAMerLSLkCCLfuSisi7GAvU6";
@@ -65,10 +66,11 @@ describe("CollectionService", () => {
 
         test("Creates collection with auto generated taxon with user having smallest missing taxon = 1", async () => {
             collectionRepositoryMock.findOne.mockResolvedValueOnce(undefined);
+            jest.spyOn(random, "getRandomNumber").mockReturnValue(1234);
             await collectionService.createCollection(ACCOUNT, CREATE_COLLECTION_REQUEST);
             expect(collectionRepositoryMock.save).toHaveBeenCalledWith({
                 ...baseCreatedCollection,
-                taxon: expect.stringMatching(/^[1-9]+$/),
+                taxon: "1234",
             });
         });
 
