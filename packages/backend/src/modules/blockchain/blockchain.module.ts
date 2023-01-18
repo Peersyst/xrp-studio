@@ -18,6 +18,8 @@ import { OfferModule } from "../offer/offer.module";
         BullModule.registerQueue({ name: "transactions" }),
         BullModule.registerQueue({ name: "transaction-status" }),
         BullModule.registerQueue({ name: "drop" }),
+        BullModule.registerQueue({ name: "offer" }),
+        BullModule.registerQueue({ name: "metadata" }),
         forwardRef(() => NftModule),
     ],
     controllers: [],

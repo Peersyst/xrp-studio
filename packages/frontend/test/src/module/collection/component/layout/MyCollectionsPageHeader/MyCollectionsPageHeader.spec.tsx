@@ -2,7 +2,7 @@ import { render, translate } from "test-utils";
 import MyCollectionsPageHeader from "module/collection/component/layout/MyCollectionsPageHeader/MyCollectionsPageHeader";
 import * as ReactRouterDom from "react-router-dom";
 import userEvent from "@testing-library/user-event";
-import { CollectionRoutes } from "module/collection/CollectionRouter";
+import { CollectionRoutes } from "module/collection/router/CollectionRouter";
 
 describe("Test for MyCollectionsPageHeader", () => {
     test("Renders correctly", () => {

@@ -11,7 +11,7 @@ import useCreateCollection from "module/collection/query/useCreateCollection";
 import useUpdateCollection from "module/collection/query/useUpdateCollection";
 import { CollectionCreationForm } from "module/collection/types";
 import createCollectionRequestFromForm from "module/collection/util/createCollectionRequestFromForm";
-import { CollectionRoutes } from "module/collection/CollectionRouter";
+import { CollectionRoutes } from "module/collection/router/CollectionRouter";
 import CollectionPublishModal from "module/collection/component/feedback/CollectionPublishModal/CollectionPublishModal";
 import { useResetRecoilState } from "recoil";
 import collectionCreationState from "module/collection/state/CollectionCreationState";

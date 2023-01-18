@@ -135,7 +135,7 @@ describe("NftService", () => {
             expect(nft.account).toEqual(nftMintTransaction.Issuer);
             expect(nft.collectionId).toEqual(1);
 
-            expect(metadataServiceMock.sendToProcessMetadata).toHaveBeenCalledWith(nft);
+            expect(metadataServiceMock.sendToProcessMetadata).toHaveBeenCalledWith(nft.id, "You must be really bored to decode this :)");
         });
 
         test("Creates an NFT with an NFTokenMint transaction with URI bigger than 256 bytes. Does not queue metadata", async () => {
@@ -493,6 +493,18 @@ describe("NftService", () => {
             await expect(async () => {
                 await nftService.publishDraft(1, ADDRESS);
             }).rejects.toEqual(new BusinessException(ErrorCode.NFT_NOT_FOUND));
+        });
+    });
+
+    describe("deleteNftDraft", () => {
+        beforeEach(() => {
+            nftRepositoryMock.findOne.mockResolvedValueOnce(new NftMock({ status: NftStatus.DRAFT, user: new User({ address: ADDRESS }) }));
+        });
+
+        test("Deletes NFT correctly", async () => {
+            await nftService.deleteNftDraft(1, ADDRESS);
+            expect(metadataServiceMock.delete).toHaveBeenCalledWith(1);
+            expect(nftRepositoryMock.delete).toHaveBeenCalledWith({ id: 1 });
         });
     });
 

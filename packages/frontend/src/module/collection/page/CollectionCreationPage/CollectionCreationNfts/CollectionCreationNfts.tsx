@@ -1,8 +1,8 @@
 import ImageInput from "module/common/component/input/ImageInput/ImageInput";
-import { Col, Grid, Skeleton, useFormNotification, useFormValidity, useTheme } from "@peersyst/react-components";
+import { Col, Grid, Skeleton, useDialog, useFormNotification, useFormValidity, useTheme } from "@peersyst/react-components";
 import useCollectionCreationState from "module/collection/hook/useCollectionCreationState";
 import NftCreationCard from "module/nft/component/display/NftCreationCard/NftCreationCard";
-import { CollectionRoutes } from "module/collection/CollectionRouter";
+import { CollectionRoutes } from "module/collection/router/CollectionRouter";
 import { useState } from "react";
 import { BaseCardSkeletons } from "module/common/component/feedback/Skeletons/Skeletons";
 import { CollectionCreationNftsProps } from "module/collection/page/CollectionCreationPage/CollectionCreationNfts/CollectionCreationNfts.types";
@@ -21,6 +21,7 @@ const CollectionCreationNfts = ({
         },
     } = useTheme();
     const translate = useTranslate();
+    const { showDialog, hideDialog } = useDialog();
 
     const [nftsUploading, setNftsUploading] = useState(0);
     const [
@@ -69,8 +70,26 @@ const CollectionCreationNfts = ({
     };
 
     const handleDeleteNft = (id: number) => {
-        setCollectionCreationState({
-            nfts: nfts.filter((nft) => nft.id !== id),
+        showDialog({
+            title: translate("deleteDraftDialogTitle"),
+            content: translate("deleteDraftDialogText", {
+                name: nfts.find((nft) => nft.id === id)?.metadata?.name || translate("unnamed"),
+            }),
+            buttons: [
+                {
+                    text: translate("delete"),
+                    type: "destructive",
+                    action: () => {
+                        setCollectionCreationState({
+                            nfts: nfts.filter((nft) => nft.id !== id),
+                        });
+                        hideDialog();
+                    },
+                },
+                {
+                    text: translate("cancel"),
+                },
+            ],
         });
     };
 

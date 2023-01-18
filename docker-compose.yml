@@ -14,10 +14,10 @@ services:
 
     redis:
         image: redis:6.2
-        command: "redis-server --requirepass redis_password"
+        command: "redis-server --requirepass redis_password --save 60 1 --maxmemory 4G"
         ports:
             - "6379:6379"
         volumes:
-            - ./docker/redis:/var/lib/redis
+            - ./docker/redis:/data
         environment:
             REDIS_PASSWORD: redis_password

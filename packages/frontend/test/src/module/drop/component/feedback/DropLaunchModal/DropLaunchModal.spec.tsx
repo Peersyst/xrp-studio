@@ -1,9 +1,9 @@
 import { screen } from "@testing-library/react";
+import { waitFor } from "@testing-library/dom";
 import { CollectionService, NftService } from "module/api/service";
 import { CollectionDtoMock, PaginatedNftsMock, CreateDropRequestMock, NftDtoMock } from "test-mocks";
 import { render, translate } from "test-utils";
 import DropLaunchModal from "module/drop/component/feedback/DropLaunchModal/DropLaunchModal";
-import { waitFor } from "@testing-library/dom";
 import { dropsToXrp } from "xrpl";
 
 describe("DropLaunchModal", () => {

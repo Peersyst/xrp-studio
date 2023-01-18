@@ -10,6 +10,7 @@ export interface BaseCardProps {
     children?: ReactNode;
     status?: ReactNode;
     onDeleteClicked?: () => void;
+    deleting?: boolean;
     className?: string;
     style?: CSSProperties;
 }

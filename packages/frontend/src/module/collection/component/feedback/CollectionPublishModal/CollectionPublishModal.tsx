@@ -7,7 +7,7 @@ import CollectionPublishActions from "./CollectionPublishActions/CollectionPubli
 import CollectionInformation from "module/collection/component/display/CollectionInformation/CollectionInformation";
 import { useMemo, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { CollectionRoutes } from "module/collection/CollectionRouter";
+import { CollectionRoutes } from "module/collection/router/CollectionRouter";
 import { useResetRecoilState } from "recoil";
 import collectionCreationState from "module/collection/state/CollectionCreationState";
 

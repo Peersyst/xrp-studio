@@ -1,5 +1,5 @@
 import { ApiOperation, ApiTags } from "@nestjs/swagger";
-import { Body, Controller, Get, HttpCode, Param, ParseIntPipe, Patch, Post, Put, Request } from "@nestjs/common";
+import { Body, Controller, Delete, Get, HttpCode, Param, ParseIntPipe, Patch, Post, Put, Request } from "@nestjs/common";
 import { ApiErrorDecorators } from "../common/exception/error-response.decorator";
 import { NftService } from "./nft.service";
 import { NftDraftDto, PaginatedNftDraftDto } from "./dto/nft-draft.dto";
@@ -106,5 +106,12 @@ export class NftController {
             status: [NftStatus.CONFIRMED],
             relations: ["metadata", "metadata.attributes", "user", "collection"],
         });
+    }
+
+    @Delete("/draft/:id")
+    @ApiOperation({ description: "Delete an NFT draft (status = draft | failed)" })
+    @XummAuthenticated()
+    async deleteNftDraft(@Request() req, @Param("id", ParseIntPipe) id: number): Promise<void> {
+        return this.nftService.deleteNftDraft(id, req.user.address);
     }
 }

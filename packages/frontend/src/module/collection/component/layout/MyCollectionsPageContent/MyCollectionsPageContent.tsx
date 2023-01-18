@@ -4,7 +4,7 @@ import { useGetMyCollections } from "module/collection/query/useGetMyCollections
 import CollectionGrid from "module/collection/component/layout/CollectionGrid/CollectionGrid";
 import NothingToShow from "module/common/component/feedback/NothingToShow/NothingToShow";
 import { useNavigate } from "react-router-dom";
-import { CollectionRoutes } from "module/collection/CollectionRouter";
+import { CollectionRoutes } from "module/collection/router/CollectionRouter";
 import Button from "module/common/component/input/Button/Button";
 
 const MyCollectionsPageContent = (): JSX.Element => {

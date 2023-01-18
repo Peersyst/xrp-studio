@@ -1,6 +1,6 @@
 import styled, { css } from "styled-components";
 import { Button } from "@peersyst/react-components";
-import { ButtonSizeStyle, ButtonVariantStyle } from "module/common/component/input/Button/Button.types";
+import { ButtonRootProps, ButtonSizeStyle, ButtonVariantStyle } from "module/common/component/input/Button/Button.types";
 import { alpha, emphasize } from "@peersyst/react-utils";
 
 const primaryVariant = css(
@@ -44,19 +44,26 @@ const tertiaryVariant = css(({ theme }) => {
     `;
 });
 
-const outlinedVariant = css(({ theme }) => {
+const outlinedVariant = css<ButtonRootProps>(({ theme, color: colorProp }) => {
     const light = theme.palette.mode === "light";
+
+    const color = colorProp || theme.palette.black[30];
+    const hoverColor = colorProp ? emphasize(colorProp, 0.2) : theme.palette.black[light ? 30 : 70];
+    const activeColor = colorProp ? emphasize(colorProp, 0.4) : theme.palette.black[light ? 20 : 50];
+    const hoverBgColor = colorProp ? emphasize(colorProp, 0.3) : emphasize(theme.palette.black[light ? 60 : 75], 0.8);
+    const activeBgColor = colorProp ? emphasize(colorProp, 0.5) : emphasize(theme.palette.black[light ? 60 : 75], 0.6);
+
     return css`
         background-color: transparent;
         border-color: ${theme.palette.black[light ? 50 : 75]};
-        color: ${theme.palette.black[30]};
+        color: ${color};
         &:hover {
-            color: ${theme.palette.black[light ? 30 : 70]};
-            background-color: ${emphasize(theme.palette.black[light ? 60 : 75], 0.8)};
+            color: ${hoverColor};
+            background-color: ${hoverBgColor};
         }
         &:active {
-            color: ${theme.palette.black[light ? 30 : 50]};
-            background-color: ${emphasize(theme.palette.black[light ? 60 : 75], 0.6)};
+            color: ${activeColor};
+            background-color: ${activeBgColor};
         }
     `;
 });
@@ -93,13 +100,20 @@ const rainbowVariant = css(() => {
     `;
 });
 
-const textVariant = css(({ theme }) => {
+const textVariant = css<ButtonRootProps>(({ theme, color: colorProp }) => {
+    const color = colorProp || theme.palette.black[30];
+    const hoverColor = colorProp ? emphasize(colorProp, 0.2) : theme.palette.black[10];
+    const activeColor = colorProp ? emphasize(colorProp, 0.3) : theme.palette.black[5];
+
     return css`
         text-transform: none;
-        color: ${theme.palette.black[30]};
+        color: ${color};
         padding: 0;
         &:hover {
-            color: ${theme.palette.black[10]};
+            color: ${hoverColor};
+        }
+        &:active {
+            color: ${activeColor};
         }
     `;
 });
@@ -165,7 +179,7 @@ const buttonSizes: ButtonSizeStyle = {
     xl: xlSize,
 };
 
-export const ButtonRoot = styled(Button)(({ variant, size }) => {
+export const ButtonRoot = styled(Button)<ButtonRootProps>(({ variant, size }) => {
     return css`
         font-weight: 500;
         text-transform: none;

@@ -25,6 +25,7 @@ import { BlockchainTransactionService } from "../blockchain/blockchain-transacti
 import { XummTransactionService } from "../xumm/xumm-transaction.service";
 import { BlockchainService } from "../blockchain/blockchain.service";
 import { getTokenIdFromTransaction } from "./util/parseTokenId";
+import { convertHexToString } from "xrpl";
 
 @Injectable()
 export class NftService {
@@ -61,7 +62,7 @@ export class NftService {
             try {
                 collection = await this.collectionService.findOne({ taxon: NFTokenTaxon.toString(), account: issuerOrCreator });
             } catch (e) {
-                collection = await this.collectionService.createCollection(issuerOrCreator, {}, false);
+                collection = await this.collectionService.createCollection(issuerOrCreator, { taxon: NFTokenTaxon }, false);
             }
         }
 
@@ -109,7 +110,7 @@ export class NftService {
                 collectionId: collection?.id,
             });
             if (savedNft.uri && Account !== this.blockchainService.mintingAddress)
-                await this.metadataService.sendToProcessMetadata(savedNft);
+                await this.metadataService.sendToProcessMetadata(savedNft.id, convertHexToString(savedNft.uri));
             return savedNft;
         } catch (e) {
             if (collection) await this.collectionService.addItems(collection.id, -1);
@@ -253,6 +254,15 @@ export class NftService {
         await this.xummTransactionService.sendTransactionRequest(ownerAddress, transaction, async () => {
             await this.nftRepository.update({ id: nftId }, { status: NftStatus.FAILED });
         });
+    }
+
+    /**
+     * Deletes an NFT draft
+     */
+    public async deleteNftDraft(id: number, account: string): Promise<void> {
+        const nft = await this.findOne(id, { ownerAddress: account, status: [NftStatus.DRAFT, NftStatus.FAILED] });
+        await this.metadataService.delete(nft.id);
+        await this.nftRepository.delete({ id: nft.id });
     }
 
     async findOne<Status extends NftStatus[]>(

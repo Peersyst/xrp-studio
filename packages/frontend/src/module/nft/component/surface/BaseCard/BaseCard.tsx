@@ -16,6 +16,7 @@ const BaseCard = forwardRef(
             note,
             to,
             onDeleteClicked,
+            deleting,
             status,
             ...rest
         }: WithSkeleton<BaseCardProps>,
@@ -63,6 +64,7 @@ const BaseCard = forwardRef(
                                 e?.preventDefault();
                                 onDeleteClicked();
                             }}
+                            loading={deleting}
                         >
                             <CrossIcon />
                         </RemoveIcon>
