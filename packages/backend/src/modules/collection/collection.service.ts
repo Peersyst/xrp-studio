@@ -12,6 +12,7 @@ import { UpdateCollectionRequest } from "./request/update-collection.request";
 import { NftService } from "../nft/nft.service";
 import { QueryBuilderHelper } from "../common/util/query-builder.helper";
 import { NftStatus } from "../../database/entities/Nft";
+import { getRandomNumber } from "../common/util/random";
 
 @Injectable()
 export class CollectionService {
@@ -147,7 +148,7 @@ export class CollectionService {
     private async findUnusedTaxon(address: string): Promise<string> {
         let taxonNumber: number;
         do {
-            taxonNumber = Math.floor(Math.random() * 4294967295);
+            taxonNumber = getRandomNumber(1, 4294967295);
         } while (await this.collectionRepository.findOne({ taxon: taxonNumber.toString(), account: address }));
         return taxonNumber.toString();
     }
