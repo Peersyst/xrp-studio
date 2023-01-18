@@ -32,7 +32,10 @@ export class CollectionService {
         let taxon: string;
         if (reqTaxon) {
             // If a taxon is given, check the account does not already have a collection with that taxon
-            const collection = await this.findOne({ taxon: reqTaxon.toString(), account: address });
+            let collection: CollectionDto | undefined;
+            try {
+                collection = await this.findOne({ taxon: reqTaxon.toString(), account: address });
+            } catch (e) {}
             if (collection) throw new BusinessException(ErrorCode.COLLECTION_TAXON_ALREADY_EXISTS);
             taxon = reqTaxon.toString();
         } else {
