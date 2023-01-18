@@ -17,7 +17,7 @@ export default (secrets: AwsSecrets): PinataConfig => {
             default: process.env.PINATA_API_SECRET || secrets.PINATA_API_SECRET,
         },
         publicGateway: {
-            default: "https://ipfs.pixura.io/ipfs/",
+            default: "https://cloudflare-ipfs.com/ipfs/",
         },
         gateways: {
             default: [
