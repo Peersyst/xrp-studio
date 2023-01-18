@@ -1,7 +1,7 @@
 import { WithSkeleton } from "@peersyst/react-components";
 import { CollectionCardProps } from "module/collection/component/display/CollectionCard/CollectionCard.types";
 import { forwardRef } from "react";
-import { CollectionRoutes } from "module/collection/CollectionRouter";
+import { CollectionRoutes } from "module/collection/router/CollectionRouter";
 import BaseCollectionCard from "../BaseCollectionCard/BaseCollectionCard";
 import useTranslate from "module/common/hook/useTranslate";
 

@@ -1,5 +1,5 @@
 import { Row } from "@peersyst/react-components";
-import { CollectionRoutes } from "module/collection/CollectionRouter";
+import { CollectionRoutes } from "module/collection/router/CollectionRouter";
 import Button from "module/common/component/input/Button/Button";
 import { MainPageHeaderSearchBar } from "module/common/component/layout/MainPageHeader/MainPageHeader.styles";
 import useTranslate from "module/common/hook/useTranslate";
