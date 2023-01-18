@@ -142,15 +142,10 @@ export class CollectionService {
      * Finds an unused taxon by an account
      */
     private async findUnusedTaxon(address: string): Promise<string> {
-        // As it is really unlikely that a user has more than 10k collections, we can query missing taxons by steps of 10000 or even less if necessary
-        for (let i = 10000; i < 4294967295; i += 10000) {
-            const missingTaxonArr =
-                ((await this.collectionRepository.query(
-                    "SELECT s.i AS missing_taxon FROM generate_series(1,$1) s(i) WHERE NOT EXISTS (SELECT 1 FROM collection WHERE account = $2 AND taxon = s.i) LIMIT 1;",
-                    [i, address],
-                )) as [{ missing_taxon: string }]) || [];
-            if (missingTaxonArr.length) return missingTaxonArr[0].missing_taxon;
-        }
-        throw new BusinessException(ErrorCode.NO_MORE_TAXONS_AVAILABLE);
+        let taxonNumber: number;
+        do {
+            taxonNumber = Math.floor(Math.random() * 4294967295);
+        } while (await this.collectionRepository.findOne({ taxon: taxonNumber.toString(), account: address }));
+        return taxonNumber.toString();
     }
 }
