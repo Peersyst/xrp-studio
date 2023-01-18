@@ -9,6 +9,8 @@ import { ConfigService } from "@nestjs/config";
 import { LedgerResponse } from "xrpl/dist/npm/models/methods";
 import { ValidatedLedgerTransaction } from "./types";
 
+export const INDEX_LEDGER_JOB_CONCURRENCY = 4;
+
 /**
  * Service in charge of all blockchain related stuff
  */
@@ -33,11 +35,14 @@ export class BlockchainService {
     async onApplicationBootstrap(): Promise<void> {
         // We can leave the xrp ws connected indefinitely as we are making requests every ~3 seconds, it will not timeout
         await this.ledgerQueue.empty();
+        await this.ledgerQueue.clean(0);
         await this.xrpClient.connect();
         if (this.configService.get<boolean>("xrp.enableIndexer")) {
-            const currentLedgerIndex = await this.getCurrentLedgerIndex();
-            const index = currentLedgerIndex || (await this.getFirstLedgerIndex());
-            await this.indexLedger(index);
+            const currentIndexedLedgerIndex = await this.getCurrentLedgerIndex();
+            const index = currentIndexedLedgerIndex || (await this.getFirstLedgerIndex());
+            for (let i = 0; i < INDEX_LEDGER_JOB_CONCURRENCY; i++) {
+                await this.ledgerQueue.add("index-ledger", { index: index + i }, { priority: index });
+            }
         }
     }
 
@@ -47,8 +52,7 @@ export class BlockchainService {
      * @param delay
      */
     async indexLedger(index: number, delay?: number): Promise<void> {
-        await this.ledgerQueue.empty();
-        await this.ledgerQueue.add("index-ledger", { index }, { delay });
+        await this.ledgerQueue.add("index-ledger", { index }, { delay, priority: index });
     }
 
     /**
@@ -107,8 +111,8 @@ export class BlockchainService {
     /**
      * Processes a transaction by its type
      */
-    async processTransactionByType(transaction: ValidatedLedgerTransaction): Promise<void> {
-        // this.logger.debug(`Processing transaction ${JSON.stringify(transaction)}`);
+    async processTransactionByType(transaction: ValidatedLedgerTransaction, ledgerIndex: number): Promise<void> {
+        if (transaction.metaData.TransactionResult !== "tesSUCCESS") return;
         if (transaction.TransactionType === "NFTokenMint") {
             const job = await this.transactionsQueue.add(
                 "process-mint-transaction",
@@ -116,6 +120,7 @@ export class BlockchainService {
                 {
                     attempts: 3,
                     backoff: 60000,
+                    priority: ledgerIndex,
                 },
             );
             await job.finished();

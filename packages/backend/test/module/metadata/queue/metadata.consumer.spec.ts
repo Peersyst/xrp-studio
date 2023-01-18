@@ -34,7 +34,7 @@ describe("MetadataConsumer", () => {
 
     describe("processMetadata", () => {
         test("process metadata correctly", async () => {
-            await metadataConsumer.processMetadata({ data: { nft: new NftMock({ uri: "uri" }) } } as Job);
+            await metadataConsumer.processMetadata({ data: { nftId: 1, uri: "uri" } } as Job);
             expect(metadataServiceMock.retrieveMetadata).toHaveBeenCalledWith("uri");
             expect(metadataServiceMock.create).toHaveBeenCalledWith(nftMock.id, new MetadataDtoMock());
         });

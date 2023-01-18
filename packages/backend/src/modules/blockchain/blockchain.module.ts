@@ -13,6 +13,7 @@ import { BlockchainTransactionService } from "./blockchain-transaction.service";
         TypeOrmModule.forFeature([LastIndexedLedger]),
         BullModule.registerQueue({ name: "ledger" }),
         BullModule.registerQueue({ name: "transactions" }),
+        BullModule.registerQueue({ name: "metadata" }),
         forwardRef(() => NftModule),
     ],
     controllers: [],

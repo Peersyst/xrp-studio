@@ -1,6 +1,5 @@
 import { Inject, Injectable } from "@nestjs/common";
 import { InjectRepository } from "@nestjs/typeorm";
-import { Nft } from "../../database/entities/Nft";
 import { Repository } from "typeorm";
 import { InjectQueue } from "@nestjs/bull";
 import { Queue } from "bull";
@@ -33,8 +32,13 @@ export class MetadataService {
         @Inject(ConfigService) private readonly configService: ConfigService,
     ) {}
 
-    async sendToProcessMetadata(nft: Nft): Promise<void> {
-        await this.metadataQueue.add("process-metadata", { nft: nft }, { timeout: 25000, removeOnFail: true });
+    async sendToProcessMetadata(nftId: number, uri: string, delay = 0): Promise<void> {
+        await this.metadataQueue.add("process-metadata", { nftId, uri }, { timeout: 5000, delay, attempts: 5 });
+    }
+
+    getRandomIpfsGateway(): string {
+        const gws = this.configService.get<string[]>("pinata.gateways");
+        return gws[Math.floor(Math.random() * gws.length)];
     }
 
     /**
@@ -74,7 +78,7 @@ export class MetadataService {
             return this.retrieveMetadataHttp(uri);
         } else if (uri.startsWith("ipfs://")) {
             const cid = uri.replace("ipfs://", "");
-            return this.retrieveMetadataIpfs(cid);
+            return this.retrieveMetadataHttp(this.getRandomIpfsGateway() + cid);
         } else {
             throw new BusinessException(ErrorCode.METADATA_URI_NOT_SUPPORTED);
         }
@@ -129,7 +133,7 @@ export class MetadataService {
         if (isHttpUrl(image)) return image;
         else if (image.startsWith("ipfs://")) {
             const cid = image.replace("ipfs://", "");
-            return this.configService.get("pinata.gateway") + cid;
+            return this.configService.get("pinata.publicGateway") + cid;
         } else return undefined;
     }
 }

@@ -135,7 +135,7 @@ describe("NftService", () => {
             expect(nft.account).toEqual(nftMintTransaction.Issuer);
             expect(nft.collectionId).toEqual(1);
 
-            expect(metadataServiceMock.sendToProcessMetadata).toHaveBeenCalledWith(nft);
+            expect(metadataServiceMock.sendToProcessMetadata).toHaveBeenCalledWith(nft.id, "You must be really bored to decode this :)");
         });
 
         test("Creates an NFT with an NFTokenMint transaction with URI bigger than 256 bytes. Does not queue metadata", async () => {
