@@ -62,7 +62,7 @@ export class NftService {
             try {
                 collection = await this.collectionService.findOne({ taxon: NFTokenTaxon.toString(), account: issuerOrCreator });
             } catch (e) {
-                collection = await this.collectionService.createCollection(issuerOrCreator, {}, false);
+                collection = await this.collectionService.createCollection(issuerOrCreator, { taxon: NFTokenTaxon }, false);
             }
         }
 
