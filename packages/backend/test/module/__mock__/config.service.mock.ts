@@ -13,7 +13,7 @@ class ConfigServiceMock extends BaseMock {
                 return 10;
             case "xrp.minterSecret":
                 return "sEdV5BZUNSbbpJpHPicgqU9Ef3WzHyP";
-            case "pinata.gateway":
+            case "pinata.publicGateway":
                 return "https://pinata.gateway.com/";
             case "defaultImages.profile":
                 return "default_profile_img_url";

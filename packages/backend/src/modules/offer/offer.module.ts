@@ -5,10 +5,18 @@ import { UserModule } from "../user/user.module";
 import { Offer } from "../../database/entities/Offer";
 import { OfferService } from "./offer.service";
 import { BlockchainModule } from "../blockchain/blockchain.module";
+import { BullModule } from "@nestjs/bull";
+import { OfferConsumer } from "./queue/offer.consumer";
 
 @Module({
-    imports: [forwardRef(() => BlockchainModule), forwardRef(() => NftModule), UserModule, TypeOrmModule.forFeature([Offer])],
-    providers: [OfferService],
+    imports: [
+        forwardRef(() => BlockchainModule),
+        forwardRef(() => NftModule),
+        UserModule,
+        BullModule.registerQueue({ name: "offer" }),
+        TypeOrmModule.forFeature([Offer]),
+    ],
+    providers: [OfferService, OfferConsumer],
     exports: [OfferService],
 })
 export class OfferModule {}

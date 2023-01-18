@@ -116,7 +116,7 @@ describe("MetadataService", () => {
 
         test("image is an ipfs uri and returns the ipfs gateway url", async () => {
             const image = await metadataService.processImage("ipfs://cid");
-            expect(image).toEqual(configServiceMock.get("pinata.gateway") + "cid");
+            expect(image).toEqual(configServiceMock.get("pinata.publicGateway") + "cid");
         });
 
         test("image is an url neither an ipfs uri and return undefined", async () => {
