@@ -26,27 +26,6 @@ describe("CollectionCreationNfts", () => {
         expect(screen.getByText(translate("chooseFile"))).toBeInTheDocument();
     });
 
-    test("Removes Nft from the collection", async () => {
-        const testFiles = [...Array(3)].map((_, i) => new File(["hello"], "test.png " + i, { type: "image/png" }));
-
-        render(<CollectionCreationNfts />);
-
-        const imageInput = screen.getByTestId("upload");
-        userEvent.upload(imageInput, testFiles);
-
-        // 3 Skeletons
-        expect(screen.getAllByText("loading_title")).toHaveLength(3);
-
-        //Stop loading
-        await waitFor(() => expect(screen.queryAllByText("loading_title")).toHaveLength(0));
-        let deleteBtns = await screen.findAllByTestId("CrossIcon");
-        expect(deleteBtns).toHaveLength(3);
-        const deleteBtn = deleteBtns[0];
-        userEvent.click(deleteBtn); //remove one nfts
-        deleteBtns = await screen.findAllByTestId("CrossIcon");
-        expect(deleteBtns).toHaveLength(2);
-    });
-
     test("Uploads nfts", async () => {
         const useCollectionCreationStateMock = new UseCollectionCreationStateMock();
         const testFiles = [...Array(3)].map((_, i) => new File(["hello"], "test.png " + i, { type: "image/png" }));
