@@ -1,8 +1,8 @@
 import { screen } from "@testing-library/react";
+import { waitFor } from "@testing-library/dom";
 import { render, translate, act } from "test-utils";
 import { CollectionService, CreateCollectionRequest } from "module/api/service";
 import { CollectionDtoMock, UseCheckBalanceMock, UseCollectionNftsStatusMock } from "test-mocks";
-import { waitFor } from "@testing-library/dom";
 import CollectionPublishActions from "module/collection/component/feedback/CollectionPublishModal/CollectionPublishActions/CollectionPublishActions";
 
 describe("CollectionPublishActions", function () {
