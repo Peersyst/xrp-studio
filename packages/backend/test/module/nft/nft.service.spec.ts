@@ -324,7 +324,7 @@ describe("NftService", () => {
         test("Update nft draft with an issuer, transferFee, flags and taxon", async () => {
             await nftService.updateNftDraft(1, ADDRESS, {
                 issuer: ISSUER,
-                transferFee: 10,
+                transferFee: 10000,
                 flags: { burnable: true, transferable: true, trustLine: false, onlyXRP: false },
                 taxon: 1,
             });
@@ -345,7 +345,7 @@ describe("NftService", () => {
 
             await nftService.updateNftDraft(1, ADDRESS, {
                 issuer: ISSUER,
-                transferFee: 10,
+                transferFee: 10000,
                 flags: { burnable: true, transferable: true, trustLine: false, onlyXRP: false },
                 taxon: 1,
                 metadata,
@@ -375,7 +375,7 @@ describe("NftService", () => {
 
             await nftService.updateNftDraft(1, ADDRESS, {
                 issuer: ISSUER,
-                transferFee: 10,
+                transferFee: 10000,
                 flags: { burnable: true, transferable: true, trustLine: false, onlyXRP: false },
                 taxon: 1,
                 metadata,

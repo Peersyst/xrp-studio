@@ -1,5 +1,5 @@
 import { Col, Skeleton, Typography } from "@peersyst/react-components";
-import useGetCollection from "module/nft/query/useGetCollection";
+import useGetCollection from "module/collection/query/useGetCollection";
 import {
     CollectionCover,
     CollectionHeaderBack,

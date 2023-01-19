@@ -1,7 +1,7 @@
 import { Col, Row, Skeleton, Typography } from "@peersyst/react-components";
 import { CollectionInfoRoot, CollectionMainInfo, CollectionsButtons } from "./CollectionInfo.styles";
 import { useParams } from "react-router-dom";
-import useGetCollection from "module/nft/query/useGetCollection";
+import useGetCollection from "module/collection/query/useGetCollection";
 import useTranslate from "module/common/hook/useTranslate";
 import Button from "module/common/component/input/Button/Button";
 import { useNavigate } from "react-router-dom";
@@ -51,7 +51,7 @@ const CollectionInfo = (): JSX.Element => {
             <CollectionsButtons gap="0.5rem">
                 <ShareButton shareData={shareData} networks={[SocialShareOptions.TWITTER]} />
                 {address && address === collection?.account && (
-                    <Button size="sm" onClick={() => navigate(`${CollectionRoutes.CREATE_COLLECTION}?id=${id}`)}>
+                    <Button size="sm" onClick={() => navigate(CollectionRoutes.EDIT_COLLECTION.replace(":id", id!.toString()))}>
                         {translate("editCollection")}
                     </Button>
                 )}

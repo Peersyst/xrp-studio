@@ -1,61 +1,57 @@
-import EditNftCreationPageHeader from "module/collection/component/layout/EditCollectionNftDraftHeader/EditCollectionNftDraftHeader";
-import useNftCreationPageSlots from "module/nft/page/NftCreationPage/hook/useNftCreationPageSlots";
-import BaseNftPage from "module/nft/component/layout/BaseNftPage/BaseNftPage";
-import { Form, useToast } from "@peersyst/react-components";
-import { useNavigate, useParams } from "react-router-dom";
-import { NftCreationForm } from "module/nft/types";
-import useCollectionCreationState from "module/collection/hook/useCollectionCreationState";
-import createNftRequestFromForm from "module/nft/util/createNftRequestFromForm";
+import { useParams } from "react-router-dom";
 import { CollectionRoutes } from "module/collection/router/CollectionRouter";
-import useSetCollectionCreationNft from "module/collection/query/useSetCollectionCreationNft";
-import useTranslate from "module/common/hook/useTranslate";
-import { useEffect } from "react";
+import CollectionCreationNftDraftPageScaffold from "module/collection/component/layout/CollectionCreationNftDraftPageScaffold/CollectionCreationNftDraftPageScaffold";
+import { CreateCollectionNftRequest } from "module/api/service";
+import NotFoundPage from "module/common/page/NotFoundPage/NotFoundPage";
+import useGetNftDraft from "module/nft/query/useGetNftDraft";
+import useUpdateNftDraft from "module/nft/query/useUpdateNftDraft";
+import nftDraftToCreation from "module/collection/util/nftDraftToCreation";
+import { useMemo } from "react";
+import { usePaginatedList } from "@peersyst/react-hooks";
+import useGetNftDrafts from "module/nft/query/useGetNftDrafts";
+import useGetCollection from "module/collection/query/useGetCollection";
 
 const EditCollectionNftDraftPage = (): JSX.Element => {
-    const translate = useTranslate();
-    const navigate = useNavigate();
+    const { id: collectionIdParam, draftId: draftIdParam } = useParams();
+    const collectionId = collectionIdParam !== undefined ? Number(collectionIdParam) : undefined;
+    const draftId = draftIdParam !== undefined ? Number(draftIdParam) : undefined;
 
-    const { index: nftDraftIndexParam } = useParams();
-    const nftDraftIndex = nftDraftIndexParam !== undefined ? Number(nftDraftIndexParam) : undefined;
+    const { data: collection, isLoading: collectionIsLoading } = useGetCollection(collectionId);
 
-    const { showToast } = useToast();
+    const { data: draft, isLoading: draftIsLoading } = useGetNftDraft(draftId);
+    const creationDraft = useMemo(() => (draft ? nftDraftToCreation(draft) : undefined), [draft]);
 
-    const [collectionCreationState] = useCollectionCreationState();
-    const nfts = collectionCreationState.nfts;
-    const nft = nftDraftIndex !== undefined ? nfts[nftDraftIndex] : undefined;
+    // TODO: Add drafts/published queries instead of traversing all my nfts multiple times
+    const { data: collectionNftsData, isLoading: collectionNftsLoading } = useGetNftDrafts(
+        { collections: [collection?.id || 0] },
+        { enabled: !!collection },
+    );
+    const collectionNfts = usePaginatedList(collectionNftsData?.pages, (page) => page.items);
+    const collectionNftDrafts = useMemo(
+        () => collectionNfts.filter((nft) => nft.status !== "confirmed" && nft.status !== "pending"),
+        [collectionNftsData],
+    );
 
-    useEffect(() => {
-        if (!nft) navigate(CollectionRoutes.CREATE_COLLECTION, { replace: true });
-    }, [collectionCreationState.nfts, nftDraftIndex]);
+    const { mutateAsync: updateDraft } = useUpdateNftDraft();
 
-    const { mutate: setCollectionCreationNft, isLoading: savingNft } = useSetCollectionCreationNft();
+    if ((!collection && !collectionIsLoading) || (!draft && !draftIsLoading)) return <NotFoundPage />;
 
-    const slots = useNftCreationPageSlots({ nft, fixedCollection: collectionCreationState.name });
-
-    if (nftDraftIndex === undefined || nftDraftIndex >= nfts.length) {
-        navigate(CollectionRoutes.CREATE_COLLECTION);
-    }
-
-    const handleSubmit = (data: NftCreationForm) => {
-        const requestNft = createNftRequestFromForm(data);
-        setCollectionCreationNft({ index: nftDraftIndex!, nft: requestNft });
-        showToast(translate("changesApplied"), { type: "success" });
-    };
+    const handleSave = async (data: CreateCollectionNftRequest): Promise<void> =>
+        updateDraft({ ...data, taxon: collection!.taxon, id: draftId!, publish: false });
 
     return (
-        <Form onSubmit={handleSubmit}>
-            <BaseNftPage
-                key={nftDraftIndex}
-                activeCarouselNftId={nftDraftIndex}
-                collectionNfts={nfts}
-                collectionNftLink={(_, i) => CollectionRoutes.EDIT_NFT_CREATE_COLLECTION.replace(":index", i.toString())}
-            >
-                {{
-                    header: <EditNftCreationPageHeader saving={savingNft} />,
-                    content: slots,
-                }}
-            </BaseNftPage>
-        </Form>
+        <CollectionCreationNftDraftPageScaffold
+            loading={collectionIsLoading || draftIsLoading}
+            backPath={CollectionRoutes.EDIT_COLLECTION.replace(":id", collectionId!.toString())}
+            draft={creationDraft}
+            onSave={handleSave}
+            collectionDrafts={collectionNftDrafts}
+            loadingCollectionNfts={collectionNftsLoading}
+            draftLink={({ id }) =>
+                CollectionRoutes.EDIT_COLLECTION_EDIT_NFT.replace(":id", collectionId!.toString()).replace(":draftId", id.toString())
+            }
+            collectionName={collection?.name}
+        />
     );
 };
 

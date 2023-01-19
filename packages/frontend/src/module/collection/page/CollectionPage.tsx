@@ -2,7 +2,7 @@ import BasePage from "module/common/component/layout/BasePage/BasePage";
 import CollectionContent from "../component/layout/CollectionContent/CollectionContent";
 import CollectionHeader from "../component/layout/CollectionHeader/CollectionHeader";
 import { useParams } from "react-router-dom";
-import useGetCollection from "module/nft/query/useGetCollection";
+import useGetCollection from "module/collection/query/useGetCollection";
 import NotFoundPage from "module/common/page/NotFoundPage/NotFoundPage";
 
 const CollectionPage = (): JSX.Element => {

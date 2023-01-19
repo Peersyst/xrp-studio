@@ -9,7 +9,7 @@ import {
 } from "module/api/service";
 import Color from "color";
 import { Common, Loosen } from "@peersyst/react-types";
-import { CollectionCreationNft } from "module/collection/state/CollectionCreationState";
+import { CollectionCreationNft } from "module/collection/types";
 
 export interface NftCreationForm {
     image?: string;

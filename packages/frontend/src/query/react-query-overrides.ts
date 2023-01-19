@@ -4,9 +4,23 @@ import {
     UseQueryResult,
     QueryFunction,
     QueryKey,
+    UseQueryOptions,
     UseInfiniteQueryOptions,
     UseInfiniteQueryResult,
 } from "react-query";
+
+export type QueryOptions<TQueryFnData = unknown, TError = unknown, TData = TQueryFnData, TQueryKey extends QueryKey = QueryKey> = Omit<
+    UseQueryOptions<TQueryFnData, TError, TData, TQueryKey>,
+    "queryKey" | "queryFn"
+>;
+
+export type InfiniteQueryOptions<
+    TQueryFnData = unknown,
+    TError = unknown,
+    TData = TQueryFnData,
+    TQueryData = TQueryFnData,
+    TQueryKey extends QueryKey = QueryKey,
+> = Omit<UseInfiniteQueryOptions<TQueryFnData, TError, TData, TQueryData, TQueryKey>, "queryKey" | "queryFn">;
 
 export interface PaginatedData<TData extends unknown[] = unknown[]> {
     currentPage: number;

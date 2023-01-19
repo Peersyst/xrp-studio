@@ -25,8 +25,7 @@ export default function ({ publish }: UseUpdateCollectionProps): UseMutationResu
                 const savedCollection = await CollectionService.collectionControllerGetCollection(id);
                 const allDrafts = [
                     ...(savedCollection?.nfts || []).filter((nft) => nft.status !== "confirmed" && nft.status !== "pending"),
-                    // Should be guaranteed by precondition
-                    ...collection.nfts!,
+                    ...(collection?.nfts || []),
                 ];
                 const amount = allDrafts.length * config.feeInDrops;
                 const valid = amount && (await checkBalance(amount));
@@ -39,7 +38,7 @@ export default function ({ publish }: UseUpdateCollectionProps): UseMutationResu
             onSuccess: async (_, { id }) => {
                 await queryClient.invalidateQueries([Queries.COLLECTIONS]);
                 await queryClient.invalidateQueries([Queries.COLLECTION, id]);
-                await queryClient.invalidateQueries([Queries.NFT_DRAFTS]);
+                await queryClient.invalidateQueries([Queries.MY_NFTS]);
                 await queryClient.invalidateQueries([Queries.NFTS]);
             },
         },

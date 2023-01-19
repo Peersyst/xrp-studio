@@ -205,5 +205,6 @@
     "howItWorksSlide3Description": "Once your drops are published or launched, you can easily monitor the impact your art generates every day. Find out how far you can go!",
     "goTo": "Go to {{destination}}",
     "deleteDraftDialogTitle": "Delete NFT draft",
-    "deleteDraftDialogText": "Are you sure you want to delete {{name}} draft?"
+    "deleteDraftDialogText": "Are you sure you want to delete {{name}} draft?",
+    "cantLaunchCollectionWithoutNfts": "There are no NFTs to launch"
 }

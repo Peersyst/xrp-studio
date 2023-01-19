@@ -1,5 +1,5 @@
 import PageContent from "module/common/component/layout/PageContent/PageContent";
-import { useGetMyNfts } from "module/nft/query/useGetMyNfts";
+import useGetMyNfts from "module/nft/query/useGetMyNfts";
 import NftGrid from "../NftGrid/NftGrid";
 import Button from "module/common/component/input/Button/Button";
 import { NftRoutes } from "module/nft/NftRouter";
