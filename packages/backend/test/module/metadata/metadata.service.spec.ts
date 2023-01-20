@@ -14,6 +14,8 @@ import ConfigServiceMock from "../__mock__/config.service.mock";
 import axios from "axios";
 import { ErrorCode } from "../../../src/modules/common/exception/error-codes";
 import { BusinessException } from "../../../src/modules/common/exception/business.exception";
+import RawMetadataDtoMock from "../__mock__/raw-metadata.dto.mock";
+import { MetadataAttributeDto } from "../../../src/modules/metadata/dto/metadata-attribute.dto";
 
 describe("MetadataService", () => {
     let metadataService: MetadataService;
@@ -75,8 +77,18 @@ describe("MetadataService", () => {
     describe("processMetadata", () => {
         describe("http metadata", () => {
             test("Processes http metadata correctly", async () => {
-                const metadataDto = new MetadataDtoMock();
-                jest.spyOn(axios, "get").mockReturnValue(Promise.resolve({ data: metadataDto }));
+                const rawMetadataDto = new RawMetadataDtoMock();
+                const metadataDto = new MetadataDtoMock({
+                    name: rawMetadataDto.name,
+                    description: rawMetadataDto.description,
+                    image: rawMetadataDto.image,
+                    backgroundColor: rawMetadataDto.background_color,
+                    externalUrl: rawMetadataDto.external_url,
+                    attributes: rawMetadataDto.attributes.map(
+                        ({ trait_type, value, display_type }) => new MetadataAttributeDto(trait_type, value, display_type),
+                    ),
+                });
+                jest.spyOn(axios, "get").mockReturnValue(Promise.resolve({ data: rawMetadataDto }));
                 const dto = await metadataService.retrieveMetadata("http://randomlink.com/metadata");
                 expect(dto).toEqual(metadataDto);
             });
@@ -92,7 +104,7 @@ describe("MetadataService", () => {
     describe("publishMetadata", () => {
         test("Publishes correct metadata", async () => {
             await metadataService.publishMetadata(1);
-            expect(ipfsServiceMock.uploadFile).toHaveBeenCalledWith(Buffer.from(new MetadataDtoMock().encode()));
+            expect(ipfsServiceMock.uploadFile).toHaveBeenCalledWith(Buffer.from(new RawMetadataDtoMock().encode()));
         });
     });
 
@@ -104,7 +116,7 @@ describe("MetadataService", () => {
 
         test("image is an ipfs uri and returns the ipfs gateway url", async () => {
             const image = await metadataService.processImage("ipfs://cid");
-            expect(image).toEqual(configServiceMock.get("pinata.gateway") + "cid");
+            expect(image).toEqual(configServiceMock.get("pinata.publicGateway") + "cid");
         });
 
         test("image is an url neither an ipfs uri and return undefined", async () => {

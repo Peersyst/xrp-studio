@@ -15,7 +15,7 @@ import CollectionCreationPage from "module/collection/page/CollectionCreationPag
 import { CollectionService } from "module/api/service";
 import userEvent from "@testing-library/user-event";
 import { waitFor } from "@testing-library/dom";
-import { CollectionRoutes } from "module/collection/CollectionRouter";
+import { CollectionRoutes } from "module/collection/router/CollectionRouter";
 import CollectionPublishModal from "module/collection/component/feedback/CollectionPublishModal/CollectionPublishModal";
 
 describe("CollectionCreationPage", () => {

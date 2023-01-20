@@ -4,7 +4,7 @@ import { useParams } from "react-router-dom";
 import useTranslate from "module/common/hook/useTranslate";
 import Button from "module/common/component/input/Button/Button";
 import { useNavigate } from "react-router-dom";
-import { CollectionRoutes } from "module/collection/CollectionRouter";
+import { CollectionRoutes } from "module/collection/router/CollectionRouter";
 import ShareButton from "module/common/component/input/ShareButton/ShareButton";
 import { SocialShareOptions } from "module/common/component/input/ShareButton/ShareButton.types";
 import useWallet from "module/wallet/hook/useWallet";

@@ -2455,10 +2455,10 @@
     mkdirp "^1.0.4"
     rimraf "^3.0.2"
 
-"@peersyst/react-components-core@^1.0.12":
-  version "1.0.12"
-  resolved "https://registry.yarnpkg.com/@peersyst/react-components-core/-/react-components-core-1.0.12.tgz#9dad55d8b62cd877b91fbea86ba934368482bf18"
-  integrity sha512-tNK7q3PTA6CQkBTxq4CQ9c7VZyqEmS1AxnOkSCH4E4Cqpzq8NdAXEybEJjh3Ds/M6Gl6AO9bpctLIHXXVi5HOA==
+"@peersyst/react-components-core@^1.1.1":
+  version "1.1.1"
+  resolved "https://registry.yarnpkg.com/@peersyst/react-components-core/-/react-components-core-1.1.1.tgz#3277944b1f2ed15d80fd230ac0f4dd4ce9f1ef07"
+  integrity sha512-g4CKiPGPVZU49uKR3X07QyhCXRbssHbnKU14OKwzOqnC9cZTo/w9Wsig4r1ua8QdmqS8tat8sBts2PCvhJsJAg==
   dependencies:
     "@babel/runtime" "^7.16.7"
     "@peersyst/react-hooks" "^2.2.0"
@@ -2466,13 +2466,13 @@
     "@peersyst/react-utils" "^2.1.0"
     validator "^13.7.0"
 
-"@peersyst/react-components@^3.0.27":
-  version "3.0.27"
-  resolved "https://registry.yarnpkg.com/@peersyst/react-components/-/react-components-3.0.27.tgz#9d82dd02aeb2bf32ebffbcde58f0109537d8f5ef"
-  integrity sha512-YYNP8OLJvVl7mj9wCcSbQ+ccq/8IKsJRvpG3M6LO9ildapheXf8H5t3GpH7nxfwLvafTzifkU4yYebh1xTlm8Q==
+"@peersyst/react-components@^3.1.5":
+  version "3.1.5"
+  resolved "https://registry.yarnpkg.com/@peersyst/react-components/-/react-components-3.1.5.tgz#37245b643bfd55ebea5cac6de0b53ea95bafd91e"
+  integrity sha512-szeXN4SM0Ky/iPqjgp66vqKmMb3wlWn4WtBCxpUTQKyqgrN9FB/i4UbNo+2xHp0fjxZc1UUvIVerVaVU52u9Xg==
   dependencies:
     "@babel/runtime" "^7.16.7"
-    "@peersyst/react-components-core" "^1.0.12"
+    "@peersyst/react-components-core" "^1.1.1"
     "@peersyst/react-hooks" "^2.2.0"
     "@peersyst/react-types" "^1.5.0"
     "@peersyst/react-utils" "^2.1.0"
@@ -2486,6 +2486,14 @@
     react-multi-carousel "^2.6.5"
     react-player "^2.9.0"
     react-transition-group "^4.4.2"
+
+"@peersyst/react-hooks@^2.0.4":
+  version "2.0.4"
+  resolved "https://registry.yarnpkg.com/@peersyst/react-hooks/-/react-hooks-2.0.4.tgz#7eaf9c2676766a94471684cc425d4578a82da377"
+  integrity sha512-XO6xHmBIrsVdCyf22YDqatNc1CLdTmMmBxTQU2BKW4t1I4rDfLd+5DYnLif4kb3JpDvdQws8iU8Iyf8RypbW8A==
+  dependencies:
+    "@babel/runtime" "^7.16.7"
+    "@peersyst/react-utils" "^2.1.0"
 
 "@peersyst/react-hooks@^2.2.0":
   version "2.2.0"

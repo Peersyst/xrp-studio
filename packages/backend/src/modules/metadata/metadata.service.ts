@@ -1,6 +1,5 @@
 import { Inject, Injectable } from "@nestjs/common";
 import { InjectRepository } from "@nestjs/typeorm";
-import { Nft } from "../../database/entities/Nft";
 import { Repository } from "typeorm";
 import { InjectQueue } from "@nestjs/bull";
 import { Queue } from "bull";
@@ -15,6 +14,8 @@ import axios from "axios";
 import { ConfigService } from "@nestjs/config";
 import { CreateMetadataRequest } from "./request/create-metadata.request";
 import * as Hash from "ipfs-only-hash";
+import { RawMetadataDto } from "./dto/raw-metadata.dto";
+import { MetadataAttributeDto } from "./dto/metadata-attribute.dto";
 
 export enum MetadataProcessingError {
     FETCH_ERROR,
@@ -31,8 +32,13 @@ export class MetadataService {
         @Inject(ConfigService) private readonly configService: ConfigService,
     ) {}
 
-    async sendToProcessMetadata(nft: Nft): Promise<void> {
-        await this.metadataQueue.add("process-metadata", { nft: nft }, { timeout: 25000, removeOnFail: true });
+    async sendToProcessMetadata(nftId: number, uri: string, delay = 0): Promise<void> {
+        await this.metadataQueue.add("process-metadata", { nftId, uri }, { timeout: 5000, delay, attempts: 5 });
+    }
+
+    getRandomIpfsGateway(): string {
+        const gws = this.configService.get<string[]>("pinata.gateways");
+        return gws[Math.floor(Math.random() * gws.length)];
     }
 
     /**
@@ -57,13 +63,13 @@ export class MetadataService {
     async publishMetadata(nftId: number): Promise<string> {
         const metadata = await this.nftMetadataRepository.findOne({ nftId });
         if (!metadata) throw new BusinessException(ErrorCode.METADATA_NOT_FOUND);
-        const metadataDto = MetadataDto.fromEntity(metadata);
+        const metadataDto = RawMetadataDto.fromEntity(metadata);
         return this.ipfsService.uploadFile(Buffer.from(metadataDto.encode()));
     }
 
     async calculateUri(nftId: number): Promise<string> {
         const metadata = await this.nftMetadataRepository.findOne({ nftId }, { relations: ["attributes"] });
-        const data = MetadataDto.fromEntity(metadata).encode();
+        const data = RawMetadataDto.fromEntity(metadata).encode();
         return "ipfs://" + (await Hash.of(Buffer.from(data)));
     }
 
@@ -72,7 +78,7 @@ export class MetadataService {
             return this.retrieveMetadataHttp(uri);
         } else if (uri.startsWith("ipfs://")) {
             const cid = uri.replace("ipfs://", "");
-            return this.retrieveMetadataIpfs(cid);
+            return this.retrieveMetadataHttp(this.getRandomIpfsGateway() + cid);
         } else {
             throw new BusinessException(ErrorCode.METADATA_URI_NOT_SUPPORTED);
         }
@@ -105,13 +111,18 @@ export class MetadataService {
     }
 
     async constructMetadata(obj: any): Promise<MetadataDto> {
+        const image = obj.image || obj.image_url;
+        const attributes = Array.isArray(obj.attributes)
+            ? obj.attributes.map(({ trait_type, value, display_type }) => new MetadataAttributeDto(trait_type, value, display_type))
+            : undefined;
+
         return new MetadataDto(
             obj.name,
             obj.description,
-            obj.image ? await this.processImage(obj.image) : undefined,
-            obj.backgroundColor,
-            obj.externalUrl,
-            obj.attributes,
+            image ? await this.processImage(image) : undefined,
+            obj.background_color,
+            obj.external_url,
+            attributes,
         );
     }
 
@@ -122,7 +133,7 @@ export class MetadataService {
         if (isHttpUrl(image)) return image;
         else if (image.startsWith("ipfs://")) {
             const cid = image.replace("ipfs://", "");
-            return this.configService.get("pinata.gateway") + cid;
+            return this.configService.get("pinata.publicGateway") + cid;
         } else return undefined;
     }
 }

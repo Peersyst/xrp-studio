@@ -15,6 +15,7 @@ import { NftService } from "../../../src/modules/nft/nft.service";
 import NftServiceMock from "../__mock__/nft.service.mock";
 import { GetNftsRequest } from "../../../src/modules/nft/request/get-nfts.request";
 import { QueryBuilderHelper } from "../../../src/modules/common/util/query-builder.helper";
+import * as random from "../../../src/modules/common/util/random";
 import UserServiceMock from "../__mock__/user.service.mock";
 import { UserService } from "../../../src/modules/user/user.service";
 
@@ -60,6 +61,7 @@ describe("CollectionService", () => {
 
         const CREATE_COLLECTRION_WITH_NFTS_REQUEST: CreateCollectionRequest = {
             ...CREATE_COLLECTION_REQUEST,
+            taxon: 1,
             nfts: [{ metadata: { name: "NFT #1" } }, { metadata: { name: "NFT #2" } }, { metadata: { name: "NFT #3" } }],
         };
 
@@ -71,42 +73,17 @@ describe("CollectionService", () => {
             items: 0,
         };
 
-        test("Creates collection with auto generated taxon with user having 0 collections", async () => {
-            collectionRepositoryMock.query
-                .mockResolvedValueOnce([{ missing_taxon: "1" }])
-                .mockResolvedValueOnce([{ missing_sequence: "1" }]);
-            const collection = await collectionService.createCollection(ACCOUNT, CREATE_COLLECTION_REQUEST);
-            expect(collectionRepositoryMock.save).toHaveBeenCalledWith({ ...baseCreatedCollection, taxon: "1" });
-            expect(collection).toEqual(expect.objectContaining({ taxon: 1 }));
-        });
-
         test("Creates collection with auto generated taxon with user having smallest missing taxon = 1", async () => {
-            collectionRepositoryMock.query
-                .mockResolvedValueOnce([{ missing_taxon: "2" }])
-                .mockResolvedValueOnce([{ missing_sequence: "1" }]);
+            collectionRepositoryMock.findOne.mockResolvedValueOnce(undefined);
+            jest.spyOn(random, "getRandomNumber").mockReturnValue(1234);
             await collectionService.createCollection(ACCOUNT, CREATE_COLLECTION_REQUEST);
-            expect(collectionRepositoryMock.save).toHaveBeenCalledWith({ ...baseCreatedCollection, taxon: "2" });
-        });
-
-        test("Creates collection with auto generated taxon with user having smallest missing taxon = 3", async () => {
-            collectionRepositoryMock.query
-                .mockResolvedValueOnce([{ missing_taxon: "3" }])
-                .mockResolvedValueOnce([{ missing_sequence: "1" }]);
-            await collectionService.createCollection(ACCOUNT, CREATE_COLLECTION_REQUEST);
-            expect(collectionRepositoryMock.save).toHaveBeenCalledWith({ ...baseCreatedCollection, taxon: "3" });
-        });
-
-        test("Throws NO_MORE_TAXONS_AVAILABLE when user has 4294967295 collections", async () => {
-            collectionRepositoryMock.query.mockResolvedValue([]);
-            await expect(async () => {
-                await collectionService.createCollection(ACCOUNT, CREATE_COLLECTION_REQUEST);
-            }).rejects.toEqual(new BusinessException(ErrorCode.NO_MORE_TAXONS_AVAILABLE));
-            expect(collectionRepositoryMock.save).not.toHaveBeenCalled();
-            collectionRepositoryMock.query = new CollectionRepositoryMock().query;
+            expect(collectionRepositoryMock.save).toHaveBeenCalledWith({
+                ...baseCreatedCollection,
+                taxon: "1234",
+            });
         });
 
         test("Creates a collection with a given taxon not used by the account", async () => {
-            collectionRepositoryMock.query.mockResolvedValueOnce([{ missing_sequence: "1" }]);
             const findCollectionByTaxonAndAccountMock = jest.spyOn(CollectionService.prototype, "findOne").mockResolvedValue(undefined);
             await collectionService.createCollection(ACCOUNT, { taxon: 25, ...CREATE_COLLECTION_REQUEST });
             expect(collectionRepositoryMock.save).toHaveBeenCalledWith({ ...baseCreatedCollection, taxon: "25" });
@@ -125,9 +102,7 @@ describe("CollectionService", () => {
         });
 
         test("Creates collection with nft drafts", async () => {
-            collectionRepositoryMock.query
-                .mockResolvedValueOnce([{ missing_taxon: "1" }])
-                .mockResolvedValueOnce([{ missing_sequence: "1" }]);
+            collectionRepositoryMock.findOne.mockResolvedValueOnce(undefined);
             await collectionService.createCollection(ACCOUNT, CREATE_COLLECTRION_WITH_NFTS_REQUEST);
             expect(collectionRepositoryMock.save).toHaveBeenCalledWith({ ...baseCreatedCollection, taxon: "1" });
             expect(nftServiceMock.createNftDraft).toHaveBeenCalledWith(
@@ -141,9 +116,7 @@ describe("CollectionService", () => {
         });
 
         test("Creates collection with published nfts", async () => {
-            collectionRepositoryMock.query
-                .mockResolvedValueOnce([{ missing_taxon: "1" }])
-                .mockResolvedValueOnce([{ missing_sequence: "1" }]);
+            collectionRepositoryMock.findOne.mockResolvedValueOnce(undefined);
             await collectionService.createCollection(ACCOUNT, CREATE_COLLECTRION_WITH_NFTS_REQUEST, true);
             expect(collectionRepositoryMock.save).toHaveBeenCalledWith({ ...baseCreatedCollection, taxon: "1" });
             expect(nftServiceMock.createNftDraft).toHaveBeenCalledWith(
@@ -167,12 +140,10 @@ describe("CollectionService", () => {
             findCollectionByTaxonAndAccountMock = jest
                 .spyOn(CollectionService.prototype, "findOne")
                 .mockResolvedValue(CollectionDto.fromEntity(collectionMock));
-            collectionRepositoryMock.query.mockResolvedValue([{ missing_sequence: "1" }]);
         });
 
         afterAll(() => {
             findCollectionByTaxonAndAccountMock.mockRestore();
-            collectionRepositoryMock.query.mockReset();
         });
 
         test("Updates collection with new values", async () => {

@@ -11,12 +11,16 @@ const registerBullBoard = (app: INestApplication, basePath: string) => {
     const transactionsQueue = app.get<Queue>(`BullQueue_transactions`);
     const dropQueue = app.get<Queue>(`BullQueue_drop`);
     const transactionStatusQueue = app.get<Queue>(`BullQueue_transaction-status`);
+    const metadataQueue = app.get<Queue>(`BullQueue_metadata`);
+    const offerQueue = app.get<Queue>(`BullQueue_offer`);
     createBullBoard({
         queues: [
             new BullAdapter(ledgerQueue),
             new BullAdapter(transactionsQueue),
             new BullAdapter(dropQueue),
             new BullAdapter(transactionStatusQueue),
+            new BullAdapter(metadataQueue),
+            new BullAdapter(offerQueue),
         ],
         serverAdapter,
     });

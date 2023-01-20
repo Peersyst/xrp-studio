@@ -12,7 +12,7 @@ import { BaseNftPageContentLeftSlot } from "module/nft/component/layout/BaseNftP
 import Link from "module/common/component/navigation/Link/Link";
 import UserProfileLink from "module/user/component/navigation/UserProfileLink/UserProfileLink";
 import { config } from "config";
-import { CollectionRoutes } from "module/collection/CollectionRouter";
+import { CollectionRoutes } from "module/collection/router/CollectionRouter";
 
 export interface UserViewNftPageSlots {
     nft: NftDto | undefined;

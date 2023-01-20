@@ -5,7 +5,7 @@ import useTranslate from "module/common/hook/useTranslate";
 import NothingToShow from "module/common/component/feedback/NothingToShow/NothingToShow";
 import Button from "module/common/component/input/Button/Button";
 import { useNavigate, useParams } from "react-router-dom";
-import { CollectionRoutes } from "module/collection/CollectionRouter";
+import { CollectionRoutes } from "module/collection/router/CollectionRouter";
 import useWallet from "module/wallet/hook/useWallet";
 
 const ProfileCollections = (): JSX.Element => {

@@ -3,7 +3,7 @@ import { act, render, translate, waitFor } from "test-utils";
 import * as ReactRouterDom from "react-router-dom";
 import * as recoil from "recoil";
 import userEvent from "@testing-library/user-event";
-import { CollectionRoutes } from "module/collection/CollectionRouter";
+import { CollectionRoutes } from "module/collection/router/CollectionRouter";
 import { NftRoutes } from "module/nft/NftRouter";
 import { UseFilterMock } from "test-mocks";
 

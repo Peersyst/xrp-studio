@@ -10,6 +10,8 @@ import { LedgerResponse } from "xrpl/dist/npm/models/methods";
 import { ValidatedLedgerTransaction } from "./types";
 import { OfferService } from "../offer/offer.service";
 
+export const INDEX_LEDGER_JOB_CONCURRENCY = 4;
+
 /**
  * Service in charge of all blockchain related stuff
  */
@@ -24,6 +26,7 @@ export class BlockchainService {
         @InjectQueue("ledger") private readonly ledgerQueue: Queue,
         @InjectQueue("transactions") private readonly transactionsQueue: Queue,
         @InjectQueue("drop") private readonly dropQueue: Queue,
+        @InjectQueue("offer") private readonly offerQueue: Queue,
         private readonly configService: ConfigService,
         @Inject(forwardRef(() => OfferService)) private readonly offerService: OfferService,
     ) {
@@ -38,10 +41,24 @@ export class BlockchainService {
     async onApplicationBootstrap(): Promise<void> {
         // We can leave the xrp ws connected indefinitely as we are making requests every ~3 seconds, it will not timeout
         await this.ledgerQueue.empty();
+        await this.ledgerQueue.clean(0);
+        await this.pauseTransactionQueues();
         await this.xrpClient.connect();
-        const currentLedgerIndex = await this.getCurrentLedgerIndex();
-        const index = currentLedgerIndex || (await this.getFirstLedgerIndex());
-        await this.indexLedger(index);
+        const currentIndexedLedgerIndex = await this.getCurrentLedgerIndex();
+        const index = currentIndexedLedgerIndex || (await this.getFirstLedgerIndex());
+        for (let i = 0; i < INDEX_LEDGER_JOB_CONCURRENCY; i++) {
+            await this.ledgerQueue.add("index-ledger", { index: index + i }, { priority: index });
+        }
+    }
+
+    async pauseTransactionQueues(): Promise<void> {
+        this.logger.log("Pausing transaction processor queues for indexing focus");
+        await this.dropQueue.pause();
+    }
+
+    async resumeTransactionQueues(): Promise<void> {
+        this.logger.log("Resuming transaction processor queues");
+        if (await this.dropQueue.isPaused()) await this.dropQueue.resume();
     }
 
     /**
@@ -50,8 +67,7 @@ export class BlockchainService {
      * @param delay
      */
     async indexLedger(index: number, delay?: number): Promise<void> {
-        await this.ledgerQueue.empty();
-        await this.ledgerQueue.add("index-ledger", { index }, { delay });
+        await this.ledgerQueue.add("index-ledger", { index }, { delay, priority: index });
     }
 
     /**
@@ -110,31 +126,32 @@ export class BlockchainService {
     /**
      * Processes a transaction by its type
      */
-    async processTransactionByType(transaction: ValidatedLedgerTransaction): Promise<void> {
+    async processTransactionByType(transaction: ValidatedLedgerTransaction, ledgerIndex: number): Promise<void> {
+        if (transaction.metaData.TransactionResult !== "tesSUCCESS") return;
         // this.logger.debug(`Processing transaction ${JSON.stringify(transaction)}`);
         if (transaction.TransactionType === "NFTokenMint") {
-            const job = await this.transactionsQueue.add(
+            await this.transactionsQueue.add(
                 "process-mint-transaction",
                 { transaction },
                 {
                     attempts: 3,
                     backoff: 60000,
+                    priority: ledgerIndex,
                 },
             );
-            await job.finished();
         } else if (transaction.TransactionType === "NFTokenAcceptOffer") {
-            const job = await this.dropQueue.add(
+            await this.dropQueue.add(
                 "process-accept-offer-transaction",
                 { transaction },
                 {
                     attempts: 3,
                     backoff: 60000,
+                    priority: ledgerIndex,
                 },
             );
-            await job.finished();
-            await this.offerService.processAcceptOfferTransaction(transaction);
+            await this.offerQueue.add("process-accept-offer-transaction", { transaction }, { priority: ledgerIndex, delay: 3500 });
         } else if (transaction.TransactionType === "NFTokenCreateOffer") {
-            await this.offerService.processCreateOfferTransaction(transaction);
+            await this.offerQueue.add("process-create-offer-transaction", { transaction }, { priority: ledgerIndex, delay: 3500 });
         }
     }
 

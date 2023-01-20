@@ -46,6 +46,7 @@ class BaseTransactionMock {
         if (validated) {
             this.hash = "t82F9E67FE6911B79F6D52CFF810D04F1E102ADFC36A581C02CC4AC20AD651C6B";
             this.metaData = metaData;
+            this.metaData = { ...this.metaData, TransactionResult: "tesSUCCESS" };
         }
 
         this.Account = Account || "r95kzvuWfS71wRrge2e4roctE9UjidRB5e";
