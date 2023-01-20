@@ -13,7 +13,7 @@ import { request as __request } from '../core/request';
 export class DropService {
 
     /**
-     * Gets a drop
+     * Gets a drop by id
      * @param id
      * @returns DropDto
      * @throws ApiError
@@ -26,6 +26,24 @@ export class DropService {
             url: '/api/drop/{id}',
             path: {
                 'id': id,
+            },
+        });
+    }
+
+    /**
+     * Gets a drop by drop name and artist name
+     * @param path
+     * @returns DropDto
+     * @throws ApiError
+     */
+    public static dropControllerGetDropByPath(
+        path: string,
+    ): CancelablePromise<DropDto> {
+        return __request(OpenAPI, {
+            method: 'GET',
+            url: '/api/drop/by-path/{path}',
+            path: {
+                'path': path,
             },
         });
     }

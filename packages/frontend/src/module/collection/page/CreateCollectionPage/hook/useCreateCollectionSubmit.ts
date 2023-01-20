@@ -43,7 +43,7 @@ export default function (): UseCreateCollectionSubmitReturn {
                     navigate(DropRoutes.DROP_CREATION + "?id=" + collectionData.id);
                 } else {
                     resetCollectionCreationState();
-                    navigate(CollectionRoutes.VIEW_COLLECTION.replace(":id", collectionData.id.toString()), { replace: true });
+                    navigate(CollectionRoutes.VIEW_COLLECTION.replace(":path", collectionData.path), { replace: true });
                 }
             } catch (e) {
                 // Handled by react query

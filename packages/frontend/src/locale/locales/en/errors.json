@@ -65,5 +65,6 @@
     "xummSignInRequestDeclined": "Sign in request has been declined",
     "xummSignInRequestCancelled": "Sign in request has been cancelled",
     "xummSignInRequestExpired": "Sign in request has expired",
+    "collectionNameAlreadyExists": "You already have a collection with this name",
     "collectionHasNoPublishedNfts": "This collection doesn't have any pubished NFTs"
 }

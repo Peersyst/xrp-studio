@@ -50,3 +50,9 @@ export const RemoveIcon = styled(Button).attrs({ variant: "glass" })(
         z-index: 1;
     `,
 );
+
+export const BaseCardStatus = styled.div`
+    position: absolute;
+    top: 0.5rem;
+    left: 0.5rem;
+`;

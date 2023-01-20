@@ -1,5 +1,5 @@
 import { Popover, Typography, WithSkeleton, useModal } from "@peersyst/react-components";
-import { NftCardStatusChipPopoverCard, NftCardStatusChipRoot } from "../NftCardStatusChip/NftCardStatusChip.styles";
+import { NftCardStatusChipPopoverCard } from "../NftCardStatusChip/NftCardStatusChip.styles";
 import { NftCardStatusChipProps } from "../NftCardStatusChip/NftCardStatusChip.types";
 import useTranslate from "module/common/hook/useTranslate";
 import { SyntheticEvent, useState } from "react";
@@ -29,7 +29,7 @@ const NftCardStatusChip = ({ nft }: WithSkeleton<NftCardStatusChipProps>): JSX.E
     };
 
     return (
-        <NftCardStatusChipRoot position="top" arrow visible={nft.status === "failed" ? undefined : false}>
+        <Popover position="top" arrow visible={nft.status === "failed" ? undefined : false}>
             <Popover.Popper>
                 <NftCardStatusChipPopoverCard>
                     <Typography variant="body1">{translateError("nftFailed")}</Typography>
@@ -44,7 +44,7 @@ const NftCardStatusChip = ({ nft }: WithSkeleton<NftCardStatusChipProps>): JSX.E
                     onClick={nft.status === "failed" ? (e) => handleClick(e) : undefined}
                 />
             </Popover.Content>
-        </NftCardStatusChipRoot>
+        </Popover>
     );
 };
 

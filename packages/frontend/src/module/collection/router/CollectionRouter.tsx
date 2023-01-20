@@ -5,12 +5,12 @@ import CreateCollectionRoutes from "module/collection/router/CreateCollectionRou
 import EditCollectionRoutes from "module/collection/router/EditCollectionRoutes";
 
 export enum CollectionRoutes {
-    VIEW_COLLECTION = "/collections/:id",
+    VIEW_COLLECTION = "/collections/:path",
     MY_COLLECTIONS = "/collections/my-collections",
     CREATE_COLLECTION = "/collections/create",
     CREATE_COLLECTION_EDIT_NFT = "/collections/create/nft/:draftId",
-    EDIT_COLLECTION = "/collections/edit/:id",
-    EDIT_COLLECTION_EDIT_NFT = "/collections/edit/:id/nft/:draftId",
+    EDIT_COLLECTION = "/collections/edit/:path",
+    EDIT_COLLECTION_EDIT_NFT = "/collections/edit/:path/nft/:draftId",
 }
 
 const CollectionPage = lazy(() => import("../page/CollectionPage"));

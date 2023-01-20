@@ -1,13 +1,15 @@
 import PageContent from "module/common/component/layout/PageContent/PageContent";
 import { useParams } from "react-router-dom";
 import CollectionNftsGrid from "module/nft/component/display/CollectionNftsGrid/CollectionNftsGrid";
+import useGetCollectionByPath from "module/collection/query/useGetCollectionByPath";
 
 const CollectionContent = (): JSX.Element => {
-    const { id } = useParams<string>();
+    const { path } = useParams<string>();
+    const { data: collection, isLoading: collectionLoading } = useGetCollectionByPath(path);
 
     return (
         <PageContent>
-            <CollectionNftsGrid id={id ? Number(id) : undefined} />
+            <CollectionNftsGrid id={collection?.id} loading={collectionLoading} />
         </PageContent>
     );
 };

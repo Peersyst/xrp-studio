@@ -31,6 +31,8 @@ declare module "@peersyst/react-components" {
         maxDiscordUsernameChars: number;
         minDiscordUsernameChars: number;
         maxNftDescChars: number;
+        maxNftNameChars: number;
+        maxCollectionNameChars: number;
         maxNumberDecimals: number;
         tokenName: string;
         feeInDrops: number;

@@ -9,14 +9,13 @@ import nftDraftToCreation from "module/collection/util/nftDraftToCreation";
 import { useMemo } from "react";
 import { usePaginatedList } from "@peersyst/react-hooks";
 import useGetNftDrafts from "module/nft/query/useGetNftDrafts";
-import useGetCollection from "module/collection/query/useGetCollection";
+import useGetCollectionByPath from "module/collection/query/useGetCollectionByPath";
 
 const EditCollectionNftDraftPage = (): JSX.Element => {
-    const { id: collectionIdParam, draftId: draftIdParam } = useParams();
-    const collectionId = collectionIdParam !== undefined ? Number(collectionIdParam) : undefined;
+    const { path: collectionPath, draftId: draftIdParam } = useParams();
     const draftId = draftIdParam !== undefined ? Number(draftIdParam) : undefined;
 
-    const { data: collection, isLoading: collectionIsLoading } = useGetCollection(collectionId);
+    const { data: collection, isLoading: collectionIsLoading } = useGetCollectionByPath(collectionPath);
 
     const { data: draft, isLoading: draftIsLoading } = useGetNftDraft(draftId);
     const creationDraft = useMemo(() => (draft ? nftDraftToCreation(draft) : undefined), [draft]);
@@ -42,13 +41,13 @@ const EditCollectionNftDraftPage = (): JSX.Element => {
     return (
         <CollectionCreationNftDraftPageScaffold
             loading={collectionIsLoading || draftIsLoading}
-            backPath={CollectionRoutes.EDIT_COLLECTION.replace(":id", collectionId!.toString())}
+            backPath={CollectionRoutes.EDIT_COLLECTION.replace(":path", collectionPath!)}
             draft={creationDraft}
             onSave={handleSave}
             collectionDrafts={collectionNftDrafts}
             loadingCollectionNfts={collectionNftsLoading}
             draftLink={({ id }) =>
-                CollectionRoutes.EDIT_COLLECTION_EDIT_NFT.replace(":id", collectionId!.toString()).replace(":draftId", id.toString())
+                CollectionRoutes.EDIT_COLLECTION_EDIT_NFT.replace(":path", collectionPath!).replace(":draftId", id.toString())
             }
             collectionName={collection?.name}
         />

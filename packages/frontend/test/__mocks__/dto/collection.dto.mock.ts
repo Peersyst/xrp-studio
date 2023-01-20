@@ -10,6 +10,7 @@ export class CollectionDtoMock {
     header?: string;
     items: number;
     account: string;
+    path: string;
     nfts: NftDto[];
     user: UserDto;
 
@@ -21,6 +22,7 @@ export class CollectionDtoMock {
         image = "collection_img_url",
         header = "collection_header_url",
         items = 1000,
+        path = "collection_name_by_user",
         user = new UserDtoMock(),
         nfts = [],
     }: Partial<CollectionDto> = {}) {
@@ -34,5 +36,6 @@ export class CollectionDtoMock {
         this.user = user;
         this.nfts = nfts;
         this.account = user.address;
+        this.path = path;
     }
 }

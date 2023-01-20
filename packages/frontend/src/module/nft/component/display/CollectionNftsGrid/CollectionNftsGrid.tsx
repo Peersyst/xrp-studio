@@ -4,7 +4,7 @@ import NftGrid from "module/nft/component/layout/NftGrid/NftGrid";
 import NothingToShow from "module/common/component/feedback/NothingToShow/NothingToShow";
 import useTranslate from "module/common/hook/useTranslate";
 
-const CollectionNftsGrid = ({ id }: CollectionNftsGridProps): JSX.Element => {
+const CollectionNftsGrid = ({ id, loading }: CollectionNftsGridProps): JSX.Element => {
     const translateError = useTranslate("error");
     const { data, hasNextPage, fetchNextPage, isFetching } = useGetCollectionNfts(id);
 
@@ -13,7 +13,7 @@ const CollectionNftsGrid = ({ id }: CollectionNftsGridProps): JSX.Element => {
             data={data}
             callback={() => fetchNextPage({ cancelRefetch: false })}
             end={!hasNextPage}
-            loadingNfts={isFetching}
+            loadingNfts={loading || isFetching}
             nothingToShow={<NothingToShow label={translateError("collectionDoesNotContainNfts")} />}
         />
     );

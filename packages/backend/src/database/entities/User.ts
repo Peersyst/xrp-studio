@@ -8,8 +8,8 @@ export class User {
     @PrimaryColumn({ type: "varchar", length: 255 })
     address: string;
 
-    @Column({ type: "varchar", length: 255, unique: true, nullable: true })
-    name?: string;
+    @Column({ type: "varchar", length: 64, unique: true })
+    name: string;
 
     @Column({ type: "text", nullable: true })
     description?: string;
@@ -20,10 +20,10 @@ export class User {
     @Column({ type: "text", nullable: true })
     header?: string;
 
-    @Column({ type: "varchar", length: 255, nullable: true })
+    @Column({ type: "varchar", length: 15, nullable: true })
     twitter?: string;
 
-    @Column({ type: "varchar", length: 255, nullable: true })
+    @Column({ type: "varchar", length: 32, nullable: true })
     discord?: string;
 
     @Column({ type: "boolean", name: "verified_artist", nullable: false, default: false })
