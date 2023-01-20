@@ -11,6 +11,7 @@ import { QueryBuilderHelper } from "../common/util/query-builder.helper";
 import { GetUsersRequest } from "./request/get-users.request";
 import { NftStatus } from "../../database/entities/Nft";
 import generateName from "./util/name-generator/generate-name";
+import { getRandomNumber } from "../common/util/random";
 
 @Injectable()
 export class UserService {
@@ -37,15 +38,15 @@ export class UserService {
      */
     async getRandomUserName(): Promise<string> {
         const name = generateName();
-        const nameSequenceQuery = await this.userRepository.query(
-            `SELECT s.i AS missing_sequence FROM generate_series(1,99999) s(i) WHERE NOT EXISTS (SELECT 1 FROM "user" WHERE s.i = 1 AND name = $1 OR name = CONCAT($1, s.i)) LIMIT 1;`,
-            [name],
-        );
-        const nameSequenceQueryRes = nameSequenceQuery?.[0];
-        if (!nameSequenceQueryRes) return this.getRandomUserName();
-        const missingSequence = Number(nameSequenceQueryRes.missing_sequence);
-        if (missingSequence === 1) return name;
-        else return name + missingSequence;
+        const user = await this.userRepository.findOne({ name });
+        if (!user) return name;
+        else {
+            let nameSequence: number;
+            do {
+                nameSequence = getRandomNumber(2, 999999);
+            } while (await this.userRepository.findOne({ name: name + nameSequence }));
+            return name + nameSequence;
+        }
     }
 
     /**
