@@ -64,5 +64,6 @@
     "dropNotFound": "No se ha encontrado el drop",
     "xummSignInRequestDeclined": "La petición de autenticación ha sido rechazada",
     "xummSignInRequestCancelled": "La petición de autenticación ha sido cancelada",
-    "xummSignInRequestExpired": "La petición de autenticación ha expirado"
+    "xummSignInRequestExpired": "La petición de autenticación ha expirado",
+    "collectionHasNoPublishedNfts": "Esta colección no contiene ningún NFT publicado"
 }

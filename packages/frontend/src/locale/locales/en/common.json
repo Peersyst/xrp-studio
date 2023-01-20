@@ -206,5 +206,10 @@
     "goTo": "Go to {{destination}}",
     "deleteDraftDialogTitle": "Delete NFT draft",
     "deleteDraftDialogText": "Are you sure you want to delete {{name}} draft?",
-    "cantLaunchCollectionWithoutNfts": "There are no NFTs to launch"
+    "cantLaunchCollectionWithoutNfts": "There are no NFTs to launch",
+    "publishedNfts": "Published NFTs",
+    "draft": "Draft",
+    "pending": "Pending",
+    "failed": "Failed",
+    "confirmed": "Confirmed"
 }

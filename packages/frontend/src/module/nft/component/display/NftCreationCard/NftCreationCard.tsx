@@ -3,6 +3,7 @@ import BaseCard from "module/nft/component/surface/BaseCard/BaseCard";
 import { config } from "config";
 import useTranslate from "module/common/hook/useTranslate";
 import { useDialog } from "@peersyst/react-components";
+import NftStatusChip from "module/nft/component/display/NftStatusChip/NftStatusChip";
 
 const NftCreationCard = ({ nft: { metadata: { name = "", image } = {} }, onDeleteClicked, ...rest }: NftCreationCardProps): JSX.Element => {
     const translate = useTranslate();
@@ -34,6 +35,7 @@ const NftCreationCard = ({ nft: { metadata: { name = "", image } = {} }, onDelet
             coverUrl={image}
             defaultCoverUrl={config.nftDefaultImageUrl}
             onDeleteClicked={onDeleteClicked && handleDelete}
+            status={<NftStatusChip status="draft" />}
             {...rest}
         />
     );

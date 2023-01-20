@@ -63,7 +63,7 @@ function CollectionCreationContent<D extends boolean = false>({
 
     return (
         <PageContent>
-            <Col flex={1} gap="1.5rem">
+            <Col flex={1} gap="3rem">
                 <Row
                     flex={1}
                     gap="1.5rem"

@@ -14,6 +14,7 @@ import useGetMyNfts from "module/nft/query/useGetMyNfts";
 import { useMemo } from "react";
 import { CollectionCreationNft } from "module/collection/types";
 import NotFoundPage from "module/common/page/NotFoundPage/NotFoundPage";
+import EditCollectionPublishedNfts from "module/collection/page/EditCollectionPage/EditCollectionPublishedNfts/EditCollectionPublishedNfts";
 
 const EditCollectionPage = (): JSX.Element => {
     const translate = useTranslate();
@@ -80,7 +81,7 @@ const EditCollectionPage = (): JSX.Element => {
     return (
         <CollectionCreationPageScaffold
             loading={collectionLoading || loadingCollectionNfts}
-            title={translate("createCollection")}
+            title={translate("editCollection")}
             backPath={CollectionRoutes.MY_COLLECTIONS}
             actions={actions}
             showDefaults={false}
@@ -94,7 +95,9 @@ const EditCollectionPage = (): JSX.Element => {
             onSubmit={handleSubmit}
             {...state}
             {...setters}
-        />
+        >
+            <EditCollectionPublishedNfts loading={collectionLoading} collectionId={collectionId} />
+        </CollectionCreationPageScaffold>
     );
 };
 
