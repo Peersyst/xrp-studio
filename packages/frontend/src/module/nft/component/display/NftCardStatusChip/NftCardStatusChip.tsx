@@ -3,7 +3,6 @@ import { NftCardStatusChipPopoverCard, NftCardStatusChipRoot } from "../NftCardS
 import { NftCardStatusChipProps } from "../NftCardStatusChip/NftCardStatusChip.types";
 import useTranslate from "module/common/hook/useTranslate";
 import { SyntheticEvent, useState } from "react";
-import { cx } from "@peersyst/react-utils";
 import NftPublishModal from "../../feedback/NftPublishModal/NftPublishModal";
 import createNftRequestFromNft from "module/nft/util/createNftRequestFromNft";
 import NftStatusChip from "module/nft/component/display/NftStatusChip/NftStatusChip";
