@@ -18,7 +18,6 @@ export class LedgerConsumer {
      */
     @Process({ name: "index-ledger", concurrency: INDEX_LEDGER_JOB_CONCURRENCY })
     async indexLedger({ data: { index } }: Job<{ index: number }>) {
-        await this.blockchainService.indexLedger(index + INDEX_LEDGER_JOB_CONCURRENCY);
         this.logger.log(`CONSUMING LEDGER ${index}`);
 
         try {
@@ -30,6 +29,7 @@ export class LedgerConsumer {
                     ledgerIndex: index,
                 });
                 await this.blockchainService.setCurrentLedgerIndex(index + 1);
+                await this.blockchainService.indexLedger(index + INDEX_LEDGER_JOB_CONCURRENCY);
             } else {
                 this.logger.log(`LEDGER INDEX ${index} NOT VALIDATED YET`);
                 await this.blockchainService.indexLedger(index, 3000);
