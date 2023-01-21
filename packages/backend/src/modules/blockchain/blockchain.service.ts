@@ -9,7 +9,7 @@ import { ConfigService } from "@nestjs/config";
 import { LedgerResponse } from "xrpl/dist/npm/models/methods";
 import { ValidatedLedgerTransaction } from "./types";
 
-export const INDEX_LEDGER_JOB_CONCURRENCY = 2;
+export const INDEX_LEDGER_JOB_CONCURRENCY = 1;
 
 /**
  * Service in charge of all blockchain related stuff
