@@ -5,8 +5,8 @@ import previewConfig from "./config.preview.json";
 import baseConfig from "./config.base.json";
 import devConfig from "./config.dev.json";
 import stagingConfig from "./config.staging.json";
-import { XrplAddressValidator } from "config/validators/XrplAddressValidator";
 import components from "./components/components";
+import { XrplAddressValidator } from "config/validators/XrplAddressValidator";
 
 const envConfigs: Record<string, CreateConfig> = {
     test: { ...baseConfig, ...devConfig },
