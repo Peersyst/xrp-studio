@@ -13,8 +13,8 @@ export default (): XrpConfig => {
             production: "wss://xrplcluster.com",
         },
         startingLedgerIndex: {
-            default: 77245931,
-            production: 77245931,
+            default: 77264094,
+            production: 77264094,
         },
         enableIndexer: {
             default: true,
