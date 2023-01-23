@@ -27,8 +27,8 @@ Error: ${err}`,
     /**
      * Processes an NFT metadata from ipfs or http URIs
      */
-    @Process({ name: "process-metadata", concurrency: 3 })
-    async processMetadata({ data: { nftId, uri }, opts }: Job<{ nftId: number; uri: string }>) {
+    @Process({ name: "process-metadata", concurrency: 5 })
+    async processMetadata({ data: { nftId, uri } }: Job<{ nftId: number; uri: string }>) {
         this.logger.log(`[process-metadata] consuming ${JSON.stringify({ nftId, uri })}`);
         try {
             const metadata = await this.metadataService.retrieveMetadata(uri);
@@ -42,7 +42,6 @@ Error: ${err}`,
                         uri,
                     })}`,
                 );
-                await this.metadataService.sendToProcessMetadata(nftId, uri, (opts.delay || 500) * 2);
             } else if (e === MetadataProcessingError.INVALID)
                 this.logger.warn(
                     `[process-metadata] metadata is not valid from ${JSON.stringify({
