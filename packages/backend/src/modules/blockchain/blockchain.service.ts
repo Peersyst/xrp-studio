@@ -118,8 +118,6 @@ export class BlockchainService {
                 "process-mint-transaction",
                 { transaction },
                 {
-                    attempts: 3,
-                    backoff: 60000,
                     priority: ledgerIndex,
                 },
             );
