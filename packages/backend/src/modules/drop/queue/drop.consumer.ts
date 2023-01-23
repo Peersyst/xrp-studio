@@ -78,8 +78,7 @@ export class DropConsumer {
             if (!nftId && tries > 3) {
                 // Skip transaction but retry it just in case that the offer id is not fetched yet
                 return this.dropQueue.add("process-accept-offer-transaction", { transaction, tries: tries + 1 }, { delay: 60000 });
-            }
-            this.logger.log(`[process-accept-offer-transaction] nft ${JSON.stringify({ nftId })} sold`);
+            } else if (nftId) this.logger.log(`[process-accept-offer-transaction] nft ${JSON.stringify({ nftId })} sold`);
         } catch (e) {
             this.logger.error(
                 `[process-accept-offer-transaction] failed for ${JSON.stringify({ transaction })} with error ${JSON.stringify(e)}`,
