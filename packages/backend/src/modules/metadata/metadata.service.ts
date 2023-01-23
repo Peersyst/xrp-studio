@@ -33,7 +33,7 @@ export class MetadataService {
     ) {}
 
     async sendToProcessMetadata(nftId: number, uri: string, delay = 0): Promise<void> {
-        await this.metadataQueue.add("process-metadata", { nftId, uri }, { timeout: 5000, delay });
+        await this.metadataQueue.add("process-metadata", { nftId, uri }, { timeout: 5000, delay, removeOnFail: true });
     }
 
     getRandomIpfsGateway(): string {
