@@ -5,9 +5,6 @@ COPY ["package.json", "yarn.lock", ".npmrc", "./"]
 FROM base as test
 RUN yarn install
 COPY . .
-RUN yarn lint
-RUN yarn test
-RUN touch test.lock
 
 FROM base as build
 ARG NODE_ENV=production

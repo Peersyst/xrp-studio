@@ -27,7 +27,7 @@ Error: ${err}`,
     /**
      * Processes an NFT metadata from ipfs or http URIs
      */
-    @Process({ name: "process-metadata", concurrency: 4 })
+    @Process({ name: "process-metadata", concurrency: 1 })
     async processMetadata({ data: { nftId, uri }, opts }: Job<{ nftId: number; uri: string }>) {
         this.logger.log(`[process-metadata] consuming ${JSON.stringify({ nftId, uri })}`);
         try {
