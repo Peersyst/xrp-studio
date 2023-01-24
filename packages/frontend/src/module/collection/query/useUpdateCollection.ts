@@ -26,7 +26,7 @@ export default function ({ publish }: UseUpdateCollectionProps): UseMutationResu
                 const allDrafts = [
                     ...(savedCollection?.nfts || []).filter((nft) => nft.status !== "confirmed" && nft.status !== "pending"),
                     // Should be guaranteed by precondition
-                    ...collection.nfts!,
+                    ...(collection.nfts || []),
                 ];
                 const amount = allDrafts.length * config.feeInDrops;
                 const valid = amount && (await checkBalance(amount));
