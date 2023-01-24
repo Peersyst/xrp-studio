@@ -35,19 +35,82 @@ export class BlockchainService {
         this.mintingAddress = Wallet.fromSecret(this.configService.get("xrp.minterSecret")).address;
     }
 
+    async getPendingIndexedLedgers(firstValidatedLedger: number, lastValidatedLedger: number): Promise<number[]> {
+        const missingLedgers: number[] = [];
+
+        const firstIndexedLedger = await this.lastIndexedLedgerRepository.findOne({ order: { ledger: "DESC" } });
+
+        // No indexed ledgers
+        if (!firstIndexedLedger) {
+            for (let ledger = firstValidatedLedger; ledger < lastValidatedLedger; ledger++) {
+                missingLedgers.push(ledger);
+            }
+            return missingLedgers;
+        }
+
+        // Some indexed ledgers
+        for (let ledger = firstValidatedLedger; ledger < firstIndexedLedger.ledger; ledger++) {
+            missingLedgers.push(ledger);
+        }
+
+        const gaps = await this.lastIndexedLedgerRepository.query(`select ledger + 1 as gap_start, next_nr - 1 as gap_end
+            from (select ledger, lead(ledger) over (order by ledger) as next_nr from last_indexed_ledger) nr
+            where ledger + 1 <> next_nr;`);
+
+        for (const { gap_start, gap_end } of gaps) {
+            for (let ledger = gap_start; ledger <= gap_end; ledger++) {
+                missingLedgers.push(ledger);
+            }
+        }
+
+        const lastIndexedLedger = await this.lastIndexedLedgerRepository.findOne({ order: { ledger: "ASC" } });
+
+        for (let ledger = lastIndexedLedger.ledger; ledger <= lastValidatedLedger; ledger++) {
+            missingLedgers.push(ledger);
+        }
+
+        return missingLedgers;
+    }
+
     /**
      * Connects to xrp ws and starts indexing ledgers
      */
     async onApplicationBootstrap(): Promise<void> {
         // We can leave the xrp ws connected indefinitely as we are making requests every ~3 seconds, it will not timeout
-        await this.ledgerQueue.empty();
-        await this.ledgerQueue.clean(0);
-        await this.pauseTransactionQueues();
         await this.xrpClient.connect();
-        const currentIndexedLedgerIndex = await this.getCurrentLedgerIndex();
-        const index = currentIndexedLedgerIndex || (await this.getFirstLedgerIndex());
-        for (let i = 0; i < INDEX_LEDGER_JOB_CONCURRENCY; i++) {
-            await this.ledgerQueue.add("index-ledger", { index: index + i }, { priority: index });
+
+        await this.ledgerQueue.clean(0, "wait");
+        await this.ledgerQueue.pause();
+
+        await this.pauseTransactionQueues();
+
+        const firstValidatedLedger = await this.getFirstValidatedLedger();
+        const lastValidatedLedger = await this.getLastValidatedLedger();
+        const missingLedgers = await this.getPendingIndexedLedgers(firstValidatedLedger, lastValidatedLedger);
+
+        console.log(missingLedgers.length);
+        for (const ledger of missingLedgers) {
+            await this.indexLedger(ledger);
+            console.log(ledger);
+        }
+
+        console.log("ledgers indexed");
+        await this.ledgerQueue.resume();
+
+        setTimeout(() => this.queueLedgers(lastValidatedLedger), 1000);
+    }
+
+    async queueLedgers(lastQueuedLedger: number): Promise<void> {
+        // eslint-disable-next-line no-constant-condition
+        while (true) {
+            await new Promise((resolve) => setTimeout(resolve, 1000));
+            const lastValidatedLedger = await this.getLastValidatedLedger();
+            if (lastQueuedLedger < lastValidatedLedger) {
+                for (let ledger = lastQueuedLedger + 1; ledger <= lastValidatedLedger; ledger++) {
+                    await this.indexLedger(ledger);
+                }
+            }
+            lastQueuedLedger = lastValidatedLedger;
         }
     }
 
@@ -73,12 +136,14 @@ export class BlockchainService {
     /**
      * Gets db current ledger index
      */
-    async getCurrentLedgerIndex(): Promise<number | undefined> {
-        const lastLedger = await this.lastIndexedLedgerRepository.findOne({ where: { id: 1 } });
-        return lastLedger?.index;
+    async getLastValidatedLedger(): Promise<number> {
+        const res = await this.xrpClient.request({
+            command: "ledger_current",
+        });
+        return res.result.ledger_current_index;
     }
 
-    async getFirstLedgerIndex(): Promise<number> {
+    async getFirstValidatedLedger(): Promise<number> {
         const res = await this.xrpClient.request({
             command: "server_info",
         });
@@ -89,23 +154,12 @@ export class BlockchainService {
         return startingLedgerConfig > startingLedgerServer ? startingLedgerConfig : startingLedgerServer;
     }
 
-    async getMintedTokens(account: string, ledgerIndex: number): Promise<number | undefined> {
-        const res = await this.xrpClient.request({
-            command: "account_info",
-            account: account,
-            strict: true,
-            ledger_index: ledgerIndex,
-        });
-        return res.result.account_data["MintedNFTokens"];
-    }
-
     /**
      * Sets db current ledger index
      * @param index
      */
-    async setCurrentLedgerIndex(index: number): Promise<number> {
-        const lastLedger = await this.lastIndexedLedgerRepository.save({ id: 1, index });
-        return lastLedger.index;
+    async setLedgerAsValidated(index: number): Promise<void> {
+        await this.lastIndexedLedgerRepository.save({ ledger: index });
     }
 
     /**

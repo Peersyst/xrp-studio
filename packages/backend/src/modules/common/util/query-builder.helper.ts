@@ -236,6 +236,7 @@ export class QueryBuilderHelper {
         orders: QBOrder[] = [],
     ): Promise<[T[], number]> {
         const qb = QueryBuilderHelper.buildQuery(repository, alias, [], [], relations, wheres, orders, [], undefined, offset, limit);
+        qb
         return qb.getManyAndCount();
     }
 }

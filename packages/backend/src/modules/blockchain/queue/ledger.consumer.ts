@@ -28,8 +28,7 @@ export class LedgerConsumer {
                     transactions: ledger.transactions,
                     ledgerIndex: index,
                 });
-                await this.blockchainService.setCurrentLedgerIndex(index + 1);
-                await this.blockchainService.indexLedger(index + INDEX_LEDGER_JOB_CONCURRENCY);
+                await this.blockchainService.setLedgerAsValidated(index);
             } else {
                 this.logger.log(`LEDGER INDEX ${index} NOT VALIDATED YET`);
                 await this.blockchainService.resumeTransactionQueues();
