@@ -19,7 +19,7 @@ export interface UseCreateCollectionReturn {
     setAttributes: (attributes: MetadataAttributeDto[]) => void;
     addNfts: (nfts: CollectionCreationNft[]) => void;
     removeNft: (id: number) => void;
-    setNft: (index: number, data: CreateCollectionNftRequest) => Promise<void>;
+    setNft: (index: number, data: CreateCollectionNftRequest) => void;
 }
 
 export default function (): UseCreateCollectionReturn {
@@ -81,14 +81,11 @@ export default function (): UseCreateCollectionReturn {
         setState(({ nfts: oldNfs, ...rest }) => ({ ...rest, nfts: oldNfs.filter((nft) => nft.id !== id) }));
     }
 
-    async function setNft(index: number, data: CreateCollectionNftRequest): Promise<void> {
-        return new Promise((resolve) => {
-            const nfts = [...state.nfts];
-            nfts[index] = { ...data, id: index };
-            setPartialState({
-                nfts,
-            });
-            resolve(void 0);
+    function setNft(index: number, data: CreateCollectionNftRequest): void {
+        const nfts = [...state.nfts];
+        nfts[index] = { ...data, id: index };
+        setPartialState({
+            nfts,
         });
     }
 

@@ -24,6 +24,7 @@ export default function (collection: CollectionDto | undefined) {
     return useMutation(addCollectionDrafts, {
         onSuccess: () => {
             queryClient.invalidateQueries([Queries.MY_NFTS]);
+            queryClient.invalidateQueries([Queries.COLLECTION, collection!.id]);
         },
     });
 }

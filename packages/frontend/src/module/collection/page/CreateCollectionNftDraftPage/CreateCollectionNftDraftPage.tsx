@@ -21,7 +21,7 @@ const CreateCollectionNftDraftPage = (): JSX.Element => {
         if (!draft) navigate(CollectionRoutes.CREATE_COLLECTION, { replace: true });
     }, [draft, draftIdParam]);
 
-    const handleSave = async (data: CreateCollectionNftRequest): Promise<void> => setNft(draftId!, data);
+    const handleSave = (data: CreateCollectionNftRequest): void => setNft(draftId!, data);
 
     return (
         <CollectionCreationNftDraftPageScaffold
