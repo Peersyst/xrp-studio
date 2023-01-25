@@ -1,4 +1,4 @@
-import { BlockchainService, INDEX_LEDGER_JOB_CONCURRENCY } from "../../../src/modules/blockchain/blockchain.service";
+import { BlockchainService } from "../../../src/modules/blockchain/blockchain.service";
 import { Test } from "@nestjs/testing";
 import { getRepositoryToken } from "@nestjs/typeorm";
 import { LastIndexedLedger } from "../../../src/database/entities/LastIndexedLedger";
@@ -10,7 +10,7 @@ import TransactionsConsumerMock from "../__mock__/transactions.consumer.mock";
 import NFTokenMintTransactionMock from "../__mock__/nftokenmint-transaction.mock";
 import XrplClientMock from "../__mock__/xrpl-client.mock";
 import PaymentTransactionMock from "../__mock__/payment-transaction.mock";
-import LastIndexedLedgerRepositoryMock, { LastIndexedLedgerMockEntity } from "../__mock__/last-indexed-ledger.repository.mock";
+import LastIndexedLedgerRepositoryMock from "../__mock__/last-indexed-ledger.repository.mock";
 import DropConsumerMock from "../__mock__/drop.consumer.mock";
 import { OfferService } from "../../../src/modules/offer/offer.service";
 import OfferServiceMock from "../__mock__/offer.service.mock";
@@ -68,46 +68,11 @@ describe("BlockchainService", () => {
         Object.values(xrpClientMock).forEach((mock) => mock.mockClear());
     });
 
-    describe("onApplicationBootstrap", () => {
-        const indexLedgerMock = jest.spyOn(BlockchainService.prototype, "indexLedger").mockImplementation();
-        const getCurrentLedgerIndexMock = jest
-            .spyOn(BlockchainService.prototype, "getCurrentLedgerIndex")
-            .mockReturnValue(new Promise((resolve) => resolve(5)));
-
-        beforeEach(() => {
-            indexLedgerMock.mockClear();
-            getCurrentLedgerIndexMock.mockClear();
-        });
-        afterAll(() => {
-            indexLedgerMock.mockRestore();
-            getCurrentLedgerIndexMock.mockRestore();
-        });
-
-        test("Should empty ledger queue and connect to the xrp client", async () => {
-            await blockchainService.onApplicationBootstrap();
-            expect(xrpClientMock.connect).toHaveBeenCalled();
-        });
-        test("Should get current index from db", async () => {
-            await blockchainService.onApplicationBootstrap();
-            expect(ledgerConsumerMock.add).toHaveBeenCalledTimes(INDEX_LEDGER_JOB_CONCURRENCY);
-        });
-        test("Should get current index from config", async () => {
-            getCurrentLedgerIndexMock.mockReturnValue(new Promise((resolve) => resolve(undefined)));
-            xrpClientMock.request.mockReturnValueOnce(
-                new Promise((resolve) => resolve({ result: { info: { complete_ledgers: "1-2,4-5" } } } as any)),
-            );
-            await blockchainService.onApplicationBootstrap();
-            expect(getCurrentLedgerIndexMock).toHaveBeenCalledTimes(1);
-            expect(ledgerConsumerMock.add).toHaveBeenCalledTimes(INDEX_LEDGER_JOB_CONCURRENCY);
-        });
-        test("Should get current index from chain", async () => {
-            getCurrentLedgerIndexMock.mockReturnValue(new Promise((resolve) => resolve(undefined)));
-            xrpClientMock.request.mockReturnValueOnce(
-                new Promise((resolve) => resolve({ result: { info: { complete_ledgers: "1-2,11-15" } } } as any)),
-            );
-            await blockchainService.onApplicationBootstrap();
-            expect(getCurrentLedgerIndexMock).toHaveBeenCalledTimes(1);
-            expect(ledgerConsumerMock.add).toHaveBeenCalledTimes(INDEX_LEDGER_JOB_CONCURRENCY);
+    describe("indexPendingLedgers", () => {
+        test("Should queue all ledgers", async () => {
+            await blockchainService.indexPendingLedgers([1, 3]);
+            expect(ledgerConsumerMock.add).toHaveBeenCalledWith("index-ledger", { index: 1 }, { delay: undefined, priority: 1 });
+            expect(ledgerConsumerMock.add).toHaveBeenCalledWith("index-ledger", { index: 3 }, { delay: undefined, priority: 3 });
         });
     });
 
@@ -118,23 +83,10 @@ describe("BlockchainService", () => {
         });
     });
 
-    describe("getCurrentLedgerIndex", () => {
-        test("Should return stored index", async () => {
-            const index = await blockchainService.getCurrentLedgerIndex();
-            expect(index).toEqual(LastIndexedLedgerMockEntity.index);
-        });
-        test("Should return undefined if an index is not stored", async () => {
-            lastIndexedLedgerRepositoryMock.findOne.mockReturnValueOnce(new Promise((resolve) => resolve(undefined)) as any);
-            const index = await blockchainService.getCurrentLedgerIndex();
-            expect(index).not.toBeDefined();
-        });
-    });
-
     describe("setCurrentLedgerIndex", () => {
         test("Stores given index and returns it", async () => {
-            const index = await blockchainService.setCurrentLedgerIndex(25);
-            expect(lastIndexedLedgerRepositoryMock.save).toHaveBeenCalledWith({ id: 1, index: 25 });
-            expect(index).toEqual(25);
+            await blockchainService.setLedgerAsValidated(25);
+            expect(lastIndexedLedgerRepositoryMock.save).toHaveBeenCalledWith({ ledger: 25 });
         });
     });
 

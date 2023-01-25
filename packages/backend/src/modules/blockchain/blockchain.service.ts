@@ -87,12 +87,14 @@ export class BlockchainService {
         const lastValidatedLedger = await this.getLastValidatedLedger();
         const missingLedgers = await this.getPendingIndexedLedgers(firstValidatedLedger, lastValidatedLedger);
 
-        (async () => {
-            for (const ledger of missingLedgers) {
-                await this.indexLedger(ledger);
-            }
-        })();
+        this.indexPendingLedgers(missingLedgers);
         this.queueLedgers(lastValidatedLedger);
+    }
+
+    async indexPendingLedgers(missingLedgers: number[]) {
+        for (const ledger of missingLedgers) {
+            await this.indexLedger(ledger);
+        }
     }
 
     async queueLedgers(lastQueuedLedger: number): Promise<void> {

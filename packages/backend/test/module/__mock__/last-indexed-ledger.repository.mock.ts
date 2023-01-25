@@ -2,8 +2,7 @@ import { LastIndexedLedger } from "../../../src/database/entities/LastIndexedLed
 import BaseMock from "./base.mock";
 
 export const LastIndexedLedgerMockEntity: LastIndexedLedger = {
-    id: 1,
-    index: 1,
+    ledger: 1,
 };
 
 class LastIndexedLedgerRepositoryMock extends BaseMock {
