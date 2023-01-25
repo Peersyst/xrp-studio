@@ -7,7 +7,7 @@ class BlockchainServiceMock extends BaseMock {
     onApplicationBootstrap = jest.fn();
     indexLedger = jest.fn();
     getCurrentLedgerIndex = jest.fn(() => new Promise((resolve) => resolve(CURRENT_LEDGER_INDEX_MOCK)));
-    setCurrentLedgerIndex = jest.fn(() => new Promise((resolve) => resolve(CURRENT_LEDGER_INDEX_MOCK)));
+    setLedgerAsValidated = jest.fn(() => Promise.resolve());
     getLedger = jest.fn(() => new Promise((resolve) => resolve({ ...LedgerMock, validated: true })));
     processTransactionByType = jest.fn();
     resumeTransactionQueues = jest.fn();
