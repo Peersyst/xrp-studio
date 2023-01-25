@@ -79,8 +79,7 @@ export class BlockchainService {
         // We can leave the xrp ws connected indefinitely as we are making requests every ~3 seconds, it will not timeout
         await this.xrpClient.connect();
 
-        await this.ledgerQueue.clean(0, "wait");
-        await this.ledgerQueue.pause();
+        await this.ledgerQueue.empty();
 
         await this.pauseTransactionQueues();
 
@@ -88,16 +87,12 @@ export class BlockchainService {
         const lastValidatedLedger = await this.getLastValidatedLedger();
         const missingLedgers = await this.getPendingIndexedLedgers(firstValidatedLedger, lastValidatedLedger);
 
-        console.log(missingLedgers.length);
-        for (const ledger of missingLedgers) {
-            await this.indexLedger(ledger);
-            console.log(ledger);
-        }
-
-        console.log("ledgers indexed");
-        await this.ledgerQueue.resume();
-
-        setTimeout(() => this.queueLedgers(lastValidatedLedger), 1000);
+        (async () => {
+            for (const ledger of missingLedgers) {
+                await this.indexLedger(ledger);
+            }
+        })();
+        this.queueLedgers(lastValidatedLedger);
     }
 
     async queueLedgers(lastQueuedLedger: number): Promise<void> {
@@ -120,7 +115,6 @@ export class BlockchainService {
     }
 
     async resumeTransactionQueues(): Promise<void> {
-        this.logger.log("Resuming transaction processor queues");
         if (await this.dropQueue.isPaused()) await this.dropQueue.resume();
     }
 
