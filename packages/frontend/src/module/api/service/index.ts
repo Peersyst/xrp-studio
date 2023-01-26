@@ -17,6 +17,8 @@ export type { CreateMetadataAttributeRequest } from './models/CreateMetadataAttr
 export type { CreateMetadataRequest } from './models/CreateMetadataRequest';
 export type { CreateNftDraftRequest } from './models/CreateNftDraftRequest';
 export type { DropDto } from './models/DropDto';
+export type { DropPaymentDto } from './models/DropPaymentDto';
+export type { DropPaymentRequest } from './models/DropPaymentRequest';
 export type { FaqDto } from './models/FaqDto';
 export type { MetadataAttributeDto } from './models/MetadataAttributeDto';
 export type { MetadataDto } from './models/MetadataDto';
@@ -46,6 +48,8 @@ export { $CreateMetadataAttributeRequest } from './schemas/$CreateMetadataAttrib
 export { $CreateMetadataRequest } from './schemas/$CreateMetadataRequest';
 export { $CreateNftDraftRequest } from './schemas/$CreateNftDraftRequest';
 export { $DropDto } from './schemas/$DropDto';
+export { $DropPaymentDto } from './schemas/$DropPaymentDto';
+export { $DropPaymentRequest } from './schemas/$DropPaymentRequest';
 export { $FaqDto } from './schemas/$FaqDto';
 export { $MetadataAttributeDto } from './schemas/$MetadataAttributeDto';
 export { $MetadataDto } from './schemas/$MetadataDto';

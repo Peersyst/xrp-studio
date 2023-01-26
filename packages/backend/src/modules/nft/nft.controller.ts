@@ -92,20 +92,26 @@ export class NftController {
     @ApiOperation({ description: "Get a single NFT draft (status != confirmed)" })
     @XummAuthenticated()
     async getNftDraft(@Request() req, @Param("id", ParseIntPipe) id: number): Promise<NftDraftDto> {
-        return this.nftService.findOne(id, {
-            ownerAddress: req.user.address,
-            status: [NftStatus.DRAFT, NftStatus.FAILED, NftStatus.PENDING],
-            relations: ["metadata", "metadata.attributes", "user", "collection"],
-        });
+        return this.nftService.findOne(
+            { id },
+            {
+                ownerAddress: req.user.address,
+                status: [NftStatus.DRAFT, NftStatus.FAILED, NftStatus.PENDING],
+                relations: ["metadata", "metadata.attributes", "user", "collection"],
+            },
+        );
     }
 
     @Get(":id")
     @ApiOperation({ description: "Get a single NFT (status = confirmed)" })
     async getNft(@Param("id", ParseIntPipe) id: number): Promise<NftDto> {
-        return this.nftService.findOne<[NftStatus.CONFIRMED]>(id, {
-            status: [NftStatus.CONFIRMED],
-            relations: ["metadata", "metadata.attributes", "user", "collection"],
-        });
+        return this.nftService.findOne<[NftStatus.CONFIRMED]>(
+            { id },
+            {
+                status: [NftStatus.CONFIRMED],
+                relations: ["metadata", "metadata.attributes", "user", "collection"],
+            },
+        );
     }
 
     @Delete("/draft/:id")

@@ -3,6 +3,8 @@
 /* eslint-disable */
 import type { CreateDropRequest } from '../models/CreateDropRequest';
 import type { DropDto } from '../models/DropDto';
+import type { DropPaymentDto } from '../models/DropPaymentDto';
+import type { DropPaymentRequest } from '../models/DropPaymentRequest';
 import type { PaginatedDropDto } from '../models/PaginatedDropDto';
 import type { RequestBuyNftDto } from '../models/RequestBuyNftDto';
 
@@ -93,6 +95,23 @@ export class DropService {
         return __request(OpenAPI, {
             method: 'POST',
             url: '/api/drop',
+            body: requestBody,
+            mediaType: 'application/json',
+        });
+    }
+
+    /**
+     * Sends a drop payment request to XUMM
+     * @param requestBody
+     * @returns DropPaymentDto
+     * @throws ApiError
+     */
+    public static dropControllerPayment(
+        requestBody: DropPaymentRequest,
+    ): CancelablePromise<DropPaymentDto> {
+        return __request(OpenAPI, {
+            method: 'POST',
+            url: '/api/drop/payment',
             body: requestBody,
             mediaType: 'application/json',
         });

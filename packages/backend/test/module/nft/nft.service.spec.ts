@@ -510,14 +510,14 @@ describe("NftService", () => {
 
     describe("findOne", () => {
         test("Returns existing Nft", async () => {
-            const nft = await nftService.findOne(1);
+            const nft = await nftService.findOne({ id: 1 });
             expect(nft).toBeDefined();
         });
 
         test("Throws NFT_NOT_FOUND error", async () => {
             nftRepositoryMock.findOne.mockResolvedValueOnce(undefined);
             await expect(async () => {
-                await nftService.findOne(1);
+                await nftService.findOne({ id: 1 });
             }).rejects.toEqual(new BusinessException(ErrorCode.NFT_NOT_FOUND));
         });
     });
@@ -525,19 +525,19 @@ describe("NftService", () => {
     describe("findOneDraft", () => {
         test("Returns existing Nft draft from its owner account", async () => {
             nftRepositoryMock.findOne.mockResolvedValueOnce(new NftMock({ status: NftStatus.DRAFT, user: new User({ address: ADDRESS }) }));
-            const nft = await nftService.findOne(1, { ownerAddress: ADDRESS, status: [NftStatus.DRAFT] });
+            const nft = await nftService.findOne({ id: 1 }, { ownerAddress: ADDRESS, status: [NftStatus.DRAFT] });
             expect(nft).toBeDefined();
         });
         test("Throws NFT_DRAFT_NOT_OWNED error", async () => {
             nftRepositoryMock.findOne.mockResolvedValueOnce(new NftMock({ user: new User({ address: ISSUER }) }));
             await expect(async () => {
-                await nftService.findOne(1, { ownerAddress: ADDRESS, status: [NftStatus.DRAFT] });
+                await nftService.findOne({ id: 1 }, { ownerAddress: ADDRESS, status: [NftStatus.DRAFT] });
             }).rejects.toEqual(new BusinessException(ErrorCode.NFT_NOT_FOUND));
         });
         test("Throws NFT_DRAFT_NOT_FOUND error", async () => {
             nftRepositoryMock.findOne.mockResolvedValueOnce(undefined);
             await expect(async () => {
-                await nftService.findOne(1, { ownerAddress: ADDRESS });
+                await nftService.findOne({ id: 1 }, { ownerAddress: ADDRESS });
             }).rejects.toEqual(new BusinessException(ErrorCode.NFT_NOT_FOUND));
         });
     });

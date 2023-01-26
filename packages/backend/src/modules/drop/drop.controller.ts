@@ -9,6 +9,8 @@ import { RequestBuyNftDto } from "./dto/requestBuyNft.dto";
 import { EnhancedQuery } from "../common/decorator/enhanced-query";
 import { GetDropsRequest } from "./request/get-drops.request";
 import { ApiGetDropsDecorator } from "./decorator/api-get-drops.decorator";
+import { DropPaymentRequest } from "./request/drop-payment.request";
+import { DropPaymentDto } from "./dto/drop-payment.dto";
 
 @ApiTags("drop")
 @Controller("drop")
@@ -41,6 +43,13 @@ export class DropController {
     @XummAuthenticated()
     async publishDrop(@Request() req, @Body() createDropRequest: CreateDropRequest): Promise<DropDto> {
         return this.dropService.publish(req.user.address, createDropRequest);
+    }
+
+    @Post("payment")
+    @ApiOperation({ description: "Sends a drop payment request to XUMM" })
+    @XummAuthenticated()
+    async payment(@Request() req, @Body() dropPaymentRequest: DropPaymentRequest): Promise<DropPaymentDto> {
+        return this.dropService.dropPayment(req.user.address, dropPaymentRequest);
     }
 
     @Post("authorize")
