@@ -173,6 +173,8 @@ export class DropService {
         const signedTx = this.blockchainTransactionService.signTransactionWithMintingAccount(transaction);
         await this.blockchainTransactionService.broadcastTransaction(signedTx.tx_blob);
 
+        await new Promise((resolve) => setTimeout(resolve, 1000));
+
         await this.nftInDropRepository.update(
             { nftId: nft.id },
             {

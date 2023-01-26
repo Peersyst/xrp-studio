@@ -100,11 +100,10 @@ export class CollectionService {
     }
 
     async addItems(id: number, inc: number): Promise<void> {
-        const collection = await this.findOne({ id });
         await this.collectionRepository.update(
             { id },
             {
-                items: (collection.items || 0) + inc,
+                items: () => `items ${inc >= 0 ? "+" : "-"} ${Math.abs(inc)}`,
             },
         );
     }
