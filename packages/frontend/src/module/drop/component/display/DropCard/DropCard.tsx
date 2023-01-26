@@ -12,14 +12,14 @@ interface DropCardProps extends Pick<BaseCollectionCardProps, "size"> {
 }
 
 const DropCard = forwardRef(
-    ({ loading = false, size = "md", drop: { id, items, price, collection } }: WithSkeleton<DropCardProps>, ref): JSX.Element => {
+    ({ loading = false, size = "md", drop: { items, price, collection } }: WithSkeleton<DropCardProps>, ref): JSX.Element => {
         const translate = useTranslate();
         const alt = "drop";
         return (
             <BaseCollectionCard
                 loading={loading}
                 size={size}
-                to={DropRoutes.DROP.replace(":id", id.toString())}
+                to={DropRoutes.DROP.replace(":path", collection!.path)}
                 header={collection?.header || config.collectionDefaultHeaderUrl}
                 alt={alt}
                 image={collection?.image || config.collectionDefaultImageUrl}
