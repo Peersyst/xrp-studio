@@ -19,7 +19,7 @@ const DropLaunchModal = createModal<DropLaunchModalProps>(({ request, collection
     const [loading, setLoading] = useState(false);
 
     const handleSuccess = (id: number) => {
-        navigate(DropRoutes.DROP.replace(":id", id.toString()), { replace: true });
+        navigate(DropRoutes.DROP.replace(":path", id.toString()), { replace: true });
     };
 
     return (
