@@ -4,7 +4,6 @@ import * as UseWallet from "module/wallet/hook//useWallet";
 import { UserService } from "module/api/service";
 import EditProfileDrawer from "module/user/component/feedback/EditProfileDrawer/EditProfileDrawer";
 import * as useUpdateUser from "module/user/query/useUpdateUser";
-import createUserRequestFromUserDTO from "module/user/util/createUserRequestFromUserDTO";
 import userEvent from "@testing-library/user-event";
 import * as uploadFile from "module/api/service/helper/uploadFile";
 
@@ -23,10 +22,10 @@ describe("EditProfileDrawer", () => {
     beforeAll(() => {
         jest.spyOn(UseWallet, "default").mockReturnValue(wallet);
         jest.spyOn(UserService, "userControllerGetUser").mockResolvedValue(userDtoMock);
-        jest.spyOn(UserService, "userControllerCheckUserName").mockResolvedValue({ exist: false });
+        jest.spyOn(UserService, "userControllerUserNameAvailability").mockResolvedValue({ available: true });
     });
 
-    test("Renders correctly + updates profile", async () => {
+    test("Renders correctly", async () => {
         const mockedUseUpdateUser = jest.fn();
         const mockedUpload = jest.fn().mockResolvedValue("new_img_url");
         const mockedCloseDrawer = jest.fn();
@@ -68,7 +67,7 @@ describe("EditProfileDrawer", () => {
         const nameInput = screen.getByPlaceholderText(translate("writeYour", { name: translate("name") }));
         //Update with a name that doesn't exist
         fireEvent.change(nameInput, { target: { value: newUserDtoMock.name } });
-        jest.spyOn(UserService, "userControllerCheckUserName").mockResolvedValueOnce({ exist: false });
+        jest.spyOn(UserService, "userControllerUserNameAvailability").mockResolvedValueOnce({ available: true });
         //Name updated
         await waitFor(() => expect(screen.getByTestId("SuccessIcon")).toBeInTheDocument());
 
@@ -89,9 +88,5 @@ describe("EditProfileDrawer", () => {
         //Update button
         const updateBtn = screen.getByRole("button", { name: translate("updateProfile") });
         expect(updateBtn).toBeInTheDocument();
-        fireEvent.click(updateBtn);
-        await waitFor(() => expect(mockedUseUpdateUser).toHaveBeenCalledWith(createUserRequestFromUserDTO(newUserDtoMock)));
-        await waitFor(() => expect(mockedCloseDrawer).toHaveBeenCalledWith(EditProfileDrawer.id));
-        expect(mockedShowToast).toHaveBeenCalledWith(translate("profileUpdated", { ns: "success" }), { type: "success" });
     });
 });

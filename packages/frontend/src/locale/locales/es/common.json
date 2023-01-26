@@ -206,5 +206,10 @@
     "goTo": "Ir a {{destination}}",
     "deleteDraftDialogTitle": "Borrar esbozo de NFT",
     "deleteDraftDialogText": "Estás seguro de que quieres borrar el esbozo {{name}}?",
-    "cantLaunchCollectionWithoutNfts": "No hay NFTs para lanzar"
+    "cantLaunchCollectionWithoutNfts": "No hay NFTs para lanzar",
+    "publishedNfts": "NFTs publicados",
+    "draft": "Esbozo",
+    "pending": "Pendiente",
+    "failed": "Fallido",
+    "confirmed": "Confirmado"
 }

@@ -23,7 +23,7 @@ export class Collection {
     @Column({ type: "bigint" })
     taxon: string;
 
-    @Column({ type: "varchar", length: 255, nullable: true })
+    @Column({ type: "varchar", length: 64, nullable: true })
     name?: string;
 
     @Column({ type: "text", nullable: true })
@@ -47,6 +47,9 @@ export class Collection {
     @Column({ type: "int", nullable: true })
     priority?: number;
 
+    @Column({ type: "varchar", length: 255, nullable: false, unique: true })
+    path: string;
+
     @OneToOne(() => Drop, (drop) => drop.collection)
     drop?: Drop;
 
@@ -60,7 +63,7 @@ export class Collection {
     @UpdateDateColumn({ name: "updated_at", type: "timestamp" })
     updatedAt: Date;
 
-    constructor({ id, taxon, name, description, image, header, nfts, user }: Partial<Collection> = {}) {
+    constructor({ id, taxon, name, description, image, header, nfts, user, path }: Partial<Collection> = {}) {
         this.id = id;
         this.taxon = taxon;
         this.name = name;
@@ -69,5 +72,6 @@ export class Collection {
         this.header = header;
         this.nfts = nfts;
         this.user = user;
+        this.path = path;
     }
 }

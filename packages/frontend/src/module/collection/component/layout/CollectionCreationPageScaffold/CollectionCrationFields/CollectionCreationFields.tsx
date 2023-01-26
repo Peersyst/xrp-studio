@@ -2,7 +2,6 @@ import { CollectionCreationFieldsProps } from "module/collection/component/layou
 import { Col, Divider, Skeleton, Switch } from "@peersyst/react-components";
 import { CollectionCreationFormFields } from "module/collection/types";
 import TextField from "module/common/component/input/TextField/TextField";
-import { capitalize } from "@peersyst/react-utils";
 import TextArea from "module/common/component/input/TextArea/TextArea";
 import { config } from "config";
 import ColorInput from "module/common/component/input/ColorInput/ColorInput";
@@ -13,6 +12,8 @@ import {
     CollectionImgInput,
 } from "module/collection/component/layout/CollectionCreationPageScaffold/CollectionCrationFields/CollectionCreationFields.styles";
 import useTranslate from "module/common/hook/useTranslate";
+import EditCollectionNameTextField from "module/collection/component/input/EditCollectionNameTextField/EditCollectionNameTextField";
+import { useEffect, useLayoutEffect, useState } from "react";
 
 function CollectionCreationFields<D extends boolean = false>({
     loading = false,
@@ -29,6 +30,16 @@ function CollectionCreationFields<D extends boolean = false>({
 }: CollectionCreationFieldsProps<D>): JSX.Element {
     const translate = useTranslate();
     const translateError = useTranslate("error");
+
+    // Needed in order to update EditCollectionNameTextField default value
+    const [defaultsLoaded, setDefaultsLoaded] = useState(false);
+    const [defaultName, setDefaultName] = useState<string | undefined>();
+    useLayoutEffect(() => {
+        if (!defaultsLoaded) setDefaultName(name);
+    }, [name, defaultsLoaded]);
+    useEffect(() => {
+        setTimeout(() => setDefaultsLoaded(true), 250);
+    }, []);
 
     const {
         transferFee,
@@ -48,7 +59,7 @@ function CollectionCreationFields<D extends boolean = false>({
     } = defaults as unknown as CollectionCreationFieldsProps<true>;
 
     return (
-        <Skeleton loading={loading} width="100%">
+        <Skeleton loading={!defaultsLoaded && loading} width="100%">
             <CollectionCreationFieldsCard>
                 <Col gap="1.5rem">
                     <Col>
@@ -67,15 +78,9 @@ function CollectionCreationFields<D extends boolean = false>({
                             />
                         </div>
                     </Col>
-                    <TextField
-                        name={CollectionCreationFormFields.NAME}
-                        label={capitalize(translate("name"))}
-                        placeholder={translate("collectionNamePlaceholder")}
-                        variant="filled"
-                        value={name}
-                        required
-                        onChange={setName}
-                    />
+                    {/* Necessary to render correctly after loading values asynchronously */}
+                    {defaultsLoaded && <EditCollectionNameTextField defaultValue={defaultName} onChange={setName} />}
+                    {!defaultsLoaded && <EditCollectionNameTextField onChange={setName} />}
                     <TextArea
                         name={CollectionCreationFormFields.DESCRIPTION}
                         label={translate("description")}

@@ -1,9 +1,9 @@
 /* istanbul ignore file */
 /* tslint:disable */
 /* eslint-disable */
-export const $ExistDto = {
+export const $AvailabilityDto = {
     properties: {
-        exist: {
+        available: {
             type: 'boolean',
             isRequired: true,
         },

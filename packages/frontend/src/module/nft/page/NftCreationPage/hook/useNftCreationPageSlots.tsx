@@ -76,6 +76,7 @@ export default function ({ nft, collections, fixedCollection, loading = false }:
                         label={capitalize(translate("name"))}
                         placeholder={translate("nftNamePlaceholder")}
                         defaultValue={name || ""}
+                        validators={{ maxChars: config.maxNftNameChars }}
                     />
                     <TextArea
                         key={"description: " + description}

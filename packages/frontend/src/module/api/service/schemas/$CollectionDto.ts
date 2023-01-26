@@ -31,8 +31,13 @@ export const $CollectionDto = {
             type: 'string',
             isRequired: true,
         },
+        path: {
+            type: 'string',
+            isRequired: true,
+        },
         user: {
             type: 'UserDto',
+            isRequired: true,
         },
         nfts: {
             type: 'array',

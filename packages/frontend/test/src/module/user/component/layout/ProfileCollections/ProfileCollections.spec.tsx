@@ -21,8 +21,8 @@ describe("Profile Collections test", () => {
         expect(imgs).toHaveLength(length * 2);
         expect(screen.getAllByText(translate("itemWithCount", { count: collections[0].items }))).toHaveLength(length);
         collections.forEach((collection, index) => {
-            expect(imgs[index * 2]).toHaveAttribute("alt", "collection-" + collection.id + "-cover");
-            expect(imgs[index * 2 + 1]).toHaveAttribute("alt", "collection-" + collection.id + "-image");
+            expect(imgs[index * 2]).toHaveAttribute("alt", collection.path + "-cover");
+            expect(imgs[index * 2 + 1]).toHaveAttribute("alt", collection.path + "-image");
         });
     });
 

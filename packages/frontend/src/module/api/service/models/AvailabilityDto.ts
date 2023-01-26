@@ -2,7 +2,7 @@
 /* tslint:disable */
 /* eslint-disable */
 
-export type ExistDto = {
-    exist: boolean;
+export type AvailabilityDto = {
+    available: boolean;
 };
 

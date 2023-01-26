@@ -6,7 +6,6 @@ import { CollectionRoutes } from "module/collection/router/CollectionRouter";
 import useEditCollectionState from "module/collection/page/EditCollectionPage/hook/useEditCollectionState";
 import useEditCollectionSubmit from "module/collection/page/EditCollectionPage/hook/useEditCollectionSubmit";
 import { useParams } from "react-router-dom";
-import useGetCollection from "module/collection/query/useGetCollection";
 import { usePaginatedList } from "@peersyst/react-hooks";
 import useDeleteNftDraft from "module/nft/query/useDeleteNftDraft";
 import useAddCollectionDrafts from "module/collection/page/EditCollectionPage/hook/useAddCollectionDrafts";
@@ -14,15 +13,16 @@ import useGetMyNfts from "module/nft/query/useGetMyNfts";
 import { useMemo } from "react";
 import { CollectionCreationNft } from "module/collection/types";
 import NotFoundPage from "module/common/page/NotFoundPage/NotFoundPage";
+import EditCollectionPublishedNfts from "module/collection/page/EditCollectionPage/EditCollectionPublishedNfts/EditCollectionPublishedNfts";
+import useGetCollectionByPath from "module/collection/query/useGetCollectionByPath";
 
 const EditCollectionPage = (): JSX.Element => {
     const translate = useTranslate();
 
     const { state, setState, ...setters } = useEditCollectionState();
 
-    const { id: collectionIdParam } = useParams();
-    const collectionId = collectionIdParam !== undefined ? Number(collectionIdParam) : undefined;
-    const { data: collection, isLoading: collectionLoading } = useGetCollection(collectionId ? Number(collectionId) : undefined, {
+    const { path: collectionPath } = useParams();
+    const { data: collection, isLoading: collectionLoading } = useGetCollectionByPath(collectionPath, {
         refetchOnMount: "always",
         onSuccess: ({ header, image, name = "", description = "" }) => setState({ header, image, name, description }),
     });
@@ -80,21 +80,23 @@ const EditCollectionPage = (): JSX.Element => {
     return (
         <CollectionCreationPageScaffold
             loading={collectionLoading || loadingCollectionNfts}
-            title={translate("createCollection")}
+            title={translate("editCollection")}
             backPath={CollectionRoutes.MY_COLLECTIONS}
             actions={actions}
             showDefaults={false}
             totalNfts={collection?.nfts?.length || 0}
             drafts={collectionNftDrafts}
             draftLink={(draft) =>
-                CollectionRoutes.EDIT_COLLECTION_EDIT_NFT.replace(":id", collectionId!.toString()).replace(":draftId", draft.id.toString())
+                CollectionRoutes.EDIT_COLLECTION_EDIT_NFT.replace(":path", collectionPath!).replace(":draftId", draft.id.toString())
             }
             onDraftsAdded={addCollectionDrafts}
             onDraftRemoved={deleteNftDraft}
             onSubmit={handleSubmit}
             {...state}
             {...setters}
-        />
+        >
+            <EditCollectionPublishedNfts loading={collectionLoading} collectionId={collection?.id} />
+        </CollectionCreationPageScaffold>
     );
 };
 

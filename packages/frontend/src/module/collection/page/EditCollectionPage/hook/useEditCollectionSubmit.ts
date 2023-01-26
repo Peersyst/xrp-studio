@@ -12,6 +12,9 @@ import { useResetRecoilState } from "recoil";
 import editCollectionState from "module/collection/page/EditCollectionPage/state/EditCollectionState";
 import useUpdateCollection from "module/collection/query/useUpdateCollection";
 import { CollectionDto } from "module/api/service";
+import useGetCollection from "module/collection/query/useGetCollection";
+import { useQueryClient } from "react-query";
+import Queries from "../../../../../query/queries";
 
 export interface UseEditCollectionSubmitReturn {
     launching: boolean;
@@ -29,6 +32,8 @@ export default function (collection: CollectionDto | undefined): UseEditCollecti
     const [editAction, setEditAction] = useState<CollectionCreationAction | undefined>(undefined);
 
     const { mutateAsync: updateCollection, isLoading: updating } = useUpdateCollection({ publish: false });
+    const { refetch: refetchCollection } = useGetCollection(collection?.id, { enabled: false });
+    const queryClient = useQueryClient();
 
     const handleSubmit = async (data: CollectionCreationForm, action: CollectionCreationAction): Promise<void> => {
         if (!collection) return;
@@ -51,7 +56,10 @@ export default function (collection: CollectionDto | undefined): UseEditCollecti
                     navigate(DropRoutes.DROP_CREATION + "?id=" + collection.id);
                 } else {
                     resetCollectionCreationState();
-                    navigate(CollectionRoutes.VIEW_COLLECTION.replace(":id", collection.id.toString()), { replace: true });
+                    const collectionRefetchResult = await refetchCollection();
+                    const collectionRefetchData = collectionRefetchResult.data!;
+                    queryClient.setQueryData([Queries.COLLECTION, collectionRefetchData.path], collectionRefetchData);
+                    navigate(CollectionRoutes.VIEW_COLLECTION.replace(":path", collectionRefetchData.path), { replace: true });
                 }
             } catch (e) {
                 // Handled by react query
