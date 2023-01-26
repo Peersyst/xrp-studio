@@ -1,5 +1,5 @@
-import { NftService } from "module/api/service";
-import { NftDtoMock, NftsDtoMock, PaginatedDataMock } from "test-mocks";
+import { CollectionService, NftService } from "module/api/service";
+import { CollectionDtoMock, NftDtoMock, NftsDtoMock, PaginatedDataMock } from "test-mocks";
 import { render, waitFor } from "test-utils";
 import * as Router from "react-router-dom";
 import CollectionContent from "module/collection/component/layout/CollectionContent/CollectionContent";
@@ -7,7 +7,8 @@ import CollectionContent from "module/collection/component/layout/CollectionCont
 describe("Test for the Collection Content", () => {
     describe("Collection Content render", () => {
         test("Renders Grid of NFTs", async () => {
-            jest.spyOn(Router, "useParams").mockReturnValue({ id: "1" });
+            jest.spyOn(Router, "useParams").mockReturnValue({ path: "path" });
+            jest.spyOn(CollectionService, "collectionControllerGetCollectionByPath").mockResolvedValue(new CollectionDtoMock());
             const data = new PaginatedDataMock<NftDtoMock[]>({ items: new NftsDtoMock({ length: 10 }).nfts });
             jest.spyOn(NftService, "nftControllerGetNfts").mockResolvedValue(data);
             const screen = render(<CollectionContent />);

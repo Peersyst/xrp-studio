@@ -67,31 +67,39 @@ const CollectionCreationPage = (): JSX.Element => {
             if (action === "publish") {
                 showModal(CollectionPublishModal, { request: createCollectionRequestFromForm("update", data), collection });
             } else {
-                await updateCollection({
-                    id: collection.id,
-                    collection: createCollectionRequestFromForm("update", data),
-                });
-                showToast(translate("collectionUpdated"), { type: "success" });
-                if (action === "launch") {
-                    navigate(DropRoutes.DROP_CREATION + "?id=" + collection.id);
-                } else {
-                    resetCollectionCreationState();
-                    navigate(CollectionRoutes.MY_COLLECTIONS, { replace: true });
+                try {
+                    await updateCollection({
+                        id: collection.id,
+                        collection: createCollectionRequestFromForm("update", data),
+                    });
+                    showToast(translate("collectionUpdated"), { type: "success" });
+                    if (action === "launch") {
+                        navigate(DropRoutes.DROP_CREATION + "?id=" + collection.id);
+                    } else {
+                        resetCollectionCreationState();
+                        navigate(CollectionRoutes.MY_COLLECTIONS, { replace: true });
+                    }
+                } catch (e) {
+                    //Handled by react-query
                 }
             }
         } else {
             if (action === "publish") {
                 showModal(CollectionPublishModal, { request: createCollectionRequestFromForm("create", data) });
             } else {
-                const collectionData = await createCollection({
-                    collection: createCollectionRequestFromForm("create", data),
-                });
-                showToast(translate("collectionCreated"), { type: "success" });
-                if (action === "launch") {
-                    navigate(DropRoutes.DROP_CREATION + "?id=" + collectionData.id);
-                } else {
-                    resetCollectionCreationState();
-                    navigate(CollectionRoutes.MY_COLLECTIONS, { replace: true });
+                try {
+                    const collectionData = await createCollection({
+                        collection: createCollectionRequestFromForm("create", data),
+                    });
+                    showToast(translate("collectionCreated"), { type: "success" });
+                    if (action === "launch") {
+                        navigate(DropRoutes.DROP_CREATION + "?id=" + collectionData.id);
+                    } else {
+                        resetCollectionCreationState();
+                        navigate(CollectionRoutes.MY_COLLECTIONS, { replace: true });
+                    }
+                } catch (e) {
+                    //Handled by react-query
                 }
             }
         }

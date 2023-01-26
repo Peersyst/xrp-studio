@@ -3,7 +3,7 @@ import { User } from "../../../src/database/entities/User";
 class UserMock extends User {
     constructor({
         address = "rNCFjv8Ek5oDrNiMJ3pw6eLLFtMjZLJnf2",
-        name,
+        name = "UserName",
         description,
         image,
         header,

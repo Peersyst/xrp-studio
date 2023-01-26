@@ -12,8 +12,8 @@ describe("Test for the collection card component", () => {
         expect(imgs).toHaveLength(length * 2);
         expect(screen.getAllByText(translate("itemWithCount", { count: collections[0].items }))).toHaveLength(length);
         collections.forEach((collection, index) => {
-            expect(imgs[index * 2]).toHaveAttribute("alt", "collection-" + collection.id + "-cover");
-            expect(imgs[index * 2 + 1]).toHaveAttribute("alt", "collection-" + collection.id + "-image");
+            expect(imgs[index * 2]).toHaveAttribute("alt", collection.path + "-cover");
+            expect(imgs[index * 2 + 1]).toHaveAttribute("alt", collection.path + "-image");
         });
     });
     test("Renders correctly when loading", () => {
@@ -25,8 +25,8 @@ describe("Test for the collection card component", () => {
         expect(imgs).toHaveLength(length * 2);
         expect(screen.getAllByText(translate("itemWithCount", { count: 0 }))).toHaveLength(length);
         [...Array(length)].forEach((_, index) => {
-            expect(imgs[index * 2]).toHaveAttribute("alt", "collection-" + 0 + "-cover");
-            expect(imgs[index * 2 + 1]).toHaveAttribute("alt", "collection-" + 0 + "-image");
+            expect(imgs[index * 2]).toHaveAttribute("alt", "-cover");
+            expect(imgs[index * 2 + 1]).toHaveAttribute("alt", "-image");
         });
     });
 });

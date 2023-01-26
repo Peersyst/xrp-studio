@@ -7,11 +7,11 @@ import useGetCollection from "module/nft/query/useGetCollection";
 import BasePage from "module/common/component/layout/BasePage/BasePage";
 import { useEffect, useState } from "react";
 import DropCreationPageContent from "./DropCreationPageContent/DropCreationPageContent";
-import { DashboardRoutes } from "module/dashboard/DashboardRouter";
 import useWallet from "module/wallet/hook/useWallet";
 import useTranslate from "module/common/hook/useTranslate";
 import DropLaunchModal from "module/drop/component/feedback/DropLaunchModal/DropLaunchModal";
 import createDropRequestFromForm from "module/drop/util/createDropRequestFromForm";
+import { LandingRoutes } from "module/landing/LandingRouter";
 
 const DropCreationPage = (): JSX.Element => {
     const [searchParams] = useSearchParams();
@@ -36,13 +36,13 @@ const DropCreationPage = (): JSX.Element => {
 
     useEffect(() => {
         if (collectionIdQueryParam === null || (collectionId !== undefined && (Number.isNaN(collectionId) || collectionId < 1)))
-            navigate(DashboardRoutes.MAIN);
+            navigate(LandingRoutes.HOME);
         else if (collectionId && !collectionLoading) {
             if (!collection) {
-                navigate(DashboardRoutes.MAIN);
+                navigate(LandingRoutes.HOME);
             } else if (collection.account !== address) {
                 showToast(translateError("collectionNotOwned"), { type: "warning" });
-                navigate(DashboardRoutes.MAIN);
+                navigate(LandingRoutes.HOME);
             }
         }
     }, [collectionIdQueryParam, collectionId, collection, collectionLoading, address]);

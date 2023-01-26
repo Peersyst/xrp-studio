@@ -2,12 +2,12 @@ import BasePage from "module/common/component/layout/BasePage/BasePage";
 import CollectionContent from "../component/layout/CollectionContent/CollectionContent";
 import CollectionHeader from "../component/layout/CollectionHeader/CollectionHeader";
 import { useParams } from "react-router-dom";
-import useGetCollection from "module/nft/query/useGetCollection";
 import NotFoundPage from "module/common/page/NotFoundPage/NotFoundPage";
+import useGetCollectionByPath from "module/collection/query/useGetCollectionByPath";
 
 const CollectionPage = (): JSX.Element => {
-    const { id } = useParams<string>();
-    const { data: collection, isLoading: collectionLoading } = useGetCollection(id ? Number(id) : undefined);
+    const { path } = useParams<string>();
+    const { data: collection, isLoading: collectionLoading } = useGetCollectionByPath(path);
 
     if (!collectionLoading && !collection) return <NotFoundPage />;
 

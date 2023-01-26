@@ -6,9 +6,9 @@ import * as Router from "react-router-dom";
 
 describe("CollectionHeader", () => {
     test("Renders correctly", async () => {
-        jest.spyOn(Router, "useParams").mockReturnValue({ id: "1" });
+        jest.spyOn(Router, "useParams").mockReturnValue({ path: "path" });
         const collectionMock = new CollectionDtoMock();
-        jest.spyOn(CollectionService, "collectionControllerGetCollection").mockResolvedValue(collectionMock);
+        jest.spyOn(CollectionService, "collectionControllerGetCollectionByPath").mockResolvedValue(collectionMock);
 
         const screen = render(<CollectionHeader />);
 

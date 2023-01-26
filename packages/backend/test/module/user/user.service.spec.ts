@@ -41,9 +41,7 @@ describe("UserService", () => {
         test("Executes save on repository", async () => {
             const generatedName = "GeneratedName";
             jest.spyOn(GenerateName, "default").mockReturnValue(generatedName);
-            userRepositoryMock.query.mockReturnValueOnce([]);
-
-            userRepositoryMock.findOne.mockResolvedValueOnce(undefined);
+            userRepositoryMock.findOne.mockResolvedValueOnce(undefined).mockResolvedValueOnce(undefined);
             const user = await userService.createIfNotExists(ADDRESS);
             expect(user).toEqual(
                 new User({
@@ -128,20 +126,20 @@ describe("UserService", () => {
         });
     });
 
-    describe("findName", () => {
+    describe("userNameIsAvailable", () => {
         const name = "Manolito";
         test("Finds the name", async () => {
             const userMock = new UserMock({ address: ADDRESS, name });
             userRepositoryMock.findOne.mockResolvedValueOnce(userMock);
-            const exist = await userService.findName(name);
-            expect(exist).toEqual(true);
+            const available = await userService.userNameIsAvailable(name);
+            expect(available).toEqual(false);
             expect(userRepositoryMock.findOne).toHaveBeenCalledWith({ name });
         });
 
         test("Does not find the name", async () => {
             userRepositoryMock.findOne.mockResolvedValueOnce(undefined);
-            const exist = await userService.findName(name);
-            expect(exist).toEqual(false);
+            const available = await userService.userNameIsAvailable(name);
+            expect(available).toEqual(true);
             expect(userRepositoryMock.findOne).toHaveBeenCalledWith({ name });
         });
     });
