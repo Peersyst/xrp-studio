@@ -1,7 +1,8 @@
 import { Faq } from "module/drop/types";
 import { CreateDropRequest } from "module/api/service";
+import { CreateDropFormRequest } from "module/drop/util/createDropRequestFromForm";
 
-export class CreateDropRequestMock implements CreateDropRequest {
+export class CreateDropFormRequestMock implements CreateDropFormRequest {
     collectionId: number;
     price: string;
     backgroundColor: string;

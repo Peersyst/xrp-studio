@@ -109,7 +109,7 @@ describe("DropService", function () {
             expect(canBecomeDrop).toEqual(false);
         });
         test("Returns true", async () => {
-            nftServiceMock.findOne.mockResolvedValueOnce(undefined);
+            nftServiceMock.findOne.mockRejectedValueOnce(new Error());
             const canBecomeDrop = await dropService.canCollectionBecomeDrop(1);
             expect(canBecomeDrop).toEqual(true);
         });
