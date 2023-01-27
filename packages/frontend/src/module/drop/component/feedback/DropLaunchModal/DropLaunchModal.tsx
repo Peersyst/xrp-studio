@@ -6,11 +6,12 @@ import NftsPreviewList from "module/nft/component/display/NftsPreviewList/NftsPr
 import useGetCollection from "module/nft/query/useGetCollection";
 import DropInformation from "module/drop/component/display/DropInformation/DropInformation";
 import DropPublishActions from "module/drop/component/feedback/DropLaunchModal/DropPublishActions/DropPublishActions";
-import { useState } from "react";
+import { useMemo, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { DropRoutes } from "module/drop/DropRouter";
+import DropCost from "module/drop/component/display/DropCost/DropCost";
 
-const DropLaunchModal = createModal<DropLaunchModalProps>(({ request, collection, ...modalProps }): JSX.Element => {
+const DropLaunchModal = createModal<DropLaunchModalProps>(({ request, collection, closable = true, ...modalProps }): JSX.Element => {
     const translate = useTranslate();
     const navigate = useNavigate();
 
@@ -22,15 +23,17 @@ const DropLaunchModal = createModal<DropLaunchModalProps>(({ request, collection
         navigate(DropRoutes.DROP.replace(":id", id.toString()), { replace: true });
     };
 
+    const items = useMemo(() => collection?.nfts?.length || 0, [collection]);
+
     return (
-        <ActionModal title={translate("launchDropConfirmation")} {...modalProps}>
+        <ActionModal title={translate("launchDropConfirmation")} closable={!loading && closable} {...modalProps}>
             {{
                 cover: (
                     <DropInformation
                         header={header}
                         image={image}
                         name={name}
-                        items={collection?.nfts?.length || 0}
+                        items={items}
                         price={request.price}
                         loading={collectionLoading}
                     />
@@ -53,6 +56,7 @@ const DropLaunchModal = createModal<DropLaunchModalProps>(({ request, collection
                         actions: [{ action: "close", disabled: loading }],
                     },
                 ],
+                footer: <DropCost items={items} />,
             }}
         </ActionModal>
     );

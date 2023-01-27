@@ -169,6 +169,9 @@
     "dropCreationStepText": "Your drop is being created.",
     "dropCreationAuthorizationStepTitle": "NFT mint authorization",
     "dropCreationAuthorizationStepText": "Please, sign the authorization transaction on your XUMM wallet. With this transaction, XRP Studio will be able to mint all the NFTs",
+    "dropPaymentStepTitle": "Drop payment",
+    "dropPaymentSignatureStepText": "Please, sign the drop payment in your XUMM wallet.",
+    "dropPaymentConfirmationStepText": "Your payment is being confirmed by the network.",
     "dropCreationMintingStepTitle": "Drop NFTs minting",
     "dropCreationMintingStepText": "The NFTs are being minted by XRP Studio. There are {{minted}} NFTs already minted.",
     "dropCreationSuccessStepTitle": "Drop published successfully!",
@@ -205,5 +208,11 @@
     "howItWorksSlide3Description": "Once your drops are published or launched, you can easily monitor the impact your art generates every day. Find out how far you can go!",
     "goTo": "Go to {{destination}}",
     "deleteDraftDialogTitle": "Delete NFT draft",
-    "deleteDraftDialogText": "Are you sure you want to delete {{name}} draft?"
+    "deleteDraftDialogText": "Are you sure you want to delete {{name}} draft?",
+    "dropMintingCost": "Drop minting cost",
+    "accept": "Accept",
+    "launchDropInformation": "Launch drop information",
+    "launchDropInformationText": "Launching a drop on XRP Studio implies the minting of all its NFTs and the creation of a sell offer for each NFT in the drop. As this task has to be done by XRP Studio, you will be asked to pay a certain amount of XRP in order to cover those costs.",
+    "launchDropInformationCost": "The cost of minting your drop is {{dropNftMintCost}} XRP for each NFT. To launch your collection of {{items}} items, you will be asked to fund {{cost}} XRP as a deployment cost. Do you want to continue?",
+    "decline": "Decline"
 }

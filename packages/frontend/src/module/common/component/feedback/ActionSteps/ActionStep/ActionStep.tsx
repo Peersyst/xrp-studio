@@ -11,7 +11,7 @@ import {
 
 const ActionStep = ({
     step: { title, description, execution, warning, warningMessage },
-    active,
+    active = false,
     stepNumber,
     onSuccess,
     onError,

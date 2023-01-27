@@ -65,5 +65,9 @@
     "xummSignInRequestDeclined": "La petición de autenticación ha sido rechazada",
     "xummSignInRequestCancelled": "La petición de autenticación ha sido cancelada",
     "xummSignInRequestExpired": "La petición de autenticación ha expirado",
-    "collectionNameAlreadyExists": "Ya tienes una colección con este nombre"
+    "collectionNameAlreadyExists": "Ya tienes una colección con este nombre",
+    "xummRequestDeclined": "XUMM request has been declined",
+    "xummRequestCancelled": "XUMM request has been cancelled",
+    "xummRequestExpired": "XUMM request has expired",
+    "xummRequestBadSignature": "XUMM request was signed incorrectly"
 }
