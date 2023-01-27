@@ -12,6 +12,5 @@ export default function <A extends "create" | "update">(
         name: name,
         description: description || undefined,
     };
-    //@ts-ignore Can be ignored as UpdateCollectionRequest is guaranteed by action !== "create"
     return { ...commonRequest, nfts: nfts?.length ? nfts : undefined };
 }

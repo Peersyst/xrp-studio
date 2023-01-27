@@ -205,5 +205,11 @@
     "howItWorksSlide3Description": "Una vez tus colecciones se publican y lanzan, puedes controlar el impacto que tu arte genera cada día. Descubre hasta donde puedes llegar!",
     "goTo": "Ir a {{destination}}",
     "deleteDraftDialogTitle": "Borrar esbozo de NFT",
-    "deleteDraftDialogText": "Estás seguro de que quieres borrar el esbozo {{name}}?"
+    "deleteDraftDialogText": "Estás seguro de que quieres borrar el esbozo {{name}}?",
+    "cantLaunchCollectionWithoutNfts": "No hay NFTs para lanzar",
+    "publishedNfts": "NFTs publicados",
+    "draft": "Esbozo",
+    "pending": "Pendiente",
+    "failed": "Fallido",
+    "confirmed": "Confirmado"
 }

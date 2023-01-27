@@ -1,19 +1,24 @@
 import { RouteObject } from "react-router-dom";
 import { lazy } from "react";
 import LoggedInRoute from "module/wallet/component/navigation/LoggedInRoute/LoggedInRoute";
-import CollectionCreationRoutes from "module/collection/router/CollectionCreationRoutes/CollectionCreationRoutes";
+import CreateCollectionRoutes from "module/collection/router/CreateCollectionRoutes";
+import EditCollectionRoutes from "module/collection/router/EditCollectionRoutes";
 
 export enum CollectionRoutes {
     VIEW_COLLECTION = "/collections/:path",
     MY_COLLECTIONS = "/collections/my-collections",
-    CREATE_COLLECTION = "/collections/creation",
-    EDIT_NFT_CREATE_COLLECTION = "/collections/creation/nft/:index",
+    CREATE_COLLECTION = "/collections/create",
+    CREATE_COLLECTION_EDIT_NFT = "/collections/create/nft/:draftId",
+    EDIT_COLLECTION = "/collections/edit/:path",
+    EDIT_COLLECTION_EDIT_NFT = "/collections/edit/:path/nft/:draftId",
 }
 
 const CollectionPage = lazy(() => import("../page/CollectionPage"));
-const CollectionCreationPage = lazy(() => import("../page/CollectionCreationPage/CollectionCreationPage"));
-const EditCollectionNftDraftPage = lazy(() => import("../page/EditCollectionNftDraftPage/EditCollectionNftDraftPage"));
 const MyCollectionsPage = lazy(() => import("../page/MyCollectionsPage"));
+const CreateCollectionPage = lazy(() => import("../page/CreateCollectionPage/CreateCollectionPage"));
+const CreateCollectionNftDraftPage = lazy(() => import("../page/CreateCollectionNftDraftPage/CreateCollectionNftDraftPage"));
+const EditCollectionPage = lazy(() => import("../page/EditCollectionPage/EditCollectionPage"));
+const EditCollectionNftDraftPage = lazy(() => import("../page/EditCollectionNftDraftPage/EditCollectionNftDraftPage"));
 
 export const useCollectionRoutes = (): RouteObject[] => {
     return [
@@ -21,16 +26,34 @@ export const useCollectionRoutes = (): RouteObject[] => {
             path: CollectionRoutes.CREATE_COLLECTION,
             element: (
                 <LoggedInRoute>
-                    <CollectionCreationRoutes />
+                    <CreateCollectionRoutes />
                 </LoggedInRoute>
             ),
             children: [
                 {
                     path: CollectionRoutes.CREATE_COLLECTION,
-                    element: <CollectionCreationPage />,
+                    element: <CreateCollectionPage />,
                 },
                 {
-                    path: CollectionRoutes.EDIT_NFT_CREATE_COLLECTION,
+                    path: CollectionRoutes.CREATE_COLLECTION_EDIT_NFT,
+                    element: <CreateCollectionNftDraftPage />,
+                },
+            ],
+        },
+        {
+            path: CollectionRoutes.EDIT_COLLECTION,
+            element: (
+                <LoggedInRoute>
+                    <EditCollectionRoutes />
+                </LoggedInRoute>
+            ),
+            children: [
+                {
+                    path: CollectionRoutes.EDIT_COLLECTION,
+                    element: <EditCollectionPage />,
+                },
+                {
+                    path: CollectionRoutes.EDIT_COLLECTION_EDIT_NFT,
                     element: <EditCollectionNftDraftPage />,
                 },
             ],

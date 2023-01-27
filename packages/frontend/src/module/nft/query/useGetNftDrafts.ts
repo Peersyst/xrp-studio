@@ -1,22 +1,18 @@
 import { UseInfiniteQueryOptions } from "react-query/types/react/types";
-import { NftService, PaginatedNftDraftDto } from "module/api/service";
-import { useInfiniteQuery, UseInfiniteQueryResult } from "react-query";
-import Queries from "../../../query/queries";
+import { PaginatedNftDraftDto } from "module/api/service";
+import { UseInfiniteQueryResult } from "react-query";
+import useGetMyNfts from "module/nft/query/useGetMyNfts";
 
 export interface UseGetNftDraftsOptions {
     query?: string;
     collections?: Array<number>;
     order?: "ASC" | "DESC";
-    status?: "confirmed" | "draft" | "pending" | "failed";
 }
 
 export default function (
-    { query, collections, order, status }: UseGetNftDraftsOptions = {},
+    queryParams: UseGetNftDraftsOptions = {},
     options?: Omit<UseInfiniteQueryOptions<PaginatedNftDraftDto, unknown, PaginatedNftDraftDto>, "queryKey" | "queryFn">,
 ): UseInfiniteQueryResult<PaginatedNftDraftDto> {
-    return useInfiniteQuery(
-        [Queries.NFT_DRAFTS, query, collections, order, status],
-        ({ pageParam = 1 }) => NftService.nftControllerGetMyNfts(pageParam, 100, query, collections, order, status),
-        options,
-    );
+    // TODO: Fix broken status array in backend to fetch drafts and failed (That's why this hook is not used right now)
+    return useGetMyNfts({ ...queryParams, status: "draft" }, options);
 }

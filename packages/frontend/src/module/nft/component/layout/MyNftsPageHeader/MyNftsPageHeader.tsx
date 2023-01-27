@@ -6,17 +6,12 @@ import useTranslate from "module/common/hook/useTranslate";
 import { NftRoutes } from "module/nft/NftRouter";
 import { useNavigate } from "react-router-dom";
 import { MyNftsPageHeaderRoot } from "./MyNftsPageHeader.styles";
-import { useResetRecoilState } from "recoil";
-import collectionCreationState from "module/collection/state/CollectionCreationState";
 
 const MyNftsPageHeader = (): JSX.Element => {
     const translate = useTranslate();
     const navigate = useNavigate();
 
-    const resetCollectionCreationState = useResetRecoilState(collectionCreationState);
-
     const goToCreateCollection = () => {
-        resetCollectionCreationState();
         navigate(CollectionRoutes.CREATE_COLLECTION);
     };
 
