@@ -105,7 +105,6 @@ export class GetNftsRequest {
         } else {
             filter.relations.push("user");
             filter.qbWheres.push({
-                field: "none",
                 operator: FilterType.OR,
                 value: [
                     {

@@ -39,7 +39,7 @@ export enum FilterType {
 }
 
 export interface QBWhere {
-    field: string;
+    field?: string;
     operator: FilterType;
     value?: ValueType;
 }
@@ -68,15 +68,15 @@ export class QueryBuilderHelper {
             const finalRelation = aliases[aliases.length - 1];
 
             if (typeof relation === "string") {
-                qb = qb.leftJoinAndSelect(`${finalAlias}.${finalRelation}`, relation);
+                qb = qb.leftJoinAndSelect(`${finalAlias}.${finalRelation}`, finalRelation);
             } else if (relation.select && relation.type === RelationType.INNER) {
-                qb = qb.innerJoinAndSelect(`${finalAlias}.${finalRelation}`, relation.value);
+                qb = qb.innerJoinAndSelect(`${finalAlias}.${finalRelation}`, finalRelation);
             } else if (!relation.select && relation.type === RelationType.INNER) {
-                qb = qb.innerJoin(`${finalAlias}.${finalRelation}`, relation.value);
+                qb = qb.innerJoin(`${finalAlias}.${finalRelation}`, finalRelation);
             } else if (relation.select && relation.type === RelationType.LEFT) {
-                qb = qb.leftJoinAndSelect(`${finalAlias}.${finalRelation}`, relation.value);
+                qb = qb.leftJoinAndSelect(`${finalAlias}.${finalRelation}`, finalRelation);
             } else if (!relation.select && relation.type === RelationType.LEFT) {
-                qb = qb.leftJoin(`${finalAlias}.${finalRelation}`, relation.value);
+                qb = qb.leftJoin(`${finalAlias}.${finalRelation}`, finalRelation);
             }
         }
         return qb;

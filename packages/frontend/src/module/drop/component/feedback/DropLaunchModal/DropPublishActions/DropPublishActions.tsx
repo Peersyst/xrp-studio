@@ -18,7 +18,7 @@ const DropPublishActions = ({ onStart, onSuccess, onEnd, onError, request, colle
     const { fetch: fetchIsAuthorized } = useDropCreationAuthorizationStatus(address!);
 
     const handleSuccess = () => {
-        onSuccess?.(data!.id);
+        onSuccess?.(data!.collection!.path);
     };
 
     const steps: Step[] = [
