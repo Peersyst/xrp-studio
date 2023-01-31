@@ -55,7 +55,7 @@ export class CollectionService {
             ...restOfCollection,
             account: user.address,
             items: 0,
-            path: await this.generateCollectionPath(name, user.name),
+            path: await this.generateCollectionPath(name || taxon, user.name),
         });
 
         //Create nfts
