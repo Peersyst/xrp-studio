@@ -59,7 +59,7 @@ export class GetDropsRequest {
         };
 
         if (req.account) {
-            filter.qbWheres.push({ field: "account", operator: FilterType.EQUAL, value: req.account });
+            filter.qbWheres.push({ field: "collection.account", operator: FilterType.EQUAL, value: req.account });
         }
         if (req.query) {
             filter.qbWheres.push({ field: "name", operator: FilterType.LIKE, value: req.query });

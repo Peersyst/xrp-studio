@@ -5,7 +5,7 @@ import { screen } from "@testing-library/react";
 
 describe("DropCard", () => {
     test("Renders correctly", () => {
-        const dropMock = new DropDtoMock();
+        const dropMock = new DropDtoMock({ price: "100000000" });
         render(<DropCard size="lg" drop={dropMock} />);
 
         expect(screen.getByText("collection_name")).toBeInTheDocument();

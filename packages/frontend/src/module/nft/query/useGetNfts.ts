@@ -22,7 +22,7 @@ export default function (
 ): UseInfiniteQueryResult<PaginatedNftDto> {
     return useInfiniteQuery(
         [Queries.NFTS, query, collections, order, account],
-        ({ pageParam = 1 }) => NftService.nftControllerGetNfts(pageParam, 100, query, collections, account, ["confirmed"], order),
+        ({ pageParam = 1 }) => NftService.nftControllerGetNfts(pageParam, 100, query, collections, account, [], order),
         options,
     );
 }

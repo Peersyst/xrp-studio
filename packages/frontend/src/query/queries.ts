@@ -1,6 +1,7 @@
 enum Queries {
     USER = "user",
     NFTS = "nfts",
+    DROP_NFTS = "drop-nfts",
     NFT_DRAFTS = "nft-drafts",
     NFT = "nft",
     NFT_DRAFT = "nft-draft",

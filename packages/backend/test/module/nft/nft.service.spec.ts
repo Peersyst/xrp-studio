@@ -121,7 +121,11 @@ describe("NftService", () => {
                 Flags: 1,
                 URI: "596F75206D757374206265207265616C6C7920626F72656420746F206465636F64652074686973203A29",
             });
-            const collection = new CollectionMock({ id: 1, taxon: "2", user: new UserMock({ address: nftMintTransaction.Account }) });
+            const collection = new CollectionMock({
+                id: 1,
+                taxon: "2",
+                user: new UserMock({ address: nftMintTransaction.Account }),
+            });
             collectionServiceMock.findOne.mockReturnValueOnce(new Promise((resolve) => resolve(CollectionDto.fromEntity(collection))));
             const nft = await nftService.createNftFromMintTransaction(nftMintTransaction);
 
@@ -498,7 +502,12 @@ describe("NftService", () => {
 
     describe("deleteNftDraft", () => {
         beforeEach(() => {
-            nftRepositoryMock.findOne.mockResolvedValueOnce(new NftMock({ status: NftStatus.DRAFT, user: new User({ address: ADDRESS }) }));
+            nftRepositoryMock.findOne.mockResolvedValueOnce(
+                new NftMock({
+                    status: NftStatus.DRAFT,
+                    user: new User({ address: ADDRESS }),
+                }),
+            );
         });
 
         test("Deletes NFT correctly", async () => {
@@ -524,7 +533,12 @@ describe("NftService", () => {
 
     describe("findOneDraft", () => {
         test("Returns existing Nft draft from its owner account", async () => {
-            nftRepositoryMock.findOne.mockResolvedValueOnce(new NftMock({ status: NftStatus.DRAFT, user: new User({ address: ADDRESS }) }));
+            nftRepositoryMock.findOne.mockResolvedValueOnce(
+                new NftMock({
+                    status: NftStatus.DRAFT,
+                    user: new User({ address: ADDRESS }),
+                }),
+            );
             const nft = await nftService.findOne(1, { ownerAddress: ADDRESS, status: [NftStatus.DRAFT] });
             expect(nft).toBeDefined();
         });
@@ -553,7 +567,7 @@ describe("NftService", () => {
                 "nft",
                 0,
                 15,
-                ["metadata", "metadata.attributes"],
+                ["metadata", "metadata.attributes", "nftInDrop"],
                 [
                     {
                         field: "nft.status",
@@ -583,13 +597,27 @@ describe("NftService", () => {
                 "nft",
                 10,
                 10,
-                ["metadata", "metadata.attributes", "collection", "user"],
+                ["metadata", "metadata.attributes", "nftInDrop", "collection", "user"],
                 [
                     { field: "collection.id", operator: FilterType.IN, value: [1] },
-                    { field: "user.address", operator: FilterType.EQUAL, value: ISSUER },
                     { field: "owner_account", operator: FilterType.EQUAL, value: ADDRESS },
                     { field: "metadata.name", operator: FilterType.LIKE, value: "asd" },
                     { field: "nft.status", operator: FilterType.IN, value: [NftStatus.CONFIRMED] },
+                    {
+                        operator: FilterType.OR,
+                        value: [
+                            {
+                                field: "user.address",
+                                operator: FilterType.EQUAL,
+                                value: ISSUER,
+                            },
+                            {
+                                field: "nft.status",
+                                operator: FilterType.EQUAL,
+                                value: NftStatus.CONFIRMED,
+                            },
+                        ],
+                    },
                 ],
                 [{ field: "nft.updated_at", type: "ASC", nullsPosition: "NULLS LAST" }],
             );
