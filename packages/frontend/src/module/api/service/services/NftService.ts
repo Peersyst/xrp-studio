@@ -5,6 +5,7 @@ import type { CreateNftDraftRequest } from '../models/CreateNftDraftRequest';
 import type { NftDraftDto } from '../models/NftDraftDto';
 import type { NftDraftStatusDto } from '../models/NftDraftStatusDto';
 import type { NftDto } from '../models/NftDto';
+import type { NftPreviewDto } from '../models/NftPreviewDto';
 import type { PaginatedNftDraftDto } from '../models/PaginatedNftDraftDto';
 import type { PaginatedNftDto } from '../models/PaginatedNftDto';
 import type { UpdateNftDraftRequest } from '../models/UpdateNftDraftRequest';
@@ -198,6 +199,24 @@ export class NftService {
                 'collections': collections,
                 'order': order,
                 'status': status,
+            },
+        });
+    }
+
+    /**
+     * Get all drop NFTs
+     * @param id
+     * @returns NftPreviewDto
+     * @throws ApiError
+     */
+    public static nftControllerGetDropNfts(
+        id: number,
+    ): CancelablePromise<Array<NftPreviewDto>> {
+        return __request(OpenAPI, {
+            method: 'GET',
+            url: '/api/nft/drop/{id}',
+            path: {
+                'id': id,
             },
         });
     }

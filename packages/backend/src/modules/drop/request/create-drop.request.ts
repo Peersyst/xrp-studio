@@ -13,6 +13,12 @@ export class CreateDropRequest {
     @ApiProperty({
         type: "string",
         required: true,
+    })
+    paymentHash: string;
+
+    @ApiProperty({
+        type: "string",
+        required: true,
         pattern: "^[0-9]{1,15}$",
     })
     price: string;

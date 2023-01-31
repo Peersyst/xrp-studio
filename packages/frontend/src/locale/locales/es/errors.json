@@ -66,5 +66,9 @@
     "xummSignInRequestCancelled": "La petición de autenticación ha sido cancelada",
     "xummSignInRequestExpired": "La petición de autenticación ha expirado",
     "collectionNameAlreadyExists": "Ya tienes una colección con este nombre",
-    "collectionHasNoPublishedNfts": "Esta colección no contiene ningún NFT publicado"
+    "collectionHasNoPublishedNfts": "Esta colección no contiene ningún NFT publicado",
+    "xummRequestDeclined": "XUMM request has been declined",
+    "xummRequestCancelled": "XUMM request has been cancelled",
+    "xummRequestExpired": "XUMM request has expired",
+    "xummRequestBadSignature": "XUMM request was signed incorrectly"
 }

@@ -42,6 +42,7 @@ declare module "@peersyst/react-components" {
             network: NetworkType;
             url: string;
         };
+        dropNftMintCost: string; // Drops
     }
 
     export interface CreateConfig {
@@ -71,6 +72,7 @@ declare module "@peersyst/react-components" {
             network: string;
             url: string;
         };
+        dropNftMintCost: string; // Drops
     }
 
     export interface ExtraValidators {

@@ -20,7 +20,7 @@ export class OfferService {
 
     async processCreateOfferTransaction(transaction: ValidatedLedgerTransaction<NFTokenCreateOffer>): Promise<void> {
         this.logger.debug("Processing offer create transaction " + JSON.stringify(transaction));
-        const nft = await this.nftService.findOne(transaction.NFTokenID);
+        const nft = await this.nftService.findOne({ tokenId: transaction.NFTokenID });
         if (!nft) return this.logger.error("Can't process offer create transaction for not saved nft " + transaction.NFTokenID);
         await this.userService.createIfNotExists(transaction.Account);
         const offer = await this.offerRepository.save({

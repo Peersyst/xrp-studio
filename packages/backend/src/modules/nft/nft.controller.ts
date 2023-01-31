@@ -1,5 +1,5 @@
 import { ApiOperation, ApiTags } from "@nestjs/swagger";
-import { Body, Controller, Delete, Get, HttpCode, Param, ParseIntPipe, Patch, Post, Put, Request } from "@nestjs/common";
+import { Body, Controller, Delete, Get, HttpCode, Param, ParseIntPipe, Patch, Post, Put, Request, UseGuards } from "@nestjs/common";
 import { ApiErrorDecorators } from "../common/exception/error-response.decorator";
 import { NftService } from "./nft.service";
 import { NftDraftDto, PaginatedNftDraftDto } from "./dto/nft-draft.dto";
@@ -19,6 +19,8 @@ import { UpdateNftDraftQueryRequest } from "./request/update-nft-draft-query.req
 import { ApiGetNftDraftStatusDecorator } from "./decorator/api-get-nft-draft-status.decorator";
 import { TransferFeePipe } from "./pipe/transfer-fee.pipe";
 import { NftStatus } from "../../database/entities/Nft";
+import { OptionalXummAuthGuard } from "../xumm/optional-xumm-auth";
+import { NftPreviewDto } from "./dto/nft-preview.dto";
 
 @ApiTags("nft")
 @Controller("nft")
@@ -64,8 +66,9 @@ export class NftController {
     @Get()
     @ApiOperation({ description: "Get all NFTs (status = confirmed) paginated" })
     @ApiGetNftsDecorator()
-    async getNfts(@EnhancedQuery() queryParams: GetNftsRequest = new GetNftsRequest()): Promise<PaginatedNftDto> {
-        return (await this.nftService.findAll(queryParams)) as PaginatedNftDto;
+    @UseGuards(OptionalXummAuthGuard)
+    async getNfts(@Request() req, @EnhancedQuery() queryParams: GetNftsRequest = new GetNftsRequest()): Promise<PaginatedNftDto> {
+        return (await this.nftService.findAll(queryParams, req.user?.address)) as PaginatedNftDto;
     }
 
     @Get("my")
@@ -76,7 +79,13 @@ export class NftController {
         @Request() req,
         @EnhancedQuery() queryParams: Omit<GetNftsRequest, "account"> = new GetNftsRequest(),
     ): Promise<PaginatedNftDraftDto> {
-        return this.nftService.findAll(queryParams, req.user.address);
+        return this.nftService.findAll({ ...queryParams, account: req.user.address }, req.user.address);
+    }
+
+    @Get("drop/:id")
+    @ApiOperation({ description: "Get all drop NFTs" })
+    async getDropNfts(@Request() req, @Param("id", ParseIntPipe) id: number): Promise<NftPreviewDto[]> {
+        return this.nftService.findRandomNftsInDrop(id);
     }
 
     @Get("draft/status")
@@ -92,20 +101,26 @@ export class NftController {
     @ApiOperation({ description: "Get a single NFT draft (status != confirmed)" })
     @XummAuthenticated()
     async getNftDraft(@Request() req, @Param("id", ParseIntPipe) id: number): Promise<NftDraftDto> {
-        return this.nftService.findOne(id, {
-            ownerAddress: req.user.address,
-            status: [NftStatus.DRAFT, NftStatus.FAILED, NftStatus.PENDING],
-            relations: ["metadata", "metadata.attributes", "user", "collection"],
-        });
+        return this.nftService.findOne(
+            { id },
+            {
+                ownerAddress: req.user.address,
+                status: [NftStatus.DRAFT, NftStatus.FAILED, NftStatus.PENDING],
+                relations: ["metadata", "metadata.attributes", "user", "collection"],
+            },
+        );
     }
 
     @Get(":id")
     @ApiOperation({ description: "Get a single NFT (status = confirmed)" })
     async getNft(@Param("id", ParseIntPipe) id: number): Promise<NftDto> {
-        return this.nftService.findOne<[NftStatus.CONFIRMED]>(id, {
-            status: [NftStatus.CONFIRMED],
-            relations: ["metadata", "metadata.attributes", "user", "collection"],
-        });
+        return this.nftService.findOne<[NftStatus.CONFIRMED]>(
+            { id },
+            {
+                status: [NftStatus.CONFIRMED],
+                relations: ["metadata", "metadata.attributes", "user", "collection", "nftInDrop"],
+            },
+        );
     }
 
     @Delete("/draft/:id")

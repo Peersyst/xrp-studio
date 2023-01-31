@@ -1,20 +1,26 @@
 import { polling } from "@peersyst/react-utils";
 import XrplService from "module/blockchain/service/XrplService/XrplService";
 import { useConfig } from "@peersyst/react-components";
-import { useRef } from "react";
+import useMintAuthorization from "module/drop/hook/useMintAuthorization";
 
 export interface UseDropCreationAuthorizationStatusResult {
-    fetch: () => Promise<boolean> | undefined;
+    fetch: () => Promise<boolean>;
 }
 
 export default function (creatorAddress: string): UseDropCreationAuthorizationStatusResult {
     const minterAddress = useConfig("dropMinterAddress");
 
-    const xrplService = useRef(new XrplService()).current;
+    const { mutateAsync: requestMintAuthorization } = useMintAuthorization();
 
-    const fetch = (): Promise<boolean> | undefined => {
+    const fetch = async (): Promise<boolean> => {
+        const isAuthorized = await XrplService.isAuthorized(creatorAddress, minterAddress);
+
+        if (isAuthorized) return true;
+
+        await requestMintAuthorization();
+
         return polling(
-            async () => await xrplService.isAuthorized(creatorAddress, minterAddress),
+            async () => await XrplService.isAuthorized(creatorAddress, minterAddress),
             (res: boolean) => !res,
         );
     };

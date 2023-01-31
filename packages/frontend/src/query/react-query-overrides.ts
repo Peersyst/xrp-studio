@@ -4,9 +4,9 @@ import {
     UseQueryResult,
     QueryFunction,
     QueryKey,
-    UseQueryOptions,
     UseInfiniteQueryOptions,
     UseInfiniteQueryResult,
+    UseQueryOptions,
 } from "react-query";
 
 export type QueryOptions<TQueryFnData = unknown, TError = unknown, TData = TQueryFnData, TQueryKey extends QueryKey = QueryKey> = Omit<
