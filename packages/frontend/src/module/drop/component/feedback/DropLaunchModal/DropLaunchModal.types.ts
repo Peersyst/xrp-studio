@@ -1,7 +1,8 @@
-import { CollectionDto, CreateDropRequest } from "module/api/service";
+import { CollectionDto } from "module/api/service";
 import { ModalRootProps } from "module/common/component/feedback/Modal/Modal.types";
+import { CreateDropFormRequest } from "module/drop/util/createDropRequestFromForm";
 
 export interface DropLaunchModalProps extends ModalRootProps {
-    request: CreateDropRequest;
+    request: CreateDropFormRequest;
     collection: CollectionDto;
 }

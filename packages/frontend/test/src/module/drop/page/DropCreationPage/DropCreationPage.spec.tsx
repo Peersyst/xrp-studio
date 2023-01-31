@@ -13,9 +13,7 @@ import { render, translate } from "test-utils";
 import { waitFor } from "@testing-library/dom";
 import DropCreationPage from "module/drop/page/DropCreationPage/DropCreationPage";
 import { CollectionService, NftService } from "module/api/service";
-import userEvent from "@testing-library/user-event";
 import * as CreateDropRequestFromForm from "module/drop/util/createDropRequestFromForm";
-import DropLaunchModal from "module/drop/component/feedback/DropLaunchModal/DropLaunchModal";
 import { LandingRoutes } from "module/landing/LandingRouter";
 
 describe("DropCreationPage", () => {
@@ -65,15 +63,6 @@ describe("DropCreationPage", () => {
 
             // Preview
             await waitFor(() => expect(screen.getByRole("heading", { name: collectionDtoMock.name })).toBeInTheDocument());
-        });
-
-        test("Launch drop", async () => {
-            render(<DropCreationPage />);
-            const launchButton = screen.getByRole("button", { name: translate("launchDrop") });
-            // Await Collection call
-            await waitFor(() => expect(launchButton).not.toBeDisabled());
-            userEvent.click(launchButton);
-            await waitFor(() => expect(useModalMock.showModal).toHaveBeenCalledWith(DropLaunchModal, expect.any(Object)));
         });
     });
 

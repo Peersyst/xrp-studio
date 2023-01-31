@@ -7,6 +7,7 @@ interface XrpConfig {
     startingLedgerIndex: number;
     minterSecret: string;
     sellCommissionPct: number;
+    dropNftMintCost: string; // Drops
 }
 
 export default (secrets: AwsSecrets = {}): XrpConfig => {
@@ -26,6 +27,9 @@ export default (secrets: AwsSecrets = {}): XrpConfig => {
             },
             sellCommissionPct: {
                 default: 0.05,
+            },
+            dropNftMintCost: {
+                default: "4000000",
             },
         },
         {

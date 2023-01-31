@@ -8,6 +8,24 @@ import { request as __request } from '../core/request';
 export class XummService {
 
     /**
+     * Get XUMM payload by uuid
+     * @param uuid
+     * @returns any
+     * @throws ApiError
+     */
+    public static xummControllerGetPayload(
+        uuid: string,
+    ): CancelablePromise<any> {
+        return __request(OpenAPI, {
+            method: 'GET',
+            url: '/api/xumm/{uuid}',
+            path: {
+                'uuid': uuid,
+            },
+        });
+    }
+
+    /**
      * Get XUMM transaction status by uuid
      * @param uuid
      * @returns any

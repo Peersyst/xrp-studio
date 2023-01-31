@@ -3,7 +3,7 @@ import { InjectRepository } from "@nestjs/typeorm";
 import { Nft, NftStatus } from "../../database/entities/Nft";
 import { ValidatedLedgerTransaction } from "../blockchain/types";
 import { NFTokenMint } from "xrpl/dist/npm/models/transactions/NFTokenMint";
-import { Repository, SelectQueryBuilder } from "typeorm";
+import { FindConditions, Repository, SelectQueryBuilder } from "typeorm";
 import { CollectionService } from "../collection/collection.service";
 import { NftMetadataAttribute } from "../../database/entities/NftMetadataAttribute";
 import { CreateNftDraftRequest } from "./request/create-nft-draft.request";
@@ -162,7 +162,7 @@ export class NftService {
 
         if (publish) await this.publishDraft(nftEntity.id, address);
 
-        return this.findOne(nftEntity.id, { relations: ["user", "collection", "metadata", "metadata.attributes"] });
+        return this.findOne({ id: nftEntity.id }, { relations: ["user", "collection", "metadata", "metadata.attributes"] });
     }
 
     /**
@@ -175,7 +175,7 @@ export class NftService {
         publish = false,
     ): Promise<void> {
         // Check draft exists and belongs to the address given
-        const nft = await this.findOne(id, { ownerAddress: address, status: [NftStatus.DRAFT, NftStatus.FAILED] });
+        const nft = await this.findOne({ id }, { ownerAddress: address, status: [NftStatus.DRAFT, NftStatus.FAILED] });
 
         // Find taxon & address collection or use undefined and remove relation if any
         let collection: CollectionDto | undefined;
@@ -198,7 +198,7 @@ export class NftService {
             { id },
             {
                 ...(issuer !== undefined || address !== undefined ? { issuer: issuer || address } : {}),
-                ...(transferFee !== undefined ? { transferFee: transferFee * 1000 } : {}),
+                ...(transferFee !== undefined ? { transferFee } : {}),
                 ...(flags !== undefined
                     ? {
                           flags: flagsToNumber({
@@ -227,11 +227,14 @@ export class NftService {
      *   * Metadata attributes
      */
     public async publishDraft(nftId: number, ownerAddress?: string): Promise<void> {
-        const nftDraft = await this.findOne(nftId, {
-            status: [NftStatus.DRAFT, NftStatus.FAILED],
-            ownerAddress,
-            relations: ["metadata", "metadata.attributes", "user", "collection"],
-        });
+        const nftDraft = await this.findOne(
+            { id: nftId },
+            {
+                status: [NftStatus.DRAFT, NftStatus.FAILED],
+                ownerAddress,
+                relations: ["metadata", "metadata.attributes", "user", "collection"],
+            },
+        );
 
         // Update draft status to "pending"
         await this.updateNftStatus(nftId, NftStatus.PENDING);
@@ -261,18 +264,18 @@ export class NftService {
      * Deletes an NFT draft
      */
     public async deleteNftDraft(id: number, account: string): Promise<void> {
-        const nft = await this.findOne(id, { ownerAddress: account, status: [NftStatus.DRAFT, NftStatus.FAILED] });
+        const nft = await this.findOne({ id }, { ownerAddress: account, status: [NftStatus.DRAFT, NftStatus.FAILED] });
         await this.metadataService.delete(nft.id);
         await this.nftRepository.delete({ id: nft.id });
     }
 
     async findOne<Status extends NftStatus[]>(
-        id: number | string,
+        where: FindConditions<Nft>,
         options?: { ownerAddress?: string; status?: Status; relations?: string[] },
     ): Promise<Status extends [NftStatus.CONFIRMED] ? NftDto : NftDraftDto> {
         const { ownerAddress, status, relations = ["metadata", "metadata.attributes"] } = options || {};
         if (ownerAddress && relations.indexOf("user") === -1) relations.push("user");
-        const nft = await this.nftRepository.findOne(typeof id === "number" ? { id } : { tokenId: id }, { relations });
+        const nft = await this.nftRepository.findOne(where, { relations });
         if (!nft) throw new BusinessException(ErrorCode.NFT_NOT_FOUND);
         if (ownerAddress && nft?.user?.address !== ownerAddress) throw new BusinessException(ErrorCode.NFT_NOT_FOUND);
         if (status && status.indexOf(nft.status) < 0) {
@@ -284,6 +287,10 @@ export class NftService {
         ]
             ? NftDto
             : NftDraftDto;
+    }
+
+    async count(where: FindConditions<Nft>): Promise<number> {
+        return this.nftRepository.count({ where });
     }
 
     public async updateNftStatus(nftId: number, newStatus: NftStatus): Promise<void> {

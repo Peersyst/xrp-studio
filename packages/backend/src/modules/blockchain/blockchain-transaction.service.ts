@@ -4,6 +4,7 @@ import { ConfigService } from "@nestjs/config";
 import { NFTokenMint } from "xrpl/dist/npm/models/transactions/NFTokenMint";
 import { TransactionMetadata } from "xrpl/dist/npm/models/transactions";
 import parseFlags from "../nft/util/parseFlags";
+import { TxResponse } from "xrpl/dist/npm/models/methods/tx";
 
 export enum TransactionStatus {
     UNCONFIRMED = "unconfirmed",
@@ -151,6 +152,10 @@ export class BlockchainTransactionService {
         });
     }
 
+    preparePaymentToMintingAccount({ account, amount, memo }: { account: string; amount: string; memo: string }): Promise<Transaction> {
+        return this.preparePaymentTransaction({ account, destination: this.mintingAccount.address, amount, memo });
+    }
+
     signTransactionWithMintingAccount(transaction: Transaction): {
         tx_blob: string;
         hash: string;
@@ -162,20 +167,29 @@ export class BlockchainTransactionService {
         return this.xrpClient.submit(blob);
     }
 
+    async getTransaction(hash: string): Promise<TxResponse["result"] | undefined> {
+        try {
+            const tx = await this.xrpClient.request({
+                command: "tx",
+                transaction: hash,
+                binary: false,
+            });
+            return tx.result;
+        } catch (e) {
+            return undefined;
+        }
+    }
+
     async getTransactionStatus(hash: string): Promise<{
         status: TransactionStatus;
         error?: string;
     }> {
-        const tx = await this.xrpClient.request({
-            command: "tx",
-            transaction: hash,
-            binary: false,
-        });
-        if (tx.result.validated) {
-            if ((tx.result.meta as TransactionMetadata)?.TransactionResult === "tesSUCCESS") {
+        const tx = await this.getTransaction(hash);
+        if (tx?.validated) {
+            if ((tx.meta as TransactionMetadata)?.TransactionResult === "tesSUCCESS") {
                 return { status: TransactionStatus.CONFIRMED };
             } else {
-                return { status: TransactionStatus.FAILED, error: (tx.result.meta as TransactionMetadata)?.TransactionResult };
+                return { status: TransactionStatus.FAILED, error: (tx.meta as TransactionMetadata)?.TransactionResult };
             }
         } else {
             return { status: TransactionStatus.UNCONFIRMED };
@@ -207,5 +221,9 @@ export class BlockchainTransactionService {
         } catch (e) {
             return e?.data?.error === "objectNotFound";
         }
+    }
+
+    isValidPaymentToMintingAccount(tx: Transaction, account: string): boolean {
+        return tx.TransactionType === "Payment" && tx.Account === account && tx.Destination === this.mintingAccount.address;
     }
 }

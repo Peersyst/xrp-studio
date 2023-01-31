@@ -34,3 +34,7 @@ export interface CollectionCreationForm {
     attributes?: MetadataAttributeDto[];
     nfts?: CreateCollectionNftRequest[];
 }
+
+export type CollectionCreationNft = CreateCollectionNftRequest & {
+    id: number;
+};

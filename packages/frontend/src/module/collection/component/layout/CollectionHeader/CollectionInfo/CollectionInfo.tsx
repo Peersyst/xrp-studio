@@ -14,7 +14,7 @@ const CollectionInfo = (): JSX.Element => {
     const { path } = useParams<string>();
     const translate = useTranslate();
     const { data: collection, isLoading: collectionLoading } = useGetCollectionByPath(path);
-    const { id, name, items = 0 } = collection || {};
+    const { name, items = 0 } = collection || {};
     const navigate = useNavigate();
     const { address } = useWallet();
 
@@ -52,7 +52,7 @@ const CollectionInfo = (): JSX.Element => {
                 <CollectionsButtons gap="0.5rem">
                     <ShareButton shareData={shareData} networks={[SocialShareOptions.TWITTER]} />
                     {address && address === collection?.account && (
-                        <Button size="sm" onClick={() => navigate(`${CollectionRoutes.CREATE_COLLECTION}?id=${id}`)}>
+                        <Button size="sm" onClick={() => navigate(CollectionRoutes.EDIT_COLLECTION.replace(":path", path!))}>
                             {translate("editCollection")}
                         </Button>
                     )}

@@ -1,6 +1,6 @@
 import { Col, CrossIcon, Skeleton, Typography, WithSkeleton } from "@peersyst/react-components";
 import { BaseCardProps } from "module/nft/component/surface/BaseCard/BaseCard.types";
-import { BaseCardRoot, BaseCardCover, RemoveIcon, CoverImage } from "module/nft/component/surface/BaseCard/BaseCard.styles";
+import { BaseCardRoot, BaseCardCover, RemoveIcon, CoverImage, BaseCardStatus } from "module/nft/component/surface/BaseCard/BaseCard.styles";
 import ConditionalLink from "module/common/component/navigation/ConditionalLink/ConditionalLink";
 import { Children, forwardRef } from "react";
 
@@ -48,7 +48,7 @@ const BaseCard = forwardRef(
                     <Skeleton loading={loading} className="skeleton-card">
                         <BaseCardCover>
                             <CoverImage src={coverUrl} alt={title + "-img"} fallback={defaultCoverUrl} />
-                            {status}
+                            <BaseCardStatus>{status}</BaseCardStatus>
                         </BaseCardCover>
                     </Skeleton>
                     <Col gap="0.5rem">

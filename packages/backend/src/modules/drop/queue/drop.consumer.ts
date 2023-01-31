@@ -26,7 +26,7 @@ export class DropConsumer {
     async nftMintQueue({ data: { nftId, tries = 1 } }: Job<{ nftId: number; tries?: number }>) {
         this.logger.debug(`[nft-mint-queue] entering with ${JSON.stringify({ nftId, tries })}`);
         try {
-            const nft = await this.nftService.findOne(nftId, { relations: ["user"] });
+            const nft = await this.nftService.findOne({ id: nftId }, { relations: ["user"] });
             if (!(await this.blockchainService.isAccountAuthorized(nft.user?.address))) {
                 this.logger.log(`[nft-mint-queue] user not authorized minter yet, re-queuing with ${JSON.stringify({ nftId, tries })}`);
                 return this.dropQueue.add("nft-mint-queue", { nftId, tries: tries + 1 }, { delay: tries * 2000 });
@@ -42,7 +42,7 @@ export class DropConsumer {
     async nftSellOfferQueue({ data: { nftId } }: Job<{ nftId: number }>) {
         this.logger.debug(`[nft-sell-offer-queue] entering with ${JSON.stringify({ nftId })}`);
         try {
-            const nft = await this.nftService.findOne(nftId);
+            const nft = await this.nftService.findOne({ id: nftId });
             if (nft.status !== NftStatus.CONFIRMED) {
                 await this.dropQueue.add("nft-sell-offer-queue", { nftId }, { delay: 5000 });
                 return this.logger.log(`[nft-sell-offer-queue] nft not minted yet, re-queuing with ${JSON.stringify({ nftId })}`);

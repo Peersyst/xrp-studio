@@ -1,8 +1,9 @@
 import { ActionStepsHandlers } from "module/common/component/feedback/ActionSteps/ActionSteps.types";
-import { CollectionDto, CreateDropRequest } from "module/api/service";
+import { CollectionDto } from "module/api/service";
+import { CreateDropFormRequest } from "module/drop/util/createDropRequestFromForm";
 
 export type DropPublishActionsProps = Omit<ActionStepsHandlers, "onSuccess"> & {
-    request: CreateDropRequest;
+    request: CreateDropFormRequest;
     collection: CollectionDto;
     onSuccess?: (path: string) => void;
 };

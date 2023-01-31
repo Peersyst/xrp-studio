@@ -21,5 +21,6 @@
     "tokenName": "XRP",
     "feeInDrops": 15,
     "peersystEmail": "hello@peersyst.com",
-    "peersyst": "Peersyst SL"
+    "peersyst": "Peersyst SL",
+    "dropNftMintCost": "4000000"
 }

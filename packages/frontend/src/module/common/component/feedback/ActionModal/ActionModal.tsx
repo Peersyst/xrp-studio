@@ -21,7 +21,7 @@ const actionLabels: Record<Exclude<Action, ActionFn>, TFuncKey> = {
 };
 
 const ActionModal = createModal<ActionModalProps>(
-    ({ direction = "row", children: { cover, tabs }, size = "lg", closable, close, ...rest }) => {
+    ({ direction = "row", children: { cover, tabs, footer }, size = "lg", closable, close, ...rest }) => {
         const translate = useTranslate();
         const [tab, setTab] = useState(0);
 
@@ -55,27 +55,36 @@ const ActionModal = createModal<ActionModalProps>(
                             {content}
                         </TabsCard>
                     </Body>
-                    <Row flex={1} gap="1rem" justifyContent="flex-start" reverse>
-                        {actions.map(({ action: actionProp, label: labelProp, variant: variantProp, disabled, loading }, key) => {
-                            const { action, label, variant } =
-                                typeof actionProp === "function"
-                                    ? {
-                                          action: () => actionProp(modalActions),
-                                          label: translate("confirm"),
-                                          variant: "primary" as ButtonVariant,
-                                      }
-                                    : {
-                                          action: modalActions[actionProp],
-                                          label: actionLabels[actionProp],
-                                          variant: actionVariants[actionProp],
-                                      };
+                    <Row flex={1} gap="1.5rem" justifyContent="space-between" alignItems="center" wrap wrapGap="1rem">
+                        {footer}
+                        <Row flex={1} gap="1rem" justifyContent="flex-start" reverse>
+                            {actions.map(({ action: actionProp, label: labelProp, variant: variantProp, disabled, loading }, key) => {
+                                const { action, label, variant } =
+                                    typeof actionProp === "function"
+                                        ? {
+                                              action: () => actionProp(modalActions),
+                                              label: translate("confirm"),
+                                              variant: "primary" as ButtonVariant,
+                                          }
+                                        : {
+                                              action: modalActions[actionProp],
+                                              label: actionLabels[actionProp],
+                                              variant: actionVariants[actionProp],
+                                          };
 
-                            return (
-                                <Button key={key} onClick={action} disabled={disabled} loading={loading} variant={variantProp || variant}>
-                                    {capitalize(labelProp || label)}
-                                </Button>
-                            );
-                        })}
+                                return (
+                                    <Button
+                                        key={key}
+                                        onClick={action}
+                                        disabled={disabled}
+                                        loading={loading}
+                                        variant={variantProp || variant}
+                                    >
+                                        {capitalize(labelProp || label)}
+                                    </Button>
+                                );
+                            })}
+                        </Row>
                     </Row>
                 </Col>
             </Modal>

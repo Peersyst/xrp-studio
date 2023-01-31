@@ -7,6 +7,10 @@ export const $CreateDropRequest = {
             type: 'number',
             isRequired: true,
         },
+        paymentHash: {
+            type: 'string',
+            isRequired: true,
+        },
         price: {
             type: 'string',
             isRequired: true,

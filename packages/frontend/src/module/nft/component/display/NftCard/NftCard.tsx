@@ -10,7 +10,7 @@ import isDraft from "module/nft/util/isDraft";
 import useDeleteNftDraft from "module/nft/query/useDeleteNftDraft";
 
 const NftCard = forwardRef(
-    ({ nft, loading = false, readonly = false, className, ...rest }: WithSkeleton<NftCardProps>, ref): JSX.Element => {
+    ({ nft, loading = false, link: linkProp = true, className, ...rest }: WithSkeleton<NftCardProps>, ref): JSX.Element => {
         const name = nft.metadata?.name;
 
         const translate = useTranslate();
@@ -40,18 +40,21 @@ const NftCard = forwardRef(
             });
         };
 
+        const link =
+            linkProp === true
+                ? nft.status === "confirmed"
+                    ? NftRoutes.VIEW_NFT.replace(":id", nft.id.toString())
+                    : nft.status !== "pending"
+                    ? `${NftRoutes.NFT_CREATION}?id=${nft.id}`
+                    : undefined
+                : linkProp || undefined;
+
         return (
             <BaseCard
                 ref={ref}
                 title={loading ? "NFT name loading" : name}
                 titlePlaceholder={translate("unnamed")}
-                to={
-                    !readonly && nft.status === "confirmed"
-                        ? NftRoutes.VIEW_NFT.replace(":id", nft.id.toString())
-                        : !readonly && nft.status !== "pending"
-                        ? `${NftRoutes.NFT_CREATION}?id=${nft.id}`
-                        : undefined
-                }
+                to={link}
                 defaultCoverUrl={defaultImgUrl}
                 coverUrl={nft.metadata?.image}
                 loading={loading}

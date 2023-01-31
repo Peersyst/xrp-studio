@@ -2,10 +2,12 @@ import { DropCreationForm } from "module/drop/types";
 import { CreateDropRequest } from "module/api/service";
 import { xrpToDrops } from "xrpl";
 
+export type CreateDropFormRequest = Omit<CreateDropRequest, "paymentHash">;
+
 export default function (
     collectionId: number,
     { price, backgroundColor, fontColor, videoUrl, instagram, twitter, discord, faqs }: DropCreationForm,
-): CreateDropRequest {
+): CreateDropFormRequest {
     return {
         collectionId,
         price: xrpToDrops(price),

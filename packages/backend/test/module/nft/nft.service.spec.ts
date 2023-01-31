@@ -328,7 +328,7 @@ describe("NftService", () => {
         test("Update nft draft with an issuer, transferFee, flags and taxon", async () => {
             await nftService.updateNftDraft(1, ADDRESS, {
                 issuer: ISSUER,
-                transferFee: 10,
+                transferFee: 10000,
                 flags: { burnable: true, transferable: true, trustLine: false, onlyXRP: false },
                 taxon: 1,
             });
@@ -349,7 +349,7 @@ describe("NftService", () => {
 
             await nftService.updateNftDraft(1, ADDRESS, {
                 issuer: ISSUER,
-                transferFee: 10,
+                transferFee: 10000,
                 flags: { burnable: true, transferable: true, trustLine: false, onlyXRP: false },
                 taxon: 1,
                 metadata,
@@ -379,7 +379,7 @@ describe("NftService", () => {
 
             await nftService.updateNftDraft(1, ADDRESS, {
                 issuer: ISSUER,
-                transferFee: 10,
+                transferFee: 10000,
                 flags: { burnable: true, transferable: true, trustLine: false, onlyXRP: false },
                 taxon: 1,
                 metadata,
@@ -519,14 +519,14 @@ describe("NftService", () => {
 
     describe("findOne", () => {
         test("Returns existing Nft", async () => {
-            const nft = await nftService.findOne(1);
+            const nft = await nftService.findOne({ id: 1 });
             expect(nft).toBeDefined();
         });
 
         test("Throws NFT_NOT_FOUND error", async () => {
             nftRepositoryMock.findOne.mockResolvedValueOnce(undefined);
             await expect(async () => {
-                await nftService.findOne(1);
+                await nftService.findOne({ id: 1 });
             }).rejects.toEqual(new BusinessException(ErrorCode.NFT_NOT_FOUND));
         });
     });
@@ -539,19 +539,19 @@ describe("NftService", () => {
                     user: new User({ address: ADDRESS }),
                 }),
             );
-            const nft = await nftService.findOne(1, { ownerAddress: ADDRESS, status: [NftStatus.DRAFT] });
+            const nft = await nftService.findOne({ id: 1 }, { ownerAddress: ADDRESS, status: [NftStatus.DRAFT] });
             expect(nft).toBeDefined();
         });
         test("Throws NFT_DRAFT_NOT_OWNED error", async () => {
             nftRepositoryMock.findOne.mockResolvedValueOnce(new NftMock({ user: new User({ address: ISSUER }) }));
             await expect(async () => {
-                await nftService.findOne(1, { ownerAddress: ADDRESS, status: [NftStatus.DRAFT] });
+                await nftService.findOne({ id: 1 }, { ownerAddress: ADDRESS, status: [NftStatus.DRAFT] });
             }).rejects.toEqual(new BusinessException(ErrorCode.NFT_NOT_FOUND));
         });
         test("Throws NFT_DRAFT_NOT_FOUND error", async () => {
             nftRepositoryMock.findOne.mockResolvedValueOnce(undefined);
             await expect(async () => {
-                await nftService.findOne(1, { ownerAddress: ADDRESS });
+                await nftService.findOne({ id: 1 }, { ownerAddress: ADDRESS });
             }).rejects.toEqual(new BusinessException(ErrorCode.NFT_NOT_FOUND));
         });
     });

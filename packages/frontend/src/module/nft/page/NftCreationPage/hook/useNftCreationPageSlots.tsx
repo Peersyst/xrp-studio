@@ -60,7 +60,7 @@ export default function ({ nft, collections, fixedCollection, loading = false }:
     }, [transferable]);
 
     useEffect(() => {
-        if (transferFee) setTransferFeeValue((transferFee / 1000).toString());
+        setTransferFeeValue(transferFee !== undefined ? (transferFee / 1000).toString() : "");
     }, [transferFee]);
 
     return (
@@ -75,7 +75,7 @@ export default function ({ nft, collections, fixedCollection, loading = false }:
                         name={NftFormFields.name}
                         label={capitalize(translate("name"))}
                         placeholder={translate("nftNamePlaceholder")}
-                        defaultValue={name}
+                        defaultValue={name || ""}
                         validators={{ maxChars: config.maxNftNameChars }}
                     />
                     <TextArea
@@ -124,7 +124,7 @@ export default function ({ nft, collections, fixedCollection, loading = false }:
                     label={translate("externalLink")}
                     placeholder={translate("externalLinkPlaceholder")}
                     variant="filled"
-                    defaultValue={externalUrl}
+                    defaultValue={externalUrl || ""}
                     validators={{ url: true }}
                 />
                 <ColorInput
