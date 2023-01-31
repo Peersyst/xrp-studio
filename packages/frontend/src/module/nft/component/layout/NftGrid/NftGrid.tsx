@@ -1,20 +1,15 @@
 import { BaseCardSkeletons } from "module/common/component/feedback/Skeletons/Skeletons";
 import NftCard from "../../display/NftCard/NftCard";
 import { PaginatedNftDraftDto, PaginatedNftDto } from "module/api/service";
-import { NftGridProps } from "./NftGrid.types";
+import { InnerNftGridProps, NftGridProps } from "./NftGrid.types";
 import Grid from "module/common/component/layout/Grid/Grid";
 import useGetNftActiveTags from "./hook/useGetNftActiveTags";
 import useGetCollectionOptions from "./hook/useGetCollectionOptions";
 import useCleanCollections from "./hook/useCleanCollections";
 import NftCollectionsSelectorGroup from "../../input/NftColletionsSelectorGroupFilter/NftCollectionsSelectorGroupFilter";
-import { GridProps } from "module/common/component/layout/Grid/Grid.types";
 import useNftNothingToShow from "module/nft/component/layout/NftGrid/hook/useNftGridConfig";
 
-function InnerNftGrid({
-    loading,
-    nothingToShow,
-    ...rest
-}: Omit<GridProps<PaginatedNftDto | PaginatedNftDraftDto, string>, "Skeletons" | "children" | "breakpoints">): JSX.Element {
+function InnerNftGrid({ loading, nothingToShow, link = true, ...rest }: InnerNftGridProps): JSX.Element {
     const { nftNothingToShow, breakpoints, tabletBreakpoint } = useNftNothingToShow({ nothingToShow });
 
     return (
@@ -28,7 +23,11 @@ function InnerNftGrid({
             nothingToShow={nftNothingToShow}
             {...rest}
         >
-            {(nfts) => nfts.map((nft, key) => <NftCard nft={nft} key={key} loading={loading} />)}
+            {(nfts) =>
+                nfts.map((nft, key) => (
+                    <NftCard nft={nft} key={key} loading={loading} link={typeof link === "function" ? link(nft, key) : link} />
+                ))
+            }
         </Grid>
     );
 }

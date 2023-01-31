@@ -14,7 +14,7 @@ export default function (): UseMutationResult<void, unknown, UseUpdateNftDraftPa
         onSuccess: async (_, { id }) => {
             await queryClient.invalidateQueries([Queries.NFTS]);
             await queryClient.invalidateQueries([Queries.NFT_DRAFT, id]);
-            await queryClient.invalidateQueries([Queries.NFT_DRAFTS]);
+            await queryClient.invalidateQueries([Queries.MY_NFTS]);
             await queryClient.invalidateQueries([Queries.COLLECTIONS]);
             await queryClient.invalidateQueries([Queries.COLLECTION]);
         },

@@ -3,7 +3,7 @@ import { DropLaunchModalProps } from "module/drop/component/feedback/DropLaunchM
 import useTranslate from "module/common/hook/useTranslate";
 import ActionModal from "module/common/component/feedback/ActionModal/ActionModal";
 import NftsPreviewList from "module/nft/component/display/NftsPreviewList/NftsPreviewList";
-import useGetCollection from "module/nft/query/useGetCollection";
+import useGetCollection from "module/collection/query/useGetCollection";
 import DropInformation from "module/drop/component/display/DropInformation/DropInformation";
 import DropPublishActions from "module/drop/component/feedback/DropLaunchModal/DropPublishActions/DropPublishActions";
 import { useState } from "react";
