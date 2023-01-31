@@ -14,7 +14,7 @@ const DropLandingNftsSection = ({ nfts = [], loading = false, ...rest }: DropLan
                     {translate("theNfts")}
                 </Typography>
             </Skeleton>
-            <NftCardCarousel nfts={nfts} loading={loading} readonly autoplay />
+            <NftCardCarousel nfts={nfts} loading={loading} disableLinks autoplay />
         </DropLandingSection>
     );
 };

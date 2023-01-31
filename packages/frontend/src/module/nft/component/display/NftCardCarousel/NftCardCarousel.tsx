@@ -6,13 +6,13 @@ import { NftCardCarouselRoot } from "module/nft/component/display/NftCardCarouse
 
 interface NftCardCarouselProps extends InheritedCarouselProps {
     nfts: NftDto[];
-    readonly?: boolean;
+    disableLinks?: boolean;
 }
 
-const NftCardCarousel = ({ nfts, skeletonCount = 3, readonly = false, ...rest }: NftCardCarouselProps): JSX.Element => (
+const NftCardCarousel = ({ nfts, skeletonCount = 3, disableLinks = false, ...rest }: NftCardCarouselProps): JSX.Element => (
     <NftCardCarouselRoot skeletonCount={skeletonCount} Skeleton={NftCardSkeleton} {...rest}>
         {nfts.map((nft) => (
-            <NftCard key={nft.id} nft={nft} readonly={readonly} />
+            <NftCard key={nft.id} nft={nft} link={disableLinks} />
         ))}
     </NftCardCarouselRoot>
 );
