@@ -4,7 +4,6 @@ import {
     UseQueryResult,
     QueryFunction,
     QueryKey,
-    UseQueryOptions,
     UseInfiniteQueryOptions,
     UseInfiniteQueryResult,
     UseQueryOptions,
