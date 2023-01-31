@@ -38,7 +38,7 @@ export class BlockchainService {
     async getPendingIndexedLedgers(firstValidatedLedger: number, lastValidatedLedger: number): Promise<number[]> {
         const missingLedgers: number[] = [];
 
-        const firstIndexedLedger = await this.lastIndexedLedgerRepository.findOne({ order: { ledger: "DESC" } });
+        const firstIndexedLedger = await this.lastIndexedLedgerRepository.findOne({ order: { ledger: "ASC" } });
 
         // No indexed ledgers
         if (!firstIndexedLedger) {
@@ -63,7 +63,7 @@ export class BlockchainService {
             }
         }
 
-        const lastIndexedLedger = await this.lastIndexedLedgerRepository.findOne({ order: { ledger: "ASC" } });
+        const lastIndexedLedger = await this.lastIndexedLedgerRepository.findOne({ order: { ledger: "DESC" } });
 
         for (let ledger = lastIndexedLedger.ledger; ledger <= lastValidatedLedger; ledger++) {
             missingLedgers.push(ledger);

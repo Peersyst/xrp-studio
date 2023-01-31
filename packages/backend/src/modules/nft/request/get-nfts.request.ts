@@ -75,7 +75,7 @@ export class GetNftsRequest {
     static toFilterClause(req: GetNftsRequest, { requesterAccount }: { requesterAccount?: string }): QBFilter<string> {
         const filter: QBFilter<string> = {
             qbWheres: [],
-            relations: ["metadata", "metadata.attributes"],
+            relations: ["metadata", "metadata.attributes", "nftInDrop"],
             qbOrders: [],
         };
 
@@ -83,15 +83,18 @@ export class GetNftsRequest {
             filter.relations.push("collection");
             filter.qbWheres.push({ field: "collection.id", operator: FilterType.IN, value: req.collections });
         }
-        if (requesterAccount) {
-            filter.relations.push("user");
-            filter.qbWheres.push({ field: "user.address", operator: FilterType.EQUAL, value: requesterAccount });
-        }
         if (req.account) {
             filter.qbWheres.push({ field: "owner_account", operator: FilterType.EQUAL, value: req.account });
         }
         if (req.query) {
             filter.qbWheres.push({ field: "metadata.name", operator: FilterType.LIKE, value: req.query });
+        }
+        if (req.status) {
+            filter.qbWheres.push({
+                field: "nft.status",
+                operator: typeof req.status === "object" ? FilterType.IN : FilterType.EQUAL,
+                value: req.status,
+            });
         }
         if (!requesterAccount) {
             filter.qbWheres.push({
@@ -99,11 +102,23 @@ export class GetNftsRequest {
                 operator: FilterType.EQUAL,
                 value: NftStatus.CONFIRMED,
             });
-        } else if (req.status) {
+        } else {
+            filter.relations.push("user");
             filter.qbWheres.push({
-                field: "nft.status",
-                operator: typeof req.status === "object" ? FilterType.IN : FilterType.EQUAL,
-                value: req.status,
+                field: "none",
+                operator: FilterType.OR,
+                value: [
+                    {
+                        field: "user.address",
+                        operator: FilterType.EQUAL,
+                        value: requesterAccount,
+                    },
+                    {
+                        field: "nft.status",
+                        operator: FilterType.EQUAL,
+                        value: NftStatus.CONFIRMED,
+                    },
+                ],
             });
         }
 

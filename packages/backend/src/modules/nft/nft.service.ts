@@ -26,6 +26,7 @@ import { XummTransactionService } from "../xumm/xumm-transaction.service";
 import { BlockchainService } from "../blockchain/blockchain.service";
 import { getTokenIdFromTransaction } from "./util/parseTokenId";
 import { convertHexToString } from "xrpl";
+import { NftPreviewDto } from "./dto/nft-preview.dto";
 
 @Injectable()
 export class NftService {
@@ -344,6 +345,20 @@ export class NftService {
             pages: Math.ceil(count / take),
             currentPage: page,
         };
+    }
+
+    async findRandomNftsInDrop(dropId: number): Promise<NftPreviewDto[]> {
+        const nfts = await this.nftRepository
+            .createQueryBuilder("nft")
+            .leftJoinAndSelect("nft.nftInDrop", "nftInDrop")
+            .leftJoinAndSelect("nft.metadata", "metadata")
+            .leftJoinAndSelect("metadata.attributes", "attributes")
+            .where("nftInDrop.dropId = :dropId", { dropId })
+            .orderBy("RANDOM()")
+            .limit(10)
+            .getMany();
+
+        return nfts.map((nft) => NftPreviewDto.fromEntity(nft));
     }
 
     /**

@@ -91,9 +91,9 @@ export class DropService {
     async requestBuyNft(buyerAddress, dropId: number): Promise<RequestBuyNftDto> {
         const nftsInDrop = await this.nftInDropRepository
             .createQueryBuilder("nftInDrop")
-            .where("nftInDrop.dropId = :dropId AND nftInDrop.status != :status AND nftInDrop.offerId IS NOT NULL", {
+            .where("nftInDrop.dropId = :dropId AND nftInDrop.status NOT IN (:...status) AND nftInDrop.offerId IS NOT NULL", {
                 dropId,
-                status: NftInDropStatus.SOLD,
+                status: [NftInDropStatus.SOLD, NftInDropStatus.FUNDED, NftInDropStatus.FUNDING],
             })
             .getMany();
 

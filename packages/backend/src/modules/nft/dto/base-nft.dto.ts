@@ -4,6 +4,7 @@ import { UserDto } from "../../user/dto/user.dto";
 import { ApiProperty } from "@nestjs/swagger";
 import { MetadataDto } from "../../metadata/dto/metadata.dto";
 import { DropDto } from "../../drop/dto/drop.dto";
+import { NftInDropStatus } from "../../../database/entities/NftInDrop";
 
 export class BaseNftDto {
     id: number;
@@ -21,13 +22,20 @@ export class BaseNftDto {
     drop?: DropDto;
 
     static fromEntity({ id, issuer, transferFee, flags, status, user, collection, metadata, nftInDrop }: Nft): BaseNftDto {
+        const dropSold =
+            !nftInDrop ||
+            (nftInDrop &&
+                (nftInDrop.status === NftInDropStatus.SOLD ||
+                    nftInDrop.status === NftInDropStatus.FUNDING ||
+                    nftInDrop.status === NftInDropStatus.FUNDED));
+
         return {
             id,
             issuer,
             transferFee: transferFee ? transferFee : undefined,
             flags,
             status,
-            metadata: metadata ? MetadataDto.fromEntity(metadata) : undefined,
+            metadata: metadata && dropSold ? MetadataDto.fromEntity(metadata) : undefined,
             user: user && UserDto.fromEntity(user),
             // Safe to add user to collection as it should be a pre condition. This way query is much faster and we are not checking for information we already have. If nft.user and collection.user were different, there'd be a problem
             collection: collection ? CollectionDto.fromEntity({ ...collection, user }) : undefined,

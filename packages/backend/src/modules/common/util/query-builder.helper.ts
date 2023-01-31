@@ -1,4 +1,4 @@
-import { DeleteQueryBuilder, EntityManager, EntityTarget, ObjectLiteral, Repository, SelectQueryBuilder } from "typeorm";
+import { Brackets, DeleteQueryBuilder, EntityManager, EntityTarget, ObjectLiteral, Repository, SelectQueryBuilder } from "typeorm";
 
 export enum OrderType {
     ASC = "ASC",
@@ -22,7 +22,7 @@ export interface QBFilter<Order = unknown> {
     qbOrders?: QBOrder<Order>[];
 }
 
-export type ValueType = string | number | boolean | string[] | number[];
+export type ValueType = string | number | boolean | string[] | number[] | QBWhere[];
 
 export enum FilterType {
     EQUAL = "=",
@@ -35,6 +35,7 @@ export enum FilterType {
     LIKE = "LIKE",
     NULL = "IS NULL",
     NOT_NULL = "IS NOT NULL",
+    OR = "OR",
 }
 
 export interface QBWhere {
@@ -85,21 +86,26 @@ export class QueryBuilderHelper {
         qb: SelectQueryBuilder<T> | DeleteQueryBuilder<T>,
         wheres: QBWhere[] = [],
         alias: string,
+        compare: "AND" | "OR",
+        varIdx = 0,
     ): SelectQueryBuilder<T> | DeleteQueryBuilder<T> {
-        let varIdx = 0;
-
+        const compareFn = compare === "AND" ? "andWhere" : "orWhere";
         for (const qbWhere of wheres) {
             const key = `${alias}${varIdx}`;
             if ([FilterType.NULL, FilterType.NOT_NULL].includes(qbWhere.operator)) {
-                qb = qb.andWhere(`${qbWhere.field} ${qbWhere.operator}`);
+                qb = qb[compareFn](`${qbWhere.field} ${qbWhere.operator}`);
             } else if (qbWhere.operator === FilterType.IN) {
-                qb = qb.andWhere(`${qbWhere.field} IN (:...${key})`, { [key]: qbWhere.value });
+                qb = qb[compareFn](`${qbWhere.field} IN (:...${key})`, { [key]: qbWhere.value });
                 varIdx += 1;
             } else if (qbWhere.operator === FilterType.LIKE) {
-                qb = qb.andWhere(`${qbWhere.field} LIKE :${key}`, { [key]: `%${qbWhere.value}%` });
+                qb = qb[compareFn](`${qbWhere.field} LIKE :${key}`, { [key]: `%${qbWhere.value}%` });
                 varIdx += 1;
+            } else if (qbWhere.operator === FilterType.OR) {
+                qb = qb[compareFn](
+                    new Brackets((qb: SelectQueryBuilder<T>) => this.addWheres(qb, qbWhere.value as QBWhere[], alias, "OR", varIdx)),
+                );
             } else {
-                qb = qb.andWhere(`${qbWhere.field} ${qbWhere.operator} :${key}`, { [key]: qbWhere.value });
+                qb = qb[compareFn](`${qbWhere.field} ${qbWhere.operator} :${key}`, { [key]: qbWhere.value });
                 varIdx += 1;
             }
         }
@@ -175,7 +181,7 @@ export class QueryBuilderHelper {
         wheres: QBWhere[] = [],
     ): Promise<void> {
         let qb = repository.createQueryBuilder().delete().from(entity, from);
-        qb = QueryBuilderHelper.addWheres<T>(qb, wheres, "delete") as DeleteQueryBuilder<T>;
+        qb = QueryBuilderHelper.addWheres<T>(qb, wheres, "delete", "AND") as DeleteQueryBuilder<T>;
         await qb.execute();
     }
 
@@ -201,7 +207,7 @@ export class QueryBuilderHelper {
         qb = QueryBuilderHelper.addSelect<T>(qb, select);
         qb = QueryBuilderHelper.addFroms<T>(qb, from);
         qb = QueryBuilderHelper.addRelations<T>(qb, alias, relations);
-        qb = QueryBuilderHelper.addWheres<T>(qb, wheres, alias) as SelectQueryBuilder<T>;
+        qb = QueryBuilderHelper.addWheres<T>(qb, wheres, alias, "AND") as SelectQueryBuilder<T>;
         qb = QueryBuilderHelper.addOrders<T>(qb, orders);
         qb = QueryBuilderHelper.addGroupBys<T>(qb, groupBys);
         qb = QueryBuilderHelper.addOffset<T>(qb, offset);
