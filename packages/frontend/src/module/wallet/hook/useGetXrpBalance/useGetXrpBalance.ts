@@ -10,7 +10,6 @@ import { walletState } from "module/wallet/state/WalletState";
 export const useGetXrpBalance = (): UseQueryResult<number> => {
     const { showToast } = useToast();
     const translate = useTranslate("error");
-    const xrplService = new XrplService();
     const { address, active } = useWallet();
     const setWalletState = useSetRecoilState(walletState);
 
@@ -18,7 +17,7 @@ export const useGetXrpBalance = (): UseQueryResult<number> => {
         ["xrp-balance", address],
         async () => {
             try {
-                return await xrplService.getAvailableBalance(address ?? "");
+                return await XrplService.getAvailableBalance(address ?? "");
             } catch (e) {
                 if (active && e instanceof Error) {
                     setWalletState((state) => ({ ...state, active: false }));

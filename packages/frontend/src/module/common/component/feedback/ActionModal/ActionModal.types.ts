@@ -1,4 +1,4 @@
-import { ReactElement } from "react";
+import { ReactElement, ReactNode } from "react";
 import { ModalProps } from "module/common/component/feedback/Modal/Modal.types";
 import { ButtonVariant } from "@peersyst/react-components";
 
@@ -24,5 +24,6 @@ export interface ActionModalProps extends ModalProps {
     children: {
         cover: ReactElement;
         tabs: ActionTab[];
+        footer?: ReactNode;
     };
 }

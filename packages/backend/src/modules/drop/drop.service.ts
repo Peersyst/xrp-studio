@@ -93,11 +93,15 @@ export class DropService {
      * Checks if a collection can become a drop
      */
     async canCollectionBecomeDrop(id: number): Promise<boolean> {
-        const nonDraft = await this.nftService.findOne({
-            status: In([NftStatus.FAILED, NftStatus.PENDING, NftStatus.CONFIRMED]),
-            collectionId: id,
-        });
-        return !nonDraft;
+        try {
+            await this.nftService.findOne({
+                status: In([NftStatus.FAILED, NftStatus.PENDING, NftStatus.CONFIRMED]),
+                collectionId: id,
+            });
+            return false;
+        } catch (e) {
+            return true;
+        }
     }
 
     async requestAuthorization(address: string): Promise<void> {

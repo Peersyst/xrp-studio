@@ -1,5 +1,5 @@
 import { useSearchParams } from "react-router-dom";
-import { Form, useModal, useToast } from "@peersyst/react-components";
+import { Form, useToast } from "@peersyst/react-components";
 import { useNavigate } from "react-router-dom";
 import { DropCreationForm } from "module/drop/types";
 import DropCreationPageHeader from "module/drop/page/DropCreationPage/DropCreationPageHeader/DropCreationPageHeader";
@@ -9,9 +9,9 @@ import { useEffect, useState } from "react";
 import DropCreationPageContent from "./DropCreationPageContent/DropCreationPageContent";
 import useWallet from "module/wallet/hook/useWallet";
 import useTranslate from "module/common/hook/useTranslate";
-import DropLaunchModal from "module/drop/component/feedback/DropLaunchModal/DropLaunchModal";
-import createDropRequestFromForm from "module/drop/util/createDropRequestFromForm";
+import createDropRequestFromForm, { CreateDropFormRequest } from "module/drop/util/createDropRequestFromForm";
 import { LandingRoutes } from "module/landing/LandingRouter";
+import DropLaunchInformationDialog from "module/drop/component/feedback/DropLaunchInformationDialog/DropLaunchInformationDialog";
 
 const DropCreationPage = (): JSX.Element => {
     const [searchParams] = useSearchParams();
@@ -23,15 +23,17 @@ const DropCreationPage = (): JSX.Element => {
     }, [collectionIdQueryParam]);
 
     const { showToast } = useToast();
-    const { showModal } = useModal();
     const translateError = useTranslate("error");
+    const [showInformationDialog, setShowInformationDialog] = useState(false);
+    const [request, setRequest] = useState<CreateDropFormRequest | undefined>();
 
     const { address } = useWallet();
     const { data: collection, isLoading: collectionLoading } = useGetCollection(collectionId);
     const navigate = useNavigate();
 
     const handleSubmit = async (data: DropCreationForm) => {
-        showModal(DropLaunchModal, { request: createDropRequestFromForm(collection!.id, data), collection: collection! });
+        setRequest(createDropRequestFromForm(collection!.id, data));
+        setShowInformationDialog(true);
     };
 
     useEffect(() => {
@@ -49,6 +51,12 @@ const DropCreationPage = (): JSX.Element => {
 
     return (
         <Form onSubmit={handleSubmit}>
+            <DropLaunchInformationDialog
+                open={showInformationDialog}
+                onClose={() => setShowInformationDialog(false)}
+                collection={collection}
+                request={request}
+            />
             <BasePage>
                 {{
                     header: <DropCreationPageHeader loading={collectionLoading} />,
