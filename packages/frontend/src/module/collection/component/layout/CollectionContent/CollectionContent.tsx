@@ -1,24 +1,15 @@
-import NothingToShow from "module/common/component/feedback/NothingToShow/NothingToShow";
 import PageContent from "module/common/component/layout/PageContent/PageContent";
-import useTranslate from "module/common/hook/useTranslate";
-import NftGrid from "module/nft/component/layout/NftGrid/NftGrid";
-import { useGetCollectionNfts } from "module/nft/query/useGetCollectionNfts";
 import { useParams } from "react-router-dom";
+import CollectionNftsGrid from "module/nft/component/display/CollectionNftsGrid/CollectionNftsGrid";
+import useGetCollectionByPath from "module/collection/query/useGetCollectionByPath";
 
 const CollectionContent = (): JSX.Element => {
-    const translateError = useTranslate("error");
-    const { id } = useParams<string>();
-    const { data, hasNextPage, fetchNextPage, isFetching } = useGetCollectionNfts(Number(id));
+    const { path } = useParams<string>();
+    const { data: collection, isLoading: collectionLoading } = useGetCollectionByPath(path);
 
     return (
         <PageContent>
-            <NftGrid
-                data={data}
-                callback={() => fetchNextPage({ cancelRefetch: false })}
-                end={!hasNextPage}
-                loadingNfts={isFetching}
-                nothingToShow={<NothingToShow label={translateError("collectionDoesNotContainNfts")} />}
-            />
+            <CollectionNftsGrid id={collection?.id} loading={collectionLoading} />
         </PageContent>
     );
 };

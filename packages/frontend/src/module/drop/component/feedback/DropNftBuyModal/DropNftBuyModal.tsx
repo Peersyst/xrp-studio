@@ -44,7 +44,7 @@ const DropNftBuyModal = createModal<DropNftBuyModalProps>(({ dropId, ...modalPro
                 ),
                 tabs: [
                     {
-                        content: <DropNftBuyModalInformation drop={drop!} collection={name} />,
+                        content: <DropNftBuyModalInformation loading={dropLoading} drop={drop} collection={name} />,
                         actions: [
                             { action: "next", label: translate("confirm") },
                             { action: "close", label: translate("cancel") },

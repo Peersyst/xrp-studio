@@ -31,6 +31,8 @@ declare module "@peersyst/react-components" {
         maxDiscordUsernameChars: number;
         minDiscordUsernameChars: number;
         maxNftDescChars: number;
+        maxNftNameChars: number;
+        maxCollectionNameChars: number;
         maxNumberDecimals: number;
         tokenName: string;
         feeInDrops: number;
@@ -40,6 +42,7 @@ declare module "@peersyst/react-components" {
             network: NetworkType;
             url: string;
         };
+        dropNftMintCost: string; // Drops
     }
 
     export interface CreateConfig {
@@ -69,6 +72,7 @@ declare module "@peersyst/react-components" {
             network: string;
             url: string;
         };
+        dropNftMintCost: string; // Drops
     }
 
     export interface ExtraValidators {

@@ -3,6 +3,8 @@
 /* eslint-disable */
 import type { CreateDropRequest } from '../models/CreateDropRequest';
 import type { DropDto } from '../models/DropDto';
+import type { DropPaymentDto } from '../models/DropPaymentDto';
+import type { DropPaymentRequest } from '../models/DropPaymentRequest';
 import type { PaginatedDropDto } from '../models/PaginatedDropDto';
 import type { RequestBuyNftDto } from '../models/RequestBuyNftDto';
 
@@ -13,7 +15,7 @@ import { request as __request } from '../core/request';
 export class DropService {
 
     /**
-     * Gets a drop
+     * Gets a drop by id
      * @param id
      * @returns DropDto
      * @throws ApiError
@@ -26,6 +28,24 @@ export class DropService {
             url: '/api/drop/{id}',
             path: {
                 'id': id,
+            },
+        });
+    }
+
+    /**
+     * Gets a drop by drop name and artist name
+     * @param path
+     * @returns DropDto
+     * @throws ApiError
+     */
+    public static dropControllerGetDropByPath(
+        path: string,
+    ): CancelablePromise<DropDto> {
+        return __request(OpenAPI, {
+            method: 'GET',
+            url: '/api/drop/by-path/{path}',
+            path: {
+                'path': path,
             },
         });
     }
@@ -75,6 +95,23 @@ export class DropService {
         return __request(OpenAPI, {
             method: 'POST',
             url: '/api/drop',
+            body: requestBody,
+            mediaType: 'application/json',
+        });
+    }
+
+    /**
+     * Sends a drop payment request to XUMM
+     * @param requestBody
+     * @returns DropPaymentDto
+     * @throws ApiError
+     */
+    public static dropControllerPayment(
+        requestBody: DropPaymentRequest,
+    ): CancelablePromise<DropPaymentDto> {
+        return __request(OpenAPI, {
+            method: 'POST',
+            url: '/api/drop/payment',
             body: requestBody,
             mediaType: 'application/json',
         });

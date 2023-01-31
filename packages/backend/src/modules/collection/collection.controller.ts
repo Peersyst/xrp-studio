@@ -10,6 +10,7 @@ import { CreateCollectionRequest } from "./request/create-collection.request";
 import { XummAuthenticated } from "@peersyst/xumm-module";
 import { UpdateCollectionRequest } from "./request/update-collection.request";
 import { CreateCollectionQueryRequest } from "./request/create-collection-query-request";
+import { AvailabilityDto } from "../drop/dto/availability.dto";
 
 @ApiTags("collection")
 @Controller("collection")
@@ -18,9 +19,22 @@ export class CollectionController {
     constructor(private readonly collectionService: CollectionService) {}
 
     @Get(":id")
-    @ApiOperation({ description: "Gets a collection" })
+    @ApiOperation({ description: "Gets a collection by id" })
     async getCollection(@Param("id", ParseIntPipe) id: number): Promise<CollectionDto> {
         return this.collectionService.findOne({ id }, { relations: ["user", "nfts", "nfts.metadata", "nfts.metadata.attributes"] });
+    }
+
+    @Get("by-path/:path")
+    @ApiOperation({ description: "Gets a collection by collection name and artist name" })
+    async getCollectionByPath(@Param("path") path: string): Promise<CollectionDto> {
+        return this.collectionService.findOne({ path }, { relations: ["user", "nfts", "nfts.metadata", "nfts.metadata.attributes"] });
+    }
+
+    @Get("name-availability/:name")
+    @ApiOperation({ description: "Check if the name of a collection already exists for a user." })
+    @XummAuthenticated()
+    async collectionNameAvailability(@Param("name") name: string, @Request() req): Promise<AvailabilityDto> {
+        return { available: await this.collectionService.collectionNameIsAvailable(name, req.user.address) };
     }
 
     @Get()

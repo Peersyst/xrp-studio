@@ -3,7 +3,7 @@ import { ActionStepsHandlers, Step } from "module/common/component/feedback/Acti
 import ActionSteps from "module/common/component/feedback/ActionSteps/ActionSteps";
 import useBuyNftDrop from "module/drop/query/useBuyNftDrop";
 import useNftIsPublishedPolling from "module/drop/hook/useNftIsPublishedPolling";
-import useXummRequestIsSignedPolling from "module/wallet/hook/useXummRequestIsSignedPolling";
+import xummRequestIsSignedPolling from "module/wallet/util/xummRequestIsSignedPolling";
 
 interface DropNftBuyModalActionsProps extends Omit<ActionStepsHandlers, "onSuccess"> {
     dropId?: number;
@@ -15,7 +15,6 @@ const DropNftBuyModalActions = ({ dropId, onStart, onEnd, onSuccess, onError }: 
 
     const { mutateAsync: buyNftDrop, data: data } = useBuyNftDrop();
     const { fetch: nftIsPublishedPolling } = useNftIsPublishedPolling(data?.nftId);
-    const { fetch: requestIsSignedPolling } = useXummRequestIsSignedPolling(data?.xummRequestUuid);
 
     const steps: Step[] = [
         {
@@ -26,7 +25,7 @@ const DropNftBuyModalActions = ({ dropId, onStart, onEnd, onSuccess, onError }: 
         {
             title: translate("transactionSignature"),
             description: translate("pleaseSignTransaction"),
-            execution: requestIsSignedPolling,
+            execution: () => xummRequestIsSignedPolling(data!.xummRequestUuid),
         },
         {
             title: translate("processingYourOrder"),

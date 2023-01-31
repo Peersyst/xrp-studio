@@ -11,7 +11,7 @@ import {
 
 const ActionStep = ({
     step: { title, description, execution, warning, warningMessage },
-    active,
+    active = false,
     stepNumber,
     onSuccess,
     onError,
@@ -38,7 +38,7 @@ const ActionStep = ({
     }, [active]);
 
     return (
-        <Expandable open={active || warning}>
+        <Expandable open={active}>
             <Expandable.Display ExpandComponent={false}>
                 <Row gap={10} alignItems="center">
                     {!active && !state.error && !state.finished && (
@@ -58,7 +58,7 @@ const ActionStep = ({
             <Expandable.Body>
                 <Expandable.Content>
                     <Typography variant="body2" color={"black.40"}>
-                        {state.error || warning ? (state.error ? errorMsg : warningMessage) : description}
+                        {state.error ? errorMsg : warning ? warningMessage : description}
                     </Typography>
                 </Expandable.Content>
             </Expandable.Body>

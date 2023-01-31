@@ -1,5 +1,4 @@
 import { Col, Skeleton, Typography } from "@peersyst/react-components";
-import useGetCollection from "module/nft/query/useGetCollection";
 import {
     CollectionCover,
     CollectionHeaderBack,
@@ -10,10 +9,11 @@ import {
 import CollectionInfo from "./CollectionInfo/CollectionInfo";
 import { useParams } from "react-router-dom";
 import { config } from "config";
+import useGetCollectionByPath from "module/collection/query/useGetCollectionByPath";
 
 const CollectionHeader = (): JSX.Element => {
-    const { id } = useParams<string>();
-    const { data: collection, isLoading: collectionLoading } = useGetCollection(id ? Number(id) : undefined);
+    const { path } = useParams<string>();
+    const { data: collection, isLoading: collectionLoading } = useGetCollectionByPath(path);
     const { header, image, name = "" } = collection || {};
 
     return (

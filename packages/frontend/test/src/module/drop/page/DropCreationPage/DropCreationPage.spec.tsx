@@ -13,10 +13,8 @@ import { render, translate } from "test-utils";
 import { waitFor } from "@testing-library/dom";
 import DropCreationPage from "module/drop/page/DropCreationPage/DropCreationPage";
 import { CollectionService, NftService } from "module/api/service";
-import { DashboardRoutes } from "module/dashboard/DashboardRouter";
-import userEvent from "@testing-library/user-event";
 import * as CreateDropRequestFromForm from "module/drop/util/createDropRequestFromForm";
-import DropLaunchModal from "module/drop/component/feedback/DropLaunchModal/DropLaunchModal";
+import { LandingRoutes } from "module/landing/LandingRouter";
 
 describe("DropCreationPage", () => {
     const paginatedNftsMock = new PaginatedNftsMock().pages[0];
@@ -66,15 +64,6 @@ describe("DropCreationPage", () => {
             // Preview
             await waitFor(() => expect(screen.getByRole("heading", { name: collectionDtoMock.name })).toBeInTheDocument());
         });
-
-        test("Launch drop", async () => {
-            render(<DropCreationPage />);
-            const launchButton = screen.getByRole("button", { name: translate("launchDrop") });
-            // Await Collection call
-            await waitFor(() => expect(launchButton).not.toBeDisabled());
-            userEvent.click(launchButton);
-            await waitFor(() => expect(useModalMock.showModal).toHaveBeenCalledWith(DropLaunchModal, expect.any(Object)));
-        });
     });
 
     describe("Collection id is not provided", () => {
@@ -89,7 +78,7 @@ describe("DropCreationPage", () => {
         test("Redirects to /", () => {
             render(<DropCreationPage />);
 
-            expect(useNavigateMock.navigate).toHaveBeenCalledWith(DashboardRoutes.MAIN);
+            expect(useNavigateMock.navigate).toHaveBeenCalledWith(LandingRoutes.HOME);
         });
     });
 
@@ -118,7 +107,7 @@ describe("DropCreationPage", () => {
             await waitFor(() =>
                 expect(useToastMock.showToast).toHaveBeenCalledWith(translate("collectionNotOwned", { ns: "error" }), { type: "warning" }),
             );
-            expect(useNavigateMock.navigate).toHaveBeenCalledWith(DashboardRoutes.MAIN);
+            expect(useNavigateMock.navigate).toHaveBeenCalledWith(LandingRoutes.HOME);
         });
 
         test("Collection does not exist", async () => {
@@ -126,7 +115,7 @@ describe("DropCreationPage", () => {
 
             render(<DropCreationPage />);
 
-            await waitFor(() => expect(useNavigateMock.navigate).toHaveBeenCalledWith(DashboardRoutes.MAIN));
+            await waitFor(() => expect(useNavigateMock.navigate).toHaveBeenCalledWith(LandingRoutes.HOME));
         });
     });
 });

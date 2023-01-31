@@ -1,7 +1,6 @@
 import { Col, Row, Skeleton, Typography } from "@peersyst/react-components";
 import { CollectionInfoRoot, CollectionMainInfo, CollectionsButtons } from "./CollectionInfo.styles";
 import { useParams } from "react-router-dom";
-import useGetCollection from "module/nft/query/useGetCollection";
 import useTranslate from "module/common/hook/useTranslate";
 import Button from "module/common/component/input/Button/Button";
 import { useNavigate } from "react-router-dom";
@@ -9,11 +8,12 @@ import { CollectionRoutes } from "module/collection/router/CollectionRouter";
 import ShareButton from "module/common/component/input/ShareButton/ShareButton";
 import { SocialShareOptions } from "module/common/component/input/ShareButton/ShareButton.types";
 import useWallet from "module/wallet/hook/useWallet";
+import useGetCollectionByPath from "module/collection/query/useGetCollectionByPath";
 
 const CollectionInfo = (): JSX.Element => {
-    const { id } = useParams<string>();
+    const { path } = useParams<string>();
     const translate = useTranslate();
-    const { data: collection, isLoading: collectionLoading } = useGetCollection(id ? Number(id) : undefined);
+    const { data: collection, isLoading: collectionLoading } = useGetCollectionByPath(path);
     const { name, items = 0 } = collection || {};
     const navigate = useNavigate();
     const { address } = useWallet();
@@ -21,7 +21,7 @@ const CollectionInfo = (): JSX.Element => {
     const shareData: ShareData = {
         title: "XRP Studio",
         text: translate("checkoutMyCollection"),
-        url: window.location.origin + CollectionRoutes.VIEW_COLLECTION.replace(":id", id ? String(id) : ""),
+        url: window.location.origin + CollectionRoutes.VIEW_COLLECTION.replace(":path", path!),
     };
     return (
         <CollectionInfoRoot gap={"0.5rem"}>
@@ -48,14 +48,16 @@ const CollectionInfo = (): JSX.Element => {
                     </Typography>
                 </Skeleton>
             </Col>
-            <CollectionsButtons gap="0.5rem">
-                <ShareButton shareData={shareData} networks={[SocialShareOptions.TWITTER]} />
-                {address && address === collection?.account && (
-                    <Button size="sm" onClick={() => navigate(`${CollectionRoutes.CREATE_COLLECTION}?id=${id}`)}>
-                        {translate("editCollection")}
-                    </Button>
-                )}
-            </CollectionsButtons>
+            {!collectionLoading && (
+                <CollectionsButtons gap="0.5rem">
+                    <ShareButton shareData={shareData} networks={[SocialShareOptions.TWITTER]} />
+                    {address && address === collection?.account && (
+                        <Button size="sm" onClick={() => navigate(CollectionRoutes.EDIT_COLLECTION.replace(":path", path!))}>
+                            {translate("editCollection")}
+                        </Button>
+                    )}
+                </CollectionsButtons>
+            )}
         </CollectionInfoRoot>
     );
 };

@@ -1,6 +1,6 @@
 import { Inject, Injectable } from "@nestjs/common";
 import { InjectRepository } from "@nestjs/typeorm";
-import { Repository } from "typeorm";
+import { In, Repository } from "typeorm";
 import { Drop } from "../../database/entities/Drop";
 import { DropDto, PaginatedDropDto } from "./dto/drop.dto";
 
@@ -24,10 +24,15 @@ import { dropsToXrp, NFTokenAcceptOffer, xrpToDrops } from "xrpl";
 import { ConfigService } from "@nestjs/config";
 import { RequestBuyNftDto } from "./dto/requestBuyNft.dto";
 import { GetDropsRequest } from "./request/get-drops.request";
+import { DropPaymentRequest } from "./request/drop-payment.request";
+import { DropPaymentDto } from "./dto/drop-payment.dto";
+import { TxResponse } from "xrpl/dist/npm/models/methods/tx";
+import { Payment } from "xrpl/dist/npm/models/transactions/payment";
 
 @Injectable()
 export class DropService {
     private readonly sellCommissionPct: number;
+    private readonly dropNftMintCost: string;
 
     constructor(
         private readonly blockchainService: BlockchainService,
@@ -43,6 +48,7 @@ export class DropService {
         @InjectQueue("transaction-status") private readonly transactionStatusQueue: Queue,
     ) {
         this.sellCommissionPct = this.configService.get<number>("xrp.sellCommissionPct");
+        this.dropNftMintCost = this.configService.get<string>("xrp.dropNftMintCost");
     }
 
     async findAll(filters: GetDropsRequest = { page: 1, pageSize: 15 }): Promise<PaginatedDropDto> {
@@ -74,17 +80,65 @@ export class DropService {
         return DropDto.fromEntity(drop);
     }
 
+    async findByPath(path: string): Promise<DropDto> {
+        const drop = await this.dropRepository.findOne({
+            where: { collection: { path } },
+            relations: ["collection", "collection.user", "faqs"],
+        });
+        if (!drop) throw new BusinessException(ErrorCode.DROP_NOT_FOUND);
+        return DropDto.fromEntity(drop);
+    }
+
+    /**
+     * Checks if a collection can become a drop
+     */
+    async canCollectionBecomeDrop(id: number): Promise<boolean> {
+        try {
+            await this.nftService.findOne({
+                status: In([NftStatus.FAILED, NftStatus.PENDING, NftStatus.CONFIRMED]),
+                collectionId: id,
+            });
+            return false;
+        } catch (e) {
+            return true;
+        }
+    }
+
     async requestAuthorization(address: string): Promise<void> {
         const transaction = this.blockchainTransactionService.prepareAuthorizeMinterTransaction(address);
         await this.xummTransactionService.sendTransactionRequest(address, transaction);
     }
 
+    async calculateDropMintingPrice(collectionId: number): Promise<string> {
+        const ntfsToMint = await this.nftService.count({ collectionId, status: NftStatus.DRAFT });
+        return (BigInt(this.dropNftMintCost) * BigInt(ntfsToMint)).toString();
+    }
+
+    async dropPayment(ownerAddress: string, { collectionId }: DropPaymentRequest): Promise<DropPaymentDto> {
+        const collectionCanBecomeDrop = await this.canCollectionBecomeDrop(collectionId);
+        if (!collectionCanBecomeDrop) throw new BusinessException(ErrorCode.COLLECTION_ALREADY_LAUNCHED);
+
+        const totalPrice = await this.calculateDropMintingPrice(collectionId);
+
+        const payment = await this.blockchainTransactionService.preparePaymentToMintingAccount({
+            account: ownerAddress,
+            amount: totalPrice.toString(),
+            memo: JSON.stringify({ collectionId }),
+        });
+
+        const xummPayload = await this.xummTransactionService.sendTransactionRequest(ownerAddress, payment);
+
+        return {
+            xummUuid: xummPayload.uuid,
+        };
+    }
+
     async requestBuyNft(buyerAddress, dropId: number): Promise<RequestBuyNftDto> {
         const nftsInDrop = await this.nftInDropRepository
             .createQueryBuilder("nftInDrop")
-            .where("nftInDrop.dropId = :dropId AND nftInDrop.status != :status AND nftInDrop.offerId IS NOT NULL", {
+            .where("nftInDrop.dropId = :dropId AND nftInDrop.status NOT IN (:...status) AND nftInDrop.offerId IS NOT NULL", {
                 dropId,
-                status: NftInDropStatus.SOLD,
+                status: [NftInDropStatus.SOLD, NftInDropStatus.FUNDED, NftInDropStatus.FUNDING],
             })
             .getMany();
 
@@ -96,6 +150,26 @@ export class DropService {
         return { nftId: nftInDrop.nftId, xummRequestUuid: payload.uuid };
     }
 
+    async isValidDropPayment(ownerAddress: string, collectionId: number, tx: TxResponse["result"]): Promise<boolean> {
+        if (!tx.validated || !this.blockchainTransactionService.isValidPaymentToMintingAccount(tx, ownerAddress) || !tx.Memos) return false;
+
+        const paymentTx = tx as Payment;
+        if (typeof paymentTx.Amount !== "string" || BigInt(paymentTx.Amount) < BigInt(await this.calculateDropMintingPrice(collectionId)))
+            return false;
+
+        let paymentCollectionId: number;
+        for (const { Memo } of paymentTx.Memos) {
+            try {
+                const parsedMemo = JSON.parse(Buffer.from(Memo.MemoData, "hex").toString());
+                if (parsedMemo.collectionId) {
+                    paymentCollectionId = Number(parsedMemo.collectionId);
+                    break;
+                }
+            } catch (e) {}
+        }
+        return collectionId === paymentCollectionId;
+    }
+
     async publish(ownerAddress: string, createDropRequest: CreateDropRequest): Promise<DropDto> {
         const collection = await this.collectionService.findOne(
             { id: createDropRequest.collectionId },
@@ -105,9 +179,11 @@ export class DropService {
             },
         );
 
-        if (!collection.user?.verifiedArtist) {
-            throw new BusinessException(ErrorCode.USER_IS_NOT_VERIFIED);
-        }
+        const paymentTx = await this.blockchainTransactionService.getTransaction(createDropRequest.paymentHash);
+
+        if (!paymentTx) throw new BusinessException(ErrorCode.DROP_PAYMENT_NOT_FOUND);
+        if (!(await this.isValidDropPayment(ownerAddress, createDropRequest.collectionId, paymentTx)))
+            throw new BusinessException(ErrorCode.INVALID_DROP_PAYMENT);
 
         if (collection.nfts.some((nft) => nft.status !== NftStatus.DRAFT)) {
             throw new BusinessException(ErrorCode.COLLECTION_ALREADY_LAUNCHED);
@@ -148,7 +224,7 @@ export class DropService {
     }
 
     async mintNftInDrop(nftId: number): Promise<void> {
-        const nft = await this.nftService.findOne(nftId, { relations: ["collection", "user"] });
+        const nft = await this.nftService.findOne({ id: nftId }, { relations: ["collection", "user"] });
         const uri = await this.metadataService.calculateUri(nftId);
 
         const transaction = await this.blockchainTransactionService.prepareNftMintTransaction({
@@ -163,6 +239,8 @@ export class DropService {
 
         const signedTx = this.blockchainTransactionService.signTransactionWithMintingAccount(transaction);
         await this.blockchainTransactionService.broadcastTransaction(signedTx.tx_blob);
+
+        await new Promise((resolve) => setTimeout(resolve, 1000));
 
         await this.nftInDropRepository.update(
             { nftId: nft.id },

@@ -22,10 +22,14 @@ const CollectionInformation = ({
             label: translate("name"),
             content: name,
         },
-        {
-            label: translate("items"),
-            content: formatNumber(items),
-        },
+        ...(items > 0
+            ? [
+                  {
+                      label: translate("items"),
+                      content: formatNumber(items),
+                  },
+              ]
+            : []),
         ...additionalFields,
     ];
 

@@ -1,25 +1,14 @@
 import { useParams } from "react-router-dom";
-import { useNavigate } from "react-router-dom";
-import { useEffect } from "react";
-import { DashboardRoutes } from "module/dashboard/DashboardRouter";
-import useGetDrop from "module/drop/query/useGetDrop";
 import DropLanding from "module/drop/component/display/DropLanding/DropLanding";
-import { useGetCollectionNfts } from "module/nft/query/useGetCollectionNfts";
-import { usePaginatedList } from "@peersyst/react-hooks";
 import NotFoundPage from "module/common/page/NotFoundPage/NotFoundPage";
+import useGetDropByPath from "module/drop/query/useGetDropByPath";
+import { useGetDropNfts } from "module/nft/query/useGetDropNfts";
 
 const DropLandingPage = (): JSX.Element => {
-    const { id } = useParams<string>();
-    const dropId = Number(id);
-    const navigate = useNavigate();
-    const { data: drop, isLoading: dropLoading } = useGetDrop(dropId);
+    const { path } = useParams<string>();
+    const { data: drop, isLoading: dropLoading } = useGetDropByPath(path);
 
-    const { data: paginatedNfts, isLoading: loadingNfts } = useGetCollectionNfts(drop?.collection?.id);
-    const nfts = usePaginatedList(paginatedNfts?.pages, (page) => page.items);
-
-    useEffect(() => {
-        if (dropId !== undefined && (Number.isNaN(dropId) || dropId < 1)) navigate(DashboardRoutes.MAIN);
-    }, [dropId, drop, dropLoading]);
+    const { data: nfts, isLoading: loadingNfts } = useGetDropNfts(drop?.id);
 
     if (!dropLoading && !drop) return <NotFoundPage />;
 

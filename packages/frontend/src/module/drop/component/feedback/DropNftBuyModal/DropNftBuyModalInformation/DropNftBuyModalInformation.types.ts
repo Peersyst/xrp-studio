@@ -1,6 +1,7 @@
 import { DropDto } from "module/api/service";
 
 export interface DropNftBuyModalInformationProps {
-    drop: DropDto;
+    loading?: boolean;
+    drop: DropDto | undefined;
     collection?: string;
 }

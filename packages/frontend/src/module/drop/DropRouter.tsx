@@ -4,7 +4,7 @@ import LoggedInRoute from "module/wallet/component/navigation/LoggedInRoute/Logg
 
 export enum DropRoutes {
     DROP_CREATION = "/drops/creation",
-    DROP = "/drops/:id",
+    DROP = "/:path",
     MY_DROPS = "/drops/my-drops",
 }
 

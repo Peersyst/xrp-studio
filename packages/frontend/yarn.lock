@@ -2487,14 +2487,6 @@
     react-player "^2.9.0"
     react-transition-group "^4.4.2"
 
-"@peersyst/react-hooks@^2.0.4":
-  version "2.0.4"
-  resolved "https://registry.yarnpkg.com/@peersyst/react-hooks/-/react-hooks-2.0.4.tgz#7eaf9c2676766a94471684cc425d4578a82da377"
-  integrity sha512-XO6xHmBIrsVdCyf22YDqatNc1CLdTmMmBxTQU2BKW4t1I4rDfLd+5DYnLif4kb3JpDvdQws8iU8Iyf8RypbW8A==
-  dependencies:
-    "@babel/runtime" "^7.16.7"
-    "@peersyst/react-utils" "^2.1.0"
-
 "@peersyst/react-hooks@^2.2.0":
   version "2.2.0"
   resolved "https://registry.yarnpkg.com/@peersyst/react-hooks/-/react-hooks-2.2.0.tgz#4cc58494690dbe96d682a67307eb832bef44bb06"

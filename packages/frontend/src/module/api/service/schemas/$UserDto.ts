@@ -9,6 +9,7 @@ export const $UserDto = {
         },
         name: {
             type: 'string',
+            isRequired: true,
         },
         description: {
             type: 'string',

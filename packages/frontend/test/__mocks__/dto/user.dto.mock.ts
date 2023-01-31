@@ -2,7 +2,7 @@ import { UserDto } from "module/api/service";
 
 export class UserDtoMock {
     address: string;
-    name?: string;
+    name: string;
     description?: string;
     image?: string;
     header?: string;

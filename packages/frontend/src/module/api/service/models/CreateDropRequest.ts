@@ -6,6 +6,7 @@ import type { CreateDropFaqsRequest } from './CreateDropFaqsRequest';
 
 export type CreateDropRequest = {
     collectionId: number;
+    paymentHash: string;
     price: string;
     backgroundColor: string;
     fontColor: string;

@@ -11,6 +11,7 @@ import { QueryBuilderHelper } from "../common/util/query-builder.helper";
 import { GetUsersRequest } from "./request/get-users.request";
 import { NftStatus } from "../../database/entities/Nft";
 import generateName from "./util/name-generator/generate-name";
+import { getRandomNumber } from "../common/util/random";
 
 @Injectable()
 export class UserService {
@@ -37,12 +38,15 @@ export class UserService {
      */
     async getRandomUserName(): Promise<string> {
         const name = generateName();
-        const nameSequence = await this.userRepository.query(
-            `SELECT CASE WHEN REPLACE(name, $1, '') = '' THEN 1 ELSE CAST(REPLACE(name, $1, '') as int) END as sequence FROM "user" WHERE "user".name LIKE CONCAT($1, '%') ORDER BY sequence DESC LIMIT 1;`,
-            [name],
-        );
-        if (nameSequence.length) return name + (nameSequence[0].sequence + 1);
-        else return name;
+        const user = await this.userRepository.findOne({ name });
+        if (!user) return name;
+        else {
+            let nameSequence: number;
+            do {
+                nameSequence = getRandomNumber(2, 999999);
+            } while (await this.userRepository.findOne({ name: name + nameSequence }));
+            return name + nameSequence;
+        }
     }
 
     /**
@@ -104,12 +108,8 @@ export class UserService {
     /**
      * Checks if a userName already exists
      */
-    async findName(name: string): Promise<boolean> {
-        try {
-            await this.findOneByName(name);
-            return true;
-        } catch (e) {
-            return false;
-        }
+    async userNameIsAvailable(name: string): Promise<boolean> {
+        const user = await this.userRepository.findOne({ name });
+        return !user;
     }
 }

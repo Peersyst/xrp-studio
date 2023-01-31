@@ -7,9 +7,9 @@ import * as Router from "react-router-dom";
 describe("Test for the CollectionPage", () => {
     describe("Collection render", () => {
         test("Renders correctly with nfts", async () => {
-            jest.spyOn(Router, "useParams").mockReturnValue({ id: "1" });
+            jest.spyOn(Router, "useParams").mockReturnValue({ path: "path" });
             const collectionMock = new CollectionDtoMock();
-            jest.spyOn(CollectionService, "collectionControllerGetCollection").mockResolvedValue(collectionMock);
+            jest.spyOn(CollectionService, "collectionControllerGetCollectionByPath").mockResolvedValue(collectionMock);
             const data = new PaginatedDataMock<NftDtoMock[]>({ items: new NftsDtoMock({ length: 10 }).nfts });
             jest.spyOn(NftService, "nftControllerGetNfts").mockResolvedValue(data);
             const screen = render(<CollectionPage />);

@@ -1,7 +1,6 @@
 import { renderHook } from "test-utils";
 import useGoBack from "module/common/hook/useGoBack";
 import * as ReactRouterDom from "react-router-dom";
-import { DashboardRoutes } from "module/dashboard/DashboardRouter";
 
 const renderUseGoBack = () =>
     renderHook(() => {
@@ -14,7 +13,7 @@ describe("useGoBack", () => {
         jest.spyOn(ReactRouterDom, "useNavigate").mockReturnValue(mockedNavigate);
         const result = renderUseGoBack();
         result.current();
-        expect(mockedNavigate).toHaveBeenCalledWith(DashboardRoutes.MAIN, { replace: true });
+        expect(mockedNavigate).toHaveBeenCalledWith("/", { replace: true });
     });
 
     test("Goes back to home previous page", () => {

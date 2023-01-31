@@ -14,10 +14,11 @@ export class CollectionDto {
     header?: string;
     items: number;
     account: string;
-    user?: UserDto;
+    path: string;
+    user: UserDto;
     nfts?: (NftDto | NftDraftDto)[];
 
-    static fromEntity({ id, taxon, name, description, image, header, user, items, account, nfts }: Collection): CollectionDto {
+    static fromEntity({ id, taxon, name, description, image, header, user, items, account, path, nfts }: Collection): CollectionDto {
         return {
             id,
             taxon: Number(taxon),
@@ -27,6 +28,7 @@ export class CollectionDto {
             header,
             items,
             account,
+            path,
             user: user && UserDto.fromEntity(user),
             nfts:
                 nfts !== undefined &&

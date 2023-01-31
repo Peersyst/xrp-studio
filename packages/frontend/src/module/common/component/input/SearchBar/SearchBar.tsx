@@ -17,7 +17,7 @@ const SearchBar = ({
     ...rest
 }: SearchBarProps): JSX.Element => {
     const t = useTranslate();
-    const { value, handleChange, debouncing } = useDebounce(defaultValue, onSearch);
+    const { value, handleChange, debouncing } = useDebounce(defaultValue, { callback: onSearch });
 
     return (
         <TextField
