@@ -165,7 +165,7 @@ export class CollectionService {
      * Generates collection path from a collection name and a user name
      */
     private async generateCollectionPath(collectionName: string, userName: string): Promise<string> {
-        const path = `${collectionName.replace(" ", "_")}_by_${userName.replace(" ", "_")}`;
+        const path = `${collectionName.replace(new RegExp(" ", "g"), "_")}_by_${userName.replace(new RegExp(" ", "g"), "_")}`;
         const collection = await this.collectionRepository.findOne({ path });
         if (!collection) return path;
         else return `${path}_${collection.id}`;

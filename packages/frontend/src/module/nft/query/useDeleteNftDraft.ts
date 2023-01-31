@@ -7,7 +7,7 @@ export default function (): UseMutationResult<void, unknown, number> {
 
     return useMutation((id: number) => NftService.nftControllerDeleteNftDraft(id), {
         onSuccess: (_, id) => {
-            queryClient.invalidateQueries([Queries.NFT_DRAFTS]);
+            queryClient.invalidateQueries([Queries.MY_NFTS]);
             queryClient.invalidateQueries([Queries.NFT_DRAFT, id]);
         },
     });

@@ -197,7 +197,7 @@ export class NftService {
             { id },
             {
                 ...(issuer !== undefined || address !== undefined ? { issuer: issuer || address } : {}),
-                ...(transferFee !== undefined ? { transferFee: transferFee * 1000 } : {}),
+                ...(transferFee !== undefined ? { transferFee } : {}),
                 ...(flags !== undefined
                     ? {
                           flags: flagsToNumber({

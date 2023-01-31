@@ -3,7 +3,7 @@ import { Form, useToast } from "@peersyst/react-components";
 import { useNavigate } from "react-router-dom";
 import { DropCreationForm } from "module/drop/types";
 import DropCreationPageHeader from "module/drop/page/DropCreationPage/DropCreationPageHeader/DropCreationPageHeader";
-import useGetCollection from "module/nft/query/useGetCollection";
+import useGetCollection from "module/collection/query/useGetCollection";
 import BasePage from "module/common/component/layout/BasePage/BasePage";
 import { useEffect, useState } from "react";
 import DropCreationPageContent from "./DropCreationPageContent/DropCreationPageContent";

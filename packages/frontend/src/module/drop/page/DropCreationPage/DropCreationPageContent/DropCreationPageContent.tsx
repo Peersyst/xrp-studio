@@ -1,7 +1,5 @@
-import { CollectionCreationPageContentProps } from "module/collection/page/CollectionCreationPage/CollectionCreationPageContent/CollectionCreationPageContent.types";
 import PageContent from "module/common/component/layout/PageContent/PageContent";
 import { Col, Row, Skeleton, Typography, WithLoading } from "@peersyst/react-components";
-import { CollectionCreationPageContentCard } from "module/collection/page/CollectionCreationPage/CollectionCreationPageContent/CollectionCreationPageContent.styles";
 import TextField from "module/common/component/input/TextField/TextField";
 import useTranslate from "module/common/hook/useTranslate";
 import ColorInput from "module/common/component/input/ColorInput/ColorInput";
@@ -12,8 +10,10 @@ import FaqsInput from "module/drop/component/input/FaqsInput/FaqsInput";
 import DropLanding from "module/drop/component/display/DropLanding/DropLanding";
 import { XrpIcon } from "icons";
 import { xrpToDrops } from "xrpl";
+import { DropCreationPageContentProps } from "module/drop/page/DropCreationPage/DropCreationPageContent/DropCreationPageContent.types";
+import { CollectionCreationFieldsCard } from "module/collection/component/layout/CollectionCreationPageScaffold/CollectionCrationFields/CollectionCreationFields.styles";
 
-const DropCreationPageContent = ({ loading = false, collection }: WithLoading<CollectionCreationPageContentProps>): JSX.Element => {
+const DropCreationPageContent = ({ loading = false, collection }: WithLoading<DropCreationPageContentProps>): JSX.Element => {
     const translate = useTranslate();
 
     const [{ backgroundColor, videoUrl, instagram, discord, twitter, faqs, price, fontColor }, setDropCreationState] =
@@ -49,7 +49,7 @@ const DropCreationPageContent = ({ loading = false, collection }: WithLoading<Co
                 </Col>
                 <Col flex={3} alignItems="center">
                     <Skeleton loading={loading} width="100%">
-                        <CollectionCreationPageContentCard>
+                        <CollectionCreationFieldsCard>
                             <Col gap="1.5rem">
                                 <TextField
                                     name={DropCreationFormFields.PRICE}
@@ -128,7 +128,7 @@ const DropCreationPageContent = ({ loading = false, collection }: WithLoading<Co
                                     onChange={normalizedHandleChange("faqs")}
                                 />
                             </Col>
-                        </CollectionCreationPageContentCard>
+                        </CollectionCreationFieldsCard>
                     </Skeleton>
                 </Col>
             </Row>

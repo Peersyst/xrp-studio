@@ -23,7 +23,7 @@ const WalletMenu = (): JSX.Element => {
     const logout: MouseEventHandler = (e) => {
         e.preventDefault();
         AuthTokenStorage.clear();
-        queryClient.invalidateQueries([Queries.NFT_DRAFTS]);
+        queryClient.invalidateQueries([Queries.MY_NFTS]);
         resetWalletState();
     };
 
