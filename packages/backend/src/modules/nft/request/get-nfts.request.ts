@@ -75,7 +75,7 @@ export class GetNftsRequest {
     static toFilterClause(req: GetNftsRequest, { requesterAccount }: { requesterAccount?: string }): QBFilter<string> {
         const filter: QBFilter<string> = {
             qbWheres: [],
-            relations: ["metadata", "metadata.attributes", "nftInDrop"],
+            relations: ["metadata", "nftInDrop"],
             qbOrders: [],
         };
 

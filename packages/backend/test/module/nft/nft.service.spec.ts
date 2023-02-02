@@ -567,7 +567,7 @@ describe("NftService", () => {
                 "nft",
                 0,
                 15,
-                ["metadata", "metadata.attributes", "nftInDrop"],
+                ["metadata", "nftInDrop"],
                 [
                     {
                         field: "nft.status",
@@ -597,7 +597,7 @@ describe("NftService", () => {
                 "nft",
                 10,
                 10,
-                ["metadata", "metadata.attributes", "nftInDrop", "collection", "user"],
+                ["metadata", "nftInDrop", "collection", "user"],
                 [
                     { field: "collection.id", operator: FilterType.IN, value: [1] },
                     { field: "owner_account", operator: FilterType.EQUAL, value: ADDRESS },
