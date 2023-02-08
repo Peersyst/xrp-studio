@@ -13,7 +13,7 @@
     "maxUsernameChars": 64,
     "maxTwitterUsernameChars": 15,
     "maxDiscordUsernameChars": 32,
-    "minDiscordUsernameChars": 32,
+    "minDiscordUsernameChars": 2,
     "maxNftNameChars": 255,
     "maxNftDescChars": 255,
     "maxCollectionNameChars": 64,
