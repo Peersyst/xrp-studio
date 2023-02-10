@@ -6,9 +6,8 @@ export default class PhygitalPublicKeyValidator extends BaseValidator {
     }
 
     validate(value: string): boolean {
-        const isHex = /^[0-9a-fA-F]+$/gi.test(value);
         const isBase64 = /^([0-9a-zA-Z+/]{4})*(([0-9a-zA-Z+/]{2}==)|([0-9a-zA-Z+/]{3}=))?$/g.test(value);
 
-        return isHex || isBase64;
+        return isBase64;
     }
 }
