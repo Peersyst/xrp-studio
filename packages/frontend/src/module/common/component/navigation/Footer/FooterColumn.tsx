@@ -21,7 +21,7 @@ const FooterColumn = ({ links }: FooterColProps): JSX.Element => {
                             {translate(`inBarcelona`)}
                         </Typography>
                     ) : (
-                        <a target="_blank" key={index} href={item.link}>
+                        <a target="_blank" key={index} href={item.link} rel="noreferrer">
                             <Typography variant="body2" light>
                                 {translate(`${item.label}`)}
                             </Typography>
