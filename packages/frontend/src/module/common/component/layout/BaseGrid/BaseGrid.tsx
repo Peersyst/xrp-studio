@@ -57,9 +57,7 @@ function BaseGrid<T extends PaginatedData>({
                         {loading && <Skeletons count={6} />}
                     </BaseGridRoot>
                 ) : typeof finalNothingToShow === "string" ? (
-                    <NothingToShow label={finalNothingToShow} css={{ width: "100%", paddingTop: "4rem", height: "12rem" }}>
-                        {finalNothingToShow}
-                    </NothingToShow>
+                    <NothingToShow label={finalNothingToShow} css={{ width: "100%", paddingTop: "4rem", height: "12rem" }} />
                 ) : (
                     finalNothingToShow
                 )}
