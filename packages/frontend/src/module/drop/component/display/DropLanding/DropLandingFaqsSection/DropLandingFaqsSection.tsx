@@ -7,6 +7,7 @@ import { DropFaqSkeletons } from "module/common/component/feedback/Skeletons/Ske
 
 const DropLandingFaqsSection = ({ faqs = [], loading, ...rest }: WithLoading<DropLandingFaqsSectionProps>): JSX.Element => {
     const translate = useTranslate();
+
     return (
         <DropLandingFaqsSectionRoot as={Col} gap="1.5rem" {...rest}>
             <Skeleton loading={loading}>

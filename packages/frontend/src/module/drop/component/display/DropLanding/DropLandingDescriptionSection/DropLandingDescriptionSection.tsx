@@ -17,7 +17,7 @@ import { config } from "config";
 
 const DropLandingDescriptionSection = ({
     cover = "",
-    image = "",
+    image = config.collectionDefaultImageUrl,
     name = "Loading Name",
     description = "Loading Description",
     items = 0,
@@ -29,7 +29,7 @@ const DropLandingDescriptionSection = ({
 }: WithLoading<DropLandingDescriptionSectionProps>): JSX.Element => {
     const translate = useTranslate();
     const formatNumber = useFormatNumber();
-
+    const finalImage = image || config.collectionDefaultImageUrl;
     return (
         <DropLandingDescriptionSectionRoot cover={cover}>
             <DropLandingDescriptionSectionContent>
@@ -68,7 +68,12 @@ const DropLandingDescriptionSection = ({
                     </Col>
                 </Col>
                 <Row flex={1} alignItems="center" justifyContent="flex-end" breakpoint={{ width: "dropLandingPage" }}>
-                    <DropLandingImage src={image} alt={`${name}-image`} loading={loading} fallback={config.collectionDefaultImageUrl} />
+                    <DropLandingImage
+                        src={finalImage}
+                        alt={`${name}-image`}
+                        loading={loading}
+                        fallback={config.collectionDefaultImageUrl}
+                    />
                 </Row>
             </DropLandingDescriptionSectionContent>
         </DropLandingDescriptionSectionRoot>
