@@ -20,7 +20,7 @@
     "maxNftAttributeTypeChars": 255,
     "maxNftAttributeValueChars": 255,
     "maxCollectionNameChars": 64,
-    "maxCollectionDescriptionChars": 4000,
+    "maxCollectionDescriptionChars": 500,
     "maxFaqQuestionChars": 1000,
     "maxFaqAnswerChars": 4000,
     "maxNumberDecimals": 6,
