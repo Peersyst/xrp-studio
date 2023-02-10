@@ -36,7 +36,7 @@ export default function ({
 }: NftCreationForm): CreateNftDraftRequest {
     return {
         issuer: issuer || undefined,
-        transferFee: transferFee ? Number(transferFee) * 1000 : undefined,
+        transferFee: transferFee ? Number(Number(transferFee).toFixed(3)) * 1000 : undefined,
         flags: {
             burnable,
             onlyXRP,

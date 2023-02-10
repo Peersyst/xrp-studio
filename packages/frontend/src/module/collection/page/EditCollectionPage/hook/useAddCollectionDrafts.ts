@@ -1,8 +1,8 @@
 import { CollectionDto, CollectionService, CreateCollectionNftRequest } from "module/api/service";
-import { useMutation, useQueryClient } from "react-query";
+import { useMutation, UseMutationResult, useQueryClient } from "react-query";
 import Queries from "../../../../../query/queries";
 
-export default function (collection: CollectionDto | undefined) {
+export default function (collection: CollectionDto | undefined): UseMutationResult<void, unknown, CreateCollectionNftRequest[], unknown> {
     const queryClient = useQueryClient();
 
     const addCollectionDrafts = async (drafts: CreateCollectionNftRequest[]) => {
