@@ -17,7 +17,7 @@ import { config } from "config";
 
 const DropLandingDescriptionSection = ({
     cover = "",
-    image = config.collectionDefaultImageUrl,
+    image,
     name = "Loading Name",
     description = "Loading Description",
     items = 0,
