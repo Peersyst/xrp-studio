@@ -173,7 +173,7 @@
     "dropPaymentSignatureStepText": "Por favor, firma la transacción de pago del drop en tu XUMM wallet.",
     "dropPaymentConfirmationStepText": "El pago de tu drop está siendo confirmado por la red.",
     "dropCreationMintingStepTitle": "Creando los NFTs",
-    "dropCreationMintingStepText": "Los NFTs están siendo creados por XRP Studio. Hay un total de {{minted}} NFTs creados.",
+    "dropCreationMintingStepText": "Los NFTs están siendo creados por XRP Studio. Hay un total de {{minted}} NFTs creados. El proceso puede durar unos minutos, por favor, espera a que el proceso termine.",
     "dropCreationSuccessStepTitle": "Drop publicado con exito!",
     "dropCreationSuccessStepText": "Tu drop se ha publicado correctamente!",
     "explore": "Explora",

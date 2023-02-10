@@ -15,7 +15,6 @@ const EditProfileFormFields = (): JSX.Element => {
     const { data: user, isFetching: loadingUser } = useGetWalletUser();
     const { isLoading: updatingUser } = useUpdateUser();
     const { description, twitter, discord } = user ?? {};
-    const maxBioChars = config.maxBioChars;
 
     return (
         <Col flex={1} gap="2.5rem">
@@ -23,7 +22,7 @@ const EditProfileFormFields = (): JSX.Element => {
                 <EditProfileName />
                 <TextArea
                     displayLength
-                    maxLength={maxBioChars}
+                    maxLength={config.maxBioChars}
                     placeholder={t("writeYour", { name: t("bio") })}
                     label={capitalize(t("bio"))}
                     name={UpdateUserFields.description}

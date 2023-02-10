@@ -1,9 +1,11 @@
 import useTranslate from "module/common/hook/useTranslate";
-import { FormControl, FormControlLabel, Typography, useFormControl, Row, TextArea } from "@peersyst/react-components";
 import { FaqInputProps } from "./FaqInput.types";
 import { DeleteFaqButton, FaqsInputRoot } from "./FaqInput.styles";
 import { Faq } from "module/drop/types";
 import TextField from "module/common/component/input/TextField/TextField";
+import { config } from "config";
+import TextArea from "module/common/component/input/TextArea/TextArea";
+import { FormControl, FormControlLabel, Row, Typography, useFormControl } from "@peersyst/react-components";
 
 const FaqInput = ({
     defaultValue = { question: "", answer: "" },
@@ -66,6 +68,7 @@ const FaqInput = ({
                             autoFocus={autoFocus}
                             readonly={readonly}
                             disabled={disabled}
+                            validators={{ maxChars: config.maxFaqQuestionChars }}
                         />
                         <TextArea
                             placeholder={translate("answer")}
@@ -73,6 +76,8 @@ const FaqInput = ({
                             onChange={handleAnswerChange}
                             readonly={readonly}
                             disabled={disabled}
+                            maxLength={config.maxFaqAnswerChars}
+                            displayLength
                         />
                     </FaqsInputRoot>
                 );

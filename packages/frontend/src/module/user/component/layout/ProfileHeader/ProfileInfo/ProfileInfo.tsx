@@ -58,7 +58,7 @@ const ProfileInfo = (): JSX.Element => {
                     </ProfileButtons>
                 </Row>
                 <Skeleton width="70%" loading={isLoading}>
-                    <Typography className="profile-description" variant="body1" light>
+                    <Typography className="profile-description" variant="body1" light css={{ wordBreak: "break-word" }}>
                         {description}
                     </Typography>
                 </Skeleton>

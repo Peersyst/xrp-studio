@@ -13,11 +13,14 @@ import DropLaunchInformationDialog from "module/drop/component/feedback/DropLaun
 import { DropRoutes } from "module/drop/DropRouter";
 import useCollectionIsDrop from "module/drop/query/useCollectionIsDrop";
 import NotFoundPage from "module/common/page/NotFoundPage/NotFoundPage";
+import { useResetRecoilState } from "recoil";
+import dropCreationState from "module/drop/state/DropCreationState";
 
 const DropCreationPage = (): JSX.Element => {
     const [searchParams] = useSearchParams();
     const collectionIdQueryParam = searchParams.get("id");
     const [collectionId, setCollectionId] = useState<number>();
+    const resetDropState = useResetRecoilState(dropCreationState);
 
     useEffect(() => {
         setCollectionId(Number(collectionIdQueryParam));
@@ -37,6 +40,13 @@ const DropCreationPage = (): JSX.Element => {
         setRequest(createDropRequestFromForm(collection!.id, data));
         setShowInformationDialog(true);
     };
+
+    useEffect(() => {
+        //Unmount cleanup
+        return () => {
+            resetDropState();
+        };
+    }, []);
 
     if ((!collectionLoading && !collection) || (collection && collection.account !== address)) return <NotFoundPage />;
     else if (!loading && collectionIsDrop) {
