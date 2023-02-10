@@ -61,7 +61,7 @@ export class MetadataService {
     }
 
     async publishMetadata(nftId: number): Promise<string> {
-        const metadata = await this.nftMetadataRepository.findOne({ nftId });
+        const metadata = await this.nftMetadataRepository.findOne({ where: { nftId }, relations: ["attributes"] });
         if (!metadata) throw new BusinessException(ErrorCode.METADATA_NOT_FOUND);
         const metadataDto = RawMetadataDto.fromEntity(metadata);
         return this.ipfsService.uploadFile(Buffer.from(metadataDto.encode()));
