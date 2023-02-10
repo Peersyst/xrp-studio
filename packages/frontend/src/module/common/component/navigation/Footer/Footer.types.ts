@@ -7,58 +7,10 @@ export interface FooterItem {
 
 export type FooterItems = FooterItem[];
 
-export const FOOTER_LINK: FooterItems[] = [
-    [
-        {
-            label: "about",
-            link: "",
-        },
-        {
-            label: "download",
-            link: "",
-        },
-        {
-            label: "documentation",
-            link: "",
-        },
-        {
-            label: "blog",
-            link: "",
-        },
-    ],
-    [
-        {
-            label: "github",
-            link: "",
-        },
-        {
-            label: "twitter",
-            link: "",
-        },
-        {
-            label: "contribute",
-            link: "",
-        },
-        {
-            label: "ourSDK",
-            link: "",
-        },
-    ],
-    [
-        {
-            label: "support",
-            link: "",
-        },
-        {
-            label: "privacyPolicy",
-            link: "",
-        },
-        {
-            label: "madeWith",
-            link: "",
-        },
-    ],
-];
+export interface FooterSection {
+    title: keyof ResourceType["translation"];
+    items: FooterItems;
+}
 
 export interface FooterProps {
     className?: string;

@@ -1,6 +1,6 @@
 import { FooterItem } from "./Footer.types";
 import useTranslate from "module/common/hook/useTranslate";
-import ConditionalLink from "../ConditionalLink/ConditionalLink";
+
 import { Col, Typography } from "@peersyst/react-components";
 import { HeartIcon } from "icons";
 
@@ -13,19 +13,21 @@ const FooterColumn = ({ links }: FooterColProps): JSX.Element => {
     return (
         <Col gap={"1rem"}>
             {links.map((item, index) => (
-                <ConditionalLink key={index} to={item.link} condition={true}>
-                    {item.label === "madeWith" ? (
+                <>
+                    {item.link === "" ? (
                         <Typography variant="body2" light>
                             {translate(`${item.label}`)}
                             <HeartIcon css={{ margin: "0rem 0.5rem" }} />
                             {translate(`inBarcelona`)}
                         </Typography>
                     ) : (
-                        <Typography variant="body2" light>
-                            {translate(`${item.label}`)}
-                        </Typography>
+                        <a target="_blank" key={index} href={item.link}>
+                            <Typography variant="body2" light>
+                                {translate(`${item.label}`)}
+                            </Typography>
+                        </a>
                     )}
-                </ConditionalLink>
+                </>
             ))}
         </Col>
     );

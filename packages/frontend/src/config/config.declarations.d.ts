@@ -49,6 +49,14 @@ declare module "@peersyst/react-components" {
             url: string;
         };
         dropNftMintCost: string; // Drops
+        footerLinks: {
+            about: string;
+            blog: string;
+            github: string;
+            twitter: string;
+            support: string;
+            privacyPolicy: string;
+        };
         xrpStudioApStoreLink: string;
         xrpStudioGooglePlayLink: string;
     }
@@ -93,6 +101,14 @@ declare module "@peersyst/react-components" {
             url: string;
         };
         dropNftMintCost: string; // Drops
+        footerLinks: {
+            about: string;
+            blog: string;
+            github: string;
+            twitter: string;
+            support: string;
+            privacyPolicy: string;
+        };
         xrpStudioApStoreLink: string;
         xrpStudioGooglePlayLink: string;
     }

@@ -20,15 +20,23 @@
     "maxNftAttributeTypeChars": 255,
     "maxNftAttributeValueChars": 255,
     "maxCollectionNameChars": 64,
-    "maxCollectionDescriptionChars": 4000,
+    "maxCollectionDescriptionChars": 500,
     "maxFaqQuestionChars": 1000,
     "maxFaqAnswerChars": 4000,
     "maxNumberDecimals": 6,
     "tokenName": "XRP",
     "feeInDrops": 15,
-    "peersystEmail": "hello@peersyst.com",
+    "peersystEmail": "info@peersyst.com",
     "peersyst": "Peersyst SL",
     "dropNftMintCost": "4000000",
+    "footerLinks": {
+        "about": "https://peersyst.com/about-us/",
+        "blog": "https://peersyst.com/blog/",
+        "github": "https://github.com/Peersyst",
+        "twitter": "https://twitter.com/XRP_Studio",
+        "support": "https://peersyst.com/contact/",
+        "privacyPolicy": "https://peersyst.com/privacy-policy/"
+    },
     "xrpStudioApStoreLink": "https://apps.apple.com/us/app/xrp-studio/id1550000000",
     "xrpStudioGooglePlayLink": "https://play.google.com/store/apps/details?id=com.peersyst.xrpstudio"
 }
