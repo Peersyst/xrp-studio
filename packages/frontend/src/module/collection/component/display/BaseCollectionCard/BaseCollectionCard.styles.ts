@@ -12,9 +12,14 @@ export const BaseCollectionCardRoot = styled.div<BaseCollectionCardSizeProps>(
         height: ${size == "md" ? "12rem" : "18.75rem"};
         border-radius: ${theme.borderRadiusMd};
         background-color: ${theme.palette.black["85"]};
+        transition: background-color 200ms;
 
         ${theme.breakpoints.down("mobile")} {
             width: min(20rem, 77vw);
+        }
+
+        &:hover {
+            background-color: ${theme.palette.black["80"]};
         }
     `,
 );
