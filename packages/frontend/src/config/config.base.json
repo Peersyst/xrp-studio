@@ -26,7 +26,15 @@
     "maxNumberDecimals": 6,
     "tokenName": "XRP",
     "feeInDrops": 15,
-    "peersystEmail": "hello@peersyst.com",
+    "peersystEmail": "info@peersyst.com",
     "peersyst": "Peersyst SL",
-    "dropNftMintCost": "4000000"
+    "dropNftMintCost": "4000000",
+    "footerLinks": {
+        "about": "https://peersyst.com/about-us/",
+        "blog": "https://peersyst.com/blog/",
+        "github": "https://github.com/Peersyst",
+        "twitter": "https://twitter.com/XRP_Studio",
+        "support": "https://peersyst.com/contact/",
+        "privacyPolicy": "https://peersyst.com/privacy-policy/"
+    }
 }
