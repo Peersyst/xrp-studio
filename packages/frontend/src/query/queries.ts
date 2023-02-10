@@ -12,6 +12,7 @@ enum Queries {
     TRENDS = "trends",
     DROP = "drop",
     DROPS = "drops",
+    COLLECTION_IS_DROP = "collection-is-drop",
     COLLECTION_NAME_AVAILABILITY = "collection-name-availability",
 }
 
