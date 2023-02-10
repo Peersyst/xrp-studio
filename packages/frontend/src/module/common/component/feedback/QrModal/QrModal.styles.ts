@@ -7,23 +7,17 @@ export const QrCard = styled(Card)(
         border-radius: ${theme.borderRadius};
         padding: 3rem;
         width: 100%;
-        ${theme.breakpoints.down("mobile")} {
-            padding: 2rem;
-            .qr-card-cont {
-                row-gap: 2rem;
-            }
-            .xumm-app-link,
-            .xumm-app-link > button {
-                width: 100%;
-            }
-        }
+        display: flex;
+        align-items: center;
+        justify-content: center;
     `,
 );
 
 export const QrImage = styled(Image)(
     ({ theme }) => css`
-        width: 14rem;
-        height: 14rem;
+        width: 16rem;
+        height: 16rem;
+
         ${theme.breakpoints.down("mobile")} {
             width: 10rem;
             height: 10rem;

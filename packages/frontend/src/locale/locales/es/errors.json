@@ -70,5 +70,6 @@
     "xummRequestDeclined": "XUMM request has been declined",
     "xummRequestCancelled": "XUMM request has been cancelled",
     "xummRequestExpired": "XUMM request has expired",
-    "xummRequestBadSignature": "XUMM request was signed incorrectly"
+    "xummRequestBadSignature": "XUMM request was signed incorrectly",
+    "invalidPhygitalPublicKey": "Clave pública figital inválida"
 }

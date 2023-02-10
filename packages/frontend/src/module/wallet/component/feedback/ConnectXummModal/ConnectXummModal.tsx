@@ -1,16 +1,14 @@
-import { createModal, Col, Row, Typography, useModal } from "@peersyst/react-components";
-import Modal from "module/common/component/feedback/Modal/Modal";
-import Button from "module/common/component/input/Button/Button";
+import { createModal } from "@peersyst/react-components";
 import useTranslate from "module/common/hook/useTranslate";
-import XummAppLink from "../../navigation/XummAppLink/XummAppLink";
-import { QrCard, QrImage } from "./ConnectXummModal.styles";
 import { useEffect } from "react";
 import useConnectToXumm from "module/wallet/hook/useConnectToXumm/useConnectToXumm";
 import { ConnectXummModalProps } from "module/wallet/component/feedback/ConnectXummModal/ConnectXummModal.types";
+import QrModal from "module/common/component/feedback/QrModal/QrModal";
+import AppLinks from "module/common/component/navigation/AppLinks/AppLinks";
+import { config } from "config";
 
 const ConnectXummModal = createModal<ConnectXummModalProps>(({ close, onSignIn, ...rest }): JSX.Element => {
     const translate = useTranslate();
-    const { hideModal } = useModal();
 
     const handleSignIn = () => {
         onSignIn?.();
@@ -23,23 +21,15 @@ const ConnectXummModal = createModal<ConnectXummModalProps>(({ close, onSignIn, 
     }, []);
 
     return (
-        <Modal size="md" title={translate("scanXummQR")} subtitle={translate("scanXummQRExplanation")} {...rest}>
-            <QrCard>
-                <Col alignItems="center" gap="3rem" className="qr-card-cont">
-                    <QrImage alt="xumm-login" src={xummQrUrl} />
-                    <Col gap="1rem" alignItems="center">
-                        <Typography variant="body2">{translate("getXummCTA")}</Typography>
-                        <Row wrap wrapGap="1.5rem" gap="1.5rem" justifyContent="center">
-                            <XummAppLink.AppStore />
-                            <XummAppLink.PlayStore />
-                        </Row>
-                    </Col>
-                </Col>
-            </QrCard>
-            <Button loading={showLoading} onClick={() => hideModal(ConnectXummModal.id)}>
-                {translate("dismiss")}
-            </Button>
-        </Modal>
+        <QrModal
+            title={translate("scanXummQR")}
+            subtitle={translate("scanXummQRExplanation")}
+            qr={xummQrUrl}
+            loading={showLoading}
+            {...rest}
+        >
+            <AppLinks label={translate("getXummCTA")} appStoreLink={config.appStoreXummLink} googlePlayLink={config.playStoreXummLink} />
+        </QrModal>
     );
 });
 

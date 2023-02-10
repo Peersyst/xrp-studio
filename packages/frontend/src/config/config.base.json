@@ -28,5 +28,7 @@
     "feeInDrops": 15,
     "peersystEmail": "hello@peersyst.com",
     "peersyst": "Peersyst SL",
-    "dropNftMintCost": "4000000"
+    "dropNftMintCost": "4000000",
+    "xrpStudioApStoreLink": "https://apps.apple.com/us/app/xrp-studio/id1550000000",
+    "xrpStudioGooglePlayLink": "https://play.google.com/store/apps/details?id=com.peersyst.xrpstudio"
 }

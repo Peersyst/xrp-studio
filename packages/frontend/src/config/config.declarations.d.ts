@@ -49,6 +49,8 @@ declare module "@peersyst/react-components" {
             url: string;
         };
         dropNftMintCost: string; // Drops
+        xrpStudioApStoreLink: string;
+        xrpStudioGooglePlayLink: string;
     }
 
     export interface CreateConfig {
@@ -91,10 +93,13 @@ declare module "@peersyst/react-components" {
             url: string;
         };
         dropNftMintCost: string; // Drops
+        xrpStudioApStoreLink: string;
+        xrpStudioGooglePlayLink: string;
     }
 
     export interface ExtraValidators {
         address: Validator;
+        phygitalPublicKey: Validator;
     }
 
     export interface BlockchainLinks {
