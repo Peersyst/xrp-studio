@@ -98,7 +98,9 @@ export class QueryBuilderHelper {
                 qb = qb[compareFn](`${qbWhere.field} IN (:...${key})`, { [key]: qbWhere.value });
                 varIdx += 1;
             } else if (qbWhere.operator === FilterType.LIKE) {
-                qb = qb[compareFn](`${qbWhere.field} LIKE :${key}`, { [key]: `%${qbWhere.value}%` });
+                qb = qb[compareFn](`LOWER(${qbWhere.field}) LIKE LOWER(:${key})`, {
+                    [key]: `%${qbWhere.value}%`,
+                });
                 varIdx += 1;
             } else if (qbWhere.operator === FilterType.OR) {
                 qb = qb[compareFn](

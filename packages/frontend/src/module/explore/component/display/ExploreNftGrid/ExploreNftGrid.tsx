@@ -1,12 +1,12 @@
 import NftGrid from "module/nft/component/layout/NftGrid/NftGrid";
-import useGetNfts, { UseGetNftsOptions } from "module/nft/query/useGetNfts";
-import useNftsFilters from "module/nft/hook/useNftsFilters";
+import useGetNfts from "module/nft/query/useGetNfts";
+import useNftsFilters, { NftsFilters } from "module/nft/hook/useNftsFilters";
 import NothingToShow from "module/common/component/feedback/NothingToShow/NothingToShow";
 import useTranslate from "module/common/hook/useTranslate";
 
 const ExploreNftGrid = (): JSX.Element => {
     const translateError = useTranslate("error");
-    const filters: Omit<UseGetNftsOptions, "account"> = useNftsFilters();
+    const filters: NftsFilters = useNftsFilters();
     const { data, hasNextPage, fetchNextPage, isFetching: isLoadingNfts } = useGetNfts({ account: undefined, ...filters });
 
     return (
