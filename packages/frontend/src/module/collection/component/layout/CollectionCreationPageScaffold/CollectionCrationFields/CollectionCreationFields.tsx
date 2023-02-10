@@ -82,7 +82,7 @@ function CollectionCreationFields<D extends boolean = false>({
                         variant="filled"
                         value={description || undefined}
                         onChange={setDescription}
-                        maxLength={config.maxNftDescChars}
+                        maxLength={config.maxCollectionDescriptionChars}
                         displayLength
                     />
                     {showDefaults && (
