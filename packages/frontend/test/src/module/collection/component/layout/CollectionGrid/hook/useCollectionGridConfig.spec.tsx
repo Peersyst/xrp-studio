@@ -8,7 +8,7 @@ import { ReactNode } from "react";
 import useCollectionGridConfig from "module/collection/component/layout/CollectionGrid/hooks/useCollectionGridConfig";
 
 const renderUseCollectionGridConfig = (nothingToShow: string | ReactNode, cols: number) =>
-    renderHook(() => useCollectionGridConfig({ nothingToShow, cols })).result;
+    renderHook(() => useCollectionGridConfig({ nothingToShow, cols, withFilters: true })).result;
 
 describe("useCollectionGridConfig tests", () => {
     const nothingToShowMock = (
