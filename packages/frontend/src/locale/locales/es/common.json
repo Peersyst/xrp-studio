@@ -158,7 +158,7 @@
     "collectionCreationSteps": "Pasos para la creación de la colección",
     "collectionCreationStepTitle": "Creando la colección",
     "collectionCreationStepText": "Tu colección está siendo creada.",
-    "collectionNftsConfirmationStepTitle": "Confirmación de los NFTs de la colección",
+    "collectionNftsConfirmationStepTitle": "Mint de los NFTs en XUMM wallet",
     "collectionNftsConfirmationStepText": "Por favor, firma todos los NFTs en tu XUMM wallet para que sean enviados a la cadena de XRPL y confirmados. Hay {{pendingNfts}} NFTs restantes.",
     "collectionCreationSuccessStepTitle": "Colección publicada con exito!",
     "collectionCreationSuccessStepText": "Tu colección ha sido publicada correctamente!",

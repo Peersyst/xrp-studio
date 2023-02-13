@@ -1,4 +1,3 @@
-import { CollectionGridProps } from "module/collection/component/layout/CollectionGrid/CollectionGrid.types";
 import Grid from "module/common/component/layout/Grid/Grid";
 import { PaginatedCollectionDto } from "module/api/service";
 import { CollectionCardSkeletons } from "module/common/component/feedback/Skeletons/Skeletons";
@@ -6,21 +5,23 @@ import CollectionCard from "module/collection/component/display/CollectionCard/C
 import { GridProps } from "module/common/component/layout/Grid/Grid.types";
 import useCollectionGridConfig from "module/collection/component/layout/CollectionGrid/hooks/useCollectionGridConfig";
 
-function InnerCollectionGrid({
+function CollectionGrid({
     loading,
     nothingToShow,
     cols = 3,
+    withFilters = false,
     ...rest
-}: Omit<GridProps<PaginatedCollectionDto>, "Skeletons" | "children" | "breakpoints">) {
+}: Omit<GridProps<PaginatedCollectionDto>, "Skeletons" | "children" | "breakpoints">): JSX.Element {
     const {
         nothingToShow: collectionNothingToShow,
         cols: collectionGridCols,
         breakpoints,
         tabletBreakpoint,
-    } = useCollectionGridConfig({ nothingToShow, cols });
+    } = useCollectionGridConfig({ nothingToShow, cols, withFilters });
 
     return (
         <Grid<PaginatedCollectionDto, any>
+            withFilters={withFilters}
             loading={loading}
             breakpoints={breakpoints}
             tabletBreakPoint={tabletBreakpoint}
@@ -36,18 +37,6 @@ function InnerCollectionGrid({
                 collections.map((collection, key) => <CollectionCard size="lg" gridWidth collection={collection} key={key} />)
             }
         </Grid>
-    );
-}
-
-function InnerCollectionGridWithFilters({ loading, ...rest }: Omit<CollectionGridProps, "filters">) {
-    return <InnerCollectionGrid withFilters loading={loading} {...rest} />;
-}
-
-function CollectionGrid({ loading, withFilters, ...rest }: CollectionGridProps): JSX.Element {
-    return withFilters ? (
-        <InnerCollectionGridWithFilters loading={loading} {...rest} />
-    ) : (
-        <InnerCollectionGrid loading={loading} {...rest} />
     );
 }
 

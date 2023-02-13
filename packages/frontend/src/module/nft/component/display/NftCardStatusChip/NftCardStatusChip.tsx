@@ -32,7 +32,7 @@ const NftCardStatusChip = ({ nft }: WithSkeleton<NftCardStatusChipProps>): JSX.E
         <Popover position="top" arrow visible={nft.status === "failed" ? undefined : false}>
             <Popover.Popper>
                 <NftCardStatusChipPopoverCard>
-                    <Typography variant="body1">{translateError("nftFailed")}</Typography>
+                    <Typography variant="body2">{translateError("nftFailed")}</Typography>
                 </NftCardStatusChipPopoverCard>
             </Popover.Popper>
             <Popover.Content>

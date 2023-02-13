@@ -25,7 +25,7 @@ const CollectionPublishActions = ({
     const { fetch: fetchCollectionNftsStatus, pendingIds, failedIds } = useCollectionNftsStatus(collectionIds);
 
     const handleSuccess = () => {
-        onSuccess?.(data!.id);
+        onSuccess?.(data!);
     };
 
     const steps: Step[] = [
