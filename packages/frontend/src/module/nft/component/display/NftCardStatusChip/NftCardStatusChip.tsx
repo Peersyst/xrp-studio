@@ -7,7 +7,7 @@ import NftPublishModal from "../../feedback/NftPublishModal/NftPublishModal";
 import createNftRequestFromNft from "module/nft/util/createNftRequestFromNft";
 import NftStatusChip from "module/nft/component/display/NftStatusChip/NftStatusChip";
 
-const NftCardStatusChip = ({ nft }: WithSkeleton<NftCardStatusChipProps>): JSX.Element => {
+const NftCardStatusChip = ({ nft, loading }: WithSkeleton<NftCardStatusChipProps>): JSX.Element => {
     const translate = useTranslate();
     const { showModal } = useModal();
     const translateError = useTranslate("error");
@@ -29,7 +29,7 @@ const NftCardStatusChip = ({ nft }: WithSkeleton<NftCardStatusChipProps>): JSX.E
     };
 
     return (
-        <Popover position="top" arrow visible={nft.status === "failed" ? undefined : false}>
+        <Popover position="top" arrow visible={!loading && nft.status === "failed" ? undefined : false}>
             <Popover.Popper>
                 <NftCardStatusChipPopoverCard>
                     <Typography variant="body1">{translateError("nftFailed")}</Typography>

@@ -35,7 +35,7 @@ function LandingPageContent({ ...rest }: WithLoading<LandingPageProps>): JSX.Ele
         <Col {...rest}>
             <Col gap={"5.5rem"}>
                 <Divider />
-                <LandingPageDropsSection drops={[...drops, ...drops]} loading={isLoading} />
+                <LandingPageDropsSection drops={drops} loading={isLoading} />
                 <LandingPageArtistsSection artists={artists} loading={isLoading} />
                 <Col>
                     <Divider />

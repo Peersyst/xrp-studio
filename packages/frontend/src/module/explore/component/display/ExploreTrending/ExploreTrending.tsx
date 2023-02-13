@@ -3,6 +3,7 @@ import ExploreTrendingCollections from "module/explore/component/display/Explore
 import ExploreTrendingNfts from "module/explore/component/display/ExploreTrending/ExploreTrendingNfts/ExploreTrendingNfts";
 import ExploreTrendingArtists from "module/explore/component/display/ExploreTrending/ExploreTrendingArtists/ExploreTrendingArtists";
 import { Col } from "@peersyst/react-components";
+import ExploreTrendingDrops from "./ExploreTrendingDrops/ExploreTrendingDrops";
 
 const ExploreTrending = (): JSX.Element => {
     const BANNER = {
@@ -12,6 +13,7 @@ const ExploreTrending = (): JSX.Element => {
     return (
         <Col gap={"5.5rem"}>
             <ExploreTrendingBanner src={BANNER.src} to={BANNER.to} />
+            <ExploreTrendingDrops />
             <ExploreTrendingCollections />
             <ExploreTrendingNfts />
             <ExploreTrendingArtists />
