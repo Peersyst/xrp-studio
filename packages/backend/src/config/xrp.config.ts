@@ -27,9 +27,11 @@ export default (secrets: AwsSecrets = {}): XrpConfig => {
             },
             sellCommissionPct: {
                 default: 0.05,
+                staging: 0,
             },
             dropNftMintCost: {
                 default: "4000000",
+                staging: "5000000",
             },
         },
         {
