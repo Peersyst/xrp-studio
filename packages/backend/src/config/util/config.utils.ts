@@ -26,7 +26,7 @@ export function buildConfig<T>(config: ConfigKeys<T>, validators: ConfigValidato
             typeof value === "object" &&
             (value["default"] || value["production"] || value["staging"] || value["preview"] || value["development"] || value["test"])
         ) {
-            if (value[configEnv])
+            if (value[configEnv] !== undefined)
                 return {
                     ...acc,
                     [key]: value[configEnv],

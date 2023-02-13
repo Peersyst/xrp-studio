@@ -4,8 +4,11 @@ export interface AppLinkProps {
     link: string;
 }
 
-export interface AppLinksProps {
-    label?: string;
+export interface AppLinkLogosProps {
     appStoreLink: string;
     googlePlayLink: string;
+}
+
+export interface AppLinksProps extends AppLinkLogosProps {
+    label?: string;
 }

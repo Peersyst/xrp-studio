@@ -35,7 +35,12 @@ export class BaseNftDto {
             transferFee: transferFee ? transferFee : undefined,
             flags,
             status,
-            metadata: metadata && dropSold ? MetadataDto.fromEntity(metadata) : undefined,
+            metadata:
+                metadata && dropSold
+                    ? MetadataDto.fromEntity(metadata)
+                    : metadata && !dropSold
+                    ? { name: collection?.name, image: "https://i.ibb.co/ngJKh6T/Cromos-XRP.png" }
+                    : undefined,
             user: user && UserDto.fromEntity(user),
             // Safe to add user to collection as it should be a pre condition. This way query is much faster and we are not checking for information we already have. If nft.user and collection.user were different, there'd be a problem
             collection: collection ? CollectionDto.fromEntity({ ...collection, user }) : undefined,
