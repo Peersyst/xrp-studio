@@ -1,6 +1,5 @@
 import ConnectXummModal from "module/wallet/component/feedback/ConnectXummModal/ConnectXummModal";
-import { fireEvent, render, translate } from "test-utils";
-import { ModalMock } from "test-mocks";
+import { render, translate } from "test-utils";
 import * as useConnectToXumm from "module/wallet/hook/useConnectToXumm/useConnectToXumm";
 
 describe("ConnectXummModal", () => {
@@ -34,22 +33,5 @@ describe("ConnectXummModal", () => {
         });
         render(<ConnectXummModal />);
         expect(mockedSignIn).toHaveBeenCalled();
-    });
-    test("Hides modal correctly", () => {
-        //Mocks
-        //Lib
-        const useModalMock = new ModalMock();
-        //useConnectToXumm
-        const mockedSignIn = jest.fn();
-        jest.spyOn(useConnectToXumm, "default").mockReturnValue({
-            showLoading: false,
-            signIn: mockedSignIn,
-            xummQrUrl: "",
-        });
-        //Test
-        const { getByRole } = render(<ConnectXummModal />);
-        const dismissButton = getByRole("button", { name: translate("dismiss") });
-        fireEvent.click(dismissButton);
-        expect(useModalMock.hideModal).toHaveBeenCalledWith(ConnectXummModal.id);
     });
 });

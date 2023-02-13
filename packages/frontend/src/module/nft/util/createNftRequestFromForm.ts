@@ -26,13 +26,14 @@ export default function ({
     image,
     backgroundColor,
     externalUrl,
-    attributes,
+    attributes = [],
     collection,
     issuer,
     transferFee,
     burnable,
     onlyXRP,
     transferable,
+    phygital,
 }: NftCreationForm): CreateNftDraftRequest {
     return {
         issuer: issuer || undefined,
@@ -50,7 +51,7 @@ export default function ({
             image: image || undefined,
             backgroundColor: backgroundColor?.hex(),
             externalUrl: externalUrl || undefined,
-            attributes,
+            attributes: phygital ? [...attributes, { traitType: "Phygital Public Key", value: phygital }] : attributes,
         },
     };
 }
