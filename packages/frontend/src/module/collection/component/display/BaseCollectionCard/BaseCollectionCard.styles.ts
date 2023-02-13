@@ -32,7 +32,7 @@ export const BaseCollectionCardCover = styled(Image)<BaseCollectionCardSizeProps
     `,
 );
 
-export const BaseCollectionCardFooter = styled(Row).attrs({ gap: "0.75rem", flex: 1 })`
+export const BaseCollectionCardFooter = styled(Row).attrs({ gap: "0.35rem", flex: 1 })`
     position: absolute;
     bottom: 0;
     left: 0;

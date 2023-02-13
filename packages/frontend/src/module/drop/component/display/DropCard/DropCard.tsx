@@ -9,7 +9,7 @@ import { BaseCollectionCardProps } from "module/collection/component/display/Bas
 import { useFormatNumber } from "module/common/hook/useFormatNumber";
 import { dropsToXrp } from "xrpl";
 
-interface DropCardProps extends Pick<BaseCollectionCardProps, "size"> {
+export interface DropCardProps extends Pick<BaseCollectionCardProps, "size"> {
     drop: DropDto;
 }
 
@@ -27,8 +27,8 @@ const DropCard = forwardRef(
                 alt={alt}
                 image={collection?.image || config.collectionDefaultImageUrl}
                 name={collection?.name || ""}
-                description={`${translate("itemWithCount", { count: items || 0 })} · XRP ${formatNumber(dropsToXrp(price))} ${translate(
-                    "mintPrice",
+                description={`${translate("itemWithCount", { count: items || 0 })} · ${formatNumber(dropsToXrp(price))} XRP/${translate(
+                    "mint",
                 )}`}
                 ref={ref}
             />

@@ -221,5 +221,6 @@
     "launchDropInformationText": "Launching a drop on XRP Studio implies the minting of all its NFTs and the creation of a sell offer for each NFT in the drop. As this task has to be done by XRP Studio, you will be asked to pay a certain amount of XRP in order to cover those costs.",
     "launchDropInformationCost": "The cost of minting your drop is {{dropNftMintCost}} XRP for each NFT. To launch your collection of {{items}} items, you will be asked to fund {{cost}} XRP as a deployment cost. Do you want to continue?",
     "decline": "Decline",
-    "emptyDropMessage": "Create a collection to launch a drop"
+    "emptyDropMessage": "Create a collection to launch a drop",
+    "topDropsInXrpStudio": "Top Drops in XRP Studio"
 }
