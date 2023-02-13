@@ -16,6 +16,7 @@ export { default as InstagramIcon } from "./InstagramIcon";
 export { default as MenuIcon } from "./MenuIcon";
 export { default as MinusCircleIcon } from "./MinusCircleIcon";
 export { default as MoonIcon } from "./MoonIcon";
+export { default as PhygitalIcon } from "./PhygitalIcon";
 export { default as PlayIcon } from "./PlayIcon";
 export { default as PlusCircleIcon } from "./PlusCircleIcon";
 export { default as SearchIcon } from "./SearchIcon";

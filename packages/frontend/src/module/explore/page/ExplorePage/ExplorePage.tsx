@@ -6,11 +6,12 @@ import { BasePageRoot } from "module/common/component/layout/BasePage/BasePage.s
 import { ExploreRoutes } from "module/explore/ExploreRouter";
 
 const ExplorePage = (): JSX.Element => {
-    const path = useRouteMatch([ExploreRoutes.TRENDING, ExploreRoutes.COLLECTIONS, ExploreRoutes.NFTS])?.pattern.path;
+    const path = useRouteMatch([ExploreRoutes.TRENDING, ExploreRoutes.DROPS, ExploreRoutes.COLLECTIONS, ExploreRoutes.NFTS])?.pattern.path;
 
     const getIndex = (): number => {
-        if (path == ExploreRoutes.NFTS) return 2;
-        else if (path === ExploreRoutes.COLLECTIONS) return 1;
+        if (path == ExploreRoutes.NFTS) return 3;
+        else if (path === ExploreRoutes.COLLECTIONS) return 2;
+        else if (path === ExploreRoutes.DROPS) return 1;
         else return 0;
     };
 

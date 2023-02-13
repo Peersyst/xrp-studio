@@ -21,6 +21,11 @@ const ExploreTabs = (): JSX.Element => {
             label: "trending",
         },
         {
+            path: ExploreRoutes.DROPS,
+            selected: location.pathname === ExploreRoutes.DROPS,
+            label: "drops",
+        },
+        {
             path: ExploreRoutes.COLLECTIONS,
             selected: location.pathname === ExploreRoutes.COLLECTIONS,
             label: "collections",

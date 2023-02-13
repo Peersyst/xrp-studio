@@ -27,7 +27,7 @@ const ProfileInfo = (): JSX.Element => {
     return (
         <ProfileInfoRoot>
             <Col gap="0.5rem">
-                <Row justifyContent="space-between" alignItems="center">
+                <Row justifyContent="space-between" alignItems="center" gap="0.5rem">
                     <Row flex={1} gap="1rem" alignItems="center" breakpoint={{ width: "mobile", gap: "1rem" }} css={{ overflow: "hidden" }}>
                         <Username
                             name={name}

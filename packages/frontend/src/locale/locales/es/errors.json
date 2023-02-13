@@ -50,7 +50,7 @@
     "collectionDoesNotContainNfts": "Esta coleccion no contiene NFTs",
     "nftFailed": "Ha ocurrido un error al publicar este NFT. Haz click para volver a publicarlo",
     "maxPollingCalls": "Número máximo de consultas alcanzado",
-    "noNftsAvailable": "No hay ningún NFT disponible en este momento.",
+    "noNftsAvailable": "No hay ningún NFT disponible en este momento",
     "noCollectionsAvailable": "No hay colecciones disponibles en este momento",
     "userNoNfts": "Este usuario no tiene NFTs",
     "userNoCollections": "Este usuario no tiene colecciones",
@@ -60,7 +60,7 @@
     "nftMinting": "Ha fallado la firma de la transacción del NFT",
     "noMatchingNftsWithFilters": "No se han encontrado NFTs que coincidan con los filtros seleccionados",
     "youHaveNoDrops": "No has publicado ningún drop todavía",
-    "noMatchingCollections": "No se han encontrado colecciones que coincidan con los filtros seleccionados.",
+    "noMatchingCollections": "No se han encontrado colecciones que coincidan con los filtros seleccionados",
     "dropNotFound": "No se ha encontrado el drop",
     "xummSignInRequestDeclined": "La petición de autenticación ha sido rechazada",
     "xummSignInRequestCancelled": "La petición de autenticación ha sido cancelada",
@@ -70,5 +70,8 @@
     "xummRequestDeclined": "XUMM request has been declined",
     "xummRequestCancelled": "XUMM request has been cancelled",
     "xummRequestExpired": "XUMM request has expired",
-    "xummRequestBadSignature": "XUMM request was signed incorrectly"
+    "xummRequestBadSignature": "XUMM request was signed incorrectly",
+    "invalidPhygitalPublicKey": "Clave pública figital inválida",
+    "noDropsAvailable": "No hay drops disponibles en este momento",
+    "noMatchingDrops": "No se han encontrado drops que coincidan con los filtros seleccionados"
 }

@@ -5942,6 +5942,11 @@ duplexify@^3.4.2, duplexify@^3.6.0:
     readable-stream "^2.0.0"
     stream-shift "^1.0.0"
 
+easyqrcodejs@^4.4.13:
+  version "4.4.13"
+  resolved "https://registry.yarnpkg.com/easyqrcodejs/-/easyqrcodejs-4.4.13.tgz#466c5e807751ae41d5f65cab08e4359f27c28b8e"
+  integrity sha512-NulfMl+bhx/gAjZcBjgNd99jqPE5wEho1Z3nZwnKNISu0STnVq0xFQ28SVhcnOwt+47BJ80dULVNzpGIwYi66A==
+
 ee-first@1.1.1:
   version "1.1.1"
   resolved "https://registry.yarnpkg.com/ee-first/-/ee-first-1.1.1.tgz#590c61156b0ae2f4f0255732a158b266bc56b21d"
