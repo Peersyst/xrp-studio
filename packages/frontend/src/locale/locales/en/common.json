@@ -187,7 +187,7 @@
     "mint": "Mint",
     "checkoutMyCollection": "Check out my collection of NFTs in XRP Studio!",
     "checkoutThisCollection": "Check out this collection of NFTs published at XRP Studio!",
-    "checkoutNft": "Check out to this XRP Studio's NFT!",
+    "checkoutNft": "Check out this NFT in XRP Studio!",
     "dropBuyNftConfirmation": "Drop NFT mint confirmation",
     "buyRandomNft": "You are about to buy a random NFT from the {{collection}} drop with a cost of {{price}} XRP.",
     "randomNameNft": "Random {{collection}} NFT",
