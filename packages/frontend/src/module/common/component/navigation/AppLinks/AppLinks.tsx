@@ -1,5 +1,5 @@
 import { Col, Row, Typography } from "@peersyst/react-components";
-import AppLinkLogos from "./AppLinkLogos";
+import AppLinkLogos from "./AppLinksWithLogos";
 import { AppLinksProps } from "./AppLinks.types";
 
 const AppLinks = ({ label, appStoreLink, googlePlayLink }: AppLinksProps): JSX.Element => (

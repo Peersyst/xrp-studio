@@ -2,7 +2,7 @@ import { ios_app_store, google_play_store } from "images";
 import AppLink from "./AppLink";
 import { AppLinkLogosProps } from "./AppLinks.types";
 
-const AppLinkLogos = ({ appStoreLink, googlePlayLink }: AppLinkLogosProps): JSX.Element => {
+const AppLinksWithLogos = ({ appStoreLink, googlePlayLink }: AppLinkLogosProps): JSX.Element => {
     return (
         <>
             <AppLink link={appStoreLink} img={ios_app_store} alt="app-store-logo" />
@@ -11,4 +11,4 @@ const AppLinkLogos = ({ appStoreLink, googlePlayLink }: AppLinkLogosProps): JSX.
     );
 };
 
-export default AppLinkLogos;
+export default AppLinksWithLogos;

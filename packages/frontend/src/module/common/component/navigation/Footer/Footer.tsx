@@ -7,7 +7,7 @@ import useTranslate from "module/common/hook/useTranslate";
 import FooterColumn from "./FooterColumn";
 import Nebula from "../../display/Nebula/Nebula";
 import { FOOTER_SECTIONS } from "./footerSections";
-import AppLinkLogos from "../AppLinks/AppLinkLogos";
+import AppLinksWithLogos from "../AppLinks/AppLinksWithLogos";
 
 const Footer = ({ className, ...rest }: FooterProps): JSX.Element => {
     const translate = useTranslate();
@@ -27,7 +27,7 @@ const Footer = ({ className, ...rest }: FooterProps): JSX.Element => {
                     <Col gap="1.5rem" justifyContent="space-between" flex={1}>
                         <Logo />
                         <Col gap={"0.75rem"}>
-                            <AppLinkLogos googlePlayLink={config.xrpStudioGooglePlayLink} appStoreLink={config.xrpStudioApStoreLink} />
+                            <AppLinksWithLogos googlePlayLink={config.xrpStudioGooglePlayLink} appStoreLink={config.xrpStudioApStoreLink} />
                         </Col>
                         <Col gap={"0.5rem"}>
                             <Typography variant="body2" color="blue.40">
