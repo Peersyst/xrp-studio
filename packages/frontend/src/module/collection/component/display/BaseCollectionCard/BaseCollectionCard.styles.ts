@@ -29,6 +29,7 @@ export const BaseCollectionCardCover = styled(Image)<BaseCollectionCardSizeProps
         width: inherit;
         height: ${size == "md" ? "67%" : "78%"};
         border-radius: ${theme.borderRadiusMd};
+        max-width: unset;
     `,
 );
 

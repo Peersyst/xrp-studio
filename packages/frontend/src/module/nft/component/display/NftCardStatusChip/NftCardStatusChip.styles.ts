@@ -5,5 +5,6 @@ export const NftCardStatusChipPopoverCard = styled(Card)(
     () => css`
         max-width: 22rem;
         padding: 0.5rem;
+        background-color: transparent;
     `,
 );
