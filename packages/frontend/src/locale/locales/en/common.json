@@ -12,8 +12,6 @@
     "myCollections": "My Collections",
     "createCollection": "Create collection",
     "createNft": "Create NFT",
-    "hideFilters&Search": "Hide filters and search",
-    "search&Filter": "Search and filter",
     "clearAll": "Clear all",
     "noneApplied": "None applied",
     "checkoutMyProfile": "Check out my XRP Studio profile!",
@@ -118,8 +116,8 @@
     "finish": "Finish",
     "publishNftProcessingStepTitle": "Processing the NFT",
     "publishNftProcessingStepDescription": "We are processing your NFT information in order to validate everything is correct",
-    "publishNftAddingToBlockchainStepTitle": "Sign the transaction in your Xumm wallet",
-    "publishNftAddingToBlockchainStepDescription": "Sign the transaction on your Xumm wallet to add your new NFT to the blockchain.",
+    "publishNftAddingToBlockchainStepTitle": "Sign the transaction in your XUMM wallet",
+    "publishNftAddingToBlockchainStepDescription": "Sign the transaction on your XUMM wallet to add your new NFT to the blockchain.",
     "publishNftSuccessStepTitle": "NFT published successfully!",
     "publishNftSuccessStepDescription": "Your NFT has been published successfully!",
     "tokenId": "Token ID",
@@ -158,7 +156,7 @@
     "collectionCreationSteps": "Collection creation steps",
     "collectionCreationStepTitle": "Collection creation",
     "collectionCreationStepText": "Your collection is being created.",
-    "collectionNftsConfirmationStepTitle": "Collection NFTs confirmation",
+    "collectionNftsConfirmationStepTitle": "Mint NFTs in your XUMM wallet",
     "collectionNftsConfirmationStepText": "Please, sign all NFT mint transactions in your XUMM wallet in order to be sent the XRPL chain and confirmed. There are {{pendingNFTs}} NFTs left.",
     "collectionCreationSuccessStepTitle": "Collection published successfully!",
     "collectionCreationSuccessStepText": "Your collection has been published successfully!",
@@ -230,5 +228,7 @@
     "phygitalNftDescription": "This is a phygial NFT. Scan this QR to verify its authenticity.",
     "getXrpStudioAppCTA": "Don't have the XRP Studio app? Get it here!",
     "topDropsInXrpStudio": "Top Drops in XRP Studio",
-    "drops": "Drops"
+    "drops": "Drops",
+    "showFilters": "Show filters",
+    "hideFilters": "Hide filters"
 }

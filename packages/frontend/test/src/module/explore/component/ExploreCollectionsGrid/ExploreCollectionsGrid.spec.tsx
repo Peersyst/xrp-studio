@@ -1,4 +1,4 @@
-import ExploreCollectionsGrid from "module/explore/component/display/ExploreCollectionsGrid/ExploreDropsGrid";
+import ExploreCollectionsGrid from "module/explore/component/display/ExploreCollectionsGrid/ExploreCollectionsGrid";
 import { render, translate } from "test-utils";
 import { CollectionService } from "module/api/service";
 import { CollectionDtoMock, CollectionsDtoMock, PaginatedDataMock } from "test-mocks";

@@ -9,12 +9,12 @@ import { BaseCollectionCardProps } from "module/collection/component/display/Bas
 import { useFormatNumber } from "module/common/hook/useFormatNumber";
 import { dropsToXrp } from "xrpl";
 
-export interface DropCardProps extends Pick<BaseCollectionCardProps, "size"> {
+export interface DropCardProps extends Pick<BaseCollectionCardProps, "size" | "gridWidth"> {
     drop: DropDto;
 }
 
 const DropCard = forwardRef(
-    ({ loading = false, size = "md", drop: { items, price, collection } }: WithSkeleton<DropCardProps>, ref): JSX.Element => {
+    ({ loading = false, size = "md", drop: { items, price, collection }, gridWidth }: WithSkeleton<DropCardProps>, ref): JSX.Element => {
         const translate = useTranslate();
         const formatNumber = useFormatNumber();
         const alt = "drop";
@@ -30,6 +30,7 @@ const DropCard = forwardRef(
                 description={`${translate("itemWithCount", { count: items || 0 })} · ${formatNumber(dropsToXrp(price))} XRP/${translate(
                     "mint",
                 )}`}
+                gridWidth={gridWidth}
                 ref={ref}
             />
         );

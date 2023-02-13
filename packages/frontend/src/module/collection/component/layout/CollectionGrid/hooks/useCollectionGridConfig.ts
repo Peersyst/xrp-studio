@@ -6,7 +6,7 @@ import { filtersVisibilityState } from "module/common/component/state/FiltersVis
 import { GridBreakpoint, useTheme } from "@peersyst/react-components";
 import { useCollectionGridBreakpoints } from "module/collection/component/layout/CollectionGrid/hooks/useCollectionGridBreakpoints";
 
-interface UseCollectionGridConfigReturn extends UseCollectionGridConfigParams {
+interface UseCollectionGridConfigReturn extends Omit<UseCollectionGridConfigParams, "withFilters"> {
     breakpoints: GridBreakpoint[] | undefined;
     tabletBreakpoint: number;
 }
@@ -14,9 +14,10 @@ interface UseCollectionGridConfigReturn extends UseCollectionGridConfigParams {
 export interface UseCollectionGridConfigParams {
     nothingToShow: string | ReactNode;
     cols: number;
+    withFilters: boolean;
 }
 
-export default function ({ nothingToShow, cols }: UseCollectionGridConfigParams): UseCollectionGridConfigReturn {
+export default function ({ nothingToShow, cols, withFilters }: UseCollectionGridConfigParams): UseCollectionGridConfigReturn {
     const translateError = useTranslate("error");
     const breakpoints = useCollectionGridBreakpoints();
     const {
@@ -31,7 +32,7 @@ export default function ({ nothingToShow, cols }: UseCollectionGridConfigParams)
     const hasFilters = !!gridFilters.query;
 
     const collectionNothingToShow = hasFilters ? translateError("noMatchingCollections") : nothingToShow;
-    const collectionGridCols = hideFiltersState ? 2 : cols;
+    const collectionGridCols = withFilters && hideFiltersState ? 2 : cols;
 
     return {
         nothingToShow: collectionNothingToShow,

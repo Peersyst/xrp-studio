@@ -12,8 +12,9 @@ describe("LandingPage", () => {
 
         //Content
         expect(screen.getByText(translate("topDropsInXrpStudio")));
-        expect(screen.getByText(translate("howItWorks")));
         expect(screen.getByText(translate("topArtistsThatUseXRPStudio")));
+        expect(screen.getByText(translate("theNfts")));
+        expect(screen.getByText(translate("howItWorks")));
         expect(screen.getByText(translate("ourPartners")));
     });
 });

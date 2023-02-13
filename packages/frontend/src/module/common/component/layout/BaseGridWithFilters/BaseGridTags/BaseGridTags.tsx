@@ -9,7 +9,11 @@ import { BaseGridTagsProps } from "./BaseGridTags.types";
 
 function BaseGridTags<T>({ tags, onClear, onDeleteTagClicked, withExtraSpace }: BaseGridTagsProps<T>): JSX.Element {
     const [showFilters, setShowFilters] = useRecoilState(filtersVisibilityState);
-    const t = useTranslate();
+    const translate = useTranslate();
+
+    const handleFiltersVisibility = () => {
+        setShowFilters((prevShowFilters) => !prevShowFilters);
+    };
 
     const handleClear = () => {
         onClear?.();
@@ -17,14 +21,12 @@ function BaseGridTags<T>({ tags, onClear, onDeleteTagClicked, withExtraSpace }: 
 
     return (
         <BaseGridTagsRoot withExtraSpace={!!withExtraSpace}>
-            {!showFilters && (
-                <Button onClick={() => setShowFilters(true)} size="md">
-                    {t("search&Filter")}
-                    <FilterLinesIcon css={{ fontSize: "1.5rem" }} />
-                </Button>
-            )}
+            <Button onClick={handleFiltersVisibility} size="md">
+                {translate(showFilters ? "hideFilters" : "showFilters")}
+                <FilterLinesIcon css={{ fontSize: "1.5rem" }} />
+            </Button>
             {tags.length !== 0 && (
-                <TagCarousel arrowSize="sm">
+                <TagCarousel key={tags.length} arrowSize="sm">
                     {tags.map(({ label, value }, index) => (
                         <Tag
                             suffix={<DeleteIcon css={{ cursor: "pointer" }} onClick={() => onDeleteTagClicked?.(value)} />}
@@ -37,7 +39,7 @@ function BaseGridTags<T>({ tags, onClear, onDeleteTagClicked, withExtraSpace }: 
             )}
             {tags && tags.length > 0 && (
                 <Button variant="outlined" onClick={handleClear} size="md">
-                    {t("clearAll")}
+                    {translate("clearAll")}
                 </Button>
             )}
         </BaseGridTagsRoot>

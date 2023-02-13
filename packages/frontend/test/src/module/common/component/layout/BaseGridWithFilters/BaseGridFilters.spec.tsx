@@ -6,8 +6,6 @@ describe("BaseGridFilters test", () => {
     test("Renders correctly on desktop", () => {
         jest.spyOn(PeersystLib, "useMediaQuery").mockReturnValue(false);
         const screen = render(<BaseGridFilters>{{ content: <div>test</div> }}</BaseGridFilters>);
-        expect(screen.getByText(translate("hideFilters&Search"))).toBeInTheDocument();
-        expect(screen.getByTestId("MenuIcon")).toBeInTheDocument();
         expect(screen.getByText("test")).toBeInTheDocument();
         //Filters
         const input = screen.getByRole("textbox");
@@ -19,8 +17,6 @@ describe("BaseGridFilters test", () => {
     test("Renders correctly on mobile + tablet -> renders a modal", () => {
         jest.spyOn(PeersystLib, "useMediaQuery").mockReturnValue(true);
         const screen = render(<BaseGridFilters>{{ content: <div>test</div> }}</BaseGridFilters>);
-        expect(screen.getByText(translate("hideFilters&Search"))).toBeInTheDocument();
-        expect(screen.getByTestId("MenuIcon")).toBeInTheDocument();
         expect(screen.getByText("test")).toBeInTheDocument();
         //Filters
         const input = screen.getByRole("textbox");

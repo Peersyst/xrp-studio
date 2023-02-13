@@ -7,11 +7,12 @@ import LandingPagePartnersSection from "../LandingPagePartnersSection/LandingPag
 import { useGetTrends } from "module/explore/query/useGetTrending";
 import { how_it_works_create_landing, how_it_works_create_nft, how_it_works_dashboard } from "images";
 import useTranslate from "module/common/hook/useTranslate";
+import LandingPageNftsSection from "../LandingNftsSection/LandingPageNftsSection";
 
 function LandingPageContent({ ...rest }: WithLoading<LandingPageProps>): JSX.Element {
     const translate = useTranslate();
 
-    const { data: { drops, artists } = { drops: [], artists: [] }, isLoading } = useGetTrends();
+    const { data: { drops, artists, nfts } = { drops: [], artists: [], nfts: [] }, isLoading } = useGetTrends();
 
     const items = [
         {
@@ -37,6 +38,7 @@ function LandingPageContent({ ...rest }: WithLoading<LandingPageProps>): JSX.Ele
                 <Divider />
                 <LandingPageDropsSection drops={drops} loading={isLoading} />
                 <LandingPageArtistsSection artists={artists} loading={isLoading} />
+                <LandingPageNftsSection nfts={nfts} loading={isLoading} />
                 <Col>
                     <Divider />
                     <LandingPageHowWorkSection items={items} loading={isLoading} />

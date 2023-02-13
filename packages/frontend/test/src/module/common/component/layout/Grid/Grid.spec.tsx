@@ -125,8 +125,7 @@ describe("Test for the Grid component", () => {
         /**
          * Filters
          */
-        expect(screen.getByText(translate("hideFilters&Search"))).toBeInTheDocument();
-        expect(screen.getByTestId("MenuIcon")).toBeInTheDocument();
+        expect(screen.getByText(translate("hideFilters"))).toBeInTheDocument();
         expect(screen.getByText("filters")).toBeInTheDocument();
         /**
          * Content
@@ -175,7 +174,7 @@ describe("Test for the Grid component", () => {
                 {(letters) => letters.map((letter, key) => <p key={key}>{letter}</p>)}
             </Grid>,
         );
-        expect(screen.getByRole("button", { name: translate("search&Filter") })).toBeInTheDocument();
+        expect(screen.getByRole("button", { name: translate("showFilters") })).toBeInTheDocument();
         //Children
         expect(screen.getByRole("heading", { name: "Nothing to show" })).toBeInTheDocument();
     });
@@ -245,11 +244,7 @@ describe("Test for the Grid component", () => {
         //By default filters are shown
         //Filters
         expect(screen.getByText("filters")).toBeInTheDocument();
-        const btnIcon = screen.getByTestId("MenuIcon");
-        expect(btnIcon).toBeInTheDocument();
-        //Hide filters
-        fireEvent.click(btnIcon);
         //Displays show filters btn
-        expect(screen.getByRole("button", { name: translate("search&Filter") })).toBeInTheDocument();
+        expect(screen.getByRole("button", { name: translate("showFilters") })).toBeInTheDocument();
     });
 });

@@ -17,7 +17,7 @@ const ExplorePage = (): JSX.Element => {
 
     return (
         <BasePageRoot>
-            <Tabs index={getIndex()}>
+            <Tabs index={getIndex()} css={{ rowGap: 0 }}>
                 <ExplorePageHeader />
                 <ExplorePageContent />
             </Tabs>

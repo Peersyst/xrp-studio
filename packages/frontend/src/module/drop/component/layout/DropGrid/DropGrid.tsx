@@ -29,7 +29,7 @@ const DropGrid = ({ loading, nothingToShow, cols = 3, withFilters, ...rest }: Dr
             withFilters={withFilters}
             {...rest}
         >
-            {(drops) => drops.map((drop: DropDto, key: Key | null | undefined) => <DropCard size="lg" drop={drop} key={key} />)}
+            {(drops) => drops.map((drop: DropDto, key: Key | null | undefined) => <DropCard size="lg" drop={drop} gridWidth key={key} />)}
         </Grid>
     );
 };
