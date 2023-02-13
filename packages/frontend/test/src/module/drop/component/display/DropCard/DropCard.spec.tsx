@@ -11,6 +11,6 @@ describe("DropCard", () => {
         expect(screen.getByText("collection_name")).toBeInTheDocument();
         expect(screen.getAllByRole("img")[0]).toHaveAttribute("alt", "drop-cover");
         expect(screen.getAllByRole("img")[1]).toHaveAttribute("alt", "drop-image");
-        expect(screen.getByText(translate("itemWithCount", { count: 1000 }) + " · XRP 100 " + translate("mintPrice"))).toBeInTheDocument();
+        expect(screen.getByText(translate("itemWithCount", { count: 1000 }) + " · 100 XRP/" + translate("mint"))).toBeInTheDocument();
     });
 });

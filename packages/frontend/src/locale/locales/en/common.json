@@ -12,8 +12,6 @@
     "myCollections": "My Collections",
     "createCollection": "Create collection",
     "createNft": "Create NFT",
-    "hideFilters&Search": "Hide filters and search",
-    "search&Filter": "Search and filter",
     "clearAll": "Clear all",
     "noneApplied": "None applied",
     "checkoutMyProfile": "Check out my XRP Studio profile!",
@@ -228,5 +226,9 @@
     "phygitalPlaceholder": "Enter your phygital NFT public key",
     "phygitalNft": "Phygital NFT",
     "phygitalNftDescription": "This is a phygial NFT. Scan this QR to verify its authenticity.",
-    "getXrpStudioAppCTA": "Don't have the XRP Studio app? Get it here!"
+    "getXrpStudioAppCTA": "Don't have the XRP Studio app? Get it here!",
+    "topDropsInXrpStudio": "Top Drops in XRP Studio",
+    "drops": "Drops",
+    "showFilters": "Show filters",
+    "hideFilters": "Hide filters"
 }

@@ -24,5 +24,12 @@ export const $TrendsDto = {
             },
             isRequired: true,
         },
+        drops: {
+            type: 'array',
+            contains: {
+                type: 'DropDto',
+            },
+            isRequired: true,
+        },
     },
 } as const;

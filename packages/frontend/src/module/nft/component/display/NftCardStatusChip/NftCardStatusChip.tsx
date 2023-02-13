@@ -11,6 +11,7 @@ const NftCardStatusChip = ({ nft }: WithSkeleton<NftCardStatusChipProps>): JSX.E
     const translate = useTranslate();
     const { showModal } = useModal();
     const translateError = useTranslate("error");
+
     const [chipLabel, setChipLabel] = useState<string | undefined>(nft.status);
 
     const handleMouseEnter = () => {
@@ -28,23 +29,27 @@ const NftCardStatusChip = ({ nft }: WithSkeleton<NftCardStatusChipProps>): JSX.E
         showModal(NftPublishModal, { request: requestNft, collection: nft.collection?.name, draftId: nft?.id });
     };
 
-    return (
-        <Popover position="top" arrow visible={nft.status === "failed" ? undefined : false}>
+    const chip = (
+        <NftStatusChip
+            status={nft.status}
+            label={chipLabel}
+            onMouseEnter={handleMouseEnter}
+            onMouseLeave={handleMouseLeave}
+            onClick={nft.status === "failed" ? (e) => handleClick(e) : undefined}
+        />
+    );
+
+    return nft.status === "failed" ? (
+        <Popover position="top" arrow>
             <Popover.Popper>
                 <NftCardStatusChipPopoverCard>
                     <Typography variant="body2">{translateError("nftFailed")}</Typography>
                 </NftCardStatusChipPopoverCard>
             </Popover.Popper>
-            <Popover.Content>
-                <NftStatusChip
-                    status={nft.status}
-                    label={chipLabel}
-                    onMouseEnter={handleMouseEnter}
-                    onMouseLeave={handleMouseLeave}
-                    onClick={nft.status === "failed" ? (e) => handleClick(e) : undefined}
-                />
-            </Popover.Content>
+            <Popover.Content>{chip}</Popover.Content>
         </Popover>
+    ) : (
+        chip
     );
 };
 
