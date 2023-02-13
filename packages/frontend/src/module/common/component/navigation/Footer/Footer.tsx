@@ -7,6 +7,7 @@ import useTranslate from "module/common/hook/useTranslate";
 import FooterColumn from "./FooterColumn";
 import Nebula from "../../display/Nebula/Nebula";
 import { FOOTER_SECTIONS } from "./footerSections";
+import AppLinkLogos from "../AppLinks/AppLinkLogos";
 
 const Footer = ({ className, ...rest }: FooterProps): JSX.Element => {
     const translate = useTranslate();
@@ -23,8 +24,11 @@ const Footer = ({ className, ...rest }: FooterProps): JSX.Element => {
                     css={{ position: "relative", paddingTop: "3rem", marginBottom: "10rem" }}
                     className={"ContentFooter"}
                 >
-                    <Col gap="1rem" justifyContent="space-between" flex={1}>
+                    <Col gap="1.5rem" justifyContent="space-between" flex={1}>
                         <Logo />
+                        <Col gap={"0.75rem"}>
+                            <AppLinkLogos googlePlayLink={config.xrpStudioGooglePlayLink} appStoreLink={config.xrpStudioApStoreLink} />
+                        </Col>
                         <Col gap={"0.5rem"}>
                             <Typography variant="body2" color="blue.40">
                                 {config.peersystEmail}
@@ -34,9 +38,9 @@ const Footer = ({ className, ...rest }: FooterProps): JSX.Element => {
                             </Typography>
                         </Col>
                     </Col>
-                    {FOOTER_SECTIONS.map(({ title, items }) => {
+                    {FOOTER_SECTIONS.map(({ title, items }, index) => {
                         return (
-                            <Col gap={"1.5rem"} flex={1}>
+                            <Col gap={"1.5rem"} flex={1} key={index}>
                                 <Typography variant="h5" fontWeight={500}>
                                     {translate(title)}
                                 </Typography>
