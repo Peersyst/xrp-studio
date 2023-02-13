@@ -118,7 +118,7 @@
     "finish": "Finish",
     "publishNftProcessingStepTitle": "Processing the NFT",
     "publishNftProcessingStepDescription": "We are processing your NFT information in order to validate everything is correct",
-    "publishNftAddingToBlockchainStepTitle": "Adding your NFT to the blockchain",
+    "publishNftAddingToBlockchainStepTitle": "Sign the transaction in your Xumm wallet",
     "publishNftAddingToBlockchainStepDescription": "Sign the transaction on your Xumm wallet to add your new NFT to the blockchain.",
     "publishNftSuccessStepTitle": "NFT published successfully!",
     "publishNftSuccessStepDescription": "Your NFT has been published successfully!",
