@@ -12,7 +12,7 @@ interface NftCardCarouselProps extends InheritedCarouselProps {
 const NftCardCarousel = ({ nfts, skeletonCount = 3, disableLinks = false, ...rest }: NftCardCarouselProps): JSX.Element => (
     <NftCardCarouselRoot skeletonCount={skeletonCount} Skeleton={NftCardSkeleton} {...rest}>
         {nfts.map((nft) => (
-            <NftCard key={nft.id} nft={nft} link={disableLinks} />
+            <NftCard key={nft.id} nft={nft} link={!disableLinks} />
         ))}
     </NftCardCarouselRoot>
 );

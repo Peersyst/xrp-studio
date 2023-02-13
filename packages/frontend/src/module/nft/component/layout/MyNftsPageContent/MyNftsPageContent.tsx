@@ -5,11 +5,14 @@ import NothingToShow from "module/common/component/feedback/NothingToShow/Nothin
 import { useNavigate } from "react-router-dom";
 import useTranslate from "module/common/hook/useTranslate";
 import MyNtfsGrid from "module/nft/component/display/MyNftsGrid/MyNtfsGrid";
+import useNftsFilters, { NftsFilters } from "module/nft/hook/useNftsFilters";
 
 const MyNftsPageContent = (): JSX.Element => {
     const translate = useTranslate();
     const translateError = useTranslate("error");
     const navigate = useNavigate();
+
+    const filters: NftsFilters = useNftsFilters();
 
     return (
         <PageContent>
@@ -19,6 +22,7 @@ const MyNftsPageContent = (): JSX.Element => {
                         <Button onClick={() => navigate(NftRoutes.NFT_CREATION)}>{translate("createNft")}</Button>
                     </NothingToShow>
                 }
+                {...filters}
             />
         </PageContent>
     );

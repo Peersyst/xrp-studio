@@ -9,10 +9,19 @@ import DropCard from "module/drop/component/display/DropCard/DropCard";
 import { PaginatedDropDto } from "module/api/service/models/PaginatedDropDto";
 import NothingToShow from "module/common/component/feedback/NothingToShow/NothingToShow";
 import useTranslate from "module/common/hook/useTranslate";
+import Button from "module/common/component/input/Button/Button";
+import { useNavigate } from "react-router-dom";
+import { CollectionRoutes } from "module/collection/router/CollectionRouter";
 
 const DropGrid = ({ loading, ...rest }: DropGridProps): JSX.Element => {
     const breakpoints = useCollectionGridBreakpoints();
     const translateError = useTranslate("error");
+    const translate = useTranslate();
+    const navigate = useNavigate();
+
+    const goToCreateCollection = () => {
+        navigate(CollectionRoutes.CREATE_COLLECTION);
+    };
 
     return (
         <Grid<PaginatedDropDto>
@@ -21,7 +30,11 @@ const DropGrid = ({ loading, ...rest }: DropGridProps): JSX.Element => {
             Skeletons={CollectionCardSkeletons}
             css={{ width: "fit-content" }}
             justifyContent="stretch"
-            nothingToShow={<NothingToShow label={translateError("youHaveNoDrops")} />}
+            nothingToShow={
+                <NothingToShow label={translateError("youHaveNoDrops")}>
+                    <Button onClick={goToCreateCollection}>{translate("emptyDropMessage")}</Button>
+                </NothingToShow>
+            }
             {...rest}
         >
             {(drops) => drops.map((drop: DropDto, key: Key | null | undefined) => <DropCard size="lg" drop={drop} key={key} />)}

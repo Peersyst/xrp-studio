@@ -2,13 +2,13 @@ import styled, { css } from "styled-components";
 import { Col, Image } from "@peersyst/react-components";
 import Button from "module/common/component/input/Button/Button";
 
-export const BaseCardRoot = styled(Col).attrs({ gap: "1.5rem" })`
+export const CoverImage = styled(Image)`
+    position: absolute;
+    top: 0;
+    left: 0;
     width: 100%;
-    position: relative;
-    .skeleton-card {
-        min-width: 100%;
-        height: auto;
-    }
+    height: 100%;
+    transition: transform 200ms;
 `;
 
 export const BaseCardCover = styled.div(
@@ -29,12 +29,18 @@ export const BaseCardCover = styled.div(
     `,
 );
 
-export const CoverImage = styled(Image)`
-    position: absolute;
-    top: 0;
-    left: 0;
+export const BaseCardRoot = styled(Col).attrs({ gap: "1.5rem" })`
     width: 100%;
-    height: 100%;
+    position: relative;
+
+    .skeleton-card {
+        min-width: 100%;
+        height: auto;
+    }
+
+    &:hover ${CoverImage} {
+        transform: scale(1.15);
+    }
 `;
 
 export const RemoveIcon = styled(Button).attrs({ variant: "glass" })(

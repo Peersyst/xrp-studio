@@ -18,6 +18,7 @@ export default function (): UseMutationResult<DropDto, unknown, UseCreateDropPar
                 await queryClient.invalidateQueries([Queries.COLLECTIONS]);
                 await queryClient.invalidateQueries([Queries.MY_NFTS]);
                 await queryClient.invalidateQueries([Queries.NFTS]);
+                await queryClient.invalidateQueries([Queries.DROPS]);
             },
         },
     );
