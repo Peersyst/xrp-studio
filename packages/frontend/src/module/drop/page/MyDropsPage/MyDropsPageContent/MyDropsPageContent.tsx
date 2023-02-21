@@ -1,6 +1,6 @@
-import { Button } from "@peersyst/react-components";
 import { CollectionRoutes } from "module/collection/router/CollectionRouter";
 import NothingToShow from "module/common/component/feedback/NothingToShow/NothingToShow";
+import Button from "module/common/component/input/Button/Button";
 import PageContent from "module/common/component/layout/PageContent/PageContent";
 import useTranslate from "module/common/hook/useTranslate";
 import DropGrid from "module/drop/component/layout/DropGrid/DropGrid";

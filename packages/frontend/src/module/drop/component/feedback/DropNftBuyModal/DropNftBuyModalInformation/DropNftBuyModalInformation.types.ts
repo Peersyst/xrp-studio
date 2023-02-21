@@ -4,4 +4,5 @@ export interface DropNftBuyModalInformationProps {
     loading?: boolean;
     drop: DropDto | undefined;
     collection?: string;
+    hasEnoughBalance: boolean;
 }

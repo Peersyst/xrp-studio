@@ -14,7 +14,7 @@ const DropFaq = ({ faq, loading = false, ...rest }: WithLoading<DropFaqProps>): 
                 </Expandable.Display>
                 <Expandable.Body>
                     <Expandable.Content>
-                        <Typography variant="body2" light fontWeight={500} css={{ wordBreak: "break-word", whiteSpace: "pre-wrap" }}>
+                        <Typography variant="body1" light fontWeight={500} css={{ wordBreak: "break-word", whiteSpace: "pre-wrap" }}>
                             {answer}
                         </Typography>
                     </Expandable.Content>

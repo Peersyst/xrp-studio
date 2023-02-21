@@ -4,14 +4,20 @@ import { DropLandingSection } from "module/drop/component/display/DropLanding/Dr
 export const DropLandingFaqsSectionRoot = styled(DropLandingSection)(
     ({ theme }) => css`
         .Expandable {
-            border: 1px solid ${theme.palette.black[80]};
-            padding: 1.5rem 2rem;
+            border: 1px solid ${theme.palette.text};
             border-radius: ${theme.borderRadiusLg};
+            padding: 0;
+
             .ExpandableDisplay {
+                padding: 1.5rem 2rem;
                 border-bottom: none;
                 .Icon {
-                    fontsize: 0.75rem;
+                    font-size: 0.75rem;
                 }
+            }
+
+            .ExpandableContent {
+                padding: 0 2rem 1.5rem;
             }
         }
     `,
