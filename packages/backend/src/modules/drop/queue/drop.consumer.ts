@@ -97,7 +97,7 @@ export class DropConsumer {
                 await this.dropQueue.add("nft-funding-queue", { nftId }, { delay: 10000 });
             }
         } catch (e) {
-            this.logger.error(`[nft-funding-queue] failed for ${JSON.stringify({ nftId })} with error ${JSON.stringify(e)}`);
+            this.logger.error(`[nft-funding-queue] failed for ${JSON.stringify({ nftId })} with error ${e}`);
         }
     }
 }

@@ -18,7 +18,7 @@ export default (secrets: AwsSecrets = {}): XrpConfig => {
                 production: "wss://xrplcluster.com",
             },
             startingLedgerIndex: {
-                default: 35277411,
+                default: 35575975,
                 production: 75443457,
             },
             minterSecret: {
@@ -26,7 +26,7 @@ export default (secrets: AwsSecrets = {}): XrpConfig => {
                 default: "sEdVhyVVQL8YadiVVrizbUhbtoN8CCJ",
             },
             sellCommissionPct: {
-                default: 0.05,
+                default: 0,
                 staging: 0,
             },
             dropNftMintCost: {
