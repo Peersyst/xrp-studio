@@ -1,11 +1,11 @@
 import { useModal } from "@peersyst/react-components";
-import Button from "module/common/component/input/Button/Button";
 import useTranslate from "module/common/hook/useTranslate";
 import useBuyNftDrop from "module/drop/query/useBuyNftDrop";
 import ConnectXummModal from "module/wallet/component/feedback/ConnectXummModal/ConnectXummModal";
 import useWallet from "module/wallet/hook/useWallet";
 import DropNftBuyModal from "module/drop/component/feedback/DropNftBuyModal/DropNftBuyModal";
 import { BuyNftDropProps } from "./ButtonBuyNftDrop.types";
+import { ButtonBuyNftInDropRoot } from "./ButtonBuyNftInDrop.styles";
 
 const ButtonBuyNftDrop = ({ disabled = false, dropId }: BuyNftDropProps): JSX.Element => {
     const translate = useTranslate();
@@ -24,9 +24,9 @@ const ButtonBuyNftDrop = ({ disabled = false, dropId }: BuyNftDropProps): JSX.El
     };
 
     return (
-        <Button style={{ alignSelf: "center" }} onClick={onBuyNftDrop} disabled={disabled}>
+        <ButtonBuyNftInDropRoot css={{ alignSelf: "center" }} onClick={onBuyNftDrop} disabled={disabled}>
             {translate("mint")}
-        </Button>
+        </ButtonBuyNftInDropRoot>
     );
 };
 

@@ -3,6 +3,7 @@ import useTranslate from "module/common/hook/useTranslate";
 
 import { Col, Typography } from "@peersyst/react-components";
 import { HeartIcon } from "icons";
+import { Fragment } from "react";
 
 interface FooterColProps {
     links: FooterItem[];
@@ -13,7 +14,7 @@ const FooterColumn = ({ links }: FooterColProps): JSX.Element => {
     return (
         <Col gap={"1rem"}>
             {links.map((item, index) => (
-                <>
+                <Fragment key={index}>
                     {item.link === "" ? (
                         <Typography variant="body2" light>
                             {translate(`${item.label}`)}
@@ -21,13 +22,13 @@ const FooterColumn = ({ links }: FooterColProps): JSX.Element => {
                             {translate(`inBarcelona`)}
                         </Typography>
                     ) : (
-                        <a target="_blank" key={index} href={item.link} rel="noreferrer">
+                        <a target="_blank" href={item.link} rel="noreferrer">
                             <Typography variant="body2" light>
                                 {translate(`${item.label}`)}
                             </Typography>
                         </a>
                     )}
-                </>
+                </Fragment>
             ))}
         </Col>
     );

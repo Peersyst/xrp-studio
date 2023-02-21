@@ -9,6 +9,7 @@ import DropNftBuyModalInformation from "./DropNftBuyModalInformation/DropNftBuyM
 import DropNftBuyModalActions from "./DropNftBuyModalActions/DropNftBuyModalActions";
 import { NftRoutes } from "module/nft/NftRouter";
 import DropNftInformation from "module/drop/component/display/DropNftInformation/DropNftInformation";
+import useCheckBalanceQuery from "module/wallet/query/useCheckBalanceQuery";
 
 const DropNftBuyModal = createModal<DropNftBuyModalProps>(({ dropId, ...modalProps }) => {
     const translate = useTranslate();
@@ -19,6 +20,10 @@ const DropNftBuyModal = createModal<DropNftBuyModalProps>(({ dropId, ...modalPro
 
     const { data: drop, isLoading: dropLoading } = useGetDrop(dropId);
     const { collection: { header = "", image = "", name = "" } = {}, price = "0" } = drop || {};
+
+    const { data: hasEnoughBalance = false, isLoading: checkBalanceIsLoading } = useCheckBalanceQuery(drop?.price);
+
+    const isLoading = dropLoading || checkBalanceIsLoading;
 
     const handleSuccess = (id: number) => {
         navigate(NftRoutes.VIEW_NFT.replace(":id", String(id)));
@@ -38,15 +43,22 @@ const DropNftBuyModal = createModal<DropNftBuyModalProps>(({ dropId, ...modalPro
                         name={translate("randomNameNft", { collection: name })}
                         items={undefined}
                         price={price}
-                        loading={dropLoading}
+                        loading={isLoading}
                         collection={name}
                     />
                 ),
                 tabs: [
                     {
-                        content: <DropNftBuyModalInformation loading={dropLoading} drop={drop} collection={name} />,
+                        content: (
+                            <DropNftBuyModalInformation
+                                loading={isLoading}
+                                drop={drop}
+                                collection={name}
+                                hasEnoughBalance={hasEnoughBalance}
+                            />
+                        ),
                         actions: [
-                            { action: "next", label: translate("confirm") },
+                            { action: "next", disabled: isLoading || !hasEnoughBalance, label: translate("confirm") },
                             { action: "close", label: translate("cancel") },
                         ],
                     },

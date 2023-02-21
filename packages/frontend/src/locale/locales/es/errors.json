@@ -73,5 +73,6 @@
     "xummRequestBadSignature": "XUMM request was signed incorrectly",
     "invalidPhygitalPublicKey": "Clave pública figital inválida",
     "noDropsAvailable": "No hay drops disponibles en este momento",
-    "noMatchingDrops": "No se han encontrado drops que coincidan con los filtros seleccionados"
+    "noMatchingDrops": "No se han encontrado drops que coincidan con los filtros seleccionados",
+    "notEnoughBalanceToBuyNftFromDrop": "No tienes suficiente XRP para comprar un NFT de este drop"
 }
