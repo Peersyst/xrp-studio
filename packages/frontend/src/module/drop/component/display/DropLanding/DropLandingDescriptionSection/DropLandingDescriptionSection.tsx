@@ -59,7 +59,7 @@ const DropLandingDescriptionSection = ({
                                 </Row>
                             </DropLandingLabel>
                             <Skeleton loading={loading}>
-                                {!loading && items > sold && <ButtonBuyNftDrop dropId={dropId!} disabled={preview} />}
+                                {(loading || items > sold) && <ButtonBuyNftDrop dropId={dropId!} disabled={preview} />}
                             </Skeleton>
                         </Row>
                         <Skeleton loading={loading} height="6px" width="100%">
