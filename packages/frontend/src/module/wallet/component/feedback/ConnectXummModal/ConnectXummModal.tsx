@@ -6,6 +6,7 @@ import { ConnectXummModalProps } from "module/wallet/component/feedback/ConnectX
 import QrModal from "module/common/component/feedback/QrModal/QrModal";
 import AppLinks from "module/common/component/navigation/AppLinks/AppLinks";
 import { config } from "config";
+import OpenXummAppButton from "../../input/OpenXummAppButton/OpenXummAppButton";
 
 const ConnectXummModal = createModal<ConnectXummModalProps>(({ close, onSignIn, ...rest }): JSX.Element => {
     const translate = useTranslate();
@@ -14,7 +15,7 @@ const ConnectXummModal = createModal<ConnectXummModalProps>(({ close, onSignIn, 
         onSignIn?.();
         close();
     };
-    const { signIn, xummQrUrl = "", showLoading } = useConnectToXumm({ callback: handleSignIn });
+    const { signIn, xummQrUrl = "", showLoading, xummAppSignatureLink } = useConnectToXumm({ callback: handleSignIn });
 
     useEffect(() => {
         signIn();
@@ -28,6 +29,7 @@ const ConnectXummModal = createModal<ConnectXummModalProps>(({ close, onSignIn, 
             loading={showLoading}
             {...rest}
         >
+            <OpenXummAppButton size="lg" fullWidth xummAppSignatureLink={xummAppSignatureLink} />
             <AppLinks label={translate("getXummCTA")} appStoreLink={config.appStoreXummLink} googlePlayLink={config.playStoreXummLink} />
         </QrModal>
     );
