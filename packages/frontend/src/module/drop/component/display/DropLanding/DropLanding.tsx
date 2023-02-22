@@ -8,7 +8,6 @@ import { Col, Divider, ThemeOverrideProvider, WithLoading } from "@peersyst/reac
 import DropLandingNftsSection from "module/drop/component/display/DropLanding/DropLandingNftsSection/DropLandingNftsSection";
 import DropLandingFaqsSection from "./DropLandingFaqsSection/DropLandingFaqsSection";
 import DropLandingSocialMediaSection from "./DropLandingSocialMediaSection/DropLandingSocialMediaSection";
-import { emphasize } from "@peersyst/react-utils";
 
 function DropLanding({
     drop,
@@ -78,7 +77,7 @@ function DropLanding({
             <ThemeOverrideProvider
                 overrides={(theme) => ({
                     ...theme,
-                    palette: { ...theme.palette, background: backgroundColor, text: fontColor, primary: emphasize(fontColor, 0.825) },
+                    palette: { ...theme.palette, background: backgroundColor, text: fontColor, primary: fontColor },
                 })}
             >
                 <DropLandingContent

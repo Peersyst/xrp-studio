@@ -16,6 +16,8 @@ import PropertiesInput from "module/nft/component/input/PropertiesInput/Properti
 import { BaseNftPageContentLeftSlot } from "module/nft/component/layout/BaseNftPage/BaseNftPageContent/BaseNftPageContentSlots";
 import { NftFormFields } from "module/nft/page/NftCreationPage/NftCreationPage.types";
 import { CreationNft } from "module/nft/types";
+import { PhygitalIcon } from "icons";
+import usePhygitalNft from "./usePhygitalNft";
 
 export interface UseNftCreationPageSlotsParams {
     nft: CreationNft | undefined;
@@ -41,7 +43,8 @@ export default function ({ nft, collections, fixedCollection, loading = false }:
         metadata: { image = "", name = "", description = "", externalUrl = "", attributes = [], backgroundColor = "" } = {},
         collection: nftCollection,
         flags,
-    } = nft || {};
+        phygitalPublicKey,
+    } = usePhygitalNft(nft);
 
     const taxon = nftCollection?.taxon;
     const { burnable, onlyXRP, transferable } =
@@ -54,6 +57,8 @@ export default function ({ nft, collections, fixedCollection, loading = false }:
 
     const [transferableValue, setTransferableValue] = useState(false);
     const [transferFeeValue, setTransferFeeValue] = useState("");
+    const [isPhygital, setIsPhygital] = useState(false);
+    const [phygitalValue, setPhygitalValue] = useState("");
 
     useEffect(() => {
         setTransferableValue(!!transferable);
@@ -62,6 +67,13 @@ export default function ({ nft, collections, fixedCollection, loading = false }:
     useEffect(() => {
         setTransferFeeValue(transferFee !== undefined ? (transferFee / 1000).toString() : "");
     }, [transferFee]);
+
+    useEffect(() => {
+        if (phygitalPublicKey) {
+            setIsPhygital(true);
+            setPhygitalValue(phygitalPublicKey);
+        }
+    }, [phygitalPublicKey]);
 
     return (
         <>
@@ -155,6 +167,20 @@ export default function ({ nft, collections, fixedCollection, loading = false }:
                     value={transferableValue}
                     onChange={setTransferableValue}
                 />
+                <Switch label={translate("phygital")} value={isPhygital} onChange={setIsPhygital} />
+                {isPhygital && (
+                    <TextField
+                        name={NftFormFields.phygital}
+                        variant="filled"
+                        value={phygitalValue}
+                        onChange={setPhygitalValue}
+                        required
+                        validators={{ phygitalPublicKey: true }}
+                        autoFocus
+                        prefix={<PhygitalIcon css={{ fontSize: "1.5rem" }} />}
+                        placeholder={translate("phygitalPlaceholder")}
+                    />
+                )}
                 <Divider />
                 <PropertiesInput
                     key={"attributes: " + JSON.stringify(attributes)}

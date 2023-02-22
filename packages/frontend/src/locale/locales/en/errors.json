@@ -58,9 +58,9 @@
     "yourSessionHasExpired": "Your session has expired",
     "nftMinting": "NFT transaction signature failed",
     "content404": "The content you are looking for does not exist",
-    "noMatchingNftsWithFilters": "No NFTs were found matching the selected filters.",
+    "noMatchingNftsWithFilters": "No NFTs were found matching the selected filters",
     "youHaveNoDrops": "You have not launched any drops yet",
-    "noMatchingCollections": "No collections were found matching the selected filters.",
+    "noMatchingCollections": "No collections were found matching the selected filters",
     "dropNotFound": "Drop not found",
     "xummSignInRequestDeclined": "Sign in request has been declined",
     "xummSignInRequestCancelled": "Sign in request has been cancelled",
@@ -70,5 +70,9 @@
     "xummRequestDeclined": "XUMM request has been declined",
     "xummRequestCancelled": "XUMM request has been cancelled",
     "xummRequestExpired": "XUMM request has expired",
-    "xummRequestBadSignature": "XUMM request was signed incorrectly"
+    "xummRequestBadSignature": "XUMM request was signed incorrectly",
+    "invalidPhygitalPublicKey": "Invalid phygital public key",
+    "noDropsAvailable": "There are no drops available at this moment",
+    "noMatchingDrops": "No drops were found matching the selected filters",
+    "notEnoughBalanceToBuyNftFromDrop": "You don't have enough XRP balance to buy an NFT from this drop"
 }

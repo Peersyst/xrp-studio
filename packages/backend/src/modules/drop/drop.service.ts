@@ -322,7 +322,22 @@ export class DropService {
                 `Panic! Offer id appears not to be filled but we are trying to fund the artist ${JSON.stringify({ nftInDrop, offerId })}`,
             );
         }
-        const refund = Number(dropsToXrp(nftInDrop.price)) - Number(dropsToXrp(nftInDrop.price)) * this.sellCommissionPct;
+        const refundTotalAmount = Number(dropsToXrp(nftInDrop.price));
+        const loyaltyAmount = Math.ceil(((nftInDrop.nft?.transferFee || 0) / 100000) * refundTotalAmount);
+        const commissionAmount = Math.ceil(refundTotalAmount * this.sellCommissionPct);
+        const refund = refundTotalAmount - loyaltyAmount - commissionAmount;
+        if (refund <= 0) {
+            throw new Error(
+                `Panic! Refund value is negative for ${JSON.stringify({
+                    nftInDrop,
+                    offerId,
+                    refundTotalAmount,
+                    loyaltyAmount,
+                    commissionAmount,
+                    refund,
+                })}`,
+            );
+        }
         const transaction = await this.blockchainTransactionService.preparePaymentTransaction({
             account: this.blockchainService.mintingAddress,
             destination: nftInDrop.nft.account,

@@ -4,17 +4,22 @@ import Avatar from "module/common/component/display/Avatar/Avatar";
 import { BaseCollectionCardSizeProps } from "./BaseCollectionCard.types";
 
 export const BaseCollectionCardRoot = styled.div<BaseCollectionCardSizeProps>(
-    ({ theme, size, gridWidth }) => css`
+    ({ theme, size }) => css`
         display: flex;
         flex-direction: column;
         position: relative;
-        width: ${gridWidth ? "100%" : "22.5rem"};
+        width: 100%;
         height: ${size == "md" ? "12rem" : "18.75rem"};
         border-radius: ${theme.borderRadiusMd};
         background-color: ${theme.palette.black["85"]};
+        transition: background-color 200ms;
 
         ${theme.breakpoints.down("mobile")} {
             width: min(20rem, 77vw);
+        }
+
+        &:hover {
+            background-color: ${theme.palette.black["80"]};
         }
     `,
 );
@@ -24,10 +29,11 @@ export const BaseCollectionCardCover = styled(Image)<BaseCollectionCardSizeProps
         width: inherit;
         height: ${size == "md" ? "67%" : "78%"};
         border-radius: ${theme.borderRadiusMd};
+        max-width: unset;
     `,
 );
 
-export const BaseCollectionCardFooter = styled(Row).attrs({ gap: "0.75rem", flex: 1 })`
+export const BaseCollectionCardFooter = styled(Row).attrs({ gap: "0.35rem", flex: 1 })`
     position: absolute;
     bottom: 0;
     left: 0;

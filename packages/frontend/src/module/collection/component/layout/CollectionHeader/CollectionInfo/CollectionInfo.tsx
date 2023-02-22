@@ -13,14 +13,15 @@ import useGetCollectionByPath from "module/collection/query/useGetCollectionByPa
 const CollectionInfo = (): JSX.Element => {
     const { path } = useParams<string>();
     const translate = useTranslate();
-    const { data: collection, isLoading: collectionLoading } = useGetCollectionByPath(path);
-    const { name, items = 0 } = collection || {};
     const navigate = useNavigate();
     const { address } = useWallet();
 
+    const { data: { name, items = 0, account } = {}, isLoading: collectionLoading } = useGetCollectionByPath(path);
+    const isOwnCollection = account === address;
+
     const shareData: ShareData = {
         title: "XRP Studio",
-        text: translate("checkoutMyCollection"),
+        text: translate(isOwnCollection ? "checkoutMyCollection" : "checkoutThisCollection"),
         url: window.location.origin + CollectionRoutes.VIEW_COLLECTION.replace(":path", path!),
     };
     return (
@@ -51,7 +52,7 @@ const CollectionInfo = (): JSX.Element => {
             {!collectionLoading && (
                 <CollectionsButtons gap="0.5rem">
                     <ShareButton shareData={shareData} networks={[SocialShareOptions.TWITTER]} />
-                    {address && address === collection?.account && (
+                    {address && isOwnCollection && (
                         <Button size="sm" onClick={() => navigate(CollectionRoutes.EDIT_COLLECTION.replace(":path", path!))}>
                             {translate("editCollection")}
                         </Button>

@@ -12,6 +12,7 @@ import { XrpIcon } from "icons";
 import { xrpToDrops } from "xrpl";
 import { DropCreationPageContentProps } from "module/drop/page/DropCreationPage/DropCreationPageContent/DropCreationPageContent.types";
 import { CollectionCreationFieldsCard } from "module/collection/component/layout/CollectionCreationPageScaffold/CollectionCrationFields/CollectionCreationFields.styles";
+import { config } from "config";
 
 const DropCreationPageContent = ({ loading = false, collection }: WithLoading<DropCreationPageContentProps>): JSX.Element => {
     const translate = useTranslate();
@@ -100,6 +101,7 @@ const DropCreationPageContent = ({ loading = false, collection }: WithLoading<Dr
                                     variant="filled"
                                     value={instagram}
                                     onChange={normalizedHandleChange("instagram")}
+                                    validators={{ maxChars: config.maxInstagramUsernameChars }}
                                 />
                                 <TextField
                                     name={DropCreationFormFields.TWITTER}
@@ -107,6 +109,7 @@ const DropCreationPageContent = ({ loading = false, collection }: WithLoading<Dr
                                     variant="filled"
                                     value={twitter}
                                     onChange={normalizedHandleChange("twitter")}
+                                    validators={{ maxChars: config.maxTwitterUsernameChars }}
                                 />
                                 <TextField
                                     name={DropCreationFormFields.DISCORD}
@@ -119,7 +122,6 @@ const DropCreationPageContent = ({ loading = false, collection }: WithLoading<Dr
                                 <Typography variant="body1" color={"black.50"} fontWeight={500}>
                                     {translate("faqs")}
                                 </Typography>
-
                                 <FaqsInput
                                     name={DropCreationFormFields.FAQS}
                                     label={translate("faqs")}

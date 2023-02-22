@@ -58,7 +58,7 @@ const NftCard = forwardRef(
                 defaultCoverUrl={defaultImgUrl}
                 coverUrl={nft.metadata?.image}
                 loading={loading}
-                status={nft.status !== "confirmed" && <NftCardStatusChip nft={nft} />}
+                status={nft.status !== "confirmed" && <NftCardStatusChip nft={nft} loading={loading} />}
                 className={cx("nft-card", className)}
                 onDeleteClicked={isDraft(nft) ? handleDelete : undefined}
                 deleting={isDeletingNftDraft}

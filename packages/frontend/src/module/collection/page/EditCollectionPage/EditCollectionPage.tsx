@@ -22,7 +22,7 @@ const EditCollectionPage = (): JSX.Element => {
     const { state, setState, ...setters } = useEditCollectionState();
 
     const { path: collectionPath } = useParams();
-    const { data: collection, isLoading: collectionLoading } = useGetCollectionByPath(collectionPath, {
+    const { data: collection, isFetching: collectionFetching } = useGetCollectionByPath(collectionPath, {
         refetchOnMount: "always",
         onSuccess: ({ header, image, name = "", description = "" }) => setState({ header, image, name, description }),
     });
@@ -48,7 +48,7 @@ const EditCollectionPage = (): JSX.Element => {
 
     const { launching, saving, handleSubmit } = useEditCollectionSubmit(collection);
 
-    if (!collection && !collectionLoading) return <NotFoundPage />;
+    if (!collection && !collectionFetching) return <NotFoundPage />;
 
     const actions: ActionButtonProps<CollectionCreationAction>[] = [
         {
@@ -79,7 +79,7 @@ const EditCollectionPage = (): JSX.Element => {
 
     return (
         <CollectionCreationPageScaffold
-            loading={collectionLoading || loadingCollectionNfts}
+            loading={collectionFetching || loadingCollectionNfts}
             title={translate("editCollection")}
             backPath={CollectionRoutes.MY_COLLECTIONS}
             actions={actions}
@@ -95,7 +95,7 @@ const EditCollectionPage = (): JSX.Element => {
             {...state}
             {...setters}
         >
-            <EditCollectionPublishedNfts loading={collectionLoading} collectionId={collection?.id} />
+            <EditCollectionPublishedNfts loading={collectionFetching} collectionId={collection?.id} />
         </CollectionCreationPageScaffold>
     );
 };

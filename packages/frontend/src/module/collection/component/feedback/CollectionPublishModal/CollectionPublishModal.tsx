@@ -8,6 +8,7 @@ import CollectionInformation from "module/collection/component/display/Collectio
 import { useMemo, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { CollectionRoutes } from "module/collection/router/CollectionRouter";
+import { CollectionDto } from "module/api/service";
 
 const CollectionPublishModal = createModal<CollectionPublishModalProps>(({ request, collection, ...modalProps }): JSX.Element => {
     const { header, image, name = "", nfts = [] } = request;
@@ -21,8 +22,8 @@ const CollectionPublishModal = createModal<CollectionPublishModalProps>(({ reque
 
     const [loading, setLoading] = useState(false);
 
-    const handleSuccess = (id: number) => {
-        navigate(CollectionRoutes.VIEW_COLLECTION.replace(":id", id.toString()), { replace: true });
+    const handleSuccess = (collection: CollectionDto) => {
+        navigate(CollectionRoutes.VIEW_COLLECTION.replace(":path", collection.path), { replace: true });
     };
 
     return (

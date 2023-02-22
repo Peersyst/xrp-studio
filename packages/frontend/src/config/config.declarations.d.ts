@@ -30,9 +30,15 @@ declare module "@peersyst/react-components" {
         maxTwitterUsernameChars: number;
         maxDiscordUsernameChars: number;
         minDiscordUsernameChars: number;
-        maxNftDescChars: number;
+        maxInstagramUsernameChars: number;
         maxNftNameChars: number;
+        maxNftDescChars: number;
+        maxNftAttributeTypeChars: number;
+        maxNftAttributeValueChars: number;
         maxCollectionNameChars: number;
+        maxCollectionDescriptionChars: number;
+        maxFaqQuestionChars: number;
+        maxFaqAnswerChars: number;
         maxNumberDecimals: number;
         tokenName: string;
         feeInDrops: number;
@@ -43,6 +49,16 @@ declare module "@peersyst/react-components" {
             url: string;
         };
         dropNftMintCost: string; // Drops
+        footerLinks: {
+            about: string;
+            blog: string;
+            github: string;
+            twitter: string;
+            support: string;
+            privacyPolicy: string;
+        };
+        xrpStudioApStoreLink: string;
+        xrpStudioGooglePlayLink: string;
     }
 
     export interface CreateConfig {
@@ -60,9 +76,21 @@ declare module "@peersyst/react-components" {
         collectionDefaultHeaderUrl: string;
         network: string;
         xrpNodeUrl: string;
+        dropMinterAddress: string;
         maxBioChars: number;
         maxUsernameChars: number;
+        maxTwitterUsernameChars: number;
+        maxDiscordUsernameChars: number;
+        minDiscordUsernameChars: number;
+        maxInstagramUsernameChars: number;
+        maxNftNameChars: number;
         maxNftDescChars: number;
+        maxNftAttributeTypeChars: number;
+        maxNftAttributeValueChars: number;
+        maxCollectionNameChars: number;
+        maxCollectionDescriptionChars: number;
+        maxFaqQuestionChars: number;
+        maxFaqAnswerChars: number;
         maxNumberDecimals: number;
         tokenName: string;
         feeInDrops: number;
@@ -73,10 +101,21 @@ declare module "@peersyst/react-components" {
             url: string;
         };
         dropNftMintCost: string; // Drops
+        footerLinks: {
+            about: string;
+            blog: string;
+            github: string;
+            twitter: string;
+            support: string;
+            privacyPolicy: string;
+        };
+        xrpStudioApStoreLink: string;
+        xrpStudioGooglePlayLink: string;
     }
 
     export interface ExtraValidators {
         address: Validator;
+        phygitalPublicKey: Validator;
     }
 
     export interface BlockchainLinks {

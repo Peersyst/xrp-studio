@@ -2,7 +2,7 @@ import { NftDto } from "module/api/service";
 import { ReactNode } from "react";
 import useTranslate from "module/common/hook/useTranslate";
 import parseFlags from "module/nft/util/parseFlags";
-import { BlockchainAddress, Col, Divider, Image, Label, Row, Switch, Typography } from "@peersyst/react-components";
+import { BlockchainAddress, Col, Divider, Label, Row, Switch, Typography } from "@peersyst/react-components";
 import BaseNftPageContent from "module/nft/component/layout/BaseNftPage/BaseNftPageContent/BaseNftPageContent";
 import { capitalize } from "@peersyst/react-utils";
 import ColorInput from "module/common/component/input/ColorInput/ColorInput";
@@ -11,8 +11,9 @@ import PropertiesInput from "module/nft/component/input/PropertiesInput/Properti
 import { BaseNftPageContentLeftSlot } from "module/nft/component/layout/BaseNftPage/BaseNftPageContent/BaseNftPageContentSlots";
 import Link from "module/common/component/navigation/Link/Link";
 import UserProfileLink from "module/user/component/navigation/UserProfileLink/UserProfileLink";
-import { config } from "config";
 import { CollectionRoutes } from "module/collection/router/CollectionRouter";
+import usePhygitalNft from "../../NftCreationPage/hook/usePhygitalNft";
+import NftDisplay from "module/nft/component/display/NftDisplay/NftDisplay";
 
 export interface UserViewNftPageSlots {
     nft: NftDto | undefined;
@@ -36,14 +37,15 @@ export default function ({ nft, loading = false }: UserViewNftPageSlots): ReactN
         collection: nftCollection,
         flags = 0,
         user = { address: "", name: "" },
-    } = nft || {};
+        phygitalPublicKey,
+    } = usePhygitalNft(nft);
     const { burnable, onlyXRP, transferable } = parseFlags(flags);
 
     return (
         <>
             <BaseNftPageContent.Left>
                 <BaseNftPageContentLeftSlot.Image loading={loading} key={nft?.id}>
-                    <Image src={image} alt="nft-image" fallback={config.nftDefaultImageUrl} />
+                    <NftDisplay image={image} phygitalPublicKey={phygitalPublicKey} />
                 </BaseNftPageContentLeftSlot.Image>
                 <BaseNftPageContentLeftSlot.Info loading={loading}>
                     <Label label={capitalize(translate("name"))}>
@@ -80,7 +82,7 @@ export default function ({ nft, loading = false }: UserViewNftPageSlots): ReactN
                 </Label>
                 <Label label={translate("collection")}>
                     {nftCollection ? (
-                        <Link to={CollectionRoutes.VIEW_COLLECTION.replace(":id", nftCollection.id.toString())} variant="body1">
+                        <Link to={CollectionRoutes.VIEW_COLLECTION.replace(":path", nftCollection.path)} variant="body1">
                             {nftCollection.name || translate("unnamed")}
                         </Link>
                     ) : (
@@ -121,6 +123,7 @@ export default function ({ nft, loading = false }: UserViewNftPageSlots): ReactN
                 <Switch label={translate("burnable")} value={burnable} readonly />
                 <Switch label={translate("onlyXRP")} value={onlyXRP} readonly />
                 <Switch label={translate("transferable")} value={transferable} readonly />
+                <Switch label={translate("phygital")} value={!!phygitalPublicKey} readonly />
                 <Divider />
                 <Col>
                     <PropertiesInput label={translate("attributes")} value={attributes} readonly variant="filled" />

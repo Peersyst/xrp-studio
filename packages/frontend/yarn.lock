@@ -2455,10 +2455,10 @@
     mkdirp "^1.0.4"
     rimraf "^3.0.2"
 
-"@peersyst/react-components-core@^1.1.1":
-  version "1.1.1"
-  resolved "https://registry.yarnpkg.com/@peersyst/react-components-core/-/react-components-core-1.1.1.tgz#3277944b1f2ed15d80fd230ac0f4dd4ce9f1ef07"
-  integrity sha512-g4CKiPGPVZU49uKR3X07QyhCXRbssHbnKU14OKwzOqnC9cZTo/w9Wsig4r1ua8QdmqS8tat8sBts2PCvhJsJAg==
+"@peersyst/react-components-core@^1.2.6":
+  version "1.2.6"
+  resolved "https://registry.yarnpkg.com/@peersyst/react-components-core/-/react-components-core-1.2.6.tgz#c1ab1e49062674fa34b252100e81a3df9a81b8d7"
+  integrity sha512-bY6G9eCln+4EWO3ytw15VY0GrUHB+O96rB+Di7iRV9DpMx3ZADLEphebjwpZeBIRyqNdCYrzi4HLRYT62M8gZQ==
   dependencies:
     "@babel/runtime" "^7.16.7"
     "@peersyst/react-hooks" "^2.2.0"
@@ -2466,13 +2466,13 @@
     "@peersyst/react-utils" "^2.1.0"
     validator "^13.7.0"
 
-"@peersyst/react-components@^3.1.5":
-  version "3.1.5"
-  resolved "https://registry.yarnpkg.com/@peersyst/react-components/-/react-components-3.1.5.tgz#37245b643bfd55ebea5cac6de0b53ea95bafd91e"
-  integrity sha512-szeXN4SM0Ky/iPqjgp66vqKmMb3wlWn4WtBCxpUTQKyqgrN9FB/i4UbNo+2xHp0fjxZc1UUvIVerVaVU52u9Xg==
+"@peersyst/react-components@^3.1.7":
+  version "3.2.6"
+  resolved "https://registry.yarnpkg.com/@peersyst/react-components/-/react-components-3.2.6.tgz#2e659d485e019618961eb095275d4fff7ec5ff9d"
+  integrity sha512-n63Qo6Xjhu0rcoTolqlztScO1yU3LAFFAqDNKiTdsbL08OQKo27bQwLvJMR+CxnWqU6hnwiNBZTV6ap0l5jIEQ==
   dependencies:
     "@babel/runtime" "^7.16.7"
-    "@peersyst/react-components-core" "^1.1.1"
+    "@peersyst/react-components-core" "^1.2.6"
     "@peersyst/react-hooks" "^2.2.0"
     "@peersyst/react-types" "^1.5.0"
     "@peersyst/react-utils" "^2.1.0"
@@ -5941,6 +5941,11 @@ duplexify@^3.4.2, duplexify@^3.6.0:
     inherits "^2.0.1"
     readable-stream "^2.0.0"
     stream-shift "^1.0.0"
+
+easyqrcodejs@^4.4.13:
+  version "4.4.13"
+  resolved "https://registry.yarnpkg.com/easyqrcodejs/-/easyqrcodejs-4.4.13.tgz#466c5e807751ae41d5f65cab08e4359f27c28b8e"
+  integrity sha512-NulfMl+bhx/gAjZcBjgNd99jqPE5wEho1Z3nZwnKNISu0STnVq0xFQ28SVhcnOwt+47BJ80dULVNzpGIwYi66A==
 
 ee-first@1.1.1:
   version "1.1.1"

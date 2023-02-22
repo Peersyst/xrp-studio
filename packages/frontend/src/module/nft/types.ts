@@ -25,6 +25,7 @@ export interface NftCreationForm {
     trustLine: boolean;
     transferable: boolean;
     attributes?: MetadataAttributeDto[];
+    phygital?: string;
 }
 
 // Any object that extends Common<NftDto, NftDraftDto>

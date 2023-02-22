@@ -9,13 +9,13 @@ export class NftMetadataAttribute {
     @PrimaryColumn({ name: "nft_metadata_id" })
     nftMetadataId: number;
 
-    @Column({ name: "trait_type", type: "varchar", length: 255, nullable: true })
+    @Column({ name: "trait_type", type: "text", nullable: true })
     traitType?: string;
 
-    @Column({ type: "varchar", length: 255 })
+    @Column({ type: "text", nullable: true })
     value: string;
 
-    @Column({ name: "display_type", type: "varchar", length: 255, nullable: true })
+    @Column({ name: "display_type", type: "text", nullable: true })
     displayType?: string;
 
     @ManyToOne(() => NftMetadata, (metadata) => metadata.attributes)

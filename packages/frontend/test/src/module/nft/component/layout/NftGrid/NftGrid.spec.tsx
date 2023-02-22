@@ -8,7 +8,7 @@ describe("Test for the NftGrid component", () => {
     /**
      * Tests for the NftGrid component without filters
      */
-    test("Renders all nfts correctly with basegrid", () => {
+    test("Renders all nfts correctly with base grid", () => {
         const data = new PaginatedNftsMock({ nftsParams: { length: 10 } });
         const screen = render(<NftGrid data={data} callback={() => undefined} end={false} loadingNfts={false} />);
         expect(screen.getAllByRole("heading", { name: data.pages[0].items[0].metadata?.name })).toHaveLength(10);
@@ -40,8 +40,7 @@ describe("Test for the NftGrid component", () => {
         /**
          * Filters
          */
-        expect(screen.getByText(translate("hideFilters&Search"))).toBeInTheDocument();
-        expect(screen.getByTestId("MenuIcon")).toBeInTheDocument();
+        expect(screen.getByText(translate("hideFilters"))).toBeInTheDocument();
         //Collections
         expect(screen.getAllByText(collections[0].name!)).toHaveLength(6); //2 Selected Tag + 4 Filter
         /**
@@ -69,7 +68,7 @@ describe("Test for the NftGrid component", () => {
         /**
          * Tags
          */
-        expect(screen.getByRole("button", { name: translate("search&Filter") })).toBeInTheDocument();
+        expect(screen.getByRole("button", { name: translate("showFilters") })).toBeInTheDocument();
     });
 
     test("Renders correctly without nfts (with grid with filters) & without collections", () => {

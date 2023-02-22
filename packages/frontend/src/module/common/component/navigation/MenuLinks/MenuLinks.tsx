@@ -24,7 +24,7 @@ const MenuLinks = ({ onClick }: MenuLinksProps): JSX.Element => {
                     </Link>
                 ))
             ) : (
-                <Link type="router" to={ExploreRoutes.MAIN}>
+                <Link type="router" to={ExploreRoutes.MAIN} onClick={onClick ? () => onClick() : undefined}>
                     <Typography
                         variant="body1"
                         color={location.pathname.includes(ExploreRoutes.MAIN) ? "black.0" : "black.40"}

@@ -4,6 +4,7 @@ import { lazy } from "react";
 export enum ExploreRoutes {
     MAIN = "/explore",
     TRENDING = "/explore/trending",
+    DROPS = "/explore/drops",
     COLLECTIONS = "/explore/collections",
     NFTS = "/explore/nfts",
 }
@@ -18,6 +19,10 @@ export const useExploreRoutes = (): RouteObject[] => {
         },
         {
             path: ExploreRoutes.TRENDING,
+            element: <ExplorePage />,
+        },
+        {
+            path: ExploreRoutes.DROPS,
             element: <ExplorePage />,
         },
         {

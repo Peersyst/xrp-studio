@@ -60,6 +60,7 @@ describe("MetadataService", () => {
 
     describe("createNftMetadata", () => {
         test("Creates metadata with attributes", async () => {
+            nftMetadataRepositoryMock.findOne.mockResolvedValueOnce(undefined);
             const metadataDto = new MetadataDtoMock();
             await metadataService.create(0, metadataDto);
             expect(nftMetadataRepositoryMock.save).toHaveBeenCalledWith({ ...metadataDto, nftId: 0 });

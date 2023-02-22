@@ -24,9 +24,14 @@ export function buildConfig<T>(config: ConfigKeys<T>, validators: ConfigValidato
         const value = config[key];
         if (
             typeof value === "object" &&
-            (value["default"] || value["production"] || value["staging"] || value["preview"] || value["development"] || value["test"])
+            (value["default"] !== undefined ||
+                value["production"] !== undefined ||
+                value["staging"] !== undefined ||
+                value["preview"] !== undefined ||
+                value["development"] !== undefined ||
+                value["test"] !== undefined)
         ) {
-            if (value[configEnv])
+            if (value[configEnv] !== undefined)
                 return {
                     ...acc,
                     [key]: value[configEnv],

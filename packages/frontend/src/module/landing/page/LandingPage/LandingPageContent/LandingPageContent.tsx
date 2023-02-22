@@ -2,16 +2,17 @@ import { Col, Divider, WithLoading } from "@peersyst/react-components";
 import { LandingPageProps } from "module/landing/Landing.types";
 import LandingPageArtistsSection from "../LandingPageArtistsSection/LandingPageArtistsSection";
 import LandingPageHowWorkSection from "../LandingPageHowWorkSection/LandingPageHowWorkSection";
-import LandingPageNftsSection from "../LandingPageNftsSection/LandingPageNftsSection";
+import LandingPageDropsSection from "../LandingPageDropsSection/LandingPageDropsSection";
 import LandingPagePartnersSection from "../LandingPagePartnersSection/LandingPagePartnersSection";
 import { useGetTrends } from "module/explore/query/useGetTrending";
 import { how_it_works_create_landing, how_it_works_create_nft, how_it_works_dashboard } from "images";
 import useTranslate from "module/common/hook/useTranslate";
+import LandingPageNftsSection from "../LandingNftsSection/LandingPageNftsSection";
 
 function LandingPageContent({ ...rest }: WithLoading<LandingPageProps>): JSX.Element {
     const translate = useTranslate();
 
-    const { data: { nfts, artists } = { nfts: [], artists: [] }, isLoading } = useGetTrends();
+    const { data: { drops, artists, nfts } = { drops: [], artists: [], nfts: [] }, isLoading } = useGetTrends();
 
     const items = [
         {
@@ -35,8 +36,9 @@ function LandingPageContent({ ...rest }: WithLoading<LandingPageProps>): JSX.Ele
         <Col {...rest}>
             <Col gap={"5.5rem"}>
                 <Divider />
-                <LandingPageNftsSection nfts={nfts} loading={isLoading} />
+                <LandingPageDropsSection drops={drops} loading={isLoading} />
                 <LandingPageArtistsSection artists={artists} loading={isLoading} />
+                <LandingPageNftsSection nfts={nfts} loading={isLoading} />
                 <Col>
                     <Divider />
                     <LandingPageHowWorkSection items={items} loading={isLoading} />

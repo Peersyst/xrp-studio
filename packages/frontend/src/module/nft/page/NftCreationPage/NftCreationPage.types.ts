@@ -14,4 +14,5 @@ export const NftFormFields: Record<keyof NftCreationForm, keyof NftCreationForm>
     trustLine: "trustLine",
     transferable: "transferable",
     attributes: "attributes",
+    phygital: "phygital",
 };

@@ -15,7 +15,7 @@ describe("Test for the base grid with tags", () => {
         expect(screen.getByText("Tag2")).toBeInTheDocument();
         expect(screen.getByText("Tag3")).toBeInTheDocument();
         expect(screen.getByRole("button", { name: translate("clearAll") })).toBeInTheDocument();
-        expect(screen.getByRole("button", { name: translate("search&Filter") })).toBeInTheDocument();
+        expect(screen.getByRole("button", { name: translate("showFilters") })).toBeInTheDocument();
     });
     test("Triggers clear all button fn", () => {
         const tags = [{ label: "Tag1", value: 1 }];
@@ -40,7 +40,7 @@ describe("Test for the base grid with tags", () => {
         const mockedSetShowFilters = jest.fn();
         jest.spyOn(Recoil, "useRecoilState").mockReturnValue([false, mockedSetShowFilters]);
         const screen = render(<BaseGridTags tags={[]} />);
-        const btn = screen.getByText(translate("search&Filter"));
+        const btn = screen.getByText(translate("showFilters"));
         expect(btn).toBeInTheDocument();
         fireEvent.click(btn);
         expect(mockedSetShowFilters).toBeCalledTimes(1);

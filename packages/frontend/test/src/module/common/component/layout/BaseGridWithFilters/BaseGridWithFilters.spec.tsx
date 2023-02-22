@@ -2,7 +2,6 @@ import BaseGridWithFilters from "module/common/component/layout/BaseGridWithFilt
 import { render, translate } from "test-utils";
 import Skeletons from "module/common/component/feedback/Skeletons/Skeletons";
 import * as Recoil from "recoil";
-import { fireEvent } from "@testing-library/dom";
 
 describe("Test for the base grid with filters", () => {
     test("Renders correctly when loaded: children + filters + tags", () => {
@@ -46,8 +45,7 @@ describe("Test for the base grid with filters", () => {
         /**
          * Filters
          */
-        expect(screen.getByText(translate("hideFilters&Search"))).toBeInTheDocument();
-        expect(screen.getByTestId("MenuIcon")).toBeInTheDocument();
+        expect(screen.getByText(translate("hideFilters"))).toBeInTheDocument();
         expect(screen.getByText("filters")).toBeInTheDocument();
         /**
          * Content
@@ -95,7 +93,7 @@ describe("Test for the base grid with filters", () => {
                 {(letters) => letters.map((letter, key) => <p key={key}>{letter}</p>)}
             </BaseGridWithFilters>,
         );
-        expect(screen.getByRole("button", { name: translate("search&Filter") })).toBeInTheDocument();
+        expect(screen.getByRole("button", { name: translate("showFilters") })).toBeInTheDocument();
         //Children
         expect(screen.getByRole("heading", { name: "Nothing to show" })).toBeInTheDocument();
     });
@@ -164,11 +162,7 @@ describe("Test for the base grid with filters", () => {
         //By default filters are shown
         //Filters
         expect(screen.getByText("filters")).toBeInTheDocument();
-        const btnIcon = screen.getByTestId("MenuIcon");
-        expect(btnIcon).toBeInTheDocument();
-        //Hide filters
-        fireEvent.click(btnIcon);
         //Displays show filters btn
-        expect(screen.getByRole("button", { name: translate("search&Filter") })).toBeInTheDocument();
+        expect(screen.getByRole("button", { name: translate("showFilters") })).toBeInTheDocument();
     });
 });

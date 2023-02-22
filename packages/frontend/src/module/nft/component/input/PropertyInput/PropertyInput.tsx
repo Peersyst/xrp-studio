@@ -7,6 +7,7 @@ import {
     PropertyInputRoot,
     PropertyInputTextField,
 } from "module/nft/component/input/PropertyInput/PropertyInput.styles";
+import { config } from "config";
 
 const PropertyInput = ({
     defaultValue = { traitType: "", value: "" },
@@ -58,6 +59,7 @@ const PropertyInput = ({
                             autoFocus={autoFocus}
                             readonly={readonly}
                             disabled={disabled}
+                            validators={{ maxChars: config.maxNftAttributeTypeChars }}
                         />
                         <PropertyInputTextField
                             variant={variant}
@@ -67,6 +69,7 @@ const PropertyInput = ({
                             onChange={handleValueChange}
                             readonly={readonly}
                             disabled={disabled}
+                            validators={{ maxChars: config.maxNftAttributeValueChars }}
                         />
                         {!readonly && onDelete && <DeletePropertyButton onClick={handleDelete} />}
                     </PropertyInputRoot>

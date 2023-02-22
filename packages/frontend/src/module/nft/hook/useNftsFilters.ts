@@ -1,4 +1,4 @@
-import { NftFilterNames } from "module/nft/query/useGetNfts";
+import { NftFilterNames, UseGetNftsOptions } from "module/nft/query/useGetNfts";
 import { BASE_FILTERS_DECLARATION, BaseFilters, UseFilterReturn } from "module/common/component/input/Filters/hooks/useFilters";
 import useFilters from "module/common/component/input/Filters/hooks/useFilters/useFilters";
 
@@ -11,6 +11,8 @@ export const NFT_FILTER_DECLARATION: NftFilters = {
         type: "number",
     },
 };
+
+export type NftsFilters = Omit<UseGetNftsOptions, "account">;
 
 export default function useNftsFilters(): UseFilterReturn<NftFilters> {
     return useFilters<NftFilters>(NFT_FILTER_DECLARATION);

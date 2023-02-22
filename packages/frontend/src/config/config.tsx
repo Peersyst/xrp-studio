@@ -7,6 +7,7 @@ import devConfig from "./config.dev.json";
 import stagingConfig from "./config.staging.json";
 import { XrplAddressValidator } from "config/validators/XrplAddressValidator";
 import components from "./components/components";
+import PhygitalPublicKeyValidator from "./validators/PhygitalPublicKeyValidator";
 
 const envConfigs: Record<string, CreateConfig> = {
     test: { ...baseConfig, ...devConfig },
@@ -36,6 +37,7 @@ const config = createConfig({
     },
     validators: {
         address: XrplAddressValidator,
+        phygitalPublicKey: PhygitalPublicKeyValidator,
     },
 });
 

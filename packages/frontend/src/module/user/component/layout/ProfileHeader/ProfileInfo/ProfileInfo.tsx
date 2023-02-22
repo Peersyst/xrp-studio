@@ -27,7 +27,7 @@ const ProfileInfo = (): JSX.Element => {
     return (
         <ProfileInfoRoot>
             <Col gap="0.5rem">
-                <Row justifyContent="space-between" alignItems="center">
+                <Row justifyContent="space-between" alignItems="center" gap="0.5rem">
                     <Row flex={1} gap="1rem" alignItems="center" breakpoint={{ width: "mobile", gap: "1rem" }} css={{ overflow: "hidden" }}>
                         <Username
                             name={name}
@@ -58,7 +58,7 @@ const ProfileInfo = (): JSX.Element => {
                     </ProfileButtons>
                 </Row>
                 <Skeleton width="70%" loading={isLoading}>
-                    <Typography className="profile-description" variant="body1" light>
+                    <Typography className="profile-description" variant="body1" light css={{ wordBreak: "break-word" }}>
                         {description}
                     </Typography>
                 </Skeleton>

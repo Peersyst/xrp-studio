@@ -184,7 +184,7 @@ export const ButtonRoot = styled(Button)<ButtonRootProps>(({ variant, size }) =>
         font-weight: 500;
         text-transform: none;
         border: 1px solid transparent;
-        transition: background-color 200ms linear, opacity 200ms linear, box-shadow 200ms linear, background 600ms linear;
+        transition: background-color 200ms linear, opacity 200ms linear, box-shadow 200ms linear, background 200ms linear;
         &:disabled {
             opacity: 0.4;
         }
