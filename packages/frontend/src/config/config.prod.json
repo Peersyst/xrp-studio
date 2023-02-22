@@ -11,6 +11,7 @@
     "dropMinterAddress": "rQnKiCD6yTtSRA9eiFXY5tHYQriCT41FJT",
     "altNetwork": {
         "network": "testnet",
-        "url": "https://xrp-studio.peersyst.tech"
-    }
+        "url": "https://testnet.xrpstudio.io"
+    },
+    "dropNftMintCost": "5000000"
 }
