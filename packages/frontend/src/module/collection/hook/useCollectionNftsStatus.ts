@@ -1,9 +1,9 @@
-import { polling } from "@peersyst/react-utils";
 import { useEffect, useState } from "react";
 import { NftDraftStatusDto, NftService } from "module/api/service";
+import timeoutPolling from "module/common/util/timeoutPolling";
 
 export interface UseCollectionNftsStatusResult {
-    fetch: () => Promise<NftDraftStatusDto[]> | undefined;
+    fetch: () => Promise<NftDraftStatusDto[] | undefined> | undefined;
     pendingIds: number[] | undefined;
     failedIds: number[];
 }
@@ -43,8 +43,8 @@ export default function (ids: number[] | undefined): UseCollectionNftsStatusResu
         return !!statuses.pending.length;
     };
 
-    const fetch = (): Promise<NftDraftStatusDto[]> | undefined => {
-        if (ids) return polling(() => NftService.nftControllerGetNftDraftStatus(undefined, ids), handleStatuses);
+    const fetch = (): Promise<NftDraftStatusDto[] | undefined> | undefined => {
+        if (ids) return timeoutPolling(() => NftService.nftControllerGetNftDraftStatus(undefined, ids), handleStatuses);
         return undefined;
     };
 

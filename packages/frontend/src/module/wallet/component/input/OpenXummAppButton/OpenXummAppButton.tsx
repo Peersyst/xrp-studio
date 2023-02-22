@@ -6,17 +6,22 @@ export interface OpenXummAppButtonProps extends Omit<ButtonProps, "onClick" | "t
     xummAppSignatureLink: string | undefined;
 }
 
-const OpenXummAppButton = ({ xummAppSignatureLink, disabled, ...restButtonProps }: OpenXummAppButtonProps): JSX.Element => {
+const OpenXummAppButton = ({
+    xummAppSignatureLink,
+    disabled,
+    fullWidth = true,
+    ...restButtonProps
+}: OpenXummAppButtonProps): JSX.Element => {
     const translate = useTranslate();
 
     const body = (
-        <Button type="button" disabled={!xummAppSignatureLink || disabled} {...restButtonProps}>
+        <Button type="button" disabled={!xummAppSignatureLink || disabled} fullWidth={fullWidth} {...restButtonProps}>
             {translate("openXummApp")}
         </Button>
     );
 
     return xummAppSignatureLink ? (
-        <a css={{ width: "100%" }} target="_self" href={xummAppSignatureLink!}>
+        <a css={{ width: fullWidth ? "100%" : undefined }} href={xummAppSignatureLink!}>
             {body}
         </a>
     ) : (

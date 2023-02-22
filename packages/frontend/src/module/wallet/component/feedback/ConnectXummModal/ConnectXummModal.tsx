@@ -1,4 +1,4 @@
-import { createModal } from "@peersyst/react-components";
+import { Col, createModal } from "@peersyst/react-components";
 import useTranslate from "module/common/hook/useTranslate";
 import { useEffect } from "react";
 import useConnectToXumm from "module/wallet/hook/useConnectToXumm/useConnectToXumm";
@@ -29,8 +29,14 @@ const ConnectXummModal = createModal<ConnectXummModalProps>(({ close, onSignIn, 
             loading={showLoading}
             {...rest}
         >
-            <OpenXummAppButton size="lg" fullWidth xummAppSignatureLink={xummAppSignatureLink} />
-            <AppLinks label={translate("getXummCTA")} appStoreLink={config.appStoreXummLink} googlePlayLink={config.playStoreXummLink} />
+            <Col gap="1.5rem">
+                <OpenXummAppButton size="lg" fullWidth xummAppSignatureLink={xummAppSignatureLink} />
+                <AppLinks
+                    label={translate("getXummCTA")}
+                    appStoreLink={config.appStoreXummLink}
+                    googlePlayLink={config.playStoreXummLink}
+                />
+            </Col>
         </QrModal>
     );
 });

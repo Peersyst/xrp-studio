@@ -6,9 +6,18 @@ import XrplService from "module/blockchain/service/XrplService/XrplService";
 export function useLoad(): boolean {
     const [loading, setLoading] = useState(true);
     const verifySignIn = useVerifyXumm();
+
     useEffect(() => {
         const startApp = async () => {
-            await XrplService.connectClient();
+            await XrplService.initializeClient();
+
+            // Reconnect when tab becomes visible (Switch between mobile apps)
+            const handleDocumentVisibilityChange = async () => {
+                if (document.visibilityState === "visible") await XrplService.connectClient();
+            };
+
+            document.addEventListener("visibilitychange", handleDocumentVisibilityChange);
+
             const token = AuthTokenStorage.get();
             if (token) {
                 await verifySignIn();

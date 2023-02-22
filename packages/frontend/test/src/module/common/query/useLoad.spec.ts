@@ -16,7 +16,7 @@ describe("useLoad tests", () => {
     });
 
     test("Loads without token", async () => {
-        const connectClient = jest.spyOn(XrplService, "connectClient").mockResolvedValue(undefined);
+        const connectClient = jest.spyOn(XrplService, "initializeClient").mockResolvedValue(undefined);
         //XummMocks
         const mockedVerifySignIn = jest.fn().mockResolvedValueOnce("");
         const mockedXummReact = new VerifySignInMock({ verifySignIn: mockedVerifySignIn });
@@ -31,7 +31,7 @@ describe("useLoad tests", () => {
     });
 
     test("Loads with token", async () => {
-        const connectClient = jest.spyOn(XrplService, "connectClient").mockResolvedValue(undefined);
+        const connectClient = jest.spyOn(XrplService, "initializeClient").mockResolvedValue(undefined);
         //XummMocks
         const mockedVerifySignIn = jest.fn().mockResolvedValueOnce("");
         const mockedXummReact = new VerifySignInMock({ verifySignIn: mockedVerifySignIn });

@@ -2455,27 +2455,27 @@
     mkdirp "^1.0.4"
     rimraf "^3.0.2"
 
-"@peersyst/react-components-core@^1.2.6":
-  version "1.2.6"
-  resolved "https://registry.yarnpkg.com/@peersyst/react-components-core/-/react-components-core-1.2.6.tgz#c1ab1e49062674fa34b252100e81a3df9a81b8d7"
-  integrity sha512-bY6G9eCln+4EWO3ytw15VY0GrUHB+O96rB+Di7iRV9DpMx3ZADLEphebjwpZeBIRyqNdCYrzi4HLRYT62M8gZQ==
+"@peersyst/react-components-core@^1.2.13":
+  version "1.2.13"
+  resolved "https://registry.yarnpkg.com/@peersyst/react-components-core/-/react-components-core-1.2.13.tgz#7a8d57160be95f572f4e7d4c833a4fabd962989d"
+  integrity sha512-S3zCeS4tpT4WrM/Xlzcyepao16JL5iX1Lst/kDwwpDk1hacWOGMs0iW8OQHTXpaOX+UYt/NLzVf3VLNp6kulDg==
   dependencies:
     "@babel/runtime" "^7.16.7"
-    "@peersyst/react-hooks" "^2.2.0"
+    "@peersyst/react-hooks" "^2.2.1"
     "@peersyst/react-types" "^1.5.0"
-    "@peersyst/react-utils" "^2.1.0"
+    "@peersyst/react-utils" "^2.2.0"
     validator "^13.7.0"
 
-"@peersyst/react-components@^3.1.7":
-  version "3.2.6"
-  resolved "https://registry.yarnpkg.com/@peersyst/react-components/-/react-components-3.2.6.tgz#2e659d485e019618961eb095275d4fff7ec5ff9d"
-  integrity sha512-n63Qo6Xjhu0rcoTolqlztScO1yU3LAFFAqDNKiTdsbL08OQKo27bQwLvJMR+CxnWqU6hnwiNBZTV6ap0l5jIEQ==
+"@peersyst/react-components@^3.2.15":
+  version "3.2.15"
+  resolved "https://registry.yarnpkg.com/@peersyst/react-components/-/react-components-3.2.15.tgz#ff38c0e58fd16eafb49cec76332f2db7f776d9a8"
+  integrity sha512-+Gp2+XeQ73TAFAEWaQP26YoutJ8mddEIWKWBsqcLESNHnX7B8I87uf1/9THCtCdMDBLfNS3DUF250mwtuzwAGw==
   dependencies:
     "@babel/runtime" "^7.16.7"
-    "@peersyst/react-components-core" "^1.2.6"
-    "@peersyst/react-hooks" "^2.2.0"
+    "@peersyst/react-components-core" "^1.2.13"
+    "@peersyst/react-hooks" "^2.2.1"
     "@peersyst/react-types" "^1.5.0"
-    "@peersyst/react-utils" "^2.1.0"
+    "@peersyst/react-utils" "^2.2.0"
     "@popperjs/core" "^2.11.5"
     clsx "^1.2.1"
     color "^4.2.3"
@@ -2487,23 +2487,40 @@
     react-player "^2.9.0"
     react-transition-group "^4.4.2"
 
-"@peersyst/react-hooks@^2.2.0":
-  version "2.2.0"
-  resolved "https://registry.yarnpkg.com/@peersyst/react-hooks/-/react-hooks-2.2.0.tgz#4cc58494690dbe96d682a67307eb832bef44bb06"
-  integrity sha512-pJAg2ih0ecJ0t+jNK9SB03HfCoFCSlmC2C2iUjdoABOmkyIqy0962gYSznsYZkP/GjFZ0n3XAb5+zLA+MKrUyA==
+"@peersyst/react-hooks@^2.2.1":
+  version "2.2.2"
+  resolved "https://registry.yarnpkg.com/@peersyst/react-hooks/-/react-hooks-2.2.2.tgz#d0d5df34115b5e9b8c1c0103a401ea99e823076a"
+  integrity sha512-nQ5TiaN9NCd3LGAbzOyzSrO0qEPZofEOy6MDVdZ+3zLNnk6r4hVE4K615nNWEClParp4ne9fFWYmeFFa/3V/3w==
   dependencies:
     "@babel/runtime" "^7.16.7"
-    "@peersyst/react-utils" "^2.1.0"
+    "@peersyst/react-utils" "^2.2.1"
+
+"@peersyst/react-hooks@^2.2.3":
+  version "2.2.3"
+  resolved "https://registry.yarnpkg.com/@peersyst/react-hooks/-/react-hooks-2.2.3.tgz#00c66724cc96ae996717582ffa36a7db310c464e"
+  integrity sha512-wVuJDFGnvDBVWCIH563nydh7h9HBma5J8VtFMCQtMVQnlqyQYLxrWbVx7T7lNz4Vl85q6FwY4nCtQc/pbP2v9w==
+  dependencies:
+    "@babel/runtime" "^7.16.7"
+    "@peersyst/react-utils" "^2.2.2"
 
 "@peersyst/react-types@^1.5.0":
   version "1.5.0"
   resolved "https://registry.yarnpkg.com/@peersyst/react-types/-/react-types-1.5.0.tgz#7bcd7e59c956376a109dc9c10f6781735ba989ed"
   integrity sha512-4jumCixMp3KN2G6h2x0cfXhi0eTtwHX8cnjxGFagQZ4TQyo4FMPfWbkiMVL9VmYGpegxwwl8NlDSt7XdOI0XYA==
 
-"@peersyst/react-utils@^2.1.0":
-  version "2.1.0"
-  resolved "https://registry.yarnpkg.com/@peersyst/react-utils/-/react-utils-2.1.0.tgz#a9588a1494773e986caf3acfdb2f873b43bceebf"
-  integrity sha512-+nGQliMXdhBqVKr45fEFHyWCX//VUXCzZobX/Ao9RSmqYstkM0aFr9bcw7jMDks9yGfba3Mw24nkPc7yOsag5Q==
+"@peersyst/react-utils@^2.2.0", "@peersyst/react-utils@^2.2.1":
+  version "2.2.1"
+  resolved "https://registry.yarnpkg.com/@peersyst/react-utils/-/react-utils-2.2.1.tgz#d8afde61271f09641f1de8fceeadf2c2d5f649a3"
+  integrity sha512-XKlapXNGQnoFZj0HAG+68ZFZyW0BKDSHQbFZ/S0EgyLMLELFABCwwb0o7yiC8+eIuYOhwBaQlNy+usi8banLsw==
+  dependencies:
+    "@babel/runtime" "^7.16.7"
+    "@peersyst/react-types" "^1.5.0"
+    validate-color "^2.2.1"
+
+"@peersyst/react-utils@^2.2.2":
+  version "2.2.2"
+  resolved "https://registry.yarnpkg.com/@peersyst/react-utils/-/react-utils-2.2.2.tgz#5eef54713f14ba2052de147bf9ee10a0015319d8"
+  integrity sha512-2npkez5GtC6SvkAC5X3s1Y37M3HFkOpqdjPVy6/lSs+cGx7pYLfkIf/x/UDaHJSyNmv8yyva6MHeZ7hMKd0ZaA==
   dependencies:
     "@babel/runtime" "^7.16.7"
     "@peersyst/react-types" "^1.5.0"
@@ -14171,10 +14188,10 @@ xtend@^4.0.0, xtend@~4.0.1:
   resolved "https://registry.yarnpkg.com/xtend/-/xtend-4.0.2.tgz#bb72779f5fa465186b1f438f674fa347fdb5db54"
   integrity sha512-LKYU1iAXJXUgAXn9URjiu+MWhyUXHsvfp7mcuYm9dSUKK0/CjtrUwFAxD82/mCWbtLsGjFIad0wIsod4zrTAEQ==
 
-xumm-react@^1.3.0:
-  version "1.3.0"
-  resolved "https://registry.yarnpkg.com/xumm-react/-/xumm-react-1.3.0.tgz#2939d4c5657e3437e4a02cd7c63044e59c20fe4e"
-  integrity sha512-/dQaazi9kr2XKDcpQQA2SP3MVP09Y0IRSRZTAZV8nXGXzLwnxXD7TBckZssGbHdNeFiOQYxGg81Dnaiw5lmITQ==
+xumm-react@^1.4.1:
+  version "1.4.1"
+  resolved "https://registry.yarnpkg.com/xumm-react/-/xumm-react-1.4.1.tgz#a9df31f23e53aae0feed4e41bb649520a41a9ff6"
+  integrity sha512-f6ODZhxNq5qM+biZMAgD4X74DONCB8napXzbHcUeSWOUGYSzqaJ5aozFCV9lk9KF9q5ETkqsjmteRiDHEJLd9Q==
 
 y18n@^4.0.0:
   version "4.0.3"

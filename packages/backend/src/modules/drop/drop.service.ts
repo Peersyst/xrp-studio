@@ -323,7 +323,7 @@ export class DropService {
             );
         }
         const refundTotalAmount = Number(dropsToXrp(nftInDrop.price));
-        const loyaltyAmount = Math.ceil((nftInDrop.nft?.transferFee || 0) / 100000) * refundTotalAmount;
+        const loyaltyAmount = Math.ceil(((nftInDrop.nft?.transferFee || 0) / 100000) * refundTotalAmount);
         const commissionAmount = Math.ceil(refundTotalAmount * this.sellCommissionPct);
         const refund = refundTotalAmount - loyaltyAmount - commissionAmount;
         if (refund <= 0) {
