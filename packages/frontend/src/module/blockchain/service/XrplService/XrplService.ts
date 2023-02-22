@@ -4,10 +4,26 @@ import { config } from "config";
 import { TxResponse } from "xrpl";
 
 class XrplService {
-    private static client = new xrpl.Client(config.xrpNodeUrl);
+    private static client: xrpl.Client = new xrpl.Client(config.xrpNodeUrl);
 
-    static connectClient(): Promise<void> {
-        return this.client.connect();
+    static async initializeClient(): Promise<void> {
+        this.client = new xrpl.Client(config.xrpNodeUrl);
+
+        this.client.addListener("error", async () => {
+            // Catch errors so app does not crash
+            return undefined;
+        });
+
+        await this.client.connect();
+    }
+
+    static async connectClient(): Promise<void> {
+        await this.reconnectClient();
+    }
+
+    static async reconnectClient(): Promise<void> {
+        this.client.disconnect();
+        await this.initializeClient();
     }
 
     private static async clientRequest<T>(request: (client: Client) => Promise<T>): Promise<T> {

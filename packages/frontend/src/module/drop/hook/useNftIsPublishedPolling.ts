@@ -1,5 +1,5 @@
 import { NftDto, NftService } from "module/api/service";
-import { polling } from "@peersyst/react-utils";
+import timeoutPolling from "module/common/util/timeoutPolling";
 
 export interface UseNftStatePolling {
     fetch: () => Promise<NftDto | undefined> | undefined;
@@ -19,7 +19,7 @@ export default function (id: undefined | number): UseNftStatePolling {
     };
 
     const fetch = (): Promise<NftDto | undefined> | undefined => {
-        if (id) return polling(() => handleCall(id), handleStatus);
+        if (id) return timeoutPolling(() => handleCall(id), handleStatus);
         return undefined;
     };
 

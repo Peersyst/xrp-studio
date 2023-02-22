@@ -10,6 +10,7 @@ describe("ConnectXummModal", () => {
             showLoading: false,
             signIn: mockedSignIn,
             xummQrUrl: "",
+            xummAppSignatureLink: "https://xumm.app.link/123",
         });
         const title = translate("scanXummQR");
         const subtitle = translate("scanXummQRExplanation");
@@ -30,6 +31,7 @@ describe("ConnectXummModal", () => {
             showLoading: false,
             signIn: mockedSignIn,
             xummQrUrl: "",
+            xummAppSignatureLink: "https://xumm.app.link/123",
         });
         render(<ConnectXummModal />);
         expect(mockedSignIn).toHaveBeenCalled();

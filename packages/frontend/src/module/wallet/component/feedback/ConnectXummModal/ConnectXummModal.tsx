@@ -1,4 +1,4 @@
-import { createModal } from "@peersyst/react-components";
+import { Col, createModal } from "@peersyst/react-components";
 import useTranslate from "module/common/hook/useTranslate";
 import { useEffect } from "react";
 import useConnectToXumm from "module/wallet/hook/useConnectToXumm/useConnectToXumm";
@@ -6,6 +6,7 @@ import { ConnectXummModalProps } from "module/wallet/component/feedback/ConnectX
 import QrModal from "module/common/component/feedback/QrModal/QrModal";
 import AppLinks from "module/common/component/navigation/AppLinks/AppLinks";
 import { config } from "config";
+import OpenXummAppButton from "../../input/OpenXummAppButton/OpenXummAppButton";
 
 const ConnectXummModal = createModal<ConnectXummModalProps>(({ close, onSignIn, ...rest }): JSX.Element => {
     const translate = useTranslate();
@@ -14,7 +15,7 @@ const ConnectXummModal = createModal<ConnectXummModalProps>(({ close, onSignIn, 
         onSignIn?.();
         close();
     };
-    const { signIn, xummQrUrl = "", showLoading } = useConnectToXumm({ callback: handleSignIn });
+    const { signIn, xummQrUrl = "", showLoading, xummAppSignatureLink } = useConnectToXumm({ callback: handleSignIn });
 
     useEffect(() => {
         signIn();
@@ -28,7 +29,14 @@ const ConnectXummModal = createModal<ConnectXummModalProps>(({ close, onSignIn, 
             loading={showLoading}
             {...rest}
         >
-            <AppLinks label={translate("getXummCTA")} appStoreLink={config.appStoreXummLink} googlePlayLink={config.playStoreXummLink} />
+            <Col gap="1.5rem">
+                <OpenXummAppButton size="lg" fullWidth xummAppSignatureLink={xummAppSignatureLink} />
+                <AppLinks
+                    label={translate("getXummCTA")}
+                    appStoreLink={config.appStoreXummLink}
+                    googlePlayLink={config.playStoreXummLink}
+                />
+            </Col>
         </QrModal>
     );
 });

@@ -4,6 +4,7 @@ export interface UseConnectToXummReturnValue {
     signIn: UseSignInResult["signIn"];
     xummQrUrl: string | undefined;
     showLoading: boolean;
+    xummAppSignatureLink: string | undefined;
 }
 
 export interface UseConnectToXummProps {

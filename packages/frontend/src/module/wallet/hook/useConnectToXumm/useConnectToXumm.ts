@@ -10,6 +10,7 @@ import useTranslate from "module/common/hook/useTranslate";
 
 const useConnectToXumm = ({ callback }: UseConnectToXummProps): UseConnectToXummReturnValue => {
     const [xummQrUrl, setXummQrUrl] = useState<UseConnectToXummReturnValue["xummQrUrl"]>();
+    const [xummAppSignatureLink, setXummAppSignatureLink] = useState<UseConnectToXummReturnValue["xummQrUrl"]>();
     const setWalletState = useSetRecoilState(walletState);
     const { hideModal } = useModal();
     const { showToast } = useToast();
@@ -17,6 +18,7 @@ const useConnectToXumm = ({ callback }: UseConnectToXummProps): UseConnectToXumm
 
     const onSignIn = ({ xummPayload }: SignInResponse) => {
         setXummQrUrl(xummPayload.refs.qr_png);
+        setXummAppSignatureLink(xummPayload.next.always);
     };
 
     const onSignInVerified = ({ address }: VerifySignInResponse) => {
@@ -38,7 +40,7 @@ const useConnectToXumm = ({ callback }: UseConnectToXummProps): UseConnectToXumm
 
     const { signIn, verifySignInLoading } = useSignIn({ onSignIn, onSignInVerified, onSignatureResolved });
 
-    return { signIn, xummQrUrl, showLoading: verifySignInLoading };
+    return { signIn, xummQrUrl, showLoading: verifySignInLoading, xummAppSignatureLink };
 };
 
 export default useConnectToXumm;
