@@ -11,7 +11,7 @@ export class CreateMetadataAttributeRequest {
     @ApiProperty({
         name: "value",
         type: "string",
-        maxLength: 255,
+        maxLength: 2624,
     })
     value: string;
 
