@@ -14,15 +14,17 @@ export type UseGetNftsOptions = {
     collections?: Array<number>;
     order?: "ASC" | "DESC";
     account?: string;
+    unnameds?: boolean;
 };
 
 export default function (
-    { query, collections, order = "DESC", account }: UseGetNftsOptions = {},
+    { query, collections, order = "DESC", account, unnameds }: UseGetNftsOptions = {},
     options?: Omit<UseInfiniteQueryOptions<PaginatedNftDto, unknown, PaginatedNftDto>, "queryKey" | "queryFn">,
 ): UseInfiniteQueryResult<PaginatedNftDto> {
     return useInfiniteQuery(
-        [Queries.NFTS, query, collections, order, account],
-        ({ pageParam = 1 }) => NftService.nftControllerGetNfts(pageParam, 100, query, collections, account, ["confirmed"], order),
+        [Queries.NFTS, query, collections, order, account, unnameds],
+        ({ pageParam = 1 }) =>
+            NftService.nftControllerGetNfts(pageParam, 100, query, collections, account, ["confirmed"], order, undefined, unnameds),
         options,
     );
 }

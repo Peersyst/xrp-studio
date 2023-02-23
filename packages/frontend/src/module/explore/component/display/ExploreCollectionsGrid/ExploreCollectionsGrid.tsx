@@ -9,6 +9,7 @@ const ExploreCollectionsGrid = (): JSX.Element => {
     const filters: Omit<UseGetCollectionsOptions, "account"> = useCollectionFilters();
     const { data, fetchNextPage, hasNextPage, isFetching } = useGetCollections({
         account: undefined,
+        unnameds: false,
         ...filters,
     });
 

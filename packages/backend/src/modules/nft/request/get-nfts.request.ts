@@ -72,6 +72,13 @@ export class GetNftsRequest {
     })
     orderField?: "priority" | "name";
 
+    @ApiProperty({
+        name: "unnameds",
+        type: "boolean",
+        required: false,
+    })
+    unnameds?: boolean;
+
     static toFilterClause(req: GetNftsRequest, { requesterAccount }: { requesterAccount?: string }): QBFilter<string> {
         const filter: QBFilter<string> = {
             qbWheres: [],
@@ -132,6 +139,13 @@ export class GetNftsRequest {
                 field: "nft." + (req.orderField || "updated_at"),
                 type: OrderType.DESC,
                 nullsPosition: NullsPosition.NULLS_LAST,
+            });
+        }
+
+        if (req.unnameds === false) {
+            filter.qbWheres.push({
+                field: "metadata.name",
+                operator: FilterType.NOT_NULL,
             });
         }
 
