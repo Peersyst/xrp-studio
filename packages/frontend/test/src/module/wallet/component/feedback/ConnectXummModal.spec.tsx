@@ -19,7 +19,7 @@ describe("ConnectXummModal", () => {
         expect(getByText(subtitle)).toBeInTheDocument();
         expect(getByText(xummLabel)).toBeInTheDocument();
         expect(getByRole("button", { name: translate("dismiss") })).toBeInTheDocument();
-        expect(getByRole("img", { name: "xumm-login" })).toBeInTheDocument();
+        expect(getByRole("img", { name: "qr" })).toBeInTheDocument();
         expect(getByRole("img", { name: "app-store-logo" })).toBeInTheDocument();
         expect(getByRole("img", { name: "play-store-logo" })).toBeInTheDocument();
     });
