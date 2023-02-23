@@ -12,7 +12,13 @@ const PhygitalQrModal = createModal<PhygitalQrModalProps>(({ publicKey, ...rest 
     const translate = useTranslate();
 
     return (
-        <QrModal qr={{ text: publicKey }} title={translate("phygitalNft")} subtitle={translate("phygitalNftDescription")} {...rest}>
+        <QrModal
+            size="lg"
+            qr={{ text: publicKey }}
+            title={translate("phygitalNft")}
+            subtitle={translate("phygitalNftDescription")}
+            {...rest}
+        >
             <AppLinks
                 label={translate("getXrpStudioAppCTA")}
                 appStoreLink={config.xrpStudioApStoreLink}
