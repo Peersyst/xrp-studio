@@ -11,6 +11,7 @@
             "icons": ["module/common/icons"],
             "module/*": ["module/*"],
             "utils/*": ["utils/*"],
+            "query/*": ["query/*"],
             "query-utils": ["query/react-query-overrides.ts"],
             "test-utils": ["../test/utils/test-utils"],
             "mocks/*": ["../test/unit/__mocks__/*"],

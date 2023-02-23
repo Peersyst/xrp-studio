@@ -45,8 +45,7 @@ describe("Test for the base grid with filters", () => {
         /**
          * Filters
          */
-        expect(screen.getByText(translate("hideFilters"))).toBeInTheDocument();
-        expect(screen.getByText("filters")).toBeInTheDocument();
+        expect(screen.getByText(translate("showFilters"))).toBeInTheDocument();
         /**
          * Content
          */

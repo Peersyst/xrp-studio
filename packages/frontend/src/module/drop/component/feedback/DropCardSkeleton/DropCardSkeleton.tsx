@@ -1,9 +1,9 @@
-import { forwardRef } from "react";
+import { forwardRef, JSXElementConstructor } from "react";
 import DropCard, { DropCardProps } from "../../display/DropCard/DropCard";
 
-export type DropCardSkeleton = Pick<DropCardProps, "size">;
+export type DropCardSkeletonProps = Pick<DropCardProps, "size" | "gridWidth">;
 
-const DropCardSkeleton = forwardRef((props: DropCardSkeleton, ref): JSX.Element => {
+const DropCardSkeleton = forwardRef((props: DropCardSkeletonProps, ref): JSX.Element => {
     return (
         <DropCard
             ref={ref}
@@ -32,5 +32,9 @@ const DropCardSkeleton = forwardRef((props: DropCardSkeleton, ref): JSX.Element 
         />
     );
 });
+
+export function createDropCardSkeleton(props: DropCardSkeletonProps): JSXElementConstructor<{}> {
+    return () => <DropCardSkeleton {...props} />;
+}
 
 export default DropCardSkeleton;

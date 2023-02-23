@@ -6,6 +6,7 @@ import DropFaq from "module/drop/component/display/DropFaq/DropFaq";
 import NftsPreviewListItem from "module/nft/component/display/NftsPreviewList/NftsPreviewListItem/NftsPreviewListItem";
 import NftCardSkeleton from "module/nft/component/feedback/NftCardSkeleton/NftCardSkeleton";
 import { CollectionCardProps } from "module/collection/component/display/CollectionCard/CollectionCard.types";
+import CollectionGridCardSkeleton from "module/collection/component/feedback/CollectionGridCardSkeleton/CollectionGridCardSkeleton";
 
 const Skeletons = ({ count, ...rest }: SkeletonsProps): JSX.Element => (
     <>
@@ -34,6 +35,19 @@ export const CollectionCardSkeletons = ({
         <>
             {[...Array(count)].map((_, key) => (
                 <CollectionCardSkeleton key={key} size={size} />
+            ))}
+        </>
+    );
+};
+
+export const CollectionGridCardSkeletons = ({
+    count,
+    size = "lg",
+}: SkeletonComponentProps & Pick<CollectionCardProps, "size">): JSX.Element => {
+    return (
+        <>
+            {[...Array(count)].map((_, key) => (
+                <CollectionGridCardSkeleton key={key} size={size} />
             ))}
         </>
     );
