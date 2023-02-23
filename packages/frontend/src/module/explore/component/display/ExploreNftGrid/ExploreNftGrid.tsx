@@ -6,8 +6,13 @@ import useTranslate from "module/common/hook/useTranslate";
 
 const ExploreNftGrid = (): JSX.Element => {
     const translateError = useTranslate("error");
-    const filters: NftsFilters = useNftsFilters();
-    const { data, hasNextPage, fetchNextPage, isFetching: isLoadingNfts } = useGetNfts({ account: undefined, ...filters });
+    const { query = "", ...restFilters }: NftsFilters = useNftsFilters();
+    const {
+        data,
+        hasNextPage,
+        fetchNextPage,
+        isFetching: isLoadingNfts,
+    } = useGetNfts({ account: undefined, query: "%" + query, ...restFilters });
 
     return (
         <NftGrid

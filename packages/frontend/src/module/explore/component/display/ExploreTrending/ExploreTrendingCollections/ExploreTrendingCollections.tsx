@@ -23,7 +23,9 @@ const ExploreTrendingCollections = ({ ...rest }: ExploreTrendingComponentProps):
                 ) : (
                     collections
                         .slice(0, 3)
-                        .map((collection, key) => <CollectionCard size="lg" collection={collection} key={key} css={{ width: "100%" }} />)
+                        .map((collection, key) => (
+                            <CollectionCard gridWidth size="lg" collection={collection} key={key} css={{ width: "100%" }} />
+                        ))
                 )}
             </Grid>
         </ExploreSection>

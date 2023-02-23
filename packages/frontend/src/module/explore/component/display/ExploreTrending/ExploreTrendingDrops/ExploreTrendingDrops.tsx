@@ -21,7 +21,7 @@ const ExploreTrendingDrops = ({ ...rest }: ExploreTrendingComponentProps): JSX.E
                 {isLoading ? (
                     <CollectionGridCardSkeletons count={3} />
                 ) : (
-                    drops.slice(0, 3).map((drop, key) => <DropCard size="lg" drop={drop} key={key} css={{ width: "100%" }} />)
+                    drops.slice(0, 3).map((drop, key) => <DropCard gridWidth size="lg" drop={drop} key={key} css={{ width: "100%" }} />)
                 )}
             </Grid>
         </ExploreSection>
