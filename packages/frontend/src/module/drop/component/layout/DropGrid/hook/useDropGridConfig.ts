@@ -22,7 +22,7 @@ export default function ({ nothingToShow, cols, withFilters }: UseCollectionGrid
     const breakpoints = useCollectionGridBreakpoints();
     const {
         breakpoints: {
-            values: { collectionsGrid },
+            values: { filters },
         },
     } = useTheme();
 
@@ -38,6 +38,6 @@ export default function ({ nothingToShow, cols, withFilters }: UseCollectionGrid
         nothingToShow: dropNothingToShow,
         cols: dropGridCols,
         breakpoints,
-        tabletBreakpoint: collectionsGrid.xxs,
+        tabletBreakpoint: filters,
     };
 }

@@ -1,6 +1,6 @@
 import Grid from "module/common/component/layout/Grid/Grid";
 import { DropGridProps } from "module/drop/component/layout/DropGrid/DropGrid.types";
-import { CollectionCardSkeletons } from "module/common/component/feedback/Skeletons/Skeletons";
+import { CollectionGridCardSkeletons } from "module/common/component/feedback/Skeletons/Skeletons";
 import { DropDto } from "module/api/service";
 import { Key } from "react";
 import DropCard from "module/drop/component/display/DropCard/DropCard";
@@ -21,8 +21,7 @@ const DropGrid = ({ loading, nothingToShow, cols = 3, withFilters, ...rest }: Dr
             cols={dropGridCols}
             breakpoints={breakpoints}
             tabletBreakPoint={tabletBreakpoint}
-            Skeletons={CollectionCardSkeletons}
-            css={{ width: "fit-content" }}
+            Skeletons={CollectionGridCardSkeletons}
             justifyContent="stretch"
             alignItems="flex-start"
             nothingToShow={dropNothingToShow}

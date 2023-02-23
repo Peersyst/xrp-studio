@@ -158,6 +158,18 @@ export const GlobalStyles = createGlobalStyle`
         a {
             text-decoration: none;
         }
+
+        // Prevent iOS from zooming in on inputs
+        @media screen and (max-width: 767px) {
+                input[type="text"],
+                input[type="number"],
+                input[type="email"],
+                input[type="tel"],
+                input[type="password"],
+                textarea {
+                    font-size: 16px !important;
+            }
+        }
         
       ${BackdropStyles};
       ${DrawerStyles};

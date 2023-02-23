@@ -1,6 +1,6 @@
 import Grid from "module/common/component/layout/Grid/Grid";
 import { PaginatedCollectionDto } from "module/api/service";
-import { CollectionCardSkeletons } from "module/common/component/feedback/Skeletons/Skeletons";
+import { CollectionGridCardSkeletons } from "module/common/component/feedback/Skeletons/Skeletons";
 import CollectionCard from "module/collection/component/display/CollectionCard/CollectionCard";
 import { GridProps } from "module/common/component/layout/Grid/Grid.types";
 import useCollectionGridConfig from "module/collection/component/layout/CollectionGrid/hooks/useCollectionGridConfig";
@@ -25,8 +25,7 @@ function CollectionGrid({
             loading={loading}
             breakpoints={breakpoints}
             tabletBreakPoint={tabletBreakpoint}
-            Skeletons={CollectionCardSkeletons}
-            css={{ width: "fit-content" }}
+            Skeletons={CollectionGridCardSkeletons}
             justifyContent="stretch"
             alignItems="flex-start"
             nothingToShow={collectionNothingToShow}

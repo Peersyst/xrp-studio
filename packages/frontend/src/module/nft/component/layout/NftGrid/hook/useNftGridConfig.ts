@@ -19,7 +19,7 @@ export default function ({ nothingToShow }: UseNftGridConfigParams): UseNftGridC
     const breakpoints = useGetNftGridBreakpoints();
     const {
         breakpoints: {
-            values: { nftsGrid },
+            values: { filters },
         },
     } = useTheme();
 
@@ -29,6 +29,6 @@ export default function ({ nothingToShow }: UseNftGridConfigParams): UseNftGridC
     return {
         nftNothingToShow: hasFilters ? translateError("noMatchingNftsWithFilters") : nothingToShow,
         breakpoints,
-        tabletBreakpoint: nftsGrid.sm,
+        tabletBreakpoint: filters,
     };
 }

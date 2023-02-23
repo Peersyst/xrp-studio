@@ -85,6 +85,7 @@ describe("Test for the Grid component", () => {
      */
     test("Renders correctly when loaded: children + filters + tags (with filters)", () => {
         jest.spyOn(Recoil, "useRecoilState").mockReturnValueOnce([true, jest.fn()]);
+
         const tags = [
             { label: "Tag1", value: 1 },
             { label: "Tag2", value: 2 },
@@ -125,8 +126,7 @@ describe("Test for the Grid component", () => {
         /**
          * Filters
          */
-        expect(screen.getByText(translate("hideFilters"))).toBeInTheDocument();
-        expect(screen.getByText("filters")).toBeInTheDocument();
+        expect(screen.getByText(translate("showFilters"))).toBeInTheDocument();
         /**
          * Content
          */
