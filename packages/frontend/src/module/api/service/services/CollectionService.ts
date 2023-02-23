@@ -102,7 +102,6 @@ export class CollectionService {
      * @param account
      * @param order
      * @param orderField
-     * @param unnameds
      * @returns PaginatedCollectionDto
      * @throws ApiError
      */
@@ -113,7 +112,6 @@ export class CollectionService {
         account?: string,
         order?: 'ASC' | 'DESC',
         orderField?: 'priority' | 'name',
-        unnameds?: boolean,
     ): CancelablePromise<PaginatedCollectionDto> {
         return __request(OpenAPI, {
             method: 'GET',
@@ -125,7 +123,6 @@ export class CollectionService {
                 'account': account,
                 'order': order,
                 'orderField': orderField,
-                'unnameds': unnameds,
             },
         });
     }

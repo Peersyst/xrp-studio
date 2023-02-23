@@ -26,7 +26,6 @@ function CollectionGrid({
             breakpoints={breakpoints}
             tabletBreakPoint={tabletBreakpoint}
             Skeletons={CollectionGridCardSkeletons}
-            css={{ width: "fit-content" }}
             justifyContent="stretch"
             alignItems="flex-start"
             nothingToShow={collectionNothingToShow}

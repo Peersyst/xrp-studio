@@ -22,7 +22,6 @@ const DropGrid = ({ loading, nothingToShow, cols = 3, withFilters, ...rest }: Dr
             breakpoints={breakpoints}
             tabletBreakPoint={tabletBreakpoint}
             Skeletons={CollectionGridCardSkeletons}
-            css={{ width: "fit-content" }}
             justifyContent="stretch"
             alignItems="flex-start"
             nothingToShow={dropNothingToShow}

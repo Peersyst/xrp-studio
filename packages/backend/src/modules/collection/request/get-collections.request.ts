@@ -51,13 +51,6 @@ export class GetCollectionsRequest {
     })
     orderField?: "priority" | "name";
 
-    @ApiProperty({
-        name: "unnameds",
-        type: "boolean",
-        required: false,
-    })
-    unnameds?: boolean;
-
     static toFilterClause(req: GetCollectionsRequest): QBFilter<string> {
         const filter: QBFilter<string> = {
             qbWheres: [],
@@ -83,13 +76,6 @@ export class GetCollectionsRequest {
                 field: "collection." + (req.orderField || "updated_at"),
                 type: OrderType.DESC,
                 nullsPosition: NullsPosition.NULLS_LAST,
-            });
-        }
-
-        if (req.unnameds === false) {
-            filter.qbWheres.push({
-                field: "collection.name",
-                operator: FilterType.NOT_NULL,
             });
         }
 

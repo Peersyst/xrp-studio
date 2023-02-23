@@ -6,11 +6,11 @@ import useCollectionFilters from "module/collection/hook/useCollectionFilters";
 
 const ExploreCollectionsGrid = (): JSX.Element => {
     const translateError = useTranslate("error");
-    const filters: Omit<UseGetCollectionsOptions, "account"> = useCollectionFilters();
+    const { query = "", ...restFilters }: Omit<UseGetCollectionsOptions, "account"> = useCollectionFilters();
     const { data, fetchNextPage, hasNextPage, isFetching } = useGetCollections({
         account: undefined,
-        unnameds: false,
-        ...filters,
+        query: "%" + query,
+        ...restFilters,
     });
 
     return (
