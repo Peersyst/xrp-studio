@@ -12,6 +12,7 @@ import useGetUser from "module/user/query/useGetUser";
 import useIsMobile from "module/common/hook/useIsMobile";
 import { useQueryClient } from "react-query";
 import Queries from "../../../../../query/queries";
+import { config } from "config";
 
 const WalletMenu = (): JSX.Element => {
     const translate = useTranslate();
@@ -38,8 +39,13 @@ const WalletMenu = (): JSX.Element => {
                         <Divider />
                     </>
                 )}
-                <WalletLink to={UserRoutes.PROFILE.replace(":address", address)}>{translate("profile")}</WalletLink>
+                <WalletLink type="router" to={UserRoutes.PROFILE.replace(":address", address)}>
+                    {translate("profile")}
+                </WalletLink>
                 <WalletCard />
+                <WalletLink type="href" to={config.altNetwork.url}>
+                    {translate("switchTo", { destination: config.altNetwork.network })}
+                </WalletLink>
                 <Divider />
                 <WalletLink to="" onClick={logout}>
                     {translate("logout")}
