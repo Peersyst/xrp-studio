@@ -14,6 +14,7 @@ const theme = createTheme({
     typography: typography,
     breakpoints: {
         values: {
+            filters: 1000,
             nftsGrid: {
                 sm: 1000,
                 xs: 767,

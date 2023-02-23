@@ -10,15 +10,16 @@ import Filters from "module/common/component/input/Filters/Filters";
 function BaseGridFilters({ children, ...rest }: BaseGridFiltersProps): JSX.Element {
     const {
         breakpoints: {
-            values: { nftsGrid },
+            values: { filters },
         },
     } = useTheme();
-    const isTablet = useMediaQuery(`(max-width: ${nftsGrid.sm}px)`);
+    const isTablet = useMediaQuery(`(max-width: ${filters}px)`);
     const [showFilters, setShowFilters] = useRecoilState(filtersVisibilityState);
 
     const handleHide = () => {
         if (isTablet) setShowFilters(false);
     };
+
     const content = (
         <FiltersContainer>
             <Filters>{children}</Filters>
