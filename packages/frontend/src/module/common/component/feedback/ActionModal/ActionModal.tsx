@@ -68,7 +68,7 @@ const ActionModal = createModal<ActionModalProps>(
                                           }
                                         : {
                                               action: modalActions[actionProp],
-                                              label: actionLabels[actionProp],
+                                              label: translate(actionLabels[actionProp]),
                                               variant: actionVariants[actionProp],
                                           };
 

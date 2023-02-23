@@ -69,7 +69,7 @@ const DropNftBuyModal = createModal<DropNftBuyModalProps>(({ dropId, ...modalPro
                                 onEnd={() => setLoading(false)}
                                 onSuccess={handleSuccess}
                                 onError={handleError}
-                                dropId={dropId}
+                                drop={drop}
                             />
                         ),
                         actions: [

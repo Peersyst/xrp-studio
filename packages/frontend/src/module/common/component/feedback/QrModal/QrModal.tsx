@@ -1,23 +1,38 @@
-import { Col, createModal } from "@peersyst/react-components";
+import { Col, createModal, Image } from "@peersyst/react-components";
+import useIsMobile from "module/common/hook/useIsMobile";
 import useTranslate from "module/common/hook/useTranslate";
+import QRCode from "react-qr-code";
+import { useTheme } from "styled-components";
 import Button from "../../input/Button/Button";
 import Modal from "../Modal/Modal";
-import useQrModalQrCode from "./hook/useQrModalQrCode";
-import { QrCard, QrImage } from "./QrModal.styles";
+import { QrCard } from "./QrModal.styles";
 import { QrModalProps } from "./QrModal.types";
 
-const QrModal = createModal<QrModalProps>(({ children, qr, loading = false, size = "sm", close, id, ...modalProps }) => {
+const QrModal = createModal<QrModalProps>(({ children, qr, loading = false, size = "sm", close, ...modalProps }) => {
     const translate = useTranslate();
 
-    const qrIsImage = typeof qr === "string";
-    const qrId = `qr-modal-qr-${id}`;
+    const { palette } = useTheme();
 
-    useQrModalQrCode({ qr, enabled: !qrIsImage, qrId });
+    const isMobile = useIsMobile();
+    const qrSize = isMobile ? "100%" : size === "lg" ? "30rem" : "16rem";
+
+    const qrIsImage = typeof qr === "string";
 
     return (
         <Modal size={size} {...modalProps}>
             <Col gap="3rem" alignItems="center">
-                <QrCard>{qrIsImage ? <QrImage alt="xumm-login" src={qr} /> : <div id={qrId} />}</QrCard>
+                <QrCard>
+                    {qrIsImage ? (
+                        <Image alt="qr" src={qr} style={{ width: qrSize, height: qrSize }} />
+                    ) : (
+                        <QRCode
+                            fgColor={palette.text}
+                            bgColor={palette.background}
+                            style={{ width: qrSize, height: qrSize }}
+                            value={qr.text}
+                        />
+                    )}
+                </QrCard>
                 {children}
             </Col>
             <Button loading={loading} onClick={close}>

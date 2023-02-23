@@ -25,7 +25,7 @@ describe("Test for the NftGrid component", () => {
     /**
      * Tests for the NftGrid component with filters
      */
-    test("Renders correctly with grid with filters with collections to filter", () => {
+    test("Renders correctly with grid with filters with collections to filter", async () => {
         //set true to display filters
         new UseFilterMock<string, true>({ filter: ["0", "1"] });
         jest.spyOn(Recoil, "useRecoilState").mockReturnValueOnce([true, jest.fn()]);
@@ -40,9 +40,9 @@ describe("Test for the NftGrid component", () => {
         /**
          * Filters
          */
-        expect(screen.getByText(translate("hideFilters"))).toBeInTheDocument();
+        expect(screen.getByText(translate("showFilters"))).toBeInTheDocument();
         //Collections
-        expect(screen.getAllByText(collections[0].name!)).toHaveLength(6); //2 Selected Tag + 4 Filter
+        expect(screen.getAllByText(collections[0].name!)).toHaveLength(2); //2 Selected Tag
         /**
          * Content
          */

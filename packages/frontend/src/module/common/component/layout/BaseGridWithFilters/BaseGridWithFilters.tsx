@@ -32,7 +32,7 @@ function BaseGridWithFilters<T extends PaginatedData, TagT = any>({
 
     useEffect(() => {
         if (isTablet) setShowFilters(false);
-        return () => setShowFilters(true);
+        else setShowFilters(true);
     }, []);
 
     return (
