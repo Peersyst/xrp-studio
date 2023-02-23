@@ -230,5 +230,6 @@
     "topDropsInXrpStudio": "Los mejores drops de XRP Studio",
     "drops": "Drops",
     "showFilters": "Mostrar filtros",
-    "hideFilters": "Ocultar filtros"
+    "hideFilters": "Ocultar filtros",
+    "switchTo": "Cambiar a {{destination}}"
 }

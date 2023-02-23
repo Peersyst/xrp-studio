@@ -11,7 +11,7 @@ export const WalletMenuRoot = styled(Card).attrs({ elevation: 4 })(
     `,
 );
 
-export const WalletLink = styled(Link).attrs({ variant: "body2", type: "router" })(
+export const WalletLink = styled(Link).attrs({ variant: "body2" })(
     ({ theme }) => css`
         color: ${theme.palette.black[50]};
     `,
