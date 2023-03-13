@@ -17,6 +17,7 @@ export class CreateMetadataRequest {
         name: "description",
         type: "string",
         required: false,
+        maxLength: 4000,
         example: "By BoredApeYachtClub",
     })
     description?: string;
