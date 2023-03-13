@@ -96,6 +96,7 @@ export default function ({ nft, collections, fixedCollection, loading = false }:
                         label={translate("description")}
                         placeholder={translate("nftDescriptionPlaceholder")}
                         maxLength={config.maxNftDescChars}
+                        displayLength
                         defaultValue={description || ""}
                     />
                 </BaseNftPageContentLeftSlot.Info>

@@ -14,6 +14,7 @@ export const $CreateCollectionRequest = {
         },
         description: {
             type: 'string',
+            maxLength: 4000,
         },
         image: {
             type: 'string',
