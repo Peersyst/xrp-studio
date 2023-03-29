@@ -92,67 +92,6 @@ jobs:
                 run: |
                     docker push ${{ env.DOCKER_IMAGE_NAME }}
 
-    preview-environment:
-        name: "Deploy Preview environment"
-        needs: [backend, http]
-        if: ${{ always() && github.event_name == 'pull_request' }}
-        runs-on: ubuntu-latest
-        env:
-            TF_WORKSPACE: ${{ github.event.repository.name }}_${{ github.event.pull_request.number }}
-        defaults:
-            run:
-                working-directory: infra/preview
-        steps:
-            - name: Checkout
-              uses: actions/checkout@v2
-            # Only set up preview environment for pull requests
-            - name: Setup Terraform
-              uses: hashicorp/setup-terraform@v2
-              with:
-                  cli_config_credentials_token: ${{ secrets.TFC_API_TOKEN }}
-            # Initialize terraform
-            - name: Initialize terraform
-              run: |
-                  curl --header "Authorization: Bearer ${{ secrets.TFC_API_TOKEN }}" --header "Content-Type: application/vnd.api+json" --request POST --data '{"data":{"attributes":{"name":"${{ env.TF_WORKSPACE }}"}}}' "https://app.terraform.io/api/v2/organizations/Peersyst/workspaces"
-                  sed -i 's/__WORKSPACE__/${{ env.TF_WORKSPACE }}/g' main.tf
-                  terraform init -input=false
-            # Builds and deploys preview environments
-            - name: Build and deploy preview environment
-              if: github.event.action != 'closed'
-              run: |
-                  terraform apply --auto-approve -var="branch=${{ github.event.pull_request.number }}" -var="project-name=${{ github.event.repository.name }}" -var="aws-secret-access-key=${{ secrets.AWS_SECRET_MANAGER_KEY }}" -var="aws-access-key-id=${{ secrets.AWS_SECRET_MANAGER_KEY_ID }}"
-            # Runs Terraform output to display the preview environment URL
-            - name: Terraform Output
-              id: output
-              if: github.event.action != 'closed'
-              run: |
-                  terraform output -no-color
-              continue-on-error: true
-            # Creates comments on pull request with Terraform output
-            - name: Create comment with Terraform output
-              uses: actions/github-script@0.9.0
-              if: github.event.action != 'closed'
-              env:
-                  OUTPUT: "${{ steps.output.outputs.stdout }}"
-              with:
-                  github-token: ${{ secrets.GITHUB_TOKEN }}
-                  script: |
-                      const output = `#### Preview environment info 🖌
-                      ${process.env.OUTPUT}
-                      `
-                      github.issues.createComment({
-                        issue_number: context.issue.number,
-                        owner: context.repo.owner,
-                        repo: context.repo.repo,
-                        body: output
-                      })
-            # When user closes or merges pull request, this will destroy the resources then delete the TFC workspace
-            - name: Destroy preview environment
-              if: github.event.action == 'closed'
-              run: |
-                  terraform destroy --auto-approve -var="branch=${{ github.event.pull_request.number }}" -var="project-name=${{ github.event.repository.name }}" -var="aws-secret-access-key=${{ secrets.AWS_SECRET_MANAGER_KEY }}" -var="aws-access-key-id=${{ secrets.AWS_SECRET_MANAGER_KEY_ID }}"
-                  curl --header "Authorization: Bearer ${{ secrets.TFC_API_TOKEN }}" --header "Content-Type: application/vnd.api+json" --request DELETE "https://app.terraform.io/api/v2/organizations/Peersyst/workspaces/${TF_WORKSPACE}"
-
 
     staging-environment:
         name: "Deploy Staging environment"
