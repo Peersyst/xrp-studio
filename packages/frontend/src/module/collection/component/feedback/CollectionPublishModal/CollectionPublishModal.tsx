@@ -1,5 +1,5 @@
 import { createModal } from "@peersyst/react-components";
-import ActionModal from "module/common/component/feedback/ActionModal/ActionModal";
+import ActionModal from "module/common/component/feedback/DeprecatedActionModal/ActionModal";
 import { CollectionPublishModalProps } from "module/collection/component/feedback/CollectionPublishModal/CollectionPublishModal.types";
 import useTranslate from "module/common/hook/useTranslate";
 import NftsPreviewList from "module/nft/component/display/NftsPreviewList/NftsPreviewList";

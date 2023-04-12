@@ -1,6 +1,6 @@
 import { createModal } from "@peersyst/react-components";
 import useTranslate from "module/common/hook/useTranslate";
-import ActionModal from "module/common/component/feedback/ActionModal/ActionModal";
+import ActionModal from "module/common/component/feedback/DeprecatedActionModal/ActionModal";
 import { config } from "config";
 import { NftPublishModalCoverImage } from "module/nft/component/feedback/NftPublishModal/NftPublishModal.styles";
 import { NftPublishModalProps } from "module/nft/component/feedback/NftPublishModal/NftPublishModal.types";

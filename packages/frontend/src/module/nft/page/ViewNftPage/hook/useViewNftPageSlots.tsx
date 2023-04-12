@@ -14,6 +14,7 @@ import UserProfileLink from "module/user/component/navigation/UserProfileLink/Us
 import { CollectionRoutes } from "module/collection/router/CollectionRouter";
 import usePhygitalNft from "../../NftCreationPage/hook/usePhygitalNft";
 import NftDisplay from "module/nft/component/display/NftDisplay/NftDisplay";
+import NftOfferButtons from "module/nft/component/input/NftOfferButtons/NftOfferButtons";
 
 export interface UserViewNftPageSlots {
     nft: NftDto | undefined;
@@ -119,6 +120,7 @@ export default function ({ nft, loading = false }: UserViewNftPageSlots): ReactN
                         )}
                     </Label>
                 )}
+                <NftOfferButtons address={user.address} />
                 <Divider />
                 <Switch label={translate("burnable")} value={burnable} readonly />
                 <Switch label={translate("onlyXRP")} value={onlyXRP} readonly />

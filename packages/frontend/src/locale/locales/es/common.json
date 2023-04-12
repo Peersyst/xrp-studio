@@ -231,5 +231,13 @@
     "drops": "Drops",
     "showFilters": "Mostrar filtros",
     "hideFilters": "Ocultar filtros",
-    "switchTo": "Cambiar a {{destination}}"
+    "switchTo": "Cambiar a {{destination}}",
+    "makeAnOffer": "Hacer una oferta",
+    "dayCount_one": "Hoy",
+    "dayCount_other": "{{count}} Days",
+    "enterTheAmount": "Introduce la cantidad",
+    "selectExpirationDate": "Selecciona la fecha de expiración",
+    "enterTheDestinationAddress": "Introduce la dirección de destino",
+    "destination": "Dirección de destino",
+    "expiresIn": "Expira en"
 }

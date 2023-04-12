@@ -59,6 +59,7 @@ declare module "@peersyst/react-components" {
         };
         xrpStudioApStoreLink: string;
         xrpStudioGooglePlayLink: string;
+        nativeToken: string;
     }
 
     export interface CreateConfig {
@@ -111,6 +112,7 @@ declare module "@peersyst/react-components" {
         };
         xrpStudioApStoreLink: string;
         xrpStudioGooglePlayLink: string;
+        nativeToken: string;
     }
 
     export interface ExtraValidators {

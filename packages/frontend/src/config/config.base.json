@@ -38,5 +38,6 @@
         "privacyPolicy": "https://peersyst.com/privacy-policy/"
     },
     "xrpStudioApStoreLink": "https://apps.apple.com/es/app/xrp-studio/id1668177589",
-    "xrpStudioGooglePlayLink": "https://play.google.com/store/apps/details?id=com.peersyst.client"
+    "xrpStudioGooglePlayLink": "https://play.google.com/store/apps/details?id=com.peersyst.client",
+    "nativeToken": "XRP"
 }
