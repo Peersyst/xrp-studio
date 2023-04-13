@@ -26,6 +26,7 @@
     "maxNumberDecimals": 6,
     "tokenName": "XRP",
     "feeInDrops": 15,
+    "minAmountToCreateNftOffer": "2000000",
     "peersystEmail": "info@peersyst.com",
     "peersyst": "Peersyst SL",
     "dropNftMintCost": "4000000",
@@ -39,5 +40,5 @@
     },
     "xrpStudioApStoreLink": "https://apps.apple.com/es/app/xrp-studio/id1668177589",
     "xrpStudioGooglePlayLink": "https://play.google.com/store/apps/details?id=com.peersyst.client",
-    "nativeToken": "XRP"
+    "maxXrpAmountDecimals": 7
 }

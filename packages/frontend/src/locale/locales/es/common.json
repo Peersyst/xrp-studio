@@ -239,5 +239,14 @@
     "selectExpirationDate": "Selecciona la fecha de expiración",
     "enterTheDestinationAddress": "Introduce la dirección de destino",
     "destination": "Dirección de destino",
-    "expiresIn": "Expira en"
+    "expiresIn": "Expira en",
+    "optionalLabel": "{{label}} (opcional)",
+    "buyNow": "Comprar ahora",
+    "listNft": "Listar NFT",
+    "minBalanceToCreateNftOffer": "Balance: {{currentBalance}} {{token}}. Comisión: {{balance}} {{token}}.",
+    "minBalanceAndCurrentBalance": "Min balance: {{balance}} {{token}} (Actual: {{currentBalance}} {{token}})",
+    "processingYourOffer": "Processando tu oferta",
+    "processingYourOfferDescription": "Tu oferta esta siendo procesada para validar que todo este correctamente",
+    "signTheTxInYourXummWallet": "Firma la transacción en tu Wallet de Xumm",
+    "signOfferDescription": "Entra en XUMM wallet i firma la transacción para crear la oferta. Tendrás que pagar una comisión de {{fee}} {{token}}"
 }

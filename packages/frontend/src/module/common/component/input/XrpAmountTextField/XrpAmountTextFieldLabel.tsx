@@ -14,7 +14,7 @@ function XrpAmountTextFieldLabel({ className, amount, label, ...rest }: XrpAmoun
     return (
         <Row className={clsx("xrp-amount-text-field-label", className)} justifyContent="space-between" alignItems="center" {...rest}>
             <span>{label}</span>
-            <Balance balance={amount} variant="body1" textAlign="end" units={config.nativeToken} />
+            <Balance balance={amount ?? "0"} variant="body1" textAlign="end" units={config.tokenName} />
         </Row>
     );
 }

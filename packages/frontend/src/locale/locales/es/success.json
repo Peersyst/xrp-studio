@@ -1,3 +1,5 @@
 {
-    "profileUpdated": "Perfil actualizado con éxito"
+    "profileUpdated": "Perfil actualizado con éxito",
+    "offerCreated": "Oferta creada con éxito",
+    "offerCreatedDesc": "Tu oferta se ha registrado en la blockchain de XRPL correctamente"
 }

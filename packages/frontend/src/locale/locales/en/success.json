@@ -1,3 +1,5 @@
 {
-    "profileUpdated": "Profile updated successfully"
+    "profileUpdated": "Profile updated successfully",
+    "offerCreated": "Offer created successfully",
+    "offerCreatedDesc": "Your offer has been registered in the XRPL Ledger successfully."
 }

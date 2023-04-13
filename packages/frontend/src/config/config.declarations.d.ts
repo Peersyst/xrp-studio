@@ -42,6 +42,7 @@ declare module "@peersyst/react-components" {
         maxNumberDecimals: number;
         tokenName: string;
         feeInDrops: number;
+        minAmountToCreateNftOffer: string;
         peersystEmail: string;
         peersyst: string;
         altNetwork: {
@@ -59,7 +60,7 @@ declare module "@peersyst/react-components" {
         };
         xrpStudioApStoreLink: string;
         xrpStudioGooglePlayLink: string;
-        nativeToken: string;
+        maxXrpAmountDecimals: number;
     }
 
     export interface CreateConfig {
@@ -95,6 +96,7 @@ declare module "@peersyst/react-components" {
         maxNumberDecimals: number;
         tokenName: string;
         feeInDrops: number;
+        minAmountToCreateNftOffer: string;
         peersystEmail: string;
         peersyst: string;
         altNetwork: {
@@ -112,7 +114,7 @@ declare module "@peersyst/react-components" {
         };
         xrpStudioApStoreLink: string;
         xrpStudioGooglePlayLink: string;
-        nativeToken: string;
+        maxXrpAmountDecimals: number;
     }
 
     export interface ExtraValidators {

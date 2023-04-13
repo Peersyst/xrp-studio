@@ -1,13 +1,13 @@
 import { createModal } from "@peersyst/react-components";
 import useTranslate from "module/common/hook/useTranslate";
-import ActionModal from "module/common/component/feedback/TabsModal/ActionModal";
-import { NftPublishModalProps } from "module/nft/component/feedback/NftPublishModal/NftPublishModal.types";
 import { useNavigate } from "react-router-dom";
-import { NftRoutes } from "module/nft/NftRouter";
 import { useState } from "react";
 import NftMakeOfferForm from "../../input/NftMakeOfferForm/NftMakeOfferForm";
+import TabsModal from "module/common/component/feedback/TabsModal/TabsModal";
+import { NftCreateOfferModalProps } from "./NftCreateOfferModal.types";
+import NftCreateOfferActions from "./NftCreateOfferActions/NftCreateOfferActions";
 
-const NftCreateOfferModal = createModal<NftPublishModalProps>(({ request = {}, draftId, collection, ...modalProps }) => {
+const NftCreateOfferModal = createModal<NftCreateOfferModalProps>(({ ...modalProps }) => {
     const translate = useTranslate();
     const navigate = useNavigate();
 
@@ -15,36 +15,36 @@ const NftCreateOfferModal = createModal<NftPublishModalProps>(({ request = {}, d
     const [error, setError] = useState<unknown>();
     const [nftId, setNftId] = useState<number>();
 
-    const goMyNfts = () => {
-        navigate(NftRoutes.MY_NFTS);
-    };
-
-    const handleError = (e: unknown) => {
-        setError(e);
-    };
+    function handleOnSuccess(): void {
+        console.log("Success");
+    }
 
     return (
-        <ActionModal size="md" title={translate("makeAnOffer")} closable={!loading} {...modalProps}>
-            {{
-                tabs: [
-                    {
-                        content: <NftMakeOfferForm />,
-                        actions: [
-                            { action: "next", label: translate("confirm") },
-                            { action: "close", label: translate("cancel") },
-                        ],
-                    },
-                    {
-                        content: <></>,
-                        actions: [{ action: "next", disabled: loading || !!error, label: translate("viewDetails") }],
-                    },
-                    {
-                        content: <></>,
-                        actions: [{ action: "close", label: translate("close") }],
-                    },
-                ],
-            }}
-        </ActionModal>
+        <TabsModal
+            gap="2.25rem"
+            size="md"
+            title={translate("makeAnOffer")}
+            closable={!loading}
+            {...modalProps}
+            tabs={[
+                {
+                    content: <NftMakeOfferForm />,
+                },
+                {
+                    content: (
+                        <NftCreateOfferActions
+                            isLoading={loading}
+                            onStart={() => setLoading(true)}
+                            onEnd={() => setLoading(false)}
+                            onSuccess={handleOnSuccess}
+                        />
+                    ),
+                },
+                {
+                    content: <>Success</>,
+                },
+            ]}
+        />
     );
 });
 

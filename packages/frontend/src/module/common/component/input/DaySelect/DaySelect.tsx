@@ -7,10 +7,10 @@ export type DaySelectProps = Omit<SelectProps<number>, "options" | "children"> &
     /**
      * The number of days to display in the select.
      */
-    numberOfDays?: number;
+    numberOfDays: number;
 };
 
-function DaySelect({ className, numberOfDays = 7, ...rest }: DaySelectProps): JSX.Element {
+function DaySelect({ className, numberOfDays, ...rest }: DaySelectProps): JSX.Element {
     const translate = useTranslate();
 
     return (
