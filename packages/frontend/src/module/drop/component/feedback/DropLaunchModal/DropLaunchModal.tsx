@@ -1,7 +1,7 @@
 import { createModal } from "@peersyst/react-components";
 import { DropLaunchModalProps } from "module/drop/component/feedback/DropLaunchModal/DropLaunchModal.types";
 import useTranslate from "module/common/hook/useTranslate";
-import ActionModal from "module/common/component/feedback/DeprecatedActionModal/ActionModal";
+import ActionModal from "module/common/component/feedback/ActionModal/ActionModal";
 import NftsPreviewList from "module/nft/component/display/NftsPreviewList/NftsPreviewList";
 import useGetCollection from "module/collection/query/useGetCollection";
 import DropInformation from "module/drop/component/display/DropInformation/DropInformation";

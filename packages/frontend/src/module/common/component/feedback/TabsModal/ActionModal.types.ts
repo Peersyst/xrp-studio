@@ -19,10 +19,9 @@ export interface ActionTab {
     actions: ActionTabAction[];
 }
 
-export interface ActionModalProps extends ModalProps {
+export interface ActionModalProps extends Omit<ModalProps, "size" | "gap"> {
     direction?: "row" | "column";
     children: {
-        cover: ReactElement;
         tabs: ActionTab[];
         footer?: ReactNode;
     };

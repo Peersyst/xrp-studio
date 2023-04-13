@@ -18,7 +18,7 @@ const Balance = ({
                 <Loader />
             ) : (
                 formatBalance(balance, {
-                    numberFormatOptions: { maximumFractionDigits: 2, ...options },
+                    numberFormatOptions: { maximumFractionDigits: 7, ...options },
                     units,
                     unitsPosition,
                     action,

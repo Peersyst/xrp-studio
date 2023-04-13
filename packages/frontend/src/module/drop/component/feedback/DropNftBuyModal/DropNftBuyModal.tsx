@@ -1,6 +1,6 @@
 import { createModal } from "@peersyst/react-components";
 import useTranslate from "module/common/hook/useTranslate";
-import ActionModal from "module/common/component/feedback/DeprecatedActionModal/ActionModal";
+import ActionModal from "module/common/component/feedback/ActionModal/ActionModal";
 import { useNavigate } from "react-router-dom";
 import { useState } from "react";
 import { DropNftBuyModalProps } from "./DropNftBuyModal.types";

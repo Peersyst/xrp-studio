@@ -8,6 +8,7 @@ const NumericTextField = ({ validators, placeholder, ...textFieldProps }: TextFi
     const translate = useTranslate();
     return (
         <TextField
+            type="number"
             placeholder={placeholder || translate("enterTheAmount")}
             validators={{ number: true, ...validators }}
             {...textFieldProps}

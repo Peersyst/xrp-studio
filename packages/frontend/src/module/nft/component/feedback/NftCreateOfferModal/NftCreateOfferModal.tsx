@@ -1,6 +1,6 @@
 import { createModal } from "@peersyst/react-components";
 import useTranslate from "module/common/hook/useTranslate";
-import ActionModal from "module/common/component/feedback/ActionModal/ActionModal";
+import ActionModal from "module/common/component/feedback/TabsModal/ActionModal";
 import { NftPublishModalProps } from "module/nft/component/feedback/NftPublishModal/NftPublishModal.types";
 import { useNavigate } from "react-router-dom";
 import { NftRoutes } from "module/nft/NftRouter";
