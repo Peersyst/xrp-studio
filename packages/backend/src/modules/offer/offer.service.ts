@@ -12,7 +12,6 @@ import { CreateOfferRequest } from "./request/create-offer.request";
 import { XummTransactionService } from "../xumm/xumm-transaction.service";
 import { BusinessException } from "../common/exception/business.exception";
 import { ErrorCode } from "../common/exception/error-codes";
-import { of } from "rxjs";
 
 export class OfferService {
     private logger = new Logger(OfferService.name);

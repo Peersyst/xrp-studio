@@ -1,6 +1,4 @@
 import { ApiProperty } from "@nestjs/swagger";
-import { IsOptional } from "class-validator";
-import { IsXrplAddress } from "../../common/validator/IsXrplAddress";
 
 export class AcceptOfferRequest {
     @ApiProperty({
