@@ -248,5 +248,9 @@
     "processingYourOffer": "Processando tu oferta",
     "processingYourOfferDescription": "Tu oferta esta siendo procesada para validar que todo este correctamente",
     "signTheTxInYourXummWallet": "Firma la transacción en tu Wallet de Xumm",
-    "signOfferDescription": "Entra en XUMM wallet i firma la transacción para crear la oferta. Tendrás que pagar una comisión de {{fee}} {{token}}"
+    "signOfferDescription": "Entra en XUMM wallet i firma la transacción para crear la oferta. Tendrás que pagar una comisión de {{fee}} {{token}}",
+    "youAreBuying": "Estas comprando",
+    "from": "de",
+    "fee": "Comisión",
+    "total": "Total"
 }

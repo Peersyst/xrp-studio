@@ -2,7 +2,7 @@ import { screen } from "@testing-library/react";
 import { render, translate } from "test-utils";
 import userEvent from "@testing-library/user-event";
 import ActionModal from "module/common/component/feedback/ActionModal/ActionModal";
-import { ActionFn } from "module/common/component/feedback/TabsModal/ActionModal.types";
+import { ActionFn } from "module/common/component/feedback/ActionModal/ActionModal.types";
 
 describe("ActionModal", () => {
     test("Renders correctly", () => {

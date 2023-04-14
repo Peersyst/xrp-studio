@@ -248,5 +248,12 @@
     "processingYourOffer": "Processing your offer",
     "processingYourOfferDescription": "Your offer is being processed in order to validate everything is correct. Your request is on the way!",
     "signTheTxInYourXummWallet": "Sign the transaction in your XUMM wallet",
-    "signOfferDescription": "Go to your XUMM wallet and sign the create offer transaction. You will have to pay a fee for creating the offer of {{fee}} {{token}}"
+    "signOfferDescription": "Go to your XUMM wallet and sign the create offer transaction. You will have to pay a fee for creating the offer of {{fee}} {{token}}",
+    "youAreBuying": "You are buying",
+    "from": "from",
+    "fee": "Fee",
+    "total": "Total",
+    "proceesingYourPurchase": "Processing your purchase",
+    "processingYourOfferPurchase": "Your purchase is being processed in order to validate everything is correct. Your purchase is on the way!",
+    "signPurchaseDescription": "Go to your XUMM wallet and sign the buy Nft transaction. You will have to pay a fee for buying the nft of {{fee}} {{token}}"
 }

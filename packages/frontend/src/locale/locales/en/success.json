@@ -1,5 +1,7 @@
 {
     "profileUpdated": "Profile updated successfully",
     "offerCreated": "Offer created successfully",
-    "offerCreatedDesc": "Your offer has been registered in the XRPL Ledger successfully."
+    "offerCreatedDesc": "Your offer has been registered in the XRPL Ledger successfully.",
+    "nftPurchased": "NFT purchased successfully",
+    "nftPurchasedDesc": "Your NFT has been purchased successfully. Go to your Nfts sections to view it!"
 }
