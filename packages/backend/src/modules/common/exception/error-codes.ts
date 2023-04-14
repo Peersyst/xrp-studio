@@ -25,6 +25,8 @@ enum AppErrorCode {
     DROP_NOT_FOUND = "DROP_NOT_FOUND",
     DROP_PAYMENT_NOT_FOUND = "DROP_PAYMENT_NOT_FOUND",
     INVALID_DROP_PAYMENT = "INVALID_DROP_PAYMENT",
+    OFFER_NOT_FOUND = "OFFER_NOT_FOUND",
+    INVALID_OFFER_DESTINATION = "INVALID_OFFER_DESTINATION",
 }
 
 export const ErrorCode = { ...AppErrorCode, ...XummErrorCode, ...StorageErrorCode };
@@ -116,5 +118,13 @@ export const ErrorBody: { [code in ErrorCodeType]: { statusCode: HttpStatus; mes
     [ErrorCode.INVALID_DROP_PAYMENT]: {
         statusCode: HttpStatus.CONFLICT,
         message: ErrorCode.INVALID_DROP_PAYMENT,
+    },
+    [ErrorCode.OFFER_NOT_FOUND]: {
+        statusCode: HttpStatus.NOT_FOUND,
+        message: ErrorCode.OFFER_NOT_FOUND,
+    },
+    [ErrorCode.INVALID_OFFER_DESTINATION]: {
+        statusCode: HttpStatus.CONFLICT,
+        message: ErrorCode.INVALID_OFFER_DESTINATION,
     },
 };

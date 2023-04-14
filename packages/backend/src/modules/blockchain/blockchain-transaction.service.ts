@@ -89,22 +89,30 @@ export class BlockchainTransactionService {
         return autofill ? this.xrpClient.autofill(tx) : tx;
     }
 
-    async prepareSellOfferTransaction({
+    async prepareOfferTransaction({
         account,
         tokenId,
         price,
+        type,
+        destination,
+        owner,
     }: {
         account: string;
+        destination?: string;
+        owner?: string;
         tokenId: string;
         price: string;
+        type: "sell" | "buy";
     }): Promise<Transaction> {
         return this.xrpClient.autofill({
             TransactionType: "NFTokenCreateOffer",
             Sequence: account === this.mintingAccount.address ? this.consumeSequence() : undefined,
             Account: account,
             NFTokenID: tokenId,
+            Destination: destination,
             Amount: price,
-            Flags: 1,
+            Owner: type === "buy" ? owner : undefined,
+            Flags: type === "sell" ? 1 : 0,
         });
     }
 
