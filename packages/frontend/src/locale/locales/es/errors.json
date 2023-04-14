@@ -75,5 +75,6 @@
     "noDropsAvailable": "No hay drops disponibles en este momento",
     "noMatchingDrops": "No se han encontrado drops que coincidan con los filtros seleccionados",
     "notEnoughBalanceToBuyNftFromDrop": "No tienes suficiente XRP para comprar un NFT de este drop",
-    "invalidOwnAddress": "No te puedes usar tu misma dirección"
+    "invalidOwnAddress": "No te puedes usar tu misma dirección",
+    "notEnoughBalanceToBuyNft": "No tienes suficiente XRP para comprar este NFT"
 }

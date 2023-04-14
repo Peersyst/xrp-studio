@@ -7,22 +7,24 @@ import TabsModalFooter from "module/common/component/feedback/TabsModal/TabsModa
 import useCloseTabModal from "module/common/component/feedback/TabsModal/hooks/useCloseTabModal";
 import { NftRoutes } from "module/nft/NftRouter";
 import { useNavigate } from "react-router-dom";
+import useBuyNft from "module/offers/query/useBuyNft";
+import { NftDto } from "module/api/service";
+import buyNftCreatePooling from "../utils/buyNftCreatePooling";
 
 interface BuyNftModalActionsProps extends ActionStepsHandlers {
     isLoading?: boolean;
+    nft: NftDto;
 }
 
-const BuyNftModalActions = ({ isLoading, ...rest }: BuyNftModalActionsProps): JSX.Element => {
+const BuyNftModalActions = ({ isLoading, nft, ...rest }: BuyNftModalActionsProps): JSX.Element => {
     //hooks
     const translate = useTranslate();
     const translateSuccess = useTranslate("success");
     const navigate = useNavigate();
 
     const closeModal = useCloseTabModal();
-
-    async function publish() {
-        await new Promise((resolve) => setTimeout(resolve, 200));
-    }
+    const { mutateAsync: buynft } = useBuyNft({ nftId: nft.id });
+    const startPooling = buyNftCreatePooling();
 
     async function goToMyNfts() {
         closeModal();
@@ -33,12 +35,12 @@ const BuyNftModalActions = ({ isLoading, ...rest }: BuyNftModalActionsProps): JS
         {
             title: translate("proceesingYourPurchase"),
             description: translate("processingYourOfferPurchase"),
-            execution: async () => await publish(),
+            execution: buynft,
         },
         {
             title: translate("signTheTxInYourXummWallet"),
             description: translate("signPurchaseDescription", { fee: config.feeInDrops, token: config.tokenName }),
-            execution: publish,
+            execution: startPooling,
         },
         {
             title: translateSuccess("nftPurchased"),

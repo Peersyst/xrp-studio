@@ -252,5 +252,9 @@
     "youAreBuying": "Estas comprando",
     "from": "de",
     "fee": "Comisión",
-    "total": "Total"
+    "total": "Total",
+    "proceesingYourPurchase": "Procesando tu compra",
+    "processingYourOfferPurchase": "Estamos validando tu oferta y procesando tu compra. ¡Tu compra esta en camino!",
+    "signPurchaseDescription": "Entra en XUMM wallet i firma la transacción para comprar el NFT. Tendrás que pagar una comisión de {{fee}} {{token}}",
+    "checkout": "Checkout"
 }

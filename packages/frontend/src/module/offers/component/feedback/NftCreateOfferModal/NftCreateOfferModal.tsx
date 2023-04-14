@@ -5,9 +5,11 @@ import NftMakeOfferForm from "../../../../nft/component/input/NftMakeOfferForm/N
 import TabsModal from "module/common/component/feedback/TabsModal/TabsModal";
 import { NftCreateOfferModalProps } from "./NftCreateOfferModal.types";
 import NftCreateOfferActions from "./NftCreateOfferActions/NftCreateOfferActions";
+import useRefetchXrpBalance from "module/wallet/hook/useRefetchXrpBalance/useRefetchXrpBalance";
 
-const NftCreateOfferModal = createModal<NftCreateOfferModalProps>(({ ...modalProps }) => {
+const NftCreateOfferModal = createModal<NftCreateOfferModalProps>(({ nft, ...modalProps }) => {
     const translate = useTranslate();
+    useRefetchXrpBalance();
 
     const [loading, setLoading] = useState<boolean>();
 
@@ -23,7 +25,14 @@ const NftCreateOfferModal = createModal<NftCreateOfferModalProps>(({ ...modalPro
                     content: <NftMakeOfferForm />,
                 },
                 {
-                    content: <NftCreateOfferActions isLoading={loading} onStart={() => setLoading(true)} onEnd={() => setLoading(false)} />,
+                    content: (
+                        <NftCreateOfferActions
+                            nftId={nft.id}
+                            isLoading={loading}
+                            onStart={() => setLoading(true)}
+                            onEnd={() => setLoading(false)}
+                        />
+                    ),
                 },
             ]}
         />

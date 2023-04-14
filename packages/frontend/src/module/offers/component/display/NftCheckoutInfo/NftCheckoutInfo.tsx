@@ -24,7 +24,7 @@ function NftCheckoutInfo({ className, nft, ...rest }: NftCheckoutInfoProps): JSX
                     {translate("youAreBuying")}
                 </Typography>
                 <Col gap="0.125rem" flex={1}>
-                    <NftName name={name} variant="h6" fontWeight="800" css={{}} />
+                    <NftName name={name} variant="h6" fontWeight="800" />
                     {user && (
                         <Row gap="0.5rem">
                             <Typography variant="body2" fontWeight="400" light css={{ overflow: "visible" }}>

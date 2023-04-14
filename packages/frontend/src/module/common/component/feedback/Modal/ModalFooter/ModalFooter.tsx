@@ -14,6 +14,7 @@ const ModalFooter = ({
     mainLabel,
     mainType,
     onSubmit,
+    mainDisabled,
 }: ModalFooterProps): JSX.Element => {
     const translate = useTranslate();
     const theme = useTheme();
@@ -31,7 +32,7 @@ const ModalFooter = ({
                     {cancelLabel || translate("cancel")}
                 </Button>
             )}
-            <Button variant="primary" fullWidth type={mainType} disabled={isLoading} onClick={onSubmit}>
+            <Button variant="primary" fullWidth type={mainType} disabled={isLoading || mainDisabled} onClick={onSubmit}>
                 {mainLabel || translate("next")}
             </Button>
         </Row>

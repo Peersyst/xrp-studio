@@ -10,4 +10,5 @@ export interface ModalFooterProps {
     mainLabel?: string;
     onSubmit?: ButtonProps["onClick"];
     mainType?: ButtonProps["type"];
+    mainDisabled?: boolean;
 }

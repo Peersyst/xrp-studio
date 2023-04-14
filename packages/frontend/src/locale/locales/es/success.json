@@ -1,5 +1,7 @@
 {
     "profileUpdated": "Perfil actualizado con éxito",
     "offerCreated": "Oferta creada con éxito",
-    "offerCreatedDesc": "Tu oferta se ha registrado en la blockchain de XRPL correctamente"
+    "offerCreatedDesc": "Tu oferta se ha registrado en la blockchain de XRPL correctamente",
+    "nftPurchased": "NFT comprado con éxito",
+    "nftPurchasedDesc": "La compra del NFT ha ido perfectamente. Puedes ir a la sección de NFTs para ver tu nuevo NFT"
 }

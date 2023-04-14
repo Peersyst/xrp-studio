@@ -75,5 +75,6 @@
     "noDropsAvailable": "There are no drops available at this moment",
     "noMatchingDrops": "No drops were found matching the selected filters",
     "notEnoughBalanceToBuyNftFromDrop": "You don't have enough XRP balance to buy an NFT from this drop",
-    "invalidOwnAddress": "You can not send to the same address"
+    "invalidOwnAddress": "You can not send to the same address",
+    "notEnoughBalanceToBuyNft": "You don't have enough XRP balance to buy this NFT"
 }

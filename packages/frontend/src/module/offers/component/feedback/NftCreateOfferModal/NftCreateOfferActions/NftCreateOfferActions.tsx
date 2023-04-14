@@ -6,31 +6,37 @@ import { MIN_AMOUNT_TO_CREATE_NFT_OFFER_IN_XRP } from "module/nft/component/inpu
 import config from "config/config";
 import TabsModalFooter from "module/common/component/feedback/TabsModal/TabsModalFooter/TabsModalFooter";
 import useCloseTabModal from "module/common/component/feedback/TabsModal/hooks/useCloseTabModal";
+import useMakeNftOffer from "module/offers/query/useMakeNftOffer";
+import useTabsState from "module/common/component/feedback/TabsModal/hooks/useTabsState";
+import { NftCreateOfferModalState } from "../NftCreateOfferModal.types";
+import { NftDto } from "module/api/service";
+import nftCreateOfferPooling from "../utils/nftCreateOfferPooling";
 
 interface NftCreateOfferActionsProps extends ActionStepsHandlers {
     isLoading?: boolean;
+    nftId: NftDto["id"];
 }
 
-const NftCreateOfferActions = ({ isLoading, ...rest }: NftCreateOfferActionsProps): JSX.Element => {
+const NftCreateOfferActions = ({ isLoading, nftId, ...rest }: NftCreateOfferActionsProps): JSX.Element => {
     //hooks
     const translate = useTranslate();
     const translateSuccess = useTranslate("success");
     const closeModal = useCloseTabModal();
+    const [request] = useTabsState<NftCreateOfferModalState>();
+    const startPooling = nftCreateOfferPooling();
 
-    async function publish() {
-        await new Promise((resolve) => setTimeout(resolve, 2000));
-    }
+    const { mutateAsync: makeNftOffer } = useMakeNftOffer({ ...request, nftId });
 
     const steps: Step[] = [
         {
             title: translate("processingYourOffer"),
             description: translate("processingYourOfferDescription"),
-            execution: async () => await publish(),
+            execution: async () => await makeNftOffer(),
         },
         {
             title: translate("signTheTxInYourXummWallet"),
             description: translate("signOfferDescription", { fee: MIN_AMOUNT_TO_CREATE_NFT_OFFER_IN_XRP, token: config.tokenName }),
-            execution: publish,
+            execution: startPooling,
         },
         {
             title: translateSuccess("offerCreated"),
