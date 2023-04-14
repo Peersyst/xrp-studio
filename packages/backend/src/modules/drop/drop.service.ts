@@ -256,10 +256,11 @@ export class DropService {
 
     async sellNftInDrop(nftId: number): Promise<void> {
         const nftInDrop = await this.nftInDropRepository.findOne(nftId, { relations: ["nft"] });
-        const transaction = await this.blockchainTransactionService.prepareSellOfferTransaction({
+        const transaction = await this.blockchainTransactionService.prepareOfferTransaction({
             account: this.blockchainService.mintingAddress,
             tokenId: nftInDrop.nft.tokenId,
             price: nftInDrop.price,
+            type: "sell",
         });
 
         const signedTx = this.blockchainTransactionService.signTransactionWithMintingAccount(transaction);

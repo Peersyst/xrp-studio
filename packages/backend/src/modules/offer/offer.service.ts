@@ -7,6 +7,11 @@ import { forwardRef, Inject, Logger } from "@nestjs/common";
 import { NftService } from "../nft/nft.service";
 import { UserService } from "../user/user.service";
 import { BlockchainTransactionService } from "../blockchain/blockchain-transaction.service";
+import { NftStatus } from "../../database/entities/Nft";
+import { CreateOfferRequest } from "./request/create-offer.request";
+import { XummTransactionService } from "../xumm/xumm-transaction.service";
+import { BusinessException } from "../common/exception/business.exception";
+import { ErrorCode } from "../common/exception/error-codes";
 
 export class OfferService {
     private logger = new Logger(OfferService.name);
@@ -15,8 +20,33 @@ export class OfferService {
         @InjectRepository(Offer) private readonly offerRepository: Repository<Offer>,
         @Inject(forwardRef(() => NftService)) private readonly nftService: NftService,
         @Inject(forwardRef(() => BlockchainTransactionService)) private readonly blockchainTransactionService: BlockchainTransactionService,
+        private readonly xummTransactionService: XummTransactionService,
         private readonly userService: UserService,
     ) {}
+
+    async createOffer(account: string, request: CreateOfferRequest): Promise<void> {
+        const nft = await this.nftService.findOne<[NftStatus.CONFIRMED]>({ id: request.nftId, status: NftStatus.CONFIRMED });
+        const transaction = await this.blockchainTransactionService.prepareOfferTransaction({
+            account: account,
+            tokenId: nft.tokenId,
+            price: request.price,
+            type: request.type,
+        });
+
+        await this.xummTransactionService.sendTransactionRequest(account, transaction);
+    }
+
+    async acceptOffer(account: string, id: number): Promise<void> {
+        const offer = await this.offerRepository.findOne(id);
+        if (!offer) {
+            throw new BusinessException(ErrorCode.OFFER_NOT_FOUND);
+        }
+        if (offer.destination && offer.destination !== account) {
+            throw new BusinessException(ErrorCode.INVALID_OFFER_DESTINATION);
+        }
+        const transaction = await this.blockchainTransactionService.prepareAcceptOfferTransaction(account, offer.offerId);
+        await this.xummTransactionService.sendTransactionRequest(account, transaction);
+    }
 
     async processCreateOfferTransaction(transaction: ValidatedLedgerTransaction<NFTokenCreateOffer>): Promise<void> {
         this.logger.debug("Processing offer create transaction " + JSON.stringify(transaction));
