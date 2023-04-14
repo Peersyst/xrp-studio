@@ -12,14 +12,14 @@ import { AcceptOfferRequest } from "./request/accept-offer.request";
 export class OfferController {
     constructor(private readonly offerService: OfferService) {}
 
-    @Post()
+    @Post("create")
     @ApiOperation({ description: "Create an Offer" })
     @XummAuthenticated()
     async create(@Request() req, @Body() offerRequest: CreateOfferRequest): Promise<void> {
         return await this.offerService.createOffer(req.user.address, offerRequest);
     }
 
-    @Post()
+    @Post("accept")
     @ApiOperation({ description: "Accept an Offer" })
     @XummAuthenticated()
     async accept(@Request() req, @Body() offerRequest: AcceptOfferRequest): Promise<void> {
