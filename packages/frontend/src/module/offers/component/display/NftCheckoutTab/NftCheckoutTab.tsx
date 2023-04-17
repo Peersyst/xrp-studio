@@ -5,7 +5,6 @@ import XrplService from "module/blockchain/service/XrplService/XrplService";
 import useGoToNextTab from "module/common/component/feedback/TabsModal/hooks/useGoToNextTab";
 import TabsModalFooter from "module/common/component/feedback/TabsModal/TabsModalFooter/TabsModalFooter";
 import useTranslate from "module/common/hook/useTranslate";
-import useCheckBalance from "module/wallet/hook/useCheckBalance";
 import { useGetXrpBalance } from "module/wallet/hook/useGetXrpBalance/useGetXrpBalance";
 import { BuyNftModalType } from "../../feedback/BuyNftModal/BuyNftModal";
 import NftCheckoutAlert from "../../feedback/NftCheckoutAlert/NftCheckoutAlert";

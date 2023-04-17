@@ -10,7 +10,6 @@ import useMakeNftOffer from "module/offers/query/useMakeNftOffer";
 import useTabsState from "module/common/component/feedback/TabsModal/hooks/useTabsState";
 import { CreateNftOfferModalType, NftCreateOfferModalState } from "../NftCreateOfferModal.types";
 import { NftDto } from "module/api/service";
-import usePoolXummTx from "module/blockchain/hook/usePoolXummTx";
 import usePoolNftCreateOffer from "./hooks/usePoolNftCreateOffer";
 
 interface NftCreateOfferActionsProps extends ActionStepsHandlers {
@@ -25,14 +24,7 @@ const NftCreateOfferActions = ({ isLoading, nftId, type, ...rest }: NftCreateOff
     const translateSuccess = useTranslate("success");
     const closeModal = useCloseTabModal();
     const [request] = useTabsState<NftCreateOfferModalState>();
-    console.log("request", {
-        ...request,
-        nftId,
-        /**
-         * A transfer is a sell with amount = 0
-         */
-        type: type === CreateNftOfferModalType.TRANSFER ? CreateNftOfferModalType.SELL : type,
-    });
+
     const { mutateAsync: makeNftOffer, data: uuid } = useMakeNftOffer({
         ...request,
         nftId,

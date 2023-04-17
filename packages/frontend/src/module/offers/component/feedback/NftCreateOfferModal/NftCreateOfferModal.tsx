@@ -1,4 +1,3 @@
-import { createModal } from "@peersyst/react-components";
 import useTranslate from "module/common/hook/useTranslate";
 import { useState } from "react";
 import NftMakeOfferForm from "../../input/NftMakeOfferForm/NftMakeOfferForm";

@@ -24,7 +24,7 @@ function NftMakeOfferForm({ onSumbit, className, offerType, style }: NftMakeOffe
     //handlers
     function handleSubmit(data: MakeUserOfferFormData) {
         const { expirationDays, price = "0", destination } = data;
-        console.log("Expiration days", expirationDays);
+
         const finalData: NftCreateOfferModalState = {
             ...(destination && { destination }),
             price: XrplService.xrpToDrops(price),
