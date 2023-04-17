@@ -28,8 +28,8 @@ export class BlockchainTransactionService {
         this.mintingAccount = Wallet.fromSecret(this.configService.get("xrp.minterSecret"));
     }
 
-    isoToXRPLTime(utc: string | Date): number {
-        return isoTimeToRippleTime(utc);
+    isoToXRPLTime(utc: string | number | Date): number {
+        return isoTimeToRippleTime(new Date(utc));
     }
 
     async onApplicationBootstrap(): Promise<void> {
@@ -119,7 +119,7 @@ export class BlockchainTransactionService {
             Owner: type === "buy" ? owner : undefined,
             Flags: type === "sell" ? 1 : 0,
             ...(account === this.mintingAccount.address && { Sequence: this.consumeSequence() }),
-            ...(expiration && { Expiration: this.isoToXRPLTime(String(expiration)) }),
+            ...(expiration && { Expiration: this.isoToXRPLTime(expiration) }),
         });
     }
 

@@ -7,17 +7,16 @@ import { NftCreateOfferModalProps } from "./NftCreateOfferModal.types";
 import NftCreateOfferActions from "./NftCreateOfferActions/NftCreateOfferActions";
 import useRefetchXrpBalance from "module/wallet/hook/useRefetchXrpBalance/useRefetchXrpBalance";
 
-const NftCreateOfferModal = createModal<NftCreateOfferModalProps>(({ nft, type, ...modalProps }) => {
+const NftCreateOfferModal = ({ nft, type, title, ...modalProps }: NftCreateOfferModalProps) => {
     const translate = useTranslate();
-    useRefetchXrpBalance();
-
     const [loading, setLoading] = useState<boolean>();
+    useRefetchXrpBalance();
 
     return (
         <TabsModal
             gap="2.25rem"
             size="md"
-            title={translate("makeAnOffer")}
+            title={title || translate("makeAnOffer")}
             closable={!loading}
             {...modalProps}
             tabs={[
@@ -38,6 +37,6 @@ const NftCreateOfferModal = createModal<NftCreateOfferModalProps>(({ nft, type, 
             ]}
         />
     );
-});
+};
 
 export default NftCreateOfferModal;

@@ -8,7 +8,10 @@ import useTranslate from "module/common/hook/useTranslate";
 import clsx from "clsx";
 import { MakeUserOfferFormData, NftMakeOfferFormDataNames, NftMakeOfferFormProps } from "./NftMakeOfferForm.types";
 import XrpMakeOfferAmountTextField from "../XrpMakeOfferAmountTextField/XrpMakeOfferAmountTextField";
-import { NftCreateOfferModalState } from "module/offers/component/feedback/NftCreateOfferModal/NftCreateOfferModal.types";
+import {
+    CreateNftOfferModalType,
+    NftCreateOfferModalState,
+} from "module/offers/component/feedback/NftCreateOfferModal/NftCreateOfferModal.types";
 import incomingDaysToTimeNumber from "module/offers/utils/incomingDaysToISOTime";
 import XrplService from "module/blockchain/service/XrplService/XrplService";
 
@@ -20,12 +23,12 @@ function NftMakeOfferForm({ onSumbit, className, offerType, style }: NftMakeOffe
 
     //handlers
     function handleSubmit(data: MakeUserOfferFormData) {
-        const { expirationDays, price, ...restOfData } = data;
-
+        const { expirationDays, price = "0", destination } = data;
+        console.log("Expiration days", expirationDays);
         const finalData: NftCreateOfferModalState = {
-            ...restOfData,
+            ...(destination && { destination }),
             price: XrplService.xrpToDrops(price),
-            //Parse the days to date in date number format
+            //Parse the days to date in number format
             ...(expirationDays && { expiration: incomingDaysToTimeNumber(Number(expirationDays)) }),
         };
 
@@ -35,7 +38,7 @@ function NftMakeOfferForm({ onSumbit, className, offerType, style }: NftMakeOffe
     }
 
     return (
-        <Form onSubmit={handleSubmit} css={{ flex: 1 }} className={clsx("nft-make-offer-form", className)} style={style}>
+        <Form onSubmit={handleSubmit} className={clsx("nft-make-offer-form", className)} style={style} css={{ flex: 1 }}>
             <Col flex={1} gap="2.25rem">
                 <DaySelect
                     name={NftMakeOfferFormDataNames.EXPIRATION_DAYS}
@@ -43,15 +46,18 @@ function NftMakeOfferForm({ onSumbit, className, offerType, style }: NftMakeOffe
                     label={translate("optionalLabel", { label: translate("expiresIn") })}
                     numberOfDays={7}
                     placeholder={translate("selectExpirationDate")}
+                    hint={translate("expiresInHint")}
                 />
-                <XrpMakeOfferAmountTextField
-                    offerType={offerType}
-                    name={NftMakeOfferFormDataNames.PRICE}
-                    required
-                    variant="filled"
-                    label={translate("price")}
-                />
-                {offerType === "sell" && (
+                {offerType !== CreateNftOfferModalType.TRANSFER && (
+                    <XrpMakeOfferAmountTextField
+                        offerType={offerType}
+                        name={NftMakeOfferFormDataNames.PRICE}
+                        required
+                        variant="filled"
+                        label={translate("price")}
+                    />
+                )}
+                {offerType !== CreateNftOfferModalType.BUY && (
                     <XrpAddressTextField
                         allowWalletAddress={false}
                         required

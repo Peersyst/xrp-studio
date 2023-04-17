@@ -55,6 +55,7 @@ export class Offer {
     accepterUser: User;
 
     @ManyToOne(() => Nft, (nft) => nft.offers, { cascade: true })
+    @JoinColumn({ name: "nft_id" })
     nft?: Nft;
 
     @OneToOne(() => NftInDrop, (nftInDrop) => nftInDrop.nft)

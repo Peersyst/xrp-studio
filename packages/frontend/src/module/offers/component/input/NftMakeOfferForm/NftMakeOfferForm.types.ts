@@ -7,8 +7,8 @@ export enum NftMakeOfferFormDataNames {
 }
 export interface MakeUserOfferFormData {
     [NftMakeOfferFormDataNames.EXPIRATION_DAYS]: number;
-    [NftMakeOfferFormDataNames.PRICE]: string;
-    [NftMakeOfferFormDataNames.DESTINATION]: string;
+    [NftMakeOfferFormDataNames.PRICE]?: string;
+    [NftMakeOfferFormDataNames.DESTINATION]?: string;
 }
 
 export interface NftMakeOfferFormProps {

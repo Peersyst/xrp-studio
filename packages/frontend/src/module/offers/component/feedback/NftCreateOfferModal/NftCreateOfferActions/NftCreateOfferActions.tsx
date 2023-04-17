@@ -11,6 +11,7 @@ import useTabsState from "module/common/component/feedback/TabsModal/hooks/useTa
 import { CreateNftOfferModalType, NftCreateOfferModalState } from "../NftCreateOfferModal.types";
 import { NftDto } from "module/api/service";
 import usePoolXummTx from "module/blockchain/hook/usePoolXummTx";
+import usePoolNftCreateOffer from "./hooks/usePoolNftCreateOffer";
 
 interface NftCreateOfferActionsProps extends ActionStepsHandlers {
     isLoading?: boolean;
@@ -24,9 +25,23 @@ const NftCreateOfferActions = ({ isLoading, nftId, type, ...rest }: NftCreateOff
     const translateSuccess = useTranslate("success");
     const closeModal = useCloseTabModal();
     const [request] = useTabsState<NftCreateOfferModalState>();
-
-    const { mutateAsync: makeNftOffer, data: uuid } = useMakeNftOffer({ ...request, nftId, type });
-    const { startPooling } = usePoolXummTx();
+    console.log("request", {
+        ...request,
+        nftId,
+        /**
+         * A transfer is a sell with amount = 0
+         */
+        type: type === CreateNftOfferModalType.TRANSFER ? CreateNftOfferModalType.SELL : type,
+    });
+    const { mutateAsync: makeNftOffer, data: uuid } = useMakeNftOffer({
+        ...request,
+        nftId,
+        /**
+         * A transfer is a sell with amount = 0
+         */
+        type: type === CreateNftOfferModalType.TRANSFER ? CreateNftOfferModalType.SELL : type,
+    });
+    const { poolNftCreateOffer } = usePoolNftCreateOffer();
 
     const steps: Step[] = [
         {
@@ -37,7 +52,7 @@ const NftCreateOfferActions = ({ isLoading, nftId, type, ...rest }: NftCreateOff
         {
             title: translate("signTheTxInYourXummWallet"),
             description: translate("signOfferDescription", { fee: MIN_AMOUNT_TO_CREATE_NFT_OFFER_IN_XRP, token: config.tokenName }),
-            execution: () => startPooling(uuid!),
+            execution: () => poolNftCreateOffer(uuid!, nftId),
         },
         {
             title: translateSuccess("offerCreated"),

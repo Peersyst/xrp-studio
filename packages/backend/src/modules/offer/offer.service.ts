@@ -35,6 +35,7 @@ export class OfferService {
             price: request.price,
             type: request.type,
             expiration: request.expiration,
+            destination: request.destination,
         });
 
         return (await this.xummTransactionService.sendTransactionRequest(account, transaction)).uuid;

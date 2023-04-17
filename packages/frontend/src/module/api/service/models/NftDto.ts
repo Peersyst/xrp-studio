@@ -5,6 +5,7 @@
 import type { CollectionDto } from './CollectionDto';
 import type { DropDto } from './DropDto';
 import type { MetadataDto } from './MetadataDto';
+import type { OfferDto } from './OfferDto';
 import type { UserDto } from './UserDto';
 
 export type NftDto = {
@@ -12,6 +13,7 @@ export type NftDto = {
     tokenId: string;
     mintTransactionHash: string;
     uri?: string;
+    offers?: Array<OfferDto>;
     id: number;
     issuer?: string;
     transferFee?: number;

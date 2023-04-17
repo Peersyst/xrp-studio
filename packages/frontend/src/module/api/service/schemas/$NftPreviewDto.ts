@@ -18,6 +18,12 @@ export const $NftPreviewDto = {
         uri: {
             type: 'string',
         },
+        offers: {
+            type: 'array',
+            contains: {
+                type: 'OfferDto',
+            },
+        },
         id: {
             type: 'number',
             isRequired: true,

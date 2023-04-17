@@ -3,10 +3,9 @@ import { cx } from "@peersyst/react-utils";
 import { NftDto } from "module/api/service";
 import Button from "module/common/component/input/Button/Button";
 import useTranslate from "module/common/hook/useTranslate";
-import useWallet from "module/wallet/hook/useWallet";
-import BuyNftModal from "../../feedback/BuyNftModal/BuyNftModal";
-import NftCreateOfferModal from "../../feedback/NftCreateOfferModal/NftCreateOfferModal";
-import { CreateNftOfferModalType } from "../../feedback/NftCreateOfferModal/NftCreateOfferModal.types";
+import BuyNftModal, { BuyNftModalType } from "../../feedback/BuyNftModal/BuyNftModal";
+import TransferNftModal from "../../feedback/TransferNftModal/TransferNftModal";
+import useNftOfferButtons from "./hooks/useNftOfferButtons";
 
 export interface NftOfferButtonsProps {
     className?: string;
@@ -17,25 +16,42 @@ export interface NftOfferButtonsProps {
 const NftOfferButtons = ({ className, nft, style }: NftOfferButtonsProps): JSX.Element => {
     const translate = useTranslate();
     const { showModal } = useModal();
-    const { user: { address: nftOwnerAddress } = {} } = nft;
-    const { address: walletAddress } = useWallet();
-    const isOwner = walletAddress === nftOwnerAddress;
+    const { isOwner, canTransfer, canAccept, acceptableOffer, hasAddress } = useNftOfferButtons({ nft });
+    const showButtons = hasAddress && (canAccept || canTransfer);
 
     return (
-        <Row gap="1rem" className={cx("nft-offer-btns", className)} style={style}>
-            {isOwner ? (
-                <Button fullWidth onClick={() => showModal(NftCreateOfferModal, { nft, type: CreateNftOfferModalType.SELL })}>
-                    {translate("listNft")}
-                </Button>
-            ) : (
-                <>
-                    <Button fullWidth onClick={() => showModal(BuyNftModal, { nft })}>
-                        {translate("buyNow")}
-                    </Button>
-                    {/*TODO: Enable that users create custom offers*/}
-                </>
+        <>
+            {showButtons && (
+                <Row gap="1rem" className={cx("nft-offer-btns", className)} style={style}>
+                    {isOwner ? (
+                        <>
+                            {canTransfer && (
+                                <Button fullWidth onClick={() => showModal(TransferNftModal, { nft })}>
+                                    {translate("transfer")}
+                                </Button>
+                            )}
+                            {/*TODO: Enable cancel Tx and Listing*/}
+                            {/*TODO: Enable listing*/}
+                        </>
+                    ) : (
+                        <>
+                            {canAccept && (
+                                <Button
+                                    fullWidth
+                                    onClick={() =>
+                                        showModal(BuyNftModal, { nft, offer: acceptableOffer!, type: BuyNftModalType.ACCEPT_TRANSFER })
+                                    }
+                                >
+                                    {translate("acceptTransfer")}
+                                </Button>
+                            )}
+                            {/*TODO: Enable that users to accept offers (BUY)*/}
+                            {/*TODO: Enable that users create custom offers*/}
+                        </>
+                    )}
+                </Row>
             )}
-        </Row>
+        </>
     );
 };
 
