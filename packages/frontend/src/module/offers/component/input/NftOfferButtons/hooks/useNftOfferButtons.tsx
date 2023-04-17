@@ -14,30 +14,40 @@ export interface UseNftOfferButtonsParams {
     nft: NftDto;
 }
 
-function isOfferAcceptable({ destination, acceptOfferHash, expiration }: OfferDto, walletAddress: string): boolean {
-    const now = new Date().getTime();
+function isOfferAcceptable(offer: OfferDto, walletAddress: string): boolean {
+    const destination = offer.destination;
     const isAllowedAddress = !!destination && destination === walletAddress;
-    const isNotAccepted = !acceptOfferHash;
+    return isAllowedAddress && isOfferAvailable(offer);
+}
+
+function isOfferAvailable({ expiration, acceptOfferHash }: OfferDto): boolean {
+    const now = new Date().getTime();
     const isNotExpired = typeof expiration === "number" ? now > expiration : true;
-    return isAllowedAddress && isNotAccepted && isNotExpired;
+    const isNotAccepted = !acceptOfferHash;
+    return isNotExpired && isNotAccepted;
 }
 
 export default function useNftOfferButtons({ nft }: UseNftOfferButtonsParams): UseNftOfferButtonsReturn {
-    const { user: { address: nftOwnerAddress } = {}, offers = [] } = nft;
+    const { ownerAccount, offers = [] } = nft;
     const { address: walletAddress = "" } = useWallet();
 
-    const isOwner = walletAddress === nftOwnerAddress;
-    const hasOffers = offers?.length > 0;
+    const isOwner = walletAddress === ownerAccount;
+
+    //Has offers availables
+    const availableOffers = useMemo(() => {
+        return offers?.filter((offer) => isOfferAvailable(offer));
+    }, [offers]);
+    const hasAvailableOffers = availableOffers.length > 0;
 
     //Only can accept offers that are to the user and have not been accepted yet
     const acceptableOffer = useMemo(() => {
-        return offers?.find((offer) => isOfferAcceptable(offer, walletAddress));
-    }, [offers, walletAddress]);
+        return hasAvailableOffers ? availableOffers?.find((offer) => isOfferAcceptable(offer, walletAddress)) : undefined;
+    }, [availableOffers, hasAvailableOffers, walletAddress]);
     const canAccept = !!acceptableOffer;
 
     return {
         isOwner,
-        canTransfer: !hasOffers,
+        canTransfer: isOwner && !hasAvailableOffers,
         canAccept,
         acceptableOffer,
         hasAddress: !!walletAddress,

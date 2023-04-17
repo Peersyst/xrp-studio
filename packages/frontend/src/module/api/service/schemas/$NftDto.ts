@@ -24,6 +24,9 @@ export const $NftDto = {
                 type: 'OfferDto',
             },
         },
+        ownerAccount: {
+            type: 'string',
+        },
         id: {
             type: 'number',
             isRequired: true,

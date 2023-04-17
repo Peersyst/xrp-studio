@@ -31,6 +31,7 @@ export default function useBuyNftCreatePooling() {
         await polling(() => handleFetch(params), handleStatus);
         await queryClient.invalidateQueries([Queries.NFT, params.nft.id]);
         await queryClient.invalidateQueries([Queries.MY_NFTS]);
+        await queryClient.invalidateQueries([Queries.NFTS]);
     };
 
     return {

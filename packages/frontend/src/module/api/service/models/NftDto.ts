@@ -14,6 +14,7 @@ export type NftDto = {
     mintTransactionHash: string;
     uri?: string;
     offers?: Array<OfferDto>;
+    ownerAccount?: string;
     id: number;
     issuer?: string;
     transferFee?: number;

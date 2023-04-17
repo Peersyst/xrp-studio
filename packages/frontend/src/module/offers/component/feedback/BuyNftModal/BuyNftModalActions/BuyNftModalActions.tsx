@@ -2,7 +2,6 @@ import useTranslate from "module/common/hook/useTranslate";
 import { ActionStepsHandlers, Step } from "module/common/component/feedback/ActionSteps/ActionSteps.types";
 import ActionSteps from "module/common/component/feedback/ActionSteps/ActionSteps";
 import TabsModalContent from "module/common/component/feedback/TabsModal/TabsModalContent/TabsModalContent";
-import config from "config/config";
 import TabsModalFooter from "module/common/component/feedback/TabsModal/TabsModalFooter/TabsModalFooter";
 import useCloseTabModal from "module/common/component/feedback/TabsModal/hooks/useCloseTabModal";
 import { NftRoutes } from "module/nft/NftRouter";
@@ -31,8 +30,8 @@ const BuyNftModalActions = ({ isLoading, nft, offer, type, ...rest }: BuyNftModa
     const isTransfer = type === BuyNftModalType.ACCEPT_TRANSFER;
 
     async function goToMyNfts() {
-        closeModal();
         navigate(NftRoutes.MY_NFTS);
+        closeModal();
     }
 
     const steps: Step[] = [
@@ -43,7 +42,7 @@ const BuyNftModalActions = ({ isLoading, nft, offer, type, ...rest }: BuyNftModa
         },
         {
             title: translate("signTheTxInYourXummWallet"),
-            description: translate("signPurchaseDescription", { fee: config.feeInDrops, token: config.tokenName }),
+            description: translate("signPurchaseDescription"),
             execution: () => startPooling({ nft, offerHash: offer.offerHash }),
         },
         {

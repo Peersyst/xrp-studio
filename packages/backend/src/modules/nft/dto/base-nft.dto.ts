@@ -21,7 +21,7 @@ export class BaseNftDto {
     collection?: CollectionDto;
     drop?: DropDto;
 
-    static fromEntity({ id, issuer, transferFee, flags, status, user, collection, metadata, nftInDrop }: Nft): BaseNftDto {
+    static fromEntity({ id, issuer, transferFee, flags, status, user, collection, metadata, nftInDrop, ownerAccount }: Nft): BaseNftDto {
         const dropSold =
             !nftInDrop ||
             (nftInDrop &&

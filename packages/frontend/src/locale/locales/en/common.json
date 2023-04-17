@@ -255,7 +255,7 @@
     "total": "Total",
     "proceesingYourPurchase": "Processing your purchase",
     "processingYourOfferPurchase": "Your purchase is being processed in order to validate everything is correct. Your purchase is on the way!",
-    "signPurchaseDescription": "Go to your XUMM wallet and sign the buy NFT transaction. You will have to pay a fee for buying the nft of {{fee}} {{token}}",
+    "signPurchaseDescription": "Go to your XUMM wallet and sign the transaction. Once the transaction is signed and confirmed, you will be able to see your NFT in your collection.",
     "checkout": "Checkout",
     "transfer": "Transfer",
     "expiresInHint": "Select how long the offer will be valid",

@@ -8,13 +8,21 @@ export class NftDto extends BaseNftDto {
     mintTransactionHash: string;
     uri?: string;
     offers?: OfferDto[];
+    ownerAccount?: string;
 
     static fromEntity(nftDraft: Nft): NftDto {
         if (nftDraft.status !== NftStatus.CONFIRMED) throw new Error("An Nft should not have status different than confirmed");
 
         const { tokenId, mintTransactionHash, uri } = nftDraft;
 
-        return { tokenId, mintTransactionHash, uri, ...super.fromEntity(nftDraft), offers: nftDraft.offers?.map(OfferDto.fromEntity) };
+        return {
+            tokenId,
+            mintTransactionHash,
+            ownerAccount: nftDraft.ownerAccount,
+            uri,
+            ...super.fromEntity(nftDraft),
+            offers: nftDraft.offers?.map(OfferDto.fromEntity),
+        };
     }
 }
 
