@@ -1,7 +1,7 @@
 import { Nft, NftStatus } from "../../../database/entities/Nft";
 import { BaseNftDto } from "./base-nft.dto";
 import { Paginated } from "../../common/paginated.dto";
-import { OfferDto } from "src/modules/offer/dto/offer.dto";
+import { OfferDto } from "../../offer/dto/offer.dto";
 
 export class NftDto extends BaseNftDto {
     tokenId: string;
