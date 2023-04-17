@@ -2,41 +2,42 @@ import useTranslate from "module/common/hook/useTranslate";
 import { ActionStepsHandlers, Step } from "module/common/component/feedback/ActionSteps/ActionSteps.types";
 import ActionSteps from "module/common/component/feedback/ActionSteps/ActionSteps";
 import TabsModalContent from "module/common/component/feedback/TabsModal/TabsModalContent/TabsModalContent";
-import { MIN_AMOUNT_TO_CREATE_NFT_OFFER_IN_XRP } from "module/nft/component/input/NftMakeOfferForm/NftMakeOfferForm.constants";
+import { MIN_AMOUNT_TO_CREATE_NFT_OFFER_IN_XRP } from "module/offers/component/input/NftMakeOfferForm/NftMakeOfferForm.constants";
 import config from "config/config";
 import TabsModalFooter from "module/common/component/feedback/TabsModal/TabsModalFooter/TabsModalFooter";
 import useCloseTabModal from "module/common/component/feedback/TabsModal/hooks/useCloseTabModal";
 import useMakeNftOffer from "module/offers/query/useMakeNftOffer";
 import useTabsState from "module/common/component/feedback/TabsModal/hooks/useTabsState";
-import { NftCreateOfferModalState } from "../NftCreateOfferModal.types";
+import { CreateNftOfferModalType, NftCreateOfferModalState } from "../NftCreateOfferModal.types";
 import { NftDto } from "module/api/service";
-import nftCreateOfferPooling from "../utils/nftCreateOfferPooling";
+import usePoolXummTx from "module/blockchain/hook/usePoolXummTx";
 
 interface NftCreateOfferActionsProps extends ActionStepsHandlers {
     isLoading?: boolean;
     nftId: NftDto["id"];
+    type: CreateNftOfferModalType;
 }
 
-const NftCreateOfferActions = ({ isLoading, nftId, ...rest }: NftCreateOfferActionsProps): JSX.Element => {
+const NftCreateOfferActions = ({ isLoading, nftId, type, ...rest }: NftCreateOfferActionsProps): JSX.Element => {
     //hooks
     const translate = useTranslate();
     const translateSuccess = useTranslate("success");
     const closeModal = useCloseTabModal();
     const [request] = useTabsState<NftCreateOfferModalState>();
-    const startPooling = nftCreateOfferPooling();
 
-    const { mutateAsync: makeNftOffer } = useMakeNftOffer({ ...request, nftId });
+    const { mutateAsync: makeNftOffer, data: uuid } = useMakeNftOffer({ ...request, nftId, type });
+    const { startPooling } = usePoolXummTx();
 
     const steps: Step[] = [
         {
             title: translate("processingYourOffer"),
             description: translate("processingYourOfferDescription"),
-            execution: async () => await makeNftOffer(),
+            execution: makeNftOffer,
         },
         {
             title: translate("signTheTxInYourXummWallet"),
             description: translate("signOfferDescription", { fee: MIN_AMOUNT_TO_CREATE_NFT_OFFER_IN_XRP, token: config.tokenName }),
-            execution: startPooling,
+            execution: () => startPooling(uuid!),
         },
         {
             title: translateSuccess("offerCreated"),

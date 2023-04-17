@@ -14,6 +14,8 @@ export class CreateOfferRequest {
     @ApiProperty({
         name: "price",
         type: "string",
+        description: "Price in drops",
+        example: "10000000",
         required: true,
     })
     price: string;
@@ -28,6 +30,15 @@ export class CreateOfferRequest {
     @IsOptional()
     @IsXrplAddress()
     destination?: string;
+
+    @ApiProperty({
+        name: "expiration",
+        type: "number",
+        required: false,
+        example: "1681468102408",
+    })
+    @IsOptional()
+    expiration?: number;
 
     @ApiProperty({
         name: "owner",

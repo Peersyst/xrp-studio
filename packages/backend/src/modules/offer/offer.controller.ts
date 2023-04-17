@@ -13,14 +13,14 @@ export class OfferController {
     constructor(private readonly offerService: OfferService) {}
 
     @Post("create")
-    @ApiOperation({ description: "Create an Offer" })
+    @ApiOperation({ description: "Create an NFTokenCreateOffer" })
     @XummAuthenticated()
-    async create(@Request() req, @Body() offerRequest: CreateOfferRequest): Promise<void> {
+    async create(@Request() req, @Body() offerRequest: CreateOfferRequest): Promise<string> {
         return await this.offerService.createOffer(req.user.address, offerRequest);
     }
 
     @Post("accept")
-    @ApiOperation({ description: "Accept an Offer" })
+    @ApiOperation({ description: "Accept an NFTokenAcceptOffer to buy or sell an NFToken" })
     @XummAuthenticated()
     async accept(@Request() req, @Body() offerRequest: AcceptOfferRequest): Promise<void> {
         return await this.offerService.acceptOffer(req.user.address, offerRequest.id);

@@ -1,13 +1,13 @@
 import { createModal } from "@peersyst/react-components";
 import useTranslate from "module/common/hook/useTranslate";
 import { useState } from "react";
-import NftMakeOfferForm from "../../../../nft/component/input/NftMakeOfferForm/NftMakeOfferForm";
+import NftMakeOfferForm from "../../input/NftMakeOfferForm/NftMakeOfferForm";
 import TabsModal from "module/common/component/feedback/TabsModal/TabsModal";
 import { NftCreateOfferModalProps } from "./NftCreateOfferModal.types";
 import NftCreateOfferActions from "./NftCreateOfferActions/NftCreateOfferActions";
 import useRefetchXrpBalance from "module/wallet/hook/useRefetchXrpBalance/useRefetchXrpBalance";
 
-const NftCreateOfferModal = createModal<NftCreateOfferModalProps>(({ nft, ...modalProps }) => {
+const NftCreateOfferModal = createModal<NftCreateOfferModalProps>(({ nft, type, ...modalProps }) => {
     const translate = useTranslate();
     useRefetchXrpBalance();
 
@@ -22,11 +22,12 @@ const NftCreateOfferModal = createModal<NftCreateOfferModalProps>(({ nft, ...mod
             {...modalProps}
             tabs={[
                 {
-                    content: <NftMakeOfferForm />,
+                    content: <NftMakeOfferForm offerType={type} />,
                 },
                 {
                     content: (
                         <NftCreateOfferActions
+                            type={type}
                             nftId={nft.id}
                             isLoading={loading}
                             onStart={() => setLoading(true)}

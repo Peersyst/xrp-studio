@@ -24,16 +24,20 @@ export class OfferService {
         private readonly userService: UserService,
     ) {}
 
-    async createOffer(account: string, request: CreateOfferRequest): Promise<void> {
+    async createOffer(account: string, request: CreateOfferRequest): Promise<string> {
         const nft = await this.nftService.findOne<[NftStatus.CONFIRMED]>({ id: request.nftId, status: NftStatus.CONFIRMED });
+
+        if (!nft) throw new BusinessException(ErrorCode.NFT_NOT_FOUND);
+
         const transaction = await this.blockchainTransactionService.prepareOfferTransaction({
             account: account,
             tokenId: nft.tokenId,
             price: request.price,
             type: request.type,
+            expiration: request.expiration,
         });
 
-        await this.xummTransactionService.sendTransactionRequest(account, transaction);
+        return (await this.xummTransactionService.sendTransactionRequest(account, transaction)).uuid;
     }
 
     async acceptOffer(account: string, id: number): Promise<void> {

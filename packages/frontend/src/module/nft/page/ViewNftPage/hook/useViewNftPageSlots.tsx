@@ -43,6 +43,8 @@ export default function ({ nft, loading = false }: UserViewNftPageSlots): ReactN
     } = usePhygitalNft(nft);
     const { burnable, onlyXRP, transferable } = parseFlags(flags);
 
+    console.log("nft", nft);
+
     return (
         <>
             <BaseNftPageContent.Left>

@@ -6,6 +6,7 @@ import useTranslate from "module/common/hook/useTranslate";
 import useWallet from "module/wallet/hook/useWallet";
 import BuyNftModal from "../../feedback/BuyNftModal/BuyNftModal";
 import NftCreateOfferModal from "../../feedback/NftCreateOfferModal/NftCreateOfferModal";
+import { CreateNftOfferModalType } from "../../feedback/NftCreateOfferModal/NftCreateOfferModal.types";
 
 export interface NftOfferButtonsProps {
     className?: string;
@@ -23,7 +24,7 @@ const NftOfferButtons = ({ className, nft, style }: NftOfferButtonsProps): JSX.E
     return (
         <Row gap="1rem" className={cx("nft-offer-btns", className)} style={style}>
             {isOwner ? (
-                <Button fullWidth onClick={() => showModal(NftCreateOfferModal, { nft })}>
+                <Button fullWidth onClick={() => showModal(NftCreateOfferModal, { nft, type: CreateNftOfferModalType.SELL })}>
                     {translate("listNft")}
                 </Button>
             ) : (

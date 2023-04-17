@@ -18,7 +18,7 @@ export default (secrets: AwsSecrets = {}): XrpConfig => {
                 production: "wss://xrplcluster.com",
             },
             startingLedgerIndex: {
-                default: 36983216,
+                default: 37060307,
                 production: 75443457,
             },
             minterSecret: {
