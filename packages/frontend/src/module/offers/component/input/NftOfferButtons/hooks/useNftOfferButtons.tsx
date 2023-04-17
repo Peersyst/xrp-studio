@@ -14,10 +14,9 @@ export interface UseNftOfferButtonsParams {
     nft: NftDto;
 }
 
-function isOfferAcceptable(offer: OfferDto, walletAddress: string): boolean {
+function isOfferForWalletAddress(offer: OfferDto, walletAddress: string): boolean {
     const destination = offer.destination;
-    const isAllowedAddress = !!destination && destination === walletAddress;
-    return isAllowedAddress && isOfferAvailable(offer);
+    return !!destination && destination === walletAddress;
 }
 
 function isOfferAvailable({ expiration, acceptOfferHash }: OfferDto): boolean {
@@ -41,7 +40,7 @@ export default function useNftOfferButtons({ nft }: UseNftOfferButtonsParams): U
 
     //Only can accept offers that are to the user and have not been accepted yet
     const acceptableOffer = useMemo(() => {
-        return hasAvailableOffers ? availableOffers?.find((offer) => isOfferAcceptable(offer, walletAddress)) : undefined;
+        return hasAvailableOffers ? availableOffers?.find((offer) => isOfferForWalletAddress(offer, walletAddress)) : undefined;
     }, [availableOffers, hasAvailableOffers, walletAddress]);
     const canAccept = !!acceptableOffer;
 

@@ -26,6 +26,7 @@ const NumericTextField = ({
     ...textFieldProps
 }: NumericTextFieldProps): JSX.Element => {
     const translate = useTranslate();
+    //TODO: update useNumericInput when upgrading react components
     const { format, parse } = useNumericInput({ maxDecimals });
     const [value, setValue] = useControlled(defaultValue, valueProp, onChangeProp);
 
