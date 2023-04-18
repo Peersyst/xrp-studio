@@ -8,11 +8,15 @@ export interface BuyHandleNftBuyStatus {
     offerHash: OfferDto["offerHash"];
 }
 
+export interface UseBuyNftPollingReturn {
+    startPolling: (params: BuyHandleNftBuyStatus) => Promise<void>;
+}
+
 function hasOfferBeenAccepted(offers: OfferDto[], offerHash: string): boolean {
     return offers.some((offer) => offer.offerHash === offerHash && !offer.acceptOfferHash);
 }
 
-export default function useBuyNftCreatePooling() {
+export default function useBuyNftPolling(): UseBuyNftPollingReturn {
     const queryClient = useQueryClient();
 
     const handleStatus = ({ nft, offerHash }: BuyHandleNftBuyStatus) => {
@@ -27,7 +31,7 @@ export default function useBuyNftCreatePooling() {
         };
     };
 
-    const startPooling = async (params: BuyHandleNftBuyStatus) => {
+    const startPolling = async (params: BuyHandleNftBuyStatus) => {
         await polling(() => handleFetch(params), handleStatus);
         await queryClient.invalidateQueries([Queries.NFT, params.nft.id]);
         await queryClient.invalidateQueries([Queries.MY_NFTS]);
@@ -35,6 +39,6 @@ export default function useBuyNftCreatePooling() {
     };
 
     return {
-        startPooling,
+        startPolling,
     };
 }

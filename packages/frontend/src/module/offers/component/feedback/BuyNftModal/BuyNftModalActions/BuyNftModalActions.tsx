@@ -8,7 +8,7 @@ import { NftRoutes } from "module/nft/NftRouter";
 import { useNavigate } from "react-router-dom";
 import useBuyNft from "module/offers/query/useBuyNft";
 import { NftDto, OfferDto } from "module/api/service";
-import buyNftCreatePooling from "../hooks/useBuyNftCreatePooling";
+import useBuyNftPolling from "../hooks/useBuyNftPolling";
 import { BuyNftModalType } from "../BuyNftModal.types";
 
 interface BuyNftModalActionsProps extends ActionStepsHandlers {
@@ -26,7 +26,7 @@ const BuyNftModalActions = ({ isLoading, nft, offer, type, ...rest }: BuyNftModa
 
     const closeModal = useCloseTabModal();
     const { mutateAsync: buynft } = useBuyNft();
-    const { startPooling } = buyNftCreatePooling();
+    const { startPolling } = useBuyNftPolling();
     const isTransfer = type === BuyNftModalType.ACCEPT_TRANSFER;
 
     async function goToMyNfts() {
@@ -43,7 +43,7 @@ const BuyNftModalActions = ({ isLoading, nft, offer, type, ...rest }: BuyNftModa
         {
             title: translate("signTheTxInYourXummWallet"),
             description: translate("signPurchaseDescription"),
-            execution: () => startPooling({ nft, offerHash: offer.offerHash }),
+            execution: () => startPolling({ nft, offerHash: offer.offerHash }),
         },
         {
             title: translateSuccess(isTransfer ? "nftReceived" : "nftPurchased"),

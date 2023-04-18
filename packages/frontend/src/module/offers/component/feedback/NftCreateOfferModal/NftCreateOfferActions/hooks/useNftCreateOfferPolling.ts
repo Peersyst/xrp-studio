@@ -1,6 +1,6 @@
 import { polling } from "@peersyst/react-utils";
 import { NftDto, NftService } from "module/api/service";
-import usePoolXummTx from "module/blockchain/hook/usePoolXummTx";
+import usePollXummTx from "module/blockchain/hook/usePollXummTx";
 import useGetXummTxPayload from "module/blockchain/query/useGetXummTxPayload";
 import Queries from "query/queries";
 import { useQueryClient } from "react-query";
@@ -19,8 +19,8 @@ function isOfferInNft(offerHash: string, nft: NftDto) {
     return nft.offers?.find((offer) => offer.offerHash === offerHash) !== undefined;
 }
 
-export default function usePoolNftCreateOffer() {
-    const { startPooling } = usePoolXummTx();
+export default function useNftCreateOfferPolling() {
+    const { startPolling } = usePollXummTx();
     const { mutateAsync } = useGetXummTxPayload();
     const queryClient = useQueryClient();
 
@@ -31,18 +31,18 @@ export default function usePoolNftCreateOffer() {
         return { nft, offerHash };
     }
 
-    const poolOfferIndexed = async (params: HandleFetchParams) => {
+    const pollOfferIndexed = async (params: HandleFetchParams) => {
         await polling(() => handleFetchNft(params), handleOfferIndexedStatus);
     };
 
-    async function poolNftCreateOffer(uuid: string, nftId: NftDto["id"]) {
-        await startPooling(uuid);
+    async function startPollingNftCreateOffer(uuid: string, nftId: NftDto["id"]) {
+        await startPolling(uuid);
         const payload = await mutateAsync(uuid);
-        await poolOfferIndexed({ offerHash: payload.txid, nftId });
+        await pollOfferIndexed({ offerHash: payload.txid, nftId });
         await queryClient.invalidateQueries([Queries.NFT, nftId]);
     }
 
     return {
-        poolNftCreateOffer,
+        startPollingNftCreateOffer,
     };
 }

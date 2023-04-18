@@ -1,11 +1,11 @@
 import { polling } from "@peersyst/react-utils";
 import { useTransactionRequestStatus } from "xumm-react";
 
-export interface UsePoolXummTxReturn {
-    startPooling: (uuid: string) => Promise<void>;
+export interface usePollXummTxReturn {
+    startPolling: (uuid: string) => Promise<void>;
 }
 
-export default function usePoolXummTx(): UsePoolXummTxReturn {
+export default function usePollXummTx(): usePollXummTxReturn {
     const { fetchStatus } = useTransactionRequestStatus();
     /**
      * Status type "signed" | "declined" | "cancelled" | "expired" | "pending"
@@ -25,11 +25,11 @@ export default function usePoolXummTx(): UsePoolXummTxReturn {
         }
     };
 
-    const startPooling = async (uuid: string) => {
+    const startPolling = async (uuid: string) => {
         await polling(() => fetchStatus(uuid), handleStatus);
     };
 
     return {
-        startPooling,
+        startPolling,
     };
 }
