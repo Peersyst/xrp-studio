@@ -3,7 +3,8 @@ import { cx } from "@peersyst/react-utils";
 import { NftDto } from "module/api/service";
 import Button from "module/common/component/input/Button/Button";
 import useTranslate from "module/common/hook/useTranslate";
-import BuyNftModal, { BuyNftModalType } from "../../feedback/BuyNftModal/BuyNftModal";
+import BuyNftModal from "../../feedback/BuyNftModal/BuyNftModal";
+import { BuyNftModalType } from "../../feedback/BuyNftModal/BuyNftModal.types";
 import TransferNftModal from "../../feedback/TransferNftModal/TransferNftModal";
 import useNftOfferButtons from "./hooks/useNftOfferButtons";
 

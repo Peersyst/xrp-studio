@@ -1,24 +1,15 @@
 import { Col } from "@peersyst/react-components";
 import clsx from "clsx";
-import { NftDto } from "module/api/service";
 import XrplService from "module/blockchain/service/XrplService/XrplService";
 import useGoToNextTab from "module/common/component/feedback/TabsModal/hooks/useGoToNextTab";
 import TabsModalFooter from "module/common/component/feedback/TabsModal/TabsModalFooter/TabsModalFooter";
 import useTranslate from "module/common/hook/useTranslate";
 import { useGetXrpBalance } from "module/wallet/hook/useGetXrpBalance/useGetXrpBalance";
-import { BuyNftModalType } from "../../feedback/BuyNftModal/BuyNftModal";
+import { BuyNftModalType } from "../../feedback/BuyNftModal/BuyNftModal.types";
 import NftCheckoutAlert from "../../feedback/NftCheckoutAlert/NftCheckoutAlert";
 import NftCheckoutCardPrice from "../NftCheckoutCardPrice/NftCheckoutCardPrice";
 import NftCheckoutInfo from "../NftCheckoutInfo/NftCheckoutInfo";
-
-export interface NftCheckoutTabProps {
-    className?: string;
-    style?: React.CSSProperties;
-    nft: NftDto;
-    amount: string;
-    fee?: string;
-    type: BuyNftModalType;
-}
+import { NftCheckoutTabProps } from "./NftCheckoutTab.types";
 
 function canCheckoutNft(amountInDrops: string, xrpBalance: string | number): boolean {
     return BigInt(XrplService.xrpToDrops(String(xrpBalance))) >= BigInt(amountInDrops);

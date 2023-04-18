@@ -9,7 +9,7 @@ import { useNavigate } from "react-router-dom";
 import useBuyNft from "module/offers/query/useBuyNft";
 import { NftDto, OfferDto } from "module/api/service";
 import buyNftCreatePooling from "../hooks/useBuyNftCreatePooling";
-import { BuyNftModalType } from "../BuyNftModal";
+import { BuyNftModalType } from "../BuyNftModal.types";
 
 interface BuyNftModalActionsProps extends ActionStepsHandlers {
     isLoading?: boolean;

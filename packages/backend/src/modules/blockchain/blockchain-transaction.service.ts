@@ -112,14 +112,14 @@ export class BlockchainTransactionService {
     }): Promise<Transaction> {
         return this.xrpClient.autofill({
             TransactionType: "NFTokenCreateOffer",
+            Sequence: account === this.mintingAccount.address ? this.consumeSequence() : undefined,
             Account: account,
             NFTokenID: tokenId,
             Destination: destination,
             Amount: price,
             Owner: type === "buy" ? owner : undefined,
             Flags: type === "sell" ? 1 : 0,
-            ...(account === this.mintingAccount.address && { Sequence: this.consumeSequence() }),
-            ...(expiration && { Expiration: this.isoToXRPLTime(expiration) }),
+            Expiration: typeof expiration === "number" ? this.isoToXRPLTime(expiration) : undefined,
         });
     }
 

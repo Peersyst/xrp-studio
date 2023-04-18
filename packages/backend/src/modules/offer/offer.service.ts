@@ -27,8 +27,6 @@ export class OfferService {
     async createOffer(account: string, request: CreateOfferRequest): Promise<string> {
         const nft = await this.nftService.findOne<[NftStatus.CONFIRMED]>({ id: request.nftId, status: NftStatus.CONFIRMED });
 
-        if (!nft) throw new BusinessException(ErrorCode.NFT_NOT_FOUND);
-
         const transaction = await this.blockchainTransactionService.prepareOfferTransaction({
             account: account,
             tokenId: nft.tokenId,
