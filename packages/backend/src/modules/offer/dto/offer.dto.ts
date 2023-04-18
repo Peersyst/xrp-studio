@@ -8,6 +8,9 @@ export class OfferDto {
     creatorUser?: UserDto;
     accepterUser?: UserDto;
     acceptOfferHash?: string;
+    destination?: string;
+    amount?: string;
+    expiration?: number;
 
     static fromEntity(offer: Offer): OfferDto {
         return {
@@ -17,6 +20,9 @@ export class OfferDto {
             creatorUser: offer.creatorUser ? UserDto.fromEntity(offer.creatorUser) : undefined,
             accepterUser: offer.accepterUser ? UserDto.fromEntity(offer.accepterUser) : undefined,
             acceptOfferHash: offer.acceptOfferHash,
+            destination: offer.destination,
+            amount: offer.amount,
+            expiration: offer.expiration,
         };
     }
 }

@@ -1,5 +1,5 @@
 import { Injectable, Logger } from "@nestjs/common";
-import { AccountSetAsfFlags, Client, convertStringToHex, SubmitResponse, Transaction, Wallet } from "xrpl";
+import { AccountSetAsfFlags, Client, convertStringToHex, isoTimeToRippleTime, SubmitResponse, Transaction, Wallet } from "xrpl";
 import { ConfigService } from "@nestjs/config";
 import { NFTokenMint } from "xrpl/dist/npm/models/transactions/NFTokenMint";
 import { TransactionMetadata } from "xrpl/dist/npm/models/transactions";
@@ -26,6 +26,10 @@ export class BlockchainTransactionService {
         const xrpNode = this.configService.get<string>("xrp.node");
         this.xrpClient = new Client(xrpNode);
         this.mintingAccount = Wallet.fromSecret(this.configService.get("xrp.minterSecret"));
+    }
+
+    isoToXRPLTime(utc: string | number | Date): number {
+        return isoTimeToRippleTime(new Date(utc));
     }
 
     async onApplicationBootstrap(): Promise<void> {
@@ -96,6 +100,7 @@ export class BlockchainTransactionService {
         type,
         destination,
         owner,
+        expiration,
     }: {
         account: string;
         destination?: string;
@@ -103,6 +108,7 @@ export class BlockchainTransactionService {
         tokenId: string;
         price: string;
         type: "sell" | "buy";
+        expiration?: number /* expiration in UTC time */;
     }): Promise<Transaction> {
         return this.xrpClient.autofill({
             TransactionType: "NFTokenCreateOffer",
@@ -113,6 +119,7 @@ export class BlockchainTransactionService {
             Amount: price,
             Owner: type === "buy" ? owner : undefined,
             Flags: type === "sell" ? 1 : 0,
+            Expiration: typeof expiration === "number" ? this.isoToXRPLTime(expiration) : undefined,
         });
     }
 
