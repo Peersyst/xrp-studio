@@ -44,9 +44,11 @@ export default function useNftOfferButtons({ nft }: UseNftOfferButtonsParams): U
     }, [availableOffers, hasAvailableOffers, walletAddress]);
     const canAccept = !!acceptableOffer;
 
+    const canTransfer = isOwner && !hasAvailableOffers;
+
     return {
         isOwner,
-        canTransfer: isOwner && !hasAvailableOffers,
+        canTransfer,
         canAccept,
         acceptableOffer,
         hasAddress: !!walletAddress,
