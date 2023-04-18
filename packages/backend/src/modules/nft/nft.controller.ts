@@ -118,7 +118,7 @@ export class NftController {
             { id },
             {
                 status: [NftStatus.CONFIRMED],
-                relations: ["metadata", "metadata.attributes", "user", "collection", "nftInDrop"],
+                relations: ["metadata", "metadata.attributes", "user", "collection", "nftInDrop", "offers"],
             },
         );
     }
