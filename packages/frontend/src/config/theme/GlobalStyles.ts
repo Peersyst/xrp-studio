@@ -159,6 +159,10 @@ export const GlobalStyles = createGlobalStyle`
             text-decoration: none;
         }
 
+        p.Typography {
+            overflow: unset;
+        }
+
         // Prevent iOS from zooming in on inputs
         @media screen and (max-width: 767px) {
                 input[type="text"],

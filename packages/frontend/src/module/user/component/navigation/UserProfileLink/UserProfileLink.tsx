@@ -8,6 +8,7 @@ import Username from "module/user/component/Username/Username";
 
 export interface UserProfileLinkProps {
     user: UserDto;
+    avatar?: boolean;
     variant?: TypographyProps["variant"];
     fontWeight?: TypographyProps["fontWeight"];
     className?: string;
@@ -18,12 +19,13 @@ const UserProfileLink = ({
     user: { image, address, name, verifiedArtist },
     variant = "body1",
     fontWeight = 600,
+    avatar = true,
     ...rest
 }: UserProfileLinkProps): JSX.Element => {
     return (
         <UserProfileLinkRoot to={UserRoutes.PROFILE.replace(":address", address)} {...rest}>
             <Row flex={1} alignItems="center" gap="0.75rem" css={{ overflow: "hidden" }}>
-                <Avatar img={image} alt={`${name || "user"}-image`} size="sm" />
+                {avatar && <Avatar img={image} alt={`${name || "user"}-image`} size="sm" />}
                 <span css={{ overflow: "hidden" }}>
                     {name ? (
                         <Username name={name} verified={verifiedArtist} variant={variant} fontWeight={fontWeight} />

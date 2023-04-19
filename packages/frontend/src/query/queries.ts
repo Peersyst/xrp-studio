@@ -15,6 +15,9 @@ enum Queries {
     COLLECTION_IS_DROP = "collection-is-drop",
     COLLECTION_NAME_AVAILABILITY = "collection-name-availability",
     CHECK_BALANCE = "check-balance",
+    MAKE_NFT_OFFER = "make-nft-offer",
+    BUY_NFT = "buy-nft",
+    GET_TX_PAYLOAD = "get-tx-payload",
 }
 
 export default Queries;

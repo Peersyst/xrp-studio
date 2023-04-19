@@ -14,6 +14,8 @@ import UserProfileLink from "module/user/component/navigation/UserProfileLink/Us
 import { CollectionRoutes } from "module/collection/router/CollectionRouter";
 import usePhygitalNft from "../../NftCreationPage/hook/usePhygitalNft";
 import NftDisplay from "module/nft/component/display/NftDisplay/NftDisplay";
+import NftOfferButtons from "module/offers/component/input/NftOfferButtons/NftOfferButtons";
+import NftName from "module/nft/component/display/NftName/NftName";
 
 export interface UserViewNftPageSlots {
     nft: NftDto | undefined;
@@ -49,15 +51,7 @@ export default function ({ nft, loading = false }: UserViewNftPageSlots): ReactN
                 </BaseNftPageContentLeftSlot.Image>
                 <BaseNftPageContentLeftSlot.Info loading={loading}>
                     <Label label={capitalize(translate("name"))}>
-                        {name ? (
-                            <Typography variant="body1" singleLine>
-                                {name}
-                            </Typography>
-                        ) : (
-                            <Typography variant="body1" fontStyle="italic">
-                                {translate("none", { context: "male" })}
-                            </Typography>
-                        )}
+                        <NftName name={name} variant="body1" />
                     </Label>
                     <Label label={translate("description")}>
                         {description ? (
@@ -119,6 +113,7 @@ export default function ({ nft, loading = false }: UserViewNftPageSlots): ReactN
                         )}
                     </Label>
                 )}
+                {nft && <NftOfferButtons nft={nft} />}
                 <Divider />
                 <Switch label={translate("burnable")} value={burnable} readonly />
                 <Switch label={translate("onlyXRP")} value={onlyXRP} readonly />

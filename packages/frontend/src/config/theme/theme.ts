@@ -10,6 +10,7 @@ const theme = createTheme({
     borderRadiusLg: "0.75rem",
     zIndex: {
         filters: 2,
+        header: 2,
     },
     typography: typography,
     breakpoints: {

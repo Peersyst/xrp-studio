@@ -4,8 +4,15 @@ import { Image, useModal } from "@peersyst/react-components";
 import { NftDisplayRoot, PhygitalQrButton } from "./NfyDisplay.styles";
 import { PhygitalIcon } from "icons";
 import PhygitalQrModal from "../PhygitalQrModal/PhygitalQrModal";
+import clsx from "clsx";
 
-const NftDisplay = ({ image = "", fallback = config.nftDefaultImageUrl, phygitalPublicKey }: NftDisplayProps): JSX.Element => {
+const NftDisplay = ({
+    image = "",
+    fallback = config.nftDefaultImageUrl,
+    phygitalPublicKey,
+    className,
+    ...rest
+}: NftDisplayProps): JSX.Element => {
     const { showModal } = useModal();
 
     const handlePhygitalQrClick = () => {
@@ -13,7 +20,7 @@ const NftDisplay = ({ image = "", fallback = config.nftDefaultImageUrl, phygital
     };
 
     return (
-        <NftDisplayRoot>
+        <NftDisplayRoot {...rest} className={clsx("nft-display", className)}>
             <Image src={image} alt="nft-image" fallback={fallback} />
             {!!phygitalPublicKey && (
                 <PhygitalQrButton onClick={handlePhygitalQrClick}>

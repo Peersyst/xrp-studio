@@ -1,5 +1,5 @@
 import { Injectable, Logger } from "@nestjs/common";
-import { AccountSetAsfFlags, Client, convertStringToHex, SubmitResponse, Transaction, Wallet } from "xrpl";
+import { AccountSetAsfFlags, Client, convertStringToHex, isoTimeToRippleTime, SubmitResponse, Transaction, Wallet } from "xrpl";
 import { ConfigService } from "@nestjs/config";
 import { NFTokenMint } from "xrpl/dist/npm/models/transactions/NFTokenMint";
 import { TransactionMetadata } from "xrpl/dist/npm/models/transactions";
@@ -26,6 +26,10 @@ export class BlockchainTransactionService {
         const xrpNode = this.configService.get<string>("xrp.node");
         this.xrpClient = new Client(xrpNode);
         this.mintingAccount = Wallet.fromSecret(this.configService.get("xrp.minterSecret"));
+    }
+
+    isoToXRPLTime(utc: string | number | Date): number {
+        return isoTimeToRippleTime(new Date(utc));
     }
 
     async onApplicationBootstrap(): Promise<void> {
@@ -89,22 +93,33 @@ export class BlockchainTransactionService {
         return autofill ? this.xrpClient.autofill(tx) : tx;
     }
 
-    async prepareSellOfferTransaction({
+    async prepareOfferTransaction({
         account,
         tokenId,
         price,
+        type,
+        destination,
+        owner,
+        expiration,
     }: {
         account: string;
+        destination?: string;
+        owner?: string;
         tokenId: string;
         price: string;
+        type: "sell" | "buy";
+        expiration?: number /* expiration in UTC time */;
     }): Promise<Transaction> {
         return this.xrpClient.autofill({
             TransactionType: "NFTokenCreateOffer",
             Sequence: account === this.mintingAccount.address ? this.consumeSequence() : undefined,
             Account: account,
             NFTokenID: tokenId,
+            Destination: destination,
             Amount: price,
-            Flags: 1,
+            Owner: type === "buy" ? owner : undefined,
+            Flags: type === "sell" ? 1 : 0,
+            Expiration: typeof expiration === "number" ? this.isoToXRPLTime(expiration) : undefined,
         });
     }
 
