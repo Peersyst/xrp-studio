@@ -10,7 +10,7 @@ import { LedgerResponse } from "xrpl/dist/npm/models/methods";
 import { ValidatedLedgerTransaction } from "./types";
 import { OfferService } from "../offer/offer.service";
 
-export const INDEX_LEDGER_JOB_CONCURRENCY = 4;
+export const INDEX_LEDGER_JOB_CONCURRENCY = 1;
 
 /**
  * Service in charge of all blockchain related stuff
