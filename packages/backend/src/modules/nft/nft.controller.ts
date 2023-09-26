@@ -129,4 +129,10 @@ export class NftController {
     async deleteNftDraft(@Request() req, @Param("id", ParseIntPipe) id: number): Promise<void> {
         return this.nftService.deleteNftDraft(id, req.user.address);
     }
+
+    @Get("/phygital/:publicKey")
+    @ApiOperation({ description: "Get a single NFT (status = confirmed)" })
+    async getPhygitalNft(@Param("publicKey") publicKey: string): Promise<NftDto> {
+        return this.nftService.findPhygitalNftByPublicKey(publicKey);
+    }
 }

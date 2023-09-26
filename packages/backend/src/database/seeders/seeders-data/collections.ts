@@ -13,6 +13,7 @@ export const devCollections = [
         items: 3,
         createdAt: new Date(),
         updatedAt: new Date(),
+        path: "bored-ape-yacht-club",
     },
     {
         id: 2,
@@ -26,6 +27,7 @@ export const devCollections = [
         items: 3,
         createdAt: new Date(),
         updatedAt: new Date(),
+        path: "moonbirds",
     },
     {
         id: 1,
@@ -39,6 +41,7 @@ export const devCollections = [
         items: 2,
         createdAt: new Date(),
         updatedAt: new Date(),
+        path: "crypto-punks",
     },
 ];
 

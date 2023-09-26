@@ -3,7 +3,7 @@ import { InjectRepository } from "@nestjs/typeorm";
 import { Nft, NftStatus } from "../../database/entities/Nft";
 import { ValidatedLedgerTransaction } from "../blockchain/types";
 import { NFTokenMint } from "xrpl/dist/npm/models/transactions/NFTokenMint";
-import { FindConditions, Repository, SelectQueryBuilder } from "typeorm";
+import { FindConditions, ObjectLiteral, Repository, SelectQueryBuilder } from "typeorm";
 import { CollectionService } from "../collection/collection.service";
 import { NftMetadataAttribute } from "../../database/entities/NftMetadataAttribute";
 import { CreateNftDraftRequest } from "./request/create-nft-draft.request";
@@ -27,6 +27,7 @@ import { BlockchainService } from "../blockchain/blockchain.service";
 import { getTokenIdFromTransaction } from "./util/parseTokenId";
 import { convertHexToString } from "xrpl";
 import { NftPreviewDto } from "./dto/nft-preview.dto";
+import { PHYGITAL_NFT_TRAIT_TYPE } from "./nft.constants";
 
 @Injectable()
 export class NftService {
@@ -270,12 +271,38 @@ export class NftService {
     }
 
     async findOne<Status extends NftStatus[]>(
-        where: FindConditions<Nft>,
+        where: FindConditions<Nft> | string | [string, ObjectLiteral],
         options?: { ownerAddress?: string; status?: Status; relations?: string[] },
     ): Promise<Status extends [NftStatus.CONFIRMED] ? NftDto : NftDraftDto> {
         const { ownerAddress, status, relations = ["metadata", "metadata.attributes"] } = options || {};
         if (ownerAddress && relations.indexOf("user") === -1) relations.push("user");
-        const nft = await this.nftRepository.findOne(where, { relations });
+
+        let nft: Nft | undefined;
+
+        // Query can be executed with query builder or with find one
+        if (Array.isArray(where) || typeof where === "string") {
+            let qb = this.nftRepository.createQueryBuilder("nft");
+
+            const queryRelations = relations.map((relation) => {
+                const relationParts = relation.split(".");
+                const [entity, alias] = relationParts.length === 1 ? ["nft", relation] : relationParts;
+                return `${entity}.${alias}`;
+            });
+
+            for (const queryRelation of queryRelations) {
+                const [entity, alias] = queryRelation.split(".");
+                qb = qb.leftJoinAndSelect(`${entity}.${alias}`, alias);
+            }
+
+            const [query, params] = Array.isArray(where) ? where : [where];
+            qb = qb.where(query, params);
+
+            nft = await qb.getOne();
+        } else {
+            // It should also work with the query builder implementation
+            nft = await this.nftRepository.findOne(where, { relations });
+        }
+
         if (!nft) throw new BusinessException(ErrorCode.NFT_NOT_FOUND);
         if (ownerAddress && nft?.user?.address !== ownerAddress) throw new BusinessException(ErrorCode.NFT_NOT_FOUND);
         if (status && status.indexOf(nft.status) < 0) {
@@ -287,6 +314,19 @@ export class NftService {
         ]
             ? NftDto
             : NftDraftDto;
+    }
+
+    async findPhygitalNftByPublicKey(publicKey: string): Promise<NftDto> {
+        return await this.findOne<[NftStatus.CONFIRMED]>(
+            [
+                "EXISTS (SELECT * from nft_metadata_attribute as nma where nma.nft_metadata_id = nft.id AND nma.trait_type = :phygitalTraitType AND nma.value = :publicKey)",
+                { phygitalTraitType: PHYGITAL_NFT_TRAIT_TYPE, publicKey },
+            ],
+            {
+                status: [NftStatus.CONFIRMED],
+                relations: ["metadata", "metadata.attributes", "user", "collection", "nftInDrop", "offers"],
+            },
+        );
     }
 
     async count(where: FindConditions<Nft>): Promise<number> {
