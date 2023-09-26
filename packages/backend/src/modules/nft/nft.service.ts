@@ -283,14 +283,9 @@ export class NftService {
         if (Array.isArray(where) || typeof where === "string") {
             let qb = this.nftRepository.createQueryBuilder("nft");
 
-            const queryRelations = relations.map((relation) => {
+            for (const relation of relations) {
                 const relationParts = relation.split(".");
                 const [entity, alias] = relationParts.length === 1 ? ["nft", relation] : relationParts;
-                return `${entity}.${alias}`;
-            });
-
-            for (const queryRelation of queryRelations) {
-                const [entity, alias] = queryRelation.split(".");
                 qb = qb.leftJoinAndSelect(`${entity}.${alias}`, alias);
             }
 
