@@ -8,6 +8,7 @@ export type NftAuctionProps = {
     nftId?: number;
 };
 
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 function NftAuction({ nftId }: NftAuctionProps): JSX.Element {
     const translate = useTranslate();
 

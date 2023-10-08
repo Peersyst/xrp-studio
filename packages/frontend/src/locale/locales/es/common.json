@@ -260,6 +260,6 @@
     "transfer": "Enviar",
     "expiresInHint": "Selecciona durante cuanto tiempo será válida la oferta",
     "acceptTransfer": "Aceptar envio",
-    "bet" : "Subasta",
+    "bet": "Subasta",
     "highestBet": "Subasta más alta $ {{amount}}"
 }

@@ -260,6 +260,6 @@
     "transfer": "Transfer",
     "expiresInHint": "Select how long the offer will be valid",
     "acceptTransfer": "Accept transfer",
-    "bet" : "Bet",
+    "bet": "Bet",
     "highestBet": "Highest bet: $ {{amount}}"
 }
