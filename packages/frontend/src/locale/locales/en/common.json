@@ -259,5 +259,7 @@
     "checkout": "Checkout",
     "transfer": "Transfer",
     "expiresInHint": "Select how long the offer will be valid",
-    "acceptTransfer": "Accept transfer"
+    "acceptTransfer": "Accept transfer",
+    "bet" : "Bet",
+    "highestBet": "Highest bet: $ {{amount}}"
 }

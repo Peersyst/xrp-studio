@@ -16,6 +16,8 @@ import usePhygitalNft from "../../NftCreationPage/hook/usePhygitalNft";
 import NftDisplay from "module/nft/component/display/NftDisplay/NftDisplay";
 import NftOfferButtons from "module/offers/component/input/NftOfferButtons/NftOfferButtons";
 import NftName from "module/nft/component/display/NftName/NftName";
+import NftAuction from "module/nft/component/display/NftAuction/NftAuction";
+import useIsNftInAuction from "./useIsNftInAuction";
 
 export interface UserViewNftPageSlots {
     nft: NftDto | undefined;
@@ -30,7 +32,7 @@ export interface UserViewNftPageSlots {
  */
 export default function ({ nft, loading = false }: UserViewNftPageSlots): ReactNode {
     const translate = useTranslate();
-
+    const isNftInAuction = useIsNftInAuction(nft?.id || 0);
     const {
         tokenId,
         mintTransactionHash,
@@ -50,6 +52,7 @@ export default function ({ nft, loading = false }: UserViewNftPageSlots): ReactN
                     <NftDisplay image={image} phygitalPublicKey={phygitalPublicKey} />
                 </BaseNftPageContentLeftSlot.Image>
                 <BaseNftPageContentLeftSlot.Info loading={loading}>
+                    {isNftInAuction && <NftAuction nftId={nft?.id} />}
                     <Label label={capitalize(translate("name"))}>
                         <NftName name={name} variant="body1" />
                     </Label>

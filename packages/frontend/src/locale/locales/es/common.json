@@ -259,5 +259,7 @@
     "checkout": "Checkout",
     "transfer": "Enviar",
     "expiresInHint": "Selecciona durante cuanto tiempo será válida la oferta",
-    "acceptTransfer": "Aceptar envio"
+    "acceptTransfer": "Aceptar envio",
+    "bet" : "Subasta",
+    "highestBet": "Subasta más alta $ {{amount}}"
 }

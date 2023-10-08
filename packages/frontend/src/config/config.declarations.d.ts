@@ -61,6 +61,11 @@ declare module "@peersyst/react-components" {
         xrpStudioApStoreLink: string;
         xrpStudioGooglePlayLink: string;
         maxXrpAmountDecimals: number;
+        auction: {
+            googleSheetUrl: string;
+            nftsInAuction: string[];
+            googleFormsUrl: string;
+        };
     }
 
     export interface CreateConfig {
