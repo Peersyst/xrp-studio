@@ -278,4 +278,22 @@ export class NftService {
         });
     }
 
+    /**
+     * Get auction by nftId
+     * @param id
+     * @returns number
+     * @throws ApiError
+     */
+    public static nftControllerGetAuctionNft(
+        id: number,
+    ): CancelablePromise<number> {
+        return __request(OpenAPI, {
+            method: 'GET',
+            url: '/api/nft/auction/{id}',
+            path: {
+                'id': id,
+            },
+        });
+    }
+
 }

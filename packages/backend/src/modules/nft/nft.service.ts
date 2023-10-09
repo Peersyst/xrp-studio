@@ -28,6 +28,9 @@ import { getTokenIdFromTransaction } from "./util/parseTokenId";
 import { convertHexToString } from "xrpl";
 import { NftPreviewDto } from "./dto/nft-preview.dto";
 import { PHYGITAL_NFT_TRAIT_TYPE } from "./nft.constants";
+import { GoogleSpreadsheet, GoogleSpreadsheetRow } from "google-spreadsheet";
+import { JWT } from "google-auth-library";
+import { ConfigService } from "@nestjs/config";
 
 @Injectable()
 export class NftService {
@@ -40,6 +43,7 @@ export class NftService {
         private readonly xummTransactionService: XummTransactionService,
         @Inject(forwardRef(() => BlockchainService)) private readonly blockchainService: BlockchainService,
         @Inject(forwardRef(() => BlockchainTransactionService)) private readonly blockchainTransactionService: BlockchainTransactionService,
+        @Inject(ConfigService) private readonly configService: ConfigService,
     ) {}
 
     /**
@@ -420,5 +424,40 @@ export class NftService {
         if (relations.attribute)
             qb.leftJoinAndMapMany("metadata.attributes", NftMetadataAttribute, "attribute", "attribute.nft_metadata_id = nft.id");
         return qb as SelectQueryBuilder<WithCollection extends true ? NftWithCollection : Nft>;
+    }
+
+    public async auctionNft(id: number): Promise<number> {
+        const doc = this.getSheetAuction();
+        await doc.loadInfo();
+        const sheet = doc.sheetsByIndex[0];
+        const rows = await sheet.getRows();
+        return this.getAuctionByNftId(id, rows);
+    }
+
+    private getSheetAuction(): GoogleSpreadsheet {
+        const serviceAccountAuth = new JWT({
+            email: this.configService.get("server.googleClientEmail"),
+            key: this.configService.get("server.googlePrivateApiKey").replace(/\\n/g, "\n"),
+            scopes: ["https://www.googleapis.com/auth/spreadsheets"],
+        });
+        const idSheet = this.configService.get("server.googleSheetId");
+        const doc = new GoogleSpreadsheet(idSheet, serviceAccountAuth);
+        return doc;
+    }
+
+    private getAuctionByNftId(id: number, rows: GoogleSpreadsheetRow<Record<string, any>>[]): number {
+        // auction es 0 por default
+        let auction = 0;
+        for (const row of rows) {
+            const element = row.toObject();
+            const title = element["Obra de arte"];
+            const idNft = title.split("-")[1];
+            if (Number(idNft) === id) {
+                if (Number(element["Bet"]) > auction) {
+                    auction = element["Bet"];
+                }
+            }
+        }
+        return auction;
     }
 }

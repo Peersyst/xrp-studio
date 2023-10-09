@@ -11,6 +11,9 @@ interface ServerConfig {
     enableSwagger: boolean;
     enableCors: boolean;
     enableBullBoard: boolean;
+    googlePrivateApiKey: string;
+    googleClientEmail: string;
+    googleSheetId: string;
 }
 
 export default (secrets: AwsSecrets): ServerConfig => {
@@ -43,6 +46,9 @@ export default (secrets: AwsSecrets): ServerConfig => {
                 default: true,
                 production: false,
             },
+            googlePrivateApiKey: secrets.GOOGLE_PRIVATE_API_KEY,
+            googleClientEmail: secrets.GOOGLE_CLIENT_EMAIL,
+            googleSheetId: "1yd3CP9PFTue9Ywfz0Zo4s3rHikVAGQ3kL-RN-BR3G2g",
         },
         {
             port: validPort,
