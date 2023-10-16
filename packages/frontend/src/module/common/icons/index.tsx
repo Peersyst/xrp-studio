@@ -7,6 +7,7 @@ export { default as ChevronRightIcon } from "./ChevronRightIcon";
 export { default as CloseIcon } from "./CloseIcon";
 export { default as CopyIcon } from "./CopyIcon";
 export { default as DiscordIcon } from "./DiscordIcon";
+export { default as DotIcon } from "./DotIcon";
 export { default as DownloadIcon } from "./DownloadIcon";
 export { default as FilterLinesIcon } from "./FilterLinesIcon";
 export { default as HeartIcon } from "./HeartIcon";

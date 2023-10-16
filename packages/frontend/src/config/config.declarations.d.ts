@@ -9,6 +9,11 @@ declare module "@peersyst/react-components" {
         TranslateFn: TFunction<"error">;
     }
 
+    export interface AuctionDto {
+        id: number;
+        endDate: number;
+    }
+
     export interface Config {
         publicUrl: string;
         backendUrl: string;
@@ -63,7 +68,7 @@ declare module "@peersyst/react-components" {
         maxXrpAmountDecimals: number;
         auction: {
             googleSheetUrl: string;
-            nftsInAuction: string[];
+            nftsInAuction: AuctionDto[];
             googleFormsUrl: string;
         };
     }

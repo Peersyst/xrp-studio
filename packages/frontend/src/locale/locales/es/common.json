@@ -260,6 +260,9 @@
     "transfer": "Enviar",
     "expiresInHint": "Selecciona durante cuanto tiempo será válida la oferta",
     "acceptTransfer": "Aceptar envio",
-    "bet": "Subasta",
-    "highestBet": "Subasta más alta $ {{amount}}"
+    "bet": "Hacer una oferta",
+    "highestBet": "Subasta más alta $ {{amount}}",
+    "liveAcution": "Subasta en vivo",
+    "untilAt": "Hasta {{date}} a las {{hour}}",
+    "hightestBid" : "Subasta más alta:"
 }

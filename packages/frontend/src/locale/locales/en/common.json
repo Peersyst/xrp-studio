@@ -260,6 +260,9 @@
     "transfer": "Transfer",
     "expiresInHint": "Select how long the offer will be valid",
     "acceptTransfer": "Accept transfer",
-    "bet": "Bet",
-    "highestBet": "Highest bet: $ {{amount}}"
+    "bet": "Make an offer",
+    "highestBet": "Highest bet: $ {{amount}}",
+    "liveAcution": "Live auction",
+    "untilAt": "until {{date}} at {{hour}}",
+    "hightestBid" : "Highest bid:"
 }
