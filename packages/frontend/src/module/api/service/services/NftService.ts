@@ -280,18 +280,18 @@ export class NftService {
 
     /**
      * Get auction by nftId
-     * @param id
+     * @param sheetId
      * @returns number
      * @throws ApiError
      */
     public static nftControllerGetAuctionNft(
-        id: number,
+        sheetId: string,
     ): CancelablePromise<number> {
         return __request(OpenAPI, {
             method: 'GET',
-            url: '/api/nft/auction/{id}',
+            url: '/api/nft/auction/{sheetId}',
             path: {
-                'id': id,
+                'sheetId': sheetId,
             },
         });
     }

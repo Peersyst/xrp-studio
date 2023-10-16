@@ -426,36 +426,31 @@ export class NftService {
         return qb as SelectQueryBuilder<WithCollection extends true ? NftWithCollection : Nft>;
     }
 
-    public async auctionNft(id: number): Promise<number> {
-        const doc = this.getSheetAuction();
+    public async auctionNft(sheetId: string): Promise<number> {
+        const doc = this.getSheetAuction(sheetId);
         await doc.loadInfo();
         const sheet = doc.sheetsByIndex[0];
         const rows = await sheet.getRows();
-        return this.getAuctionByNftId(id, rows);
+        return this.getAuctionByNftId(sheetId, rows);
     }
 
-    private getSheetAuction(): GoogleSpreadsheet {
+    private getSheetAuction(sheetId: string): GoogleSpreadsheet {
         const serviceAccountAuth = new JWT({
             email: this.configService.get("server.googleClientEmail"),
             key: this.configService.get("server.googlePrivateApiKey").replace(/\\n/g, "\n"),
             scopes: ["https://www.googleapis.com/auth/spreadsheets"],
         });
-        const idSheet = this.configService.get("server.googleSheetId");
-        const doc = new GoogleSpreadsheet(idSheet, serviceAccountAuth);
+        const doc = new GoogleSpreadsheet(sheetId, serviceAccountAuth);
         return doc;
     }
 
-    private getAuctionByNftId(id: number, rows: GoogleSpreadsheetRow<Record<string, any>>[]): number {
+    private getAuctionByNftId(sheetId: string, rows: GoogleSpreadsheetRow<Record<string, any>>[]): number {
         // auction es 0 por default
         let auction = 0;
         for (const row of rows) {
             const element = row.toObject();
-            const title = element["Obra de arte"];
-            const idNft = title.split("-")[1];
-            if (Number(idNft) === id) {
-                if (Number(element["Bet"]) > auction) {
-                    auction = element["Bet"];
-                }
+            if (Number(element["Bet"]) > auction) {
+                auction = element["Bet"];
             }
         }
         return auction;

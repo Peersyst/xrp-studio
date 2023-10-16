@@ -136,9 +136,9 @@ export class NftController {
         return this.nftService.findPhygitalNftByPublicKey(publicKey);
     }
 
-    @Get("/auction/:id")
+    @Get("/auction/:sheetId")
     @ApiOperation({ description: "Get auction by nftId" })
-    async getAuctionNft(@Param("id") id: number): Promise<number> {
-        return this.nftService.auctionNft(id);
+    async getAuctionNft(@Param("sheetId") sheetId: string): Promise<number> {
+        return this.nftService.auctionNft(sheetId);
     }
 }

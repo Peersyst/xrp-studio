@@ -12,6 +12,8 @@ declare module "@peersyst/react-components" {
     export interface AuctionDto {
         id: number;
         endDate: number;
+        googleSheetId: string;
+        googleForm: string;
     }
 
     export interface Config {
@@ -67,9 +69,7 @@ declare module "@peersyst/react-components" {
         xrpStudioGooglePlayLink: string;
         maxXrpAmountDecimals: number;
         auction: {
-            googleSheetUrl: string;
             nftsInAuction: AuctionDto[];
-            googleFormsUrl: string;
         };
     }
 
