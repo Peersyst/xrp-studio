@@ -264,5 +264,5 @@
     "highestBet": "Highest bet: $ {{amount}}",
     "liveAcution": "Live auction",
     "untilAt": "until {{date}} at {{hour}}",
-    "hightestBid" : "Highest bid:"
+    "hightestBid": "Highest bid:"
 }
