@@ -135,4 +135,10 @@ export class NftController {
     async getPhygitalNft(@Param("publicKey") publicKey: string): Promise<NftDto> {
         return this.nftService.findPhygitalNftByPublicKey(publicKey);
     }
+
+    @Get("/auction/:sheetId")
+    @ApiOperation({ description: "Get auction by nftId" })
+    async getAuctionNft(@Param("sheetId") sheetId: string): Promise<number> {
+        return this.nftService.auctionNft(sheetId);
+    }
 }

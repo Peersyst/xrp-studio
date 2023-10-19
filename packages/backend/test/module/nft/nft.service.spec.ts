@@ -31,6 +31,8 @@ import XummTransactionServiceMock from "../__mock__/xumm-transaction.service.moc
 import { XummTransactionService } from "../../../src/modules/xumm/xumm-transaction.service";
 import BlockchainTransactionServiceMock from "../__mock__/blockchain-transaction.service.mock";
 import { BlockchainTransactionService } from "../../../src/modules/blockchain/blockchain-transaction.service";
+import ConfigServiceMock from "../__mock__/config.service.mock";
+import { ConfigService } from "@nestjs/config";
 
 describe("NftService", () => {
     const ADDRESS = "rNCFjv8Ek5oDrNiMJ3pw6eLLFtMjZLJnf2";
@@ -45,6 +47,7 @@ describe("NftService", () => {
     const blockchainServiceMock = new BlockchainServiceMock();
     const blockchainTransactionServiceMock = new BlockchainTransactionServiceMock();
     const xummTransactionServiceMock = new XummTransactionServiceMock();
+    const configServiceMock = new ConfigServiceMock();
 
     beforeEach(async () => {
         const module = await Test.createTestingModule({
@@ -85,6 +88,10 @@ describe("NftService", () => {
                     provide: XummTransactionService,
                     useValue: xummTransactionServiceMock,
                 },
+                {
+                    provide: ConfigService,
+                    useValue: configServiceMock,
+                },
                 NftService,
             ],
         }).compile();
@@ -94,6 +101,7 @@ describe("NftService", () => {
         collectionServiceMock.clear();
         xummServiceMock.clear();
         blockchainServiceMock.clear();
+        configServiceMock.clear();
     });
 
     describe("createNftFromMintTransaction", () => {
