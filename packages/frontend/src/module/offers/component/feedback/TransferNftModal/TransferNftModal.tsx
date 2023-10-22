@@ -12,7 +12,7 @@ const TransferNftModal = createModal<TransferNftModalProps>(({ className, ...res
         <NftCreateOfferModal
             title={translate("transfer")}
             className={clsx("transfer-nft-modal", className)}
-            type={CreateNftOfferModalType.TRANSFER}
+            type={CreateNftOfferModalType.SELL}
             {...rest}
         />
     );
