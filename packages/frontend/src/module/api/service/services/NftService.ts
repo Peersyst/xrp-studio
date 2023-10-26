@@ -260,4 +260,40 @@ export class NftService {
         });
     }
 
+    /**
+     * Get a single NFT (status = confirmed)
+     * @param publicKey
+     * @returns NftDto
+     * @throws ApiError
+     */
+    public static nftControllerGetPhygitalNft(
+        publicKey: string,
+    ): CancelablePromise<NftDto> {
+        return __request(OpenAPI, {
+            method: 'GET',
+            url: '/api/nft/phygital/{publicKey}',
+            path: {
+                'publicKey': publicKey,
+            },
+        });
+    }
+
+    /**
+     * Get auction by nftId
+     * @param sheetId
+     * @returns number
+     * @throws ApiError
+     */
+    public static nftControllerGetAuctionNft(
+        sheetId: string,
+    ): CancelablePromise<number> {
+        return __request(OpenAPI, {
+            method: 'GET',
+            url: '/api/nft/auction/{sheetId}',
+            path: {
+                'sheetId': sheetId,
+            },
+        });
+    }
+
 }

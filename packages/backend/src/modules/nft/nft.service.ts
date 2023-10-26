@@ -28,6 +28,9 @@ import { getTokenIdFromTransaction } from "./util/parseTokenId";
 import { convertHexToString } from "xrpl";
 import { NftPreviewDto } from "./dto/nft-preview.dto";
 import { PHYGITAL_NFT_TRAIT_TYPE } from "./nft.constants";
+import { GoogleSpreadsheet, GoogleSpreadsheetRow } from "google-spreadsheet";
+import { JWT } from "google-auth-library";
+import { ConfigService } from "@nestjs/config";
 
 @Injectable()
 export class NftService {
@@ -40,6 +43,7 @@ export class NftService {
         private readonly xummTransactionService: XummTransactionService,
         @Inject(forwardRef(() => BlockchainService)) private readonly blockchainService: BlockchainService,
         @Inject(forwardRef(() => BlockchainTransactionService)) private readonly blockchainTransactionService: BlockchainTransactionService,
+        @Inject(ConfigService) private readonly configService: ConfigService,
     ) {}
 
     /**
@@ -420,5 +424,35 @@ export class NftService {
         if (relations.attribute)
             qb.leftJoinAndMapMany("metadata.attributes", NftMetadataAttribute, "attribute", "attribute.nft_metadata_id = nft.id");
         return qb as SelectQueryBuilder<WithCollection extends true ? NftWithCollection : Nft>;
+    }
+
+    public async auctionNft(sheetId: string): Promise<number> {
+        const doc = this.getSheetAuction(sheetId);
+        await doc.loadInfo();
+        const sheet = doc.sheetsByIndex[0];
+        const rows = await sheet.getRows();
+        return this.getAuctionByNftId(sheetId, rows);
+    }
+
+    private getSheetAuction(sheetId: string): GoogleSpreadsheet {
+        const serviceAccountAuth = new JWT({
+            email: this.configService.get("server.googleClientEmail"),
+            key: this.configService.get("server.googlePrivateApiKey").replace(/\\n/g, "\n"),
+            scopes: ["https://www.googleapis.com/auth/spreadsheets"],
+        });
+        const doc = new GoogleSpreadsheet(sheetId, serviceAccountAuth);
+        return doc;
+    }
+
+    private getAuctionByNftId(sheetId: string, rows: GoogleSpreadsheetRow<Record<string, any>>[]): number {
+        // auction es 0 por default
+        let auction = 0;
+        for (const row of rows) {
+            const element = row.toObject();
+            if (Number(element["Make your bid in EUR"]) > auction) {
+                auction = element["Make your bid in EUR"];
+            }
+        }
+        return auction;
     }
 }

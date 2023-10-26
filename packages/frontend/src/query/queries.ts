@@ -18,6 +18,7 @@ enum Queries {
     MAKE_NFT_OFFER = "make-nft-offer",
     BUY_NFT = "buy-nft",
     GET_TX_PAYLOAD = "get-tx-payload",
+    NFT_AUCTION = "nft-auction",
 }
 
 export default Queries;

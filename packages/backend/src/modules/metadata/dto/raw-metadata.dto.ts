@@ -1,6 +1,11 @@
 import { NftMetadata } from "../../../database/entities/NftMetadata";
 import { RawMetadataAttributeDto } from "./raw-metadata-attribute.dto";
 
+type MetadataSchema = {
+    schema: string;
+    nftType: string;
+};
+
 export class RawMetadataDto {
     public name?: string;
     public description?: string;
@@ -37,7 +42,10 @@ export class RawMetadataDto {
     }
 
     public encode(): string {
-        const finalObject: Partial<RawMetadataDto> = {};
+        const finalObject: MetadataSchema & Partial<RawMetadataDto> = {
+            schema: "ipfs://QmNpi8rcXEkohca8iXu7zysKKSJYqCvBJn3xJwga8jXqWU",
+            nftType: "art.v0",
+        };
         if (this.name) finalObject.name = this.name;
         if (this.description) finalObject.description = this.description;
         if (this.image) finalObject.image = this.image;

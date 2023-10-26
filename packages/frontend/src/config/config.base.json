@@ -40,5 +40,16 @@
     },
     "xrpStudioApStoreLink": "https://apps.apple.com/es/app/xrp-studio/id1668177589",
     "xrpStudioGooglePlayLink": "https://play.google.com/store/apps/details?id=com.peersyst.client",
-    "maxXrpAmountDecimals": 7
+    "maxXrpAmountDecimals": 7,
+    "auction": {
+        "nftsInAuction": [
+            {
+                "id": 798881,
+                "startDate": 1698317544606,
+                "endDate": 1698742314150,
+                "googleSheetId": "1ke5b_Xbegm_L3Prgbc1DhgNwELp3LKcfdFbj-824gbk",
+                "googleForm": "https://docs.google.com/forms/d/1YHqTfI__ccuNfYmpWUXuwgP19FJbt4tSzrUsDYtgihI/"
+            }
+        ]
+    }
 }

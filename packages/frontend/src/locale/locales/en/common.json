@@ -259,5 +259,10 @@
     "checkout": "Checkout",
     "transfer": "Transfer",
     "expiresInHint": "Select how long the offer will be valid",
-    "acceptTransfer": "Accept transfer"
+    "acceptTransfer": "Accept transfer",
+    "bet": "Make an offer",
+    "highestBet": "Highest bet: $ {{amount}}",
+    "liveAcution": "Live auction",
+    "untilAt": "until {{date}} at {{hour}}",
+    "hightestBid": "Highest bid:"
 }

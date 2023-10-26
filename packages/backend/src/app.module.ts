@@ -89,10 +89,13 @@ import { OfferModule } from "./modules/offer/offer.module";
             }),
         }),
         IpfsModule.registerAsync({
-            useFactory: (config: ConfigService) => ({
-                pinataApiKey: config.get("pinata.apiKey"),
-                pinataSecret: config.get("pinata.secretKey"),
-            }),
+            useFactory: async (config: ConfigService) => {
+                await waitForAwsSecrets();
+                return {
+                    pinataApiKey: config.get("pinata.apiKey"),
+                    pinataSecret: config.get("pinata.secretKey"),
+                };
+            },
             inject: [ConfigService],
             imports: [ConfigModule],
         }),

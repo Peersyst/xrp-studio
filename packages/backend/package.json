@@ -82,6 +82,8 @@
         "cross-env": "^7.0.3",
         "env-cmd": "^10.1.0",
         "express-openapi-validator": "^4.12.12",
+        "google-auth-library": "^9.1.0",
+        "google-spreadsheet": "^4.1.0",
         "helmet": "^4.4.0",
         "ipfs-only-hash": "^4.0.0",
         "morgan": "^1.10.0",
