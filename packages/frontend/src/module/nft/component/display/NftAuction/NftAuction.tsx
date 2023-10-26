@@ -14,7 +14,7 @@ export type NftAuctionProps = {
 function NftAuction({ nftId }: NftAuctionProps): JSX.Element {
     const translate = useTranslate();
     const auctionConfig = config.auction.nftsInAuction.find((auction) => auction.id === nftId);
-    const dateAuction = new Date(auctionConfig?.endDate || "").toLocaleString().split(", ");
+    const dateAuction = new Date(auctionConfig?.endDate || "").toLocaleString("es").split(", ");
     const { data: auction, isLoading } = useGetAuctionNftById(auctionConfig?.googleSheetId || "");
     return (
         <Row justifyContent={"space-between"} alignItems="center">

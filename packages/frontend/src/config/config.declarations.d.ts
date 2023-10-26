@@ -11,6 +11,7 @@ declare module "@peersyst/react-components" {
 
     export interface AuctionDto {
         id: number;
+        startDate: number;
         endDate: number;
         googleSheetId: string;
         googleForm: string;
