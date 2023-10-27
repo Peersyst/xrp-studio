@@ -17,7 +17,7 @@ export type UseGetNftsOptions = {
 };
 
 export default function (
-    { query, collections, order = "DESC", account }: UseGetNftsOptions = {},
+    { query = "%", collections, order = "DESC", account }: UseGetNftsOptions = {},
     options?: Omit<UseInfiniteQueryOptions<PaginatedNftDto, unknown, PaginatedNftDto>, "queryKey" | "queryFn">,
 ): UseInfiniteQueryResult<PaginatedNftDto> {
     return useInfiniteQuery(

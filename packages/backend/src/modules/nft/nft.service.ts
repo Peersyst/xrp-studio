@@ -449,8 +449,8 @@ export class NftService {
         let auction = 0;
         for (const row of rows) {
             const element = row.toObject();
-            if (Number(element["Make your bid in EUR"]) > auction) {
-                auction = element["Make your bid in EUR"];
+            if (Number(element["Place your bid in EUR"]) > auction) {
+                auction = element["Place your bid in EUR"];
             }
         }
         return auction;
