@@ -44,11 +44,11 @@
     "auction": {
         "nftsInAuction": [
             {
-                "id": 798881,
-                "startDate": 1698317544606,
-                "endDate": 1698742314150,
-                "googleSheetId": "1ke5b_Xbegm_L3Prgbc1DhgNwELp3LKcfdFbj-824gbk",
-                "googleForm": "https://docs.google.com/forms/d/1YHqTfI__ccuNfYmpWUXuwgP19FJbt4tSzrUsDYtgihI/"
+                "id": 3275556,
+                "startDate": 1698580800000,
+                "endDate": 1699185600000,
+                "googleSheetId": "19skGu6xsSlV5jqJ9a0ywrgO3FeMKX1xZAqvtnMFZ35M",
+                "googleForm": "https://docs.google.com/forms/d/1W0GkZA-LJDCZHm2iTus71zGwp8f_jf06BODUA3a6g1E/"
             }
         ]
     }
