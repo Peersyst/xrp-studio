@@ -112,4 +112,13 @@ export class UserService {
         const user = await this.userRepository.findOne({ name });
         return !user;
     }
+
+    /**
+     * Checks if a user is a verified artist
+     */
+    async isVerifiedArtist(address: string): Promise<boolean> {
+        const user = await this.userRepository.findOne({ address });
+        if (!user) throw new BusinessException(ErrorCode.USER_NOT_FOUND);
+        return user.verifiedArtist;
+    }
 }

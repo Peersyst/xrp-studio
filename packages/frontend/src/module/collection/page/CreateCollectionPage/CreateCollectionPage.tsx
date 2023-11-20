@@ -5,9 +5,11 @@ import { ActionButtonProps } from "module/common/component/input/ActionButton/Ac
 import { CollectionCreationAction } from "module/collection/component/layout/CollectionCreationPageScaffold/CollectionCreationPageScaffold.types";
 import useCreateCollectionState from "module/collection/page/CreateCollectionPage/hook/useCreateCollectionState";
 import { CollectionRoutes } from "module/collection/router/CollectionRouter";
+import useGetWalletUser from "module/user/query/useGetWalletUser";
 
 const CreateCollectionPage = (): JSX.Element => {
     const translate = useTranslate();
+    const { data: user } = useGetWalletUser();
 
     const {
         state: { nfts = [], ...restState },
@@ -35,7 +37,10 @@ const CreateCollectionPage = (): JSX.Element => {
                 message: translate("cantPublishCollectionWithoutNfts"),
             },
         },
-        {
+    ];
+
+    if (user && user.verifiedArtist)
+        actions.push({
             label: translate("launch"),
             action: "launch",
             loading: launching,
@@ -44,8 +49,7 @@ const CreateCollectionPage = (): JSX.Element => {
                 enabled: !nfts.length,
                 message: translate("cantLaunchCollectionWithoutNfts"),
             },
-        },
-    ];
+        });
 
     return (
         <CollectionCreationPageScaffold
