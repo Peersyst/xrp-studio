@@ -8,6 +8,7 @@ import xrpConfig from "./xrp.config";
 import xummConfig from "./xumm.config";
 import awsS3Config from "./aws-s3.config";
 import defaultImagesConfig from "./default-images.config";
+import userConfig from "./user.config";
 import pinataConfig from "./pinata.config";
 
 export default async (): Promise<any> => {
@@ -23,5 +24,6 @@ export default async (): Promise<any> => {
         pinata: pinataConfig(secrets),
         aws: awsS3Config(secrets),
         defaultImages: defaultImagesConfig(),
+        user: userConfig(),
     };
 };
