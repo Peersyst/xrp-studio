@@ -49,7 +49,6 @@ describe("UserService", () => {
                     address: ADDRESS,
                     image: "default_profile_img_url",
                     header: "default_header_img_url",
-                    verifiedArtist: true,
                 }),
             );
             expect(userRepositoryMock.save).toHaveBeenCalledWith({
@@ -57,7 +56,6 @@ describe("UserService", () => {
                 address: ADDRESS,
                 image: "default_profile_img_url",
                 header: "default_header_img_url",
-                verifiedArtist: true,
             });
         });
     });
