@@ -48,6 +48,14 @@ export class GetNftsRequest {
     account?: string;
 
     @ApiProperty({
+        name: "isVerifiedArtist",
+        type: "boolean",
+        required: false,
+    })
+    @IsOptional()
+    isVerifiedArtist?: boolean;
+
+    @ApiProperty({
         name: "status",
         type: "enum",
         enum: NftStatus,
@@ -86,6 +94,10 @@ export class GetNftsRequest {
         if (req.account) {
             filter.qbWheres.push({ field: "owner_account", operator: FilterType.EQUAL, value: req.account });
         }
+        if (req.isVerifiedArtist) {
+            filter.relations.push("user");
+            filter.qbWheres.push({ field: "user.verifiedArtist", operator: FilterType.EQUAL, value: true });
+        }
         if (req.query) {
             filter.qbWheres.push({ field: "metadata.name", operator: FilterType.LIKE, value: req.query });
         }
@@ -103,7 +115,7 @@ export class GetNftsRequest {
                 value: NftStatus.CONFIRMED,
             });
         } else {
-            filter.relations.push("user");
+            if (!filter.relations.includes("user")) filter.relations.push("user");
             filter.qbWheres.push({
                 operator: FilterType.OR,
                 value: [

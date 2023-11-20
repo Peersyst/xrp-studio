@@ -36,6 +36,14 @@ export class GetDropsRequest {
     account?: string;
 
     @ApiProperty({
+        name: "isVerifiedArtist",
+        type: "boolean",
+        required: false,
+    })
+    @IsOptional()
+    isVerifiedArtist?: boolean;
+
+    @ApiProperty({
         name: "order",
         type: "string",
         enum: Order,
@@ -63,6 +71,9 @@ export class GetDropsRequest {
         }
         if (req.query) {
             filter.qbWheres.push({ field: "collection.name", operator: FilterType.LIKE, value: req.query });
+        }
+        if (req.isVerifiedArtist) {
+            filter.qbWheres.push({ field: "user.verifiedArtist", operator: FilterType.EQUAL, value: true });
         }
 
         if (req.order === "ASC") {

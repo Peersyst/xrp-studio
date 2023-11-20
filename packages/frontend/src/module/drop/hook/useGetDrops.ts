@@ -16,7 +16,7 @@ export default function (
 ): UseInfiniteQueryResult<PaginatedDropDto> {
     return useInfiniteQuery(
         [Queries.DROPS, query, order, account],
-        ({ pageParam = 1 }) => DropService.dropControllerGetDrops(pageParam, 30, query, account, order),
+        ({ pageParam = 1 }) => DropService.dropControllerGetDrops(pageParam, 30, query, account, undefined, order),
         options,
     );
 }

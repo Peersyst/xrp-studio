@@ -15,7 +15,8 @@ export default function (
 ): UseInfiniteQueryResult<PaginatedCollectionDto> {
     return useInfiniteQuery(
         [Queries.COLLECTIONS, query, order, account],
-        ({ pageParam = 1 }) => CollectionService.collectionControllerGetCollections(pageParam, 30, query, account, order, undefined),
+        ({ pageParam = 1 }) =>
+            CollectionService.collectionControllerGetCollections(pageParam, 30, query, account, undefined, order, undefined),
         options,
     );
 }

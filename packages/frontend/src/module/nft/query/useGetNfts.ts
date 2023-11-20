@@ -23,7 +23,7 @@ export default function (
     return useInfiniteQuery(
         [Queries.NFTS, query, collections, order, account],
         ({ pageParam = 1 }) =>
-            NftService.nftControllerGetNfts(pageParam, 100, query, collections, account, ["confirmed"], order, undefined),
+            NftService.nftControllerGetNfts(pageParam, 100, query, collections, account, undefined, ["confirmed"], order, undefined),
         options,
     );
 }

@@ -40,6 +40,7 @@ export class NftService {
      * @param query
      * @param collections
      * @param account
+     * @param isVerifiedArtist
      * @param status
      * @param order
      * @param orderField
@@ -52,6 +53,7 @@ export class NftService {
         query?: string,
         collections?: Array<number>,
         account?: string,
+        isVerifiedArtist?: boolean,
         status?: Array<'draft' | 'pending' | 'confirmed' | 'failed'>,
         order?: 'ASC' | 'DESC',
         orderField?: 'priority' | 'name',
@@ -65,6 +67,7 @@ export class NftService {
                 'query': query,
                 'collections': collections,
                 'account': account,
+                'isVerifiedArtist': isVerifiedArtist,
                 'status': status,
                 'order': order,
                 'orderField': orderField,
