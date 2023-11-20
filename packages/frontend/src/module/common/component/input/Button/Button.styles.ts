@@ -133,8 +133,14 @@ const smSize = css(
         height: 2.375rem;
         ${theme.typography.body2.style};
         padding: 0.375rem 0.875rem;
+        column-gap: 0.35rem;
+
         &.Rounded {
             border-radius: 1.1875rem;
+        }
+
+        .Icon {
+            font-size: 1rem;
         }
     `,
 );
@@ -144,8 +150,14 @@ const mdSize = css(
         height: 2.75rem;
         ${theme.typography.body1.style};
         padding: 0.5rem 0.875rem;
+        column-gap: 0.5rem;
+
         &.Rounded {
             border-radius: 1.375rem;
+        }
+
+        .Icon {
+            font-size: 1.5rem;
         }
     `,
 );
@@ -155,8 +167,14 @@ const lgSize = css(
         height: 3.25rem;
         ${theme.typography.body1.style};
         padding: 0.75rem 1.25rem;
+        column-gap: 0.5rem;
+
         &.Rounded {
             border-radius: 1.625rem;
+        }
+
+        .Icon {
+            font-size: 1.5rem;
         }
     `,
 );
@@ -166,8 +184,14 @@ const xlSize = css(
         height: 4.5rem;
         ${theme.typography.h5.style};
         padding: 1.25rem 2rem;
+        column-gap: 0.75rem;
+
         &.Rounded {
             border-radius: ${theme.borderRadius};
+        }
+
+        .Icon {
+            font-size: 2rem;
         }
     `,
 );

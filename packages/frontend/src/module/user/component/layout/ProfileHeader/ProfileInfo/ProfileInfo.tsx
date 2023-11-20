@@ -9,6 +9,8 @@ import EditProfileDrawer from "module/user/component/feedback/EditProfileDrawer/
 import SocialButtons from "module/common/component/navigation/SocialButtons/SocialButtons";
 import ChipBlockchainAddress from "module/wallet/component/display/ChipBlockchainAddress/ChipBlockchainAddress";
 import Username from "module/user/component/Username/Username";
+import { EditIcon, VerifiedIcon } from "icons";
+import config from "config/config";
 
 const ProfileInfo = (): JSX.Element => {
     const translate = useTranslate();
@@ -23,6 +25,7 @@ const ProfileInfo = (): JSX.Element => {
     const isSm = useMediaQuery(`(max-width: ${sm}px)`);
     const { showDrawer } = useDrawer();
     const showEditBtn = !isLoading && walletAddress === address;
+    const showVerifyBtn = !isLoading && walletAddress === address && !verifiedArtist;
 
     return (
         <ProfileInfoRoot>
@@ -52,8 +55,17 @@ const ProfileInfo = (): JSX.Element => {
                         <SocialButtons userId={address} twitterId={twitter} discordId={discord} />
                         {showEditBtn && (
                             <Button size="sm" onClick={() => showDrawer(EditProfileDrawer)} css={{ flexShrink: 0 }}>
-                                {translate("editProfile")}
+                                <EditIcon />
+                                {translate("edit")}
                             </Button>
+                        )}
+                        {showVerifyBtn && (
+                            <a css={{ flexShrink: 0 }} href={config.artistVerificationFormLink} target="_blank" rel="noopener noreferrer">
+                                <Button size="sm">
+                                    <VerifiedIcon />
+                                    {translate("verify")}
+                                </Button>
+                            </a>
                         )}
                     </ProfileButtons>
                 </Row>

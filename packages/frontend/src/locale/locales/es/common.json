@@ -264,5 +264,7 @@
     "highestBet": "Subasta más alta $ {{amount}}",
     "liveAcution": "Subasta en vivo",
     "untilAt": "Hasta {{date}} a las {{hour}}",
-    "hightestBid": "Subasta más alta:"
+    "hightestBid": "Subasta más alta:",
+    "edit": "Editar",
+    "verify": "Verificar"
 }
