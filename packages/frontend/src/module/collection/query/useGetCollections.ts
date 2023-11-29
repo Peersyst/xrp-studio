@@ -7,15 +7,17 @@ export interface UseGetCollectionsOptions {
     query?: string;
     order?: "ASC" | "DESC";
     account?: string;
+    isVerifiedArtist?: boolean;
 }
 
 export default function (
-    { query, order = "DESC", account }: UseGetCollectionsOptions = {},
+    { query, order = "DESC", account, isVerifiedArtist }: UseGetCollectionsOptions = {},
     options?: Omit<UseInfiniteQueryOptions<PaginatedCollectionDto, unknown, PaginatedCollectionDto>, "queryKey" | "queryFn">,
 ): UseInfiniteQueryResult<PaginatedCollectionDto> {
     return useInfiniteQuery(
         [Queries.COLLECTIONS, query, order, account],
-        ({ pageParam = 1 }) => CollectionService.collectionControllerGetCollections(pageParam, 30, query, account, order, undefined),
+        ({ pageParam = 1 }) =>
+            CollectionService.collectionControllerGetCollections(pageParam, 30, query, account, isVerifiedArtist, order, undefined),
         options,
     );
 }

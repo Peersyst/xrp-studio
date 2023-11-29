@@ -25,6 +25,13 @@ export class GetUsersRequest {
     query?: string;
 
     @ApiProperty({
+        name: "isVerifiedArtist",
+        type: "boolean",
+        required: false,
+    })
+    isVerifiedArtist?: boolean;
+
+    @ApiProperty({
         name: "order",
         type: "string",
         enum: Order,
@@ -49,6 +56,9 @@ export class GetUsersRequest {
 
         if (req.query) {
             filter.qbWheres.push({ field: "user.name", operator: FilterType.LIKE, value: req.query });
+        }
+        if (req.isVerifiedArtist) {
+            filter.qbWheres.push({ field: "user.verifiedArtist", operator: FilterType.EQUAL, value: true });
         }
 
         if (req.order === "ASC") {

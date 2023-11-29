@@ -9,6 +9,7 @@ const ExploreDropsGrid = (): JSX.Element => {
     const filters: Omit<UseGetDropsOptions, "account"> = useDropFilters();
     const { data, fetchNextPage, hasNextPage, isFetching } = useGetDrops({
         account: undefined,
+        isVerifiedArtist: true,
         ...filters,
     });
 

@@ -100,6 +100,7 @@ export class CollectionService {
      * @param pageSize
      * @param query
      * @param account
+     * @param isVerifiedArtist
      * @param order
      * @param orderField
      * @returns PaginatedCollectionDto
@@ -110,6 +111,7 @@ export class CollectionService {
         pageSize?: number,
         query?: string,
         account?: string,
+        isVerifiedArtist?: boolean,
         order?: 'ASC' | 'DESC',
         orderField?: 'priority' | 'name',
     ): CancelablePromise<PaginatedCollectionDto> {
@@ -121,6 +123,7 @@ export class CollectionService {
                 'pageSize': pageSize,
                 'query': query,
                 'account': account,
+                'isVerifiedArtist': isVerifiedArtist,
                 'order': order,
                 'orderField': orderField,
             },

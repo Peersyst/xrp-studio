@@ -10,6 +10,7 @@ const ExploreCollectionsGrid = (): JSX.Element => {
     const { data, fetchNextPage, hasNextPage, isFetching } = useGetCollections({
         account: undefined,
         query: "%" + query,
+        isVerifiedArtist: true,
         ...restFilters,
     });
 

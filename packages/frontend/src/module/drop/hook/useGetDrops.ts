@@ -8,15 +8,16 @@ export interface UseGetDropsOptions {
     query?: string;
     order?: "ASC" | "DESC";
     account?: string;
+    isVerifiedArtist?: boolean;
 }
 
 export default function (
-    { query, order = "DESC", account }: UseGetDropsOptions = {},
+    { query, order = "DESC", account, isVerifiedArtist }: UseGetDropsOptions = {},
     options?: Omit<UseInfiniteQueryOptions<PaginatedDropDto, unknown, PaginatedDropDto>, "queryKey" | "queryFn">,
 ): UseInfiniteQueryResult<PaginatedDropDto> {
     return useInfiniteQuery(
         [Queries.DROPS, query, order, account],
-        ({ pageParam = 1 }) => DropService.dropControllerGetDrops(pageParam, 30, query, account, order),
+        ({ pageParam = 1 }) => DropService.dropControllerGetDrops(pageParam, 30, query, account, isVerifiedArtist, order),
         options,
     );
 }
