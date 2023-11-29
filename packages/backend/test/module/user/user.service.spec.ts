@@ -143,4 +143,20 @@ describe("UserService", () => {
             expect(userRepositoryMock.findOne).toHaveBeenCalledWith({ name });
         });
     });
+
+    describe("isVerifiedArtist", () => {
+        test("Returns true", async () => {
+            const userMock = new UserMock({ address: ADDRESS, verifiedArtist: true });
+            userRepositoryMock.findOne.mockResolvedValueOnce(userMock);
+            const isVerifiedArtist = await userService.isVerifiedArtist(ADDRESS);
+            expect(isVerifiedArtist).toEqual(true);
+        });
+
+        test("Returns false", async () => {
+            const userMock = new UserMock({ address: ADDRESS, verifiedArtist: false });
+            userRepositoryMock.findOne.mockResolvedValueOnce(userMock);
+            const isVerifiedArtist = await userService.isVerifiedArtist(ADDRESS);
+            expect(isVerifiedArtist).toEqual(false);
+        });
+    });
 });

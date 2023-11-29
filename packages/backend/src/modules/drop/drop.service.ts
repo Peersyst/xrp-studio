@@ -28,6 +28,7 @@ import { DropPaymentRequest } from "./request/drop-payment.request";
 import { DropPaymentDto } from "./dto/drop-payment.dto";
 import { TxResponse } from "xrpl/dist/npm/models/methods/tx";
 import { Payment } from "xrpl/dist/npm/models/transactions/payment";
+import { UserService } from "../user/user.service";
 
 @Injectable()
 export class DropService {
@@ -46,6 +47,7 @@ export class DropService {
         @InjectRepository(NftInDrop) private readonly nftInDropRepository: Repository<NftInDrop>,
         @InjectQueue("drop") private readonly dropQueue: Queue,
         @InjectQueue("transaction-status") private readonly transactionStatusQueue: Queue,
+        private readonly userService: UserService,
     ) {
         this.sellCommissionPct = this.configService.get<number>("xrp.sellCommissionPct");
         this.dropNftMintCost = this.configService.get<string>("xrp.dropNftMintCost");
@@ -115,6 +117,9 @@ export class DropService {
     }
 
     async dropPayment(ownerAddress: string, { collectionId }: DropPaymentRequest): Promise<DropPaymentDto> {
+        const isVerifiedArtist = await this.userService.isVerifiedArtist(ownerAddress);
+        if (!isVerifiedArtist) throw new BusinessException(ErrorCode.USER_IS_NOT_VERIFIED);
+
         const collectionCanBecomeDrop = await this.canCollectionBecomeDrop(collectionId);
         if (!collectionCanBecomeDrop) throw new BusinessException(ErrorCode.COLLECTION_ALREADY_LAUNCHED);
 
@@ -171,6 +176,9 @@ export class DropService {
     }
 
     async publish(ownerAddress: string, createDropRequest: CreateDropRequest): Promise<DropDto> {
+        const isVerifiedArtist = await this.userService.isVerifiedArtist(ownerAddress);
+        if (!isVerifiedArtist) throw new BusinessException(ErrorCode.USER_IS_NOT_VERIFIED);
+
         const collection = await this.collectionService.findOne(
             { id: createDropRequest.collectionId },
             {

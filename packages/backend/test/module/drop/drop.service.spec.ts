@@ -23,6 +23,8 @@ import { Drop } from "../../../src/database/entities/Drop";
 import { NftInDrop } from "../../../src/database/entities/NftInDrop";
 import NftMock from "../__mock__/nft.mock";
 import PaymentTransactionMock from "../__mock__/payment-transaction.mock";
+import UserServiceMock from "../__mock__/user.service.mock";
+import { UserService } from "../../../src/modules/user/user.service";
 
 describe("DropService", function () {
     let dropService: DropService;
@@ -37,6 +39,7 @@ describe("DropService", function () {
     const nftInDropRepositoryMock = new NftInDropRepositoryMock();
     const dropConsumerMock = new DropConsumerMock();
     const transactionStatusConsumerMock = new TransactionStatusConsumerMock();
+    const userServiceMock = new UserServiceMock();
 
     beforeEach(async () => {
         const module = await Test.createTestingModule({
@@ -85,6 +88,7 @@ describe("DropService", function () {
                     provide: "BullQueue_transaction-status",
                     useValue: transactionStatusConsumerMock,
                 },
+                { provide: UserService, useValue: userServiceMock },
                 DropService,
             ],
         }).compile();
@@ -100,6 +104,7 @@ describe("DropService", function () {
         nftInDropRepositoryMock.clear();
         dropConsumerMock.clear();
         transactionStatusConsumerMock.clear();
+        userServiceMock.clear();
     });
 
     describe("canCollectionBecomeDrop", () => {
