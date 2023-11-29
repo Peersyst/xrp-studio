@@ -9,6 +9,7 @@ export { default as CopyIcon } from "./CopyIcon";
 export { default as DiscordIcon } from "./DiscordIcon";
 export { default as DotIcon } from "./DotIcon";
 export { default as DownloadIcon } from "./DownloadIcon";
+export { default as EditIcon } from "./EditIcon";
 export { default as FilterLinesIcon } from "./FilterLinesIcon";
 export { default as HeartIcon } from "./HeartIcon";
 export { default as ImageIcon } from "./ImageIcon";
