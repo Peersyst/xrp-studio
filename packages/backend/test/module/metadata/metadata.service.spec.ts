@@ -112,7 +112,7 @@ describe("MetadataService", () => {
         test("Publishes correct metadata", async () => {
             await metadataService.publishMetadata(1);
             expect(storageServiceMock.storeFileFromBuffer).toHaveBeenCalledWith(Buffer.from(new RawMetadataDtoMock().encode()), {
-                path: "QmSMhkzGN76UXaFaAL3CSbuwxQ89Xv4NwyoYBkShQ2qsno.json",
+                path: "1-QmSMhkzGN76UXaFaAL3CSbuwxQ89Xv4NwyoYBkShQ2qsno.json",
             });
             expect(ipfsServiceMock.uploadFile).toHaveBeenCalledWith(Buffer.from(new RawMetadataDtoMock().encode()));
         });
