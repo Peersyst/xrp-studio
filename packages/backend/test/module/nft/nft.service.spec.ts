@@ -32,6 +32,7 @@ import { XummTransactionService } from "../../../src/modules/xumm/xumm-transacti
 import BlockchainTransactionServiceMock from "../__mock__/blockchain-transaction.service.mock";
 import { BlockchainTransactionService } from "../../../src/modules/blockchain/blockchain-transaction.service";
 import ConfigServiceMock from "../__mock__/config.service.mock";
+import GoogleSpreadsheetRowMock from "../__mock__/google-spreadsheet-row.mock";
 import { ConfigService } from "@nestjs/config";
 
 describe("NftService", () => {
@@ -646,5 +647,63 @@ describe("NftService", () => {
                 { id: 3, status: NftStatus.DRAFT },
             ]);
         });
+    });
+
+    describe("getAuctionByNftId", () => {
+        test("Gets correct price without being ended", async () => {
+            const originEndDate = new Date("01/01/2023 01:00:00 UTC+1").getTime();
+            const rows = [
+                new GoogleSpreadsheetRowMock({
+                    "Marca temporal": "01/01/2023 00:30:00",
+                    "Place your bid in EUR": 100,
+                }),
+                new GoogleSpreadsheetRowMock({
+                    "Marca temporal": "01/01/2023 01:31:00",
+                    "Place your bid in EUR": 90,
+                }),
+            ] as any;
+            const result = await nftService.getAuctionByNftId(rows, originEndDate);
+            expect(result).toEqual({ endTimestamp: new Date("01/01/2023 01:00:00").getTime(), price: 100 });
+        });
+
+        test("Gets correct price with extension", async () => {
+            const originEndDate = new Date("01/01/2023 01:00:00 UTC+1").getTime();
+            const rows = [
+                new GoogleSpreadsheetRowMock({
+                    "Marca temporal": "01/01/2023 01:00:00",
+                    "Place your bid in EUR": 101,
+                }),
+                new GoogleSpreadsheetRowMock({
+                    "Marca temporal": "01/01/2023 01:05:00",
+                    "Place your bid in EUR": 110,
+                }),
+                new GoogleSpreadsheetRowMock({
+                    "Marca temporal": "01/01/2023 01:07:00",
+                    "Place your bid in EUR": 120,
+                }),
+                new GoogleSpreadsheetRowMock({
+                    "Marca temporal": "01/01/2023 01:12:01",
+                    "Place your bid in EUR": 200,
+                }),
+            ] as any;
+            const result = await nftService.getAuctionByNftId(rows, originEndDate);
+            expect(result).toEqual({ endTimestamp: new Date("01/01/2023 01:12:00").getTime(), price: 120 });
+        });
+    });
+
+    test("Gets correct price with extension before end time", async () => {
+        const originEndDate = new Date("01-01-2023 10:00:00 UTC+1").getTime();
+        const rows = [
+            new GoogleSpreadsheetRowMock({
+                "Marca temporal": "01/01/2023 09:59:00",
+                "Place your bid in EUR": 101,
+            }),
+            new GoogleSpreadsheetRowMock({
+                "Marca temporal": "01/01/2023 10:05:00",
+                "Place your bid in EUR": 110,
+            }),
+        ] as any;
+        const result = await nftService.getAuctionByNftId(rows, originEndDate);
+        expect(result).toEqual({ endTimestamp: new Date("01-01-2023 10:04:00 UTC+1").getTime(), price: 101 });
     });
 });
