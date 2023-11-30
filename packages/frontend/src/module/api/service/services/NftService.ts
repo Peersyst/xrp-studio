@@ -1,6 +1,7 @@
 /* istanbul ignore file */
 /* tslint:disable */
 /* eslint-disable */
+import type { AuctionDto } from '../models/AuctionDto';
 import type { CreateNftDraftRequest } from '../models/CreateNftDraftRequest';
 import type { NftDraftDto } from '../models/NftDraftDto';
 import type { NftDraftStatusDto } from '../models/NftDraftStatusDto';
@@ -284,17 +285,22 @@ export class NftService {
     /**
      * Get auction by nftId
      * @param sheetId
-     * @returns number
+     * @param endTimestamp
+     * @returns AuctionDto
      * @throws ApiError
      */
     public static nftControllerGetAuctionNft(
         sheetId: string,
-    ): CancelablePromise<number> {
+        endTimestamp: number,
+    ): CancelablePromise<AuctionDto> {
         return __request(OpenAPI, {
             method: 'GET',
             url: '/api/nft/auction/{sheetId}',
             path: {
                 'sheetId': sheetId,
+            },
+            query: {
+                'endTimestamp': endTimestamp,
             },
         });
     }

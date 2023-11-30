@@ -14,8 +14,8 @@ export type NftAuctionProps = {
 function NftAuction({ nftId }: NftAuctionProps): JSX.Element {
     const translate = useTranslate();
     const auctionConfig = config.auction.nftsInAuction.find((auction) => auction.id === nftId);
-    const dateAuction = new Date(auctionConfig?.endDate || "").toLocaleString("es").split(", ");
-    const { data: auction, isLoading } = useGetAuctionNftById(auctionConfig?.googleSheetId || "");
+    const { data: auction, isLoading } = useGetAuctionNftById(auctionConfig?.googleSheetId || "", auctionConfig?.endDate || 0);
+    const dateAuction = new Date(auction?.endTimestamp || "").toLocaleString("es").split(", ");
     return (
         <Row justifyContent={"space-between"} alignItems="center">
             <Row alignItems={"center"} gap="0.2rem">
@@ -32,7 +32,7 @@ function NftAuction({ nftId }: NftAuctionProps): JSX.Element {
                     <Typography variant="body2" light>
                         {translate("hightestBid")}
                     </Typography>
-                    <Balance variant="body1" balance={auction || 0} units="€" unitsPosition="left" />
+                    <Balance variant="body1" balance={auction?.price || 0} units="€" unitsPosition="left" />
                 </Col>
             </Skeleton>
             <Link type="href" target="_blank" to={auctionConfig?.googleForm || ""}>

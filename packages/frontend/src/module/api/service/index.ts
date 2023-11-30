@@ -8,6 +8,7 @@ export type { OpenAPIConfig } from './core/OpenAPI';
 
 export type { AcceptOfferRequest } from './models/AcceptOfferRequest';
 export type { ApiException } from './models/ApiException';
+export type { AuctionDto } from './models/AuctionDto';
 export type { AvailabilityDto } from './models/AvailabilityDto';
 export type { CollectionDto } from './models/CollectionDto';
 export type { CreateCollectionNftRequest } from './models/CreateCollectionNftRequest';
@@ -43,6 +44,7 @@ export type { UserDto } from './models/UserDto';
 
 export { $AcceptOfferRequest } from './schemas/$AcceptOfferRequest';
 export { $ApiException } from './schemas/$ApiException';
+export { $AuctionDto } from './schemas/$AuctionDto';
 export { $AvailabilityDto } from './schemas/$AvailabilityDto';
 export { $CollectionDto } from './schemas/$CollectionDto';
 export { $CreateCollectionNftRequest } from './schemas/$CreateCollectionNftRequest';
