@@ -16,6 +16,7 @@ import { CreateMetadataRequest } from "./request/create-metadata.request";
 import * as Hash from "ipfs-only-hash";
 import { RawMetadataDto } from "./dto/raw-metadata.dto";
 import { MetadataAttributeDto } from "./dto/metadata-attribute.dto";
+import { StorageServiceInterface } from "@peersyst/storage-module";
 
 export enum MetadataProcessingError {
     FETCH_ERROR,
@@ -30,6 +31,7 @@ export class MetadataService {
         @InjectQueue("metadata") private readonly metadataQueue: Queue,
         @Inject(IpfsService) private readonly ipfsService: IpfsService,
         @Inject(ConfigService) private readonly configService: ConfigService,
+        @Inject("StorageService") private readonly storageService: StorageServiceInterface,
     ) {}
 
     async sendToProcessMetadata(nftId: number, uri: string, delay = 0): Promise<void> {
@@ -64,7 +66,14 @@ export class MetadataService {
         const metadata = await this.nftMetadataRepository.findOne({ where: { nftId }, relations: ["attributes"] });
         if (!metadata) throw new BusinessException(ErrorCode.METADATA_NOT_FOUND);
         const metadataDto = RawMetadataDto.fromEntity(metadata);
-        return this.ipfsService.uploadFile(Buffer.from(metadataDto.encode()));
+        const metadataBuffer = Buffer.from(metadataDto.encode());
+        // Backup metadata to bucket
+        const fileName = `${await Hash.of(metadataBuffer)}.json`;
+        await this.storageService.storeFileFromBuffer(metadataBuffer, {
+            path: fileName,
+        });
+        // Upload metadata to ipfs
+        return this.ipfsService.uploadFile(metadataBuffer);
     }
 
     async calculateUri(nftId: number): Promise<string> {

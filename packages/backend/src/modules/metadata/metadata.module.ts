@@ -6,9 +6,15 @@ import { MetadataConsumer } from "./queue/metadata.consumer";
 import { NftMetadata } from "../../database/entities/NftMetadata";
 import { NftMetadataAttribute } from "../../database/entities/NftMetadataAttribute";
 import { MetadataService } from "./metadata.service";
+import { StorageModule } from "@peersyst/storage-module";
 
 @Module({
-    imports: [TypeOrmModule.forFeature([NftMetadata, NftMetadataAttribute]), BullModule.registerQueue({ name: "metadata" }), IpfsModule],
+    imports: [
+        StorageModule,
+        TypeOrmModule.forFeature([NftMetadata, NftMetadataAttribute]),
+        BullModule.registerQueue({ name: "metadata" }),
+        IpfsModule,
+    ],
     controllers: [],
     providers: [MetadataService, MetadataConsumer],
     exports: [MetadataService],

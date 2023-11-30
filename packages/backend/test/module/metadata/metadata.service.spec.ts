@@ -7,6 +7,7 @@ import { NftMetadata } from "../../../src/database/entities/NftMetadata";
 import NftMetadataRepositoryMock from "../__mock__/nft-metadata.repository.mock";
 import NftMetadataAttributeRepositoryMock from "../__mock__/nft-metadata-attribute.repository.mock";
 import IpfsServiceMock from "../__mock__/ipfs.service.mock";
+import StorageServiceMock from "../__mock__/storage.service.mock";
 import { IpfsService } from "@peersyst/ipfs-module/src/ipfs.service";
 import { MetadataService } from "../../../src/modules/metadata/metadata.service";
 import { ConfigService } from "@nestjs/config";
@@ -24,6 +25,7 @@ describe("MetadataService", () => {
     const metadataConsumerMock = new MetadataConsumerMock();
     const ipfsServiceMock = new IpfsServiceMock();
     const configServiceMock = new ConfigServiceMock();
+    const storageServiceMock = new StorageServiceMock();
 
     beforeEach(async () => {
         const module = await Test.createTestingModule({
@@ -47,6 +49,10 @@ describe("MetadataService", () => {
                 {
                     provide: ConfigService,
                     useValue: configServiceMock,
+                },
+                {
+                    provide: "StorageService",
+                    useValue: storageServiceMock,
                 },
                 MetadataService,
             ],
@@ -105,6 +111,9 @@ describe("MetadataService", () => {
     describe("publishMetadata", () => {
         test("Publishes correct metadata", async () => {
             await metadataService.publishMetadata(1);
+            expect(storageServiceMock.storeFileFromBuffer).toHaveBeenCalledWith(Buffer.from(new RawMetadataDtoMock().encode()), {
+                path: "QmSMhkzGN76UXaFaAL3CSbuwxQ89Xv4NwyoYBkShQ2qsno.json",
+            });
             expect(ipfsServiceMock.uploadFile).toHaveBeenCalledWith(Buffer.from(new RawMetadataDtoMock().encode()));
         });
     });
