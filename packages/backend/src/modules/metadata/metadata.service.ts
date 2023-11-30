@@ -68,7 +68,7 @@ export class MetadataService {
         const metadataDto = RawMetadataDto.fromEntity(metadata);
         const metadataBuffer = Buffer.from(metadataDto.encode());
         // Backup metadata to bucket
-        const fileName = `${await Hash.of(metadataBuffer)}.json`;
+        const fileName = `${nftId}-${await Hash.of(metadataBuffer)}.json`;
         await this.storageService.storeFileFromBuffer(metadataBuffer, {
             path: fileName,
         });

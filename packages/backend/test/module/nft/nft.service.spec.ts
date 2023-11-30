@@ -663,7 +663,7 @@ describe("NftService", () => {
                 }),
             ] as any;
             const result = await nftService.getAuctionByNftId(rows, originEndDate);
-            expect(result).toEqual({ endTimestamp: new Date("01/01/2023 01:00:00").getTime(), price: 100 });
+            expect(result).toEqual({ endTimestamp: new Date("01/01/2023 01:00:00 UTC+1").getTime(), price: 100 });
         });
 
         test("Gets correct price with extension", async () => {
@@ -687,7 +687,7 @@ describe("NftService", () => {
                 }),
             ] as any;
             const result = await nftService.getAuctionByNftId(rows, originEndDate);
-            expect(result).toEqual({ endTimestamp: new Date("01/01/2023 01:12:00").getTime(), price: 120 });
+            expect(result).toEqual({ endTimestamp: new Date("01/01/2023 01:12:00 UTC+1").getTime(), price: 120 });
         });
     });
 
