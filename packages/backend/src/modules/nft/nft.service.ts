@@ -25,7 +25,6 @@ import { BlockchainTransactionService } from "../blockchain/blockchain-transacti
 import { XummTransactionService } from "../xumm/xumm-transaction.service";
 import { BlockchainService } from "../blockchain/blockchain.service";
 import { getTokenIdFromTransaction } from "./util/parseTokenId";
-import { convertHexToString } from "xrpl";
 import { NftPreviewDto } from "./dto/nft-preview.dto";
 import { PHYGITAL_NFT_TRAIT_TYPE } from "./nft.constants";
 import { GoogleSpreadsheet, GoogleSpreadsheetRow } from "google-spreadsheet";
