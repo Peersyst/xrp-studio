@@ -6,9 +6,8 @@ export default function (id: number): boolean {
     const auction = idsNftAuction.find((auction) => auction.id === id);
 
     if (auction) {
-        const endDate = new Date(auction?.endDate);
         const startDate = new Date(auction?.startDate);
-        if (endDate > new Date() && startDate < new Date()) {
+        if (startDate < new Date()) {
             isNftInAuction = true;
         }
     }
