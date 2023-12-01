@@ -21,6 +21,10 @@ class ConfigServiceMock extends BaseMock {
                 return "default_header_img_url";
             case "user.isVerified":
                 return true;
+            case "auction.googleTimezoneUTC":
+                return "UTC+1";
+            case "auction.extensionSeconds":
+                return 5 * 60;
             default:
                 return "default-config-setting";
         }

@@ -25,12 +25,12 @@ import { BlockchainTransactionService } from "../blockchain/blockchain-transacti
 import { XummTransactionService } from "../xumm/xumm-transaction.service";
 import { BlockchainService } from "../blockchain/blockchain.service";
 import { getTokenIdFromTransaction } from "./util/parseTokenId";
-import { convertHexToString } from "xrpl";
 import { NftPreviewDto } from "./dto/nft-preview.dto";
 import { PHYGITAL_NFT_TRAIT_TYPE } from "./nft.constants";
 import { GoogleSpreadsheet, GoogleSpreadsheetRow } from "google-spreadsheet";
 import { JWT } from "google-auth-library";
 import { ConfigService } from "@nestjs/config";
+import { AuctionDto } from "./dto/auction.dto";
 
 @Injectable()
 export class NftService {
@@ -52,25 +52,6 @@ export class NftService {
     async createNftFromMintTransaction(tx: ValidatedLedgerTransaction<NFTokenMint>): Promise<Nft> {
         const { Account, Flags, TransferFee, Issuer, NFTokenTaxon, URI, hash, Memos } = tx;
         const issuerOrCreator = Issuer || Account;
-
-        await this.userService.createIfNotExists(issuerOrCreator);
-
-        // Get last nft tokenId from the Issuer
-
-        const tokenId = getTokenIdFromTransaction(tx);
-        const flags = Flags?.toString(16).padStart(8, "0").substring(4).toUpperCase() || "0000";
-
-        await this.userService.createIfNotExists(issuerOrCreator);
-
-        // Create collection if NFTokenTaxon > 0. Cannot use cascade as we are inserting a collection without primary key
-        let collection: CollectionDto;
-        if (NFTokenTaxon) {
-            try {
-                collection = await this.collectionService.findOne({ taxon: NFTokenTaxon.toString(), account: issuerOrCreator });
-            } catch (e) {
-                collection = await this.collectionService.createCollection(issuerOrCreator, { taxon: NFTokenTaxon }, false);
-            }
-        }
 
         // Get draft id from memo if mint comes from a draft
         let possibleDraftId: number;
@@ -99,6 +80,26 @@ export class NftService {
                 .getOne();
         }
 
+        if (!draftNft) {
+            throw new Error(`Could not find draft nft with id ${possibleDraftId} for user ${issuerOrCreator}`);
+        }
+
+        await this.userService.createIfNotExists(issuerOrCreator);
+
+        // Get last nft tokenId from the Issuer
+        const tokenId = getTokenIdFromTransaction(tx);
+        const flags = Flags?.toString(16).padStart(8, "0").substring(4).toUpperCase() || "0000";
+
+        // Create collection if NFTokenTaxon > 0. Cannot use cascade as we are inserting a collection without primary key
+        let collection: CollectionDto;
+        if (NFTokenTaxon) {
+            try {
+                collection = await this.collectionService.findOne({ taxon: NFTokenTaxon.toString(), account: issuerOrCreator });
+            } catch (e) {
+                collection = await this.collectionService.createCollection(issuerOrCreator, { taxon: NFTokenTaxon }, false);
+            }
+        }
+
         try {
             if (collection) await this.collectionService.addItems(collection.id, 1);
             const savedNft = await this.nftRepository.save({
@@ -115,8 +116,9 @@ export class NftService {
                 ownerAccount: issuerOrCreator,
                 collectionId: collection?.id,
             });
-            if (savedNft.uri && Account !== this.blockchainService.mintingAddress)
-                await this.metadataService.sendToProcessMetadata(savedNft.id, convertHexToString(savedNft.uri));
+            // we don't need to process metadata again since it was a draft
+            // if (savedNft.uri && Account !== this.blockchainService.mintingAddress)
+            // await this.metadataService.sendToProcessMetadata(savedNft.id, convertHexToString(savedNft.uri));
             return savedNft;
         } catch (e) {
             if (collection) await this.collectionService.addItems(collection.id, -1);
@@ -426,33 +428,48 @@ export class NftService {
         return qb as SelectQueryBuilder<WithCollection extends true ? NftWithCollection : Nft>;
     }
 
-    public async auctionNft(sheetId: string): Promise<number> {
+    public async auctionNft(sheetId: string, endDate: number): Promise<AuctionDto> {
         const doc = this.getSheetAuction(sheetId);
         await doc.loadInfo();
         const sheet = doc.sheetsByIndex[0];
         const rows = await sheet.getRows();
-        return this.getAuctionByNftId(sheetId, rows);
+        return this.getAuctionByNftId(rows, endDate);
     }
 
     private getSheetAuction(sheetId: string): GoogleSpreadsheet {
         const serviceAccountAuth = new JWT({
-            email: this.configService.get("server.googleClientEmail"),
-            key: this.configService.get("server.googlePrivateApiKey").replace(/\\n/g, "\n"),
+            email: this.configService.get("auction.googleClientEmail"),
+            key: this.configService.get("auction.googlePrivateApiKey").replace(/\\n/g, "\n"),
             scopes: ["https://www.googleapis.com/auth/spreadsheets"],
         });
         const doc = new GoogleSpreadsheet(sheetId, serviceAccountAuth);
         return doc;
     }
 
-    private getAuctionByNftId(sheetId: string, rows: GoogleSpreadsheetRow<Record<string, any>>[]): number {
+    public getAuctionByNftId(rows: GoogleSpreadsheetRow<Record<string, any>>[], originEndDate: number): AuctionDto {
         // auction es 0 por default
-        let auction = 0;
+        const extensionPeriod = this.configService.get("auction.extensionSeconds") * 1000;
+        let price = 0;
+        let currentEndDate = originEndDate;
         for (const row of rows) {
             const element = row.toObject();
-            if (Number(element["Place your bid in EUR"]) > auction) {
-                auction = element["Place your bid in EUR"];
+            const rowDate = this.parseStylesheetDate(element["Marca temporal"]);
+            const rowAmount = Number(element["Place your bid in EUR"]);
+            if (rowDate.getTime() <= currentEndDate && rowAmount && rowAmount > price) {
+                price = rowAmount;
+                if (rowDate.getTime() + extensionPeriod >= originEndDate && rowDate.getTime() <= currentEndDate) {
+                    currentEndDate = rowDate.getTime() + extensionPeriod;
+                }
             }
         }
-        return auction;
+        return { price, endTimestamp: currentEndDate };
+    }
+
+    parseStylesheetDate(date: string): Date {
+        const timezone = this.configService.get("auction.googleTimezoneUTC");
+        const [dayDate, hourDate] = date.split(" ");
+        const [day, month, year] = dayDate.split("/");
+        const [hour, minute, second] = hourDate.split(":");
+        return new Date(`${year}-${month}-${day} ${hour}:${minute}:${second} ${timezone}`);
     }
 }

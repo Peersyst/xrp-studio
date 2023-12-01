@@ -20,15 +20,38 @@ export class TrendService {
     async findTrends(): Promise<TrendsDto> {
         const nfts = (
             await this.nftService.findAll(
-                { page: 1, pageSize: 10, query: "%", order: Order.DESC, status: [NftStatus.CONFIRMED], orderField: "priority" },
+                {
+                    page: 1,
+                    pageSize: 10,
+                    query: "%",
+                    order: Order.DESC,
+                    status: [NftStatus.CONFIRMED],
+                    orderField: "priority",
+                    isVerifiedArtist: true,
+                },
                 undefined,
             )
         ).items as NftDto[];
         const collections = (
-            await this.collectionService.findAll({ page: 1, pageSize: 10, query: "%", order: Order.DESC, orderField: "priority" })
+            await this.collectionService.findAll({
+                page: 1,
+                pageSize: 10,
+                query: "%",
+                order: Order.DESC,
+                orderField: "priority",
+                isVerifiedArtist: true,
+            })
         ).items;
-        const drops = (await this.dropService.findAll({ page: 1, pageSize: 10, order: Order.DESC, orderField: "priority" })).items;
-        const artists = await this.userService.findAll({ page: 1, pageSize: 10, order: Order.DESC, orderField: "priority" });
+        const drops = (
+            await this.dropService.findAll({ page: 1, pageSize: 10, order: Order.DESC, orderField: "priority", isVerifiedArtist: true })
+        ).items;
+        const artists = await this.userService.findAll({
+            page: 1,
+            pageSize: 10,
+            order: Order.DESC,
+            orderField: "priority",
+            isVerifiedArtist: true,
+        });
         return { nfts, collections, artists, drops };
     }
 }

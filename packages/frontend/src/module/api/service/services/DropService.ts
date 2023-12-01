@@ -56,6 +56,7 @@ export class DropService {
      * @param pageSize
      * @param query
      * @param account
+     * @param isVerifiedArtist
      * @param order
      * @param orderField
      * @returns PaginatedDropDto
@@ -66,6 +67,7 @@ export class DropService {
         pageSize?: number,
         query?: string,
         account?: string,
+        isVerifiedArtist?: boolean,
         order?: 'ASC' | 'DESC',
         orderField?: 'priority' | 'name',
     ): CancelablePromise<PaginatedDropDto> {
@@ -77,6 +79,7 @@ export class DropService {
                 'pageSize': pageSize,
                 'query': query,
                 'account': account,
+                'isVerifiedArtist': isVerifiedArtist,
                 'order': order,
                 'orderField': orderField,
             },

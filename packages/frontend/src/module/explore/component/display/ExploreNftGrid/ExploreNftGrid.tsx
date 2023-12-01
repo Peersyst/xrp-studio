@@ -12,7 +12,7 @@ const ExploreNftGrid = (): JSX.Element => {
         hasNextPage,
         fetchNextPage,
         isFetching: isLoadingNfts,
-    } = useGetNfts({ account: undefined, query: "%" + query, ...restFilters });
+    } = useGetNfts({ account: undefined, query: "%" + query, isVerifiedArtist: true, ...restFilters });
 
     return (
         <NftGrid

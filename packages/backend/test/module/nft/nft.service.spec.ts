@@ -32,6 +32,7 @@ import { XummTransactionService } from "../../../src/modules/xumm/xumm-transacti
 import BlockchainTransactionServiceMock from "../__mock__/blockchain-transaction.service.mock";
 import { BlockchainTransactionService } from "../../../src/modules/blockchain/blockchain-transaction.service";
 import ConfigServiceMock from "../__mock__/config.service.mock";
+import GoogleSpreadsheetRowMock from "../__mock__/google-spreadsheet-row.mock";
 import { ConfigService } from "@nestjs/config";
 
 describe("NftService", () => {
@@ -121,7 +122,7 @@ describe("NftService", () => {
             expect(metadataServiceMock.sendToProcessMetadata).not.toHaveBeenCalled();
         });
 
-        test("Creates an NFT with a complete NFTokenMint transaction. Queues metadata", async () => {
+        test("Creates an NFT with a complete NFTokenMint transaction. Does not queue metadata", async () => {
             const nftMintTransaction = new NFTokenMintTransactionMock({
                 NFTokenTaxon: 2,
                 Issuer: "rNCFjv8Ek5oDrNiMJ3pw6eLLFtMjZLJnf2",
@@ -147,7 +148,7 @@ describe("NftService", () => {
             expect(nft.account).toEqual(nftMintTransaction.Issuer);
             expect(nft.collectionId).toEqual(1);
 
-            expect(metadataServiceMock.sendToProcessMetadata).toHaveBeenCalledWith(nft.id, "You must be really bored to decode this :)");
+            expect(metadataServiceMock.sendToProcessMetadata).not.toHaveBeenCalled();
         });
 
         test("Creates an NFT with an NFTokenMint transaction with URI bigger than 256 bytes. Does not queue metadata", async () => {
@@ -204,9 +205,9 @@ describe("NftService", () => {
                     Memos: [{ Memo: { MemoData: Buffer.from(JSON.stringify({ id: "NaN" }), "utf8").toString("hex") } }],
                 });
 
-                await nftService.createNftFromMintTransaction(nftMintTransaction);
-                expect(nftRepositoryMock.getOne).not.toHaveBeenCalled();
-                expect(nftRepositoryMock.save).not.toHaveBeenLastCalledWith(expect.objectContaining({ id: expect.any(Number) }));
+                await expect(async () => {
+                    await nftService.createNftFromMintTransaction(nftMintTransaction);
+                }).rejects.toEqual(new Error("Could not find draft nft with id NaN for user r95kzvuWfS71wRrge2e4roctE9UjidRB5e"));
             });
 
             test("An id is included in the Memo but it does not belong to a draft from that address. A new Nft is created", async () => {
@@ -215,10 +216,9 @@ describe("NftService", () => {
                 const nftMintTransaction = new NFTokenMintTransactionMock({
                     Memos: [{ Memo: { MemoData: Buffer.from(JSON.stringify({ id: 1 }), "utf8").toString("hex") } }],
                 });
-
-                await nftService.createNftFromMintTransaction(nftMintTransaction);
-                expect(nftRepositoryMock.getOne).toHaveBeenCalled();
-                expect(nftRepositoryMock.save).not.toHaveBeenLastCalledWith(expect.objectContaining({ id: expect.any(Number) }));
+                await expect(async () => {
+                    await nftService.createNftFromMintTransaction(nftMintTransaction);
+                }).rejects.toEqual(new Error("Could not find draft nft with id 1 for user r95kzvuWfS71wRrge2e4roctE9UjidRB5e"));
             });
 
             test("An id is included in the Memo and it is valid, thus the existing draft is updated", async () => {
@@ -647,5 +647,63 @@ describe("NftService", () => {
                 { id: 3, status: NftStatus.DRAFT },
             ]);
         });
+    });
+
+    describe("getAuctionByNftId", () => {
+        test("Gets correct price without being ended", async () => {
+            const originEndDate = new Date("01/01/2023 01:00:00 UTC+1").getTime();
+            const rows = [
+                new GoogleSpreadsheetRowMock({
+                    "Marca temporal": "01/01/2023 00:30:00",
+                    "Place your bid in EUR": 100,
+                }),
+                new GoogleSpreadsheetRowMock({
+                    "Marca temporal": "01/01/2023 01:31:00",
+                    "Place your bid in EUR": 90,
+                }),
+            ] as any;
+            const result = await nftService.getAuctionByNftId(rows, originEndDate);
+            expect(result).toEqual({ endTimestamp: new Date("01/01/2023 01:00:00 UTC+1").getTime(), price: 100 });
+        });
+
+        test("Gets correct price with extension", async () => {
+            const originEndDate = new Date("01/01/2023 01:00:00 UTC+1").getTime();
+            const rows = [
+                new GoogleSpreadsheetRowMock({
+                    "Marca temporal": "01/01/2023 01:00:00",
+                    "Place your bid in EUR": 101,
+                }),
+                new GoogleSpreadsheetRowMock({
+                    "Marca temporal": "01/01/2023 01:05:00",
+                    "Place your bid in EUR": 110,
+                }),
+                new GoogleSpreadsheetRowMock({
+                    "Marca temporal": "01/01/2023 01:07:00",
+                    "Place your bid in EUR": 120,
+                }),
+                new GoogleSpreadsheetRowMock({
+                    "Marca temporal": "01/01/2023 01:12:01",
+                    "Place your bid in EUR": 200,
+                }),
+            ] as any;
+            const result = await nftService.getAuctionByNftId(rows, originEndDate);
+            expect(result).toEqual({ endTimestamp: new Date("01/01/2023 01:12:00 UTC+1").getTime(), price: 120 });
+        });
+    });
+
+    test("Gets correct price with extension before end time", async () => {
+        const originEndDate = new Date("01-01-2023 10:00:00 UTC+1").getTime();
+        const rows = [
+            new GoogleSpreadsheetRowMock({
+                "Marca temporal": "01/01/2023 09:59:00",
+                "Place your bid in EUR": 101,
+            }),
+            new GoogleSpreadsheetRowMock({
+                "Marca temporal": "01/01/2023 10:05:00",
+                "Place your bid in EUR": 110,
+            }),
+        ] as any;
+        const result = await nftService.getAuctionByNftId(rows, originEndDate);
+        expect(result).toEqual({ endTimestamp: new Date("01-01-2023 10:04:00 UTC+1").getTime(), price: 101 });
     });
 });

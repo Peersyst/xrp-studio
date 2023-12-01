@@ -11,6 +11,7 @@ class UserMock extends User {
         discord,
         nfts,
         collections,
+        verifiedArtist = false,
     }: Partial<User> = {}) {
         super();
         this.address = address;
@@ -22,6 +23,7 @@ class UserMock extends User {
         this.discord = discord;
         this.nfts = nfts;
         this.collections = collections;
+        this.verifiedArtist = verifiedArtist;
     }
 }
 

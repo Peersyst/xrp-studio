@@ -72,6 +72,8 @@ declare module "@peersyst/react-components" {
         auction: {
             nftsInAuction: AuctionDto[];
         };
+        artistVerificationFormLink: string;
+        auctionRefechInterval: number;
     }
 
     export interface CreateConfig {
@@ -126,6 +128,7 @@ declare module "@peersyst/react-components" {
         xrpStudioApStoreLink: string;
         xrpStudioGooglePlayLink: string;
         maxXrpAmountDecimals: number;
+        artistVerificationFormLink: string;
     }
 
     export interface ExtraValidators {

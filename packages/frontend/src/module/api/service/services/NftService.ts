@@ -1,6 +1,7 @@
 /* istanbul ignore file */
 /* tslint:disable */
 /* eslint-disable */
+import type { AuctionDto } from '../models/AuctionDto';
 import type { CreateNftDraftRequest } from '../models/CreateNftDraftRequest';
 import type { NftDraftDto } from '../models/NftDraftDto';
 import type { NftDraftStatusDto } from '../models/NftDraftStatusDto';
@@ -40,6 +41,7 @@ export class NftService {
      * @param query
      * @param collections
      * @param account
+     * @param isVerifiedArtist
      * @param status
      * @param order
      * @param orderField
@@ -52,6 +54,7 @@ export class NftService {
         query?: string,
         collections?: Array<number>,
         account?: string,
+        isVerifiedArtist?: boolean,
         status?: Array<'draft' | 'pending' | 'confirmed' | 'failed'>,
         order?: 'ASC' | 'DESC',
         orderField?: 'priority' | 'name',
@@ -65,6 +68,7 @@ export class NftService {
                 'query': query,
                 'collections': collections,
                 'account': account,
+                'isVerifiedArtist': isVerifiedArtist,
                 'status': status,
                 'order': order,
                 'orderField': orderField,
@@ -281,17 +285,22 @@ export class NftService {
     /**
      * Get auction by nftId
      * @param sheetId
-     * @returns number
+     * @param endTimestamp
+     * @returns AuctionDto
      * @throws ApiError
      */
     public static nftControllerGetAuctionNft(
         sheetId: string,
-    ): CancelablePromise<number> {
+        endTimestamp: number,
+    ): CancelablePromise<AuctionDto> {
         return __request(OpenAPI, {
             method: 'GET',
             url: '/api/nft/auction/{sheetId}',
             path: {
                 'sheetId': sheetId,
+            },
+            query: {
+                'endTimestamp': endTimestamp,
             },
         });
     }

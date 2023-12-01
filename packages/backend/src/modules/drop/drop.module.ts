@@ -11,6 +11,7 @@ import { Drop } from "../../database/entities/Drop";
 import { NftInDrop } from "../../database/entities/NftInDrop";
 import { DropService } from "./drop.service";
 import { DropConsumer } from "./queue/drop.consumer";
+import { UserModule } from "../user/user.module";
 
 @Module({
     imports: [
@@ -22,6 +23,7 @@ import { DropConsumer } from "./queue/drop.consumer";
         BullModule.registerQueue({ name: "transaction-status" }),
         BullModule.registerQueue({ name: "drop" }),
         TypeOrmModule.forFeature([Drop, NftInDrop]),
+        UserModule,
     ],
     controllers: [DropController],
     providers: [DropService, DropConsumer],

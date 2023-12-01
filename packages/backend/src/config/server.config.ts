@@ -11,8 +11,6 @@ interface ServerConfig {
     enableSwagger: boolean;
     enableCors: boolean;
     enableBullBoard: boolean;
-    googlePrivateApiKey: string;
-    googleClientEmail: string;
 }
 
 export default (secrets: AwsSecrets): ServerConfig => {
@@ -45,8 +43,6 @@ export default (secrets: AwsSecrets): ServerConfig => {
                 default: true,
                 production: false,
             },
-            googlePrivateApiKey: process.env.GOOGLE_PRIVATE_API_KEY || secrets.GOOGLE_PRIVATE_API_KEY,
-            googleClientEmail: process.env.GOOGLE_CLIENT_EMAIL || secrets.GOOGLE_CLIENT_EMAIL,
         },
         {
             port: validPort,
