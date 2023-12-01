@@ -100,7 +100,7 @@ export class BlockchainService {
     async queueLedgers(lastQueuedLedger: number): Promise<void> {
         // eslint-disable-next-line no-constant-condition
         while (true) {
-            await new Promise((resolve) => setTimeout(resolve, 1000));
+            await new Promise((resolve) => setTimeout(resolve, 5000));
             const lastValidatedLedger = await this.getLastValidatedLedger();
             if (lastQueuedLedger < lastValidatedLedger) {
                 for (let ledger = lastQueuedLedger + 1; ledger <= lastValidatedLedger; ledger++) {

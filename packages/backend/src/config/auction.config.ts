@@ -10,8 +10,8 @@ interface AuctionConfig {
 
 export default (secrets: AwsSecrets): AuctionConfig => {
     return buildConfig<AuctionConfig>({
-        googlePrivateApiKey: secrets.GOOGLE_PRIVATE_API_KEY,
-        googleClientEmail: secrets.GOOGLE_CLIENT_EMAIL,
+        googlePrivateApiKey: process.env.GOOGLE_PRIVATE_API_KEY || secrets.GOOGLE_PRIVATE_API_KEY,
+        googleClientEmail: process.env.GOOGLE_CLIENT_EMAIL || secrets.GOOGLE_CLIENT_EMAIL,
         googleTimezoneUTC: process.env.GOOGLE_TIMEZONE || "UTC+1",
         extensionSeconds: 5 * 60,
     });
