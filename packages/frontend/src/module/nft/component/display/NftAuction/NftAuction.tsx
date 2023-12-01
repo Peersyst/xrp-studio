@@ -18,7 +18,7 @@ function NftAuction({ nftId }: NftAuctionProps): JSX.Element {
     const dateAuction = new Date(auction?.endTimestamp || "").toLocaleString("es").split(", ");
     return (
         <Skeleton loading={isLoading} width="100%" height="4rem">
-            {new Date(auction?.endTimestamp || "") > new Date() && (
+            {auction?.endTimestamp && new Date(auction.endTimestamp) > new Date() && (
                 <Row justifyContent={"space-between"} alignItems="center">
                     <Row alignItems={"center"} gap="0.2rem">
                         <Dot />
