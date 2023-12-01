@@ -73,6 +73,7 @@ declare module "@peersyst/react-components" {
             nftsInAuction: AuctionDto[];
         };
         artistVerificationFormLink: string;
+        auctionRefechInterval: number;
     }
 
     export interface CreateConfig {

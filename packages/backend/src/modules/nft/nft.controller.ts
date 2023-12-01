@@ -1,5 +1,5 @@
 import { ApiOperation, ApiTags } from "@nestjs/swagger";
-import { Body, Controller, Delete, Get, HttpCode, Param, ParseIntPipe, Patch, Post, Put, Request, UseGuards } from "@nestjs/common";
+import { Body, Controller, Delete, Get, HttpCode, Param, ParseIntPipe, Patch, Post, Put, Query, Request, UseGuards } from "@nestjs/common";
 import { ApiErrorDecorators } from "../common/exception/error-response.decorator";
 import { NftService } from "./nft.service";
 import { NftDraftDto, PaginatedNftDraftDto } from "./dto/nft-draft.dto";
@@ -21,6 +21,7 @@ import { TransferFeePipe } from "./pipe/transfer-fee.pipe";
 import { NftStatus } from "../../database/entities/Nft";
 import { OptionalXummAuthGuard } from "../xumm/optional-xumm-auth";
 import { NftPreviewDto } from "./dto/nft-preview.dto";
+import { AuctionDto } from "./dto/auction.dto";
 
 @ApiTags("nft")
 @Controller("nft")
@@ -138,7 +139,7 @@ export class NftController {
 
     @Get("/auction/:sheetId")
     @ApiOperation({ description: "Get auction by nftId" })
-    async getAuctionNft(@Param("sheetId") sheetId: string): Promise<number> {
-        return this.nftService.auctionNft(sheetId);
+    async getAuctionNft(@Param("sheetId") sheetId: string, @Query("endTimestamp", ParseIntPipe) endTimestamp: number): Promise<AuctionDto> {
+        return this.nftService.auctionNft(sheetId, endTimestamp);
     }
 }

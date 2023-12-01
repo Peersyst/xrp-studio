@@ -30,6 +30,7 @@ import { PHYGITAL_NFT_TRAIT_TYPE } from "./nft.constants";
 import { GoogleSpreadsheet, GoogleSpreadsheetRow } from "google-spreadsheet";
 import { JWT } from "google-auth-library";
 import { ConfigService } from "@nestjs/config";
+import { AuctionDto } from "./dto/auction.dto";
 
 @Injectable()
 export class NftService {
@@ -427,33 +428,48 @@ export class NftService {
         return qb as SelectQueryBuilder<WithCollection extends true ? NftWithCollection : Nft>;
     }
 
-    public async auctionNft(sheetId: string): Promise<number> {
+    public async auctionNft(sheetId: string, endDate: number): Promise<AuctionDto> {
         const doc = this.getSheetAuction(sheetId);
         await doc.loadInfo();
         const sheet = doc.sheetsByIndex[0];
         const rows = await sheet.getRows();
-        return this.getAuctionByNftId(sheetId, rows);
+        return this.getAuctionByNftId(rows, endDate);
     }
 
     private getSheetAuction(sheetId: string): GoogleSpreadsheet {
         const serviceAccountAuth = new JWT({
-            email: this.configService.get("server.googleClientEmail"),
-            key: this.configService.get("server.googlePrivateApiKey").replace(/\\n/g, "\n"),
+            email: this.configService.get("auction.googleClientEmail"),
+            key: this.configService.get("auction.googlePrivateApiKey").replace(/\\n/g, "\n"),
             scopes: ["https://www.googleapis.com/auth/spreadsheets"],
         });
         const doc = new GoogleSpreadsheet(sheetId, serviceAccountAuth);
         return doc;
     }
 
-    private getAuctionByNftId(sheetId: string, rows: GoogleSpreadsheetRow<Record<string, any>>[]): number {
+    public getAuctionByNftId(rows: GoogleSpreadsheetRow<Record<string, any>>[], originEndDate: number): AuctionDto {
         // auction es 0 por default
-        let auction = 0;
+        const extensionPeriod = this.configService.get("auction.extensionSeconds") * 1000;
+        let price = 0;
+        let currentEndDate = originEndDate;
         for (const row of rows) {
             const element = row.toObject();
-            if (Number(element["Place your bid in EUR"]) > auction) {
-                auction = element["Place your bid in EUR"];
+            const rowDate = this.parseStylesheetDate(element["Marca temporal"]);
+            const rowAmount = Number(element["Place your bid in EUR"]);
+            if (rowDate.getTime() <= currentEndDate && rowAmount && rowAmount > price) {
+                price = rowAmount;
+                if (rowDate.getTime() + extensionPeriod >= originEndDate && rowDate.getTime() <= currentEndDate) {
+                    currentEndDate = rowDate.getTime() + extensionPeriod;
+                }
             }
         }
-        return auction;
+        return { price, endTimestamp: currentEndDate };
+    }
+
+    parseStylesheetDate(date: string): Date {
+        const timezone = this.configService.get("auction.googleTimezoneUTC");
+        const [dayDate, hourDate] = date.split(" ");
+        const [day, month, year] = dayDate.split("/");
+        const [hour, minute, second] = hourDate.split(":");
+        return new Date(`${year}-${month}-${day} ${hour}:${minute}:${second} ${timezone}`);
     }
 }
