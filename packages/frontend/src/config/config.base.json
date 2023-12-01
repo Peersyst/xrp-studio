@@ -44,11 +44,25 @@
     "auction": {
         "nftsInAuction": [
             {
-                "id": 821580,
-                "startDate": 1698580800000,
-                "endDate": 1701437211044,
-                "googleSheetId": "1yd3CP9PFTue9Ywfz0Zo4s3rHikVAGQ3kL-RN-BR3G2g",
-                "googleForm": "https://docs.google.com/forms/d/1hrZVhH4EjbMTRJDx42qpTEE9MP6elm5uBxHa-5k6JFc/"
+                "id": 4877902,
+                "startDate": 1701604800000,
+                "endDate": 1702209600000,
+                "googleSheetId": "1Byr2uZtSZz57-xEUlLDdfxN6mmuwwwErRVTAlXULrdg",
+                "googleForm": "https://docs.google.com/forms/d/1G5Wtqq64WhMX0NY2MtQWGgpgXvr66OWWltbJ7FkI6B8/"
+            },
+            {
+                "id": 4877903,
+                "startDate": 1701604800000,
+                "endDate": 1702296000000,
+                "googleSheetId": "1tc8vk8YiGeY1bcNiQ1bn5MDatlXrG9jHxwjJRYWp-Rg",
+                "googleForm": "https://docs.google.com/forms/d/1psWxKa52OwiQRWulepk6DWkLbUtTvzKI2LOjs90QpUQ/"
+            },
+            {
+                "id": 4877904,
+                "startDate": 1701604800000,
+                "endDate": 1702382400000,
+                "googleSheetId": "1VMg3r-omwz2DaOTrAojvdoIbkKx8VtRQYBsYgGz43Xs",
+                "googleForm": "https://docs.google.com/forms/d/1lW7Tq4LBNZ3iR7bXEE1XP7fzuo5hnCjal4TUGXr-WHk/"
             }
         ]
     },
