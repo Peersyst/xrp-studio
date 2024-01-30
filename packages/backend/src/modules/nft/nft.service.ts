@@ -436,6 +436,14 @@ export class NftService {
         return this.getAuctionByNftId(rows, endDate);
     }
 
+    public async isNftSell(sheetId: string): Promise<boolean | undefined> {
+        const doc = this.getSheetAuction(sheetId);
+        await doc.loadInfo();
+        const sheet = doc.sheetsByIndex[0];
+        const rows = await sheet.getRows();
+        return rows.length > 0 ? true : undefined;
+    }
+
     private getSheetAuction(sheetId: string): GoogleSpreadsheet {
         const serviceAccountAuth = new JWT({
             email: this.configService.get("auction.googleClientEmail"),
