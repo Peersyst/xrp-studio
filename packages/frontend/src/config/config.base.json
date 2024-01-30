@@ -53,11 +53,11 @@
         ]
     },
     "nftsInSell": {
-        "4":{
-                "price": 1001,
-                "googleSheetId": "1BUtbyb-FbmDWvqVVkIb9j4zlnyfT-RIwyJu4WtFr0qk",
-                "googleForm": "https://docs.google.com/forms/d/1VWgEK1owDKWwMAhCjpQvaZgjuUR3fpzQtZJI0j2tmTQ/"
-            }
+        "4": {
+            "price": 1001,
+            "googleSheetId": "1BUtbyb-FbmDWvqVVkIb9j4zlnyfT-RIwyJu4WtFr0qk",
+            "googleForm": "https://docs.google.com/forms/d/1VWgEK1owDKWwMAhCjpQvaZgjuUR3fpzQtZJI0j2tmTQ/"
+        }
     },
     "artistVerificationFormLink": "https://docs.google.com/forms/d/e/1FAIpQLSeRle-Cez16qI1JHDPS0HlkX0DQrhG9TwM665cq6wW7o7-WDQ/viewform?usp=sf_link",
     "auctionRefechInterval": 10000
