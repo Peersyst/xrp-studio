@@ -142,4 +142,10 @@ export class NftController {
     async getAuctionNft(@Param("sheetId") sheetId: string, @Query("endTimestamp", ParseIntPipe) endTimestamp: number): Promise<AuctionDto> {
         return this.nftService.auctionNft(sheetId, endTimestamp);
     }
+
+    @Get("/sell/:sheetId")
+    @ApiOperation({ description: "Is NFT sell" })
+    async isNftSell(@Param("sheetId") sheetId: string): Promise<boolean | undefined> {
+        return this.nftService.isNftSell(sheetId);
+    }
 }

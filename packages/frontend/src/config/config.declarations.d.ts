@@ -17,6 +17,14 @@ declare module "@peersyst/react-components" {
         googleForm: string;
     }
 
+    export interface NftsInSell {
+        [key: string]: {
+            price: number;
+            googleSheetId: string;
+            googleForm: string;
+        };
+    }
+
     export interface Config {
         publicUrl: string;
         backendUrl: string;
@@ -72,6 +80,7 @@ declare module "@peersyst/react-components" {
         auction: {
             nftsInAuction: AuctionDto[];
         };
+        nftsInSell: NftsInSell;
         artistVerificationFormLink: string;
         auctionRefechInterval: number;
     }

@@ -18,6 +18,8 @@ import NftOfferButtons from "module/offers/component/input/NftOfferButtons/NftOf
 import NftName from "module/nft/component/display/NftName/NftName";
 import NftAuction from "module/nft/component/display/NftAuction/NftAuction";
 import useIsNftInAuction from "./useIsNftInAuction";
+import useIsNftInSell from "./useIsNftInSell";
+import NftSell from "module/nft/component/display/NftSell/NftSell";
 
 export interface UserViewNftPageSlots {
     nft: NftDto | undefined;
@@ -33,6 +35,7 @@ export interface UserViewNftPageSlots {
 export default function ({ nft, loading = false }: UserViewNftPageSlots): ReactNode {
     const translate = useTranslate();
     const isNftInAuction = useIsNftInAuction(nft?.id || 0);
+    const isNftInSell = useIsNftInSell(nft?.id || 0);
     const {
         tokenId,
         mintTransactionHash,
@@ -53,6 +56,7 @@ export default function ({ nft, loading = false }: UserViewNftPageSlots): ReactN
                 </BaseNftPageContentLeftSlot.Image>
                 <BaseNftPageContentLeftSlot.Info loading={loading}>
                     {isNftInAuction && <NftAuction nftId={nft?.id} />}
+                    {isNftInSell && <NftSell nftId={nft?.id} />}
                     <Label label={capitalize(translate("name"))}>
                         <NftName name={name} variant="body1" />
                     </Label>

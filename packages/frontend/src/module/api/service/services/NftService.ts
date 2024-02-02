@@ -305,4 +305,22 @@ export class NftService {
         });
     }
 
+    /**
+     * Is NFT sell
+     * @param sheetId
+     * @returns boolean
+     * @throws ApiError
+     */
+    public static nftControllerIsNftSell(
+        sheetId: string,
+    ): CancelablePromise<boolean> {
+        return __request(OpenAPI, {
+            method: 'GET',
+            url: '/api/nft/sell/{sheetId}',
+            path: {
+                'sheetId': sheetId,
+            },
+        });
+    }
+
 }

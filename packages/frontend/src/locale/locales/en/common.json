@@ -266,5 +266,7 @@
     "untilAt": "until {{date}} at {{hour}}",
     "hightestBid": "Highest bid:",
     "edit": "Edit",
-    "verify": "Verify"
+    "verify": "Verify",
+    "forSale": "For sale",
+    "buy": "Buy"
 }

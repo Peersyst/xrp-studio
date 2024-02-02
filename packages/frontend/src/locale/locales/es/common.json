@@ -266,5 +266,7 @@
     "untilAt": "Hasta {{date}} a las {{hour}}",
     "hightestBid": "Subasta más alta:",
     "edit": "Editar",
-    "verify": "Verificar"
+    "verify": "Verificar",
+    "forSale": "En venta",
+    "buy": "Comprar"
 }
